@@ -1,0 +1,291 @@
+/* ---------------------*/
+/* ---PAGE GRID SETUP --*/
+/* ---------------------*/
+/*
+
+.grid-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: minmax(50px, auto);
+    !*grid-gap: 1em;*!
+    justify-items: stretch;
+    align-items: stretch;
+}
+
+!*.grid-wrapper > div {
+        background: #eee;
+        padding: 1em;
+}*!
+
+.grid-wrapper > div:nth-child(odd) {
+    background: #ddd;
+}
+
+.box1 {
+    grid-column: 1/2;
+    grid-row: 1/4;
+    background: #ddd;
+    grid-gap: 0;
+    border-bottom: 1px solid;
+    vertical-align: baseline;
+
+
+}
+
+.box2 {
+
+    grid-row 1/3;
+    background: #ddd;
+    grid-gap: 0;
+}
+
+.box3 {
+
+    grid-row: 2/4;
+    text-align: right;
+    background: #ddd;
+    grid-gap: 0;
+    border-bottom: 1px solid;
+
+}
+
+.box4 {
+    grid-column: 1/2;
+    border-left: 1px solid;
+    border-right: 1px solid;
+    grid-gap: 1em;
+}
+
+.box5 {
+    grid-column: 1/2;
+    border-left: 1px solid;
+    border-right: 1px solid;
+}
+
+.box6 {
+
+    grid-column: 1/2;
+    border-left: 1px solid;
+    border-right: 1px solid;
+    border-bottom: 1px solid;
+}
+
+.box7 {
+    grid-column: 2/3;
+    grid-row: 4/7;
+    border-right: 1px solid;
+    border-bottom: 1px solid;
+
+}
+
+.box8 {
+    grid-column: 1/3;
+}
+
+.box9 {
+    grid-column: 1/3;
+}
+*/
+
+/* ---------------------*/
+/* ---COMMON STYLING  --*/
+/* ---------------------*/
+/*
+
+h1 {
+    font-size: 150%;
+    padding: 20px;
+    margin: 20px;
+    vertical-align: baseline;
+}
+
+
+h3 {
+    padding-left: 10px;
+}
+
+*/
+
+/* ---------------------*/
+/* ---HEADER STYLING  --*/
+/* ---------------------*/
+/*
+
+
+.logo {
+    width: 350px;
+    height: auto;
+    text-align: right;
+    padding-right: 15px;
+}
+
+.logged_in_info {
+    font-size: 75%;
+    text-align: right;
+    padding-right: 15px;
+    padding-top: 10px;
+}
+*/
+
+/* ---------------------*/
+/* ---TOP-RIGHT STYLING  --*/
+/* ---------------------*/
+/*
+
+.logged_in_user {
+    display: inline-block;
+}
+
+.logout_btn {
+    display: inline-block;
+    color: blue;
+}
+*/
+
+/* ---------------------*/
+/* ---BODY STYLING  --*/
+/* ---------------------*/
+/*
+
+body {
+    font-size: 16px;
+    font-family: Lato;
+}
+
+.preview {
+    font-style: italic;
+}
+*/
+
+
+/* -----------------*/
+/* --BUTTON STYLING --*/
+/* -----------------*/
+
+div form label,
+div form .submit_btn,
+div form .clear_btn,
+div.listControl label,
+.refresh,
+.newupload {
+    background-color: #7F9CCB;
+    padding: 5px 10px;
+    border-radius: 5px;
+    /*border: 1px ridge black;*/
+    font-size: 0.8rem;
+    height: auto;
+}
+
+div form label:hover,
+div form .submit_btn:hover,
+div form .clear_btn:hover,
+div.listControl label:hover,
+.refresh:hover,
+.newupload:hover {
+    background-color: #2D5BA3;
+    color: white;
+}
+
+div form label:active,
+div form .submit_btn:active,
+div form .clear_btn:active,
+div.listControl label:active,
+.refresh:active,
+.newupload:active {
+    background-color: #0D3F8F;
+    color: white;
+}
+
+/* -----------------*/
+/* --UPLOAD STATUS STYLING --*/
+/* -----------------*/
+
+
+
+div.upload_failed_message {
+    display: none;
+}
+
+div.upload_success_message {
+    display: none;
+}
+
+div.upload_success_message p {}
+
+i.fas.fa-check-circle {
+    float: left;
+    padding-right: 15px;
+    margin-left: 45%;
+    font-size: 250%;
+    color: green;
+}
+
+i.fas.fa-ban {
+    float: left;
+    padding-right: 15px;
+    margin-left: 45%;
+    font-size: 250%;
+    color: red;
+}
+
+.upload {
+    padding-left: 30px;
+}
+
+.box6 p {
+    padding-left: 30px;
+}
+
+/* -----------------*/
+/* --DEMOGRAPHICS STYLING --*/
+/* -----------------*/
+
+input[type=text],
+select,
+textarea {
+    width: 75%;
+    padding: 6px 20px;
+    margin: 8px 0;
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    font-family: Lato;
+}
+
+select {
+    width: 80%;
+    padding: 6px 20px;
+    margin: 8px 0;
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    font-family: Lato;
+}
+
+input[type=date] {
+    width: 50%;
+    padding: 6px 20px;
+    margin: 8px 0;
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 18px;
+    font-family: Lato;
+}
+
+
+.box7 .upload_fields {
+    padding-left: 30px;
+    padding-bottom: 20px;
+}
+
+
+/* -----------------*/
+/* --DEMOGRAPHICS STYLING --*/
+/* -----------------*/
+
+.joblist {
+    margin-left: 20px;
+}

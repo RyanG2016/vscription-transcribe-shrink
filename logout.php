@@ -1,0 +1,69 @@
+
+<?php
+session_start();
+include('data/parts/config.php');
+// Getting logout time in db
+isset($_SESSION['uEmail'])?$uemail = $_SESSION['uEmail']:$uemail = "";
+$uip=$_SERVER['REMOTE_ADDR']; // get the user ip
+if(isset($_SESSION['loggedIn']))
+{
+	$uemail = $_SESSION['uEmail'];
+	$uip=$_SERVER['REMOTE_ADDR']; // get the user ip
+	$action="Logout";
+	// query for inser user log in to data base
+	$query=mysqli_query($con,"insert into userlog(email,user_ip,action) values('$uemail','$uip','$action')");
+	if($query){
+		$rmb = false;
+		if(isset( $_SESSION['remember'] ) )
+		{
+			$rmb = $_SESSION['remember'];
+		}		
+		session_unset();
+		
+		if($rmb)
+		{
+			$_SESSION['remember']=true;
+			$_SESSION['uEmail']=$uemail;
+		}
+		//session_destroy();
+	}
+	$_SESSION['msg']="Please login to continue";
+	
+	echo '<script language="javascript">
+document.location="index.php";
+</script>';
+}
+else{//not even loggedIn
+	//go to default page (login page)
+	$rmb = false;
+	if(isset( $_SESSION['remember'] ) )
+	{
+		$rmb = $_SESSION['remember'];
+	}		
+	session_unset();
+
+	if($rmb)
+	{
+		$_SESSION['remember']=true;
+		$_SESSION['uEmail']=$uemail;
+	}
+	
+	echo '<script language="javascript">
+document.location="index.php";
+</script>';
+}
+
+?>
+<!--<script language="javascript">
+document.location="login.php";
+</script>-->
+<!doctype html>
+<html>
+<head>
+<title>Logging out..</title>
+</head>
+<body>
+	Please wait..
+</body>
+<noscript><meta http-equiv="refresh" content="0;url=noscript.php"></noscript> 
+</html>
