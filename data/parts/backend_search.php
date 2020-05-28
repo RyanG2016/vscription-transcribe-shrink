@@ -120,8 +120,8 @@ if(isset($_REQUEST["reqcode"])){
 
 						//UPDATE protect SET first_attempt = ?, last_attempt = ?, trials = ?, locked = ?,unlocks_on =? where ip=? and src=?
 						$stU2->bind_param("ssiissi", $ctime, $ctime, $trial, $locked, $unlocks_on, $ip, $src); // BIND PARS
-						//$exU = mysqli_stmt_execute($stU2);        		// EXECUTE
-						$exU = mysqli_stmt_execute($stU2) or die( "Error in exec: (" .$con->errno . ")");        // EXECUTE - TROUBLESHOOTING
+						$exU = mysqli_stmt_execute($stU2);        		// EXECUTE
+						//$exU = mysqli_stmt_execute($stU2) or die( "Error in exec: (" .$con->errno . ")");        // EXECUTE - TROUBLESHOOTING
 						$result = mysqli_stmt_get_result($stU2);  	// GET RESULTS
 
 					}

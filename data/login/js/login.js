@@ -339,8 +339,8 @@ function login() {
 		reqcode: 41,
 		args: JSON.stringify(a1)
 	}).done(function (data) {
-		//location.href = 'index.php'
-		alert(data);
+		location.href = 'index.php'
+		//alert(data);
 	});
 
 	//	return false;

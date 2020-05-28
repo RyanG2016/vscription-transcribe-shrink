@@ -155,7 +155,7 @@ isset($_SESSION['uEmail'])?$uEmail = $_SESSION['uEmail']:$uEmail = "";
 
 					<span class="login100-form-title p-b-20">
 						<!--						<i class="zmdi zmdi-font"></i>-->
-						<img src="data/images/Logo_vScription_Transcribe_Stacked.png" style="height: 110px" />
+						<img src="data/images/Logo_vScription_Transcribe_Pro_Stacked.png" style="height: 110px" />
 					</span>
 
 					<span id="title" class="login100-form-title p-b-26">
