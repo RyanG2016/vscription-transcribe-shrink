@@ -80,7 +80,7 @@ include ('data/parts/constants.php');
                     </a>
                 </td>
             </tr>
-
+            <tr class="spacer"></tr>
             <tr style="margin-top: 50px">
                 <td class="title" align="left" width="450px">
                     <legend>vScription Transcribe Pro Dictation Upload</legend>
@@ -89,8 +89,8 @@ include ('data/parts/constants.php');
 
                 </td>-->
 
-                <td width="305">
-                    <img src="data/images/Logo_vScription_Transcribe_300.png" />
+                <td width="300px">
+                    <img src="data/images/Logo_vScription_Transcribe_Pro.png" width="300px"/>
                 </td>
             </tr>
 
