@@ -254,7 +254,7 @@ textarea {
 }
 
 select {
-    width: 80%;
+    /*width: 80%;*/
     padding: 6px 20px;
     margin: 8px 0;
     display: block;
@@ -265,7 +265,7 @@ select {
 }
 
 input[type=date] {
-    width: 50%;
+    width: 75%;
     padding: 6px 20px;
     margin: 8px 0;
     display: block;
@@ -279,8 +279,14 @@ input[type=date] {
 .box7 .upload_fields {
     padding-left: 30px;
     padding-bottom: 20px;
+    width: 75% !important;
 }
+/*
 
+.upload_fields input{
+
+}
+*/
 
 /* -----------------*/
 /* --DEMOGRAPHICS STYLING --*/
@@ -289,3 +295,4 @@ input[type=date] {
 .joblist {
     margin-left: 20px;
 }
+
