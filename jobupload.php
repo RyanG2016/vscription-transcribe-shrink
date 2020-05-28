@@ -32,7 +32,7 @@ include ('data/parts/constants.php');
 <!--    <link href='data/main/buttons.css?v=--><?php //echo $version_control ?><!--' type='text/css' rel='stylesheet'/>-->
 
     <link href='data/fontawesome/css/all.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet'/>
-    <link href='ableplayer/styles/ableplayer.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet'/>
+<!--    <link href='ableplayer/styles/ableplayer.css?v=--><?php //echo $version_control ?><!--' type='text/css' rel='stylesheet'/>-->
 
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
@@ -54,12 +54,6 @@ include ('data/parts/constants.php');
 
 
 	<script src="data/main/main.js?v=<?php echo $version_control ?>" > </script>
-
-<!--	Able Player dependencies   -->
-<script src="ableplayer/thirdparty/js.cookie.js"></script>
-<!-- JavaScript -->
-<script src="ableplayer/build/ableplayer.js?v=<?php echo $version_control ?>"></script>
-<!--	///// End of Able Player deps   /////-->
 	
 <!--	Scroll Bar Dependencies    -->
 
