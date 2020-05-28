@@ -108,7 +108,7 @@ background: linear-gradient(to right, #3498db, #2c3e50); /* W3C, IE 10+/ Edge, F
 }
 
 .logout{
-    color: #34aee2;
+    color: #1e79be;
     text-decoration: underline;
 }
 
@@ -302,6 +302,7 @@ legend, h3,button{
     font-family: 'Oxygen' !important;
     font-size: 20px;
     font-weight: bold;
+    color: #1e79be;
     /*color: #3d3d3d;*/
 }
 

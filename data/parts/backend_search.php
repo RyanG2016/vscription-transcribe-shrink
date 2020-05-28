@@ -309,7 +309,7 @@ if(isset($_REQUEST["reqcode"])){
 					if(mysqli_num_rows($result) > 0){
 						// Fetch result rows as an associative array
 						echo "<table border='1'>";
-						echo "<tr><td>Job Num</td><td>Author</td><td>Job Type</td><td>Comments</td><td>Date Dictated</td><td>Date Uploaded</td><td>Job Status</td></tr>";
+						echo "<tr bgcolor='#1e79be' style='color: white;'><td>Job Num</td><td>Author</td><td>Job Type</td><td>Comments</td><td>Date Dictated</td><td>Date Uploaded</td><td>Job Status</td></tr>";
 						while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
 
 							echo "<tr><td>{$row['job_id']}</td><td>{$row['file_author']}</td><td>{$row['file_work_type']}</td><td>{$row['file_comment']}</td><td>{$row['file_date_dict']}</td><td>{$row['job_upload_date']}</td><td>{$row['file_status']}</td></tr>";
