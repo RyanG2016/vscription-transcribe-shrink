@@ -308,8 +308,8 @@ if(isset($_REQUEST["reqcode"])){
 					// Check number of rows in the result set
 					if(mysqli_num_rows($result) > 0){
 						// Fetch result rows as an associative array
-						echo "<table border='1'>";
-						echo "<tr bgcolor='#1e79be' style='color: white;'><td>Job Num</td><td>Author</td><td>Job Type</td><td>Comments</td><td>Date Dictated</td><td>Date Uploaded</td><td>Job Status</td></tr>";
+						echo "<table class='table-sort table-sort-search table-sort-show-search-count' id='job-list'>";
+						echo "<thead><tr bgcolor='#1e79be' style='color: white;'><th class='table-sort'>Job Num</th><th class='table-sort'>Author</th><th class='table-sort'>Job Type</th><th class='table-sort'>Comments</th><th class='table-sort'>Date Dictated</th><th class='table-sort'>Date Uploaded</th><th class='table-sort'>Job Status</th></tr></thead>";
 						while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
 
 							echo "<tr><td>{$row['job_id']}</td><td>{$row['file_author']}</td><td>{$row['file_work_type']}</td><td>{$row['file_comment']}</td><td>{$row['file_date_dict']}</td><td>{$row['job_upload_date']}</td><td>{$row['file_status']}</td></tr>";

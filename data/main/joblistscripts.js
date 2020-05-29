@@ -17,8 +17,9 @@ function documentReady() {
 	});
 
 	refreshJobListLabel.addEventListener('click', e => {
-		console.log("Refreshing job List");
-		getJobList();
+		//console.log("Refreshing job List");
+		getJobList(makeSortTable);
+		//var table = $('#job-list').DataTable();
 	});
 
 	//For button styling
@@ -26,11 +27,12 @@ function documentReady() {
 	goToUploader.style.opacity = 0;
 
 	//Get job list on page load
-	getJobList();
 
 	//Job list query
 	//Currently it is getting all jobs from files with a status of 0 (Awaiting Transcription)
-	function getJobList() {
+	function getJobList(callback) {
+
+		console.log('Getting Job List...');
 
 		var jobListResult = $('.joblist'); //populating fields
 
@@ -40,7 +42,19 @@ function documentReady() {
 			jobListResult.html(data);
 
 		});
+
+		callback();
 	}
+
+	function makeSortTable() {
+		console.log('Sorting table...');
+		setTimeout(function () {
+			var table = $('#job-list').tablesort();
+		}, 100);
+
+	}
+
+	getJobList(makeSortTable);
 }
 
 

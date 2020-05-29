@@ -7,3 +7,4 @@
 .DS_Store
 /build
 .vs/*
+data/parts/error_log
