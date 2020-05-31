@@ -78,15 +78,23 @@ include ('data/parts/constants.php');
 
             <table id="header-tbl">
                 <tr>
-                    <td id="logbar" align="right" colspan="2">
+                    <td id="navbtn" align="left" colspan="1">
+<!--                        Logged in as: --><?php //echo $_SESSION['uEmail']?><!-- |-->
+                        <!--                    </div>-->
+
+                        <a class="logout" href="main.php"><i class="fas fa-arrow-left"></i> Go back to job list</a>
+                    </td>
+
+                    <td id="logbar" align="right" colspan="1">
                         Logged in as: <?php echo $_SESSION['uEmail']?> |
-        </div>
-        <a class="logout" onclick="location.href = 'logout.php'">
-            <i class="fas fa-sign-out-alt"></i>
-            Logout
-        </a>
-        </td>
-        </tr>
+<!--                    </div>-->
+                        <a class="logout" href="logout.php">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Logout
+                        </a>
+                    </td>
+
+                </tr>
         <tr class="spacer"></tr>
         <tr style="margin-top: 50px">
             <td class="title" align="left" width="450px">

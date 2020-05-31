@@ -297,3 +297,9 @@ input[type=date] {
     margin-left: 20px;
 }
 
+/*-----------------------*/
+/*   Header Styling      */
+/*-----------------------*/
+#navbtn{
+    font-size: 0.9em;
+}
