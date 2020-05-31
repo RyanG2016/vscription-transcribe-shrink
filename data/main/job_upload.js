@@ -16,6 +16,7 @@ function documentReady() {
 	new mdc.ripple.MDCRipple(document.querySelector('.submit_btn'));
 
 	input.style.opacity = 0;
+	input.style.display = "none";
 
 	input.addEventListener('change', addFilesToUpload);
 
