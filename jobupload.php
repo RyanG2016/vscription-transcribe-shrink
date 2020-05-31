@@ -32,12 +32,12 @@ include ('data/parts/constants.php');
     <title>vScription Transcribe Pro Dictation Upload</title>
     <link rel="shortcut icon" type="image/png" href="data/images/favicon.png" />
     <link href='data/main/upload_form.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet' />
-    <!--    <link href='data/main/buttons.css?v=--><?php //echo $version_control ?>
-    <!--' type='text/css' rel='stylesheet'/>-->
-
     <link href='data/fontawesome/css/all.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet' />
-    <!--    <link href='ableplayer/styles/ableplayer.css?v=--><?php //echo $version_control ?>
-    <!--' type='text/css' rel='stylesheet'/>-->
+
+    <!--  MDC Components  -->
+    <link href="data/libs/node_modules/material-components-web/dist/material-components-web.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="data/libs/node_modules/material-components-web/dist/material-components-web.js"></script>
 
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
@@ -122,10 +122,36 @@ include ('data/parts/constants.php');
                         </div>
                         <div class="box box5">
                             <form class="upload" method="post" enctype="multipart/form-data">
-                                <label for="upload_btn">Choose Files to Upload (wav, mp3, dss, ds2, ogg)</label>
+<!--                                <label for="upload_btn">Choose Files to Upload (wav, mp3, dss, ds2, ogg)</label>-->
+
+                                <label class="mdc-button mdc-button--unelevated upload_btn_lbl" for="upload_btn">
+                                    <div class="mdc-button__ripple"></div>
+                                    <i class="material-icons mdc-button__icon" aria-hidden="true"
+                                    >insert_drive_file</i
+                                    >
+                                    <span class="mdc-button__label">Choose Files to Upload (wav, mp3, dss, ds2, ogg)</span>
+                                </label>
+
                                 <input id="upload_btn" type="file" name="upload_btn" accept=".wav, .mp3, .dss, .ds2, .ogg" multiple />
-                                <input type="button" class="clear_btn" value="Clear Files" name="Clear" enabled />
-                                <input class="submit_btn" type="submit" value="Upload File(s)" name="Upload" disabled />
+<!--                                <input type="button" class="clear_btn" value="Clear Files" name="Clear" enabled />-->
+<!--                                <br>-->
+                                <button class="mdc-button mdc-button--unelevated foo-button clear_btn" disabled>
+                                    <div class="mdc-button__ripple"></div>
+                                    <i class="material-icons mdc-button__icon" aria-hidden="true"
+                                    >clear</i
+                                    >
+                                    <span class="mdc-button__label">Clear Files</span>
+                                </button>
+
+                                <button class="mdc-button mdc-button--unelevated foo-button submit_btn" type="submit" value="Upload File(s)" disabled>
+                                    <div class="mdc-button__ripple"></div>
+                                    <i class="material-icons mdc-button__icon" aria-hidden="true"
+                                    >cloud_upload</i
+                                    >
+                                    <span class="mdc-button__label">Upload File(s)</span>
+                                </button>
+
+<!--                                <input class="submit_btn" type="submit" value="Upload File(s)" name="Upload" disabled />-->
                             </form>
                         </div>
                         <div class="box box6">

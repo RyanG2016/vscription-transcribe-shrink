@@ -11,6 +11,10 @@ function documentReady() {
 	const url = 'process.php'
 	const form = document.querySelector('form')
 
+	new mdc.ripple.MDCRipple(document.querySelector('.clear_btn'));
+	new mdc.ripple.MDCRipple(document.querySelector('.upload_btn_lbl'));
+	new mdc.ripple.MDCRipple(document.querySelector('.submit_btn'));
+
 	input.style.opacity = 0;
 
 	input.addEventListener('change', addFilesToUpload);

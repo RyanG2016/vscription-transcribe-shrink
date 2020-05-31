@@ -162,39 +162,40 @@ body {
 /* --BUTTON STYLING --*/
 /* -----------------*/
 
-div form label,
 div form .submit_btn,
 div form .clear_btn,
-div.listControl label,
-.refresh,
-.newupload {
-    background-color: #1e79be;
+div form .upload_btn_lbl{
+    /*background-color: #1e79be;*/
     padding: 5px 10px;
     border-radius: 5px;
     /*border: 1px ridge black;*/
-    font-size: 0.8rem;
+    font-size: 1rem;
     height: auto;
+    --mdc-theme-on-primary: white;
 }
 
-div form label:hover,
-div form .submit_btn:hover,
-div form .clear_btn:hover,
-div.listControl label:hover,
-.refresh:hover,
-.newupload:hover {
-    background-color: #2D5BA3;
-    color: white;
+div form .submit_btn{
+    --mdc-theme-primary: #1e79be;
+}
+div form .upload_btn_lbl{
+    --mdc-theme-primary: #7f9ccb;
+}
+div form .clear_btn{
+    --mdc-theme-primary: #B00020;
 }
 
-div form label:active,
-div form .submit_btn:active,
-div form .clear_btn:active,
-div.listControl label:active,
-.refresh:active,
-.newupload:active {
-    background-color: #0D3F8F;
-    color: white;
-}
+
+/*div form label{
+    background-color: #1e79be;
+    padding: 5px 10px;
+    border-radius: 5px;
+    !*border: 1px ridge black;*!
+    font-size: 1rem;
+    height: auto;
+    --mdc-theme-primary: #1e79be;
+    --mdc-theme-on-primary: white;
+    margin-bottom: 7px;
+}*/
 
 /* -----------------*/
 /* --UPLOAD STATUS STYLING --*/
