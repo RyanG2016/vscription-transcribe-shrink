@@ -214,7 +214,7 @@ if(isset($_REQUEST["reqcode"])){
 
 					}
 				} else{
-					echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+					echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
 					
 				}
 			}
@@ -250,7 +250,7 @@ if(isset($_REQUEST["reqcode"])){
 
 					}
 				} else{
-					echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+					echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
 					
 				}
 			}
@@ -283,7 +283,7 @@ if(isset($_REQUEST["reqcode"])){
 
 					}
 				} else{
-					echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+					echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
 					
 				}
 			}
@@ -329,11 +329,13 @@ if(isset($_REQUEST["reqcode"])){
 
 					}
 				} else{
-					echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+					echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
 					
 				}
 			}
-
+			/*else {
+				echo "Something's wrong here: " . mysqli_error($con);
+			}*/
 			// Close statement
 			mysqli_stmt_close($stmt);
 			
@@ -387,7 +389,7 @@ if(isset($_REQUEST["reqcode"])){
 					
 					//
 				} else{
-					echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+					echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
 					
 				}
 			}
@@ -525,7 +527,7 @@ if(isset($_REQUEST["reqcode"])){
 						//If the sql execute statement fails
 					}
 			} else{
-//					echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+//					echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
 
 			}
 			$nextJobNum = "UM-".str_pad($nextNum, 7, "0", STR_PAD_LEFT);
@@ -613,7 +615,7 @@ if(isset($_REQUEST["reqcode"])){
 
 					}
 			} else{
-//					echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+//					echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
 
 			}
 
@@ -749,7 +751,7 @@ if(isset($_REQUEST["reqcode"])){
 
 					}
 			} else{
-//					echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+//					echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
 
 			}
 
@@ -832,7 +834,7 @@ if(isset($_REQUEST["reqcode"])){
 
 					}
 			} else{
-//					echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+//					echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
 
 			}
 
