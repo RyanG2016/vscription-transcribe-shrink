@@ -187,21 +187,26 @@ include ('data/parts/constants.php');
                                 <textarea name="demo_comments" id="demo_comments" cols="30" rows="2"></textarea>
                             </div>
                         </div>
-                        <div class="box box8">
-                            <h3 class="insert_test">Upload Messages</h3>
-                            <div class="upload_success_message">
-                                <i class="fas fa-check-circle"></i>
-                                <p>Upload(s) Successful!<br> ...Will automatically redirect to Job List in 3 seconds</p>
-                            </div>
-                            <div class="upload_failed_message">
-                                <i class="fas fa-ban"></i>
-                                <p>Upload(s) Failed. Please try again.</p>
-                            </div>
-                        </div>
-
-
                     </td>
 
+                </tr>
+
+                <tr>
+                    <td colspan="2">
+                        <div class="box box8">
+                            <h3 class="insert_test">Upload Messages</h3>
+                            <div class="msgs_container">
+                                <div class="upload_success_message">
+                                    <i class="fas fa-check-circle"></i>
+                                    <p>Upload(s) Successful!<br> ...Will automatically redirect to Job List in 3 seconds</p>
+                                </div>
+                                <div class="upload_failed_message">
+                                    <i class="fas fa-ban"></i>
+                                    <p>Upload(s) Failed. Please try again.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
                 </tr>
 
             </table>

@@ -216,7 +216,7 @@ div.upload_success_message p {}
 i.fas.fa-check-circle {
     float: left;
     padding-right: 15px;
-    margin-left: 45%;
+    /*margin-left: 45%;*/
     font-size: 250%;
     color: green;
 }
@@ -224,7 +224,7 @@ i.fas.fa-check-circle {
 i.fas.fa-ban {
     float: left;
     padding-right: 15px;
-    margin-left: 45%;
+    /*margin-left: 45%;*/
     font-size: 250%;
     color: red;
 }
