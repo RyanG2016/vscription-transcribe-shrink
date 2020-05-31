@@ -171,11 +171,12 @@ div.listControl label,
         background-color: #eb9536;
 }
 
-.refresh_lbl{
+.refresh_lbl {
         background-color: seagreen;
 }
 
-.refresh_lbl, .upload_lbl{
+.refresh_lbl,
+.upload_lbl {
         padding: 5px 10px;
         border-radius: 5px;
         color: white;

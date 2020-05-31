@@ -297,8 +297,7 @@ if(isset($_REQUEST["reqcode"])){
 			
 					case 8:
 
-			$sql = "SELECT *
-					FROM files where file_status=0";
+			$sql = "SELECT `file_id`, `job_id`, `file_type`, `original_audio_type`, `filename`, `fileAudioBlob`, `fileTextBlob`, `file_tag`, `file_author`, `file_work_type`, `file_comment`, `file_speaker_type`, `file_date_dict`, (SELECT j_status_name From file_status_ref WHERE file_status_ref.j_status_id=files.file_status ORDER BY file_status LIMIT 1) as file_status, `last_audio_position`, `job_upload_date`, `job_uploaded_by`, `text_downloaded_date`, `times_text_downloaded_date`, `file_transcribed_date`, `typist_comments`, `isBillable`, `billed` FROM files";
 
 			if($stmt = mysqli_prepare($con, $sql)){
 
@@ -309,12 +308,18 @@ if(isset($_REQUEST["reqcode"])){
 					if(mysqli_num_rows($result) > 0){
 						// Fetch result rows as an associative array
 						echo "<table class='table-sort table-sort-search table-sort-show-search-count' id='job-list'>";
-						echo "<thead><tr bgcolor='#1e79be' style='color: white;'><th class='table-sort'>Job Num</th><th class='table-sort'>Author</th><th class='table-sort'>Job Type</th><th class='table-sort'>Comments</th><th class='table-sort'>Date Dictated</th><th class='table-sort'>Date Uploaded</th><th class='table-sort'>Job Status</th></tr></thead>";
-						while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+						echo "<thead><tr bgcolor='#1e79be' style='color: white;'><th class='table-sort'>Job Num</th><th class='table-sort'>Author</th><th class='table-sort'>Job Type</th><th class='table-sort'>Comments</th><th class='table-sort'>Date Dictated</th><th class='table-sort'>Date Uploaded</th><th class='table-sort'>Job Status</th><th class='table-sort'>File</th></tr></thead>";
 
-							echo "<tr><td>{$row['job_id']}</td><td>{$row['file_author']}</td><td>{$row['file_work_type']}</td><td>{$row['file_comment']}</td><td>{$row['file_date_dict']}</td><td>{$row['job_upload_date']}</td><td>{$row['file_status']}</td></tr>";
-							//echo '<option>'.$row["country"].'</option>';
-	//						echo '<option value="'.$row["id"].'">'.$row["city"].'</option>';
+						while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+							if ($row['file_status'] == "Completed") {
+							//Job Complete
+							echo "<tr><td>{$row['job_id']}</td><td>{$row['file_author']}</td><td>{$row['file_work_type']}</td><td>{$row['file_comment']}</td><td>{$row['file_date_dict']}</td><td>{$row['job_upload_date']}</td><td>{$row['file_status']}</td><td><a href='#'><img class='complete' style='display:block' height='5%' src='data/images/document-outline.svg' alt='file icon'></a></td></tr>";
+							}
+							else {
+
+							echo "<tr><td>{$row['job_id']}</td><td>{$row['file_author']}</td><td>{$row['file_work_type']}</td><td>{$row['file_comment']}</td><td>{$row['file_date_dict']}</td><td>{$row['job_upload_date']}</td><td>{$row['file_status']}</td><td></td></tr>";
+							}
+
 
 
 						}
@@ -392,7 +397,7 @@ if(isset($_REQUEST["reqcode"])){
 			
 			break;
 		
-		
+
 		
 		
 		case 31://INSERTS SIGNUP DATA/////////
@@ -495,53 +500,81 @@ if(isset($_REQUEST["reqcode"])){
 			/*--------------------------------*/
 			case 39://INSERTS FILE UPLOAD DATA/////////
 
+			// Get next job number. Since this is an interm solution and there will only
+			//be one client we are going to simply get the number of rows in the table,
+			//Prepend UM- for prefix and row count padded to 7
+
+			$sql1 = "SELECT count(*) AS num FROM files";
+			if($stmt = mysqli_prepare($con, $sql1))
+			{
+				if(mysqli_stmt_execute($stmt) ){
+					$result = mysqli_stmt_get_result($stmt);
+					// Check number of rows in the result set
+					if(mysqli_num_rows($result) > 0){
+						// Fetch result rows as an associative array
+						while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+							$nextNum = strval($row['num']++);
+						}
+					}
+					else {
+						// If there are no records in the DB for this account
+						$nextNum = "1";
+					}
+				}
+				else{
+						//If the sql execute statement fails
+					}
+			} else{
+//					echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+
+			}
+			$nextJobNum = "UM-".str_pad($nextNum, 7, "0", STR_PAD_LEFT);
 			$a = json_decode($args,true);
 
-			$jobid = $a['job_id'];
+			$jobid = $nextJobNum;
 			$author = $a['file_author'];
 			$worktype = $a['file_work_type'];
-			/* $dictdate = $a['file_dict_date'];
-			$speakertype = $a['file_speaker_type']; */
+			$dictdate = $a['file_dict_date'];
+			$speakertype = $a['file_speaker_type'];
 			$comment = $a['file_comment'];
 			$uploadedby= $a['job_uploaded_by'];
 
 
-			$sql = "INSERT INTO files (job_id,file_author, file_work_type, file_comment, job_uploaded_by)
-			VALUES (?,?,?,?,?)";
+			$sql = "INSERT INTO files (job_id,file_author, file_work_type, file_date_dict, file_speaker_type, file_comment, job_uploaded_by)
+			VALUES (?,?,?,?,?,?,?)";
 
 
 			if($stmt = mysqli_prepare($con, $sql))
 			{
 
-			if( !$stmt->bind_param("issss", $jobid, $author, $worktype, $comment, $uploadedby) )
-			{
+				if( !$stmt->bind_param("ssssiss", $jobid, $author, $worktype, $dictdate, $speakertype, $comment, $uploadedby) )
+				{
 
-			die( "Error in bind_param: (" .$con->errno . ") " . $con->error);
+				die( "Error in bind_param: (" .$con->errno . ") " . $con->error);
 
-			}
+				}
 
-			// echo $sql;
-			$B = mysqli_stmt_execute($stmt);
+				// echo $sql;
+				$B = mysqli_stmt_execute($stmt);
 
 
-			if($B){
-			$result = mysqli_stmt_get_result($stmt);
-			echo 'ok';
-			}
-			else{
-			"ERROR: Could not able to execute $sql. " . mysqli_error(1);
-			die( "Error in execute: (" .$con->errno . ") " . $con->error);
-			echo 'dup';
-			}
+				if($B){
+				$result = mysqli_stmt_get_result($stmt);
+				echo 'ok';
+				}
+				else{
+				"ERROR: Was not able to execute $sql. " . mysqli_error(1);
+				die( "Execution Error: (" .$con->errno . ") " . $con->error);
+				echo 'dup';
+				}
 
 			}
 			else
 			{
 			echo "ERROR: Could not able to execute $sql. " . mysqli_error(1);
+			die( "Execution Error: (" .$con->errno . ") " . $con->error);
 
 			}
-
-
 			// Close statement
 			mysqli_stmt_close($stmt);
 

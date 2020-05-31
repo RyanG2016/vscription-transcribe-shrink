@@ -17,8 +17,11 @@ include ('data/parts/constants.php');
 
 //$version_control = "1.0";
 ?>
-<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
-    <noscript><meta http-equiv="refresh" content="0;url=noscript.php"></noscript>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <noscript>
+        <meta http-equiv="refresh" content="0;url=noscript.php"></noscript>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -27,19 +30,21 @@ include ('data/parts/constants.php');
     <link rel="stylesheet" href="data/css/upload_form.css">
 
     <title>vScription Transcribe Pro Dictation Upload</title>
-    <link rel="shortcut icon" type="image/png" href="data/images/favicon.png"/>
-    <link href='data/main/upload_form.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet'/>
-<!--    <link href='data/main/buttons.css?v=--><?php //echo $version_control ?><!--' type='text/css' rel='stylesheet'/>-->
+    <link rel="shortcut icon" type="image/png" href="data/images/favicon.png" />
+    <link href='data/main/upload_form.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet' />
+    <!--    <link href='data/main/buttons.css?v=--><?php //echo $version_control ?>
+    <!--' type='text/css' rel='stylesheet'/>-->
 
-    <link href='data/fontawesome/css/all.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet'/>
-<!--    <link href='ableplayer/styles/ableplayer.css?v=--><?php //echo $version_control ?><!--' type='text/css' rel='stylesheet'/>-->
+    <link href='data/fontawesome/css/all.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet' />
+    <!--    <link href='ableplayer/styles/ableplayer.css?v=--><?php //echo $version_control ?>
+    <!--' type='text/css' rel='stylesheet'/>-->
 
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
-	
-	<!--	Font 	-->
-<!--	<link href="https://fonts.googleapis.com/css?family=Oxygen&display=swap" rel="stylesheet">-->
-<!--	<link href="https://fonts.googleapis.com/css?family=Oxygen&display=swap" rel="stylesheet">-->
+
+    <!--	Font 	-->
+    <!--	<link href="https://fonts.googleapis.com/css?family=Oxygen&display=swap" rel="stylesheet">-->
+    <!--	<link href="https://fonts.googleapis.com/css?family=Oxygen&display=swap" rel="stylesheet">-->
 
     <link rel="stylesheet" href="data/main/jquery-ui.css">
     <script src="data/main/jquery.js"></script>
@@ -53,46 +58,48 @@ include ('data/parts/constants.php');
     <link rel="stylesheet" type="text/css" href="tinymce/js/tinymce/plugins/mention/css/rte-content.css">
 
 
-	<script src="data/main/main.js?v=<?php echo $version_control ?>" > </script>
-	
-<!--	Scroll Bar Dependencies    -->
+    <script src="data/main/main.js?v=<?php echo $version_control ?>"> </script>
 
-	<script src="data/scrollbar/jquery.nicescroll.js"></script>
-<!--	///// End of scrollbar depdns   /////-->
+    <!--	Scroll Bar Dependencies    -->
 
-	
-<link rel="stylesheet" href="data/dialogues/jquery-confirm.min.css">
-<script src="data/dialogues/jquery-confirm.min.js"></script>
+    <script src="data/scrollbar/jquery.nicescroll.js"></script>
+    <!--	///// End of scrollbar depdns   /////-->
+
+
+    <link rel="stylesheet" href="data/dialogues/jquery-confirm.min.css">
+    <script src="data/dialogues/jquery-confirm.min.js"></script>
 
 </head>
-<body >
 
-<div id="container" style="width: 100%">
-	<div class="form-style-5">
+<body>
 
-        <table id="header-tbl" >
-            <tr>
-                <td id="logbar" align="right" colspan="2">
-                    Logged in as: <?php echo $_SESSION['uEmail']?> |</div>
-                    <a class="logout" onclick="location.href = 'logout.php'">
-                        <i class="fas fa-sign-out-alt"></i>
-                        Logout
-                    </a>
-                </td>
-            </tr>
-            <tr class="spacer"></tr>
-            <tr style="margin-top: 50px">
-                <td class="title" align="left" width="450px">
-                    <legend>vScription Transcribe Pro Dictation Upload</legend>
-                </td>
-                <!--<td align="right" rowspan="2" id="fix-td">
+    <div id="container" style="width: 100%">
+        <div class="form-style-5">
+
+            <table id="header-tbl">
+                <tr>
+                    <td id="logbar" align="right" colspan="2">
+                        Logged in as: <?php echo $_SESSION['uEmail']?> |
+        </div>
+        <a class="logout" onclick="location.href = 'logout.php'">
+            <i class="fas fa-sign-out-alt"></i>
+            Logout
+        </a>
+        </td>
+        </tr>
+        <tr class="spacer"></tr>
+        <tr style="margin-top: 50px">
+            <td class="title" align="left" width="450px">
+                <legend>vScription Transcribe Pro Dictation Upload</legend>
+            </td>
+            <!--<td align="right" rowspan="2" id="fix-td">
 
                 </td>-->
 
-                <td width="300px">
-                    <img src="data/images/Logo_vScription_Transcribe_Pro.png" width="300px"/>
-                </td>
-            </tr>
+            <td width="300px">
+                <img src="data/images/Logo_vScription_Transcribe_Pro.png" width="300px" />
+            </td>
+        </tr>
 
 
         </table>
@@ -117,7 +124,7 @@ include ('data/parts/constants.php');
                             <form class="upload" method="post" enctype="multipart/form-data">
                                 <label for="upload_btn">Choose Files to Upload (wav, mp3, dss, ds2, ogg)</label>
                                 <input id="upload_btn" type="file" name="upload_btn" accept=".wav, .mp3, .dss, .ds2, .ogg" multiple />
-                                <input type="button" class="clear_btn" value="Clear Files" name="Clear" disabled />
+                                <input type="button" class="clear_btn" value="Clear Files" name="Clear" enabled />
                                 <input class="submit_btn" type="submit" value="Upload File(s)" name="Upload" disabled />
                             </form>
                         </div>
@@ -147,8 +154,8 @@ include ('data/parts/constants.php');
                                 <input class="demo_dictdate" type="date">
                                 <label for="demo_speaker_type">Speaker Type: </label>
                                 <select id="demo_speaker_type">
-                                    <option value="single_speaker"> Single Speaker</option>
-                                    <option value="multiple_speaker">Multiple Speakers</option>
+                                    <option value="0"> Single Speaker</option>
+                                    <option value="1">Multiple Speakers</option>
                                 </select>
                                 <label for="demo_comments">Comments: </label>
                                 <textarea name="demo_comments" id="demo_comments" cols="30" rows="2"></textarea>
@@ -176,10 +183,10 @@ include ('data/parts/constants.php');
         </div>
 
 
-	</div>
-</div>
+    </div>
+    </div>
 
-   
+
 </body>
 
 </html>

@@ -26,6 +26,7 @@ function documentReady() {
 		      }*/
 		files = [];
 		resetFiles();
+		//alert($("#demo_speaker_type").val());
 	})
 
 	form.addEventListener('submit', e => {
@@ -135,17 +136,16 @@ function insertUploadDB() {
 
 	var vfile_author_name = $('.demo_author').val();
 	var vfile_job_type = $("#demo_job_type option:selected").html();
-	//var vfile_dict_date = $('.demo_dictdate').val();
-	//var vfile_speaker_type = $('.demo_speaker_type').val();
+	var vfile_dict_date = $('.demo_dictdate').val();
+	var vfile_speaker_type = $("#demo_speaker_type").val();
 	var vfile_job_comments = $('#demo_comments').val();
 	var vjob_uploaded_by = 'TEST USER';
 
 	var a1 = {
-		job_id: 12345,
 		file_author: vfile_author_name,
 		file_work_type: vfile_job_type,
-		/*		file_dict_date: vfile_dict_date,
-				file_speaker_type: vfile_speaker_type, */
+		file_dict_date: vfile_dict_date,
+		file_speaker_type: vfile_speaker_type,
 		file_comment: vfile_job_comments,
 		job_uploaded_by: vjob_uploaded_by
 
@@ -156,7 +156,8 @@ function insertUploadDB() {
 	$.post("data/parts/backend_search.php", {
 		reqcode: 39,
 		args: JSON.stringify(a1)
-	}).done(function () {
+	}).done(function (data) {
+		console.log(data);
 		setTimeout(function () {
 			location.href = 'main.php';
 		}, 3000);
