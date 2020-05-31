@@ -27,9 +27,12 @@ include ('data/parts/constants.php');
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-    <!--<script src="data/main/script.js"></script>-->
+    <!--  MDC Components  -->
+    <link href="data/libs/node_modules/material-components-web/dist/material-components-web.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="data/libs/node_modules/material-components-web/dist/material-components-web.js"></script>
 
-    <link rel="stylesheet" href="data/css/upload_form.css">
+    <link rel="stylesheet" href="data/css/job_list.css">
     <script src="data/main/joblistscripts.js"></script>
 
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,300&display=swap" rel="stylesheet">
@@ -40,11 +43,6 @@ include ('data/parts/constants.php');
     <link rel="shortcut icon" type="image/png" href="data/images/favicon.png" />
     <link href='data/main/upload_form.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet' />
     <!--    <link href='data/main/buttons.css?v=--><?php //echo $version_control ?>
-    <!--' type='text/css' rel='stylesheet'/>-->
-
-    <link href='data/fontawesome/css/all.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet' />
-    <!--    <link href='ableplayer/styles/ableplayer.css?v=--><?php //echo $version_control ?>
-    <!--' type='text/css' rel='stylesheet'/>-->
 
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
@@ -79,7 +77,6 @@ include ('data/parts/constants.php');
     <link rel="stylesheet" href="data/thirdparty/scripts/css/tablesort.css">
     <link rel="stylesheet" href="data/thirdparty/scripts/css/styles.css">
     <script src="data/thirdparty/scripts/tablesort.js"></script>
-
 </head>
 
 <body>
@@ -111,27 +108,37 @@ include ('data/parts/constants.php');
                 <img src="data/images/Logo_vScription_Transcribe_Pro.png" width="300px" />
             </td>
         </tr>
-
-
         </table>
+
 
         <table>
             <tr>
                 <td colspan="1"></td>
-                <td colspan="3">
+                <td colspan="1">
                     <h3 class="getList">Job List</h3>
+                </td>
+                <td colspan="2" align="right">
+                    <button class="mdc-button mdc-button--unelevated foo-button" id="newupload_btn">
+                        <div class="mdc-button__ripple"></div>
+                        <i class="material-icons mdc-button__icon" aria-hidden="true"
+                        >cloud_upload</i
+                        >
+                        <span class="mdc-button__label">Upload Jobs</span>
+                    </button>
+                    <button class="mdc-button mdc-button--unelevated foo-button" id="refresh_btn" style="margin-right: 7px">
+                        <div class="mdc-button__ripple"></div>
+                        <i class="material-icons mdc-button__icon" aria-hidden="true"
+                        >refresh</i
+                        >
+                        <span class="mdc-button__label">Refresh</span>
+                    </button>
                 </td>
             </tr>
             <tr>
                 <td colspan="1" style="vertical-align: top">
 
                     <div class="box box8">
-                        <!--                    <div class="listControl">-->
-                        <label for="refresh" class="refresh_lbl">Refresh</label>
-                        <input type="button" id="refresh_btn" class="refresh">
-                        <label for="refresh" class="upload_lbl">Upload Jobs</label>
-                        <input type="button" id="newupload_btn" class="newupload">
-                        <!--                    </div>-->
+
                     </div>
 
                 </td>

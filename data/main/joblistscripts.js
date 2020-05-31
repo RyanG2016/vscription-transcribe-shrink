@@ -7,24 +7,27 @@ function documentReady() {
 	const url = 'process.php';
 	const refreshJobList = document.querySelector('#refresh_btn');
 	const goToUploader = document.querySelector('#newupload_btn');
-	const refreshJobListLabel = document.querySelector('.refresh_lbl');
-	const goToUploaderLabel = document.querySelector('.upload_lbl');
+	// const refreshJobListLabel = document.querySelector('.refresh_lbl');
+	// const goToUploaderLabel = document.querySelector('.upload_lbl');
 
+	// Activate ripples effect for material buttons
+	new mdc.ripple.MDCRipple(document.querySelector('#newupload_btn'));
+	new mdc.ripple.MDCRipple(document.querySelector('#refresh_btn'));
 
-	goToUploaderLabel.addEventListener('click', e => {
+	goToUploader.addEventListener('click', e => {
 		console.log("We should be going to the uploader page");
 		document.location.href = 'jobupload.php';
 	});
 
-	refreshJobListLabel.addEventListener('click', e => {
+	refreshJobList.addEventListener('click', e => {
 		//console.log("Refreshing job List");
 		getJobList(makeSortTable);
 		//var table = $('#job-list').DataTable();
 	});
 
 	//For button styling
-	refreshJobList.style.opacity = 0;
-	goToUploader.style.opacity = 0;
+	// refreshJobList.style.opacity = 0;
+	// goToUploader.style.opacity = 0;
 
 	//Get job list on page load
 
