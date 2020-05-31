@@ -5,6 +5,7 @@
 function documentReady() {
 
 	const input = document.getElementById('upload_btn');
+	const chooseBtn = document.getElementById('upload_btn_lbl');
 	const reset = document.getElementById('clear_btn');
 	const preview = document.querySelector('.preview');
 	const url = 'process.php'
@@ -13,6 +14,12 @@ function documentReady() {
 	input.style.opacity = 0;
 
 	input.addEventListener('change', addFilesToUpload);
+
+	function clickUpload() {
+		input.click()
+	}
+
+	// input.addEventListener('click', clickUpload);
 
 	const clear_btn = document.querySelector('.clear_btn');
 	clear_btn.addEventListener('click', e => {

@@ -19,7 +19,7 @@ include ('data/parts/constants.php');
 <head>
         <meta charset="UTF-8">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="data/main/script.js"></script>
+        <script src="data/main/job_upload.js"></script>
         <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,300&display=swap" rel="stylesheet">
         <link href='data/fontawesome/css/all.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet' />
         <link rel="stylesheet" href="data/css/vs-style.css">

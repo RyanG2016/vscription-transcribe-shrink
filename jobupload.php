@@ -25,7 +25,7 @@ include ('data/parts/constants.php');
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="data/main/script.js"></script>
+    <script src="data/main/job_upload.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="data/css/upload_form.css">
 
