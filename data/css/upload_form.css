@@ -261,7 +261,8 @@ input[type=date] {
     display: block;
     /*border: 1px solid #ccc;*/
     /*border-radius: 4px;*/
-    font-size: 18px;
+    font-size: 1rem;
+    font-family: 'Oxygen' , serif  !important;
 
     height: 56px;
     width: 94%;
@@ -316,6 +317,8 @@ select {
     border-radius: 4px;
     font-size: 1rem;
     color: #202020;
+    font-family: 'Oxygen' , serif  !important;
+
 
     /*font-family: Lato;*/
     /*line-height: 100%;*/
@@ -341,14 +344,27 @@ select option{
     /*line-height: 100%;*/
 }
 
+input[type=text],
+#demo_author {
+    width: 96%;
+    font-size: 1.0rem;
+    padding: 5px 10px;
+    background-color: rgba(255,255,255,0);
+    height: 36px;
+    border: 1px solid #97999a;
+    border-radius: 4px;
+    color: #202020;
+    font-family: 'Oxygen' , serif  !important;
+}
 #demo_comments{
-    width: 100%;
-    font-size: 1.5rem;
+    width: 96%;
+    font-size: 1.0rem;
     padding: 5px 10px;
     background-color: rgba(255,255,255,0);
     border: 1px solid #97999a;
     border-radius: 4px;
     color: #202020;
+    font-family: 'Oxygen' , serif  !important;
 }
 
 input[type=date]:focus,

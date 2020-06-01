@@ -39,7 +39,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
 
     <title>vScription Transcribe Pro Dictation Upload</title>
     <link rel="shortcut icon" type="image/png" href="data/images/favicon.png"/>
-    <link href='data/main/upload_form.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet'/>
+    //<link href='data/css/upload_form2.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet'/>
     <link href='data/fontawesome/css/all.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet'/>
 
     <!--  MDC Components  -->
@@ -203,6 +203,8 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
                                     </span>
                                 </label>
 
+                                <!--<label for="demo_author" class="demo_author job_upload_form_lbl">Author Name</label>
+                                <input class="demo_author" type="text">-->
 
                                 <label for="demo_job_type" class="job_upload_form_lbl">Job Type</label>
                                 <select id="demo_job_type">
