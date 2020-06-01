@@ -84,9 +84,18 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
     <link rel="stylesheet" href="data/dialogues/jquery-confirm.min.css">
     <script src="data/dialogues/jquery-confirm.min.js"></script>
 
-    <link rel="stylesheet" href="data/thirdparty/scripts/css/tablesort.css">
+<!--    <link rel="stylesheet" href="data/thirdparty/scripts/css/tablesort.css">-->
     <link rel="stylesheet" href="data/thirdparty/scripts/css/styles.css">
-    <script src="data/thirdparty/scripts/tablesort.js"></script>
+<!--    <script src="data/thirdparty/scripts/tablesort.js"></script>-->
+
+    <script type="application/javascript">
+
+        $(document).ready(function() {
+            // new mdc.dataTable.MDCDataTable(document.querySelector('.mdc-data-table'));
+        });
+
+    </script>
+
 </head>
 
 <body>
@@ -135,7 +144,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
                         <span class="mdc-button__label">Upload Jobs</span>
                     </button>
                     <button class="mdc-button mdc-button--unelevated foo-button" id="refresh_btn"
-                            style="margin-right: 7px">
+                            >
                         <div class="mdc-button__ripple"></div>
                         <i class="material-icons mdc-button__icon" aria-hidden="true"
                         >refresh</i
@@ -146,13 +155,17 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
             </tr>
             <tr>
                 <td colspan="4">
-                    <div class="box box9">
 
+                    <div class="mdc-data-table">
+                        <table class="mdc-data-table__table jobs_tbl" aria-label="Jobs List">
 
-                        <div class="joblist">
+<!--                        <div class="joblist">-->
 
                             <!--                        Job table goes here-->
-                        </div>
+<!--                        </div>-->
+
+                        </table>
+
 
                     </div>
                 </td>

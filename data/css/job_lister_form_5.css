@@ -269,7 +269,9 @@ img:not(#norm){
 }
 
 .data-tbl{
-    box-shadow: 0px 0px 16px #262626;
+    box-shadow: 0 0 16px #262626;
+    width: 100%;
+    background: white;
 }
 
 #rep-tbl{

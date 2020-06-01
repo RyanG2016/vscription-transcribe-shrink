@@ -13,6 +13,7 @@ function documentReady() {
 	// Activate ripples effect for material buttons
 	new mdc.ripple.MDCRipple(document.querySelector('#newupload_btn'));
 	new mdc.ripple.MDCRipple(document.querySelector('#refresh_btn'));
+	// new mdc.dataTable.MDCDataTable(document.querySelector('.mdc-data-table'));
 
 	goToUploader.addEventListener('click', e => {
 		console.log("We should be going to the uploader page");
@@ -37,23 +38,26 @@ function documentReady() {
 
 		console.log('Getting Job List...');
 
-		var jobListResult = $('.joblist'); //populating fields
+		var jobListResult = $('.jobs_tbl'); //populating fields
 
 		$.post("data/parts/backend_search.php", {
 			reqcode: 8
 		}).done(function (data) {
 			jobListResult.html(data);
-
+			new mdc.dataTable.MDCDataTable(document.querySelector('.mdc-data-table'));
 		});
+
 
 		callback();
 	}
 
 	function makeSortTable() {
 		console.log('Sorting table...');
-		setTimeout(function () {
-			var table = $('#job-list').tablesort();
-		}, 100);
+
+		/*setTimeout(function () {
+			// var table = $('#job-list').tablesort();
+			new mdc.dataTable.MDCDataTable(document.querySelector('.mdc-data-table'));
+		}, 40);*/
 
 	}
 
