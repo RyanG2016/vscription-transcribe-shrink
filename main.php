@@ -99,7 +99,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
                 <td id="logbar" align="right" colspan="2">
                     Logged in as: <?php echo $_SESSION['uEmail'] ?> |
 
-                    <a class="logout" onclick="location.href = 'logout.php'">
+                    <a class="logout" href="logout.php">
                         <i class="fas fa-sign-out-alt"></i>
                         Logout
                     </a>
