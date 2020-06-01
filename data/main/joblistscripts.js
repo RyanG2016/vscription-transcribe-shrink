@@ -4,6 +4,8 @@
 
 function documentReady() {
 
+	const maximum_rows_per_page_jobs_list = 7;
+
 	const url = 'process.php';
 	const refreshJobList = document.querySelector('#refresh_btn');
 	const goToUploader = document.querySelector('#newupload_btn');
@@ -50,7 +52,7 @@ function documentReady() {
 					lengthChange: false,
 					searching: false,
 					lengthMenu: false,
-					pageLength: 5
+					pageLength: maximum_rows_per_page_jobs_list
 				}
 			);
 		});
