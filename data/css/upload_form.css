@@ -320,6 +320,26 @@ select {
     /*font-family: Lato;*/
     /*line-height: 100%;*/
 }
+select option{
+    /*width: 80%;*/
+
+    height: 56px;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0);
+
+
+    /*padding: 6px 20px;*/
+    padding: 0 16px;
+    /*margin: 8px 0;*/
+    /*display: block;*/
+    border: 1px solid #97999a;
+    border-radius: 4px;
+    font-size: 1rem;
+    color: #202020;
+
+    /*font-family: Lato;*/
+    /*line-height: 100%;*/
+}
 
 #demo_comments{
     width: 100%;

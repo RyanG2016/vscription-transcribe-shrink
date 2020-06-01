@@ -4,16 +4,14 @@
 <?php
 //require_once ('rtf3/src/HtmlToRtf.php');
 include('data/parts/head.php');
-include ('rtf3/src/HtmlToRtf.php');
-include ('data/parts/constants.php');
+include('rtf3/src/HtmlToRtf.php');
+include('data/parts/constants.php');
 
-	if(isset($_SESSION['fname']) && isset($_SESSION['lname']))
-	{
-		$popName = $_SESSION['fname'] . " " . $_SESSION['lname'];
-	}
-	else{
-		$popName = "";
-	}
+if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
+    $popName = $_SESSION['fname'] . " " . $_SESSION['lname'];
+} else {
+    $popName = "";
+}
 
 //$version_control = "1.0";
 ?>
@@ -21,7 +19,8 @@ include ('data/parts/constants.php');
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <noscript>
-        <meta http-equiv="refresh" content="0;url=noscript.php"></noscript>
+        <meta http-equiv="refresh" content="0;url=noscript.php">
+    </noscript>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
@@ -33,16 +32,18 @@ include ('data/parts/constants.php');
     <script src="data/libs/node_modules/material-components-web/dist/material-components-web.js"></script>
 
     <link rel="stylesheet" href="data/css/job_list.css">
+
     <script src="data/main/joblistscripts.js"></script>
 
-    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,300&display=swap" rel="stylesheet">
-    <link href='data/fontawesome/css/all.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet' />
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,300&display=swap"
+          rel="stylesheet">
+    <link href='data/fontawesome/css/all.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet'/>
     <link rel="stylesheet" href="data/css/vs-style.css">
 
     <title>vScription Transcribe Pro Dictation Upload</title>
-    <link rel="shortcut icon" type="image/png" href="data/images/favicon.png" />
-    <link href='data/main/upload_form.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet' />
-    <!--    <link href='data/main/buttons.css?v=--><?php //echo $version_control ?>
+    <link rel="shortcut icon" type="image/png" href="data/images/favicon.png"/>
+    <link rel="stylesheet" href="data/css/job_lister_form_5.css">
+    <!--        <link href='data/main/buttons.css?v=--><?php //echo $version_control ?>
 
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
@@ -63,7 +64,7 @@ include ('data/parts/constants.php');
     <link rel="stylesheet" type="text/css" href="tinymce/js/tinymce/plugins/mention/css/rte-content.css">
 
 
-    <script src="data/main/main.js?v=<?php echo $version_control ?>"> </script>
+    <script src="data/main/main.js?v=<?php echo $version_control ?>"></script>
 
     <!--	Scroll Bar Dependencies    -->
 
@@ -81,37 +82,37 @@ include ('data/parts/constants.php');
 
 <body>
 
-    <div id="container" style="width: 100%">
-        <div class="form-style-5">
+<div id="container" style="width: 100%">
+    <div class="form-style-5">
 
-            <table id="header-tbl">
-                <tr>
-                    <td id="logbar" align="right" colspan="2">
-                        Logged in as: <?php echo $_SESSION['uEmail']?> |
-        </div>
-        <a class="logout" onclick="location.href = 'logout.php'">
-            <i class="fas fa-sign-out-alt"></i>
-            Logout
-        </a>
-        </td>
-        </tr>
-        <tr class="spacer"></tr>
-        <tr style="margin-top: 50px">
-            <td class="title" align="left" width="450px">
-                <legend>vScription Transcribe Pro Job Lister</legend>
-            </td>
-            <!--<td align="right" rowspan="2" id="fix-td">
+        <table id="header-tbl">
+            <tr>
+                <td id="logbar" align="right" colspan="2">
+                    Logged in as: <?php echo $_SESSION['uEmail'] ?> |
 
-                </td>-->
+                    <a class="logout" onclick="location.href = 'logout.php'">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Logout
+                    </a>
+                </td>
+            </tr>
+            <tr class="spacer"></tr>
+            <tr style="margin-top: 50px">
+                <td class="title" align="left" width="450px">
+                    <legend>vScription Transcribe Pro Job Lister</legend>
+                </td>
+                <!--<td align="right" rowspan="2" id="fix-td">
 
-            <td width="305">
-                <img src="data/images/Logo_vScription_Transcribe_Pro.png" width="300px" />
-            </td>
-        </tr>
+                    </td>-->
+
+                <td width="305">
+                    <img src="data/images/Logo_vScription_Transcribe_Pro_White.png" width="300px"/>
+                </td>
+            </tr>
         </table>
 
 
-        <table>
+        <table class="data-tbl">
             <tr>
                 <td colspan="1"></td>
                 <td colspan="1">
@@ -125,7 +126,8 @@ include ('data/parts/constants.php');
                         >
                         <span class="mdc-button__label">Upload Jobs</span>
                     </button>
-                    <button class="mdc-button mdc-button--unelevated foo-button" id="refresh_btn" style="margin-right: 7px">
+                    <button class="mdc-button mdc-button--unelevated foo-button" id="refresh_btn"
+                            style="margin-right: 7px">
                         <div class="mdc-button__ripple"></div>
                         <i class="material-icons mdc-button__icon" aria-hidden="true"
                         >refresh</i
@@ -158,9 +160,8 @@ include ('data/parts/constants.php');
         </table>
 
 
-
     </div>
-    </div>
+</div>
 
 </body>
 
