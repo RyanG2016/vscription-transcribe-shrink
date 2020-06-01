@@ -345,7 +345,7 @@ select option{
 }
 
 input[type=text],
-#demo_author {
+.demo_author {
     width: 96%;
     font-size: 1.0rem;
     padding: 5px 10px;
@@ -353,7 +353,7 @@ input[type=text],
     height: 36px;
     border: 1px solid #97999a;
     border-radius: 4px;
-    color: #1e79be;
+    color: #202020;
     font-family: 'Oxygen' , serif  !important;
 }
 #demo_comments{
@@ -371,7 +371,7 @@ input[type=date]:focus,
 input[type=text]:focus,
 #demo_comments:focus,
 select:focus,
-#demo_author:focus{
+.demo_author:focus{
     /*width: 80%;*/
 
     border-color: #1e79be !important;

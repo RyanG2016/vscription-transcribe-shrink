@@ -172,9 +172,9 @@ function insertUploadDB(filename) {
 		args: JSON.stringify(a1)
 	}).done(function (data) {
 		console.log(data);
-		setTimeout(function () {
-			location.href = 'main.php';
-		}, 3000);
+		//setTimeout(function () {
+		//	location.href = 'main.php';
+		//}, 3000);
 		//alert(data);
 	});
 
