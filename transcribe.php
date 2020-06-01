@@ -152,7 +152,7 @@ include ('data/parts/constants.php');
 	<script src="data/dialogues/jquery-confirm.min.js"></script>
 
 </head>
-<?php include_once("analyticstracking.php") ?>
+<!-- <?php include_once("analyticstracking.php") ?> -->
 
 <body>
 	<div id="message_bar">For best experience and foot control support please download the <a href=https://www.vtexvsi.com/vscription/transcribe/vScription_Transcribe_Installer.msi target="_blank" title="Download Latest Version of vScription Transcribe">vScription Transcribe Application</a></div>
