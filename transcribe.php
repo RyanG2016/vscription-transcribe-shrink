@@ -142,6 +142,10 @@ include ('data/parts/constants.php');
 	<script src="ableplayer/build/ableplayer.js?v=<?php echo $version_control ?>"></script>
 	<!--	///// End of Able Player deps   /////-->
 
+	<!--	Transcribe Window    -->
+
+	<script src="data/main/transcribe.js"></script>
+
 	<!--	Scroll Bar Dependencies    -->
 
 	<script src="data/scrollbar/jquery.nicescroll.js"></script>
@@ -158,6 +162,17 @@ include ('data/parts/constants.php');
 	<div id="message_bar">For best experience and foot control support please download the <a href=https://www.vtexvsi.com/vscription/transcribe/vScription_Transcribe_Installer.msi target="_blank" title="Download Latest Version of vScription Transcribe">vScription Transcribe Application</a></div>
 	<div id="updated_version_bar">There is a newer version of the vScription Transcribe application available. You can <a href=https://www.vtexvsi.com/vscription/transcribe/vScription_Transcribe_Installer.msi target="_blank" title="Download Latest Version of vScription Transcribe">download it here </a></div>
 	<script src="data/main/main.js?v=<?php echo $version_control ?>"> </script>
+
+	<!--Creates the popup body-->
+	<div class="popup-overlay">
+	  <!--Creates the popup content-->
+	  <div class="popup-content">
+		<h2>Job Picker</h2>
+		<p> This is where we will insert the job list table.</p>
+		<!--popup's close button-->
+		<button class="jobOpen">Open</button>
+		<button class="close">Close</button></div>
+	</div>
 
 	<div id="container" style="width: 100%">
 		<div class="form-style-5">
@@ -270,7 +285,13 @@ include ('data/parts/constants.php');
 									Save and Complete
 								</a>
 							</td>
-
+							<td id="nr">
+								<a class="button-orange" id="suspendBtn" onclick="showJobPicker()">
+									<i class="fas fa-hourglass-half"></i>
+									<!--				<strong>Save and Complete</strong>-->
+									Suspend
+								</a>
+							</td>
 							<td id="nr">
 								<a class="button-red" onclick="clearWithConfirm();">
 									<i class="fas fa-trash-alt"></i>
@@ -280,7 +301,6 @@ include ('data/parts/constants.php');
 							</td>
 						</tr>
 					</table>
-
 					<div id="accord">
 						<h3>Shortcuts</h3>
 						<div>
