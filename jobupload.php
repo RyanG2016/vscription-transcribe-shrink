@@ -7,6 +7,14 @@ include('data/parts/head.php');
 include('rtf3/src/HtmlToRtf.php');
 include('data/parts/constants.php');
 
+if (isset($_SESSION['role'])) {
+    if ($_SESSION['role'] != "2") {
+        header('location:accessdenied.php');
+    }
+} else {
+        header('location:accessdenied.php');
+}
+
 if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
     $popName = $_SESSION['fname'] . " " . $_SESSION['lname'];
 } else {

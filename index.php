@@ -5,13 +5,21 @@ include('data/parts/constants.php');
 include('data/parts/ping.php');
 
 
-
 //we have a message
 if(isset($_SESSION['loggedIn']))
 {
 	unset($_SESSION['counter']);
 	//redirect to main
-	redirect("main.php");
+	if ($_SESSION['role'] == "2") {
+		//User is a System or Client Administrator
+		redirect("main.php");
+	} else if ($_SESSION['role'] == "3"){
+		//User is a Transcriptionist
+		redirect("transcribe.php");
+	} else {
+		redirect("policy.php");
+	}
+
 }
 
 

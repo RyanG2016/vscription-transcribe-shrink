@@ -6,7 +6,6 @@ include("config.php");
 include("../../mail.php");
 
 
-
 session_start();
 include('constants.php');
 	 $lang2 = 'en';
@@ -631,6 +630,7 @@ if(isset($_REQUEST["reqcode"])){
 			$email = strtolower($a["email"]);
 			$rememberme = strtolower($a["rememberme"]);
 			$password = $a["password"];
+			$role = $a["plan_id"];
 			$onehour = date("Y-m-d H:i:s");
 			
 			$timestamp = strtotime(date("Y-m-d H:i:s")) + 60*60;
@@ -648,7 +648,7 @@ if(isset($_REQUEST["reqcode"])){
 			$sql4 = "INSERT INTO userlog(email, user_ip, action) VALUES (?,?,?)";
 
 			
-			$sql = "SELECT count(*),unlock_time,account_status,first_name,last_name,password from users where email = ?";
+			$sql = "SELECT count(*),unlock_time,account_status,first_name,last_name,plan_id,password from users where email = ?";
 			$sql2 = "Update users set account_status=9,unlock_time='$onehourahead' where email = ?";
 			$sql3 = "Update users set account_status=1 where email = ?";
 			$stmt2 = mysqli_prepare($con, $sql2);
@@ -685,6 +685,7 @@ if(isset($_REQUEST["reqcode"])){
 									$rememberme?$_SESSION['remember']=true:$_SESSION['remember']=false;
 									$_SESSION['fname'] = $row['first_name'];
 									$_SESSION['lname'] = $row['last_name'];
+									$_SESSION['role'] = $row['plan_id'];
 									
 									echo 1;
 									//log login

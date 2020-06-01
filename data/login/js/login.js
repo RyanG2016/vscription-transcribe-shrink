@@ -339,8 +339,18 @@ function login() {
 		reqcode: 41,
 		args: JSON.stringify(a1)
 	}).done(function (data) {
-		location.href = 'index.php'
+/*		<?php echo 'var role = "'.json_encode($_SESSION['plan_id']).
+		'";'; ?>
+		// Client Administrator
+		if (role === 2) {
+			location.href = 'index.php'
+		} else if (role === 3) {
+			// Typist
+			location.href = 'transcribe.php'
+		}*/
+
 		//alert(data);
+		location.href = 'index.php'
 	});
 
 	//	return false;
