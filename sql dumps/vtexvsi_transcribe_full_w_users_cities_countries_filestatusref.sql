@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 31, 2020 at 09:03 PM
+-- Generation Time: Jun 01, 2020 at 01:57 PM
 -- Server version: 5.7.26
 -- PHP Version: 7.3.9
 
@@ -19,8 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `vtexvsi_transcribe`
 --
-CREATE DATABASE IF NOT EXISTS `vtexvsi_transcribe` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `vtexvsi_transcribe`;
 
 -- --------------------------------------------------------
 
@@ -28,7 +26,6 @@ USE `vtexvsi_transcribe`;
 -- Table structure for table `cities`
 --
 
-DROP TABLE IF EXISTS `cities`;
 CREATE TABLE `cities` (
   `id` int(11) NOT NULL,
   `country` int(11) NOT NULL COMMENT '0: America, 1: Canada',
@@ -116,7 +113,6 @@ INSERT INTO `cities` (`id`, `country`, `city`) VALUES
 -- Table structure for table `countries`
 --
 
-DROP TABLE IF EXISTS `countries`;
 CREATE TABLE `countries` (
   `id` int(11) NOT NULL,
   `country` varchar(50) COLLATE utf8_bin NOT NULL
@@ -361,13 +357,12 @@ INSERT INTO `countries` (`id`, `country`) VALUES
 -- Table structure for table `files`
 --
 
-DROP TABLE IF EXISTS `files`;
 CREATE TABLE `files` (
   `file_id` int(11) NOT NULL,
   `job_id` varchar(10) NOT NULL,
   `file_type` int(11) DEFAULT NULL,
   `original_audio_type` int(11) DEFAULT NULL,
-  `filename` int(11) DEFAULT NULL,
+  `filename` varchar(254) DEFAULT NULL,
   `fileAudioBlob` mediumblob,
   `fileTextBlob` mediumblob,
   `file_tag` varchar(254) DEFAULT NULL,
@@ -388,27 +383,12 @@ CREATE TABLE `files` (
   `billed` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `files`
---
-
-INSERT INTO `files` (`file_id`, `job_id`, `file_type`, `original_audio_type`, `filename`, `fileAudioBlob`, `fileTextBlob`, `file_tag`, `file_author`, `file_work_type`, `file_comment`, `file_speaker_type`, `file_date_dict`, `file_status`, `last_audio_position`, `job_upload_date`, `job_uploaded_by`, `text_downloaded_date`, `times_text_downloaded_date`, `file_transcribed_date`, `typist_comments`, `isBillable`, `billed`) VALUES
-(43, 'UM-0000000', NULL, NULL, NULL, NULL, NULL, NULL, 'Gob Bluth', 'Letter', 'job Generator Test2', 1, '2020-05-05', 0, 0, '2020-05-31 15:14:40', 'TEST USER', NULL, 0, NULL, NULL, 1, 0),
-(44, 'UM-0000001', NULL, NULL, NULL, NULL, NULL, NULL, 'Lindsay Bluth', 'Letter', 'job Generator Test2', 1, '2020-05-05', 3, 0, '2020-05-31 15:15:22', 'TEST USER', NULL, 0, NULL, NULL, 1, 0),
-(45, 'UM-0000002', NULL, NULL, NULL, NULL, NULL, NULL, 'Tobias Funke', 'Letter', 'job Generator Test2', 1, '2020-05-05', 0, 0, '2020-05-31 15:17:39', 'TEST USER', NULL, 0, NULL, NULL, 1, 0),
-(46, 'UM-0000003', NULL, NULL, NULL, NULL, NULL, NULL, 'Jack Brown', 'Letter', 'Before updating bitbucket', 0, '2020-05-07', 0, 0, '2020-05-31 16:54:26', 'TEST USER', NULL, 0, NULL, NULL, 1, 0),
-(47, 'UM-0000004', NULL, NULL, NULL, NULL, NULL, NULL, 'Rick Sanchez', 'Notes', 'This is a multiple user upload', 1, '2020-05-08', 0, 0, '2020-05-31 17:25:17', 'TEST USER', NULL, 0, NULL, NULL, 1, 0),
-(48, 'UM-0000005', NULL, NULL, NULL, NULL, NULL, NULL, 'Rick Sanchez', 'Notes', 'This is a multiple user upload', 1, '2020-05-08', 0, 0, '2020-05-31 17:25:17', 'TEST USER', NULL, 0, NULL, NULL, 1, 0),
-(49, 'UM-0000006', NULL, NULL, NULL, NULL, NULL, NULL, 'Rick Sanchez', 'Notes', 'This is a multiple user upload', 1, '2020-05-08', 3, 0, '2020-05-31 17:25:17', 'TEST USER', NULL, 0, NULL, NULL, 1, 0),
-(50, 'UM-0000007', NULL, NULL, NULL, NULL, NULL, NULL, 'Rick Sanchez', 'Notes', 'This is a multiple user upload', 1, '2020-05-08', 3, 0, '2020-05-31 17:25:17', 'TEST USER', NULL, 0, NULL, NULL, 1, 0);
-
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `file_status_ref`
 --
 
-DROP TABLE IF EXISTS `file_status_ref`;
 CREATE TABLE `file_status_ref` (
   `id` int(11) NOT NULL,
   `j_status_id` int(11) NOT NULL,
@@ -435,7 +415,6 @@ INSERT INTO `file_status_ref` (`id`, `j_status_id`, `j_status_name`) VALUES
 -- Table structure for table `protect`
 --
 
-DROP TABLE IF EXISTS `protect`;
 CREATE TABLE `protect` (
   `id` int(11) NOT NULL,
   `first_attempt` timestamp NULL DEFAULT NULL,
@@ -447,22 +426,12 @@ CREATE TABLE `protect` (
   `unlocks_on` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
---
--- Dumping data for table `protect`
---
-
-INSERT INTO `protect` (`id`, `first_attempt`, `ip`, `last_attempt`, `trials`, `src`, `locked`, `unlocks_on`) VALUES
-(1, '2020-05-21 02:33:36', '127.0.0.1', '2020-05-21 20:33:18', 2, 2, 0, '2020-05-21 20:33:18'),
-(3, '2020-05-21 02:43:25', '127.0.0.1', '2020-05-27 18:23:53', 2, 0, 0, '2020-05-27 18:23:53'),
-(4, '2020-05-28 21:21:03', '127.0.0.1', '2020-05-30 15:20:12', 3, 1, 0, '2020-05-30 15:20:12');
-
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `tokens`
 --
 
-DROP TABLE IF EXISTS `tokens`;
 CREATE TABLE `tokens` (
   `id` int(11) NOT NULL,
   `email` varchar(100) COLLATE utf8_bin NOT NULL,
@@ -472,23 +441,12 @@ CREATE TABLE `tokens` (
   `token_type` int(11) NOT NULL DEFAULT '4' COMMENT '4:pwd reset, 5:verify email'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
---
--- Dumping data for table `tokens`
---
-
-INSERT INTO `tokens` (`id`, `email`, `identifier`, `time`, `used`, `token_type`) VALUES
-(1, 'ryangaudet@me.com', '393893926af655b4460501d58ba8552d4956885475ffa3f830db3874badfec245435c2a5421da7b3cc93e6e1f29d2c9a04ab8e5d8d99b65a1435b6670f589a0bb0ddf6d4d98ccbaf44bbf88aee20', '2020-05-21 02:33:37', 1, 5),
-(2, 'ryangaudet@me.com', 'd6a612b35d636824f209c72e0c30b32026c073e7c9ef0a31f2441357d287bdab9a4f0eff8dcb0973c3208b84f844c335fb259090eea6ea304b048297585742d58b9bfe33195fc5366a06e70d4b4d', '2020-05-21 02:43:25', 1, 4),
-(3, 'ryan.gaudet@gmail.com', 'a48b449aaf83ef2f3418e9c680273d92757f63544b1e6e652ffefd4e11731508e3d5712deaabc111aaca59d5eb93ca9c86c45a69c2bee186cd1f328c741407a8f526d9810cd089cacf664dd8a73a', '2020-05-21 20:33:19', 1, 5),
-(4, 'ryangaudet@me.com', 'fd88df2700e5f2af773c3f949df7dd3936accf3c4fa54182a0b045d3f65b20e753977a69a13bfabdb2d4cc88387e7356c2765b3f0deca9b38518acaae1bed8dd4db12337bede86c6e3d94826f3b2', '2020-05-27 18:23:53', 1, 4);
-
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `userlog`
 --
 
-DROP TABLE IF EXISTS `userlog`;
 CREATE TABLE `userlog` (
   `id` int(11) NOT NULL,
   `email` varchar(255) COLLATE utf8_bin NOT NULL,
@@ -497,52 +455,12 @@ CREATE TABLE `userlog` (
   `log_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
---
--- Dumping data for table `userlog`
---
-
-INSERT INTO `userlog` (`id`, `email`, `user_ip`, `action`, `log_time`) VALUES
-(1, 'ryangaudet@me.com', 0x3132372e302e302e31, 'Password Reset', '2020-05-21 02:44:20'),
-(2, 'ryangaudet@me.com', 0x3132372e302e302e31, 'Login', '2020-05-21 21:59:20'),
-(3, 'ryangaudet@me.com', 0x3132372e302e302e31, 'Logout', '2020-05-21 22:15:37'),
-(4, 'ryangaudet@me.com', 0x3132372e302e302e31, 'Login', '2020-05-21 22:16:53'),
-(5, 'ryangaudet@me.com', 0x3132372e302e302e31, 'Logout', '2020-05-21 22:17:06'),
-(6, 'ryan.gaudet@gmail.com', 0x3132372e302e302e31, 'Login', '2020-05-21 22:18:04'),
-(7, 'ryangaudet@me.com', 0x3132372e302e302e31, 'Password Reset', '2020-05-27 18:24:46'),
-(8, 'ryangaudet@me.com', 0x3132372e302e302e31, 'Failed Login Attempt', '2020-05-27 18:30:47'),
-(9, 'ryangaudet@me.com', 0x3132372e302e302e31, 'Login', '2020-05-27 18:30:54'),
-(10, 'ryangaudet@me.com', 0x3132372e302e302e31, 'Logout', '2020-05-27 18:35:21'),
-(11, 'ryangaudet@me.com', 0x3132372e302e302e31, 'Login', '2020-05-27 18:35:36'),
-(12, 'ryangaudet@me.com', 0x3132372e302e302e31, 'Logout', '2020-05-28 14:55:21'),
-(13, 'ryangaudet@me.com', 0x3132372e302e302e31, 'Login', '2020-05-28 16:10:31'),
-(14, 'ryangaudet@me.com', 0x3132372e302e302e31, 'Logout', '2020-05-28 16:15:29'),
-(15, 'ryangaudet@me.com', 0x3132372e302e302e31, 'Login', '2020-05-28 16:15:37'),
-(16, 'ryangaudet@me.com', 0x3132372e302e302e31, 'Logout', '2020-05-28 16:19:44'),
-(17, 'ryangaudet@me.com', 0x3132372e302e302e31, 'Login', '2020-05-28 16:19:58'),
-(18, 'ryangaudet@me.com', 0x3132372e302e302e31, 'Logout', '2020-05-28 16:24:47'),
-(19, 'ryangaudet@me.com', 0x3132372e302e302e31, 'Login', '2020-05-28 16:24:56'),
-(20, 'ryangaudet@me.com', 0x3132372e302e302e31, 'Logout', '2020-05-28 16:25:30'),
-(21, 'ryangaudet@me.com', 0x3132372e302e302e31, 'Login', '2020-05-28 16:25:38'),
-(22, 'ryangaudet@me.com', 0x3132372e302e302e31, 'Logout', '2020-05-28 16:26:22'),
-(23, 'ryangaudet@me.com', 0x3132372e302e302e31, 'Login', '2020-05-28 16:26:29'),
-(24, 'ryangaudet@me.com', 0x3132372e302e302e31, 'Logout', '2020-05-28 16:26:37'),
-(25, 'ryangaudet@me.com', 0x3132372e302e302e31, 'Login', '2020-05-28 16:26:56'),
-(26, 'ryangaudet@me.com', 0x3132372e302e302e31, 'Logout', '2020-05-28 16:26:58'),
-(27, 'ryangaudet@me.com', 0x3132372e302e302e31, 'Login', '2020-05-28 16:27:07'),
-(28, 'ryangaudet@me.com', 0x3132372e302e302e31, 'Logout', '2020-05-28 16:27:09'),
-(29, 'ryangaudet@me.com', 0x3132372e302e302e31, 'Failed Login Attempt', '2020-05-28 16:27:15'),
-(30, 'ryangaudet@me.com', 0x3132372e302e302e31, 'Login', '2020-05-28 21:28:00'),
-(31, 'ryangaudet@me.com', 0x3132372e302e302e31, 'Login', '2020-05-30 15:20:12'),
-(32, 'ryangaudet@me.com', 0x3132372e302e302e31, 'Login', '2020-05-31 16:09:35'),
-(33, 'ryangaudet@me.com', 0x3132372e302e302e31, 'Login', '2020-05-31 17:24:15');
-
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `users`
 --
 
-DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `first_name` varchar(50) COLLATE utf8_bin NOT NULL,
@@ -565,8 +483,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `country`, `city`, `state`, `registeration_date`, `last_ip_address`, `plan_id`, `account_status`, `unlock_time`, `newsletter`) VALUES
-(1, 'Ryan', 'Gaudet', 'ryangaudet@me.com', '$2y$10$DObJNzsN0Ke5v1OGlVSlbefSL6.K5KpfKrKkcK4TJkNS8dcIVs8x2', 'Canada', 'Winnipeg', 'Manitoba', '2020-05-21 02:33:37', '127.0.0.1', 1, 1, NULL, 0),
-(2, 'Ryan', 'Gaudet', 'ryan.gaudet@gmail.com', '$2y$10$Qp45x8wvdFIkJNvn1luzK.3evB/.qVcZsC7mPZH18XySCtvQKbfxi', 'Canada', 'Winnipeg', 'Manitoba', '2020-05-21 20:33:19', '127.0.0.1', 1, 1, NULL, 0);
+(1, 'Ryan', 'Gaudet', 'ryangaudet@me.com', '$2y$10$DObJNzsN0Ke5v1OGlVSlbefSL6.K5KpfKrKkcK4TJkNS8dcIVs8x2', 'Canada', 'Winnipeg', 'Manitoba', '2020-05-21 02:33:37', '127.0.0.1', 3, 1, NULL, 0),
+(2, 'Ryan', 'Gaudet', 'ryan.gaudet@gmail.com', '$2y$10$Qp45x8wvdFIkJNvn1luzK.3evB/.qVcZsC7mPZH18XySCtvQKbfxi', 'Canada', 'Winnipeg', 'Manitoba', '2020-05-21 20:33:19', '127.0.0.1', 2, 1, NULL, 0);
 
 --
 -- Indexes for dumped tables
@@ -641,7 +559,7 @@ ALTER TABLE `countries`
 -- AUTO_INCREMENT for table `files`
 --
 ALTER TABLE `files`
-  MODIFY `file_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `file_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `file_status_ref`
@@ -653,19 +571,19 @@ ALTER TABLE `file_status_ref`
 -- AUTO_INCREMENT for table `protect`
 --
 ALTER TABLE `protect`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tokens`
 --
 ALTER TABLE `tokens`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `userlog`
 --
 ALTER TABLE `userlog`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`

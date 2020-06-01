@@ -38,7 +38,6 @@ function documentReady() {
 		      }*/
 		files = [];
 		resetFiles();
-		//alert($("#demo_speaker_type").val());
 	})
 
 	form.addEventListener('submit', e => {
@@ -51,7 +50,8 @@ function documentReady() {
 			let file = files[i]
 
 			formData.append('files[]', file)
-			insertUploadDB();
+			console.log(files[i]);
+			insertUploadDB(files[i].name);
 		}
 
 		fetch(url, {
@@ -144,7 +144,7 @@ function documentReady() {
 };
 
 
-function insertUploadDB() {
+function insertUploadDB(filename) {
 
 	var vfile_author_name = $('.demo_author').val();
 	var vfile_job_type = $("#demo_job_type option:selected").html();
@@ -152,6 +152,7 @@ function insertUploadDB() {
 	var vfile_speaker_type = $("#demo_speaker_type").val();
 	var vfile_job_comments = $('#demo_comments').val();
 	var vjob_uploaded_by = 'TEST USER';
+	var vfile_name = filename;
 
 	var a1 = {
 		file_author: vfile_author_name,
@@ -159,7 +160,8 @@ function insertUploadDB() {
 		file_dict_date: vfile_dict_date,
 		file_speaker_type: vfile_speaker_type,
 		file_comment: vfile_job_comments,
-		job_uploaded_by: vjob_uploaded_by
+		job_uploaded_by: vjob_uploaded_by,
+		file_name: vfile_name
 
 	};
 	console.log(a1);

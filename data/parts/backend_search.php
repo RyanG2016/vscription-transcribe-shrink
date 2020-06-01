@@ -615,16 +615,17 @@ if(isset($_REQUEST["reqcode"])){
 			$speakertype = $a['file_speaker_type'];
 			$comment = $a['file_comment'];
 			$uploadedby= $a['job_uploaded_by'];
+			$filename = $a['file_name'];
 
 
-			$sql = "INSERT INTO files (job_id,file_author, file_work_type, file_date_dict, file_speaker_type, file_comment, job_uploaded_by)
-			VALUES (?,?,?,?,?,?,?)";
+			$sql = "INSERT INTO files (job_id,file_author, file_work_type, file_date_dict, file_speaker_type, file_comment, job_uploaded_by, filename)
+			VALUES (?,?,?,?,?,?,?,?)";
 
 
 			if($stmt = mysqli_prepare($con, $sql))
 			{
 
-				if( !$stmt->bind_param("ssssiss", $jobid, $author, $worktype, $dictdate, $speakertype, $comment, $uploadedby) )
+				if( !$stmt->bind_param("ssssisss", $jobid, $author, $worktype, $dictdate, $speakertype, $comment, $uploadedby, $filename) )
 				{
 
 				die( "Error in bind_param: (" .$con->errno . ") " . $con->error);
