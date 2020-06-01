@@ -1,0 +1,7 @@
+{
+  "name": "transcribe",
+  "version": "1.0.0",
+  "dependencies": {
+    "react-data-table-component": "^6.9.3"
+  }
+}
