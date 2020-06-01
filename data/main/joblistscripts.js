@@ -52,7 +52,13 @@ function documentReady() {
 					lengthChange: false,
 					searching: false,
 					lengthMenu: false,
-					pageLength: maximum_rows_per_page_jobs_list
+					pageLength: maximum_rows_per_page_jobs_list,
+					/*"columnDefs": [{
+						"targets": [0],
+						"visible": true,
+						"searchable": false,
+						"orderable": false
+					}]*/
 				}
 			);
 		});
