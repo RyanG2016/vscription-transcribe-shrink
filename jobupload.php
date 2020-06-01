@@ -203,7 +203,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
                                     </span>
                                 </label>-->
 
-                                <label for="demo_author" class="demo_author job_upload_form_lbl">Author Name</label>
+                                <label for="demo_author" class="job_upload_form_lbl">Author Name</label>
                                 <input class="demo_author" type="text">
 
                                 <label for="demo_job_type" class="job_upload_form_lbl">Job Type</label>
