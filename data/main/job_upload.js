@@ -2,7 +2,6 @@
 	"use strict";
 })(jQuery);
 
-
 function documentReady() {
 
 	const input = document.getElementById('upload_btn');
@@ -43,33 +42,37 @@ function documentReady() {
 
 	form.addEventListener('submit', e => {
 		e.preventDefault()
-		const files = document.querySelector('[type=file]').files
-		const formData = new FormData()
+		if (validateFields()) {
+			const files = document.querySelector('[type=file]').files
+			const formData = new FormData()
 
 
-		for (let i = 0; i < files.length; i++) {
-			let file = files[i]
+			for (let i = 0; i < files.length; i++) {
+				let file = files[i]
 
-			formData.append('files[]', file)
-			console.log(files[i]);
-			insertUploadDB(files[i].name);
-		}
-
-		fetch(url, {
-			method: 'POST',
-			body: formData,
-		}).then(response => {
-			if (response.ok) {
-				document.querySelector('.upload_success_message').style.display = "inline-grid";
-				console.log('Upload was successful');
-				resetFiles();
-
-			} else {
-				document.querySelector('.upload_failed_message').style.display = "inline-grid";
-				console.log('Upload Failed. Please try again');
+				formData.append('files[]', file)
+				console.log(files[i]);
+				insertUploadDB(files[i].name);
 			}
-			//console.log(response)
-		})
+
+			fetch(url, {
+				method: 'POST',
+				body: formData,
+			}).then(response => {
+				if (response.ok) {
+					document.querySelector('.upload_success_message').style.display = "inline-grid";
+					console.log('Upload was successful');
+					resetFiles();
+
+				} else {
+					document.querySelector('.upload_failed_message').style.display = "inline-grid";
+					console.log('Upload Failed. Please try again');
+				}
+				//console.log(response)
+			})
+		} else {
+				alert("Please fill in required fields");
+		}
 	})
 
 	function addFilesToUpload() {
@@ -180,6 +183,28 @@ function insertUploadDB(filename) {
 
 }
 /////////////////////////////////////////
+function validateFields() {
+			var passed = 1;
+			if ($('.demo_author').val() === ""){
+				document.querySelector('.demo_author').style.backgroundColor = '#eec5c9';
+				passed = 0;
+			}
+			if ($('.demo_dictdate').val() === ""){
+				document.querySelector('.demo_dictdate').style.backgroundColor = '#eec5c9';
+				passed = 0;
+			}
+			var selOpt = document.getElementById('demo_speaker_type');
+			var opt = selOpt.options[selOpt.selectedIndex];
+			if (opt.text === "--Please Select--"){
+				document.querySelector('#demo_speaker_type').style.backgroundColor = '#eec5c9';
+				passed = 0;
+			}
 
+			if (passed === 1) {
+				return true;
+			} else {
+				return false;
+			}
+}
 
 document.addEventListener("DOMContentLoaded", documentReady);

@@ -220,8 +220,9 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
 
                                 <label for="demo_speaker_type" class="job_upload_form_lbl">Speaker Type</label>
                                 <select id="demo_speaker_type">
-                                    <option value="0"> Single Speaker</option>
-                                    <option value="1">Multiple Speakers</option>
+                                    <option value="0">--Please Select--</option>
+                                    <option value="1">Single Speaker</option>
+                                    <option value="2">Multiple Speakers</option>
                                 </select>
                                 <label for="demo_comments" class="job_upload_form_lbl">Comments</label>
                                 <textarea name="demo_comments" id="demo_comments" cols="30" rows="4"></textarea>
