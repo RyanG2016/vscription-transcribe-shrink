@@ -40,6 +40,8 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="data/libs/node_modules/material-components-web/dist/material-components-web.js"></script>
 
+
+
     <link rel="stylesheet" href="data/css/job_list.css">
 
     <script src="data/main/joblistscripts.js"></script>
@@ -84,9 +86,15 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
     <link rel="stylesheet" href="data/dialogues/jquery-confirm.min.css">
     <script src="data/dialogues/jquery-confirm.min.js"></script>
 
+
 <!--    <link rel="stylesheet" href="data/thirdparty/scripts/css/tablesort.css">-->
     <link rel="stylesheet" href="data/thirdparty/scripts/css/styles.css">
 <!--    <script src="data/thirdparty/scripts/tablesort.js"></script>-->
+
+    <!--  Data table Jquery helping libs  -->
+    <link rel="stylesheet" type="text/css" href="data/libs/DataTables/datatables.css"/>
+
+    <script type="text/javascript" src="data/libs/DataTables/datatables.js"></script>
 
     <script type="application/javascript">
 
@@ -158,14 +166,8 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
 
                     <div class="mdc-data-table">
                         <table class="mdc-data-table__table jobs_tbl" aria-label="Jobs List">
-
-<!--                        <div class="joblist">-->
-
                             <!--                        Job table goes here-->
-<!--                        </div>-->
-
                         </table>
-
 
                     </div>
                 </td>

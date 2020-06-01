@@ -45,6 +45,14 @@ function documentReady() {
 		}).done(function (data) {
 			jobListResult.html(data);
 			new mdc.dataTable.MDCDataTable(document.querySelector('.mdc-data-table'));
+			$('.jobs_tbl').DataTable(
+				{
+					lengthChange: false,
+					searching: false,
+					lengthMenu: false,
+					pageLength: 5
+				}
+			);
 		});
 
 

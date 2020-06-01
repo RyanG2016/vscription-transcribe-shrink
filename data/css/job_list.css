@@ -182,6 +182,7 @@ body {
     font-weight: bold;
     /*font-size: 0.9rem;*/
     /*font-family: oxygen;*/
+    padding-left: 10px !important;
 }
 
 .data-tbl{
