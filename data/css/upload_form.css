@@ -353,7 +353,7 @@ input[type=text],
     height: 36px;
     border: 1px solid #97999a;
     border-radius: 4px;
-    color: #202020;
+    color: #1e79be;
     font-family: 'Oxygen' , serif  !important;
 }
 #demo_comments{
@@ -368,8 +368,10 @@ input[type=text],
 }
 
 input[type=date]:focus,
+input[type=text]:focus,
 #demo_comments:focus,
-select:focus {
+select:focus,
+#demo_author:focus{
     /*width: 80%;*/
 
     border-color: #1e79be !important;

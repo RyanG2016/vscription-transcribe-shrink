@@ -191,7 +191,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
                                 <!--                                <input class="demo_author" type="text">-->
 
 
-                                <label class="mdc-text-field mdc-text-field--outlined">
+                               <!-- <label class="mdc-text-field mdc-text-field--outlined">
                                     <input type="text" class="mdc-text-field__input demo_author"
                                            aria-labelledby="my-label-id">
                                     <span class="mdc-notched-outline">
@@ -201,10 +201,10 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
                                     </span>
                                     <span class="mdc-notched-outline__trailing"></span>
                                     </span>
-                                </label>
+                                </label>-->
 
-                                <!--<label for="demo_author" class="demo_author job_upload_form_lbl">Author Name</label>
-                                <input class="demo_author" type="text">-->
+                                <label for="demo_author" class="demo_author job_upload_form_lbl">Author Name</label>
+                                <input class="demo_author" type="text">
 
                                 <label for="demo_job_type" class="job_upload_form_lbl">Job Type</label>
                                 <select id="demo_job_type">
