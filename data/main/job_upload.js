@@ -2,6 +2,7 @@
 	"use strict";
 })(jQuery);
 
+
 function documentReady() {
 
 	const input = document.getElementById('upload_btn');
@@ -145,13 +146,12 @@ function documentReady() {
 
 
 function insertUploadDB(filename) {
-
 	var vfile_author_name = $('.demo_author').val();
 	var vfile_job_type = $("#demo_job_type option:selected").html();
 	var vfile_dict_date = $('.demo_dictdate').val();
 	var vfile_speaker_type = $("#demo_speaker_type").val();
 	var vfile_job_comments = $('#demo_comments').val();
-	var vjob_uploaded_by = 'TEST USER';
+	var vjob_uploaded_by = $("#logbar").html().split(":")[1].substr(1,$("#logbar").html().split(":")[1].indexOf("|") -1);
 	var vfile_name = filename;
 
 	var a1 = {
