@@ -383,8 +383,18 @@ if(isset($_REQUEST["reqcode"])){
                                             <td class=\"mdc-data-table__cell\">{$row['file_comment']}</td>
                                             <td class=\"mdc-data-table__cell mdc-data-table__cell--numeric\">{$row['file_date_dict']}</td>
                                             <td class=\"mdc-data-table__cell mdc-data-table__cell--numeric\">{$row['job_upload_date']}</td>
-                                            <td class=\"mdc-data-table__cell\">{$row['file_status']}</td>
-                                            <td class=\"mdc-data-table__cell\"><none></td>";
+                                            <td class=\"mdc-data-table__cell\">{$row['file_status']}</td>";
+
+
+								echo "<td class=\"mdc-data-table__cell\">";
+
+								if($row['file_status'] == "Completed") {
+									echo "<a class=\"material-icons\" href='#'>cloud_download</a>";
+								}
+
+								echo "</td>";
+
+
 
 							/* <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Job #</th>
                                         <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Author</th>
