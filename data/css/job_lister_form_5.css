@@ -96,10 +96,7 @@ background: linear-gradient(to right, #3498db, #2c3e50); /* W3C, IE 10+/ Edge, F
     margin-bottom: 5px;
 }*/
 
-#logbar{
-    font-family: 'Oxygen' , serif  !important;
-    font-size: 12px;
-}
+
 
 .upload_cell{
     width: 50%;
@@ -315,8 +312,9 @@ legend, h3,button{
 }
 #logbar{
     color: whitesmoke;
+    font-family: 'Oxygen' , serif  !important;
+    font-size: 12px;
 }
-
 #logbar a{
     color: #6ab8f3;
 }

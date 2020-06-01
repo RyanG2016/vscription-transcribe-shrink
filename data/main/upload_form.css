@@ -37,19 +37,14 @@ background: linear-gradient(to right, #3498db, #2c3e50); /* W3C, IE 10+/ Edge, F
 
 /*form data*/
 .form-style-5{
-    
+
     max-width: 90%;
     min-width: 860px;
 	width: 90%;
-/*    padding: 10px 20px;*/
-    background: #f4f7f8;
     margin: 10px auto;
     padding: 12px 20px 15px 20px;
-    background: #f4f7f8;
     border-radius: 8px;
     font-family: 'Oxygen', serif  !important;
-	box-shadow: 0px 0px 16px #262626;
-	
 	-webkit-transition: width 1s; 
   	transition: width 1s;
 }
@@ -103,7 +98,7 @@ background: linear-gradient(to right, #3498db, #2c3e50); /* W3C, IE 10+/ Edge, F
 
 .upload_cell{
     width: 50%;
-    padding: 10px;
+    padding: 20px;
     vertical-align: top;
 }
 
@@ -421,4 +416,25 @@ table, th, td {
     max-width: 302px;
     text-overflow: ellipsis;
     overflow: hidden;
+}
+
+.data-tbl{
+    box-shadow: 0px 0px 16px #262626;
+    background: white;
+}
+
+.page-title{
+    color: white;
+    font-weight: normal;
+}
+
+#logbar{
+    color: whitesmoke;
+    font-family: 'Oxygen' , serif  !important;
+    font-size: 12px;
+}
+#logbar a,
+#navbtn a
+{
+    color: #d4edff;
 }
