@@ -8,7 +8,7 @@ include('rtf3/src/HtmlToRtf.php');
 include('data/parts/constants.php');
 
 if (isset($_SESSION['role'])) {
-    if ($_SESSION['role'] != "2") {
+    if ($_SESSION['role'] != "2" && $_SESSION['role'] != "1") {
         header('location:accessdenied.php');
     }
 } else {
