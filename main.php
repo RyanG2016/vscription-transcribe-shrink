@@ -114,11 +114,10 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
 
         <table class="data-tbl">
             <tr>
-                <td colspan="1"></td>
                 <td colspan="1">
-                    <h3 class="getList">Job List</h3>
+                    <h3 class="getList job_list_tbl_title">Jobs List</h3>
                 </td>
-                <td colspan="2" align="right">
+                <td colspan="3" align="right">
                     <button class="mdc-button mdc-button--unelevated foo-button" id="newupload_btn">
                         <div class="mdc-button__ripple"></div>
                         <i class="material-icons mdc-button__icon" aria-hidden="true"
@@ -137,15 +136,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
                 </td>
             </tr>
             <tr>
-                <td colspan="1" style="vertical-align: top">
-
-                    <div class="box box8">
-
-                    </div>
-
-                </td>
-
-                <td colspan="3">
+                <td colspan="4">
                     <div class="box box9">
 
 

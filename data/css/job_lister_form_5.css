@@ -329,6 +329,9 @@ legend, h3,button{
     pointer-events: none;
 }
 
+.job_list_tbl_title{
+    font-size: 1.5em;
+}
 
 /* Validation */
 
