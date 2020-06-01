@@ -38,6 +38,7 @@ include ('data/parts/constants.php');
     <link href="data/libs/node_modules/material-components-web/dist/material-components-web.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="data/libs/node_modules/material-components-web/dist/material-components-web.js"></script>
+    <script src="data/libs/node_modules/@material/textfield/dist/mdc.textfield.js"></script>
 
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
@@ -140,7 +141,7 @@ include ('data/parts/constants.php');
                                     <span class="mdc-button__label">Choose Files to Upload (wav, mp3, dss, ds2, ogg)</span>
                                 </label>
 
-                                <input id="upload_btn" type="file" name="upload_btn" accept=".wav, .mp3, .dss, .ds2, .ogg" multiple />
+
 <!--                                <input type="button" class="clear_btn" value="Clear Files" name="Clear" enabled />-->
 <!--                                <br>-->
                                 <button class="mdc-button mdc-button--unelevated foo-button clear_btn" disabled>
@@ -159,6 +160,7 @@ include ('data/parts/constants.php');
                                     <span class="mdc-button__label">Upload File(s)</span>
                                 </button>
 
+                                <input id="upload_btn" type="file" name="upload_btn" accept=".wav, .mp3, .dss, .ds2, .ogg" multiple />
 <!--                                <input class="submit_btn" type="submit" value="Upload File(s)" name="Upload" disabled />-->
                             </form>
                         </div>
@@ -174,25 +176,42 @@ include ('data/parts/constants.php');
                         <div class="box box7">
                             <h3>Upload demographics</h3>
                             <div class="upload_fields">
-                                <label for="demo_author">Author Name: </label>
-                                <input class="demo_author" type="text">
-                                <label for="demo_job_type">Job Type: </label>
-                                <select id="demo_job_type">
+
+<!--                                <label for="demo_author">Author Name: </label>-->
+<!--                                <input class="demo_author" type="text">-->
+
+
+                                <label class="mdc-text-field mdc-text-field--outlined">
+                                    <input type="text" class="mdc-text-field__input demo_author" aria-labelledby="my-label-id">
+                                    <span class="mdc-notched-outline">
+                                    <span class="mdc-notched-outline__leading"></span>
+                                    <span class="mdc-notched-outline__notch">
+                                        <span class="mdc-floating-label" id="my-label-id">Author Name</span>
+                                    </span>
+                                    <span class="mdc-notched-outline__trailing"></span>
+                                    </span>
+                                </label>
+
+
+                                <label for="demo_job_type" class="job_upload_form_lbl">Job Type</label>
+                                <select id="demo_job_type" >
                                     <option value="interview"> Interview</option>
                                     <option value="focus_group">Focus Group</option>
                                     <option value="notes">Notes</option>
                                     <option value="letter">Letter</option>
                                     <option value="other">Other</option>
                                 </select>
-                                <label for="demo_dictdate">Dictated Date: </label>
+
+                                <label for="demo_dictdate"  class="job_upload_form_lbl">Dictated Date</label>
                                 <input class="demo_dictdate" type="date">
-                                <label for="demo_speaker_type">Speaker Type: </label>
+
+                                <label for="demo_speaker_type"  class="job_upload_form_lbl">Speaker Type</label>
                                 <select id="demo_speaker_type">
                                     <option value="0"> Single Speaker</option>
                                     <option value="1">Multiple Speakers</option>
                                 </select>
-                                <label for="demo_comments">Comments: </label>
-                                <textarea name="demo_comments" id="demo_comments" cols="30" rows="2"></textarea>
+                                <label for="demo_comments"  class="job_upload_form_lbl">Comments</label>
+                                <textarea name="demo_comments" id="demo_comments" cols="30" rows="4"></textarea>
                             </div>
                         </div>
                     </td>

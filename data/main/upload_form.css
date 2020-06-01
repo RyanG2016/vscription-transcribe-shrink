@@ -68,7 +68,7 @@ background: linear-gradient(to right, #3498db, #2c3e50); /* W3C, IE 10+/ Edge, F
     display: block;
     margin-bottom: 8px;
 }
-.form-style-5 input[type="text"],
+/*.form-style-5 input[type="text"],
 .form-style-5 input[type="date"],
 .form-style-5 input[type="datetime"],
 .form-style-5 input[type="email"],
@@ -85,7 +85,7 @@ background: linear-gradient(to right, #3498db, #2c3e50); /* W3C, IE 10+/ Edge, F
     margin: 0;
     outline: 0;
     padding: 7px;
-    /*width: 100%;*/
+    !*width: 100%;*!
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -94,7 +94,7 @@ background: linear-gradient(to right, #3498db, #2c3e50); /* W3C, IE 10+/ Edge, F
     -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
     box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
     margin-bottom: 5px;
-}
+}*/
 
 #logbar{
     font-family: 'Oxygen' , serif  !important;
@@ -122,12 +122,13 @@ background: linear-gradient(to right, #3498db, #2c3e50); /* W3C, IE 10+/ Edge, F
 .form-style-5 input[type="url"]:focus,
 .form-style-5 textarea:focus,
 .form-style-5 select:focus{
-    background: #d2d9dd;
+    /*background: #d2d9dd;*/
 }
-.form-style-5 select{
+/*.form-style-5 select{
     -webkit-appearance: menulist-button;
     height:35px;
-}
+}*/
+
 .form-style-5 .number {
     background: #4892cc;
     /*background: #eaaa3e;*/

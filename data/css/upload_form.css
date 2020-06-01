@@ -76,7 +76,7 @@
     border-right: 1px solid;
     border-bottom: 1px solid;
 
-}
+    }
 
 .box8 {
     grid-column: 1/3;
@@ -241,7 +241,7 @@ i.fas.fa-ban {
 /* --DEMOGRAPHICS STYLING --*/
 /* -----------------*/
 
-input[type=text],
+/*input[type=text],
 select,
 textarea {
     width: 75%;
@@ -252,29 +252,32 @@ textarea {
     border-radius: 4px;
     font-size: 16px;
     font-family: Lato;
-}
-
-select {
-    /*width: 80%;*/
-    padding: 6px 20px;
-    margin: 8px 0;
-    display: block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-    font-family: Lato;
-}
+}*/
 
 input[type=date] {
-    width: 75%;
-    padding: 6px 20px;
+    /*width: 75%;*/
+    /*padding: 6px 20px;*/
     margin: 8px 0;
     display: block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    /*border: 1px solid #ccc;*/
+    /*border-radius: 4px;*/
     font-size: 18px;
-    font-family: Lato;
+
+    height: 56px;
+    width: 94%;
+    background-color: rgba(255, 255, 255, 0);
+
+
+    /*padding: 6px 20px;*/
+    padding: 0 16px;
+    /*margin: 8px 0;*/
+    /*display: block;*/
+    border: 1px solid #97999a;
+    border-radius: 4px;
+    /*font-size: 1rem;*/
+    color: #202020;
 }
+
 
 
 .box7 .upload_fields {
@@ -295,6 +298,76 @@ input[type=date] {
 
 .joblist {
     margin-left: 20px;
+}
+
+select {
+    /*width: 80%;*/
+
+    height: 56px;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0);
+
+
+    /*padding: 6px 20px;*/
+    padding: 0 16px;
+    /*margin: 8px 0;*/
+    /*display: block;*/
+    border: 1px solid #97999a;
+    border-radius: 4px;
+    font-size: 1rem;
+    color: #202020;
+
+    /*font-family: Lato;*/
+    /*line-height: 100%;*/
+}
+
+#demo_comments{
+    width: 100%;
+    font-size: 1.5rem;
+    padding: 5px 10px;
+    background-color: rgba(255,255,255,0);
+    border: 1px solid #97999a;
+    border-radius: 4px;
+    color: #202020;
+}
+
+input[type=date]:focus,
+#demo_comments:focus,
+select:focus {
+    /*width: 80%;*/
+
+    border-color: #1e79be !important;
+    outline-color: #1e79be !important;;
+    border-style: inset;
+
+    /*font-family: Lato;*/
+    /*line-height: 100%;*/
+}
+
+.job_upload_form_lbl{
+    font-size: 0.9rem;
+    margin-top: 15px;
+    color: #1e79be;
+    font-weight: normal;
+}
+
+.mdc-text-field{
+    --mdc-theme-primary: #1e79be;
+    --mdc-theme-on-primary: #1e79be ;
+    --mdc-theme-secondary: #1e79be;
+    --mdc-theme-background:#1e79be;
+    --mdc-theme-surface:#1e79be;
+    --mdc-theme-on-secondary:#1e79be;
+    --mdc-theme-on-surface:#1e79be;
+}
+.mdc-floating-label{
+    --mdc-theme-primary: #1e79be;
+    --mdc-theme-on-primary: #1e79be ;
+    --mdc-theme-secondary: #1e79be;
+    --mdc-theme-background:#1e79be;
+    --mdc-theme-surface:#1e79be;
+    --mdc-theme-on-secondary:#1e79be;
+    --mdc-theme-on-surface:#1e79be;
 }
 
 /*-----------------------*/

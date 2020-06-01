@@ -14,8 +14,8 @@ function documentReady() {
 	new mdc.ripple.MDCRipple(document.querySelector('.clear_btn'));
 	new mdc.ripple.MDCRipple(document.querySelector('.upload_btn_lbl'));
 	new mdc.ripple.MDCRipple(document.querySelector('.submit_btn'));
+	new mdc.textfield.MDCTextField(document.querySelector('.mdc-text-field'));
 
-	input.style.opacity = 0;
 	input.style.display = "none";
 
 	input.addEventListener('change', addFilesToUpload);
