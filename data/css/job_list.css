@@ -175,9 +175,13 @@ body {
 
 .mdc-data-table__header-row{
     background: rgba(30, 121, 190, 0.6);
+
 }
 .mdc-data-table__header-cell{
     color: white;
+    font-weight: bold;
+    /*font-size: 0.9rem;*/
+    /*font-family: oxygen;*/
 }
 
 .data-tbl{
