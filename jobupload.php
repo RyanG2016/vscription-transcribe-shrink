@@ -39,7 +39,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
 
     <title>vScription Transcribe Pro Dictation Upload</title>
     <link rel="shortcut icon" type="image/png" href="data/images/favicon.png"/>
-    //<link href='data/css/upload_form2.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet'/>
+    <link href='data/css/upload_form2.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet'/>
     <link href='data/fontawesome/css/all.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet'/>
 
     <!--  MDC Components  -->
