@@ -246,6 +246,7 @@ img:not(#norm){
 
 #mainlogo{
 	float: none !important;
+    height: 125px;
 	
 }
 #header-tbl,#demo-tbl{

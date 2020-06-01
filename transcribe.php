@@ -166,7 +166,7 @@ include ('data/parts/constants.php');
 				<table id="header-tbl">
 					<tr>
 						<td id="mainlogo-td" rowspan="2">
-							<img id="mainlogo" src="data/images/Logo_vScription_Transcribe_300.png" />
+							<img id="mainlogo" src="data/images/Logo_vScription_Transcribe_Pro_Stacked.png" />
 
 						</td>
 						<td align="right" rowspan="2" id="fix-td">
@@ -219,7 +219,7 @@ include ('data/parts/constants.php');
 						</td>
 
 						<td align="right" width="114px" style="width:1%; white-space:nowrap;">
-							<a class="button noHover disabled" id="completeBtn">
+							<a class="button noHover disabledx" id="completeBtn">
 								<i class="fas fa-check-circle"></i>
 								<!--								<strong>Complete</strong>-->
 								Complete
