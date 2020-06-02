@@ -202,7 +202,13 @@ div form .clear_btn{
 /* -----------------*/
 
 
+.ulInstructions {
+    list-style: none;
+}
 
+.upload_limits {
+    font-size: 12px;
+}
 div.upload_failed_message {
     display: none;
 }
@@ -211,7 +217,9 @@ div.upload_success_message {
     display: none;
 }
 
-div.upload_success_message p {}
+div.upload_success_message p {
+    display: inline-block;
+}
 
 i.fas.fa-check-circle {
     float: left;

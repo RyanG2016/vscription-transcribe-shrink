@@ -60,12 +60,12 @@ function documentReady() {
 				body: formData,
 			}).then(response => {
 				if (response.ok) {
-					document.querySelector('.upload_success_message').style.display = "inline-grid";
+					document.querySelector('.upload_success_message').style.display = "inline-block";
 					console.log('Upload was successful');
 					resetFiles();
 
 				} else {
-					document.querySelector('.upload_failed_message').style.display = "inline-grid";
+					document.querySelector('.upload_failed_message').style.display = "inline-block";
 					console.log('Upload Failed. Please try again');
 				}
 				//console.log(response)

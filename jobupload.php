@@ -130,10 +130,11 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
                         <div class="box box4">
 
                             <h3>Upload Instructions</h3>
-                            <ul>
+                            <ul class="ulInstructions">
                                 <li>1. &nbsp;Click Choose File</li>
                                 <li>2. Choose the file(s) to upload</li>
-                                <li>3. Enter the file information under the Upload Demographics section</li>
+                                <li>3. Enter the file information under the Upload Demographics section. <strong>Note:</strong> If uploading multiple files at once, all files will have the same demographics entered on the right.</li>
+                                <p class="upload_limits"><strong>(Maximum 10 files at once and file size must be 15MB or less)</strong></p>
                             </ul>
 
                         </div>
@@ -239,7 +240,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
                             <div class="msgs_container">
                                 <div class="upload_success_message">
                                     <i class="fas fa-check-circle"></i>
-                                    <p>Upload(s) Successful!<br> ...Will automatically redirect to Job List in 3 seconds
+                                    <p>Upload(s) Successful! ...Will automatically redirect to Job List in 3 seconds
                                     </p>
                                 </div>
                                 <div class="upload_failed_message">
