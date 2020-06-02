@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('data\parts\config.php');
+include('data/parts/config.php');
 ?>
 <!DOCTYPE html>
 <html>
