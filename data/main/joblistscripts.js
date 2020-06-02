@@ -4,7 +4,7 @@
 
 function documentReady() {
 
-	const maximum_rows_per_page_jobs_list = 7;
+	const maximum_rows_per_page_jobs_list = 10;
 
 	const url = 'process.php';
 	const refreshJobList = document.querySelector('#refresh_btn');
