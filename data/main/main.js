@@ -10,6 +10,7 @@ $(document).tooltip({
 
 $(document).ready(function () {
 
+
 	getLatestAppVersionNumber(checkVersions);
 
 	$("body").niceScroll({
@@ -30,13 +31,24 @@ $(document).ready(function () {
 
 	//appends an "active" class to .popup and .popup-content when the "Open" button is clicked
 		$(".button-orange").on("click", function() {
+			getTransJobList(addRowHandlers);
 		  $(".popup-overlay, .popup-content").addClass("active");
 		});
 
 		//removes the "active" class to .popup and .popup-content when the "Close" button is clicked
-		$(".close, .popup-overlay").on("click", function() {
+		$(".close").on("click", function() {
 		  $(".popup-overlay, .popup-content").removeClass("active");
 		});
+
+		$("tr.transjobs_tbl").click(function() {
+			alert("We've clicked a tr!!");
+			var tableData = $(this).children("td").map(function() {
+				return $(this).text();
+			}).get();
+
+			console.log(`Table data is: ${tableData}`);
+		});
+
 });
 
 $(function () {
@@ -77,7 +89,6 @@ $(function () {
 
 //***************** Functions ***************//
 
-//function vScriptCallback(strHideShow, nHeight, nWidth){};
 
 
 function clearWithConfirm() {
@@ -221,8 +232,6 @@ function clear() {
 }
 
 $(document).ready(function () {
-
-
 
 
 	var $loadBtn = $('#loadBtn');
@@ -553,5 +562,47 @@ function checkVersions(result, checkBrowser) {
 	}
 };
 
+function getTransJobList(callback) {
+
+		console.log('Getting Transcription Job List...');
+		const maximum_rows_per_page_jobs_list = 7;
+		var jobListResult = $('.table_data'); //populating fields
+
+		$.post("data/parts/backend_search.php", {
+			reqcode: 9
+		}).done(function (data) {
+			jobListResult.html(data);
+
+		});
+
+		setTimeout(function() {
+			callback();
+		}, 1000);
+	}
+function addRowHandlers() {
+	console.log("Calling addRowHandler");
+  var table = document.getElementById("translist");
+  var rows = table.getElementsByTagName("tr");
+  for (i = 0; i < rows.length; i++) {
+    var currentRow = table.rows[i];
+    var createClickHandler = function(row) {
+      return function() {
+        var cell = row.getElementsByTagName("td")[0];
+        var id = cell.innerHTML;
+        alert("id:" + id);
+      };
+    };
+    currentRow.onclick = createClickHandler(currentRow);
+  }
+}
+
+function toggleClass(el, className) {
+    if (el.className.indexOf(className) >= 0) {
+        el.className = el.className.replace(className,"");
+    }
+    else {
+        el.className  += className;
+    }
+}
 
 

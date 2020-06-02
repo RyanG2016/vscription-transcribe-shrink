@@ -292,7 +292,7 @@ if(isset($_REQUEST["reqcode"])){
 			
 			break;
 			
-		// Job List //
+		// Job List Admin//
 			
 			case 8:
 
@@ -413,7 +413,45 @@ if(isset($_REQUEST["reqcode"])){
 			mysqli_stmt_close($stmt);
 			
 			break;
-		
+
+			// Job List Transcribe//
+			// Not using DataTables
+
+			case 9:
+
+			$sql = "SELECT `file_id`, `job_id`, `file_type`, `original_audio_type`, `filename`, `fileAudioBlob`, `fileTextBlob`, `file_tag`, `file_author`, `file_work_type`, `file_comment`, `file_speaker_type`, `file_date_dict`, (SELECT j_status_name From file_status_ref WHERE file_status_ref.j_status_id=files.file_status ORDER BY file_status LIMIT 1) as file_status, `last_audio_position`, `job_upload_date`, `job_uploaded_by`, `text_downloaded_date`, `times_text_downloaded_date`, `file_transcribed_date`, `typist_comments`, `isBillable`, `billed` FROM files
+			WHERE `file_status` IN (0,1,2)";
+
+			if($stmt = mysqli_prepare($con, $sql)){
+
+				if(mysqli_stmt_execute($stmt)){
+					$result = mysqli_stmt_get_result($stmt);
+					// Check number of rows in the result set
+					if(mysqli_num_rows($result) > 0){
+						// Fetch result rows as an associative array
+						echo "<table class='transjobs_tbl' aria-label='Job List' id='translist'>";
+						echo "<thead><tr bgcolor='#1e79be' style='color: white;'><th class='table-sort'>Job Num</th><th class='table-sort'>Author</th><th class='table-sort'>Job Type</th><th class='table-sort'>Comments</th><th class='table-sort'>Date Dictated</th><th class='table-sort'>Date Uploaded</th><th class='table-sort'>Job Status</th></tr></thead>";
+
+
+						while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+
+							echo "<tr><td>{$row['job_id']}</td><td>{$row['file_author']}</td><td>{$row['file_work_type']}</td><td>{$row['file_comment']}</td><td>{$row['file_date_dict']}</td><td>{$row['job_upload_date']}</td><td>{$row['file_status']}</td><td></td></tr>";
+							}
+						echo "</table>";
+					} else{
+						echo $lang2=='en'?"<p>No matches found</p>":"<p>لا يوجد نتائج</p>";
+
+					}
+				} else{
+					echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
+
+				}
+			}
+
+			// Close statement
+			mysqli_stmt_close($stmt);
+
+			break;
 		//---------------------------------------------------\\
 		//-------------------Insert Cases 3xx----------------\\
 		//---------------------------------------------------\\

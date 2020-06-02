@@ -25,6 +25,11 @@ include ('data/parts/constants.php');
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>vScription</title>
 	<link rel="shortcut icon" type="image/png" href="data/images/favicon.png" />
+
+	<!--The tablesort.css is causing some styling conflicts with main page-->
+	<link href='data/thirdparty/scripts/css/styles.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet' />
+	<link href='data/thirdparty/scripts/css/tablesort.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet' />
+
 	<link href='data/main/main.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet' />
 	<link href='data/main/buttons.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet' />
 
@@ -118,6 +123,10 @@ include ('data/parts/constants.php');
 	<script src="data/main/jquery.js"></script>
 	<script src="data/main/garlic.js"></script>
 	<script src="data/main/jquery-ui.js"></script>
+	    <!--  MDC Components  -->
+    <link href="data/libs/node_modules/material-components-web/dist/material-components-web.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="data/libs/node_modules/material-components-web/dist/material-components-web.js"></script>
 
 	<script src='tinymce/js/tinymce/tinymce.min.js?v=<?php echo $version_control ?>'></script>
 	<script src='data/main/tinymceFree.js?v=<?php echo $version_control ?>'></script>
@@ -151,9 +160,16 @@ include ('data/parts/constants.php');
 	<script src="data/scrollbar/jquery.nicescroll.js"></script>
 	<!--	///// End of scrollbar depdns   /////-->
 
-
 	<link rel="stylesheet" href="data/dialogues/jquery-confirm.min.css">
 	<script src="data/dialogues/jquery-confirm.min.js"></script>
+
+
+    <script type="application/javascript">
+
+        $(document).ready(function() {
+        });
+
+    </script>
 
 </head>
 <!-- <?php include_once("analyticstracking.php") ?> -->
@@ -168,10 +184,18 @@ include ('data/parts/constants.php');
 	  <!--Creates the popup content-->
 	  <div class="popup-content">
 		<h2>Job Picker</h2>
-		<p> This is where we will insert the job list table.</p>
-		<!--popup's close button-->
-		<button class="jobOpen">Open</button>
-		<button class="close">Close</button></div>
+		<p> Filter: Jobs with Status of: Awaiting Transcription, In Progress and Suspended</p>
+		<div class="table_data">
+
+					   <!--Job table goes here-->
+
+		</div>
+		<div class="tblButtons">
+			<!--popup's close button-->
+			<button class="jobOpen">Open</button>
+			<button class="close">Close</button>
+		</div>
+</div>
 	</div>
 
 	<div id="container" style="width: 100%">
@@ -286,7 +310,7 @@ include ('data/parts/constants.php');
 								</a>
 							</td>
 							<td id="nr">
-								<a class="button-orange" id="suspendBtn" onclick="showJobPicker()">
+								<a class="button-orange" id="suspendBtn">
 									<i class="fas fa-hourglass-half"></i>
 									<!--				<strong>Save and Complete</strong>-->
 									Suspend
