@@ -40,15 +40,6 @@ $(document).ready(function () {
 		  $(".popup-overlay, .popup-content").removeClass("active");
 		});
 
-		$("tr.transjobs_tbl").click(function() {
-			alert("We've clicked a tr!!");
-			var tableData = $(this).children("td").map(function() {
-				return $(this).text();
-			}).get();
-
-			console.log(`Table data is: ${tableData}`);
-		});
-
 });
 
 $(function () {
@@ -109,25 +100,9 @@ function clearWithConfirm() {
 				}
 			},
 			cancel: function () {},
-			/*somethingElse: {
-				text: 'Something else',
-				btnClass: 'btn-blue',
-				keys: ['enter', 'shift'],
-				action: function(){
-					$.alert('Something else?');
-				}
-			}*/
 		}
 	});
 
-	/*
-	if(retVal === true){
-		clear();
-		return true;
-	}
-	else{
-		return false;
-	}*/
 }
 
 function clearAfterDownload(askCompletePlayer) {
@@ -287,17 +262,7 @@ function completePlayer() {
 		AblePlayerInstances[0].media.load();
 	}, 300);
 
-
-
-	//			AblePlayerInstances[0].initPlayer();
-	//			AblePlayerInstances[0].media.src = "";
-	//		AblePlayerInstances[0].media = null;
-	//		AblePlayerInstances[0].$playpauseButton[0].disabled = true
-	//			AblePlayerInstances[0].handleRestart();
-
 	$loadBtn.removeClass('noHover');
-	//			$loadBtn.text('Load');
-	//			$loadBtn.text('Load');
 	$('#loadBtn').html('<i class="fas fa-cloud-upload-alt"></i> Load');
 	$loadBtn.find("i").show();
 	$completeBtn.addClass('noHover');
@@ -385,13 +350,7 @@ $(function () {
 					AblePlayerInstances[0].media.src = e.target.result;
 					$loadBtn.addClass('noHover');
 					$loadBtn.text(fileName + ' Loaded');
-					//						$loadBtn.find("strong").text(fileName + ' Loaded');
 					$loadBtn.find("i").hide();
-					//$completeBtn.removeClass('noHover');
-					//$completeBtn.removeClass('button');
-					//$completeBtn.addClass('button-green');
-					//						$('#audio-td').fadeIn();
-
 					var playPromise = AblePlayerInstances[0].media.play();
 
 					if (playPromise !== undefined) {
@@ -406,18 +365,6 @@ $(function () {
 								// Show paused UI.
 							});
 					}
-
-
-
-
-					//						AblePlayerInstances[0].media.load();
-
-
-
-					//						AblePlayerInstances[0].media.seekTo(0);
-					//
-
-					//						$loadBtn.removeAttr('onclick');
 				} else {
 
 					$.alert({
