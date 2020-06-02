@@ -3,7 +3,7 @@
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_FILES['files'])) {
         $errors = [];
-        $path = 'uploads/';
+        $path = '../uploads/';
         $extensions = ['wav', 'dss', 'ds2', 'mp3', 'ogg'];
 
         $all_files = count($_FILES['files']['tmp_name']);
@@ -21,7 +21,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $errors[] = 'Extension not allowed: ' . $file_name . ' ' . $file_type;
             }
 
-            if ($file_size > 2097152) {
+            //Max file upload size is 15MB. PHP is configured for max size of 32MB
+            if ($file_size > 15728640) {
                 $errors[] = 'File size exceeds limit: ' . $file_name . ' ' . $file_type;
             }
 
