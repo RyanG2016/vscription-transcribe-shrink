@@ -292,6 +292,70 @@ if(isset($_REQUEST["reqcode"])){
 			
 			break;
 			
+		// Load Job Details for Player //
+		// Also move audio file to working directory
+
+			case 7:
+
+			$a = json_decode($args,true);
+			$job_id = $a['job_id'];
+			$sql = "SELECT *
+					FROM files WHERE job_id = ?";
+
+		if($stmt = mysqli_prepare($con, $sql))
+			{
+				mysqli_stmt_bind_param($stmt, "s", $job_id);
+
+				if(mysqli_stmt_execute($stmt) ){
+					$result = mysqli_stmt_get_result($stmt);
+
+					// Check number of rows in the result set
+					if(mysqli_num_rows($result) > 0){
+						// Fetch result rows as an associative array
+
+						while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+
+							if ($row['filename'] != "") {
+									$randFileName = random_filename(15) . '.wav';
+									// These paths need to be relative to the PHP file making the call....
+									if (copy('../../../uploads/' . $row['filename'], '../../workingTemp/' . $randFileName )) {
+									}
+									else {
+										//echo "Error moving file" . $randFileName . " to working directory..";
+									};
+									$jobDetails = array(
+										"job_id" => $row['job_id'],
+										"file_author" => $row['file_author'],
+										"origFilename" => $row['filename'],
+										"tempFilename" => $randFileName,
+										"file_date_dict" => $row['file_date_dict'],
+										"file_work_type" => $row['file_work_type'],
+										"file_speaker_type" => $row['file_speaker_type'],
+										"file_comment" => $row['file_comment']
+									);
+								echo json_encode($jobDetails);
+							} else {
+								echo "No filename found in record --- ERROR"; //This should NEVER happen....Just for testing
+							}
+
+						}
+					}
+				}
+				else{
+//						echo "<p>No matches found</p>";
+
+					}
+			} else{
+//					echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
+
+			}
+
+
+			// Close statement
+			mysqli_stmt_close($stmt);
+
+			break;
+
 		// Job List Admin//
 			
 			case 8:
@@ -1101,5 +1165,23 @@ function BRUTELOCK($msg, $src)
 /* REQUEST CODES */
 // INSERT -> 3XX
 // Select -> 4XX
+
+function random_filename($length, $directory = '', $extension = '')
+{
+    // default to this files directory if empty...
+    $dir = !empty($directory) && is_dir($directory) ? $directory : dirname(__FILE__);
+
+    do {
+        $key = '';
+        $keys = array_merge(range(0, 9), range('a', 'z'));
+
+        for ($i = 0; $i < $length; $i++) {
+            $key .= $keys[array_rand($keys)];
+        }
+    } while (file_exists($dir . '/' . $key . (!empty($extension) ? '.' . $extension : '')));
+
+    return $key . (!empty($extension) ? '.' . $extension : '');
+}
+
 
 ?>

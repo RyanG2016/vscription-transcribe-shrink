@@ -254,11 +254,11 @@ include ('data/parts/constants.php');
 								<i class="fas fa-cloud-upload-alt"></i>
 								Load
 							</a>
-							<input type="file" id="fileLoadDiag" style="display: none" accept="audio/vnd.wave, audio/wav, audio/wave, audio/mpeg,audio/ogg,audio/x-wav" />
+							<!--<input type="file" id="fileLoadDiag" style="display: none" accept="audio/vnd.wave, audio/wav, audio/wave, audio/mpeg,audio/ogg,audio/x-wav" />-->
 						</td>
 
 						<td align="right" width="114px" style="width:1%; white-space:nowrap;">
-							<a class="button noHover disabledx" id="completeBtn">
+							<a class="button noHover disabled" id="completeBtn">
 								<i class="fas fa-check-circle"></i>
 								<!--								<strong>Complete</strong>-->
 								Complete
@@ -270,10 +270,10 @@ include ('data/parts/constants.php');
 				<fieldset class="tooltip" style="padding-bottom: 0px">
 
 					<!--	Row 1		-->
-					<input type="number" class="job" id="jobNo" name="jobNo" placeholder="Job/File ID" title="Job/File ID" <?php if($set == 1 && !empty($n1)) {echo 'value="'.$n1."\"";} ?> disabled>
+					<input type="text" class="job" id="jobNo" name="jobNo" placeholder="Job/File ID" title="Job/File ID" <?php if($set == 1 && !empty($n1)) {echo 'value="'.$n1."\"";} ?> disabled>
 					<input type="text" id="authorName" name="authorName" placeholder="Author Name" title="Author Name" <?php if($set == 1 && !empty($n2)) {echo 'value="'.$n2."\"";} ?>>
 					<!--            <input type="text" id="TypistName" name="TypistName" placeholder="Typist Name" title="Typist Name" <?php //if($set == 1 && !empty($cl)) {echo 'value="'.$cl."\"";} ?>  >-->
-					<input type="text" id="TypistName" name="TypistName" placeholder="Typist Name" title="Typist Name" value="<?php echo $popName ?>">
+					<input type="text" id="TypistName" name="TypistName" placeholder="Typist Name" title="Typist Name" value="<?php echo $popName ?>" disabled>
 
 					</br>
 					<!--	Row 2		-->
@@ -312,7 +312,7 @@ include ('data/parts/constants.php');
 							<td id="nr">
 								<a class="button-orange" id="suspendBtn">
 									<i class="fas fa-hourglass-half"></i>
-									<!--				<strong>Save and Complete</strong>-->
+									<!--				<strong>Suspend</strong>-->
 									Suspend
 								</a>
 							</td>

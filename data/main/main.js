@@ -39,7 +39,9 @@ $(document).ready(function () {
 		$(".close").on("click", function() {
 		  $(".popup-overlay, .popup-content").removeClass("active");
 		});
-
+		$('#loadBtn').on('click', function (e) {
+			chooseJob();
+		});
 });
 
 $(function () {
@@ -253,7 +255,7 @@ function completePlayer() {
 		vScriptCallback("AudioComplete", g_fileName); //For vScription Application to move file to complete folder
 	} catch (err) {}
 
-	$('#fileLoadDiag').val(''); //clear file dialog
+	//$('#fileLoadDiag').val(''); //clear file dialog
 	AblePlayerInstances[0].media.pause();
 	AblePlayerInstances[0].media.load();
 
@@ -323,33 +325,58 @@ function performClick(elemId) {
 	}
 }
 
-// Loading Audio File Into Player
-$(function () {
-	//			var $audio = $('#audsrc');
-	//			var $audio2 = $('#audsrc2');
+/*-----Open dialog for typist to choose job---*/
+
+function chooseJob() {
+	getTransJobList(addRowHandlers);
+	// Show file load box
+	$(".popup-overlay, .popup-content").addClass("active");
+}
+
+
+/*----Lookup job details-----*/
+
+function jobLoadLookup(jobNum) {
+		console.log('Getting Transcription Job Details...');
+		var jobDetailsResult = $('.table_data'); //populating fields
+
+	var a1 = {
+		job_id: jobNum
+	};
+		$.post("data/parts/backend_search.php", {
+			reqcode: 7,
+			args: JSON.stringify(a1)
+		}).done(function (data) {
+			loadIntoPlayer(data);
+		});
+
+}
+/*-----LOAD FROM SERVER VERSUS LOCAL----*/
+// Loading Audio File and details
+function loadIntoPlayer(data) {
+	var jobDetails = JSON.parse(data);
+	console.log(`Job Number: ${jobDetails.job_id}`);
+	console.log(`Author: ${jobDetails.file_author}`);
+	console.log(`Filename: ${jobDetails.origFilename}`);
+	console.log(`Temp filename is: ${jobDetails.tempFilename}`);
+	console.log(`Dictated Date: ${jobDetails.file_date_dict}`);
+	console.log(`Work Type: ${jobDetails.file_work_type}`);
+	console.log(`Speaker Type: ${jobDetails.file_speaker_type}`);
+	console.log(`Upload Comments: ${jobDetails.file_comment}`);
+
+	$('.job').val(jobDetails.job_id);
+	$('#authorName').val(jobDetails.file_author);
+	$('#jobType').val(jobDetails.file_work_type);
+	$('#date').val(jobDetails.file_date_dict);
+	$('#comments').val(jobDetails.file_comment);
+
 	var $loadBtn = $('#loadBtn');
 	var $completeBtn = $('#completeBtn');
-	$('#fileLoadDiag').on('change', function (e) {
-		var target = e.currentTarget;
-		var file = target.files[0];
-		var fileName = file.name;
-		var reader = new FileReader();
-
-		//			  console.log($audio[0]);
-		if (target.files && file) {
-			var reader = new FileReader();
-			reader.onload = function (e) {
-
-				//						$audio.attr('src', e.target.result);
-
-
-				//				alert(fileName);
-				var ex = fileName.substring(fileName.length - 3, fileName.length);
-				if (ex == "wav" || ex == "WAV" || ex == "mp3" || ex == "MP3" || ex == "ogg" || ex == "OGG") {
-					g_fileName = fileName;
-					AblePlayerInstances[0].media.src = e.target.result;
+					//g_fileName = fileName;
+					var audioTempFolder = "http://vscriptiontranscribeupload.local:8888/workingTemp/"
+					AblePlayerInstances[0].media.src = audioTempFolder + jobDetails.tempFilename;
 					$loadBtn.addClass('noHover');
-					$loadBtn.text(fileName + ' Loaded');
+					$loadBtn.text(jobDetails.job_id + ' Loaded');
 					$loadBtn.find("i").hide();
 					var playPromise = AblePlayerInstances[0].media.play();
 
@@ -365,20 +392,9 @@ $(function () {
 								// Show paused UI.
 							});
 					}
-				} else {
+};
+/*----END LOAD FROM SERVER -----*/
 
-					$.alert({
-						title: 'Error!',
-						type: 'red',
-						content: 'only .wav, .mp3, .ogg is supported.',
-					});
-				}
-
-			}
-			reader.readAsDataURL(file);
-		}
-	});
-});
 
 
 function validateForm(override) {
@@ -536,10 +552,12 @@ function addRowHandlers() {
       return function() {
         var cell = row.getElementsByTagName("td")[0];
         var id = cell.innerHTML;
-        alert("id:" + id);
+		  jobLoadLookup(id);
+		  $(".popup-overlay, .popup-content").removeClass("active");
+        //alert("id:" + id);
       };
     };
-    currentRow.onclick = createClickHandler(currentRow);
+    currentRow.ondblclick = createClickHandler(currentRow);
   }
 }
 
