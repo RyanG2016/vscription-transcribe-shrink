@@ -6,10 +6,10 @@ include ('data/parts/constants.php');
 
 if(isset($_POST))
 {
-//	alert('check');
+	//alert('check');
+	echo "We should be saving this to RTF";
     if(!empty($_POST['jobNo']))
     {
-
         $report = '<b>'.'Job Number: ' .'</b>'. $_POST['jobNo'] .'<br/>';
         $report = $report . '<b>'.'Author Name: ' .'</b>'. $_POST['authorName'].'<br/>';
         $report = $report . '<b>'.'Typist Name: ' .'</b>'.$_POST['TypistName'].'<br/>';
@@ -21,6 +21,7 @@ if(isset($_POST))
 		$report = $report.'<br/>';
 		$report = $report.'<br/>';
         $report = $report . $_POST['report'];
+		echo "The report body so far is: " . $report;
 
         $htmlToRtfConverter = new HtmlToRtf\HtmlToRtf($report);
 //        $htmlToRtfConverter->getRTFFile();
@@ -46,6 +47,7 @@ if(isset($_POST))
 }
 else
 {
+	echo "Looks like JobNo is empty";
 //    echo  "<script type='text/javascript'>";
 //    echo "window.close();";
 //    echo "</script>";
