@@ -319,8 +319,8 @@ include ('data/parts/constants.php');
 							<td id="nr">
 								<a class="button-red" onclick="clearWithConfirm();">
 									<i class="fas fa-trash-alt"></i>
-									<!--					<strong>Clear</strong>-->
-									Clear
+									<!--					<strong>Discard</strong>-->
+									Discard
 								</a>
 							</td>
 						</tr>

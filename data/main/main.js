@@ -31,8 +31,9 @@ $(document).ready(function () {
 
 	//appends an "active" class to .popup and .popup-content when the "Open" button is clicked
 		$(".button-orange").on("click", function() {
-			getTransJobList(addRowHandlers);
-		  $(".popup-overlay, .popup-content").addClass("active");
+			var fullAudioSrc = AblePlayerInstances[0].media.src;
+			var tempAudioFileName = fullAudioSrc.split("/").pop();
+			clearTempAudio(tempAudioFileName);
 		});
 
 		//removes the "active" class to .popup and .popup-content when the "Close" button is clicked
@@ -89,8 +90,8 @@ function clearWithConfirm() {
 
 
 	$.confirm({
-		title: 'Clear Form?',
-		content: 'Are you sure do you want to clear form data?',
+		title: 'Discard Form?',
+		content: 'Are you sure do you want to discard current data?',
 		buttons: {
 			confirm: {
 				btnClass: 'btn-red',
@@ -197,6 +198,12 @@ function clear() {
 	$('#report').garlic('destroy');
 	document.title = 'Form';
 	tinyMCE.activeEditor.setContent('');
+	//Delete Temp Audio File
+	var fullAudioSrc = AblePlayerInstances[0].media.src;
+	var tempAudioFileName = fullAudioSrc.split("/").pop();
+	clearTempAudio(tempAudioFileName);
+
+	completePlayer();
 
 	//clearing validation
 	$('.validate-form input').each(function () {
@@ -372,26 +379,26 @@ function loadIntoPlayer(data) {
 
 	var $loadBtn = $('#loadBtn');
 	var $completeBtn = $('#completeBtn');
-					//g_fileName = fileName;
-					var audioTempFolder = "http://vscriptiontranscribeupload.local:8888/workingTemp/"
-					AblePlayerInstances[0].media.src = audioTempFolder + jobDetails.tempFilename;
-					$loadBtn.addClass('noHover');
-					$loadBtn.text(jobDetails.job_id + ' Loaded');
-					$loadBtn.find("i").hide();
-					var playPromise = AblePlayerInstances[0].media.play();
+	//g_fileName = fileName;
+	var audioTempFolder = "http://vscriptiontranscribeupload.local:8888/workingTemp/"
+	AblePlayerInstances[0].media.src = audioTempFolder + jobDetails.tempFilename;
+	$loadBtn.addClass('noHover');
+	$loadBtn.text(jobDetails.job_id + ' Loaded');
+	$loadBtn.find("i").hide();
+	var playPromise = AblePlayerInstances[0].media.play();
 
-					if (playPromise !== undefined) {
-						playPromise.then(_ => {
-								// Automatic playback started!
-								// Show playing UI.
-								AblePlayerInstances[0].media.pause();
-								AblePlayerInstances[0].seekTo(0);
-							})
-							.catch(error => {
-								// Auto-play was prevented
-								// Show paused UI.
-							});
-					}
+	if (playPromise !== undefined) {
+		playPromise.then(_ => {
+				// Automatic playback started!
+				// Show playing UI.
+				AblePlayerInstances[0].media.pause();
+				AblePlayerInstances[0].seekTo(0);
+			})
+			.catch(error => {
+				// Auto-play was prevented
+				// Show paused UI.
+			});
+	}
 };
 /*----END LOAD FROM SERVER -----*/
 
@@ -568,6 +575,23 @@ function toggleClass(el, className) {
     else {
         el.className  += className;
     }
+}
+
+/*----Lookup job details-----*/
+
+function clearTempAudio(tempFileName) {
+		console.log('Clearing temp audio file');
+
+	var a1 = {
+		job_id: tempFileName
+	};
+		$.post("data/parts/backend_search.php", {
+			reqcode: 33,
+			args: JSON.stringify(a1)
+		}).done(function () {
+			//alert(data);
+		});
+
 }
 
 
