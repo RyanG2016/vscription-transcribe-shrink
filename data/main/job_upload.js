@@ -165,7 +165,6 @@ function insertUploadDB(filename) {
 		file_comment: vfile_job_comments,
 		job_uploaded_by: vjob_uploaded_by,
 		file_name: vfile_name
-
 	};
 	console.log(a1);
 
