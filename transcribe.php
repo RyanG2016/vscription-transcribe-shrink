@@ -10,6 +10,7 @@ include ('data/parts/constants.php');
 	if(isset($_SESSION['fname']) && isset($_SESSION['lname']))
 	{
 		$popName = $_SESSION['fname'] . " " . $_SESSION['lname'];
+		$initials = substr($_SESSION['fname'],0) . substr($_SESSION['lname'],0,2);
 	}
 	else{
 		$popName = "";
@@ -322,6 +323,9 @@ include ('data/parts/constants.php');
 					</div>
 
 					<div id="divv"><textarea id="report" name="report" placeholder="" rows="25" class="area"></textarea></div>
+					<div class="userinfo">
+						<p class=userinfolbl>Logged in as:  <span class="typistemail" style="margin-left:4px;"> <?php echo $_SESSION["uEmail"]?></span></p>
+					</div>
 
 				</fieldset>
 
