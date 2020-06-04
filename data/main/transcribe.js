@@ -32,8 +32,8 @@ $(document).ready(function () {
     //appends an "active" class to .popup and .popup-content when the "Open" button is clicked
     $(".button-orange").on("click", function() {
             
-        var typist = $('.typistemail').text();  
-        alert(`Typist Name is: ${typist}`);
+        //var typist = $('.typistemail').text();  
+        alert(`Typist Name is: ${loggedInUserEmail}`);
     });
 
     //removes the "active" class to .popup and .popup-content when the "Close" button is clicked
@@ -389,7 +389,7 @@ function loadIntoPlayer(data) {
     var $loadBtn = $('#loadBtn');
     var $completeBtn = $('#completeBtn');
     //g_fileName = fileName;
-    var audioTempFolder = "http://vscriptiontranscribeupload.local:8888/workingTemp/"
+    var audioTempFolder = "https://nscribeupload.local:8888/workingTemp/"
     AblePlayerInstances[0].media.src = audioTempFolder + jobDetails.tempFilename;
     $loadBtn.addClass('noHover');
     $loadBtn.text(jobDetails.job_id + ' Loaded');
@@ -462,8 +462,7 @@ function validateForm(override) {
     if (check) {
         document.getElementById('form').submit();
             console.log('Updating job details on server');
-            updateJobDetailsDB();
-            //completePlayer();  //Make this callback function to run after updating DB
+            updateJobDetailsDB(clear);
             //clear();
             //clearAfterDownload(false); //ask to complete player = false
 
@@ -629,13 +628,13 @@ function clearTempAudio(tempFileName) {
 
 }
 
-function updateJobDetailsDB() {
+function updateJobDetailsDB(callback) {
     var job_id = $('.job').val();
     console.log('Updating Job Details on DB...');
     var jobLengthStr = $('.able-duration').text().split("/")[1];
     var jobLengthSecs = hmsToSecondsOnly(jobLengthStr);
     var file_transcribe_date = getCurrentDateTime();
-    var transcribed_by = $('#TypistName').val();
+    var transcribed_by = $('.typistemail').text();
     
     console.log(`Job Number is: ${job_id}`);
     console.log(`Job length is: ${jobLengthSecs} seconds`);
@@ -655,9 +654,10 @@ function updateJobDetailsDB() {
         reqcode: 32,
         args: JSON.stringify(a1)
     }).done(function (data) {
-        alert(data);
-        //callback();
-
+        //alert(data);
+        setTimeout(function() {
+            callback();  
+        }, 500);
     });
 }
 
