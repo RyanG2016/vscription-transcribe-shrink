@@ -42,7 +42,7 @@ function documentReady() {
 
 		var jobListResult = $('.jobs_tbl'); //populating fields
 
-		$.post("data/parts/backend_search.php", {
+		$.post("data/parts/backend_request.php", {
 			reqcode: 8
 		}).done(function (data) {
 			jobListResult.html(data);

@@ -358,7 +358,7 @@ function jobLoadLookup(jobNum) {
 	var a1 = {
 		job_id: jobNum
 	};
-		$.post("data/parts/backend_search.php", {
+		$.post("data/parts/backend_request.php", {
 			reqcode: 7,
 			args: JSON.stringify(a1)
 		}).done(function (data) {
@@ -547,7 +547,7 @@ function getTransJobList(callback) {
 		// const maximum_rows_per_page_jobs_list = 7;
 		var jobListResult = $('.jobs_tbl'); //populating fields
 
-		$.post("data/parts/backend_search.php", {
+		$.post("data/parts/backend_request.php", {
 			reqcode: 9
 		}).done(function (data) {
 			jobListResult.html(data);
@@ -621,7 +621,7 @@ function clearTempAudio(tempFileName) {
 	var a1 = {
 		job_id: tempFileName
 	};
-		$.post("data/parts/backend_search.php", {
+		$.post("data/parts/backend_request.php", {
 			reqcode: 33,
 			args: JSON.stringify(a1)
 		}).done(function () {

@@ -169,7 +169,7 @@ function insertUploadDB(filename) {
 	console.log(a1);
 
 
-	$.post("data/parts/backend_search.php", {
+	$.post("data/parts/backend_request.php", {
 		reqcode: 39,
 		args: JSON.stringify(a1)
 	}).done(function (data) {
