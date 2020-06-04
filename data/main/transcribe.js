@@ -389,7 +389,7 @@ function loadIntoPlayer(data) {
     var $loadBtn = $('#loadBtn');
     var $completeBtn = $('#completeBtn');
     //g_fileName = fileName;
-    var audioTempFolder = "https://nscribeupload.local:8888/workingTemp/"
+    var audioTempFolder = "https://vscriptiontranscribeupload.local:8888/workingTemp/"
     AblePlayerInstances[0].media.src = audioTempFolder + jobDetails.tempFilename;
     $loadBtn.addClass('noHover');
     $loadBtn.text(jobDetails.job_id + ' Loaded');
