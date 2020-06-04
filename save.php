@@ -6,9 +6,8 @@ include ('data/parts/constants.php');
 
 if(isset($_POST))
 {
-	//alert('check');
-	echo "We should be saving this to RTF";
-    if(!empty($_POST['jobNo']))
+//	alert('check');
+    if(isset($_POST['jobNo']))
     {
         $report = '<b>'.'Job Number: ' .'</b>'. $_POST['jobNo'] .'<br/>';
         $report = $report . '<b>'.'Author Name: ' .'</b>'. $_POST['authorName'].'<br/>';
