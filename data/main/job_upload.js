@@ -145,7 +145,7 @@ function documentReady() {
 		document.querySelector('.submit_btn').setAttribute("disabled", "true");
 		document.querySelector('.clear_btn').setAttribute("disabled", "true");
 	}
-};
+}
 
 
 function insertUploadDB(filename) {
