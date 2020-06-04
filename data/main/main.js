@@ -407,6 +407,7 @@ function loadIntoPlayer(data) {
 				// Show paused UI.
 			});
 	}
+	modal.style.display = "none"; //hide modal popup
 }
 /*----END LOAD FROM SERVER -----*/
 
