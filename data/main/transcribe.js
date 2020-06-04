@@ -31,9 +31,9 @@ $(document).ready(function () {
 
     //appends an "active" class to .popup and .popup-content when the "Open" button is clicked
     $(".button-orange").on("click", function() {
-        var fullAudioSrc = AblePlayerInstances[0].media.src;
-        var tempAudioFileName = fullAudioSrc.split("/").pop();
-        clearTempAudio(tempAudioFileName);
+            
+        var typist = $('#TypistName').val();  
+        alert(`Typist Name is: ${typist}`);
     });
 
     //removes the "active" class to .popup and .popup-content when the "Close" button is clicked
@@ -461,13 +461,11 @@ function validateForm(override) {
     //        return check;
     if (check) {
         document.getElementById('form').submit();
-
-        if (override) {
-            completePlayer();
-            clearAfterDownload(false); //ask to complete player = false
-        } else {
-            clearAfterDownload(true);
-        }
+            console.log('Updating job details on server');
+            updateJobDetailsDB();
+            //completePlayer();  //Make this callback function to run after updating DB
+            //clear();
+            //clearAfterDownload(false); //ask to complete player = false
 
 
     } else {
@@ -629,4 +627,59 @@ function clearTempAudio(tempFileName) {
         //alert(data);
     });
 
+}
+
+function updateJobDetailsDB() {
+    var job_id = $('.job').val();
+    console.log('Updating Job Details on DB...');
+    var jobLengthStr = $('.able-duration').text().split("/")[1];
+    var jobLengthSecs = hmsToSecondsOnly(jobLengthStr);
+    var file_transcribe_date = getCurrentDateTime();
+    var transcribed_by = $('#TypistName').val();
+    
+    console.log(`Job Number is: ${job_id}`);
+    console.log(`Job length is: ${jobLengthSecs} seconds`);
+    console.log(`Job Status is: 3`);
+    console.log(`Transcribe Date is: ${getCurrentDateTime()}`);
+    console.log(`Transcribed By: ${transcribed_by}`);
+
+    a1 = {
+        job_id: job_id,
+        audio_length: jobLengthSecs,
+        file_status: 3,
+        file_transcribe_date: file_transcribe_date,
+        transcribed_by: transcribed_by
+    }
+
+    $.post("data/parts/backend_request.php", {
+        reqcode: 32,
+        args: JSON.stringify(a1)
+    }).done(function (data) {
+        alert(data);
+        //callback();
+
+    });
+}
+
+//Function to convert hh:mm:ss to seconds. This value is taken from ableplayer so
+//we are assuming that it is calculating correctly
+function hmsToSecondsOnly(str) {
+    var p = str.split(':'),
+        s = 0, m = 1;
+
+    while (p.length > 0) {
+        s += m * parseInt(p.pop(), 10);
+        m *= 60;
+    }
+
+    return s;
+}
+
+function getCurrentDateTime() {
+    var today = new Date();
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    var dateTime = date+' '+time;
+    
+    return dateTime;
 }

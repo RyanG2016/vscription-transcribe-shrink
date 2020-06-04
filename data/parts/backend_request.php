@@ -717,91 +717,40 @@ if(isset($_REQUEST["reqcode"])){
 			case 32://UPDATES JOB DETAILS/////////
 
 			$a = json_decode($args,true);
-//			email:vemail, fname:vfname, lname:vlname, password:vpassword, country:vcountry,
-//			  state:vstate, city:vcity, industry:vindustry, newsletter:vnewsletter};
+//			        job_id: job_id, audio_length: jobLengthSecs,file_status: 3,file_transcribe_date: getCurrentDateTime
+//					transcribed_by:transcribed_by
+			$job_id = $a["job_id"];
+			$audio_length = $a["audio_length"];
+			$file_status = $a["file_status"];
+			$file_transcribe_date = $a["file_transcribe_date"];
+			$transcribed_by = $a["transcribed_by"];
 
-			$email = strtolower($a["email"]);
-			$fname = $a['fname'];
-			$lname = $a['lname'];
-			$password  = $a['password'];
-			$country   = $a['country'];
-			$state     = $a['state'];
-			$city      = $a['city'];
-			$industry  = $a['industry'];
-			$newsletter= $a['newsletter'];
-			$ip = getenv('HTTP_CLIENT_IP')?:
-				  getenv('HTTP_X_FORWARDED_FOR')?:
-				  getenv('HTTP_X_FORWARDED')?:
-				  getenv('HTTP_FORWARDED_FOR')?:
-				  getenv('HTTP_FORWARDED')?:
-				  getenv('REMOTE_ADDR');
-			$plan_id = 1;
-			$account_status = 1;
-			/*cho "fname---->> ".$fname;
-			echo var_dump($a);*/
-//			echo args;
-
-			$password = password_hash($password,PASSWORD_BCRYPT);
-
-
-			$sql = "INSERT INTO users(first_name, last_name, email, password, country, city, `state`, last_ip_address, plan_id, account_status, newsletter) VALUES (?,?,?,?,?,?,?,?,1,5,?)";
-
+			$sql = "UPDATE FILES SET audio_length=?, file_status=?, file_transcribed_date=?, transcribed_by=? WHERE job_id=?";
+			
 			if($stmt = mysqli_prepare($con, $sql))
 			{
 
-				if( !$stmt->bind_param("ssssssssi", $fname, $lname, $email, $password, $country, $city, $state, $ip,$newsletter)   )
+				if( !$stmt->bind_param("iisss", $audio_length, $file_status, $file_transcribe_date, $transcribed_by, $job_id )   )
 				{
 
-//							die( "Error in bind_param: (" .$con->errno . ") " . $con->error);
+							die( "Error in bind_param: (" .$con->errno . ") " . $con->error);
 
 				}
-
-//				echo $sql;
 				$B = mysqli_stmt_execute($stmt);
 
 
 				if($B){
 					$result = mysqli_stmt_get_result($stmt);
-
-					// Check number of rows in the result set
-//					if(mysqli_num_rows($result) > 0){
-						// Fetch result rows as an associative array
-
-						/*while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-
-//							echo $row['count(*)']; //returns int
-						}*/
-						echo 'ok';
-
-						$token = genToken();
-						$sql = "insert into tokens(email,identifier,used,token_type) values('$email','$token',0,5) ";
-						$stmt = mysqli_prepare($con, $sql);
-						mysqli_stmt_execute($stmt);
-
-
-						$_SESSION['src'] = 1;
-						$_SESSION['msg'] = "Signed up successfully please follow the link that was sent to your Email.";
-						$_SESSION['error'] = false;
-						$_SESSION['uEmail'] = $email;
-						$_SESSION['remember'] = false;
-						sendEmail(5,$a,$token,true);
-
-
-//					}
+						echo "Data Updated Successfully!";
 				}
 				else{
-//						echo "ERROR: Could not able to execute $sql. " . mysqli_error(1);
-//						die( "Error in excute: (" .$con->errno . ") " . $con->error);
-						echo 'dup';
-						$_SESSION['src'] = 1;
-						$_SESSION['msg'] = "User already exists please login.";
-						$_SESSION['error'] = true;
+						echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
+						die( "Error in excute: (" .$con->errno . ") " . $con->error);
 					}
-
 			}
 			else
 			{
-//					echo "ERROR: Could not able to execute $sql. " . mysqli_error(1);
+					echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
 
 			}
 
