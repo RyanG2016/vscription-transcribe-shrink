@@ -768,9 +768,15 @@ if(isset($_REQUEST["reqcode"])){
 			//Prepend UM- for prefix and row count padded to 7
 
 //			$sql1 = "SELECT file_id+1 AS num FROM files order by file_id desc limit 1";
-			$sql1 = "SELECT (SELECT file_id+1 AS num FROM files order by file_id desc limit 1) AS next_job_id,
-							   (SELECT count(file_id)+1 AS num2 FROM files)   AS next_job_num
+//			$sql1 = "SELECT (SELECT file_id+1 AS num FROM files order by file_id desc limit 1) AS next_job_id,
+//							   (SELECT count(file_id)+1 AS num2 FROM files)   AS next_job_num
+//						FROM DUAL";
+
+			$sql1 = "SELECT (SELECT AUTO_INCREMENT FROM information_schema.TABLES 
+						WHERE TABLE_SCHEMA = 'vtexvsi_transcribe' AND TABLE_NAME = 'files') AS next_job_id, 
+       					(SELECT count(file_id)+1 AS num2 FROM files) AS next_job_num
 						FROM DUAL";
+
 			if($stmt = mysqli_prepare($con, $sql1))
 			{
 				if(mysqli_stmt_execute($stmt) ){
