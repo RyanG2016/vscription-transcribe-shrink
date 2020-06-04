@@ -344,7 +344,7 @@ include ('data/parts/constants.php');
         <!-- Modal content -->
         <div class="modal-content">
             <h2>Job Picker</h2>
-            <p><i>Filtering Jobs with Status of: Awaiting Transcription, In Progress and Suspended</i></p>
+            <p><i>Filtering Jobs with Status of: Awaiting Transcription, In Progress and Suspended.</i></p>
             <div class="mdc-data-table">
             <!--Job table goes here-->
                 <table class="mdc-data-table__table jobs_tbl" aria-label="Jobs List">
