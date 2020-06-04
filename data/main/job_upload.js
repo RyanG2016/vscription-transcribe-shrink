@@ -199,11 +199,7 @@ function validateFields() {
 				passed = 0;
 			}
 
-			if (passed === 1) {
-				return true;
-			} else {
-				return false;
-			}
+			return passed === 1;
 }
 
 document.addEventListener("DOMContentLoaded", documentReady);
