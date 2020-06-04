@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<?php include('data/parts/constants.php'); ?>
 <html <?php echo $chtml ?>>
 
 <head>
