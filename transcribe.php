@@ -254,14 +254,14 @@ include ('data/parts/constants.php');
 
 				<fieldset class="tooltip" style="padding-bottom: 0">
 
-					<!--	Row 1		-->
-					<input type="text" class="job" id="jobNo" name="jobNo" placeholder="Job/File ID" title="Job/File ID" <?php if($set == 1 && !empty($n1)) {echo 'value="'.$n1."\"";} ?> disabled>
+					<!--	 Row 1	    -->
+					<input type="text" class="job" id="jobNo" name="jobNo" placeholder="Job/File ID" title="Job/File ID" <?php if($set == 1 && !empty($n1)) {echo 'value="'.$n1."\"";} ?> readonly="readonly">
 					<input type="text" id="authorName" name="authorName" placeholder="Author Name" title="Author Name" <?php if($set == 1 && !empty($n2)) {echo 'value="'.$n2."\"";} ?>>
 					<!--            <input type="text" id="TypistName" name="TypistName" placeholder="Typist Name" title="Typist Name" <?php //if($set == 1 && !empty($cl)) {echo 'value="'.$cl."\"";} ?>  >-->
-					<input type="text" id="TypistName" name="TypistName" placeholder="Typist Name" title="Typist Name" value="<?php echo $popName ?>" disabled>
+					<input type="text" id="TypistName" name="TypistName" placeholder="Typist Name" title="Typist Name" value="<?php echo $popName ?>" readonly="readonly">
 
 					</br>
-					<!--	Row 2		-->
+					<!--	Row 2	    -->
 
 					<!--		Job Type	-->
 					<input type="text" id="jobType" class="jobt" name="jobType" placeholder="Job Type" title="Job Type" <?php if($set == 1 && !empty($jt)) {echo 'value="'.$jt."\"";} ?>>

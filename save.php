@@ -7,7 +7,7 @@ include ('data/parts/constants.php');
 if(isset($_POST))
 {
 //	alert('check');
-    if(!empty($_POST['jobNo']))
+    if(isset($_POST['jobNo']))
     {
 
         $report = '<b>'.'Job Number: ' .'</b>'. $_POST['jobNo'] .'<br/>';
