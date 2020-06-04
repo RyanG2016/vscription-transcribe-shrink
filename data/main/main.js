@@ -4,8 +4,8 @@ var g_fileName;
 
 $(document).tooltip({
 	//            track: true
-	items: ':not(#report_ifr)'
-	//	items: ':not(#report_ifr,#TypistName)'
+	// items: ':not(#report_ifr)'
+		items: ':not(#report_ifr,#TypistName, #jobNo)'
 });
 
 $(document).ready(function () {
