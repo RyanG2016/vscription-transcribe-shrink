@@ -413,14 +413,14 @@ if(isset($_REQUEST["reqcode"])){
 							// todo uncomment these below
 //							echo " <input type=\"checkbox\" class=\"mdc-checkbox__native-control\" aria-labelledby=\"{$row['job_id']}\"/>";
 
-				/*			echo '<div class="mdc-checkbox__background">
-                                                        <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
-                                                            <path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59" />
-                                                        </svg>
-                                                        <div class="mdc-checkbox__mixedmark"></div>
-                                                    </div>
-                                                </div>
-                                            </td>';*/
+							/*			echo '<div class="mdc-checkbox__background">
+                                                                    <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
+                                                                        <path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59" />
+                                                                    </svg>
+                                                                    <div class="mdc-checkbox__mixedmark"></div>
+                                                                </div>
+                                                            </div>
+                                                        </td>';*/
 
 							echo "<td class=\"mdc-data-table__cell\">{$row['job_id']}</td>
                                             <td class=\"mdc-data-table__cell\" id=\"{$row['job_id']}\">{$row['file_author']}</td>
@@ -493,17 +493,39 @@ if(isset($_REQUEST["reqcode"])){
 					// Check number of rows in the result set
 					if(mysqli_num_rows($result) > 0){
 						// Fetch result rows as an associative array
-						echo "<table class='transjobs_tbl' aria-label='Job List' id='translist'>";
-						echo "<thead><tr bgcolor='#1e79be' style='color: white;'><th class='table-sort'>Job Num</th><th class='table-sort'>Author</th><th class='table-sort'>Job Type</th><th class='table-sort'>Comments</th><th class='table-sort'>Date Dictated</th><th class='table-sort'>Date Uploaded</th><th class='table-sort'>Job Status</th></tr></thead>";
+//						echo "<table class='transjobs_tbl' aria-label='Job List' id='translist'>";
+//						echo "<thead><tr bgcolor='#1e79be' style='color: white;'><th class='table-sort'>Job Num</th><th class='table-sort'>Author</th><th class='table-sort'>Job Type</th><th class='table-sort'>Comments</th><th class='table-sort'>Date Dictated</th><th class='table-sort'>Date Uploaded</th><th class='table-sort'>Job Status</th></tr></thead>";
 
+						echo '<thead>
+                                    <tr class="mdc-data-table__header-row">
+                                        <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Job #</th>
+                                        <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Author</th>
+                                        <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Job Type</th>
+                                        <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Comments</th>
+                                        <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Date Dictated</th>
+                                        <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Date Uploaded</th>
+                                        <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Job Status</th>
+                                    </tr>
+                                    </thead>';
+
+						echo '<tbody class="mdc-data-table__content">';
 
 						while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
 
-							echo "<tr><td>{$row['job_id']}</td><td>{$row['file_author']}</td><td>{$row['file_work_type']}</td><td>{$row['file_comment']}</td><td>{$row['file_date_dict']}</td><td>{$row['job_upload_date']}</td><td>{$row['file_status']}</td><td></td></tr>";
+
+							echo "<tr data-row-id=\"{$row['job_id']}\" class=\"mdc-data-table__row\">";
+								echo "<td class=\"mdc-data-table__cell\">{$row['job_id']}</td>
+								<td class=\"mdc-data-table__cell\" id=\"{$row['job_id']}\">{$row['file_author']}</td>
+								<td class=\"mdc-data-table__cell\">{$row['file_work_type']}</td>
+								<td class=\"mdc-data-table__cell\">{$row['file_comment']}</td>
+								<td class=\"mdc-data-table__cell\">{$row['file_date_dict']}</td>
+								<td class=\"mdc-data-table__cell\">{$row['job_upload_date']}</td>
+								<td class=\"mdc-data-table__cell\">{$row['file_status']}</td>";
+							echo '</tr>';
 							}
-						echo "</table>";
+						echo "</tbody>";
 					} else{
-						echo $lang2=='en'?"<p>No matches found</p>":"<p>لا يوجد نتائج</p>";
+						echo "<p>No matches found</p>";
 
 					}
 				} else{

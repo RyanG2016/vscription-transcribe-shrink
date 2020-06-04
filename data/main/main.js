@@ -4,8 +4,8 @@ var g_fileName;
 
 $(document).tooltip({
 	//            track: true
-	items: ':not(#report_ifr)'
-	//	items: ':not(#report_ifr,#TypistName)'
+	// items: ':not(#report_ifr)'
+		items: ':not(#report_ifr,#TypistName, #jobNo)'
 });
 
 $(document).ready(function () {
@@ -30,19 +30,29 @@ $(document).ready(function () {
 	checkBrowser();
 
 	//appends an "active" class to .popup and .popup-content when the "Open" button is clicked
-		$(".button-orange").on("click", function() {
-			var fullAudioSrc = AblePlayerInstances[0].media.src;
-			var tempAudioFileName = fullAudioSrc.split("/").pop();
-			clearTempAudio(tempAudioFileName);
-		});
+	$(".button-orange").on("click", function() {
+		var fullAudioSrc = AblePlayerInstances[0].media.src;
+		var tempAudioFileName = fullAudioSrc.split("/").pop();
+		clearTempAudio(tempAudioFileName);
+	});
 
-		//removes the "active" class to .popup and .popup-content when the "Close" button is clicked
-		$(".close").on("click", function() {
-		  $(".popup-overlay, .popup-content").removeClass("active");
-		});
-		$('#loadBtn').on('click', function (e) {
-			chooseJob();
-		});
+	//removes the "active" class to .popup and .popup-content when the "Close" button is clicked
+	$(".close").on("click", function() {
+		modal.style.display = "none";
+	});
+
+	let modal = document.getElementById("modal");
+	$('#loadBtn').on('click', function (e) {
+		// alert("test");
+		modal.style.display = "block";
+		chooseJob();
+	});
+
+	window.onclick = function(event) {
+		if (event.target == modal) {
+			modal.style.display = "none";
+		}
+	}
 });
 
 $(function () {
@@ -338,8 +348,6 @@ function performClick(elemId) {
 
 function chooseJob() {
 	getTransJobList(addRowHandlers);
-	// Show file load box
-	$(".popup-overlay, .popup-content").addClass("active");
 }
 
 
@@ -532,20 +540,36 @@ function checkVersions(result, checkBrowser) {
 };
 
 function getTransJobList(callback) {
-
+		let maximum_rows_per_page_jobs_list = 2;
 		console.log('Getting Transcription Job List...');
-		const maximum_rows_per_page_jobs_list = 7;
-		var jobListResult = $('.table_data'); //populating fields
+		// const maximum_rows_per_page_jobs_list = 7;
+		var jobListResult = $('.jobs_tbl'); //populating fields
 
 		$.post("data/parts/backend_search.php", {
 			reqcode: 9
 		}).done(function (data) {
 			jobListResult.html(data);
 
+			new mdc.dataTable.MDCDataTable(document.querySelector('.mdc-data-table'));
+			$('.jobs_tbl').DataTable(
+				{
+					lengthChange: false,
+					searching: false,
+					lengthMenu: false,
+					pageLength: maximum_rows_per_page_jobs_list,
+					destroy: true
+					/*"columnDefs": [{
+						"targets": [0],
+						"visible": true,
+						"searchable": false,
+						"orderable": false
+					}]*/
+				}
+			);
 		});
 
 		setTimeout(function() {
-			callback();
+			// callback(); todo
 		}, 1000);
 	}
 function addRowHandlers() {

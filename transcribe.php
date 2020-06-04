@@ -27,10 +27,10 @@ include ('data/parts/constants.php');
 	<link rel="shortcut icon" type="image/png" href="data/images/favicon.png" />
 
 	<!--The tablesort.css is causing some styling conflicts with main page-->
-	<link href='data/thirdparty/scripts/css/styles.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet' />
-	<link href='data/thirdparty/scripts/css/tablesort.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet' />
+<!--	<link href='data/thirdparty/scripts/css/styles.css?v=--><?php //echo $version_control ?><!--' type='text/css' rel='stylesheet' />-->
+<!--	<link href='data/thirdparty/scripts/css/tablesort.css?v=--><?php //echo $version_control ?><!--' type='text/css' rel='stylesheet' />-->
 
-	<link href='data/main/main.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet' />
+	<link href='data/css/transcribe.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet' />
 	<link href='data/main/buttons.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet' />
 
 	<link href='data/fontawesome/css/all.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet' />
@@ -123,6 +123,7 @@ include ('data/parts/constants.php');
 	<script src="data/main/jquery.js"></script>
 	<script src="data/main/garlic.js"></script>
 	<script src="data/main/jquery-ui.js"></script>
+
 	    <!--  MDC Components  -->
     <link href="data/libs/node_modules/material-components-web/dist/material-components-web.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -163,6 +164,9 @@ include ('data/parts/constants.php');
 	<link rel="stylesheet" href="data/dialogues/jquery-confirm.min.css">
 	<script src="data/dialogues/jquery-confirm.min.js"></script>
 
+    <!--  Data table Jquery helping libs  -->
+    <link rel="stylesheet" type="text/css" href="data/libs/DataTables/datatables.css"/>
+    <script type="text/javascript" src="data/libs/DataTables/datatables.js"></script>
 
     <script type="application/javascript">
 
@@ -172,31 +176,12 @@ include ('data/parts/constants.php');
     </script>
 
 </head>
-<!-- <?php include_once("analyticstracking.php") ?> -->
+<!-- <?php //include_once("analyticstracking.php") ?> -->
 
 <body>
 	<div id="message_bar">For best experience and foot control support please download the <a href=https://www.vtexvsi.com/vscription/transcribe/vScription_Transcribe_Installer.msi target="_blank" title="Download Latest Version of vScription Transcribe">vScription Transcribe Application</a></div>
 	<div id="updated_version_bar">There is a newer version of the vScription Transcribe application available. You can <a href=https://www.vtexvsi.com/vscription/transcribe/vScription_Transcribe_Installer.msi target="_blank" title="Download Latest Version of vScription Transcribe">download it here </a></div>
 	<script src="data/main/main.js?v=<?php echo $version_control ?>"> </script>
-
-	<!--Creates the popup body-->
-	<div class="popup-overlay">
-	  <!--Creates the popup content-->
-	  <div class="popup-content">
-		<h2>Job Picker</h2>
-		<p> Filter: Jobs with Status of: Awaiting Transcription, In Progress and Suspended</p>
-		<div class="table_data">
-
-					   <!--Job table goes here-->
-
-		</div>
-		<div class="tblButtons">
-			<!--popup's close button-->
-			<button class="jobOpen">Open</button>
-			<button class="close">Close</button>
-		</div>
-</div>
-	</div>
 
 	<div id="container" style="width: 100%">
 		<div class="form-style-5">
@@ -267,7 +252,7 @@ include ('data/parts/constants.php');
 					</tr>
 				</table>
 
-				<fieldset class="tooltip" style="padding-bottom: 0px">
+				<fieldset class="tooltip" style="padding-bottom: 0">
 
 					<!--	Row 1		-->
 					<input type="text" class="job" id="jobNo" name="jobNo" placeholder="Job/File ID" title="Job/File ID" <?php if($set == 1 && !empty($n1)) {echo 'value="'.$n1."\"";} ?> disabled>
@@ -352,6 +337,29 @@ include ('data/parts/constants.php');
 
 		</div>
 	</div>
+
+    <!-- The Modal -->
+    <div id="modal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <h2>Job Picker</h2>
+            <p><i>Filtering Jobs with Status of: Awaiting Transcription, In Progress and Suspended</i></p>
+            <div class="mdc-data-table">
+            <!--Job table goes here-->
+                <table class="mdc-data-table__table jobs_tbl" aria-label="Jobs List">
+
+                </table>
+            </div>
+
+            <!--<div class="tblButtons">
+                popup's close button
+                <button class="jobOpen">Open</button>
+                <button class="close">Close</button>
+            </div>-->
+        </div>
+
+    </div>
 
 
 </body>
