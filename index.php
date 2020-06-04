@@ -1,5 +1,5 @@
 <?php
-session_start();
+session_start(['cookie_lifetime' => 86400,'cookie_secure' => true,'cookie_httponly' => true]);
 include("data/parts/config.php");
 include('data/parts/constants.php');
 include('data/parts/ping.php');

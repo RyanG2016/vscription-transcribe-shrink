@@ -19,7 +19,7 @@ $ctime = $_SERVER['REQUEST_TIME'];
 		{
 			session_unset();
 			session_destroy();
-			session_start();
+			session_start(['cookie_lifetime' => 86400,'cookie_secure' => true,'cookie_httponly' => true]);
 			$_SESSION['cleared']='session timeout';
 		}
 		else{

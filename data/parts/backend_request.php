@@ -6,7 +6,7 @@ include("config.php");
 include("../../mail.php");
 
 
-session_start();
+session_start(['cookie_lifetime' => 86400,'cookie_secure' => true,'cookie_httponly' => true]);
 include('constants.php');
 	 $lang2 = 'en';
 
