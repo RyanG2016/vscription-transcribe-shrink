@@ -9,6 +9,7 @@ include('data/parts/ping.php');
 if(isset($_SESSION['loggedIn']))
 {
 	unset($_SESSION['counter']);
+    session_regenerate_id(true);
 	//redirect to main
 	if ($_SESSION['role'] == "2") {
 		//User is a System or Client Administrator

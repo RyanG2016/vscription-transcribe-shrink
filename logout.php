@@ -42,6 +42,7 @@ else{//not even loggedIn
 	}		
 	session_unset();
 	session_destroy();
+    session_regenerate_id(true);
 
 	if($rmb)
 	{
