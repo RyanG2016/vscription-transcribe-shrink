@@ -570,12 +570,21 @@ function getTransJobList(callback) {
 		});
 
 		setTimeout(function() {
-			// callback(); todo
+			callback();
 		}, 1000);
 	}
 function addRowHandlers() {
 	console.log("Calling addRowHandler");
-  var table = document.getElementById("translist");
+
+	// var table = $('#example').DataTable();
+	var table = $('.jobs_tbl').DataTable();
+
+	$('.jobs_tbl tbody').on('click', 'tr', function () {
+		var data = table.row( this ).data();
+		alert( 'You clicked on '+data[0]+'\'s row' );
+	} );
+
+	/*var table = document.getElementById("translist");
   var rows = table.getElementsByTagName("tr");
   for (i = 0; i < rows.length; i++) {
     var currentRow = table.rows[i];
@@ -589,7 +598,7 @@ function addRowHandlers() {
       };
     };
     currentRow.ondblclick = createClickHandler(currentRow);
-  }
+  }*/
 }
 
 function toggleClass(el, className) {
