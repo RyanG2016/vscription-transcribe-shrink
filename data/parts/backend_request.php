@@ -767,7 +767,10 @@ if(isset($_REQUEST["reqcode"])){
 			//be one client we are going to simply get the number of rows in the table,
 			//Prepend UM- for prefix and row count padded to 7
 
-			$sql1 = "SELECT count(*) AS num FROM files";
+//			$sql1 = "SELECT file_id+1 AS num FROM files order by file_id desc limit 1";
+			$sql1 = "SELECT (SELECT file_id+1 AS num FROM files order by file_id desc limit 1) AS next_job_id,
+							   (SELECT count(file_id)+1 AS num2 FROM files)   AS next_job_num
+						FROM DUAL";
 			if($stmt = mysqli_prepare($con, $sql1))
 			{
 				if(mysqli_stmt_execute($stmt) ){
@@ -776,12 +779,14 @@ if(isset($_REQUEST["reqcode"])){
 					if(mysqli_num_rows($result) > 0){
 						// Fetch result rows as an associative array
 						while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-							$nextNum = strval($row['num']++);
+							$nextNum = strval($row['next_job_num']);
+							$nextID = strval($row['next_job_id']);
 						}
 					}
 					else {
 						// If there are no records in the DB for this account
 						$nextNum = "1";
+						$nextID = "1";
 					}
 				}
 				else{
