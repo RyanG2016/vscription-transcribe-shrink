@@ -46,22 +46,25 @@ function documentReady() {
 			reqcode: 8
 		}).done(function (data) {
 			jobListResult.html(data);
-			new mdc.dataTable.MDCDataTable(document.querySelector('.mdc-data-table'));
-			$('.jobs_tbl').DataTable(
-				{
-					lengthChange: false,
-					searching: false,
-					lengthMenu: false,
-					pageLength: maximum_rows_per_page_jobs_list,
-					destroy: true
-					/*"columnDefs": [{
-						"targets": [0],
-						"visible": true,
-						"searchable": false,
-						"orderable": false
-					}]*/
-				}
-			);
+			if(data !== "<p>No matches found</p>")
+			{
+				new mdc.dataTable.MDCDataTable(document.querySelector('.mdc-data-table'));
+				$('.jobs_tbl').DataTable(
+					{
+						lengthChange: false,
+						searching: false,
+						lengthMenu: false,
+						pageLength: maximum_rows_per_page_jobs_list,
+						destroy: true
+						/*"columnDefs": [{
+                            "targets": [0],
+                            "visible": true,
+                            "searchable": false,
+                            "orderable": false
+                        }]*/
+					}
+				);
+			}
 		});
 
 
