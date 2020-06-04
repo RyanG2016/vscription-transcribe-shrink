@@ -67,7 +67,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
     <link rel="stylesheet" type="text/css" href="tinymce/js/tinymce/plugins/mention/css/rte-content.css">
 
 
-    <script src="data/main/main.js?v=<?php echo $version_control ?>"></script>
+<!--    <script src="data/main/main.js?v=--><?php //echo $version_control ?><!--"></script>-->
 
     <!--	Scroll Bar Dependencies    -->
 

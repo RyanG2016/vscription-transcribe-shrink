@@ -124,7 +124,7 @@ function resetpw(){
 //	alert(stoken);
 	
 	var a1 = {email:semail,token:stoken,password:spwd};
-	$.post("data/parts/backend_search.php", {reqcode: 42,args:JSON.stringify(a1) }).done(function(){
+	$.post("data/parts/backend_request.php", {reqcode: 42,args:JSON.stringify(a1) }).done(function(){
 		location.href = 'index.php';
 	});	
 	

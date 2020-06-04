@@ -155,7 +155,7 @@ function insertUploadDB(filename) {
 	var vfile_speaker_type = $("#demo_speaker_type").val();
 	var vfile_job_comments = $('#demo_comments').val();
 	var vjob_uploaded_by = $("#logbar").html().split(":")[1].substr(1,$("#logbar").html().split(":")[1].indexOf("|") -1);
-	var vfile_name = filename;
+	//+ filename
 
 	var a1 = {
 		file_author: vfile_author_name,
@@ -164,12 +164,12 @@ function insertUploadDB(filename) {
 		file_speaker_type: vfile_speaker_type,
 		file_comment: vfile_job_comments,
 		job_uploaded_by: vjob_uploaded_by,
-		file_name: vfile_name
+		file_name: filename
 	};
 	console.log(a1);
 
 
-	$.post("data/parts/backend_search.php", {
+	$.post("data/parts/backend_request.php", {
 		reqcode: 39,
 		args: JSON.stringify(a1)
 	}).done(function (data) {
@@ -199,11 +199,7 @@ function validateFields() {
 				passed = 0;
 			}
 
-			if (passed === 1) {
-				return true;
-			} else {
-				return false;
-			}
+			return passed === 1;
 }
 
 document.addEventListener("DOMContentLoaded", documentReady);

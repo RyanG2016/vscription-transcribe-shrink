@@ -221,14 +221,14 @@ function resetpw() {
 	var a1 = {
 		email: semail
 	};
-	$.post("data/parts/backend_search.php", {
+	$.post("data/parts/backend_request.php", {
 		reqcode: 40,
 		args: JSON.stringify(a1)
 	}).done(function (data) {
 		//		alert(data);
 		if (data == 1) //user exists proceed to procedures
 		{
-			$.post("data/parts/backend_search.php", {
+			$.post("data/parts/backend_request.php", {
 				reqcode: 30,
 				args: JSON.stringify(a1)
 			}).done(function (data) {
@@ -303,7 +303,7 @@ function signup() {
 	};
 
 
-	$.post("data/parts/backend_search.php", {
+	$.post("data/parts/backend_request.php", {
 		reqcode: 31,
 		args: JSON.stringify(a1)
 	}).done(function (data) {
@@ -335,7 +335,7 @@ function login() {
 		rememberme: vrememberme
 	};
 
-	$.post("data/parts/backend_search.php", {
+	$.post("data/parts/backend_request.php", {
 		reqcode: 41,
 		args: JSON.stringify(a1)
 	}).done(function (data) {
@@ -362,7 +362,7 @@ function getCountries() {
 
 	var resultDropdown = $('#country'); //populating fields
 
-	$.post("data/parts/backend_search.php", {
+	$.post("data/parts/backend_request.php", {
 		reqcode: 5
 	}).done(function (data) {
 		resultDropdown.html(data);
@@ -375,7 +375,7 @@ function getStates(key) { //0: America, 1: Canada
 
 	var resultDropdown = $('#state'); //populating fields
 
-	$.post("data/parts/backend_search.php", {
+	$.post("data/parts/backend_request.php", {
 		reqcode: key
 	}).done(function (data) {
 		resultDropdown.html(data);

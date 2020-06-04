@@ -153,7 +153,6 @@ include ('data/parts/constants.php');
 	<!--	///// End of Able Player deps   /////-->
 
 	<!--	Transcribe Window    -->
-
 	<script src="data/main/transcribe.js"></script>
 
 	<!--	Scroll Bar Dependencies    -->
@@ -181,7 +180,7 @@ include ('data/parts/constants.php');
 <body>
 	<div id="message_bar">For best experience and foot control support please download the <a href=https://www.vtexvsi.com/vscription/transcribe/vScription_Transcribe_Installer.msi target="_blank" title="Download Latest Version of vScription Transcribe">vScription Transcribe Application</a></div>
 	<div id="updated_version_bar">There is a newer version of the vScription Transcribe application available. You can <a href=https://www.vtexvsi.com/vscription/transcribe/vScription_Transcribe_Installer.msi target="_blank" title="Download Latest Version of vScription Transcribe">download it here </a></div>
-	<script src="data/main/main.js?v=<?php echo $version_control ?>"> </script>
+	<script src="data/main/transcribe.js?v=<?php echo $version_control ?>"> </script>
 
 	<div id="container" style="width: 100%">
 		<div class="form-style-5">
@@ -254,14 +253,14 @@ include ('data/parts/constants.php');
 
 				<fieldset class="tooltip" style="padding-bottom: 0">
 
-					<!--	Row 1		-->
-					<input type="text" class="job" id="jobNo" name="jobNo" placeholder="Job/File ID" title="Job/File ID" <?php if($set == 1 && !empty($n1)) {echo 'value="'.$n1."\"";} ?> disabled>
+					<!--	 Row 1	    -->
+					<input type="text" class="job" id="jobNo" name="jobNo" placeholder="Job/File ID" title="Job/File ID" <?php if($set == 1 && !empty($n1)) {echo 'value="'.$n1."\"";} ?> readonly="readonly">
 					<input type="text" id="authorName" name="authorName" placeholder="Author Name" title="Author Name" <?php if($set == 1 && !empty($n2)) {echo 'value="'.$n2."\"";} ?>>
 					<!--            <input type="text" id="TypistName" name="TypistName" placeholder="Typist Name" title="Typist Name" <?php //if($set == 1 && !empty($cl)) {echo 'value="'.$cl."\"";} ?>  >-->
-					<input type="text" id="TypistName" name="TypistName" placeholder="Typist Name" title="Typist Name" value="<?php echo $popName ?>" disabled>
+					<input type="text" id="TypistName" name="TypistName" placeholder="Typist Name" title="Typist Name" value="<?php echo $popName ?>" readonly="readonly">
 
 					</br>
-					<!--	Row 2		-->
+					<!--	Row 2	    -->
 
 					<!--		Job Type	-->
 					<input type="text" id="jobType" class="jobt" name="jobType" placeholder="Job Type" title="Job Type" <?php if($set == 1 && !empty($jt)) {echo 'value="'.$jt."\"";} ?>>
