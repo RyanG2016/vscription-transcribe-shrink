@@ -53,6 +53,7 @@ function documentReady() {
 					searching: false,
 					lengthMenu: false,
 					pageLength: maximum_rows_per_page_jobs_list,
+					destroy: true
 					/*"columnDefs": [{
 						"targets": [0],
 						"visible": true,
