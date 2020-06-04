@@ -208,8 +208,6 @@ function clear() {
 	$('#report').garlic('destroy');
 	document.title = 'Form';
 	tinyMCE.activeEditor.setContent('');
-
-
 	completePlayer();
 
 	//clearing validation
@@ -239,8 +237,7 @@ $(document).ready(function () {
 			//override complete == true
 			validateForm(true);
 		} else { //empty text area just complete the file
-			console.log("There is no text there to save.");
-			//completePlayer(); //OK
+			completePlayer(); //OK
 		}
 
 
@@ -267,8 +264,8 @@ function completePlayer() {
 	var $completeBtn = $('#completeBtn');
 	//Delete Temp Audio File
 	var fullAudioSrc = AblePlayerInstances[0].media.src;
-	var tempAudioFileName = fullAudioSrc.split("/").pop();
-	clearTempAudio(tempAudioFileName);
+    var tempAudioFileName = fullAudioSrc.split("/").pop();
+    clearTempAudio(tempAudioFileName);
 
 	try {
 		vScriptCallback("AudioComplete", g_fileName); //For vScription Application to move file to complete folder
@@ -461,11 +458,14 @@ function validateForm(override) {
 
 	//        return check;
 	if (check) {
-
 		document.getElementById('form').submit();
 
+		if (override) {
 			completePlayer();
-			clear();
+			clearAfterDownload(false); //ask to complete player = false
+		} else {
+			clearAfterDownload(true);
+		}
 
 
 	} else {
@@ -628,7 +628,5 @@ function clearTempAudio(tempFileName) {
 		});
 
 }
-
-
 
 
