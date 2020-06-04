@@ -352,8 +352,8 @@ function chooseJob() {
 /*----Lookup job details-----*/
 
 function jobLoadLookup(jobNum) {
-		console.log('Getting Transcription Job Details...');
-		var jobDetailsResult = $('.table_data'); //populating fields
+		console.log('Getting Transcription Job Details for job#: ' + jobNum);
+		// var jobDetailsResult = $('.table_data'); //populating fields
 
 	var a1 = {
 		job_id: jobNum
@@ -407,7 +407,7 @@ function loadIntoPlayer(data) {
 				// Show paused UI.
 			});
 	}
-};
+}
 /*----END LOAD FROM SERVER -----*/
 
 
@@ -577,11 +577,13 @@ function addRowHandlers() {
 	console.log("Calling addRowHandler");
 
 	// var table = $('#example').DataTable();
-	var table = $('.jobs_tbl').DataTable();
+	let table = $('.jobs_tbl').DataTable();
 
 	$('.jobs_tbl tbody').on('click', 'tr', function () {
-		var data = table.row( this ).data();
-		alert( 'You clicked on '+data[0]+'\'s row' );
+		let data = table.row( this ).data();
+		let id = data[0];
+		// alert( 'You clicked on '+data[0]+'\'s row' );
+		jobLoadLookup(id);
 	} );
 
 	/*var table = document.getElementById("translist");
