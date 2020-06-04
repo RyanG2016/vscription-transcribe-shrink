@@ -354,8 +354,8 @@ function chooseJob() {
 /*----Lookup job details-----*/
 
 function jobLoadLookup(jobNum) {
-		console.log('Getting Transcription Job Details...');
-		var jobDetailsResult = $('.table_data'); //populating fields
+		console.log('Getting Transcription Job Details for job#: ' + jobNum);
+		// var jobDetailsResult = $('.table_data'); //populating fields
 
 	var a1 = {
 		job_id: jobNum
@@ -409,7 +409,7 @@ function loadIntoPlayer(data) {
 				// Show paused UI.
 			});
 	}
-};
+}
 /*----END LOAD FROM SERVER -----*/
 
 
@@ -540,7 +540,7 @@ function checkVersions(result, checkBrowser) {
 };
 
 function getTransJobList(callback) {
-		let maximum_rows_per_page_jobs_list = 2;
+		let maximum_rows_per_page_jobs_list = 7;
 		console.log('Getting Transcription Job List...');
 		// const maximum_rows_per_page_jobs_list = 7;
 		var jobListResult = $('.jobs_tbl'); //populating fields
@@ -569,12 +569,23 @@ function getTransJobList(callback) {
 		});
 
 		setTimeout(function() {
-			// callback(); todo
+			callback();
 		}, 1000);
 	}
 function addRowHandlers() {
 	console.log("Calling addRowHandler");
-  var table = document.getElementById("translist");
+
+	// var table = $('#example').DataTable();
+	let table = $('.jobs_tbl').DataTable();
+
+	$('.jobs_tbl tbody').on('click', 'tr', function () {
+		let data = table.row( this ).data();
+		let id = data[0];
+		// alert( 'You clicked on '+data[0]+'\'s row' );
+		jobLoadLookup(id);
+	} );
+
+	/*var table = document.getElementById("translist");
   var rows = table.getElementsByTagName("tr");
   for (i = 0; i < rows.length; i++) {
     var currentRow = table.rows[i];
@@ -588,7 +599,7 @@ function addRowHandlers() {
       };
     };
     currentRow.ondblclick = createClickHandler(currentRow);
-  }
+  }*/
 }
 
 function toggleClass(el, className) {
