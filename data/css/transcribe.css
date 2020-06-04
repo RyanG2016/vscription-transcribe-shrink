@@ -539,3 +539,19 @@ table, th, td {
 .mdc-data-table__cell, .mdc-data-table__header-cell{
     height: 32px !important;
 }
+.userinfo {
+    display: inline;
+    font-size: 12px;
+    /*text-align:right;*/
+}
+.userinfo .userinfolbl {
+    float:right;
+    margin: auto;
+    content: attr(data-ln-first);
+}
+.userinfo .typistemail {
+    color: blue;
+    float: right;
+    content: attr(data-ln-last);
+}
+

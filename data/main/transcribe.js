@@ -32,7 +32,7 @@ $(document).ready(function () {
     //appends an "active" class to .popup and .popup-content when the "Open" button is clicked
     $(".button-orange").on("click", function() {
             
-        var typist = $('#TypistName').val();  
+        var typist = $('.typistemail').text();  
         alert(`Typist Name is: ${typist}`);
     });
 
