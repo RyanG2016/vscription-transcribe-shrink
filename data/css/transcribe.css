@@ -429,7 +429,7 @@ table, th, td {
 .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
-    padding-top: 100px; /* Location of the box */
+    padding-top: 20px; /* Location of the box */
     left: 0;
     top: 0;
     width: 100%; /* Full width */
@@ -549,4 +549,8 @@ table, th, td {
     padding-left: 2.5%;
     padding-bottom: 2.5%;
 
+}
+
+.mdc-data-table__cell, .mdc-data-table__header-cell{
+    height: 32px !important;
 }

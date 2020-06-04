@@ -541,7 +541,7 @@ function checkVersions(result, checkBrowser) {
 };
 
 function getTransJobList(callback) {
-		let maximum_rows_per_page_jobs_list = 2;
+		let maximum_rows_per_page_jobs_list = 7;
 		console.log('Getting Transcription Job List...');
 		// const maximum_rows_per_page_jobs_list = 7;
 		var jobListResult = $('.jobs_tbl'); //populating fields
