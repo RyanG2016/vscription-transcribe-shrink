@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 01, 2020 at 01:57 PM
+-- Generation Time: Jun 04, 2020 at 05:39 PM
 -- Server version: 5.7.26
 -- PHP Version: 7.3.9
 
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `vtexvsi_transcribe`
 --
+CREATE DATABASE IF NOT EXISTS `vtexvsi_transcribe` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `vtexvsi_transcribe`;
 
 -- --------------------------------------------------------
 
@@ -26,6 +28,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `cities`
 --
 
+DROP TABLE IF EXISTS `cities`;
 CREATE TABLE `cities` (
   `id` int(11) NOT NULL,
   `country` int(11) NOT NULL COMMENT '0: America, 1: Canada',
@@ -113,6 +116,7 @@ INSERT INTO `cities` (`id`, `country`, `city`) VALUES
 -- Table structure for table `countries`
 --
 
+DROP TABLE IF EXISTS `countries`;
 CREATE TABLE `countries` (
   `id` int(11) NOT NULL,
   `country` varchar(50) COLLATE utf8_bin NOT NULL
@@ -357,6 +361,7 @@ INSERT INTO `countries` (`id`, `country`) VALUES
 -- Table structure for table `files`
 --
 
+DROP TABLE IF EXISTS `files`;
 CREATE TABLE `files` (
   `file_id` int(11) NOT NULL,
   `job_id` varchar(10) NOT NULL,
@@ -372,12 +377,14 @@ CREATE TABLE `files` (
   `file_speaker_type` int(11) NOT NULL DEFAULT '0',
   `file_date_dict` date DEFAULT NULL,
   `file_status` int(11) NOT NULL DEFAULT '0',
+  `audio_length` int(11) DEFAULT NULL,
   `last_audio_position` int(11) DEFAULT '0',
   `job_upload_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `job_uploaded_by` varchar(254) DEFAULT NULL,
   `text_downloaded_date` timestamp NULL DEFAULT NULL,
   `times_text_downloaded_date` int(11) NOT NULL DEFAULT '0',
   `file_transcribed_date` timestamp NULL DEFAULT NULL,
+  `transcribed_by` varchar(254) DEFAULT NULL,
   `typist_comments` varchar(254) DEFAULT NULL,
   `isBillable` tinyint(1) NOT NULL DEFAULT '1',
   `billed` tinyint(1) NOT NULL DEFAULT '0'
@@ -389,25 +396,12 @@ CREATE TABLE `files` (
 -- Table structure for table `file_status_ref`
 --
 
+DROP TABLE IF EXISTS `file_status_ref`;
 CREATE TABLE `file_status_ref` (
   `id` int(11) NOT NULL,
   `j_status_id` int(11) NOT NULL,
   `j_status_name` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `file_status_ref`
---
-
-INSERT INTO `file_status_ref` (`id`, `j_status_id`, `j_status_name`) VALUES
-(25, 0, 'Awaiting Transcription'),
-(26, 1, 'Being Typed'),
-(27, 2, 'Suspended'),
-(28, 3, 'Completed'),
-(29, 4, 'Completed w Incompletes'),
-(30, 5, 'Completed No Text'),
-(31, 6, 'Sent for Speech Rec'),
-(32, 7, 'Speech Rec Complete');
 
 -- --------------------------------------------------------
 
@@ -415,6 +409,7 @@ INSERT INTO `file_status_ref` (`id`, `j_status_id`, `j_status_name`) VALUES
 -- Table structure for table `protect`
 --
 
+DROP TABLE IF EXISTS `protect`;
 CREATE TABLE `protect` (
   `id` int(11) NOT NULL,
   `first_attempt` timestamp NULL DEFAULT NULL,
@@ -432,6 +427,7 @@ CREATE TABLE `protect` (
 -- Table structure for table `tokens`
 --
 
+DROP TABLE IF EXISTS `tokens`;
 CREATE TABLE `tokens` (
   `id` int(11) NOT NULL,
   `email` varchar(100) COLLATE utf8_bin NOT NULL,
@@ -447,6 +443,7 @@ CREATE TABLE `tokens` (
 -- Table structure for table `userlog`
 --
 
+DROP TABLE IF EXISTS `userlog`;
 CREATE TABLE `userlog` (
   `id` int(11) NOT NULL,
   `email` varchar(255) COLLATE utf8_bin NOT NULL,
@@ -461,6 +458,7 @@ CREATE TABLE `userlog` (
 -- Table structure for table `users`
 --
 
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `first_name` varchar(50) COLLATE utf8_bin NOT NULL,
@@ -565,7 +563,7 @@ ALTER TABLE `files`
 -- AUTO_INCREMENT for table `file_status_ref`
 --
 ALTER TABLE `file_status_ref`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `protect`
