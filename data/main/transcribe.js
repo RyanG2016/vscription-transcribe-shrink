@@ -684,20 +684,20 @@ function getCurrentDateTime() {
     var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     var dateTime = date+' '+time;
-    
+
     return dateTime;
 }
 
 function convertFormToRTF() {
     event.preventDefault();
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "formsave.php"); 
+    xhr.open("POST", "formsave.php");
     xhr.onload = function(event){ 
-            console.log(`Response data: ${event.target.response}`);
+            console.log(`Response data: ${xhr.responseText}`);
         //alert("Success, server responded with: " + event.target.response); // raw response
     }; 
     // or onerror, onabort
     var formData = new FormData(document.getElementById("form")); 
     xhr.send(formData);
-    return event.target.response;
+    return xhr.responseText;
 }
