@@ -2,7 +2,10 @@
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_FILES['files'])) {
-        $errors = [];
+        //The uploadResult and uploadMsg elements are added at same time so they can be reference by same index
+        // example: uploadResult[0] and uploadMsg[0] refer to the first file in $_FILES
+        $uploadResult = [];
+        $uploadMsg = [];
         $path = '../uploads/';
         $extensions = ['wav', 'dss', 'ds2', 'mp3', 'ogg'];
 
@@ -26,22 +29,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $file = $path . $file_name;
 
             if (!in_array($file_ext, $extensions)) {
-                $errors[] = 'Extension not allowed: ' . $file_name . ' ' . $file_type;
+                $uploadMsg[] = 'Extension not allowed: ' . $file_name . ' ' . $file_type;
+                $uploadResult[] = "0";
+                //unset($_FILES[$i]); //Remove from files array so it doesn't get inserted into DB
+                continue;
             }
 
-            //Max file upload size is 15MB. PHP is configured for max size of 128MB
-            if ($file_size > 134217728) {
-                $errors[] = 'File size exceeds limit: ' . $file_name . ' ' . $file_type;
+            //Max file upload size is 128MB. PHP is configured for max size of 128MB
+            //if ($file_size > 134217728) {
+            if ($file_size > 1048576) {
+                $uploadMsg[] = 'File size exceeds limit: ' . $file_name . ' ' . $file_type;
+                $uploadResult[] = "0";
+                //unset($_FILES[$i]); //Remove from files array so it doesn't get inserted into DB
+                continue;
             }
 
-            if (empty($errors)) {
-                move_uploaded_file($file_tmp, $file);
-            }
+            //if (empty($errors)) {
+                $uplSuccess = move_uploaded_file($file_tmp, $file);
+                if ($uplSuccess) {
+                    $uploadResult[] = "1";
+                    $uploadMsg[] = "Upload Successful!";
+                } else {
+                    $uploadResult[] = "0";
+                    $uploadMsg[] =  'An error occurred during upload of ' . $file_name . ' ' . $file_type . '.';
+                }
+            //}
 
             $nextFileID++;
             $nextJobNum++;
         }
 
-        if ($errors) print_r($errors);
+        if ($uploadMsg) print_r($uploadMsg);
+        if ($uploadResult) print_r($uploadResult);
+
     }
 }

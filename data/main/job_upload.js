@@ -74,8 +74,8 @@ function documentReady() {
 					body: formData,
 				}).then(response => {
 					if (response.ok) {
-						console.log('Upload was successful');
-
+						console.log('Upload call was successful');
+						console.log(response.text());
 						// insert DB records for all files
 
 						for (let i = 0; i < files.length; i++) {
@@ -88,7 +88,7 @@ function documentReady() {
 						// TODO HIDE LOADING DIALOG & redirect to main.php
 						document.querySelector('.upload_success_message').style.display = "inline-block";
 
-						setTimeout(function () {
+/*						setTimeout(function () {
 							$('.upload_success_message p').html('Upload(s) Successful! ...Will automatically redirect to Job List in 2 seconds')
 							setTimeout(function () {
 								$('.upload_success_message p').html('Upload(s) Successful! ...Will automatically redirect to Job List in 1 seconds')
@@ -96,7 +96,7 @@ function documentReady() {
 									location.href = 'main.php';
 								}, 1000);
 							}, 1000);
-						}, 1000);
+						}, 1000);*/
 
 					} else {
 						// TODO HIDE LOADING DIALOG
