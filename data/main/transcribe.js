@@ -31,9 +31,11 @@ $(document).ready(function () {
 
     //appends an "active" class to .popup and .popup-content when the "Open" button is clicked
     $(".button-orange").on("click", function() {
-            
-        //var typist = $('.typistemail').text();  
-        alert(`Typist Name is: ${loggedInUserEmail}`);
+        $('#jobNo').val('UM-000991');
+        $('#authorName').val('Jimmy Smits');
+        $('#jobType').val('Letter');
+        var rawtext = convertFormToRTF();
+        console.log(`Raw text is: ${rawtext}`);
     });
 
     //removes the "active" class to .popup and .popup-content when the "Close" button is clicked
@@ -629,6 +631,7 @@ function clearTempAudio(tempFileName) {
 }
 
 function updateJobDetailsDB(callback) {
+    var rtfToSave = convertFormToRTF();
     var job_id = $('.job').val();
     console.log('Updating Job Details on DB...');
     var jobLengthStr = $('.able-duration').text().split("/")[1];
@@ -641,6 +644,7 @@ function updateJobDetailsDB(callback) {
     console.log(`Job Status is: 3`);
     console.log(`Transcribe Date is: ${getCurrentDateTime()}`);
     console.log(`Transcribed By: ${transcribed_by}`);
+    console.log(`Raw text value: ${rtfToSave}`);
 
     a1 = {
         job_id: job_id,
@@ -657,7 +661,7 @@ function updateJobDetailsDB(callback) {
         //alert(data);
         setTimeout(function() {
             callback();  
-        }, 500);
+        }, 300);
     });
 }
 
@@ -682,4 +686,18 @@ function getCurrentDateTime() {
     var dateTime = date+' '+time;
     
     return dateTime;
+}
+
+function convertFormToRTF() {
+    event.preventDefault();
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "formsave.php"); 
+    xhr.onload = function(event){ 
+            console.log(`Response data: ${event.target.response}`);
+        //alert("Success, server responded with: " + event.target.response); // raw response
+    }; 
+    // or onerror, onabort
+    var formData = new FormData(document.getElementById("form")); 
+    xhr.send(formData);
+    return event.target.response;
 }
