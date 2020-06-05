@@ -29,8 +29,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $errors[] = 'Extension not allowed: ' . $file_name . ' ' . $file_type;
             }
 
-            //Max file upload size is 15MB. PHP is configured for max size of 32MB
-            if ($file_size > 15728640) {
+            //Max file upload size is 15MB. PHP is configured for max size of 128MB
+            if ($file_size > 134217728) {
                 $errors[] = 'File size exceeds limit: ' . $file_name . ' ' . $file_type;
             }
 
