@@ -6,6 +6,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $path = '../uploads/';
         $extensions = ['wav', 'dss', 'ds2', 'mp3', 'ogg'];
 
+        $nextFileID = $_POST["nextFileID"];
+        $nextJobNum = $_POST["nextJobNum"];
+
         $all_files = count($_FILES['files']['tmp_name']);
 
         for ($i = 0; $i < $all_files; $i++) {
@@ -15,6 +18,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $file_size = $_FILES['files']['size'][$i];
             $array = explode('.', $_FILES['files']['name'][$i]);
             $file_ext = strtolower(end($array));
+
+            // enumerating file names
+            $enumName = "F".$nextFileID."_UM".$nextJobNum."_".str_replace(" ","_", $file_name);
+            $file_name = $enumName;
 
             $file = $path . $file_name;
 
@@ -30,6 +37,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (empty($errors)) {
                 move_uploaded_file($file_tmp, $file);
             }
+
+            $nextFileID++;
+            $nextJobNum++;
         }
 
         if ($errors) print_r($errors);

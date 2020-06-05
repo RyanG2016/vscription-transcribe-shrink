@@ -8,7 +8,7 @@ function documentReady() {
 	const chooseBtn = document.getElementById('upload_btn_lbl');
 	const reset = document.getElementById('clear_btn');
 	const preview = document.querySelector('.preview');
-	const url = 'process.php'
+	const process_files_url = 'process.php'
 	const form = document.querySelector('form')
 
 	new mdc.ripple.MDCRipple(document.querySelector('.clear_btn'));
@@ -46,31 +46,72 @@ function documentReady() {
 			const files = document.querySelector('[type=file]').files
 			const formData = new FormData()
 
-
+			// Adding all files to formData //
 			for (let i = 0; i < files.length; i++) {
 				let file = files[i]
-
 				formData.append('files[]', file)
 				console.log(files[i]);
-				insertUploadDB(files[i].name);
 			}
 
-			fetch(url, {
-				method: 'POST',
-				body: formData,
-			}).then(response => {
-				if (response.ok) {
-					document.querySelector('.upload_success_message').style.display = "inline-block";
-					console.log('Upload was successful');
-					resetFiles();
+			// TODO SHOULD SHOW A LOADING DIALOG
 
-				} else {
-					document.querySelector('.upload_failed_message').style.display = "inline-block";
-					console.log('Upload Failed. Please try again');
-				}
-				//console.log(response)
-			})
-		} else {
+
+			//** Get next jobID & jobNumber **//
+			$.post("data/parts/backend_request.php", {
+				reqcode: 60
+				// ,args: JSON.stringify(arg)
+			}).done(function (data) {
+				let nextNums = JSON.parse(data);
+				let nextJobID = nextNums.next_job_id;
+				let nextJobNum = nextNums.next_job_num;
+
+				formData.append("nextFileID", nextJobID);
+				formData.append("nextJobNum", nextJobNum);
+
+				//** Upload Files to the server **//
+				fetch(process_files_url, {
+					method: 'POST',
+					body: formData,
+				}).then(response => {
+					if (response.ok) {
+						console.log('Upload was successful');
+
+						// insert DB records for all files
+
+						for (let i = 0; i < files.length; i++) {
+							insertUploadDB(files[i].name, nextJobID, nextJobNum);
+							nextJobNum++;
+							nextJobID++;
+						}
+
+						resetFiles();
+						// TODO HIDE LOADING DIALOG & redirect to main.php
+						document.querySelector('.upload_success_message').style.display = "inline-block";
+
+						setTimeout(function () {
+							$('.upload_success_message p').html('Upload(s) Successful! ...Will automatically redirect to Job List in 2 seconds')
+							setTimeout(function () {
+								$('.upload_success_message p').html('Upload(s) Successful! ...Will automatically redirect to Job List in 1 seconds')
+								setTimeout(function () {
+									location.href = 'main.php';
+								}, 1000);
+							}, 1000);
+						}, 1000);
+
+					} else {
+						// TODO HIDE LOADING DIALOG
+						document.querySelector('.upload_failed_message').style.display = "inline-block";
+						console.log('Upload Failed. Please try again');
+					}
+					//console.log(response)
+				})
+
+
+			});
+
+		}
+		else {
+			 	// TODO HIDE THE DIALOG
 				alert("Please fill in required fields");
 		}
 	})
@@ -148,14 +189,14 @@ function documentReady() {
 }
 
 
-function insertUploadDB(filename) {
+function insertUploadDB(filename, nextFileID, nextJobNum) {
 	var vfile_author_name = $('.demo_author').val();
 	var vfile_job_type = $("#demo_job_type option:selected").html();
 	var vfile_dict_date = $('.demo_dictdate').val();
 	var vfile_speaker_type = $("#demo_speaker_type").val();
 	var vfile_job_comments = $('#demo_comments').val();
 	var vjob_uploaded_by = $("#logbar").html().split(":")[1].substr(1,$("#logbar").html().split(":")[1].indexOf("|") -1);
-	//+ filename
+	var vfilename = "F"+nextFileID+"_UM"+nextJobNum + "_" + filename.replace(" ","_");
 
 	var a1 = {
 		file_author: vfile_author_name,
@@ -164,7 +205,7 @@ function insertUploadDB(filename) {
 		file_speaker_type: vfile_speaker_type,
 		file_comment: vfile_job_comments,
 		job_uploaded_by: vjob_uploaded_by,
-		file_name: filename
+		file_name: vfilename
 	};
 	console.log(a1);
 
@@ -174,9 +215,9 @@ function insertUploadDB(filename) {
 		args: JSON.stringify(a1)
 	}).done(function (data) {
 		//console.log(data);
-		setTimeout(function () {
-			location.href = 'main.php';
-		}, 3000);
+		// setTimeout(function () {
+		// 	// location.href = 'main.php';
+		// }, 3000);
 		//alert(data);
 	});
 

@@ -1132,7 +1132,44 @@ if(isset($_REQUEST["reqcode"])){
 			sendEmail(5,$a,$token,false);
 			break;
 
-			
+		case 60:
+
+			$sql1 = "SELECT (SELECT AUTO_INCREMENT FROM information_schema.TABLES 
+						WHERE TABLE_SCHEMA = 'vtexvsi_transcribe' AND TABLE_NAME = 'files') AS next_job_id, 
+       					(SELECT count(file_id)+1 AS num2 FROM files where job_uploaded_by = '".$_SESSION['uEmail']."') AS next_job_num
+						FROM DUAL";
+
+			if($stmt = mysqli_prepare($con, $sql1))
+			{
+				if(mysqli_stmt_execute($stmt)){
+					$result = mysqli_stmt_get_result($stmt);
+					// Check number of rows in the result set
+					if(mysqli_num_rows($result) > 0){
+						// Fetch result rows as an associative array
+						while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+							$nextNum = strval($row['next_job_num']);
+							$nextID = strval($row['next_job_id']);
+
+							$numbers = array(
+								"next_job_id" => $nextID,
+								"next_job_num" => $nextNum
+							);
+							echo json_encode($numbers);
+						}
+					}
+					else {
+						// If there are no records in the DB for this account
+						$numbers = array(
+							"next_job_id" => "1",
+							"next_job_num" => "1"
+						);
+						echo json_encode($numbers);
+					}
+				}
+				else{
+					//If the sql execute statement fails
+				}
+			}
 			
 	} //switch end
 	
