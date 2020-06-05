@@ -34,8 +34,9 @@ $(document).ready(function () {
         $('#jobNo').val('UM-000991');
         $('#authorName').val('Jimmy Smits');
         $('#jobType').val('Letter');
-        var rawtext = convertFormToRTF();
-        console.log(`Raw text is: ${rawtext}`);
+        // var rawtext = convertFormToRTF();
+        convertFormToRTF(); // continue to responseReceived function on line 708
+
     });
 
     //removes the "active" class to .popup and .popup-content when the "Close" button is clicked
@@ -695,9 +696,16 @@ function convertFormToRTF() {
     xhr.onload = function(event){ 
             console.log(`Response data: ${xhr.responseText}`);
         //alert("Success, server responded with: " + event.target.response); // raw response
+        // return xhr.responseText;
+        responseReceived(xhr.responseText)
     }; 
     // or onerror, onabort
     var formData = new FormData(document.getElementById("form")); 
     xhr.send(formData);
-    return xhr.responseText;
+
+}
+
+function responseReceived(rawtext)
+{
+    console.log(`Raw text is: ${rawtext}`);
 }
