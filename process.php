@@ -24,21 +24,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // enumerating file names
             $enumName = "F".$nextFileID."_UM".$nextJobNum."_".str_replace(" ","_", $file_name);
+            $orig_filename = $file_name;
             $file_name = $enumName;
 
             $file = $path . $file_name;
 
             if (!in_array($file_ext, $extensions)) {
-                $uploadMsg[] = 'Extension not allowed: ' . $file_name . ' ' . $file_type;
+                $uploadMsg[] = '0,Extension not allowed,' . $orig_filename . ',' . $file_name . ' ' . $file_type;
                 $uploadResult[] = "0";
-                //unset($_FILES[$i]); //Remove from files array so it doesn't get inserted into DB
                 continue;
             }
 
             //Max file upload size is 128MB. PHP is configured for max size of 128MB
             //if ($file_size > 134217728) {
             if ($file_size > 1048576) {
-                $uploadMsg[] = 'File size exceeds limit: ' . $file_name . ' ' . $file_type;
+                $uploadMsg[] = '0,File size exceeds limit,' . $orig_filename . ',' . $file_name . ' ' . $file_type;            
                 $uploadResult[] = "0";
                 //unset($_FILES[$i]); //Remove from files array so it doesn't get inserted into DB
                 continue;
@@ -48,10 +48,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $uplSuccess = move_uploaded_file($file_tmp, $file);
                 if ($uplSuccess) {
                     $uploadResult[] = "1";
-                    $uploadMsg[] = "Upload Successful!";
+                  $uploadMsg[] = '1,Upload Successful!,' . $orig_filename . ',' . $file_name . ' ' . $file_type;            
                 } else {
-                    $uploadResult[] = "0";
-                    $uploadMsg[] =  'An error occurred during upload of ' . $file_name . ' ' . $file_type . '.';
+                $uploadResult[] = "0";
+                  $uploadMsg[] = '0,An error occurred during upload,' . $orig_filename . ',' . $file_name . ' ' . $file_type;                           
                 }
             //}
 
@@ -59,8 +59,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $nextJobNum++;
         }
 
-        if ($uploadMsg) print_r($uploadMsg);
-        if ($uploadResult) print_r($uploadResult);
+        header('Content-Type: application/json');
+        echo json_encode(array_values($uploadMsg), JSON_FORCE_OBJECT | JSON_PRETTY_PRINT);
+        //echo json_encode($uploadResult);
+        //if ($uploadMsg) print_r($uploadMsg);
+        //if ($uploadResult) print_r($uploadResult);
 
     }
 }
