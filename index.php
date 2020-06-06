@@ -290,12 +290,12 @@ isset($_SESSION['uEmail'])?$uEmail = $_SESSION['uEmail']:$uEmail = "";
 						</div>
 					</div>
 
-					<div class="text-center p-t-15" id="info">
+					<div class="text-center p-t-15" id="info" hidden>
 						<span class="txt1" id="btmtxt1">
 							Don’t have an account?
 						</span>
 
-						<a class="txt2" href="#" id="btmtxt2">
+						<a class="txt2" href="#" id="btmtxt2" hidden>
 							Sign Up
 						</a>
 					</div>
