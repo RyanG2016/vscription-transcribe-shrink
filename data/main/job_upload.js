@@ -8,8 +8,9 @@ function documentReady() {
 	const chooseBtn = document.getElementById('upload_btn_lbl');
 	const reset = document.getElementById('clear_btn');
 	const preview = document.querySelector('.preview');
-	const process_files_url = 'process.php'
-	const form = document.querySelector('form')
+	const process_files_url = 'process.php';
+	const backend_url = 'data/parts/backend_request.php';
+	const form = document.querySelector('form');
 
 	new mdc.ripple.MDCRipple(document.querySelector('.clear_btn'));
 	new mdc.ripple.MDCRipple(document.querySelector('.upload_btn_lbl'));
@@ -67,24 +68,29 @@ function documentReady() {
 
 				formData.append("nextFileID", nextJobID);
 				formData.append("nextJobNum", nextJobNum);
-
+				formData.append("reqcode", 61);
+				formData.append("authorName", $('.demo_author').val());
+				formData.append("jobType", $("#demo_job_type option:selected").html());
+				formData.append("dictDate", $('.demo_dictdate').val());
+				formData.append("speakerType", $("#demo_speaker_type").val());
+				formData.append("comments", $('#demo_comments').val());
+						
+				
 				//** Upload Files to the server **//
-				fetch(process_files_url, {
+				fetch(backend_url, {
 					method: 'POST',
 					body: formData,
 				}).then(response => {
+					response.text() 
+					.then(data => {
 					if (response.ok) {
+						console.log(data);
 						console.log('Upload call was successful');
-						console.log(response.text());
-						// insert DB records for all files
-
-						for (let i = 0; i < files.length; i++) {
-							insertUploadDB(files[i].name, nextJobID, nextJobNum);
-							nextJobNum++;
-							nextJobID++;
-						}
-
-						resetFiles();
+						var responseArr = JSON.parse(data);
+						console.log(`Full JSON object: ${JSON.stringify(responseArr)}`);
+						
+						//Parse the HTML string(s) together so they can be inserted into the DOM html
+						
 						// TODO HIDE LOADING DIALOG & redirect to main.php
 						document.querySelector('.upload_success_message').style.display = "inline-block";
 
@@ -106,9 +112,9 @@ function documentReady() {
 					//console.log(response)
 				})
 
-
 			});
 
+		})
 		}
 		else {
 			 	// TODO HIDE THE DIALOG
@@ -188,40 +194,6 @@ function documentReady() {
 	}
 }
 
-
-function insertUploadDB(filename, nextFileID, nextJobNum) {
-	var vfile_author_name = $('.demo_author').val();
-	var vfile_job_type = $("#demo_job_type option:selected").html();
-	var vfile_dict_date = $('.demo_dictdate').val();
-	var vfile_speaker_type = $("#demo_speaker_type").val();
-	var vfile_job_comments = $('#demo_comments').val();
-	var vjob_uploaded_by = $("#logbar").html().split(":")[1].substr(1,$("#logbar").html().split(":")[1].indexOf("|") -1);
-	var vfilename = "F"+nextFileID+"_UM"+nextJobNum + "_" + filename.replace(" ","_");
-
-	var a1 = {
-		file_author: vfile_author_name,
-		file_work_type: vfile_job_type,
-		file_dict_date: vfile_dict_date,
-		file_speaker_type: vfile_speaker_type,
-		file_comment: vfile_job_comments,
-		job_uploaded_by: vjob_uploaded_by,
-		file_name: vfilename
-	};
-	console.log(a1);
-
-
-	$.post("data/parts/backend_request.php", {
-		reqcode: 39,
-		args: JSON.stringify(a1)
-	}).done(function (data) {
-		//console.log(data);
-		// setTimeout(function () {
-		// 	// location.href = 'main.php';
-		// }, 3000);
-		//alert(data);
-	});
-
-}
 /////////////////////////////////////////
 function validateFields() {
 			var passed = 1;

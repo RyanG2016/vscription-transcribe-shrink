@@ -762,15 +762,12 @@ if(isset($_REQUEST["reqcode"])){
 
 			/*--------------------------------*/
 			case 39://INSERTS FILE UPLOAD DATA/////////
+			//We can remove this as it as been included with case 61
+			
 
 			// Get next job number. Since this is an interm solution and there will only
 			//be one client we are going to simply get the number of rows in the table,
 			//Prepend UM- for prefix and row count padded to 7
-
-//			$sql1 = "SELECT file_id+1 AS num FROM files order by file_id desc limit 1";
-//			$sql1 = "SELECT (SELECT file_id+1 AS num FROM files order by file_id desc limit 1) AS next_job_id,
-//							   (SELECT count(file_id)+1 AS num2 FROM files)   AS next_job_num
-//						FROM DUAL";
 
 			$sql1 = "SELECT (SELECT AUTO_INCREMENT FROM information_schema.TABLES 
 						WHERE TABLE_SCHEMA = 'vtexvsi_transcribe' AND TABLE_NAME = 'files') AS next_job_id, 
@@ -819,39 +816,7 @@ if(isset($_REQUEST["reqcode"])){
 			VALUES (?,?,?,?,?,?,?,?)";
 
 
-			if($stmt = mysqli_prepare($con, $sql))
-			{
 
-				if( !$stmt->bind_param("ssssisss", $jobid, $author, $worktype, $dictdate, $speakertype, $comment, $uploadedby, $filename) )
-				{
-
-				die( "Error in bind_param: (" .$con->errno . ") " . $con->error);
-
-				}
-
-				// echo $sql;
-				$B = mysqli_stmt_execute($stmt);
-
-
-				if($B){
-				$result = mysqli_stmt_get_result($stmt);
-				echo 'ok';
-				}
-				else{
-				"ERROR: Was not able to execute $sql. " . mysqli_error(1);
-				die( "Execution Error: (" .$con->errno . ") " . $con->error);
-				echo 'dup';
-				}
-
-			}
-			else
-			{
-			echo "ERROR: Could not able to execute $sql. " . mysqli_error(1);
-			die( "Execution Error: (" .$con->errno . ") " . $con->error);
-
-			}
-			// Close statement
-			mysqli_stmt_close($stmt);
 
 			break;
 			
@@ -1132,6 +1097,7 @@ if(isset($_REQUEST["reqcode"])){
 			sendEmail(5,$a,$token,false);
 			break;
 
+			//JOB UPLOADER CASES
 		case 60:
 
 			$sql1 = "SELECT (SELECT AUTO_INCREMENT FROM information_schema.TABLES 
@@ -1171,11 +1137,97 @@ if(isset($_REQUEST["reqcode"])){
 				}
 			}
 			
+			mysqli_stmt_close($stmt);
+			
+			break;
+			
+		case 61:		
+			// InsertToDB Function 
+
+			// TODO Add Mime check for files in case someone tries to upload a file with supported extension
+			// but it isn't that filetype
+			// TODO
+			// I think that the jobnumber function needs to be enhanced. If a user is uploading many files at once
+			// and another user is uploading at the same time, there could be conflictss since subseuqent job numbers during
+			// a multiple file upload is just incrementing the nextJobNum count without checking it may already have been used.
+			
+			// Is this conditional check even needed? request method should always be post but maybe this is a 
+			// security precaution or best practice?
+			if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+				if (isset($_FILES['files'])) {
+					$uploadResult = [];
+					$uploadMsg = [];
+					$path = '../../../uploads/';
+					$extensions = ['wav', 'dss', 'ds2', 'mp3', 'ogg'];
+					$nextFileID = $_POST["nextFileID"];
+					$nextJobNum = $_POST["nextJobNum"];
+					$authorName = $_POST["authorName"];
+					$jobType = $_POST["jobType"];
+					$dictDate = $_POST["dictDate"];
+					$speakerType = $_POST["speakerType"];
+					$comments = $_POST["comments"];
+					$all_files = count($_FILES['files']['tmp_name']);
+
+					for ($i = 0; $i < $all_files; $i++) {
+						$file_name = $_FILES['files']['name'][$i];
+						$file_tmp = $_FILES['files']['tmp_name'][$i];
+						$file_type = $_FILES['files']['type'][$i];
+						$file_size = $_FILES['files']['size'][$i];
+						$array = explode('.', $_FILES['files']['name'][$i]);
+						$file_ext = strtolower(end($array));
+						if (isset($fileDemos)) {
+							unset($fileDemos);
+						}
+
+						// enumerating file names
+						$enumName = "F".$nextFileID."_UM".$nextJobNum."_".str_replace(" ","_", $file_name);
+						$orig_filename = $file_name;
+						$file_name = $enumName;
+						$file = $path . $file_name;
+						
+						//Building demographic array for DB insert function call
+						$fileDemos = array($nextFileID, $nextJobNum, $authorName, $jobType, $dictDate, $speakerType, $comments,$orig_filename, $file_name); 
+
+						if (!in_array($file_ext, $extensions)) {
+							$uploadMsg[] = "<li>'File: ' $orig_filename . ' - UPLOAD FAILED (Extension not allowed)'</li>";              
+							continue;
+						}
+
+						//Max file upload size is 128MB. PHP is configured for max size of 128MB
+						//if ($file_size > 134217728) {
+						if ($file_size > 1048576) {
+							$uploadMsg[] = "<li>File: $orig_filename - <span style='color:red;'>UPLOAD FAILED </span>(File size exceeds limit)</li>";              
+							continue;
+						}
+
+							$uplSuccess = move_uploaded_file($file_tmp, $file);
+							if ($uplSuccess) {
+								$result = insertToDB($con,$fileDemos);
+								if ($result) {
+									$uploadMsg[] = "<li>File: $orig_filename - <span style='color:green;'>UPLOADED SUCCESSFULLY</span></li>";  						
+								} else {
+									$uploadMsg[] = "<li>'File: ' $orig_filename . ' - FAILED (File uploaded but error writing to database)'<li>";  								
+								}     
+							} else {
+							  $uploadMsg[] = "<li>'File: ' . $orig_filename . ' - UPLOAD FAILED (An error occurred during upload)'</li>";                           
+							}
+
+						$nextFileID++;
+						$nextJobNum++;
+					}
+
+					header('Content-Type: application/json');
+					echo json_encode(array_values($uploadMsg), JSON_FORCE_OBJECT | JSON_PRETTY_PRINT);
+					//echo json_encode(array_values($tableInsertDemos), JSON_FORCE_OBJECT | JSON_PRETTY_PRINT);
+					//echo ($result);
+
+				}
+
+				
+			}; //Closing brace for opening If statement case 61
+			
+			
 	} //switch end
-	
-	
-	
-	
 	
 	
 	
@@ -1315,6 +1367,51 @@ function random_filename($length, $directory = '', $extension = '')
     } while (file_exists($dir . '/' . $key . (!empty($extension) ? '.' . $extension : '')));
 
     return $key . (!empty($extension) ? '.' . $extension : '');
+}
+
+function insertToDB($dbcon, $input) {
+	$con = $dbcon;
+	$nextFileID = $input[0];
+	$nextNum = $input[1];
+	$authorName = $input[2];
+	$jobType = $input[3];
+	$dictDate = $input[4];
+	$speakerType = $input[5];
+	$comments = $input[6];
+	$orig_filename = $input[7];
+	$file_name = $input[8];
+	$uploadedBy = $_SESSION['uEmail'];
+	
+	$nextJobNum = "UM-".str_pad($nextNum, 7, "0", STR_PAD_LEFT);
+
+	$sql = "INSERT INTO files (job_id, file_author, file_work_type, file_date_dict, file_speaker_type, file_comment, job_uploaded_by, filename, orig_filename) VALUES (?,?,?,?,?,?,?,?,?)";		
+
+	if($stmt = mysqli_prepare($con, $sql))
+	{
+
+		if( !$stmt->bind_param("ssssissss", $nextJobNum, $authorName, $jobType, $dictDate, $speakerType, $comments, $uploadedBy, $file_name, $orig_filename) )
+		{
+			die( "Error in bind_param: (" .$con->errno . ") " . $con->error);
+		}
+		$B = mysqli_stmt_execute($stmt);
+		if($B){
+			$result = mysqli_stmt_get_result($stmt);
+			return true;
+		}
+		else{
+			"ERROR: Was not able to execute $sql. " . mysqli_error($con);
+			die( "Execution Error: (" .$con->errno . ") " . $con->error);
+			echo 'dup';
+		}
+	}
+	else
+	{
+		echo "ERROR: Could not prepare to execute $sql. " . mysqli_error($con);
+		die( "Execution Error: (" .$con->errno . ") " . $con->error);
+
+	}
+	// Close statement
+	//mysqli_stmt_close($stmt); //WE need to reuse it. It will get closed when the function closes
 }
 
 

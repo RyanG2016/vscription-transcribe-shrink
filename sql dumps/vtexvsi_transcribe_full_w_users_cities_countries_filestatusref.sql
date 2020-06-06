@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 04, 2020 at 05:39 PM
+-- Generation Time: Jun 06, 2020 at 04:26 PM
 -- Server version: 5.7.26
 -- PHP Version: 7.3.9
 
@@ -21,6 +21,61 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE IF NOT EXISTS `vtexvsi_transcribe` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `vtexvsi_transcribe`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `access`
+--
+
+DROP TABLE IF EXISTS `access`;
+CREATE TABLE `access` (
+  `access_id` int(11) NOT NULL,
+  `acc_id` int(11) NOT NULL,
+  `uid` int(11) NOT NULL,
+  `username` varchar(255) COLLATE utf8_bin NOT NULL,
+  `acc_role` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `accounts`
+--
+
+DROP TABLE IF EXISTS `accounts`;
+CREATE TABLE `accounts` (
+  `acc_id` int(11) NOT NULL,
+  `enabled` tinyint(1) NOT NULL DEFAULT '1',
+  `billable` tinyint(1) NOT NULL DEFAULT '1',
+  `acc_name` varchar(255) COLLATE utf8_bin NOT NULL,
+  `acc_retention_time` int(11) NOT NULL,
+  `acc_creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `bill_rate1` decimal(10,0) NOT NULL,
+  `bill_rate1_type` int(11) NOT NULL,
+  `bill_rate1_TAT` int(11) NOT NULL,
+  `bill_rate1_desc` varchar(255) COLLATE utf8_bin NOT NULL,
+  `bill_rate2` decimal(10,0) NOT NULL,
+  `bill_rate2_type` int(11) NOT NULL,
+  `bill_rate2_TAT` int(11) NOT NULL,
+  `bill_rate2_desc` varchar(255) COLLATE utf8_bin NOT NULL,
+  `bill_rate3` decimal(10,0) NOT NULL,
+  `bill_rate3_type` int(11) NOT NULL,
+  `bill_rate3_TAT` int(11) NOT NULL,
+  `bill_rate3_desc` varchar(255) COLLATE utf8_bin NOT NULL,
+  `bill_rate4` decimal(10,0) NOT NULL,
+  `bill_rate4_type` int(11) NOT NULL,
+  `bill_rate4_TAT` int(11) NOT NULL,
+  `bill_rate4_desc` varchar(255) COLLATE utf8_bin NOT NULL,
+  `bill_rate5` decimal(10,0) NOT NULL,
+  `bill_rate5_type` int(11) NOT NULL,
+  `bill_rate5_TAT` int(11) NOT NULL,
+  `bill_rate5_desc` varchar(255) COLLATE utf8_bin NOT NULL,
+  `lifetime_minutes` int(11) NOT NULL,
+  `work_types` text COLLATE utf8_bin NOT NULL,
+  `next_job_tally` int(11) NOT NULL,
+  `act_log_retention_time` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
@@ -368,6 +423,7 @@ CREATE TABLE `files` (
   `file_type` int(11) DEFAULT NULL,
   `original_audio_type` int(11) DEFAULT NULL,
   `filename` varchar(254) DEFAULT NULL,
+  `orig_filename` varchar(254) DEFAULT NULL,
   `fileAudioBlob` mediumblob,
   `fileTextBlob` mediumblob,
   `file_tag` varchar(254) DEFAULT NULL,
@@ -377,14 +433,12 @@ CREATE TABLE `files` (
   `file_speaker_type` int(11) NOT NULL DEFAULT '0',
   `file_date_dict` date DEFAULT NULL,
   `file_status` int(11) NOT NULL DEFAULT '0',
-  `audio_length` int(11) DEFAULT NULL,
   `last_audio_position` int(11) DEFAULT '0',
   `job_upload_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `job_uploaded_by` varchar(254) DEFAULT NULL,
   `text_downloaded_date` timestamp NULL DEFAULT NULL,
   `times_text_downloaded_date` int(11) NOT NULL DEFAULT '0',
   `file_transcribed_date` timestamp NULL DEFAULT NULL,
-  `transcribed_by` varchar(254) DEFAULT NULL,
   `typist_comments` varchar(254) DEFAULT NULL,
   `isBillable` tinyint(1) NOT NULL DEFAULT '1',
   `billed` tinyint(1) NOT NULL DEFAULT '0'
@@ -402,6 +456,20 @@ CREATE TABLE `file_status_ref` (
   `j_status_id` int(11) NOT NULL,
   `j_status_name` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `file_status_ref`
+--
+
+INSERT INTO `file_status_ref` (`id`, `j_status_id`, `j_status_name`) VALUES
+(25, 0, 'Awaiting Transcription'),
+(26, 1, 'Being Typed'),
+(27, 2, 'Suspended'),
+(28, 3, 'Completed'),
+(29, 4, 'Completed w Incompletes'),
+(30, 5, 'Completed No Text'),
+(31, 6, 'Sent for Speech Rec'),
+(32, 7, 'Speech Rec Complete');
 
 -- --------------------------------------------------------
 
@@ -424,6 +492,19 @@ CREATE TABLE `protect` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `roles`
+--
+
+DROP TABLE IF EXISTS `roles`;
+CREATE TABLE `roles` (
+  `role_id` int(11) NOT NULL,
+  `role_name` varchar(23) COLLATE utf8_bin NOT NULL,
+  `role_desc` varchar(255) COLLATE utf8_bin DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tokens`
 --
 
@@ -435,6 +516,22 @@ CREATE TABLE `tokens` (
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `used` int(11) NOT NULL DEFAULT '0',
   `token_type` int(11) NOT NULL DEFAULT '4' COMMENT '4:pwd reset, 5:verify email'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `typist_log`
+--
+
+DROP TABLE IF EXISTS `typist_log`;
+CREATE TABLE `typist_log` (
+  `tlog_id` int(11) NOT NULL,
+  `uid` int(11) NOT NULL COMMENT 'typist user id',
+  `job_id` int(11) NOT NULL COMMENT 'job working on',
+  `job_start_date` timestamp NULL DEFAULT NULL,
+  `job_complete_date` timestamp NULL DEFAULT NULL,
+  `job_length` int(11) NOT NULL COMMENT 'audio file length in sec'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
@@ -473,20 +570,37 @@ CREATE TABLE `users` (
   `plan_id` int(11) NOT NULL,
   `account_status` int(11) NOT NULL,
   `unlock_time` timestamp NULL DEFAULT NULL,
-  `newsletter` int(11) NOT NULL
+  `newsletter` int(11) NOT NULL,
+  `shortcuts` text COLLATE utf8_bin NOT NULL,
+  `dictionary` text COLLATE utf8_bin NOT NULL,
+  `email_notification` tinyint(1) NOT NULL,
+  `enabled` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `country`, `city`, `state`, `registeration_date`, `last_ip_address`, `plan_id`, `account_status`, `unlock_time`, `newsletter`) VALUES
-(1, 'Ryan', 'Gaudet', 'ryangaudet@me.com', '$2y$10$DObJNzsN0Ke5v1OGlVSlbefSL6.K5KpfKrKkcK4TJkNS8dcIVs8x2', 'Canada', 'Winnipeg', 'Manitoba', '2020-05-21 02:33:37', '127.0.0.1', 3, 1, NULL, 0),
-(2, 'Ryan', 'Gaudet', 'ryan.gaudet@gmail.com', '$2y$10$Qp45x8wvdFIkJNvn1luzK.3evB/.qVcZsC7mPZH18XySCtvQKbfxi', 'Canada', 'Winnipeg', 'Manitoba', '2020-05-21 20:33:19', '127.0.0.1', 2, 1, NULL, 0);
+INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `country`, `city`, `state`, `registeration_date`, `last_ip_address`, `plan_id`, `account_status`, `unlock_time`, `newsletter`, `shortcuts`, `dictionary`, `email_notification`, `enabled`) VALUES
+(1, 'Ryan', 'Gaudet', 'ryangaudet@me.com', '$2y$10$DObJNzsN0Ke5v1OGlVSlbefSL6.K5KpfKrKkcK4TJkNS8dcIVs8x2', 'Canada', 'Winnipeg', 'Manitoba', '2020-05-21 02:33:37', '127.0.0.1', 3, 1, NULL, 0, '', '', 0, 0),
+(2, 'Ryan', 'Gaudet', 'ryan.gaudet@gmail.com', '$2y$10$Qp45x8wvdFIkJNvn1luzK.3evB/.qVcZsC7mPZH18XySCtvQKbfxi', 'Canada', 'Winnipeg', 'Manitoba', '2020-05-21 20:33:19', '127.0.0.1', 2, 1, NULL, 0, '', '', 0, 0),
+(3, 'Hossam', 'Elwahsh', 'hacker2894@gmail.com', '$2y$10$UIesrEKKKrNBwmpNcx8IoufJ3KUSKnzgZ7bA2wMaCsmblh9iyRkVS', 'Egypt', 'Alex', '', '2020-05-31 19:58:27', '::1', 1, 1, NULL, 0, '', '', 0, 0);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `access`
+--
+ALTER TABLE `access`
+  ADD PRIMARY KEY (`access_id`);
+
+--
+-- Indexes for table `accounts`
+--
+ALTER TABLE `accounts`
+  ADD PRIMARY KEY (`acc_id`);
 
 --
 -- Indexes for table `cities`
@@ -519,10 +633,22 @@ ALTER TABLE `protect`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `roles`
+--
+ALTER TABLE `roles`
+  ADD PRIMARY KEY (`role_id`);
+
+--
 -- Indexes for table `tokens`
 --
 ALTER TABLE `tokens`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `typist_log`
+--
+ALTER TABLE `typist_log`
+  ADD PRIMARY KEY (`tlog_id`);
 
 --
 -- Indexes for table `userlog`
@@ -540,6 +666,18 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `access`
+--
+ALTER TABLE `access`
+  MODIFY `access_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `accounts`
+--
+ALTER TABLE `accounts`
+  MODIFY `acc_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `cities`
@@ -563,7 +701,7 @@ ALTER TABLE `files`
 -- AUTO_INCREMENT for table `file_status_ref`
 --
 ALTER TABLE `file_status_ref`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `protect`
@@ -572,10 +710,22 @@ ALTER TABLE `protect`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `roles`
+--
+ALTER TABLE `roles`
+  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `tokens`
 --
 ALTER TABLE `tokens`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `typist_log`
+--
+ALTER TABLE `typist_log`
+  MODIFY `tlog_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `userlog`
@@ -587,7 +737,7 @@ ALTER TABLE `userlog`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
