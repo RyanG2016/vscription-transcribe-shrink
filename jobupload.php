@@ -134,7 +134,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
                                 <li>1. &nbsp;Click Choose File</li>
                                 <li>2. Choose the file(s) to upload</li>
                                 <li>3. Enter the file information under the Upload Demographics section. <strong>Note:</strong> If uploading multiple files at once, all files will have the same demographics entered on the right.</li>
-                                <p class="upload_limits"><strong>(Maximum 10 files at once and combined file size must be less than 128MB)</strong></p>
+                                <p class="upload_limits"><strong>(Maximum 10 files at once and each file size must be less than 128MB)</strong></p>
                             </ul>
 
                         </div>
@@ -188,22 +188,6 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
                             <h3>Upload demographics</h3>
                             <div class="upload_fields">
 
-                                <!--                                <label for="demo_author">Author Name: </label>-->
-                                <!--                                <input class="demo_author" type="text">-->
-
-
-                               <!-- <label class="mdc-text-field mdc-text-field--outlined">
-                                    <input type="text" class="mdc-text-field__input demo_author"
-                                           aria-labelledby="my-label-id">
-                                    <span class="mdc-notched-outline">
-                                    <span class="mdc-notched-outline__leading"></span>
-                                    <span class="mdc-notched-outline__notch">
-                                        <span class="mdc-floating-label" id="my-label-id">Author Name</span>
-                                    </span>
-                                    <span class="mdc-notched-outline__trailing"></span>
-                                    </span>
-                                </label>-->
-
                                 <label for="demo_author" class="job_upload_form_lbl">Author Name</label>
                                 <input class="demo_author" type="text">
 
@@ -233,7 +217,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
 
                 </tr>
 
-                <tr>
+<!--                <tr>
                     <td colspan="2" class="upload_cell">
                         <div class="box box8">
                             <h3 class="insert_test">Upload Messages</h3>
@@ -250,7 +234,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
                             </div>
                         </div>
                     </td>
-                </tr>
+                </tr>-->
 
             </table>
 

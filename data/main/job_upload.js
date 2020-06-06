@@ -90,9 +90,20 @@ function documentReady() {
 						console.log(`Full JSON object: ${JSON.stringify(responseArr)}`);
 						
 						//Parse the HTML string(s) together so they can be inserted into the DOM html
-						
+						resetAfterUpload();
+						var htmlEl = "";
+						for (var key in responseArr) {
+							htmlEl += responseArr[key]; 
+    						console.log("Key: " + key);
+    						console.log("Value: " + responseArr[key]);
+							console.log(htmlEl);
+						}			
+						const list = document.createElement('ol');
+						list.setAttribute("class", "uploadResultList");
+						preview.appendChild(list);
+						preview.insertAdjacentHTML("afterbegin", htmlEl);
 						// TODO HIDE LOADING DIALOG & redirect to main.php
-						document.querySelector('.upload_success_message').style.display = "inline-block";
+						
 
 /*						setTimeout(function () {
 							$('.upload_success_message p').html('Upload(s) Successful! ...Will automatically redirect to Job List in 2 seconds')
@@ -106,8 +117,11 @@ function documentReady() {
 
 					} else {
 						// TODO HIDE LOADING DIALOG
-						document.querySelector('.upload_failed_message').style.display = "inline-block";
-						console.log('Upload Failed. Please try again');
+						resetAfterUpload();
+						var htmlEl = "<li><span style='color=red;'>UPLOAD EXCEPTION HAS OCCURRED. PLEASE TRY AGAIN AND IF ERROR PERSISTS, PLEASE CONTACT SUPPORT</span></li>";
+						const list = document.createElement('ol');
+						preview.appendChild(list);
+						preview.insertAdjacentHTML("afterbegin", htmlEl);
 					}
 					//console.log(response)
 				})
@@ -123,8 +137,6 @@ function documentReady() {
 	})
 
 	function addFilesToUpload() {
-		document.querySelector('.upload_success_message').style.display = "none";
-		document.querySelector('.upload_failed_message').style.display = "none";
 		while (preview.firstChild) {
 			preview.removeChild(preview.firstChild);
 		}
@@ -191,6 +203,19 @@ function documentReady() {
 		preview.appendChild(par);
 		document.querySelector('.submit_btn').setAttribute("disabled", "true");
 		document.querySelector('.clear_btn').setAttribute("disabled", "true");
+	}
+	
+	function resetAfterUpload() {
+		preview.removeChild(preview.firstChild);
+		const par = document.createElement('p');
+		preview.appendChild(par);
+		document.querySelector('.submit_btn').setAttribute("disabled", "true");
+		document.querySelector('.clear_btn').setAttribute("disabled", "true");
+		$('.demo_author').val("");
+		$("#demo_job_type option:selected").html();
+		$('.demo_dictdate').val("yyyy-mm-dd");
+		$("#demo_speaker_type").val(0);
+		$('#demo_comments').val("");		
 	}
 }
 

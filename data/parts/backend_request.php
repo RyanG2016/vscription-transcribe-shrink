@@ -1204,7 +1204,7 @@ if(isset($_REQUEST["reqcode"])){
 							if ($uplSuccess) {
 								$result = insertToDB($con,$fileDemos);
 								if ($result) {
-									$uploadMsg[] = "<li>File: $orig_filename - <span style='color:green;'>UPLOADED SUCCESSFULLY</span></li>";  						
+									$uploadMsg[] = "<li>File: $orig_filename - <span style='color:green;'>UPLOAD SUCCESSFUL</span></li>";  						
 								} else {
 									$uploadMsg[] = "<li>'File: ' $orig_filename . ' - FAILED (File uploaded but error writing to database)'<li>";  								
 								}     

@@ -151,11 +151,11 @@ body {
     font-size: 16px;
     font-family: Lato;
 }
-
-.preview {
-    font-style: italic;
-}
 */
+.preview {
+    list-style: none;
+}
+
 
 
 /* -----------------*/
