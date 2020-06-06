@@ -26,7 +26,7 @@ switch($lang)
 		$clogin = "Login";
 		$cemail = "Email";
 		$cpassword = "Password";
-		$cbaselink = "http://localhost:8888"; //for password reset without ending slash
+		$cbaselink = "https://vscriptiontranscribeupload.local:8888"; //for password reset without ending slash
 		
 		$msgVerifyAccount= "Please verify your account first by following the link that was sent to your Email.";
 		

@@ -18,7 +18,7 @@ Please verify your email address by following the link below:
 $emPlain = "Hi $email,
 		
 
-Please verify you email address by following the link below:
+Please verify your email address by following the link below:
 
 To choose a new password and complete your request, please follow the link below:
 

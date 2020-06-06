@@ -3,7 +3,7 @@
 $emHTML= "<b>Hi $email,</b>
 		
 <br/><br/><br/>
-You're receiving this email because you requested a password reset for your vScription Transcribe Account. If you did not request this change, you can safely ignore this email.
+You're receiving this email because you requested a password reset for your vScription Transcribe Pro Account. If you did not request this change, you can safely ignore this email.
 <br/><br/>
 To choose a new password and complete your request, please follow the link below:
 
@@ -19,7 +19,7 @@ To choose a new password and complete your request, please follow the link below
 $emPlain = "Hi $email,
 		
 
-You're receiving this email because you requested a password reset for your vScription Transcribe Account. If you did not request this change, you can safely ignore this email.
+You're receiving this email because you requested a password reset for your vScription Transcribe Pro Account. If you did not request this change, you can safely ignore this email.
 
 To choose a new password and complete your request, please follow the link below:
 
