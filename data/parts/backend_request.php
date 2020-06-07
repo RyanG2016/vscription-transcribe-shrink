@@ -719,27 +719,8 @@ if(isset($_REQUEST["reqcode"])){
 			break ;
 
 			case 32://UPDATES JOB DETAILS/////////
-<<<<<<< HEAD
-
-			$a = json_decode($args,true);
-//			        job_id: job_id, audio_length: jobLengthSecs,file_status: 3,file_transcribe_date: getCurrentDateTime
-//					transcribed_by:transcribed_by
-			$job_id = $a["job_id"];
-			$audio_length = $a["audio_length"];
-			$file_status = $a["file_status"];
-			$file_transcribe_date = $a["file_transcribe_date"];
-			$transcribed_by = $a["transcribed_by"];
-
-			$sql = "UPDATE files SET audio_length=?, file_status=?, file_transcribed_date=?, transcribed_by=? WHERE job_id=?";
-			
-			if($stmt = mysqli_prepare($con, $sql))
-			{
-
-				if( !$stmt->bind_param("iisss", $audio_length, $file_status, $file_transcribe_date, $transcribed_by, $job_id )   )
-=======
 				
 				if(isset($_POST))
->>>>>>> 4cb8fa38f1ed229304e4d8538c19713c3d0c568f
 				{
 				//	alert('check');
 					if(isset($_POST['jobNo']))
@@ -1453,9 +1434,9 @@ function insertToDB($dbcon, $input) {
 			return true;
 		}
 		else{
-			echo "ERROR: Was not able to execute $sql. " . mysqli_error($con);
+			"ERROR: Was not able to execute $sql. " . mysqli_error($con);
 			die( "Execution Error: (" .$con->errno . ") " . $con->error);
-//			echo 'dup';
+			echo 'dup';
 		}
 	}
 	else
@@ -1467,3 +1448,6 @@ function insertToDB($dbcon, $input) {
 	// Close statement
 	//mysqli_stmt_close($stmt); //WE need to reuse it. It will get closed when the function closes
 }
+
+
+?>
