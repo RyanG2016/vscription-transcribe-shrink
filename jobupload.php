@@ -139,7 +139,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
 
                         </div>
                         <div class="box box5">
-                            <form class="upload" method="post" enctype="multipart/form-data">
+                            <form class="upload" id="upload_form" method="post" enctype="multipart/form-data">
                                 <!--                                <label for="upload_btn">Choose Files to Upload (wav, mp3, dss, ds2, ogg)</label>-->
 
                                 <label class="mdc-button mdc-button--unelevated upload_btn_lbl" for="upload_btn">
@@ -174,7 +174,9 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
                                        accept=".wav, .mp3, .dss, .ds2, .ogg" multiple/>
 
                                 <input type="hidden"
-                                       name="<?php echo ini_get("session.upload_progress.name"); ?>" value="jobUpload" />
+                                       name="<?php echo ini_get("session.upload_progress.name"); ?>"
+                                       value="jobUpload"
+                                />
                                 <!--                                <input class="submit_btn" type="submit" value="Upload File(s)" name="Upload" disabled />-->
                             </form>
                         </div>
