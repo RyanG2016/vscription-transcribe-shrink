@@ -67,7 +67,7 @@ $(document).ready(function () {
 
         e.preventDefault();
         console.log("event fired");
-        if (!validateForm(false)) {
+        if (validateForm()) {
 
             //let jobDetails = "";  //I don't know what data the JSON.parse will be so it'll be able to mutate
             var job_id = $('#jobNo').val().trim();
@@ -350,7 +350,7 @@ $(document).ready(function () {
         if (!tinymceContent == "") //if not empty check saving
         {
             //override complete == true
-                validateForm(true,2);
+                validateForm();
  
         } else { //empty text area just complete the file
             completePlayer(); //OK
@@ -528,7 +528,7 @@ function loadIntoPlayer(data) {
 
 
 
-function validateForm(override) {
+function validateForm() {
 
     var jobID = $('input[name="jobNo"]');
     var authorName = $('input[name="authorName"]');
