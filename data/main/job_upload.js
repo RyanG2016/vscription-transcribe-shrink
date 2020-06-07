@@ -118,7 +118,7 @@ function documentReady() {
 					} else {
 						// TODO HIDE LOADING DIALOG
 						resetAfterUpload();
-						var htmlEl = "<li><span style='color=red;'>UPLOAD EXCEPTION HAS OCCURRED. PLEASE TRY AGAIN AND IF ERROR PERSISTS, PLEASE CONTACT SUPPORT</span></li>";
+						htmlEl = "<li><span style='color=#ff00multipart/form-data\"00;'>UPLOAD EXCEPTION HAS OCCURRED. PLEASE TRY AGAIN AND IF ERROR PERSISTS, PLEASE CONTACT SUPPORT</span></li>";
 						const list = document.createElement('ol');
 						preview.appendChild(list);
 						preview.insertAdjacentHTML("afterbegin", htmlEl);
