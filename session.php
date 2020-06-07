@@ -36,9 +36,12 @@ print_r(date("Y-m").'-01'); //mysql format usage in calendar
 	echo date_default_timezone_get();
 
 
+echo "</br>";
+echo "</br>";
 	echo "----------------------------";
     $key = ini_get("session.upload_progress.prefix") . $_POST[ini_get("session.upload_progress.name")];
-
+echo "</br>";
+echo "</br>";
     echo"Prefix: " . ini_get("session.upload_progress.prefix");// . $_POST[ini_get("session.upload_progress.name")];
     echo "</br>";
     echo "</br>";
@@ -48,13 +51,17 @@ print_r(date("Y-m").'-01'); //mysql format usage in calendar
     echo "Progress Enabled: " . ini_get("session.upload_progress.enabled");
     echo "</br>";
     echo "</br>";
+    echo "session.auto_start: " . ini_get("session.auto_start");
+    echo "</br>";
+    echo "</br>";
+    echo "session.upload_progress.cleanup: " . ini_get("session.upload_progress.cleanup");
+    echo "</br>";
+    echo "</br>";
 //    echo $key;
     var_dump($_SESSION[$key]);
     echo "</br>";
     echo "</br>";
 
-?>
-	
 ?>
 
 </body>
