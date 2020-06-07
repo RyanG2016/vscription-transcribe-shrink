@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 07, 2020 at 02:47 PM
+-- Generation Time: Jun 07, 2020 at 05:07 PM
 -- Server version: 5.7.26
 -- PHP Version: 7.3.9
 
@@ -439,6 +439,7 @@ CREATE TABLE `files` (
   `job_uploaded_by` varchar(254) DEFAULT NULL,
   `text_downloaded_date` timestamp NULL DEFAULT NULL,
   `times_text_downloaded_date` int(11) NOT NULL DEFAULT '0',
+  `job_transcribed_by` varchar(254) DEFAULT NULL,
   `file_transcribed_date` timestamp NULL DEFAULT NULL,
   `typist_comments` varchar(254) DEFAULT NULL,
   `isBillable` tinyint(1) NOT NULL DEFAULT '1',
@@ -502,17 +503,6 @@ CREATE TABLE `roles` (
   `role_name` varchar(23) COLLATE utf8_bin NOT NULL,
   `role_desc` varchar(255) COLLATE utf8_bin DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
---
--- Dumping data for table `roles`
---
-
-INSERT INTO `roles` (`role_id`, `role_name`, `role_desc`) VALUES
-(1, 'System Administrator', 'Website Admins Only'),
-(2, 'Account Administrator', ''),
-(3, 'Typist', NULL),
-(4, 'Reviewer', NULL),
-(5, 'Author', NULL);
 
 -- --------------------------------------------------------
 
@@ -725,7 +715,7 @@ ALTER TABLE `protect`
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tokens`
