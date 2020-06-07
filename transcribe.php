@@ -179,8 +179,8 @@ include ('data/parts/constants.php');
 <!-- <?php //include_once("analyticstracking.php") ?> -->
 
 <body>
-	<div id="message_bar">For best experience and foot control support please download the <a href=https://www.vtexvsi.com/vscription/transcribe/vScription_Transcribe_Installer.msi target="_blank" title="Download Latest Version of vScription Transcribe">vScription Transcribe Application</a></div>
-	<div id="updated_version_bar">There is a newer version of the vScription Transcribe application available. You can <a href=https://www.vtexvsi.com/vscription/transcribe/vScription_Transcribe_Installer.msi target="_blank" title="Download Latest Version of vScription Transcribe">download it here </a></div>
+	<div id="message_bar">For best experience and foot control support please download the <a href="https://pro.vscription.com/downloads/vScription_Transcribe_Installer.msi" target="_blank" title="Download Latest Version of vScription Transcribe">vScription Transcribe Application</a></div>
+	<div id="updated_version_bar">There is a newer version of the vScription Transcribe application available. You can <a href="https://pro.vscription.com/downloads/vScription_Transcribe_Installer.msi" target="_blank" title="Download Latest Version of vScription Transcribe">download it here </a></div>
 	<script src="data/main/transcribe.js"> </script>
 
 	<div id="container" style="width: 100%">

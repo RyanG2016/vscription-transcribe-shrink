@@ -519,7 +519,7 @@ function checkBrowser(updateAvailable) {
 
 function getLatestAppVersionNumber(_callback) {
     $.ajax({
-        url: "https://www.vtexvsi.com/vscription/transcribe/LatestVersion.txt",
+        url: "https://pro.vscription.com/LatestVersion.txt",
         success: function (result) {
             _callback(result.split("-")[0].trim(), checkBrowser);
         }
