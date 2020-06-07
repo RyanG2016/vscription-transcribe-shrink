@@ -66,10 +66,11 @@ $(document).ready(function () {
     form.addEventListener('submit', e => {
 
         e.preventDefault();
+        console.log("event fired");
         if (!validateForm(false)) {
 
             //let jobDetails = "";  //I don't know what data the JSON.parse will be so it'll be able to mutate
-            var job_id = $('.jobID').val().trim()
+            var job_id = $('#jobNo').val().trim();
             var jobStatus = 2; //Need to figure out how to pass a 1 as jobStatus if clicking suspend and a 2 if clicking Save and Complete
             //Get job details form DB
             console.log('Getting Transcription Job Details for job#: ' + job_id + ' for demographic update');
