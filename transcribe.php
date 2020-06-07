@@ -288,11 +288,11 @@ include ('data/parts/constants.php');
 							</td>
 
 							<td id="nr">
-								<a class="button-green" id="saveBtn" onclick="validateForm(false)">
+								<button class="button-green" id="saveBtn" type="submit">
 									<i class="fas fa-save"></i>
 									<!--				<strong>Save and Complete</strong>-->
 									Save and Complete
-								</a>
+								</button>
 							</td>
 							<td id="nr">
 								<a class="button-orange" id="suspendBtn">

@@ -42,6 +42,8 @@ $(document).ready(function () {
 
     });
 
+
+
     //removes the "active" class to .popup and .popup-content when the "Close" button is clicked
     $(".close").on("click", function() {
         modal.style.display = "none";
@@ -63,6 +65,7 @@ $(document).ready(function () {
 
     form.addEventListener('submit', e => {
 
+        e.preventDefault();
         if (!validateForm(false)) {
 
             //let jobDetails = "";  //I don't know what data the JSON.parse will be so it'll be able to mutate
@@ -160,6 +163,8 @@ $(document).ready(function () {
             }
         }
     });
+
+
 });
 
 $(function () {
@@ -564,7 +569,7 @@ function validateForm(override) {
         showValidate(DateTra);
         check = false;
     }
-
+    
     return check; 
     //        return check;
 /*     if (check) {
