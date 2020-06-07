@@ -172,6 +172,9 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
 
                                 <input id="upload_btn" type="file" name="upload_btn"
                                        accept=".wav, .mp3, .dss, .ds2, .ogg" multiple/>
+
+                                <input type="hidden"
+                                       name="<?php echo ini_get("session.upload_progress.name"); ?>" value="jobUpload" />
                                 <!--                                <input class="submit_btn" type="submit" value="Upload File(s)" name="Upload" disabled />-->
                             </form>
                         </div>
