@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 06, 2020 at 04:26 PM
+-- Generation Time: Jun 07, 2020 at 02:47 PM
 -- Server version: 5.7.26
 -- PHP Version: 7.3.9
 
@@ -433,6 +433,7 @@ CREATE TABLE `files` (
   `file_speaker_type` int(11) NOT NULL DEFAULT '0',
   `file_date_dict` date DEFAULT NULL,
   `file_status` int(11) NOT NULL DEFAULT '0',
+  `audio_length` int(11) DEFAULT NULL,
   `last_audio_position` int(11) DEFAULT '0',
   `job_upload_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `job_uploaded_by` varchar(254) DEFAULT NULL,
@@ -501,6 +502,17 @@ CREATE TABLE `roles` (
   `role_name` varchar(23) COLLATE utf8_bin NOT NULL,
   `role_desc` varchar(255) COLLATE utf8_bin DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `roles`
+--
+
+INSERT INTO `roles` (`role_id`, `role_name`, `role_desc`) VALUES
+(1, 'System Administrator', 'Website Admins Only'),
+(2, 'Account Administrator', ''),
+(3, 'Typist', NULL),
+(4, 'Reviewer', NULL),
+(5, 'Author', NULL);
 
 -- --------------------------------------------------------
 
@@ -583,7 +595,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `country`, `city`, `state`, `registeration_date`, `last_ip_address`, `plan_id`, `account_status`, `unlock_time`, `newsletter`, `shortcuts`, `dictionary`, `email_notification`, `enabled`) VALUES
 (1, 'Ryan', 'Gaudet', 'ryangaudet@me.com', '$2y$10$DObJNzsN0Ke5v1OGlVSlbefSL6.K5KpfKrKkcK4TJkNS8dcIVs8x2', 'Canada', 'Winnipeg', 'Manitoba', '2020-05-21 02:33:37', '127.0.0.1', 3, 1, NULL, 0, '', '', 0, 0),
-(2, 'Ryan', 'Gaudet', 'ryan.gaudet@gmail.com', '$2y$10$Qp45x8wvdFIkJNvn1luzK.3evB/.qVcZsC7mPZH18XySCtvQKbfxi', 'Canada', 'Winnipeg', 'Manitoba', '2020-05-21 20:33:19', '127.0.0.1', 2, 1, NULL, 0, '', '', 0, 0),
+(2, 'Ryan', 'Gaudet', 'ryan.gaudet@gmail.com', '$2y$10$bDzwNexq4X5x/BthiCXgZeZTB7AKxNqe4ANA4zSN85e/xOmftmQlC', 'Canada', 'Winnipeg', 'Manitoba', '2020-05-21 20:33:19', '127.0.0.1', 2, 1, NULL, 0, '', '', 0, 0),
 (3, 'Hossam', 'Elwahsh', 'hacker2894@gmail.com', '$2y$10$UIesrEKKKrNBwmpNcx8IoufJ3KUSKnzgZ7bA2wMaCsmblh9iyRkVS', 'Egypt', 'Alex', '', '2020-05-31 19:58:27', '::1', 1, 1, NULL, 0, '', '', 0, 0);
 
 --
@@ -713,7 +725,7 @@ ALTER TABLE `protect`
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tokens`

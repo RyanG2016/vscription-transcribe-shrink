@@ -5,6 +5,10 @@
 include("config.php");
 include("../../mail.php");
 
+//Should this go into the case statement? It was in the formsave.php file
+require_once('../../rtf3/src/HtmlToRtf.php');
+require_once('../regex.php');
+//////////
 
 session_start(['cookie_lifetime' => 86400,'cookie_secure' => true,'cookie_httponly' => true]);
 include('constants.php');
@@ -715,6 +719,7 @@ if(isset($_REQUEST["reqcode"])){
 			break ;
 
 			case 32://UPDATES JOB DETAILS/////////
+<<<<<<< HEAD
 
 			$a = json_decode($args,true);
 //			        job_id: job_id, audio_length: jobLengthSecs,file_status: 3,file_transcribe_date: getCurrentDateTime
@@ -731,34 +736,83 @@ if(isset($_REQUEST["reqcode"])){
 			{
 
 				if( !$stmt->bind_param("iisss", $audio_length, $file_status, $file_transcribe_date, $transcribed_by, $job_id )   )
+=======
+				
+				if(isset($_POST))
+>>>>>>> 4cb8fa38f1ed229304e4d8538c19713c3d0c568f
 				{
+				//	alert('check');
+					if(isset($_POST['jobNo']))
+					{
+						$initials = substr($_SESSION['fname'],0) . substr($_SESSION['lname'],0,2);
+						$dateTrans = date("Y-m-d H:i:s");
+						$report = '<b>'.'Job Number: ' .'</b>'. $_POST['jobNo'] .'<br/>';
+						$report = $report . '<b>'.'Author Name: ' .'</b>'. $_POST['jobAuthorName'].'<br/>';
+						$report = $report . '<b>'.'Typist Name: ' .'</b>'. $initials .'<br/>';
+						$report = $report . '<b>'.'Job Type: ' .'</b>'.$_POST['jobType'].'<br/>';
+						$report = $report . '<b>'.'Date Dictated: ' .'</b>'.$_POST['DateDic'].'<br/>';
+						$report = $report. '<b>'.'Date Transcribed: ' .'</b>' . $dataTrans .'<br/>';
+						$report = $report . '<b>'.'Comments: ' .'</b>'.$_POST['jobComments'].'<br/>';
+						
+						$report = $report.'<br/>';
+						$report = $report.'<br/>';
+						$report = $report . $_POST['report'];
+				
+						$htmlToRtfConverter = new HtmlToRtf\HtmlToRtf($report);
+				//        $htmlToRtfConverter->getRTFFile();
+						$convertedRTF = trim($htmlToRtfConverter->getRTF());
+						echo($convertedRTF);
 
-							die( "Error in bind_param: (" .$con->errno . ") " . $con->error);
+						//DB Insert Code
 
-				}
-				$B = mysqli_stmt_execute($stmt);
-
-
-				if($B){
-					$result = mysqli_stmt_get_result($stmt);
-						echo "Data Updated Successfully!";
-				}
-				else{
-						echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
-						die( "Error in excute: (" .$con->errno . ") " . $con->error);
+						$job_id = $_POST['jobNo'];						
+						$audio_length = $_POST['jobLengthSecs'];
+						$audio_elapsed = $_POST['jobElapsedTimeSecs'];
+						$file_status = $_POST['jobStatus'];
+						$file_transcribe_date = $dateTrans;
+						$transcribed_by = $_SESSION['uEmail'];
+			
+						$sql = "UPDATE FILES SET audio_length=?, last_audio_position=?, file_status=?, file_transcribed_date=?, transcribed_by=? WHERE job_id=?";
+						
+						if($stmt = mysqli_prepare($con, $sql))
+						{
+			
+							if( !$stmt->bind_param("iiisss", $audio_length, $audio_elapsed, $file_status, $file_transcribe_date, $transcribed_by, $job_id )   )
+							{
+			
+										die( "Error in bind_param: (" .$con->errno . ") " . $con->error);
+			
+							}
+							$B = mysqli_stmt_execute($stmt);
+			
+			
+							if($B){
+								$result = mysqli_stmt_get_result($stmt);
+									echo "Data Updated Successfully!";
+							}
+							else{
+									echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
+									die( "Error in excute: (" .$con->errno . ") " . $con->error);
+								}
+						}
+						else
+						{
+								echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
+			
+						}
+			
+			
+						// Close statement
+						mysqli_stmt_close($stmt);
+			
+						break;
 					}
-			}
-			else
-			{
-					echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
-
-			}
-
-
-			// Close statement
-			mysqli_stmt_close($stmt);
-
-			break;
+				}
+				else
+				{
+					echo "Looks like JobNo is empty";
+				
+				}
 
 			/*--------------------------------*/
 			case 39://INSERTS FILE UPLOAD DATA/////////

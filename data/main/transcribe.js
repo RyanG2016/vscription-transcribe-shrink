@@ -13,6 +13,9 @@ $(document).ready(function () {
 
     getLatestAppVersionNumber(checkVersions);
 
+    const backend_url = 'data/parts/backend_request.php';
+    const form = document.querySelector('form');
+
     $("body").niceScroll({
         hwacceleration: true,
         smoothscroll: true,
@@ -29,7 +32,7 @@ $(document).ready(function () {
     });
     checkBrowser();
 
-    //appends an "active" class to .popup and .popup-content when the "Open" button is clicked
+    //The Suspend (below) is a test button for now. In prod, it should do an onclick="onclick="validateForm(false,1)"
     $(".button-orange").on("click", function() {
         $('#jobNo').val('UM-000991');
         $('#authorName').val('Jimmy Smits');
@@ -240,7 +243,8 @@ $(document).ready(function () {
         if (!tinymceContent == "") //if not empty check saving
         {
             //override complete == true
-            validateForm(true);
+                validateForm(true,2);
+ 
         } else { //empty text area just complete the file
             completePlayer(); //OK
         }
@@ -460,12 +464,13 @@ function validateForm(override) {
         check = false;
     }
 
-
+    return check; 
     //        return check;
-    if (check) {
-        document.getElementById('form').submit();
+/*     if (check) {
+            document.getElementById('form').submit();
             console.log('Updating job details on server');
-            updateJobDetailsDB(clear);
+            var jobNum = jobID.val().trim();
+            updateJobDetailsDB(jobStatus, jobNum);
             //clear();
             //clearAfterDownload(false); //ask to complete player = false
 
@@ -478,10 +483,10 @@ function validateForm(override) {
             type: 'red',
             content: 'Please fill in all required form fields.',
         });
-    }
+    } */
     //    });
 
-    return check;
+ 
 }
 
 $('.validate-form input').each(function () {
@@ -631,8 +636,107 @@ function clearTempAudio(tempFileName) {
 
 }
 
-function updateJobDetailsDB(callback) {
-    var rtfToSave = convertFormToRTF();
+form.addEventListener('submit', e => {
+
+        if (!validateForm(false)) {
+
+        //let jobDetails = "";  //I don't know what data the JSON.parse will be so it'll be able to mutate
+        var job_id = $('.jobID').val().trim()
+        var jobStatus = 2; //Need to figure out how to pass a 1 as jobStatus if clicking suspend and a 2 if clicking Save and Complete
+        //Get job details form DB
+        console.log('Getting Transcription Job Details for job#: ' + job_id + ' for demographic update');
+
+        var a1 = {
+            job_id: job_id
+        };
+        $.post("data/parts/backend_request.php", {
+            reqcode: 7,
+            args: JSON.stringify(a1)
+        }).done(function (data) {
+            console.log(data);
+            console.log(typeof data);
+            prepareDemos(data);
+        });
+
+        function prepareDemos(data) {  //I couldn't seem to access the data outside of the post call so I had to pass it to the function. How could this be accomplished without the function?
+            var jobDetails = JSON.parse(data)
+            // Get demographics to update job with
+            var jobLengthStr = $('.able-duration').text().split("/")[1];
+            if (jobLengthStr != "") {
+                var jobLengthSecs = hmsToSecondsOnly(jobLengthStr);
+            } else {
+                alert('Audio Not Loaded Properly. Aborting');
+                return false;
+            }
+            var jobElapsedTimeStr = $('.able-elapsedTime').val();             
+            if (jobElapsedTimeStr != "") {  
+                var jobElapsedTimeSecs = hmsToSecondsOnly(jobElapsedTimeStr);  //If user suspends job, we can use this to resume where they left off  
+            } else {
+                var jobElapsedTimeSecs = 0;                   
+            }
+            var jobTranscribeDate = getCurrentDateTime();
+
+            //Demographics to send to server;
+
+            console.log(`Data from DB lookup....`);
+            console.log(`Job Number: ${jobDetails.job_id}`);
+            console.log(`Author: ${jobDetails.file_author}`);
+            console.log(`Filename: ${jobDetails.origFilename}`);
+            console.log(`Temp filename is: ${jobDetails.tempFilename}`);
+            console.log(`Dictated Date: ${jobDetails.file_date_dict}`);
+            console.log(`Work Type: ${jobDetails.file_work_type}`);
+            console.log(`Speaker Type: ${jobDetails.file_speaker_type}`);
+            console.log(`Upload Comments: ${jobDetails.file_comment}`);
+            console.log(`Job length is: ${jobLengthSecs} seconds`);
+            console.log(`Job Elapsed Time is: ${jobElapsedTimeSecs} seconds`);   
+            console.log(`Job Status is: ${jobStatus}`);  
+            console.log(`Transcribe Date is: ${jobTranscribeDate}`);
+
+            //Append form data for POST
+            formData.append("reqcode", 32);
+            formData.append("jobNo", jobDetails.job_id);
+            formData.append("jobLengthStr", jobLengthStr);
+            formData.append("jobLengthSecs", jobLengthSecs);
+            formData.append("jobElapsedTimeStr", jobElapsedTimeStr);
+            formData.append("jobElapsedTimeSecs", jobElapsedTimeSecs);  //If user suspends job, we can use this to resume where they left ;
+            formData.append("jobAuthorName", jobDetails.file_author);
+            formData.append("jobFileName", jobDetails.origFilename);
+            formData.append("jobTempFileName", jobDetails.tempFilename);
+            formData.append("jobDictDate", jobDetails.file_date_dict);
+            formData.append("jobType", jobDetails.file_work_type);
+            formData.append("jobSpeakerType", jobDetails.file_speaker_type);
+            formData.append("jobComments", jobDetails.file_comment);       
+            formData.append("jobStatus", jobStatus); 
+
+                //** Send form data to the server **//
+                fetch(backend_url, {
+                    method: 'POST',
+                    body: formData,
+                }).then(response => {
+                    response.text() 
+                    .then(data => {
+                    if (response.ok) {
+                        console.log(data);
+                        console.log('Job update was succesful');
+                        var responseArr = JSON.parse(data);
+                        console.log(`Full JSON response: ${JSON.stringify(responseArr)}`);
+                                
+                        //TODO: Form cleanup 
+
+                    } else {
+                        // TODO HIDE LOADING DIALOG
+                        //TODO Form cleanup
+                        console.log(`Error saving job: ${JSON.stringify(responseArr)}`);
+                    }
+                    //console.log(response)
+                })
+             });
+
+         }
+    }
+});
+/* function updateJobDetailsDB(callback) {
+    //var rtfToSave = convertFormToRTF();
     var job_id = $('.job').val();
     console.log('Updating Job Details on DB...');
     var jobLengthStr = $('.able-duration').text().split("/")[1];
@@ -664,7 +768,7 @@ function updateJobDetailsDB(callback) {
             callback();  
         }, 300);
     });
-}
+} */
 
 //Function to convert hh:mm:ss to seconds. This value is taken from ableplayer so
 //we are assuming that it is calculating correctly
@@ -688,7 +792,7 @@ function getCurrentDateTime() {
 
     return dateTime;
 }
-
+//
 function convertFormToRTF() {
     event.preventDefault();
     var xhr = new XMLHttpRequest();

@@ -185,8 +185,8 @@ include ('data/parts/constants.php');
 
 	<div id="container" style="width: 100%">
 		<div class="form-style-5">
-			<form class="validate-form" action="save.php" target="_blank" method="post" name="form" data-persist="garlic" id="form">
-
+		<form class="validate-form" method="post" name="form" data-persist="garlic" id="form" enctype="multipart/form-data">
+		
 				<table id="header-tbl">
 					<tr>
 						<td id="mainlogo-td" rowspan="2">
