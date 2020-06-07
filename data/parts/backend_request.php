@@ -725,7 +725,7 @@ if(isset($_REQUEST["reqcode"])){
 			$file_transcribe_date = $a["file_transcribe_date"];
 			$transcribed_by = $a["transcribed_by"];
 
-			$sql = "UPDATE FILES SET audio_length=?, file_status=?, file_transcribed_date=?, transcribed_by=? WHERE job_id=?";
+			$sql = "UPDATE files SET audio_length=?, file_status=?, file_transcribed_date=?, transcribed_by=? WHERE job_id=?";
 			
 			if($stmt = mysqli_prepare($con, $sql))
 			{
@@ -1399,9 +1399,9 @@ function insertToDB($dbcon, $input) {
 			return true;
 		}
 		else{
-			"ERROR: Was not able to execute $sql. " . mysqli_error($con);
+			echo "ERROR: Was not able to execute $sql. " . mysqli_error($con);
 			die( "Execution Error: (" .$con->errno . ") " . $con->error);
-			echo 'dup';
+//			echo 'dup';
 		}
 	}
 	else
@@ -1413,6 +1413,3 @@ function insertToDB($dbcon, $input) {
 	// Close statement
 	//mysqli_stmt_close($stmt); //WE need to reuse it. It will get closed when the function closes
 }
-
-
-?>
