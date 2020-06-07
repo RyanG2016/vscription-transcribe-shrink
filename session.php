@@ -39,7 +39,8 @@ print_r(date("Y-m").'-01'); //mysql format usage in calendar
 echo "</br>";
 echo "</br>";
 	echo "----------------------------";
-    $key = ini_get("session.upload_progress.prefix") . $_POST[ini_get("session.upload_progress.name")];
+//    $key = ini_get("session.upload_progress.prefix") . $_POST[ini_get("session.upload_progress.name")];
+    $key = ini_get("session.upload_progress.prefix") . "jobUpload";
 echo "</br>";
 echo "</br>";
     echo"Prefix: " . ini_get("session.upload_progress.prefix");// . $_POST[ini_get("session.upload_progress.name")];
@@ -58,7 +59,8 @@ echo "</br>";
     echo "</br>";
     echo "</br>";
 //    echo $key;
-    var_dump($_SESSION[$key]);
+//    var_dump($_SESSION[$key]);
+    echo json_encode($_SESSION[$key]);
     echo "</br>";
     echo "</br>";
 
