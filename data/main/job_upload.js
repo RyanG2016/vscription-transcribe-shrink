@@ -43,7 +43,7 @@ function documentReady() {
 
 	// form.addEventListener('submit', e => {
 	$("#upload_form").on('submit', function (event) {
-		e.preventDefault();
+		event.preventDefault();
 		if (validateFields()) {
 			const files = document.querySelector('[type=file]').files
 			const formData = new FormData()
@@ -57,6 +57,11 @@ function documentReady() {
 
 			// TODO SHOULD SHOW A LOADING DIALOG
 
+			let other_data = $("#upload_form").serializeArray();
+
+			$.each(other_data, function (key, input) {
+				formData.append(input.name, input.value);
+			});
 
 			//** Get next jobID & jobNumber **//
 			$.post("data/parts/backend_request.php", {
