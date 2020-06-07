@@ -66,10 +66,12 @@ $(document).ready(function () {
     form.addEventListener('submit', e => {
 
         e.preventDefault();
-        if (!validateForm(false)) {
+        console.log(`"Are we in the function?`);
+        if (validateForm()) {
+            console.log(`Validation Passed`);
 
             //let jobDetails = "";  //I don't know what data the JSON.parse will be so it'll be able to mutate
-            var job_id = $('.jobID').val().trim()
+            var job_id = $('#jobNo').val().trim()
             var jobStatus = 2; //Need to figure out how to pass a 1 as jobStatus if clicking suspend and a 2 if clicking Save and Complete
             //Get job details form DB
             console.log('Getting Transcription Job Details for job#: ' + job_id + ' for demographic update');
@@ -161,6 +163,8 @@ $(document).ready(function () {
                 });
 
             }
+        } else {
+            console.log(`Validation failed`);
         }
     });
 
@@ -349,7 +353,7 @@ $(document).ready(function () {
         if (!tinymceContent == "") //if not empty check saving
         {
             //override complete == true
-                validateForm(true,2);
+                validateForm();
  
         } else { //empty text area just complete the file
             completePlayer(); //OK
@@ -527,7 +531,7 @@ function loadIntoPlayer(data) {
 
 
 
-function validateForm(override) {
+function validateForm() {
 
     var jobID = $('input[name="jobNo"]');
     var authorName = $('input[name="authorName"]');
