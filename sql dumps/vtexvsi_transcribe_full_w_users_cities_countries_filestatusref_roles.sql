@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 07, 2020 at 05:07 PM
+-- Generation Time: Jun 07, 2020 at 07:51 PM
 -- Server version: 5.7.26
 -- PHP Version: 7.3.9
 
@@ -426,6 +426,8 @@ CREATE TABLE `files` (
   `orig_filename` varchar(254) DEFAULT NULL,
   `fileAudioBlob` mediumblob,
   `fileTextBlob` mediumblob,
+  `job_document_html` longtext,
+  `job_document_rtf` longtext,
   `file_tag` varchar(254) DEFAULT NULL,
   `file_author` varchar(254) DEFAULT NULL,
   `file_work_type` varchar(254) DEFAULT NULL,
