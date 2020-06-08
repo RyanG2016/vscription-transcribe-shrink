@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 07, 2020 at 07:51 PM
+-- Generation Time: Jun 08, 2020 at 03:50 PM
 -- Server version: 5.7.26
 -- PHP Version: 7.3.9
 
@@ -55,27 +55,35 @@ CREATE TABLE `accounts` (
   `bill_rate1_type` int(11) NOT NULL,
   `bill_rate1_TAT` int(11) NOT NULL,
   `bill_rate1_desc` varchar(255) COLLATE utf8_bin NOT NULL,
-  `bill_rate2` decimal(10,0) NOT NULL,
-  `bill_rate2_type` int(11) NOT NULL,
-  `bill_rate2_TAT` int(11) NOT NULL,
-  `bill_rate2_desc` varchar(255) COLLATE utf8_bin NOT NULL,
-  `bill_rate3` decimal(10,0) NOT NULL,
-  `bill_rate3_type` int(11) NOT NULL,
-  `bill_rate3_TAT` int(11) NOT NULL,
-  `bill_rate3_desc` varchar(255) COLLATE utf8_bin NOT NULL,
-  `bill_rate4` decimal(10,0) NOT NULL,
-  `bill_rate4_type` int(11) NOT NULL,
-  `bill_rate4_TAT` int(11) NOT NULL,
-  `bill_rate4_desc` varchar(255) COLLATE utf8_bin NOT NULL,
-  `bill_rate5` decimal(10,0) NOT NULL,
-  `bill_rate5_type` int(11) NOT NULL,
-  `bill_rate5_TAT` int(11) NOT NULL,
-  `bill_rate5_desc` varchar(255) COLLATE utf8_bin NOT NULL,
-  `lifetime_minutes` int(11) NOT NULL,
-  `work_types` text COLLATE utf8_bin NOT NULL,
+  `bill_rate2` decimal(10,0) DEFAULT NULL,
+  `bill_rate2_type` int(11) DEFAULT NULL,
+  `bill_rate2_TAT` int(11) DEFAULT NULL,
+  `bill_rate2_desc` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `bill_rate3` decimal(10,0) DEFAULT NULL,
+  `bill_rate3_type` int(11) DEFAULT NULL,
+  `bill_rate3_TAT` int(11) DEFAULT NULL,
+  `bill_rate3_desc` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `bill_rate4` decimal(10,0) DEFAULT NULL,
+  `bill_rate4_type` int(11) DEFAULT NULL,
+  `bill_rate4_TAT` int(11) DEFAULT NULL,
+  `bill_rate4_desc` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `bill_rate5` decimal(10,0) DEFAULT NULL,
+  `bill_rate5_type` int(11) DEFAULT NULL,
+  `bill_rate5_TAT` int(11) DEFAULT NULL,
+  `bill_rate5_desc` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `lifetime_minutes` int(11) DEFAULT NULL,
+  `work_types` text COLLATE utf8_bin,
   `next_job_tally` int(11) NOT NULL,
   `act_log_retention_time` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `accounts`
+--
+
+INSERT INTO `accounts` (`acc_id`, `enabled`, `billable`, `acc_name`, `acc_retention_time`, `acc_creation_date`, `bill_rate1`, `bill_rate1_type`, `bill_rate1_TAT`, `bill_rate1_desc`, `bill_rate2`, `bill_rate2_type`, `bill_rate2_TAT`, `bill_rate2_desc`, `bill_rate3`, `bill_rate3_type`, `bill_rate3_TAT`, `bill_rate3_desc`, `bill_rate4`, `bill_rate4_type`, `bill_rate4_TAT`, `bill_rate4_desc`, `bill_rate5`, `bill_rate5_type`, `bill_rate5_TAT`, `bill_rate5_desc`, `lifetime_minutes`, `work_types`, `next_job_tally`, `act_log_retention_time`) VALUES
+(1, 1, 1, 'VTEX Voice Solutions Inc', 14, '2020-06-08 20:47:59', '2', 2, 5, 'Multiple Speakers', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 180),
+(2, 1, 1, 'University of Manitoba', 14, '2020-06-08 20:49:21', '2', 1, 5, 'Single Speaker', '2', 2, 5, 'Multiple Speakers', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 180);
 
 -- --------------------------------------------------------
 
@@ -578,17 +586,18 @@ CREATE TABLE `users` (
   `shortcuts` text COLLATE utf8_bin NOT NULL,
   `dictionary` text COLLATE utf8_bin NOT NULL,
   `email_notification` tinyint(1) NOT NULL,
-  `enabled` tinyint(1) NOT NULL
+  `enabled` tinyint(1) NOT NULL,
+  `account` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `country`, `city`, `state`, `registeration_date`, `last_ip_address`, `plan_id`, `account_status`, `unlock_time`, `newsletter`, `shortcuts`, `dictionary`, `email_notification`, `enabled`) VALUES
-(1, 'Ryan', 'Gaudet', 'ryangaudet@me.com', '$2y$10$DObJNzsN0Ke5v1OGlVSlbefSL6.K5KpfKrKkcK4TJkNS8dcIVs8x2', 'Canada', 'Winnipeg', 'Manitoba', '2020-05-21 02:33:37', '127.0.0.1', 3, 1, NULL, 0, '', '', 0, 0),
-(2, 'Ryan', 'Gaudet', 'ryan.gaudet@gmail.com', '$2y$10$bDzwNexq4X5x/BthiCXgZeZTB7AKxNqe4ANA4zSN85e/xOmftmQlC', 'Canada', 'Winnipeg', 'Manitoba', '2020-05-21 20:33:19', '127.0.0.1', 2, 1, NULL, 0, '', '', 0, 0),
-(3, 'Hossam', 'Elwahsh', 'hacker2894@gmail.com', '$2y$10$UIesrEKKKrNBwmpNcx8IoufJ3KUSKnzgZ7bA2wMaCsmblh9iyRkVS', 'Egypt', 'Alex', '', '2020-05-31 19:58:27', '::1', 1, 1, NULL, 0, '', '', 0, 0);
+INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `country`, `city`, `state`, `registeration_date`, `last_ip_address`, `plan_id`, `account_status`, `unlock_time`, `newsletter`, `shortcuts`, `dictionary`, `email_notification`, `enabled`, `account`) VALUES
+(1, 'Ryan', 'Gaudet', 'ryangaudet@me.com', '$2y$10$DObJNzsN0Ke5v1OGlVSlbefSL6.K5KpfKrKkcK4TJkNS8dcIVs8x2', 'Canada', 'Winnipeg', 'Manitoba', '2020-05-21 02:33:37', '127.0.0.1', 3, 1, NULL, 0, '', '', 0, 0, 1),
+(2, 'Ryan', 'Gaudet', 'ryan.gaudet@gmail.com', '$2y$10$bDzwNexq4X5x/BthiCXgZeZTB7AKxNqe4ANA4zSN85e/xOmftmQlC', 'Canada', 'Winnipeg', 'Manitoba', '2020-05-21 20:33:19', '127.0.0.1', 1, 1, NULL, 0, '', '', 0, 0, 1),
+(3, 'Hossam', 'Elwahsh', 'hacker2894@gmail.com', '$2y$10$UIesrEKKKrNBwmpNcx8IoufJ3KUSKnzgZ7bA2wMaCsmblh9iyRkVS', 'Egypt', 'Alex', '', '2020-05-31 19:58:27', '::1', 1, 1, NULL, 0, '', '', 0, 0, 1);
 
 --
 -- Indexes for dumped tables
@@ -681,7 +690,7 @@ ALTER TABLE `access`
 -- AUTO_INCREMENT for table `accounts`
 --
 ALTER TABLE `accounts`
-  MODIFY `acc_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `acc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `cities`
