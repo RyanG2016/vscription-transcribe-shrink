@@ -34,11 +34,10 @@ $(document).ready(function () {
 
     //The Suspend (below) is a test button for now. In prod, it should do an onclick="onclick="validateForm(false,1)"
     $(".button-orange").on("click", function() {
-        $('#jobNo').val('UM-000991');
-        $('#authorName').val('Jimmy Smits');
-        $('#jobType').val('Letter');
+        var elapsedTime = $('.able-elapsedTime').text();
+        console.log(`Current elapsed time is ${elapsedTime}`);
         // var rawtext = convertFormToRTF();
-        convertFormToRTF(); // continue to responseReceived function on line 708
+        //convertFormToRTF(); // continue to responseReceived function on line 708
 
     });
 
@@ -68,10 +67,10 @@ $(document).ready(function () {
         e.preventDefault();
         console.log("event fired");
         if (validateForm()) {
-
+            const formData = new FormData()
             //let jobDetails = "";  //I don't know what data the JSON.parse will be so it'll be able to mutate
             var job_id = $('#jobNo').val().trim();
-            var jobStatus = 2; //Need to figure out how to pass a 1 as jobStatus if clicking suspend and a 2 if clicking Save and Complete
+            var jobStatus = 3; //Need to figure out how to pass a 1 as jobStatus if clicking suspend and a 2 if clicking Save and Complete
             //Get job details form DB
             console.log('Getting Transcription Job Details for job#: ' + job_id + ' for demographic update');
 
@@ -86,9 +85,9 @@ $(document).ready(function () {
                 console.log(typeof data);
                 prepareDemos(data);
             });
-
             function prepareDemos(data) {  //I couldn't seem to access the data outside of the post call so I had to pass it to the function. How could this be accomplished without the function?
                 var jobDetails = JSON.parse(data)
+                var tinymceContent = tinymce.get('report').getContent();
                 // Get demographics to update job with
                 var jobLengthStr = $('.able-duration').text().split("/")[1];
                 if (jobLengthStr != "") {
@@ -97,14 +96,13 @@ $(document).ready(function () {
                     alert('Audio Not Loaded Properly. Aborting');
                     return false;
                 }
-                var jobElapsedTimeStr = $('.able-elapsedTime').val();
+                var jobElapsedTimeStr = $('.able-elapsedTime').text();
                 if (jobElapsedTimeStr != "") {
                     var jobElapsedTimeSecs = hmsToSecondsOnly(jobElapsedTimeStr);  //If user suspends job, we can use this to resume where they left off
                 } else {
                     var jobElapsedTimeSecs = 0;
                 }
                 var jobTranscribeDate = getCurrentDateTime();
-
                 //Demographics to send to server;
 
                 console.log(`Data from DB lookup....`);
@@ -122,6 +120,7 @@ $(document).ready(function () {
                 console.log(`Transcribe Date is: ${jobTranscribeDate}`);
 
                 //Append form data for POST
+                formData.append("report", tinymceContent);
                 formData.append("reqcode", 32);
                 formData.append("jobNo", jobDetails.job_id);
                 formData.append("jobLengthStr", jobLengthStr);
@@ -145,27 +144,28 @@ $(document).ready(function () {
                     response.text()
                         .then(data => {
                             if (response.ok) {
-                                console.log(data);
-                                console.log('Job update was succesful');
-                                var responseArr = JSON.parse(data);
-                                console.log(`Full JSON response: ${JSON.stringify(responseArr)}`);
+                                console.log(typeof data);
+                                console.log('Job update call was succesfull');
+                                //var responseArr = JSON.parse(data);
+                                console.log(`Full response from backend: ${data})`);
+                                //tinyMCE.activeEditor.selection.select(tinyMCE.activeEditor.getBody());
+                               //tinyMCE.activeEditor.execCommand( "Copy" );
 
-                                //TODO: Form cleanup
+                                clear();
 
                             } else {
                                 // TODO HIDE LOADING DIALOG
-                                //TODO Form cleanup
-                                console.log(`Error saving job: ${JSON.stringify(responseArr)}`);
+                                //This seems to work
+                                alert(`Error Saving Job. Please contact support - ${data}\n We will attempt to save the text contents to your clipboard if there is any`);
+                                tinyMCE.activeEditor.selection.select(tinyMCE.activeEditor.getBody());
+                                tinyMCE.activeEditor.execCommand( "Copy" );
+                                clear();
                             }
-                            //console.log(response)
                         })
                 });
-
             }
         }
     });
-
-
 });
 
 $(function () {

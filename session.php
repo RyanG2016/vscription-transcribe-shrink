@@ -34,6 +34,9 @@ print_r(date("Y-m").'-01'); //mysql format usage in calendar
 	echo '<br/>';
 	echo '<br/>';
 	echo date_default_timezone_get();
+<<<<<<< .merge_file_k4TJYN
+	
+=======
 
 
 echo "</br>";
@@ -64,6 +67,7 @@ echo "</br>";
     echo "</br>";
     echo "</br>";
 
+>>>>>>> .merge_file_qpB15H
 ?>
 
 </body>
