@@ -3,18 +3,12 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 08, 2020 at 03:50 PM
+-- Generation Time: Jun 08, 2020 at 04:00 PM
 -- Server version: 5.7.26
 -- PHP Version: 7.3.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `vtexvsi_transcribe`
@@ -82,8 +76,7 @@ CREATE TABLE `accounts` (
 --
 
 INSERT INTO `accounts` (`acc_id`, `enabled`, `billable`, `acc_name`, `acc_retention_time`, `acc_creation_date`, `bill_rate1`, `bill_rate1_type`, `bill_rate1_TAT`, `bill_rate1_desc`, `bill_rate2`, `bill_rate2_type`, `bill_rate2_TAT`, `bill_rate2_desc`, `bill_rate3`, `bill_rate3_type`, `bill_rate3_TAT`, `bill_rate3_desc`, `bill_rate4`, `bill_rate4_type`, `bill_rate4_TAT`, `bill_rate4_desc`, `bill_rate5`, `bill_rate5_type`, `bill_rate5_TAT`, `bill_rate5_desc`, `lifetime_minutes`, `work_types`, `next_job_tally`, `act_log_retention_time`) VALUES
-(1, 1, 1, 'VTEX Voice Solutions Inc', 14, '2020-06-08 20:47:59', '2', 2, 5, 'Multiple Speakers', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 180),
-(2, 1, 1, 'University of Manitoba', 14, '2020-06-08 20:49:21', '2', 1, 5, 'Single Speaker', '2', 2, 5, 'Multiple Speakers', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 180);
+(1, 1, 1, 'University of Manitoba', 14, '2020-06-08 20:58:39', '2', 1, 5, 'Single Speaker', '2', 2, 5, 'Multiple Speakers', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 180);
 
 -- --------------------------------------------------------
 
@@ -597,7 +590,8 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `country`, `city`, `state`, `registeration_date`, `last_ip_address`, `plan_id`, `account_status`, `unlock_time`, `newsletter`, `shortcuts`, `dictionary`, `email_notification`, `enabled`, `account`) VALUES
 (1, 'Ryan', 'Gaudet', 'ryangaudet@me.com', '$2y$10$DObJNzsN0Ke5v1OGlVSlbefSL6.K5KpfKrKkcK4TJkNS8dcIVs8x2', 'Canada', 'Winnipeg', 'Manitoba', '2020-05-21 02:33:37', '127.0.0.1', 3, 1, NULL, 0, '', '', 0, 0, 1),
 (2, 'Ryan', 'Gaudet', 'ryan.gaudet@gmail.com', '$2y$10$bDzwNexq4X5x/BthiCXgZeZTB7AKxNqe4ANA4zSN85e/xOmftmQlC', 'Canada', 'Winnipeg', 'Manitoba', '2020-05-21 20:33:19', '127.0.0.1', 1, 1, NULL, 0, '', '', 0, 0, 1),
-(3, 'Hossam', 'Elwahsh', 'hacker2894@gmail.com', '$2y$10$UIesrEKKKrNBwmpNcx8IoufJ3KUSKnzgZ7bA2wMaCsmblh9iyRkVS', 'Egypt', 'Alex', '', '2020-05-31 19:58:27', '::1', 1, 1, NULL, 0, '', '', 0, 0, 1);
+(3, 'Hossam', 'Elwahsh', 'hacker2894@gmail.com', '$2y$10$UIesrEKKKrNBwmpNcx8IoufJ3KUSKnzgZ7bA2wMaCsmblh9iyRkVS', 'Egypt', 'Alex', '', '2020-05-31 19:58:27', '::1', 1, 1, NULL, 0, '', '', 0, 0, 1),
+(4, 'Client', 'Admin', 'cadmin@test.com', '$2y$10$ZNRLxyscDOx0O0uxKsYAUuSLD3mby9fedaZrDT7p6qx2/E/jxIbPa', 'Canada', 'Winnipeg', 'MB', '2020-06-08 20:56:24', NULL, 2, 1, NULL, 0, '1', '1', 1, 1, 1);
 
 --
 -- Indexes for dumped tables
@@ -750,8 +744,4 @@ ALTER TABLE `userlog`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
