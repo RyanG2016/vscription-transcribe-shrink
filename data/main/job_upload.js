@@ -99,18 +99,24 @@ function documentReady() {
 					processData: false,
 					contentType: false,
 					success: function (msg) {
-						console.log(msg);
+						console.log("REQ60 RESPONSE: " + msg);
+						stopProgressWatcher();
 					},
 					error: function (err) {
-						console.log(err);
+						console.log("REQ60 RESPONSE: " + err);
+						stopProgressWatcher();
 					}
 				});
+
+				// now query for upload progress...
+				console.log("enable watchdog1");
+				enableProgressWatcher('job_upload');
+				console.log("enable watchdog2");
 
 
 			})
 
-			// now query for upload progress...
-			enableProgressWatcher('job_upload');
+
 
 
 			//** Get next jobID & jobNumber **//
@@ -126,7 +132,7 @@ function documentReady() {
 	function enableProgressWatcher(progressSuffix) {
 
 		let formData = new FormData();
-		formData.append("reqcode", 62);
+		formData.append("reqcode", 65);
 		formData.append("suffix", progressSuffix);
 
 		timer = setInterval(function () {
@@ -137,6 +143,8 @@ function documentReady() {
 				processData: false,
 				contentType: false,
 				success: function (msg) {
+					console.log("watchdog running");
+					console.log("watchdog msg: " + msg);
 					if (msg === 'null') {
 						clearInterval(timer);
 						document.getElementById('progress-bar').style.width = "100%";
@@ -147,9 +155,14 @@ function documentReady() {
 						let total_bytes = progress['content_length'];
 						// lets do math now
 						let total_percent = Math.floor(processed_bytes * 100 / total_bytes);
+						console.log("percentage completed: " + total_percent);
 						document.getElementById('progress-bar').style.width = total_percent + "%";
 						document.getElementById('progress-bar').innerHTML = total_percent + "%";
 						if (total_percent >= 100) {
+
+							// console.log("Should stop the timer");
+
+							clearInterval(timer)
 							document.getElementById('progress-bar').style.width = "100%";
 							document.getElementById('progress-bar').innerHTML = "100%";
 						}
@@ -157,7 +170,7 @@ function documentReady() {
 					}
 				}
 			});
-		}, 500);
+		}, 600);
 	}
 
 	function stopProgressWatcher()

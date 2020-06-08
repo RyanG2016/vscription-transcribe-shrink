@@ -1264,7 +1264,7 @@ if(isset($_REQUEST["reqcode"])){
 		break;
 
 		/** Upload Progress Watcher **/
-		case 62:
+		case 65:
 
 			$suffix = $_REQUEST['suffix'];
 			$key = ini_get("session.upload_progress.prefix") . $suffix;
