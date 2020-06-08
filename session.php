@@ -34,7 +34,40 @@ print_r(date("Y-m").'-01'); //mysql format usage in calendar
 	echo '<br/>';
 	echo '<br/>';
 	echo date_default_timezone_get();
+<<<<<<< .merge_file_k4TJYN
 	
+=======
+
+
+echo "</br>";
+echo "</br>";
+	echo "----------------------------";
+//    $key = ini_get("session.upload_progress.prefix") . $_POST[ini_get("session.upload_progress.name")];
+    $key = ini_get("session.upload_progress.prefix") . "jobUpload";
+echo "</br>";
+echo "</br>";
+    echo"Prefix: " . ini_get("session.upload_progress.prefix");// . $_POST[ini_get("session.upload_progress.name")];
+    echo "</br>";
+    echo "</br>";
+    echo"Progress Name: " . ini_get("session.upload_progress.name");
+    echo "</br>";
+    echo "</br>";
+    echo "Progress Enabled: " . ini_get("session.upload_progress.enabled");
+    echo "</br>";
+    echo "</br>";
+    echo "session.auto_start: " . ini_get("session.auto_start");
+    echo "</br>";
+    echo "</br>";
+    echo "session.upload_progress.cleanup: " . ini_get("session.upload_progress.cleanup");
+    echo "</br>";
+    echo "</br>";
+//    echo $key;
+//    var_dump($_SESSION[$key]);
+    echo json_encode($_SESSION[$key]);
+    echo "</br>";
+    echo "</br>";
+
+>>>>>>> .merge_file_qpB15H
 ?>
 
 </body>

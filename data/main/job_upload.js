@@ -22,7 +22,7 @@ function documentReady() {
 	input.addEventListener('change', addFilesToUpload);
 
 	function clickUpload() {
-		input.click()
+		input.click();
 	}
 
 	// input.addEventListener('click', clickUpload);
@@ -39,10 +39,11 @@ function documentReady() {
 		      }*/
 		files = [];
 		resetFiles();
-	})
+	});
 
-	form.addEventListener('submit', e => {
-		e.preventDefault()
+	// form.addEventListener('submit', e => {
+	$("#upload_form").on('submit', function (event) {
+		event.preventDefault();
 		if (validateFields()) {
 			const files = document.querySelector('[type=file]').files
 			const formData = new FormData()
@@ -56,6 +57,11 @@ function documentReady() {
 
 			// TODO SHOULD SHOW A LOADING DIALOG
 
+			let other_data = $("#upload_form").serializeArray();
+
+			$.each(other_data, function (key, input) {
+				formData.append(input.name, input.value);
+			});
 
 			//** Get next jobID & jobNumber **//
 			$.post("data/parts/backend_request.php", {
@@ -134,7 +140,7 @@ function documentReady() {
 			 	// TODO HIDE THE DIALOG
 				alert("Please fill in required fields");
 		}
-	})
+	});
 
 	function addFilesToUpload() {
 		while (preview.firstChild) {
