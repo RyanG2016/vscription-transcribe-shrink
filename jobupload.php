@@ -36,6 +36,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,300&display=swap"
           rel="stylesheet">
     <link rel="stylesheet" href="data/css/upload_form.css">
+    <link rel="stylesheet" href="data/css/job_upload.css">
 
     <title>vScription Transcribe Pro Dictation Upload</title>
     <link rel="shortcut icon" type="image/png" href="data/images/favicon.png"/>
@@ -178,16 +179,23 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
                             </form>
                         </div>
                         <div class="box box6">
+
+                            <div role="progressbar" class="mdc-linear-progress mdc-linear-progress--closed" aria-label="Example Progress Bar" aria-valuemin="0" aria-valuemax="1" aria-valuenow="0">
+                                <div class="mdc-linear-progress__buffer">
+                                    <div class="mdc-linear-progress__buffer-bar"></div>
+                                    <div class="mdc-linear-progress__buffer-dots"></div>
+                                </div>
+                                <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
+                                    <span class="mdc-linear-progress__bar-inner"></span>
+                                </div>
+                                <div class="mdc-linear-progress__bar mdc-linear-progress__secondary-bar">
+                                    <span class="mdc-linear-progress__bar-inner"></span>
+                                </div>
+                            </div>
+
                             <h3>Selected Files:</h3>
                             <div class="preview">
                                 <p>No files currently selected for upload</p>
-                            </div>
-
-                            <div id="progress-bar-container" style="border: thin solid gray;">
-                                <div id="progress-bar"
-                                     style="height: 30px; width: 0%; background: cornflowerblue; color: white; text-align: right; line-height: 30px;">
-
-                                </div>
                             </div>
 
                         </div>

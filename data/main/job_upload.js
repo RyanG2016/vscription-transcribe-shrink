@@ -25,6 +25,12 @@ function documentReady() {
 		input.click();
 	}
 
+	const linearProgress = new mdc.linearProgress.MDCLinearProgress(document.querySelector('.mdc-linear-progress'));
+	const linearProgressLay = $('.mdc-linear-progress');
+	// linearProgressLay.addClass('mdc-linear-progress--closed');
+	// linearProgress.progress = 0.5;
+	// linearProgress.determinate = false
+
 	// input.addEventListener('click', clickUpload);
 
 	const clear_btn = document.querySelector('.clear_btn');
@@ -37,6 +43,7 @@ function documentReady() {
 		      } else {
 		        alert('Cancel was pressed. Files should remain');
 		      }*/
+		linearProgressLay.addClass('mdc-linear-progress--closed');
 		files = [];
 		resetFiles();
 	});
@@ -99,12 +106,53 @@ function documentReady() {
 					processData: false,
 					contentType: false,
 					success: function (msg) {
-						console.log("REQ60 RESPONSE: " + msg);
+						console.log("REQ65 RESPONSE: " + msg);
 						stopProgressWatcher();
+						updateUI(100);
+
+						console.log(msg);
+						console.log('Upload call was successful');
+						console.log(`Full JSON object: ${JSON.stringify(msg)}`);
+						//Parse the HTML string(s) together so they can be inserted into the DOM html
+						resetAfterUpload();
+						var htmlEl = "";
+						let size = Object.keys(msg).length
+
+						for (i = 0; i < size; i++) {
+							htmlEl += msg[i];
+							console.log("Key: " + i);
+							console.log("Value: " + msg[i]);
+							console.log(htmlEl);
+						}
+
+						const list = document.createElement('ol');
+						list.setAttribute("class", "uploadResultList");
+						preview.appendChild(list);
+						preview.insertAdjacentHTML("afterbegin", htmlEl);
+						// TODO HIDE LOADING DIALOG & redirect to main.php
+
+
+						/*setTimeout(function () {
+							$('.upload_success_message p').html('Upload(s) Successful! ...Will automatically redirect to Job List in 2 seconds')
+							setTimeout(function () {
+								$('.upload_success_message p').html('Upload(s) Successful! ...Will automatically redirect to Job List in 1 seconds')
+								setTimeout(function () {
+									location.href = 'main.php';
+								}, 1000);
+							}, 1000);
+						}, 1000);*/
+
 					},
 					error: function (err) {
-						console.log("REQ60 RESPONSE: " + err);
+						console.log("REQ65 RESPONSE: " + err);
 						stopProgressWatcher();
+
+						// TODO HIDE LOADING DIALOG
+						resetAfterUpload();
+						htmlEl = "<li><span style='color=#ff00multipart/form-data\"00;'>UPLOAD EXCEPTION HAS OCCURRED. PLEASE TRY AGAIN AND IF ERROR PERSISTS, PLEASE CONTACT SUPPORT</span></li>";
+						const list = document.createElement('ol');
+						preview.appendChild(list);
+						preview.insertAdjacentHTML("afterbegin", htmlEl);
 					}
 				});
 
@@ -129,6 +177,7 @@ function documentReady() {
 	});
 
 
+
 	function enableProgressWatcher(progressSuffix) {
 
 		let formData = new FormData();
@@ -147,8 +196,7 @@ function documentReady() {
 					console.log("watchdog msg: " + msg);
 					if (msg === 'null') {
 						clearInterval(timer);
-						document.getElementById('progress-bar').style.width = "100%";
-						document.getElementById('progress-bar').innerHTML = "100%";
+						updateUI(100);
 					} else {
 						let progress = JSON.parse(msg);
 						let processed_bytes = progress['bytes_processed'];
@@ -156,15 +204,14 @@ function documentReady() {
 						// lets do math now
 						let total_percent = Math.floor(processed_bytes * 100 / total_bytes);
 						console.log("percentage completed: " + total_percent);
-						document.getElementById('progress-bar').style.width = total_percent + "%";
-						document.getElementById('progress-bar').innerHTML = total_percent + "%";
+
+						updateUI(total_percent);
+
 						if (total_percent >= 100) {
 
 							// console.log("Should stop the timer");
-
 							clearInterval(timer)
-							document.getElementById('progress-bar').style.width = "100%";
-							document.getElementById('progress-bar').innerHTML = "100%";
+							updateUI(100);
 						}
 
 					}
@@ -181,6 +228,12 @@ function documentReady() {
 		}
 	}
 
+
+	function updateUI(percentage)
+	{
+		linearProgressLay.removeClass('mdc-linear-progress--closed'); // Show progressbar
+		linearProgress.progress = percentage / 100.0;
+	}
 
 	function addFilesToUpload() {
 		while (preview.firstChild) {
