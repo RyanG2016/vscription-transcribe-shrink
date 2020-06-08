@@ -1138,13 +1138,13 @@ if(isset($_REQUEST["reqcode"])){
 			break;
 
 			//JOB UPLOADER CASES
-		case 60:
+		case 60: //Job Number Generator
 
 			$sql1 = "SELECT (SELECT AUTO_INCREMENT FROM information_schema.TABLES 
 						WHERE TABLE_SCHEMA = 'vtexvsi_transcribe' AND TABLE_NAME = 'files') AS next_job_id, 
-       					(SELECT count(file_id)+1 AS num2 FROM files where job_uploaded_by = '".$_SESSION['uEmail']."') AS next_job_num
-						FROM DUAL";
-
+						(SELECT next_job_tally AS num2 FROM accounts WHERE acc_id = (SELECT account FROM users WHERE email = '".$_SESSION['uEmail']."' )) AS next_job_num
+						FROM DUAL";								
+		
 			if($stmt = mysqli_prepare($con, $sql1))
 			{
 				if(mysqli_stmt_execute($stmt)){
@@ -1471,6 +1471,27 @@ function insertToDB($dbcon, $input) {
 		die( "Execution Error: (" .$con->errno . ") " . $con->error);
 
 	}
+
+	$sql1 = "UPDATE accounts SET next_job_tally=next_job_tally+1";
+	if($stmt = mysqli_prepare($con, $sql1))
+		{
+			$B = mysqli_stmt_execute($stmt);
+			if($B){
+				$result = mysqli_stmt_get_result($stmt);
+				return true;
+			}
+			else{
+				"ERROR: Unable to increment next job number $sql. " . mysqli_error($con);
+				die( "Execution Error: (" .$con->errno . ") " . $con->error);
+				echo 'dup';
+			}
+		}
+		else
+		{
+			echo "ERROR: Could not prepare to execute $sql. " . mysqli_error($con);
+			die( "Execution Error: (" .$con->errno . ") " . $con->error);
+
+		}
 	// Close statement
 	//mysqli_stmt_close($stmt); //WE need to reuse it. It will get closed when the function closes
 }
