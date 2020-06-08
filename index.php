@@ -11,7 +11,7 @@ if(isset($_SESSION['loggedIn']))
 	unset($_SESSION['counter']);
     session_regenerate_id(true);
 	//redirect to main
-	if ($_SESSION['role'] == "2") {
+	if ($_SESSION['role'] == "2" || $_SESSION['role'] == "1") {
 		//User is a System or Client Administrator
 		redirect("main.php");
 	} else if ($_SESSION['role'] == "3"){
