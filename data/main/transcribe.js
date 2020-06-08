@@ -97,14 +97,13 @@ $(document).ready(function () {
                     alert('Audio Not Loaded Properly. Aborting');
                     return false;
                 }
-                var jobElapsedTimeStr = $('.able-elapsedTime').val();
+                var jobElapsedTimeStr = $('.able-elapsedTime').text();
                 if (jobElapsedTimeStr != "") {
                     var jobElapsedTimeSecs = hmsToSecondsOnly(jobElapsedTimeStr);  //If user suspends job, we can use this to resume where they left off
                 } else {
                     var jobElapsedTimeSecs = 0;
                 }
                 var jobTranscribeDate = getCurrentDateTime();
-
                 //Demographics to send to server;
 
                 console.log(`Data from DB lookup....`);
