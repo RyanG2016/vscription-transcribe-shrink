@@ -7,7 +7,10 @@ function documentReady() {
 	const input = document.getElementById('upload_btn');
 	const chooseBtn = document.getElementById('upload_btn_lbl');
 	const reset = document.getElementById('clear_btn');
+	const cancel_popup_btn = document.getElementById('cancelUpload');
+	const confirm_popup_btn = document.getElementById('confirmUpload');
 	const preview = document.querySelector('.preview');
+	const previewModal = document.querySelector('.previewModal');
 	const process_files_url = 'process.php';
 	const backend_url = 'data/parts/backend_request.php';
 	const form = document.querySelector('form');
@@ -15,7 +18,21 @@ function documentReady() {
 	new mdc.ripple.MDCRipple(document.querySelector('.clear_btn'));
 	new mdc.ripple.MDCRipple(document.querySelector('.upload_btn_lbl'));
 	new mdc.ripple.MDCRipple(document.querySelector('.submit_btn'));
+	new mdc.ripple.MDCRipple(document.querySelector('#cancelUpload'));
+	new mdc.ripple.MDCRipple(document.querySelector('#confirmUpload'));
 	// new mdc.textfield.MDCTextField(document.querySelector('.mdc-text-field'));
+	let modal = document.getElementById("modal");
+
+
+	// const modalProgress = new mdc.linearProgress.MDCLinearProgress(document.querySelector('#modalProgress'));
+	// const modalProgressLay = $('#modalProgress');
+
+	/*window.onclick = function(event) {
+		if (event.target == modal) {
+			modal.style.display = "none";
+		}
+	}*/
+
 
 	input.style.display = "none";
 
@@ -24,10 +41,11 @@ function documentReady() {
 	function clickUpload() {
 		input.click();
 	}
-
+	// modal.style.display = "block";
 	const linearProgress = new mdc.linearProgress.MDCLinearProgress(document.querySelector('.mdc-linear-progress'));
 	const linearProgressLay = $('.mdc-linear-progress');
-	// linearProgressLay.addClass('mdc-linear-progress--closed');
+	const progressTxt = $('#progressTxt');
+	// linearProgressLay.removeClass('mdc-linear-progress--closed');
 	// linearProgress.progress = 0.5;
 	// linearProgress.determinate = false
 
@@ -48,6 +66,16 @@ function documentReady() {
 		resetFiles();
 	});
 
+	cancel_popup_btn.addEventListener('click', e => {
+		// cancel the upload
+		location.reload(); // reload is sufficient to cancel it
+	});
+
+	confirm_popup_btn.addEventListener('click', e => {
+		// confirm upload results -> return to job list ?
+		location.href = 'main.php';
+	});
+
 	// form.addEventListener('submit', e => {
 
 	// progress timer
@@ -57,8 +85,7 @@ function documentReady() {
 		event.preventDefault();
 
 		if (validateFields()) {
-			// const files = document.querySelector('[type=file]').files
-			// TODO SHOULD SHOW A LOADING DIALOG
+			modal.style.display = "block"; // show the upload progress window
 
 			event.preventDefault();
 			// lets do ajax...
@@ -127,8 +154,8 @@ function documentReady() {
 
 						const list = document.createElement('ol');
 						list.setAttribute("class", "uploadResultList");
-						preview.appendChild(list);
-						preview.insertAdjacentHTML("afterbegin", htmlEl);
+						previewModal.appendChild(list);
+						previewModal.insertAdjacentHTML("afterbegin", htmlEl);
 						// TODO HIDE LOADING DIALOG & redirect to main.php
 
 
@@ -151,8 +178,8 @@ function documentReady() {
 						resetAfterUpload();
 						htmlEl = "<li><span style='color=#ff00multipart/form-data\"00;'>UPLOAD EXCEPTION HAS OCCURRED. PLEASE TRY AGAIN AND IF ERROR PERSISTS, PLEASE CONTACT SUPPORT</span></li>";
 						const list = document.createElement('ol');
-						preview.appendChild(list);
-						preview.insertAdjacentHTML("afterbegin", htmlEl);
+						previewModal.appendChild(list);
+						previewModal.insertAdjacentHTML("afterbegin", htmlEl);
 					}
 				});
 
@@ -233,6 +260,16 @@ function documentReady() {
 	{
 		linearProgressLay.removeClass('mdc-linear-progress--closed'); // Show progressbar
 		linearProgress.progress = percentage / 100.0;
+		if(percentage !== 100)
+		{
+			progressTxt.text(percentage + "%")
+		}
+		else
+		{
+			progressTxt.text("Complete.");
+			cancel_popup_btn.style.display = "none";
+			confirm_popup_btn.style.display = "inline-block";
+		}
 	}
 
 	function addFilesToUpload() {

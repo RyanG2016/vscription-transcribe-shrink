@@ -179,20 +179,6 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
                             </form>
                         </div>
                         <div class="box box6">
-
-                            <div role="progressbar" class="mdc-linear-progress mdc-linear-progress--closed" aria-label="Example Progress Bar" aria-valuemin="0" aria-valuemax="1" aria-valuenow="0">
-                                <div class="mdc-linear-progress__buffer">
-                                    <div class="mdc-linear-progress__buffer-bar"></div>
-                                    <div class="mdc-linear-progress__buffer-dots"></div>
-                                </div>
-                                <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
-                                    <span class="mdc-linear-progress__bar-inner"></span>
-                                </div>
-                                <div class="mdc-linear-progress__bar mdc-linear-progress__secondary-bar">
-                                    <span class="mdc-linear-progress__bar-inner"></span>
-                                </div>
-                            </div>
-
                             <h3>Selected Files:</h3>
                             <div class="preview">
                                 <p>No files currently selected for upload</p>
@@ -262,6 +248,63 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
     </div>
 </div>
 
+<!-- The Modal -->
+<div id="modal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <h2>Uploading <span id="progressTxt"></span></h2>
+        <p><i>Please wait while your file(s) are being uploaded..</i></p>
+
+        <div role="progressbar" class="mdc-linear-progress mdc-linear-progress--closed" aria-label="Upload Progress Bar" aria-valuemin="0" aria-valuemax="1" aria-valuenow="0">
+            <div class="mdc-linear-progress__buffer">
+                <div class="mdc-linear-progress__buffer-bar"></div>
+                <div class="mdc-linear-progress__buffer-dots"></div>
+            </div>
+            <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
+                <span class="mdc-linear-progress__bar-inner"></span>
+            </div>
+            <div class="mdc-linear-progress__bar mdc-linear-progress__secondary-bar">
+                <span class="mdc-linear-progress__bar-inner"></span>
+            </div>
+        </div>
+
+        <div class="previewModal">
+<!--            <p>No files currently selected for upload</p>-->
+        </div>
+
+        <div class="modal-buttons">
+            <button class="mdc-button mdc-button--unelevated foo-button cancel_upload" id="confirmUpload">
+                <div class="mdc-button__ripple"></div>
+                <i class="material-icons mdc-button__icon" aria-hidden="true"
+                >done_all</i
+                >
+                <span class="mdc-button__label">OK</span>
+            </button>
+
+            <button class="mdc-button mdc-button--unelevated foo-button cancel_upload" id="cancelUpload">
+                <div class="mdc-button__ripple"></div>
+                <i class="material-icons mdc-button__icon" aria-hidden="true"
+                >clear</i
+                >
+                <span class="mdc-button__label">Cancel</span>
+            </button>
+        </div>
+<!--        <div class="mdc-data-table">-->
+
+<!--            <table class="mdc-data-table__table jobs_tbl" aria-label="Jobs List">-->
+<!--                -->
+<!--            </table>-->
+<!--        </div>-->
+
+        <!--<div class="tblButtons">
+            popup's close button
+            <button class="jobOpen">Open</button>
+            <button class="close">Close</button>
+        </div>-->
+    </div>
+
+</div>
 
 </body>
 

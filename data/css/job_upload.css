@@ -1,13 +1,37 @@
+/* --------------------------------*/
+/* vScription Transcribe Modal Box */
+/* --------------------------------*/
+
+@import "parts/modal_popup.css";
+/* Additional Specific Styling to modal */
+.modal{
+    background-color: rgb(30, 121, 190); /* Fallback color */
+    background-color: rgba(30, 121, 190, 0.9); /* Black w/ opacity */
+}
 
 /* Styling for progress bar */
 .mdc-linear-progress{
-    margin-top: 10px;
-    margin-left: 30px;
-    max-width: 327px;
-
     --mdc-theme-primary: #1e79be;
 }
 
 table{
     border-radius: 10px;
+}
+
+#cancelUpload{
+    --mdc-theme-primary: #B00020;
+}
+
+#confirmUpload{
+    --mdc-theme-primary: #53a13d;
+    display: none;
+}
+
+.modal-buttons{
+    text-align: right;
+    margin-top: 15px;
+}
+
+.previewModal{
+    margin-top: 15px;
 }
