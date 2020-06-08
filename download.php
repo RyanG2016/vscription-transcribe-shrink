@@ -26,11 +26,11 @@
                 // Fetch result rows as an associative array						
                 while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
                     $filename = $job_id;
+					$keys = array_keys( $row );
                     header('Content-Disposition: attachment; filename="'.$filename.'.rtf"');
                     header('Content-Type: text/plain'); # Don't use application/force-download - it's not a real MIME type, and the Content-Disposition header is sufficient
-                    header('Content-Length: ' . strlen($row[0]));
+                    header('Content-Length: ' . strlen($row[$keys[0]]));
                     header('Connection: close');
-                    $keys = array_keys( $row );
                     echo $row[$keys[0]];
                 }
             }
