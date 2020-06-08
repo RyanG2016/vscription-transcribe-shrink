@@ -170,13 +170,10 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
                                     <span class="mdc-button__label">Upload File(s)</span>
                                 </button>
 
-                                <input id="upload_btn" type="file" name="upload_btn"
+                                <input id="upload_btn" type="file" name="file[]"
                                        accept=".wav, .mp3, .dss, .ds2, .ogg" multiple/>
 
-                                <input type="hidden"
-                                       name="<?php echo ini_get("session.upload_progress.name"); ?>"
-                                       value="jobUpload"
-                                />
+                                <input type="hidden" name="<?php echo ini_get("session.upload_progress.name"); ?>" value="job_upload"/>
                                 <!--                                <input class="submit_btn" type="submit" value="Upload File(s)" name="Upload" disabled />-->
                             </form>
                         </div>
@@ -185,6 +182,14 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
                             <div class="preview">
                                 <p>No files currently selected for upload</p>
                             </div>
+
+                            <div id="progress-bar-container" style="border: thin solid gray;">
+                                <div id="progress-bar"
+                                     style="height: 30px; width: 0%; background: cornflowerblue; color: white; text-align: right; line-height: 30px;">
+
+                                </div>
+                            </div>
+
                         </div>
                     </td>
                     <!--       add vertical  center line        -->

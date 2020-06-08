@@ -1189,7 +1189,7 @@ if(isset($_REQUEST["reqcode"])){
 			// Is this conditional check even needed? request method should always be post but maybe this is a 
 			// security precaution or best practice?
 			if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-				if (isset($_FILES['files'])) {
+				if (isset($_FILES)) {
 					$uploadResult = [];
 					$uploadMsg = [];
 					$path = '../../../uploads/';
@@ -1201,14 +1201,14 @@ if(isset($_REQUEST["reqcode"])){
 					$dictDate = $_POST["dictDate"];
 					$speakerType = $_POST["speakerType"];
 					$comments = $_POST["comments"];
-					$all_files = count($_FILES['files']['tmp_name']);
+					$all_files = count($_FILES);
 
 					for ($i = 0; $i < $all_files; $i++) {
-						$file_name = $_FILES['files']['name'][$i];
-						$file_tmp = $_FILES['files']['tmp_name'][$i];
-						$file_type = $_FILES['files']['type'][$i];
-						$file_size = $_FILES['files']['size'][$i];
-						$array = explode('.', $_FILES['files']['name'][$i]);
+						$file_name = $_FILES['file' . $i]['name'];
+						$file_tmp = $_FILES['file' . $i]['tmp_name'];
+						$file_type = $_FILES['file' . $i]['type'];
+						$file_size = $_FILES['file' . $i]['size'];
+						$array = explode('.', $_FILES['file' . $i]['name']);
 						$file_ext = strtolower(end($array));
 						if (isset($fileDemos)) {
 							unset($fileDemos);
@@ -1229,8 +1229,8 @@ if(isset($_REQUEST["reqcode"])){
 						}
 
 						//Max file upload size is 128MB. PHP is configured for max size of 128MB
-						//if ($file_size > 134217728) {
-						if ($file_size > 1048576) {
+						if ($file_size > 134217728) {
+//						if ($file_size > 1048576) {
 							$uploadMsg[] = "<li>File: $orig_filename - <span style='color:red;'>UPLOAD FAILED </span>(File size exceeds limit)</li>";              
 							continue;
 						}
@@ -1260,6 +1260,17 @@ if(isset($_REQUEST["reqcode"])){
 
 				
 			}; //Closing brace for opening If statement case 61
+
+		break;
+
+		/** Upload Progress Watcher **/
+		case 62:
+
+			$suffix = $_REQUEST['suffix'];
+			$key = ini_get("session.upload_progress.prefix") . $suffix;
+			echo json_encode($_SESSION[$key]);
+
+			break;
 			
 			
 	} //switch end

@@ -60,7 +60,7 @@ echo "</br>";
     echo "</br>";
 //    echo $key;
 //    var_dump($_SESSION[$key]);
-    echo json_encode($_SESSION[$key]);
+    echo json_encode($_SESSION["upload_progress_job_upload"]);
     echo "</br>";
     echo "</br>";
 

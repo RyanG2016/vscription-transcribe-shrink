@@ -42,28 +42,37 @@ function documentReady() {
 	});
 
 	// form.addEventListener('submit', e => {
+
+	// progress timer
+	var timer;
+
 	$("#upload_form").on('submit', function (event) {
 		event.preventDefault();
+
 		if (validateFields()) {
-			const files = document.querySelector('[type=file]').files
-			const formData = new FormData()
-
-			// Adding all files to formData //
-			for (let i = 0; i < files.length; i++) {
-				let file = files[i]
-				formData.append('files[]', file)
-				console.log(files[i]);
-			}
-
+			// const files = document.querySelector('[type=file]').files
 			// TODO SHOULD SHOW A LOADING DIALOG
 
+			event.preventDefault();
+			// lets do ajax...
+			let formData = new FormData();
+			// let file = $('input[type=file]')[0].files[0];
+			let files = $('input[type=file]')[0].files;
 			let other_data = $("#upload_form").serializeArray();
 
 			$.each(other_data, function (key, input) {
 				formData.append(input.name, input.value);
 			});
+			// formData.append('uploaded_file', file);
 
-			//** Get next jobID & jobNumber **//
+			for (let i = 0; i < files.length; i++) {
+				let file = files[i]
+				// formData.append('files[]', file)
+				formData.append('file'+i, file)
+				console.log(files[i]);
+			}
+
+
 			$.post("data/parts/backend_request.php", {
 				reqcode: 60
 				// ,args: JSON.stringify(arg)
@@ -80,67 +89,85 @@ function documentReady() {
 				formData.append("dictDate", $('.demo_dictdate').val());
 				formData.append("speakerType", $("#demo_speaker_type").val());
 				formData.append("comments", $('#demo_comments').val());
-						
-				
-				//** Upload Files to the server **//
-				fetch(backend_url, {
-					method: 'POST',
-					body: formData,
-				}).then(response => {
-					response.text() 
-					.then(data => {
-					if (response.ok) {
-						console.log(data);
-						console.log('Upload call was successful');
-						var responseArr = JSON.parse(data);
-						console.log(`Full JSON object: ${JSON.stringify(responseArr)}`);
-						
-						//Parse the HTML string(s) together so they can be inserted into the DOM html
-						resetAfterUpload();
-						var htmlEl = "";
-						for (var key in responseArr) {
-							htmlEl += responseArr[key]; 
-    						console.log("Key: " + key);
-    						console.log("Value: " + responseArr[key]);
-							console.log(htmlEl);
-						}			
-						const list = document.createElement('ol');
-						list.setAttribute("class", "uploadResultList");
-						preview.appendChild(list);
-						preview.insertAdjacentHTML("afterbegin", htmlEl);
-						// TODO HIDE LOADING DIALOG & redirect to main.php
-						
 
-/*						setTimeout(function () {
-							$('.upload_success_message p').html('Upload(s) Successful! ...Will automatically redirect to Job List in 2 seconds')
-							setTimeout(function () {
-								$('.upload_success_message p').html('Upload(s) Successful! ...Will automatically redirect to Job List in 1 seconds')
-								setTimeout(function () {
-									location.href = 'main.php';
-								}, 1000);
-							}, 1000);
-						}, 1000);*/
 
-					} else {
-						// TODO HIDE LOADING DIALOG
-						resetAfterUpload();
-						htmlEl = "<li><span style='color=#ff00multipart/form-data\"00;'>UPLOAD EXCEPTION HAS OCCURRED. PLEASE TRY AGAIN AND IF ERROR PERSISTS, PLEASE CONTACT SUPPORT</span></li>";
-						const list = document.createElement('ol');
-						preview.appendChild(list);
-						preview.insertAdjacentHTML("afterbegin", htmlEl);
+				// CHECK UPLOADED FILES AND SAVE IT TO DB
+				$.ajax({
+					type: 'POST',
+					url: backend_url,
+					data: formData,
+					processData: false,
+					contentType: false,
+					success: function (msg) {
+						console.log(msg);
+					},
+					error: function (err) {
+						console.log(err);
 					}
-					//console.log(response)
-				})
+				});
 
-			});
 
-		})
+			})
+
+			// now query for upload progress...
+			enableProgressWatcher('job_upload');
+
+
+			//** Get next jobID & jobNumber **//
+			// MOVE CODE HERE //
 		}
 		else {
-			 	// TODO HIDE THE DIALOG
-				alert("Please fill in required fields");
+			// TODO HIDE THE DIALOG
+			alert("Please fill in required fields");
 		}
 	});
+
+
+	function enableProgressWatcher(progressSuffix) {
+
+		let formData = new FormData();
+		formData.append("reqcode", 62);
+		formData.append("suffix", progressSuffix);
+
+		timer = setInterval(function () {
+			$.ajax({
+				type: 'POST',
+				url: backend_url,
+				data: formData,
+				processData: false,
+				contentType: false,
+				success: function (msg) {
+					if (msg === 'null') {
+						clearInterval(timer);
+						document.getElementById('progress-bar').style.width = "100%";
+						document.getElementById('progress-bar').innerHTML = "100%";
+					} else {
+						let progress = JSON.parse(msg);
+						let processed_bytes = progress['bytes_processed'];
+						let total_bytes = progress['content_length'];
+						// lets do math now
+						let total_percent = Math.floor(processed_bytes * 100 / total_bytes);
+						document.getElementById('progress-bar').style.width = total_percent + "%";
+						document.getElementById('progress-bar').innerHTML = total_percent + "%";
+						if (total_percent >= 100) {
+							document.getElementById('progress-bar').style.width = "100%";
+							document.getElementById('progress-bar').innerHTML = "100%";
+						}
+
+					}
+				}
+			});
+		}, 500);
+	}
+
+	function stopProgressWatcher()
+	{
+		if(timer != null)
+		{
+			clearInterval(timer);
+		}
+	}
+
 
 	function addFilesToUpload() {
 		while (preview.firstChild) {
