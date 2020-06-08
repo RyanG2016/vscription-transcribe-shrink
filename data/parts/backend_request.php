@@ -440,7 +440,12 @@ if(isset($_REQUEST["reqcode"])){
 								echo "<td class=\"mdc-data-table__cell\">";
 
 								if($row['file_status'] == "Completed") {
-									echo "<a class=\"material-icons\" href='#'>cloud_download</a>";
+									$job_id = $row['job_id'];
+									$search = array (
+										"job_id" => $job_id,
+									);
+									$dnldURL = $cbaselink . "/download.php?" . http_build_query($search);
+									echo "<a class=\"material-icons\" href='{$dnldURL}'>cloud_download</a>";
 								}
 
 								echo "</td>";
