@@ -742,7 +742,7 @@ if(isset($_REQUEST["reqcode"])){
 						$htmlToRtfConverter = new HtmlToRtf\HtmlToRtf($report);
 				//        $htmlToRtfConverter->getRTFFile();
 						$convertedRTF = trim($htmlToRtfConverter->getRTF());
-						echo($convertedRTF);
+						//echo($convertedRTF);
 
 						//DB Insert Code
 
@@ -753,12 +753,12 @@ if(isset($_REQUEST["reqcode"])){
 						$file_transcribe_date = $dateTrans;
 						$transcribed_by = $_SESSION['uEmail'];
 			
-						$sql = "UPDATE FILES SET audio_length=?, last_audio_position=?, file_status=?, file_transcribed_date=?, transcribed_by=? WHERE job_id=?";
+						$sql = "UPDATE FILES SET audio_length=?, last_audio_position=?, file_status=?, file_transcribed_date=?, job_transcribed_by=?,  job_document_html=?, job_document_rtf=? WHERE job_id=?";
 						
 						if($stmt = mysqli_prepare($con, $sql))
 						{
 			
-							if( !$stmt->bind_param("iiisss", $audio_length, $audio_elapsed, $file_status, $file_transcribe_date, $transcribed_by, $job_id )   )
+							if( !$stmt->bind_param("iiisssss", $audio_length, $audio_elapsed, $file_status, $file_transcribe_date, $transcribed_by, $report, $convertedRTF, $job_id)   )
 							{
 			
 										die( "Error in bind_param: (" .$con->errno . ") " . $con->error);
