@@ -1276,6 +1276,16 @@ if(isset($_REQUEST["reqcode"])){
 			echo json_encode($_SESSION[$key]);
 
 			break;
+
+			/** Password hashing **/
+		case 66:
+
+			$a = json_decode($args,true);
+
+			$password = $a['pwd'];
+			echo password_hash($password,PASSWORD_BCRYPT);
+
+			break;
 			
 			
 	} //switch end
