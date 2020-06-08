@@ -10,7 +10,7 @@ include ('data/parts/constants.php');
 	if(isset($_SESSION['fname']) && isset($_SESSION['lname']))
 	{
 		$popName = $_SESSION['fname'] . " " . $_SESSION['lname'];
-		$initials = substr($_SESSION['fname'],0) . substr($_SESSION['lname'],0,2);
+		$initials = strtolower(substr($_SESSION['fname'],0,1)) . strtolower(substr($_SESSION['lname'],0,1));
 	}
 	else{
 		$popName = "";

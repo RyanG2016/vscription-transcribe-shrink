@@ -730,7 +730,7 @@ if(isset($_REQUEST["reqcode"])){
 				//	alert('check');
 					if(isset($_POST['jobNo']))
 					{
-						$initials = substr($_SESSION['fname'],0) . substr($_SESSION['lname'],0,2);
+						$initials = strtolower(substr($_SESSION['fname'],0,1)) . strtolower(substr($_SESSION['lname'],0,1));
 						$dateTrans = date("Y-m-d H:i:s");
 						$report = '<b>'.'Job Number: ' .'</b>'. $_POST['jobNo'] .'<br/>';
 						$report = $report . '<b>'.'Author Name: ' .'</b>'. $_POST['jobAuthorName'].'<br/>';
