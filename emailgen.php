@@ -14,13 +14,9 @@ else{
 
 function generateEmailNotifications($sqlcon) {
     $con = $sqlcon;
- 	$sql = "SELECT email FROM users WHERE 
+  	$sql = "SELECT email FROM users WHERE 
 		account = (SELECT account from users WHERE email = '" . $_SESSION['uEmail'] . "') AND 
         email_notification = 1 AND plan_id = 3"; 
- 
-/*       $sql = "SELECT email FROM users WHERE 
-     account = (SELECT account from users WHERE email = 'ryan.gaudet@gmail.com') AND 
-        email_notification = 1 AND plan_id = 3;";  */
 
 //    $sql = "SELECT * from users;";
 	
