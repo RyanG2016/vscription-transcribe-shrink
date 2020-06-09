@@ -1,18 +1,28 @@
 <?php 
 
 include('data/parts/config.php');
+include('data/parts/head.php');
+
+if(isset($_SESSION['fname']) && isset($_SESSION['lname']))
+{
+    $popName = $_SESSION['fname'] . " " . $_SESSION['lname'];
+    $initials = strtolower(substr($_SESSION['fname'],0,1)) . strtolower(substr($_SESSION['lname'],0,1));
+}
+else{
+    $popName = "";
+}
 
 function generateEmailNotifications($sqlcon) {
     $con = $sqlcon;
-/* 	$sql = "SELECT email FROM users WHERE 
-		account = (SELECT account from users WHERE email = '" . $_SESSION['email'] . "') AND 
-        email_notification = 1 AND plan_id = 3"; */
+ 	$sql = "SELECT email FROM users WHERE 
+		account = (SELECT account from users WHERE email = '" . $_SESSION['uEmail'] . "') AND 
+        email_notification = 1 AND plan_id = 3"; 
  
- /*     $sql = "SELECT email FROM users WHERE 
+/*       $sql = "SELECT email FROM users WHERE 
      account = (SELECT account from users WHERE email = 'ryan.gaudet@gmail.com') AND 
-        email_notification = 1 AND plan_id = 3;"; */
+        email_notification = 1 AND plan_id = 3;";  */
 
-    $sql = "SELECT * from users;";
+//    $sql = "SELECT * from users;";
 	
 	if($stmt = mysqli_prepare($con, $sql))
 	{
@@ -37,10 +47,17 @@ function generateEmailNotifications($sqlcon) {
 			echo "The SQL Call failed";
         }
         //echo $recipients;
-        echo json_encode($recipients);
-        $data = json_encode($recipients);
+        //echo json_encode($recipients);
+        //$data = json_encode($recipients);
         //echo json_encode($receipients['email']);
-        mailtest($data);
+        foreach($recipients as $item) {
+            echo $item . "<br />";
+            $a = Array (
+                "email" => $item
+            );
+            sendEmail(10, $a,"", true);
+        } 
+        //mailtest($data);
     }
     else {
         echo "ERROR: Could not execute $sql. " . mysqli_error($con->error) .'<br>';
@@ -57,6 +74,78 @@ function mailtest($a) {
     } 
 
 }
+
+function sendEmail($mailType,$a,$token,$appendmsg)//0:login-default, 1:signup, 4:resetpwd 5:signup verify
+{
+    //$args = json_decode($a);
+	include('data/parts/constants.php');
+	include("mail.php");
+    $email = strtolower($a["email"]);
+    echo "Sending to: " . $email;
+	$_SESSION['src'] = $mailType;
+	
+
+//	$_SESSION['msg'] = $_SESSION['msg']; 
+	$link = "$cbaselink/verify.php?token=$token";
+	
+	switch($mailType)
+	{
+		case 0:
+			include('data/parts/reset_email_template.php');
+			$sbj = "Password Reset";
+			$_SESSION['src'] = 2; //TDO
+				break;
+		case 5:
+			include('data/parts/verify_email_temp.php');
+			$sbj = "Email Verification";
+			$_SESSION['src'] = 2;
+			$mail->addCC("sales@vtexvsi.com");
+				break;
+		case 10:
+			include('data/parts/document_complete_template.php');
+			$sbj = "New Document Ready for Download";
+			$_SESSION['src'] = 2; 
+			$mail->addCC("sales@vtexvsi.com");
+		break;
+		case 15:
+			include('data/parts/job_ready_for_typing_template.php');
+			$sbj = "New Job Ready for Typing";
+			$_SESSION['src'] = 2; 
+			$mail->addCC("sales@vtexvsi.com");
+		default:
+			$sbj = "vScription Transcribe Pro";
+				break;
+	}
+	
+	$mail->addAddress("$email"); //recepient
+	$mail->Subject = $sbj;
+	$mail->Body    = $emHTML;
+	$mail->AltBody = $emPlain;
+	
+	
+	try{
+			$mail->send();
+			$_SESSION['msg'] = $_SESSION['msg'];
+			if(!$appendmsg)
+			{
+				$_SESSION['error'] = false; //outputs empty error in session
+				$_SESSION['msg'] = "Email sent."; 
+			}
+			else{
+				$_SESSION['msg'] = $_SESSION['msg'] . "<br/><br/>" . "Email sent."; 
+			}
+		
+		} catch (Exception $e) {
+			if(!$appendmsg)
+			{
+				$_SESSION['error'] = true;  //error=1 in session
+				$_SESSION['msg'] = "Email couldn\'t be sent at this time please try again. {$mail->ErrorInfo}";
+			}
+			else{
+				$_SESSION['msg'] = $_SESSION['msg'] . "<br/><br/>" . "Email couldn\'t be sent at this time please try again. {$mail->ErrorInfo}";
+			}
+		}
+} //send Email end
 
 //echo "Calling emailNotification Function";
 generateEmailNotifications($con);
