@@ -1263,7 +1263,7 @@ if(isset($_REQUEST["reqcode"])){
 
 				}
 
-				
+				//sendEmail(10,$a,$token,true);
 			}; //Closing brace for opening If statement case 61
 
 		break;
@@ -1329,6 +1329,17 @@ function sendEmail($mailType,$a,$token,$appendmsg)//0:login-default, 1:signup, 4
 			$_SESSION['src'] = 2;
 			$mail->addCC("sales@vtexvsi.com");
 				break;
+		case 10:
+			include('document_complete_template.php');
+			$sbj = "New Document Ready for Download";
+			$_SESSION['src'] = 2; 
+			$mail->addCC("sales@vtexvsi.com");
+		break;
+		case 15:
+			include('job_ready_for_typing_template.php');
+			$sbj = "New Job Ready for Typing";
+			$_SESSION['src'] = 2; 
+			$mail->addCC("sales@vtexvsi.com");
 		default:
 			$sbj = "vScription Transcribe";
 				break;
@@ -1492,9 +1503,37 @@ function insertToDB($dbcon, $input) {
 			die( "Execution Error: (" .$con->errno . ") " . $con->error);
 
 		}
+
 	// Close statement
 	//mysqli_stmt_close($stmt); //WE need to reuse it. It will get closed when the function closes
 }
+function generateEmailNotifications($con, $mailtype) {
+	$sql = "SELECT email FROM users WHERE 
+		account = (SELECT account from users WHERE email = '" . $_SESSION['email'] . "') AND 
+		email_notification = 1 AND plan_id = 3;"
+	
+	if($stmt = mysqli_prepare($con, $sql))
+	{
+		if(mysqli_stmt_execute($stmt)){
+			$result = mysqli_stmt_get_result($stmt);
+			// Check number of rows in the result set
+			if(mysqli_num_rows($result) > 0){
+				// Fetch result rows as an associative array
+				while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+					$recipients[]=$row[0];
+				}
+			}
+			else {
+				// If there are no records in the DB for this account
 
+				echo "No recipients are configured to received these notifications";
+			}
+		}
+		else{
+			//If the sql execute statement fails
+		}
+		echo json_encode($recipients);
+	}
+}
 
 ?>
