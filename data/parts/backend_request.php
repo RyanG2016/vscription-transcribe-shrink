@@ -1516,8 +1516,30 @@ function insertToDB($dbcon, $input) {
 		}
 		$B = mysqli_stmt_execute($stmt);
 		if($B){
-			$result = mysqli_stmt_get_result($stmt);
+            // $result = mysqli_stmt_get_result($stmt);
+            $sql1 = "UPDATE accounts SET next_job_tally=next_job_tally+1 where acc_id = (SELECT account from users WHERE email = '" . $uploadedBy . "')";
+
+            if($stmt = mysqli_prepare($con, $sql1))
+            {
+                $B = mysqli_stmt_execute($stmt);
+                if($B){
+                    $result = mysqli_stmt_get_result($stmt);
+                    echo $sql1 . " ran succesfully";
+                    return true;
+                }
+                else{
+                    "ERROR: Unable to increment next job number $sql1. " . mysqli_error($con);
+                    die( "Execution Error: (" .$con->errno . ") " . $con->error);
+                    echo 'dup';
+                }
+            }
+            else
+            {
+                echo "ERROR: Could not prepare to execute $sql1. " . mysqli_error($con);
+                die( "Execution Error: (" .$con->errno . ") " . $con->error);
+            }
 			return true;
+
 		}
 		else{
 			"ERROR: Was not able to execute $sql. " . mysqli_error($con);
@@ -1532,27 +1554,7 @@ function insertToDB($dbcon, $input) {
 
 	}
 
-	$sql1 = "UPDATE accounts SET next_job_tally=next_job_tally+1 where acc_id = (SELECT account from users WHERE email = '" . $uploadedBy . "')";
 
-	if($stmt = mysqli_prepare($con, $sql1))
-		{
-			$B = mysqli_stmt_execute($stmt);
-			if($B){
-				$result = mysqli_stmt_get_result($stmt);
-				echo $sql1 . " ran succesfully";
-				return true;
-			}
-			else{
-				"ERROR: Unable to increment next job number $sql1. " . mysqli_error($con);
-				die( "Execution Error: (" .$con->errno . ") " . $con->error);
-				echo 'dup';
-			}
-		}
-		else
-		{
-			echo "ERROR: Could not prepare to execute $sql1. " . mysqli_error($con);
-			die( "Execution Error: (" .$con->errno . ") " . $con->error);
-		}
 
 	// Close statement
 	//mysqli_stmt_close($stmt); //WE need to reuse it. It will get closed when the function closes
