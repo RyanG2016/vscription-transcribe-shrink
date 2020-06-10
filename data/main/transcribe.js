@@ -1,5 +1,4 @@
 // JavaScript Document
-
 var g_fileName;
 
 $(document).tooltip({
@@ -9,7 +8,6 @@ $(document).tooltip({
 });
 
 $(document).ready(function () {
-
 
     getLatestAppVersionNumber(checkVersions);
 
@@ -503,7 +501,9 @@ function loadIntoPlayer(data) {
     var $loadBtn = $('#loadBtn');
     var $completeBtn = $('#completeBtn');
     //g_fileName = fileName;
-    var audioTempFolder = "https://vscriptiontranscribeupload.local:8888/workingTemp/"
+
+
+    // audioTempFolder is a constant inside constants.js
     AblePlayerInstances[0].media.src = audioTempFolder + jobDetails.tempFilename;
     $loadBtn.addClass('noHover');
     $loadBtn.text(jobDetails.job_id + ' Loaded');
