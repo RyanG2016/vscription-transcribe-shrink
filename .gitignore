@@ -11,4 +11,6 @@ data/parts/error_log
 main_scratch.php
 test*
 workingTemp/
+
 /data/parts/config.php
+/data/scripts/parts/constants.js
