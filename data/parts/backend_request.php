@@ -1524,7 +1524,7 @@ function insertToDB($dbcon, $input) {
                 $B = mysqli_stmt_execute($stmt);
                 if($B){
                     $result = mysqli_stmt_get_result($stmt);
-                    echo $sql1 . " ran succesfully";
+//                    echo $sql1 . " ran succesfully";
                     return true;
                 }
                 else{
