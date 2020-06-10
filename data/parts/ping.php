@@ -5,9 +5,9 @@ $ctime = $_SERVER['REQUEST_TIME'];
 //echo date("Y-m-d H:i:s");
 //echo date_default_timezone_get();
 	/**
-	* for a 2 minute timeout, specified in seconds
+	* interaction timeout, specified in seconds, currently set to 1 day of inactivity
 	*/
-	$timeout_duration = 604800;
+	$timeout_duration = 86400;
 	/**
 	* Here we look for the user's LAST_ACTIVITY timestamp. If
 	* it's set and indicates our $timeout_duration has passed,
