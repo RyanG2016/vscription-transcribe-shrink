@@ -10,7 +10,7 @@ require_once('../../rtf3/src/HtmlToRtf.php');
 require_once('../regex.php');
 //////////
 
-session_start(['cookie_lifetime' => 86400,'cookie_secure' => true,'cookie_httponly' => true]);
+include('session_settings.php');
 include('constants.php');
 	 $lang2 = 'en';
 
