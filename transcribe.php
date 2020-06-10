@@ -6,6 +6,7 @@
 include('data/parts/head.php');
 include ('rtf3/src/HtmlToRtf.php');
 include ('data/parts/constants.php');
+include_once("gaTrackingCode.php");
 
 	if(isset($_SESSION['fname']) && isset($_SESSION['lname']))
 	{
