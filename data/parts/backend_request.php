@@ -1532,26 +1532,26 @@ function insertToDB($dbcon, $input) {
 
 	}
 
-	$sql1 = "UPDATE accounts SET next_job_tally=next_job_tally+1";
+	$sql1 = "UPDATE accounts SET next_job_tally=next_job_tally+1 where acc_id = (SELECT account from users WHERE email = '" . $uploadedBy . "')";
+
 	if($stmt = mysqli_prepare($con, $sql1))
 		{
 			$B = mysqli_stmt_execute($stmt);
 			if($B){
 				$result = mysqli_stmt_get_result($stmt);
-				//generateEmailNotifications($con, 10);  //10 is new upload, 15 is new document for download
+				echo $sql1 . " ran succesfully";
 				return true;
 			}
 			else{
-				"ERROR: Unable to increment next job number $sql. " . mysqli_error($con);
+				"ERROR: Unable to increment next job number $sql1. " . mysqli_error($con);
 				die( "Execution Error: (" .$con->errno . ") " . $con->error);
 				echo 'dup';
 			}
 		}
 		else
 		{
-			echo "ERROR: Could not prepare to execute $sql. " . mysqli_error($con);
+			echo "ERROR: Could not prepare to execute $sql1. " . mysqli_error($con);
 			die( "Execution Error: (" .$con->errno . ") " . $con->error);
-
 		}
 
 	// Close statement
