@@ -1286,12 +1286,60 @@ if(isset($_REQUEST["reqcode"])){
 			echo password_hash($password,PASSWORD_BCRYPT);
 
 			break;
-			
+			/* Email Generator Code*/
+		case 80:
+
+			$a = json_decode($args,true);
+			$mailtype = $a['mailtype'];	
+			echo "Mail type is: " . $mailtype;
+			$sql = "SELECT email FROM users WHERE 
+						account = (SELECT account from users WHERE email = '" . $_SESSION['uEmail'] . "') AND 
+						email_notification = 1 AND plan_id = 3"; 
+				
+				//    $sql = "SELECT * from users;";
+					
+			if($stmt = mysqli_prepare($con, $sql))
+			{
+				if(mysqli_stmt_execute($stmt)){
+					$result = mysqli_stmt_get_result($stmt);
+					// Check number of rows in the result set
+					if(mysqli_num_rows($result) > 0){
+						//echo "We found some rows";
+						// Fetch result rows as an associative array
+						while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+							//echo strval($row['email']);
+							$recipients[]=$row['email'];
+						}
+					}
+					else {
+						// If there are no records in the DB for this account
+		
+						echo "No recipients are configured to received these notifications";
+					}
+				}
+				else{
+					echo "The SQL Call failed";
+				}
+				foreach($recipients as $item) {
+					echo $item . "<br />";
+					$a = Array (
+						"email" => $item
+					);
+					sendEmail($mailtype, $a,"", true);
+				} 
+				//mailtest($data);
+			}
+			else {
+				echo "ERROR: Could not execute $sql. " . mysqli_error($con->error) .'<br>';
+				die( "Error in execute: (" .$con->errno . ") " . $con->error);
+			}
+			//$_SESSION['email'];
+	
+					break;
+					
 			
 	} //switch end
-	
-	
-	
+
 }//if code is set end
 else{
 	header('location:../../index.php');
@@ -1309,6 +1357,7 @@ function sendEmail($mailType,$a,$token,$appendmsg)//0:login-default, 1:signup, 4
 {
 	include('constants.php');
 	include("../../mail.php");
+	echo "Mail type is: " .$mailType;
 	$email = strtolower($a["email"]);
 	$_SESSION['src'] = $mailType;
 	
@@ -1331,17 +1380,17 @@ function sendEmail($mailType,$a,$token,$appendmsg)//0:login-default, 1:signup, 4
 				break;
 		case 10:
 			include('document_complete_template.php');
-			$sbj = "New Document Ready for Download";
+			$sbj = "New Document(s) Ready for Download";
 			$_SESSION['src'] = 2; 
 			$mail->addCC("sales@vtexvsi.com");
 		break;
 		case 15:
 			include('job_ready_for_typing_template.php');
-			$sbj = "New Job Ready for Typing";
+			$sbj = "New Job(s) Ready for Typing";
 			$_SESSION['src'] = 2; 
 			$mail->addCC("sales@vtexvsi.com");
 		default:
-			$sbj = "vScription Transcribe";
+			$sbj = "vScription Transcribe Pro";
 				break;
 	}
 	
@@ -1489,6 +1538,7 @@ function insertToDB($dbcon, $input) {
 			$B = mysqli_stmt_execute($stmt);
 			if($B){
 				$result = mysqli_stmt_get_result($stmt);
+				//generateEmailNotifications($con, 10);  //10 is new upload, 15 is new document for download
 				return true;
 			}
 			else{
@@ -1507,10 +1557,13 @@ function insertToDB($dbcon, $input) {
 	// Close statement
 	//mysqli_stmt_close($stmt); //WE need to reuse it. It will get closed when the function closes
 }
-function generateEmailNotifications($con, $mailtype) {
-	$sql = "SELECT email FROM users WHERE 
-		account = (SELECT account from users WHERE email = '" . $_SESSION['email'] . "') AND 
-		email_notification = 1 AND plan_id = 3;"
+function generateEmailNotifications($sqlcon, $mailtype) {
+    $con = $sqlcon;
+  	$sql = "SELECT email FROM users WHERE 
+		account = (SELECT account from users WHERE email = '" . $_SESSION['uEmail'] . "') AND 
+        email_notification = 1 AND plan_id = 3"; 
+
+//    $sql = "SELECT * from users;";
 	
 	if($stmt = mysqli_prepare($con, $sql))
 	{
@@ -1518,9 +1571,11 @@ function generateEmailNotifications($con, $mailtype) {
 			$result = mysqli_stmt_get_result($stmt);
 			// Check number of rows in the result set
 			if(mysqli_num_rows($result) > 0){
+                //echo "We found some rows";
 				// Fetch result rows as an associative array
 				while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-					$recipients[]=$row[0];
+                    //echo strval($row['email']);
+					$recipients[]=$row['email'];
 				}
 			}
 			else {
@@ -1530,10 +1585,23 @@ function generateEmailNotifications($con, $mailtype) {
 			}
 		}
 		else{
-			//If the sql execute statement fails
-		}
-		echo json_encode($recipients);
-	}
+			echo "The SQL Call failed";
+        }
+        foreach($recipients as $item) {
+            echo $item . "<br />";
+            $a = Array (
+                "email" => $item
+            );
+            sendEmail($mailtype, $a,"", true);
+        } 
+        //mailtest($data);
+    }
+    else {
+        echo "ERROR: Could not execute $sql. " . mysqli_error($con->error) .'<br>';
+        die( "Error in execute: (" .$con->errno . ") " . $con->error);
+    }
+    //$_SESSION['email'];
 }
+
 
 ?>

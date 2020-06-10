@@ -1,18 +1,21 @@
 <?php
 
-$emHTML= "<b>Hi $email,</b>
+$emHTML= "vScription Transcribe Pro<br/></br>Hi $email,
 		
 <br/><br/><br/>
-There is a new job awaiting typing.
+There are one or more new jobs available for typing for an account you are assigned to.
 <br/><br/>
    
    Thanks.
    ";
 
-$emPlain = "Hi $email,
+$emPlain = "
+vScription Transcribe Pro
+
+Hi $email,
 		
 
-There is a new job awaiting typing.
+There are one or more new jobs available for typing for an account you are assigned to.
 
 Thanks.";
 

@@ -156,6 +156,16 @@ function documentReady() {
 						list.setAttribute("class", "uploadResultList");
 						previewModal.appendChild(list);
 						previewModal.insertAdjacentHTML("afterbegin", htmlEl);
+
+						var a1 = {
+							mailtype: 15
+						};
+						$.post("data/parts/backend_request.php", {
+							reqcode: 80,
+							args: JSON.stringify(a1)
+						}).done(function (data) {
+							console.log(data);
+						});
 						// TODO HIDE LOADING DIALOG & redirect to main.php
 
 

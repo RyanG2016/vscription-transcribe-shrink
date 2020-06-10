@@ -113,7 +113,7 @@ function sendEmail($mailType,$a,$token,$appendmsg)//0:login-default, 1:signup, 4
 				break;
 	}
 	
-	$mail->addAddress("$email"); //recepient
+	$mail->addAddress("$email"); //recipient
 	$mail->Subject = $sbj;
 	$mail->Body    = $emHTML;
 	$mail->AltBody = $emPlain;
