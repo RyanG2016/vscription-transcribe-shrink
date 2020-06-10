@@ -1510,7 +1510,7 @@ function insertToDB($dbcon, $input) {
 function generateEmailNotifications($con, $mailtype) {
 	$sql = "SELECT email FROM users WHERE 
 		account = (SELECT account from users WHERE email = '" . $_SESSION['email'] . "') AND 
-		email_notification = 1 AND plan_id = 3;"
+		email_notification = 1 AND plan_id = 3";
 	
 	if($stmt = mysqli_prepare($con, $sql))
 	{
@@ -1535,5 +1535,3 @@ function generateEmailNotifications($con, $mailtype) {
 		echo json_encode($recipients);
 	}
 }
-
-?>
