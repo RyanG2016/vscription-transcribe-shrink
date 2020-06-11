@@ -290,18 +290,18 @@ include_once("gaTrackingCode.php");
 							</td>
 
 							<td id="nr">
-								<button class="button-green" id="saveBtn" type="submit">
+								<button class="button-green" id="saveBtn" type="submit" name="saveBtn">
 									<i class="fas fa-save"></i>
 									<!--				<strong>Save and Complete</strong>-->
 									Save and Complete
 								</button>
 							</td>
 							<td id="nr">
-								<a class="button-orange" id="suspendBtn">
+								<button class="button-orange" id="suspendBtn" name="suspendBtn" type="submit">
 									<i class="fas fa-hourglass-half"></i>
 									<!--				<strong>Suspend</strong>-->
 									Suspend
-								</a>
+								</button>
 							</td>
 							<td id="nr">
 								<a class="button-red" onclick="clearWithConfirm();">
@@ -362,6 +362,28 @@ include_once("gaTrackingCode.php");
                 <button class="jobOpen">Open</button>
                 <button class="close">Close</button>
             </div>-->
+        </div>
+
+    </div>
+
+    <!-- The Modal -->
+    <div id="modalLoading" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <h2>Please wait..</h2>
+            <p><i>Saving Job UM... data</i></p>
+
+
+            <div style="text-align: right">
+                <button class="mdc-button mdc-button--unelevated foo-button" id="loadingConfirm">
+                    <div class="mdc-button__ripple"></div>
+                    <i class="material-icons mdc-button__icon" aria-hidden="true"
+                    >done_all</i
+                    >
+                    <span class="mdc-button__label">OK</span>
+                </button>
+            </div>
         </div>
 
     </div>

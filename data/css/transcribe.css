@@ -4,6 +4,19 @@
 
 @import "parts/modal_popup.css";
 
+/* Modal loading edits */
+#modalLoading .modal-content h2{
+    text-align: center;
+}
+
+#modalLoading .modal-content{
+    width: fit-content;
+    min-width: 300px;
+}
+
+#loading_confirm{
+    display: none;
+}
 
 @font-face {
     font-family: oxygen;
