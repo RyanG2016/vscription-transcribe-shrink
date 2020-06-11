@@ -132,7 +132,7 @@ include_once("gaTrackingCode.php");
     <script src="data/libs/node_modules/material-components-web/dist/material-components-web.js"></script>
 
 	<script src='tinymce/js/tinymce/tinymce.min.js?v=<?php echo $version_control ?>'></script>
-	<script src='data/main/tinymceFree.js?v=<?php echo $version_control ?>'></script>
+	<script src='data/scripts/tinymce.js?v=<?php echo $version_control ?>'></script>
 	<script src="tinymce/js/tinymce/plugins/mention/plugin.js?v=<?php echo $version_control ?>"></script>
 	<link rel="stylesheet" type="text/css" href="tinymce/js/tinymce/plugins/mention/css/autocomplete.css">
 	<link rel="stylesheet" type="text/css" href="tinymce/js/tinymce/plugins/mention/css/rte-content.css">

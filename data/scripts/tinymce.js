@@ -2,7 +2,7 @@ tinymce.init({
 	selector: '#report',
 	auto_focus: "report",
 	external_plugins: {
-		"nanospell": "/tinymce/nanospell/plugin.js"
+		"nanospell": "../../nanospell/plugin.js"
 	},
 	nanospell_server: "php",
 	branding: false,
