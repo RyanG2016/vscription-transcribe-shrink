@@ -1,6 +1,6 @@
 <?php
 //date_default_timezone_set('America/Winnipeg');
-date_default_timezone_set('Africa/Cairo');
+date_default_timezone_set('America/Winnipeg');
 define('DB_SERVER','localhost');
 define('DB_USER','admin');
 define('DB_PASS' ,'admin');
