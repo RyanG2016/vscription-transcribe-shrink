@@ -324,7 +324,7 @@ include_once("gaTrackingCode.php");
 					</table>
 					<div id="accord">
 						<h3>Shortcuts</h3>
-						<div>
+						<div style="overflow: visible;">
 							<!--					 <img id="norm" src="data/images/f248.png" /> <&lt;DRSPELLING>>&nbsp;&nbsp; <img id="norm" src="data/images/f348.png" /> <&lt;PATSPELLING>>&nbsp;&nbsp; -->
 							<!--					&nbsp;&nbsp; <img id="norm" src="data/images/at.png" /> <php //echo $atShortcut ?>-->
 

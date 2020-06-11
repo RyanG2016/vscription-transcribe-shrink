@@ -252,8 +252,9 @@ $("#jobNo").keypress(function () {
 $(function () {
     $("#accord").accordion({
         collapsible: true,
-        header: "h3" //,heightStyle: "fill"
-        ,
+        header: "h3",
+        //heightStyle: "fill",
+        heightStyle: "content",
         active: false,
         activate: function () {
             $("body").getNiceScroll().resize();
