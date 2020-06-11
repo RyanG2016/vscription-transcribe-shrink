@@ -516,6 +516,17 @@ function loadIntoPlayer(data) {
             // Show playing UI.
             AblePlayerInstances[0].media.pause();
             AblePlayerInstances[0].seekTo(0);
+
+            AblePlayerInstances[0].onMediaPause = function () {
+                if(AblePlayerInstances[0].seekBar.position-2 > 0)
+                {
+                    AblePlayerInstances[0].seekTo(AblePlayerInstances[0].seekBar.position-2);
+                }
+                else{
+                    AblePlayerInstances[0].seekTo(0);
+                }
+
+            }
         })
             .catch(error => {
                 // Auto-play was prevented
