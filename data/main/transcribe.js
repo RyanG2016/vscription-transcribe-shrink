@@ -518,9 +518,9 @@ function loadIntoPlayer(data) {
             AblePlayerInstances[0].seekTo(0);
 
             AblePlayerInstances[0].onMediaPause = function () {
-                if(AblePlayerInstances[0].seekBar.position-2 > 0)
+                if(AblePlayerInstances[0].seekBar.position-rewindAmountOnPause > 0)
                 {
-                    AblePlayerInstances[0].seekTo(AblePlayerInstances[0].seekBar.position-2);
+                    AblePlayerInstances[0].seekTo(AblePlayerInstances[0].seekBar.position-rewindAmountOnPause);
                 }
                 else{
                     AblePlayerInstances[0].seekTo(0);
