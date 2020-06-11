@@ -69,12 +69,6 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
     <script src="data/main/garlic.js"></script>
     <script src="data/main/jquery-ui.js"></script>
 
-    <script src='tinymce/js/tinymce/tinymce.min.js?v=<?php echo $version_control ?>'></script>
-    <script src='data/main/tinymceFree.js?v=<?php echo $version_control ?>'></script>
-    <script src="tinymce/js/tinymce/plugins/mention/plugin.js?v=<?php echo $version_control ?>"></script>
-    <link rel="stylesheet" type="text/css" href="tinymce/js/tinymce/plugins/mention/css/autocomplete.css">
-    <link rel="stylesheet" type="text/css" href="tinymce/js/tinymce/plugins/mention/css/rte-content.css">
-
 
     <script src="data/main/main.js?v=<?php echo $version_control ?>"></script>
 
