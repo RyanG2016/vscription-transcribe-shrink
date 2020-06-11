@@ -738,8 +738,8 @@ if(isset($_REQUEST["reqcode"])){
 						$report = $report . '<b>'.'Author Name: ' .'</b>'. $_POST['jobAuthorName'].'<br/>';
 						$report = $report . '<b>'.'Typist Name: ' .'</b>'. $initials .'<br/>';
 						$report = $report . '<b>'.'Job Type: ' .'</b>'.$_POST['jobType'].'<br/>';
-						$report = $report . '<b>'.'Date Dictated: ' .'</b>'.$_POST['DateDic'].'<br/>';
-						$report = $report. '<b>'.'Date Transcribed: ' .'</b>' . $dataTrans .'<br/>';
+						$report = $report . '<b>'.'Date Dictated: ' .'</b>'.$_POST['jobDateDic'].'<br/>';
+						$report = $report. '<b>'.'Date Transcribed: ' .'</b>' . $dateTrans .'<br/>';
 						$report = $report . '<b>'.'Comments: ' .'</b>'.$_POST['jobComments'].'<br/>';
 						
 						$report = $report.'<br/>';
@@ -1292,10 +1292,13 @@ if(isset($_REQUEST["reqcode"])){
 
 			$a = json_decode($args,true);
 			$mailtype = $a['mailtype'];	
+			$usertype = $a['usertype'];
 			echo "Mail type is: " . $mailtype;
+			echo "User Type is :" . $usertype;
 			$sql = "SELECT email FROM users WHERE 
 						account = (SELECT account from users WHERE email = '" . $_SESSION['uEmail'] . "') AND 
-						email_notification = 1 AND plan_id = 3"; 
+						email_notification = 1 AND plan_id =" . $usertype; 
+			echo "SQL Called is " . $sql;
 				
 				//    $sql = "SELECT * from users;";
 					

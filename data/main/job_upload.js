@@ -158,8 +158,10 @@ function documentReady() {
 						previewModal.insertAdjacentHTML("afterbegin", htmlEl);
 
 						var a1 = {
-							mailtype: 15
+							mailtype: 15,
+							usertype: 3   //Typist
 						};
+						// Generate Email Notifications
 						$.post("data/parts/backend_request.php", {
 							reqcode: 80,
 							args: JSON.stringify(a1)

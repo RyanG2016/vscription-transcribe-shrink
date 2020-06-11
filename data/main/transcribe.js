@@ -148,7 +148,17 @@ $(document).ready(function () {
                                 console.log(`Full response from backend: ${data})`);
                                 //tinyMCE.activeEditor.selection.select(tinyMCE.activeEditor.getBody());
                                //tinyMCE.activeEditor.execCommand( "Copy" );
-
+                            // Generate Email Notifications 
+                            var a1 = {
+                                mailtype: 10,
+                                usertype: 2    //Client Admins
+                            };  
+                            $.post("data/parts/backend_request.php", {
+                                reqcode: 80,
+                                args: JSON.stringify(a1)
+                            }).done(function (data) {
+                                console.log(data);
+                            });
                                 clear();
 
                             } else {
