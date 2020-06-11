@@ -10,7 +10,7 @@ require_once('../../rtf3/src/HtmlToRtf.php');
 require_once('../regex.php');
 //////////
 
-session_start(['cookie_lifetime' => 86400,'cookie_secure' => true,'cookie_httponly' => true]);
+include('session_settings.php');
 include('constants.php');
 	 $lang2 = 'en';
 
@@ -96,7 +96,8 @@ if(isset($_REQUEST["reqcode"])){
 					{
 						$trial = 1;
 						$locked = 0;
-						$unlocks_on = "";
+//						$unlocks_on = "";
+						$unlocks_on = $timePls1;
 
 						//UPDATE protect SET first_attempt = ?, last_attempt = ?, trials = ?, locked = ?,unlocks_on = ? where ip=? and src=?
 						$stU2->bind_param("ssiissi", $ctime, $ctime, $trial, $locked, $unlocks_on, $ip, $src); // BIND PARS
@@ -119,7 +120,8 @@ if(isset($_REQUEST["reqcode"])){
 
 						$trial = 1;
 						$locked = 0;
-						$unlocks_on = "";
+//						$unlocks_on = "";
+						$unlocks_on = $timePls1;
 
 						//UPDATE protect SET first_attempt = ?, last_attempt = ?, trials = ?, locked = ?,unlocks_on =? where ip=? and src=?
 						$stU2->bind_param("ssiissi", $ctime, $ctime, $trial, $locked, $unlocks_on, $ip, $src); // BIND PARS
@@ -909,7 +911,6 @@ if(isset($_REQUEST["reqcode"])){
 			$email = strtolower($a["email"]);
 			$rememberme = strtolower($a["rememberme"]);
 			$password = $a["password"];
-			$role = $a["plan_id"];
 			$onehour = date("Y-m-d H:i:s");
 			
 			$timestamp = strtotime(date("Y-m-d H:i:s")) + 60*60;

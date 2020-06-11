@@ -1,5 +1,4 @@
 // JavaScript Document
-
 var g_fileName;
 
 $(document).tooltip({
@@ -9,7 +8,6 @@ $(document).tooltip({
 });
 
 $(document).ready(function () {
-
 
     getLatestAppVersionNumber(checkVersions);
 
@@ -503,7 +501,9 @@ function loadIntoPlayer(data) {
     var $loadBtn = $('#loadBtn');
     var $completeBtn = $('#completeBtn');
     //g_fileName = fileName;
-    var audioTempFolder = "https://vscriptiontranscribeupload.local:8888/workingTemp/"
+
+
+    // audioTempFolder is a constant inside constants.js
     AblePlayerInstances[0].media.src = audioTempFolder + jobDetails.tempFilename;
     $loadBtn.addClass('noHover');
     $loadBtn.text(jobDetails.job_id + ' Loaded');
@@ -516,6 +516,17 @@ function loadIntoPlayer(data) {
             // Show playing UI.
             AblePlayerInstances[0].media.pause();
             AblePlayerInstances[0].seekTo(0);
+
+            AblePlayerInstances[0].onMediaPause = function () {
+                if(AblePlayerInstances[0].seekBar.position-rewindAmountOnPause > 0)
+                {
+                    AblePlayerInstances[0].seekTo(AblePlayerInstances[0].seekBar.position-rewindAmountOnPause);
+                }
+                else{
+                    AblePlayerInstances[0].seekTo(0);
+                }
+
+            }
         })
             .catch(error => {
                 // Auto-play was prevented

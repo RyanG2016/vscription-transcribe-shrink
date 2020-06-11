@@ -1,20 +1,20 @@
 <?php
 //session_start();
-session_start(['cookie_lifetime' => 86400,'cookie_secure' => true,'cookie_httponly' => true]);
+include('session_settings.php');
 
 include('data/parts/ping.php');
 
 if(!isset($_SESSION['loggedIn']))
 {
 	header('location:logout.php');
+	exit();
 }
 if(isset($_SESSION['counter']))
 {
 	unset($_SESSION['counter']);
 }
 
-//if user is logged in check for timeout
+/*
 else {
 	
-}
-?>
+}*/

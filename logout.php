@@ -1,6 +1,6 @@
 
 <?php
-session_start(['cookie_lifetime' => 86400,'cookie_secure' => true,'cookie_httponly' => true]);
+include('data/parts/session_settings.php');
 include('data/parts/config.php');
 // Getting logout time in db
 isset($_SESSION['uEmail'])?$uemail = $_SESSION['uEmail']:$uemail = "";
@@ -42,7 +42,7 @@ else{//not even loggedIn
 	}		
 	session_unset();
 	session_destroy();
-    session_regenerate_id(true);
+//    session_regenerate_id(true);
 
 	if($rmb)
 	{

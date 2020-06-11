@@ -1,3 +1,6 @@
+/data/parts/config.php export-ignore
+/data/scripts/parts/constants.js export-ignore
+/data/parts/constants.php export-ignore
 *.exe filter=lfs diff=lfs merge=lfs -text
 *.zip filter=lfs diff=lfs merge=lfs -text
 *.msi filter=lfs diff=lfs merge=lfs -text
