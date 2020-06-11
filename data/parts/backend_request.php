@@ -909,7 +909,6 @@ if(isset($_REQUEST["reqcode"])){
 			$email = strtolower($a["email"]);
 			$rememberme = strtolower($a["rememberme"]);
 			$password = $a["password"];
-			$role = $a["plan_id"];
 			$onehour = date("Y-m-d H:i:s");
 			
 			$timestamp = strtotime(date("Y-m-d H:i:s")) + 60*60;
