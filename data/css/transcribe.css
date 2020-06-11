@@ -410,12 +410,12 @@ table, th, td {
     /*  border: 1px solid black;*/
 }
 
-#loadBtn{
+/*#loadBtn{
     display: block;
     max-width: 302px;
     text-overflow: ellipsis;
     overflow: hidden;
-}
+}*/
 
 #message_bar{
     display:none;
@@ -539,3 +539,28 @@ table, th, td {
     content: attr(data-ln-last);
 }
 
+/* BUTTONS STYLING */
+.save-button{
+    --mdc-theme-primary: #66BB6A;
+}
+
+.suspend-button{
+    --mdc-theme-primary: #FFA726;
+}
+
+.discard-button{
+    --mdc-theme-primary: #E53935;
+}
+
+
+.load-button{
+    --mdc-theme-primary: #1e79be;
+}
+
+.confirm-button{
+    --mdc-theme-primary: #66BB6A;
+}
+
+.mdc-button{
+    padding: 20px !important;
+}

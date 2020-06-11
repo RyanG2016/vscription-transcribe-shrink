@@ -33,7 +33,6 @@ include_once("gaTrackingCode.php");
 <!--	<link href='data/thirdparty/scripts/css/tablesort.css?v=--><?php //echo $version_control ?><!--' type='text/css' rel='stylesheet' />-->
 
 	<link href='data/css/transcribe.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet' />
-	<link href='data/main/buttons.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet' />
 
 	<link href='data/fontawesome/css/all.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet' />
 	<link href='ableplayer/styles/ableplayer.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet' />
@@ -205,11 +204,12 @@ include_once("gaTrackingCode.php");
 						</td>
 						<td id="help-td" align="right" width="225px">
 
-							<a class="button-blue" onclick="location.href = 'logout.php'">
+                            <span class="top-links">
+							<a  href="logout.php">
 								<i class="fas fa-sign-out-alt"></i>
 								Logout
-								<!--					<strong>Logout</strong>-->
 							</a>
+                            </span>
 
 						</td>
 
@@ -235,22 +235,28 @@ include_once("gaTrackingCode.php");
 						</td>
 
 
-						<td align="right" style="width:1%; white-space:nowrap;">
+						<td align="right">
 
-							<a class="button" id="loadBtn">
+							<!--<a class="button" id="loadBtn">
 								<i class="fas fa-cloud-upload-alt"></i>
 								Load
-							</a>
+							</a>-->
+
+                            <button class="mdc-button mdc-button--unelevated load-button" id="loadBtn" name="loadBtn" type="button">
+                                <div class="mdc-button__ripple"></div>
+                                <i class="material-icons mdc-button__icon" aria-hidden="true">backup</i>
+                                <span class="mdc-button__label">Load</span>
+                            </button>
 							<!--<input type="file" id="fileLoadDiag" style="display: none" accept="audio/vnd.wave, audio/wav, audio/wave, audio/mpeg,audio/ogg,audio/x-wav" />-->
 						</td>
 
-						<td align="right" width="114px" style="width:1%; white-space:nowrap;">
+						<!--<td align="right" width="114px" style="width:1%; white-space:nowrap;">
 							<a class="button noHover disabled" id="completeBtn">
 								<i class="fas fa-check-circle"></i>
-								<!--								<strong>Complete</strong>-->
+
 								Complete
 							</a>
-						</td>
+						</td>-->
 					</tr>
 				</table>
 
@@ -290,25 +296,29 @@ include_once("gaTrackingCode.php");
 							</td>
 
 							<td id="nr">
-								<button class="button-green" id="saveBtn" type="submit" name="saveBtn">
-									<i class="fas fa-save"></i>
-									<!--				<strong>Save and Complete</strong>-->
-									Save and Complete
-								</button>
+                                <button class="mdc-button mdc-button--unelevated save-button" id="saveBtn" type="submit" name="saveBtn" disabled>
+                                    <div class="mdc-button__ripple"></div>
+                                    <i class="material-icons mdc-button__icon" aria-hidden="true"
+                                    >save</i
+                                    >
+                                    <span class="mdc-button__label">Save and Complete</span>
+                                </button>
+
 							</td>
 							<td id="nr">
-								<button class="button-orange" id="suspendBtn" name="suspendBtn" type="submit">
-									<i class="fas fa-hourglass-half"></i>
-									<!--				<strong>Suspend</strong>-->
-									Suspend
-								</button>
+                                <button class="mdc-button mdc-button--unelevated suspend-button" id="suspendBtn" type="submit" name="suspendBtn"  disabled>
+                                    <div class="mdc-button__ripple"></div>
+                                    <i class="material-icons mdc-button__icon" aria-hidden="true">pause_circle_outline</i>
+                                    <span class="mdc-button__label">Suspend</span>
+                                </button>
 							</td>
 							<td id="nr">
-								<a class="button-red" onclick="clearWithConfirm();">
-									<i class="fas fa-trash-alt"></i>
-									<!--					<strong>Discard</strong>-->
-									Discard
-								</a>
+                                <button class="mdc-button mdc-button--unelevated discard-button" id="discardBtn" name="discardBtn" onclick="clearWithConfirm();"  disabled>
+                                    <div class="mdc-button__ripple"></div>
+                                    <i class="material-icons mdc-button__icon" aria-hidden="true">save</i>
+                                    <span class="mdc-button__label">Discard</span>
+                                </button>
+
 							</td>
 						</tr>
 					</table>
@@ -376,7 +386,7 @@ include_once("gaTrackingCode.php");
 
 
             <div style="text-align: right">
-                <button class="mdc-button mdc-button--unelevated foo-button" id="loadingConfirm">
+                <button class="mdc-button mdc-button--unelevated confirm-button" id="loadingConfirm">
                     <div class="mdc-button__ripple"></div>
                     <i class="material-icons mdc-button__icon" aria-hidden="true"
                     >done_all</i

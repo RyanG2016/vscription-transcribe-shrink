@@ -42,6 +42,10 @@ $(document).ready(function () {
     loadingSub = $("#modalLoading .modal-content p i");
     loadingTitle = $("#modalLoading .modal-content h2");
 
+    // buttons styling init
+    new mdc.ripple.MDCRipple(document.querySelector('#saveBtn'));
+    new mdc.ripple.MDCRipple(document.querySelector('#suspendBtn'));
+    new mdc.ripple.MDCRipple(document.querySelector('#discardBtn'));
 
 
     // loading.style.display = "block";
@@ -74,7 +78,7 @@ $(document).ready(function () {
         e.preventDefault();
         let action = e.submitter.id;
 
-        console.log("event fired");
+        // console.log("event fired");
         if (validateForm()) {
             const formData = new FormData()
             //let jobDetails = "";  //I don't know what data the JSON.parse will be so it'll be able to mutate
@@ -113,8 +117,8 @@ $(document).ready(function () {
                 reqcode: 11,
                 args: JSON.stringify(a1)
             }).done(function (data) {
-                console.log(data);
-                console.log(typeof data);
+                // console.log(data);
+                // console.log(typeof data);
                 prepareDemos(data);
             });
             function prepareDemos(data) {  //I couldn't seem to access the data outside of the post call so I had to pass it to the function. How could this be accomplished without the function?
@@ -136,19 +140,19 @@ $(document).ready(function () {
                 var jobTranscribeDate = getCurrentDateTime();
                 //Demographics to send to server;
 
-                console.log(`Data from DB lookup....`);
-                console.log(`Job Number: ${jobDetails.job_id}`);
-                console.log(`Author: ${jobDetails.file_author}`);
-                console.log(`Filename: ${jobDetails.origFilename}`);
+                // console.log(`Data from DB lookup....`);
+                // console.log(`Job Number: ${jobDetails.job_id}`);
+                // console.log(`Author: ${jobDetails.file_author}`);
+                // console.log(`Filename: ${jobDetails.origFilename}`);
                 // console.log(`Temp filename is: ${jobDetails.tempFilename}`);
-                console.log(`Dictated Date: ${jobDetails.file_date_dict}`);
-                console.log(`Work Type: ${jobDetails.file_work_type}`);
-                console.log(`Speaker Type: ${jobDetails.file_speaker_type}`);
-                console.log(`Upload Comments: ${jobDetails.file_comment}`);
-                console.log(`Job length is: ${jobLengthSecs} seconds`);
-                console.log(`Job Elapsed Time is: ${jobElapsedTimeSecs} seconds`);
-                console.log(`Job Status is: ${jobStatus}`);
-                console.log(`Transcribe Date is: ${jobTranscribeDate}`);
+                // console.log(`Dictated Date: ${jobDetails.file_date_dict}`);
+                // console.log(`Work Type: ${jobDetails.file_work_type}`);
+                // console.log(`Speaker Type: ${jobDetails.file_speaker_type}`);
+                // console.log(`Upload Comments: ${jobDetails.file_comment}`);
+                // console.log(`Job length is: ${jobLengthSecs} seconds`);
+                // console.log(`Job Elapsed Time is: ${jobElapsedTimeSecs} seconds`);
+                // console.log(`Job Status is: ${jobStatus}`);
+                // console.log(`Transcribe Date is: ${jobTranscribeDate}`);
 
                 //Append form data for POST
                 formData.append("report", tinymceContent);
@@ -177,10 +181,10 @@ $(document).ready(function () {
                     response.text()
                         .then(data => {
                             if (response.ok) {
-                                console.log(typeof data);
-                                console.log('Job update call was successful');
+                                // console.log(typeof data);
+                                // console.log('Job update call was successful');
                                 //var responseArr = JSON.parse(data);
-                                console.log(`Full response from backend: ${data})`);
+                                // console.log(`Full response from backend: ${data})`);
                                 //tinyMCE.activeEditor.selection.select(tinyMCE.activeEditor.getBody());
                                //tinyMCE.activeEditor.execCommand( "Copy" );
                             // Generate Email Notifications 
@@ -391,6 +395,9 @@ function clear() {
         //       });
     });
 
+    $('#saveBtn').attr("disabled", "disabled");
+    $('#suspendBtn').attr("disabled", "disabled");
+    $('#discardBtn').attr("disabled", "disabled");
 }
 
 $(document).ready(function () {
@@ -455,7 +462,7 @@ function completePlayer() {
     }, 300);
 
     $loadBtn.removeClass('noHover');
-    $('#loadBtn').html('<i class="fas fa-cloud-upload-alt"></i> Load');
+    $('#loadBtn').html('<i class="fas fa-cloud-upload-alt"></i>&nbsp;Load');
     $loadBtn.find("i").show();
     $completeBtn.addClass('noHover');
     $completeBtn.addClass('button');
@@ -550,7 +557,7 @@ function decodeHtml(html) {
 // Loading Audio File and details
 function loadIntoPlayer(data) {
     var jobDetails = JSON.parse(data);
-    console.log(data);
+    // console.log(data);
     currentFileID = jobDetails.file_id; // globaly set current fileID
 
     // console.log(`Job Number: ${jobDetails.job_id}`);
@@ -584,6 +591,12 @@ function loadIntoPlayer(data) {
     $loadBtn.addClass('noHover');
     $loadBtn.text(jobDetails.job_id + ' Loaded');
     $loadBtn.find("i").hide();
+
+    // enable save etc.. buttons
+    $('#saveBtn').removeAttr("disabled");
+    $('#suspendBtn').removeAttr("disabled");
+    $('#discardBtn').removeAttr("disabled");
+
     var playPromise = AblePlayerInstances[0].media.play();
 
     if (playPromise !== undefined) {
@@ -824,7 +837,7 @@ function toggleClass(el, className) {
 /*----Lookup job details-----*/
 
 function clearTempAudio(tempFileName) {
-    console.log('Clearing temp audio file');
+    // console.log('Clearing temp audio file');
 
     var a1 = {
         job_id: tempFileName
