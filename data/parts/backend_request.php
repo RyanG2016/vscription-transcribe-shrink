@@ -301,16 +301,19 @@ if(isset($_REQUEST["reqcode"])){
 		// Load Job Details for Player //
 		// Also move audio file to working directory
 
-			case 7:
+		// this whole case needs adjustments as it is used in three different places some of them doesn't even need the tmp random file to be copid
 
-			$a = json_decode($args,true);
-			$job_id = $a['job_id'];
-			$sql = "SELECT *
-					FROM files WHERE job_id = ?";
+		// currently known use to me is loading a job into the player in transcribe.js <<AKA LOAD BUTTON>>
+		case 7:
+
+		$a = json_decode($args,true);
+		$file_id = $a['file_id'];
+		$sql = "SELECT *
+				FROM files WHERE file_id = ?";
 
 		if($stmt = mysqli_prepare($con, $sql))
 			{
-				mysqli_stmt_bind_param($stmt, "s", $job_id);
+				mysqli_stmt_bind_param($stmt, "i", $file_id);
 
 				if(mysqli_stmt_execute($stmt) ){
 					$result = mysqli_stmt_get_result($stmt);
@@ -324,22 +327,50 @@ if(isset($_REQUEST["reqcode"])){
 							if ($row['filename'] != "") {
 									$randFileName = random_filename(15) . '.wav';
 									// These paths need to be relative to the PHP file making the call....
+
+								$arrContextOptions=array(
+									"ssl"=>array(
+										"verify_peer"=>false,
+										"verify_peer_name"=>false,
+									),
+								);
+
+								$path = "../../../uploads/". $row['filename'];
+								$type = pathinfo($path, PATHINFO_EXTENSION);
+								$data = file_get_contents($path, true, stream_context_create($arrContextOptions));
+								$base64 = 'data:audio/' . $type . ';base64,' . base64_encode($data);
+
 									if (copy('../../../uploads/' . $row['filename'], '../../workingTemp/' . $randFileName )) {
 									}
 									else {
 										//echo "Error moving file" . $randFileName . " to working directory..";
 									};
 									$jobDetails = array(
+										"file_id" => $row['file_id'],
 										"job_id" => $row['job_id'],
 										"file_author" => $row['file_author'],
 										"origFilename" => $row['filename'],
+										"suspendedText" => htmlentities($row['job_document_html'], ENT_QUOTES),
+//										"suspendedText" => $row['job_document_html'],
 										"tempFilename" => $randFileName,
 										"file_date_dict" => $row['file_date_dict'],
 										"file_work_type" => $row['file_work_type'],
+										"last_audio_position" => $row['last_audio_position'],
+										"job_status" => $row['file_status'],
 										"file_speaker_type" => $row['file_speaker_type'],
-										"file_comment" => $row['file_comment']
+										"file_comment" => $row['file_comment'],
+										"base64" => $base64
 									);
+
+//								header('Content-type:application/json;charset=utf-8');
 								echo json_encode($jobDetails);
+//								echo json_encode($jobDetails, JSON_UNESCAPED_SLASHES);
+
+								if($row['file_status'] == 2 || $row['file_status'] == 0) // if the job was suspended/awaiting update it to being typed status = 1
+								{
+									updateJobStatus($con, $file_id, 1 );
+								}
+
 							} else {
 								echo "No filename found in record --- ERROR"; //This should NEVER happen....Just for testing
 							}
@@ -493,9 +524,10 @@ if(isset($_REQUEST["reqcode"])){
 			// Not using DataTables
 
 			case 9:
+			// todo where clause here probably from session would be safer
 
 			$sql = "SELECT `file_id`, `job_id`, `file_type`, `original_audio_type`, `filename`, `fileAudioBlob`, `fileTextBlob`, `file_tag`, `file_author`, `file_work_type`, `file_comment`, `file_speaker_type`, `file_date_dict`, (SELECT j_status_name From file_status_ref WHERE file_status_ref.j_status_id=files.file_status ORDER BY file_status LIMIT 1) as file_status, `last_audio_position`, `job_upload_date`, `job_uploaded_by`, `text_downloaded_date`, `times_text_downloaded_date`, `file_transcribed_date`, `typist_comments`, `isBillable`, `billed` FROM files
-			WHERE `file_status` IN (0,1,2)";
+			WHERE `file_status` IN (0,1,2) and acc_id = (SELECT account from users WHERE email = '" . $_SESSION['uEmail'] . "')";
 
 			if($stmt = mysqli_prepare($con, $sql)){
 
@@ -524,9 +556,10 @@ if(isset($_REQUEST["reqcode"])){
 						while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
 
 
-							echo "<tr data-row-id=\"{$row['job_id']}\" class=\"mdc-data-table__row\">";
-								echo "<td class=\"mdc-data-table__cell\">{$row['job_id']}</td>
-								<td class=\"mdc-data-table__cell\" id=\"{$row['job_id']}\">{$row['file_author']}</td>
+							echo "<tr data-row-id=\"{$row['job_id']}\" class=\"mdc-data-table__row\" id=\"{$row['file_id']}\" >";
+								echo
+							   "<td class=\"mdc-data-table__cell\">{$row['job_id']}</td>
+								<td class=\"mdc-data-table__cell\">{$row['file_author']}</td>
 								<td class=\"mdc-data-table__cell\">{$row['file_work_type']}</td>
 								<td class=\"mdc-data-table__cell\">{$row['file_comment']}</td>
 								<td class=\"mdc-data-table__cell\">{$row['file_date_dict']}</td>
@@ -549,6 +582,82 @@ if(isset($_REQUEST["reqcode"])){
 			mysqli_stmt_close($stmt);
 
 			break;
+
+
+		case 11:
+
+			$a = json_decode($args,true);
+//			$job_id = $a['job_id'];
+			$file_id = $a['file_id'];
+			$sql = "SELECT *
+					FROM files WHERE file_id = ?";
+
+			if($stmt = mysqli_prepare($con, $sql))
+			{
+				mysqli_stmt_bind_param($stmt, "i", $file_id);
+
+				if(mysqli_stmt_execute($stmt) ){
+					$result = mysqli_stmt_get_result($stmt);
+
+					// Check number of rows in the result set
+					if(mysqli_num_rows($result) > 0){
+						// Fetch result rows as an associative array
+
+						while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+
+//							if ($row['filename'] != "") {
+								/*$randFileName = random_filename(15) . '.wav';
+								// These paths need to be relative to the PHP file making the call....
+								if (copy('../../../uploads/' . $row['filename'], '../../workingTemp/' . $randFileName )) {
+								}
+								else {
+									//echo "Error moving file" . $randFileName . " to working directory..";
+								};*/
+								$jobDetails = array(
+									"job_id" => $row['job_id'],
+									"file_author" => $row['file_author'],
+									"origFilename" => $row['filename'],
+//									"tempFilename" => $randFileName,
+									"file_date_dict" => $row['file_date_dict'],
+									"file_work_type" => $row['file_work_type'],
+									"file_speaker_type" => $row['file_speaker_type'],
+									"file_comment" => $row['file_comment']
+								);
+								echo json_encode($jobDetails);
+//							} else {
+//								echo "No filename found in record --- ERROR"; //This should NEVER happen....Just for testing
+//							}
+
+						}
+					}
+				}
+				else{
+//						echo "<p>No matches found</p>";
+
+				}
+			} else{
+//					echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
+
+			}
+
+
+			// Close statement
+			mysqli_stmt_close($stmt);
+
+			break;
+
+		// update job status only
+		case 16:
+
+			$a = json_decode($args,true);
+//			$job_id = $a['job_id'];
+			$file_id = $a['file_id'];
+			$newStatus = $a['new_status'];
+
+			updateJobStatus($con, $file_id, $newStatus);
+
+			break;
+
 		//---------------------------------------------------\\
 		//-------------------Insert Cases 3xx----------------\\
 		//---------------------------------------------------\\
@@ -725,8 +834,9 @@ if(isset($_REQUEST["reqcode"])){
 
 			break ;
 
-			case 32://UPDATES JOB DETAILS/////////
-				
+			/** This updates the job/file details with new updates as Completed/Suspended job **/
+			case 32:
+
 				if(isset($_POST))
 				{
 				//	alert('check');
@@ -734,17 +844,23 @@ if(isset($_REQUEST["reqcode"])){
 					{
 						$initials = strtolower(substr($_SESSION['fname'],0,1)) . strtolower(substr($_SESSION['lname'],0,1));
 						$dateTrans = date("Y-m-d H:i:s");
+
+						$plainTinyMCEContent = $_POST['report'];
+
 						$report = '<b>'.'Job Number: ' .'</b>'. $_POST['jobNo'] .'<br/>';
 						$report = $report . '<b>'.'Author Name: ' .'</b>'. $_POST['jobAuthorName'].'<br/>';
 						$report = $report . '<b>'.'Typist Name: ' .'</b>'. $initials .'<br/>';
 						$report = $report . '<b>'.'Job Type: ' .'</b>'.$_POST['jobType'].'<br/>';
+						$report = $report . '<b>'.'Job Length: ' .'</b>'.$_POST['jobLengthSecs'].'<br/>';
 						$report = $report . '<b>'.'Date Dictated: ' .'</b>'.$_POST['jobDateDic'].'<br/>';
 						$report = $report. '<b>'.'Date Transcribed: ' .'</b>' . $dateTrans .'<br/>';
 						$report = $report . '<b>'.'Comments: ' .'</b>'.$_POST['jobComments'].'<br/>';
 						
 						$report = $report.'<br/>';
 						$report = $report.'<br/>';
-						$report = $report . $_POST['report'];
+						$report = $report . $plainTinyMCEContent;
+
+
 				
 						$htmlToRtfConverter = new HtmlToRtf\HtmlToRtf($report);
 				//        $htmlToRtfConverter->getRTFFile();
@@ -753,19 +869,26 @@ if(isset($_REQUEST["reqcode"])){
 
 						//DB Insert Code
 
-						$job_id = $_POST['jobNo'];						
+						$job_id = $_POST['jobNo'];
+						$file_id = $_POST['file_id'];
 						$audio_length = $_POST['jobLengthSecs'];
 						$audio_elapsed = $_POST['jobElapsedTimeSecs'];
 						$file_status = $_POST['jobStatus'];
 						$file_transcribe_date = $dateTrans;
 						$transcribed_by = $_SESSION['uEmail'];
 			
-						$sql = "UPDATE FILES SET audio_length=?, last_audio_position=?, file_status=?, file_transcribed_date=?, job_transcribed_by=?,  job_document_html=?, job_document_rtf=? WHERE job_id=?";
+
+						$sql = "UPDATE FILES SET audio_length=?, last_audio_position=?, file_status=?, 
+								 file_transcribed_date=?, 
+								 job_transcribed_by=?,  
+								 job_document_html=?, 
+								 job_document_rtf=? 
+									WHERE file_id = ?";
 						
 						if($stmt = mysqli_prepare($con, $sql))
 						{
 			
-							if( !$stmt->bind_param("iiisssss", $audio_length, $audio_elapsed, $file_status, $file_transcribe_date, $transcribed_by, $report, $convertedRTF, $job_id)   )
+							if( !$stmt->bind_param("iiisssss", $audio_length, $audio_elapsed, $file_status, $file_transcribe_date, $transcribed_by, $plainTinyMCEContent, $convertedRTF, $file_id)   )
 							{
 			
 										die( "Error in bind_param: (" .$con->errno . ") " . $con->error);
@@ -801,6 +924,8 @@ if(isset($_REQUEST["reqcode"])){
 					echo "Looks like JobNo is empty";
 				
 				}
+
+				break;
 
 			/*--------------------------------*/
 			case 39://INSERTS FILE UPLOAD DATA/////////
@@ -958,10 +1083,12 @@ if(isset($_REQUEST["reqcode"])){
 							if($res == 1)
 							{//user exist, check password
 								if( password_verify($password, $row['password']) && $status == 1)
-								{ //correct password, -> login
+								{ //correct password, -> LOGIN
 									$_SESSION['loggedIn'] = true;
 //									$_SESSION['lastPing'] = date("Y-m-d H:i:s");
 									$_SESSION['uEmail'] = $email;
+									$_SESSION['accID'] = $row['account'];
+									$_SESSION['uid'] = $row['id'];
 									$rememberme?$_SESSION['remember']=true:$_SESSION['remember']=false;
 									$_SESSION['fname'] = $row['first_name'];
 									$_SESSION['lname'] = $row['last_name'];
@@ -1138,8 +1265,8 @@ if(isset($_REQUEST["reqcode"])){
 			sendEmail(5,$a,$token,false);
 			break;
 
-			//JOB UPLOADER CASES
-		case 60: //Job Number Generator
+
+		case 60: // Next Job Number Generator/Retriever
 
 			$sql1 = "SELECT (SELECT AUTO_INCREMENT FROM information_schema.TABLES 
 						WHERE TABLE_SCHEMA = 'vtexvsi_transcribe' AND TABLE_NAME = 'files') AS next_job_id, 
@@ -1181,17 +1308,15 @@ if(isset($_REQUEST["reqcode"])){
 			mysqli_stmt_close($stmt);
 			
 			break;
-			
+
+			// Upload new Job
 		case 61:		
 			// InsertToDB Function 
 
 			// TODO Add Mime check for files in case someone tries to upload a file with supported extension
 			// but it isn't that filetype
-			// TODO
-			// I think that the jobnumber function needs to be enhanced. If a user is uploading many files at once
-			// and another user is uploading at the same time, there could be conflictss since subseuqent job numbers during
+			// and another user is uploading at the same time, there could be conflict's since subsequent job numbers during
 			// a multiple file upload is just incrementing the nextJobNum count without checking it may already have been used.
-			
 			// Is this conditional check even needed? request method should always be post but maybe this is a 
 			// security precaution or best practice?
 			if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -1287,7 +1412,8 @@ if(isset($_REQUEST["reqcode"])){
 			echo password_hash($password,PASSWORD_BCRYPT);
 
 			break;
-			/* Email Generator Code*/
+
+		/* Send Email Notification to user with job updates Generator Code */
 		case 80:
 
 			$a = json_decode($args,true);
@@ -1356,6 +1482,31 @@ mysqli_close($con);
 
 
 //////Functions
+
+function updateJobStatus($con, $fileID, $newStatus)
+{
+
+	$sql = "UPDATE FILES SET file_status=? WHERE file_id=?";
+
+	if($stmt = mysqli_prepare($con, $sql))
+	{
+		mysqli_stmt_bind_param($stmt, "ii", $newStatus, $fileID);
+
+		if(mysqli_stmt_execute($stmt) ){
+//			$result = mysqli_stmt_get_result($stmt);
+			echo true;
+		}
+		else{
+			// couldn't update job status
+		}
+	} else{
+		//	echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
+	}
+	// Close statement
+	mysqli_stmt_close($stmt);
+
+
+}
 
 function sendEmail($mailType,$a,$token,$appendmsg)//0:login-default, 1:signup, 4:resetpwd 5:signup verify
 {
@@ -1509,12 +1660,13 @@ function insertToDB($dbcon, $input) {
 	
 	$nextJobNum = "UM-".str_pad($nextNum, 7, "0", STR_PAD_LEFT);
 
-	$sql = "INSERT INTO files (job_id, file_author, file_work_type, file_date_dict, file_speaker_type, file_comment, job_uploaded_by, filename, orig_filename) VALUES (?,?,?,?,?,?,?,?,?)";		
+	$sql = "INSERT INTO files (job_id, file_author, file_work_type, file_date_dict, file_speaker_type, file_comment, job_uploaded_by, filename, orig_filename, acc_id) VALUES (?,?,?,?,?,?,?,?,?,(SELECT account from users WHERE email = ?))";
 
 	if($stmt = mysqli_prepare($con, $sql))
 	{
 
-		if( !$stmt->bind_param("ssssissss", $nextJobNum, $authorName, $jobType, $dictDate, $speakerType, $comments, $uploadedBy, $file_name, $orig_filename) )
+		if( !$stmt->bind_param("ssssisssss", $nextJobNum, $authorName, $jobType, $dictDate,
+			$speakerType, $comments, $uploadedBy, $file_name, $orig_filename, $uploadedBy) )
 		{
 			die( "Error in bind_param: (" .$con->errno . ") " . $con->error);
 		}
@@ -1531,11 +1683,11 @@ function insertToDB($dbcon, $input) {
 //                    echo $sql1 . " ran succesfully";
                     return true;
                 }
-                else{
-                    "ERROR: Unable to increment next job number $sql1. " . mysqli_error($con);
-                    die( "Execution Error: (" .$con->errno . ") " . $con->error);
-                    echo 'dup';
-                }
+//                else{
+//                    "ERROR: Unable to increment next job number $sql1. " . mysqli_error($con);
+//                    die( "Execution Error: (" .$con->errno . ") " . $con->error);
+//                    echo 'dup';
+//                }
             }
             else
             {
