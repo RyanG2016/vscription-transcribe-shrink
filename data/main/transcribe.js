@@ -211,6 +211,10 @@ $(document).ready(function () {
 
 
                                 clear();
+
+                            // todo add if clause using the below commented variable
+                            // -> jobDetails.file_status
+                                
                                 loadingTitle.text("Done");
                                 loadingSub.text("Job " + job_id + " data updated successfully.");
                                 loadingConfirmBtn.css('display', '');
@@ -223,9 +227,10 @@ $(document).ready(function () {
 
 
                                 clear();
-                                loadingTitle.text("Done");
-                                loadingSub.text("Job " + job_id + " data updated successfully.");
-                                loadingConfirmBtn.css('display', '');
+                                // loadingTitle.text("Done");
+                                // loadingSub.text("Job " + job_id + " data updated successfully.");
+                                // loadingConfirmBtn.css('display', '');
+                                loading.style.display = "none";
                             }
                         })
                 });
