@@ -313,7 +313,7 @@ include_once("gaTrackingCode.php");
                                 </button>
 							</td>
 							<td id="nr">
-                                <button class="mdc-button mdc-button--unelevated discard-button" id="discardBtn" name="discardBtn" onclick="clearWithConfirm();"  disabled>
+                                <button class="mdc-button mdc-button--unelevated discard-button" id="discardBtn" name="discardBtn" onclick="clearWithConfirm();" type="button" disabled>
                                     <div class="mdc-button__ripple"></div>
                                     <i class="material-icons mdc-button__icon" aria-hidden="true">save</i>
                                     <span class="mdc-button__label">Discard</span>

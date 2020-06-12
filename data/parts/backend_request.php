@@ -632,6 +632,18 @@ if(isset($_REQUEST["reqcode"])){
 
 			break;
 
+		// update job status only
+		case 16:
+
+			$a = json_decode($args,true);
+//			$job_id = $a['job_id'];
+			$file_id = $a['file_id'];
+			$newStatus = $a['new_status'];
+
+			updateJobStatus($con, $file_id, $newStatus);
+
+			break;
+
 		//---------------------------------------------------\\
 		//-------------------Insert Cases 3xx----------------\\
 		//---------------------------------------------------\\

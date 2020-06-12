@@ -20,6 +20,7 @@ $(document).ready(function () {
     const backend_url = 'data/parts/backend_request.php';
     const form = document.querySelector('form');
 
+
     $("body").niceScroll({
         hwacceleration: true,
         smoothscroll: true,
@@ -210,8 +211,7 @@ $(document).ready(function () {
                                 loadingConfirmBtn.style.display = 'block';
 
                             } else {
-                                // TODO HIDE LOADING DIALOG
-                                //This seems to work
+
                                 alert(`Error Saving Job. Please contact support - ${data}\n We will attempt to save the text contents to your clipboard if there is any`);
                                 tinyMCE.activeEditor.selection.select(tinyMCE.activeEditor.getBody());
                                 tinyMCE.activeEditor.execCommand( "Copy" );
@@ -272,8 +272,6 @@ $(function () {
 
 
 function clearWithConfirm() {
-    //	 var retVal = confirm("Clear Form ?");
-
 
     $.confirm({
         title: 'Discard Form?',
@@ -283,8 +281,7 @@ function clearWithConfirm() {
                 btnClass: 'btn-red',
                 action: function () {
 
-                    //				$.alert('Confirmed!');
-                    clear();
+                    suspendAndClearForDiscard();
                     return true;
                 }
             },
@@ -292,6 +289,23 @@ function clearWithConfirm() {
         }
     });
 
+}
+
+function suspendAndClearForDiscard()
+{
+    let a1 = {
+        file_id: currentFileID,
+        new_status: 2 //suspended
+
+    };
+    $.post("data/parts/backend_request.php", {
+        reqcode: 16,
+        args: JSON.stringify(a1)
+    }).done(function (data) {
+
+    });
+
+    clear();
 }
 
 function clearAfterDownload(askCompletePlayer) {
@@ -572,7 +586,7 @@ function loadIntoPlayer(data) {
     // console.log(`Upload Comments: ${jobDetails.file_comment}`);
 
     // load previous suspended text into tinyMCE if suspended
-    if(jobDetails.suspendedText !== null)
+    if(jobDetails.suspendedText !== null && jobDetails.job_status !== 0)
     {
         tinymce.get('report').setContent(decodeHtml(jobDetails.suspendedText));
     }
@@ -599,6 +613,7 @@ function loadIntoPlayer(data) {
     $('#suspendBtn').removeAttr("disabled");
     $('#discardBtn').removeAttr("disabled");
     tinyMCE.activeEditor.setMode("design");
+
 
     var playPromise = AblePlayerInstances[0].media.play();
 
@@ -773,11 +788,6 @@ function getTransJobList(callback) {
     // const maximum_rows_per_page_jobs_list = 7;
     var jobListResult = $('.jobs_tbl'); //populating fields
 
-    // todo where clause here probably from session would be safer
-   /* var a1 = {
-        file_id: current
-    };args: JSON.stringify(a1)
-*/
     $.post("data/parts/backend_request.php", {
         reqcode: 9
     }).done(function (data) {
