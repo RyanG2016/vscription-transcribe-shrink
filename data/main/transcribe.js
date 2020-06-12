@@ -215,10 +215,23 @@ $(document).ready(function () {
 
                             // todo FOR RYAN add if clause using the below commented variable
                             // -> jobDetails.file_status
+
+                            if (jobStatus === 2) {
+                                                                
+                                loadingTitle.text("Done");
+                                loadingSub.text("Job " + job_id + " suspended");
+                                loadingConfirmBtn.css('display', '');
+                            } else if (jobStatus === 3) {
                                 
                                 loadingTitle.text("Done");
-                                loadingSub.text("Job " + job_id + " data updated successfully.");
+                                loadingSub.text("Job " + job_id + " marked as complete");
                                 loadingConfirmBtn.css('display', '');
+                            } else {
+                                loadingTitle.text("Done");
+                                loadingSub.text("Job " + job_id + " updated successfully");
+                                loadingConfirmBtn.css('display', '');
+                            }
+
 
                             } else {
 
