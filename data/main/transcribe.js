@@ -140,7 +140,8 @@ $(document).ready(function () {
                     return false;
                 }*/
 
-                let jobLengthSecs = AblePlayerInstances[0].seekBar.duration;
+                let jobLengthSecsRaw = Math.round(AblePlayerInstances[0].seekBar.duration);
+                let jobLengthSecs = `${new Date(jobLengthSecsRaw * 1000).toISOString().substr(11, 8)} (${jobLengthSecsRaw} secs)`;
                 let jobElapsedTimeSecs = Math.floor(AblePlayerInstances[0].seekBar.position);
 
                 var jobTranscribeDate = getCurrentDateTime();
