@@ -210,7 +210,7 @@ isset($_SESSION['uEmail'])?$uEmail = $_SESSION['uEmail']:$uEmail = "";
 							Remember me?
 						</span>
 
-						<input type="checkbox" name="newsletter">
+						<input type="checkbox" name="newsletter" <?php echo isset($_SESSION['remember']) ? "checked" : ""?>>
 						<!--		checkbox-->
 					</div>
 
