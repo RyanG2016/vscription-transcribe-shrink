@@ -619,6 +619,7 @@ if(isset($_REQUEST["reqcode"])){
 									"origFilename" => $row['filename'],
 //									"tempFilename" => $randFileName,
 									"file_date_dict" => $row['file_date_dict'],
+									"file_status" => $row['file_status'],
 									"file_work_type" => $row['file_work_type'],
 									"file_speaker_type" => $row['file_speaker_type'],
 									"file_comment" => $row['file_comment']
