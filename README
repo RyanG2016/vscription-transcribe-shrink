@@ -1,0 +1,19 @@
+vScription Transcribe Temp README
+
+---------------------------------
+Server configuration info:
+---------------------------------
+Note these values are used with MAMP. 
+
+php.ini (Currently using 7.4.1)
+
+session.name=pvs
+session.upload_progress.enabled = On
+
+post_max_size = 158M
+upload_max_filesize = 128M
+
+
+apache:
+
+Make sure to turn indexes off to prevent directory browsing
