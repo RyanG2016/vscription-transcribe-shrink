@@ -373,7 +373,7 @@ if(isset($_REQUEST["reqcode"])){
 										"last_audio_position" => $row['last_audio_position'],
 										"job_status" => $row['file_status'],
 										"file_speaker_type" => $row['file_speaker_type'],
-										"file_comment" => $row['file_comment'],
+										"file_comment" => $row['file_comment']
 //										"base64" => $base64,
 //										"path" => $path
 									);
@@ -1512,7 +1512,7 @@ function updateJobStatus($con, $fileID, $newStatus)
 
 		if(mysqli_stmt_execute($stmt) ){
 //			$result = mysqli_stmt_get_result($stmt);
-			echo true;
+//			echo true;
 		}
 		else{
 			// couldn't update job status
