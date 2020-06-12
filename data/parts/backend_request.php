@@ -463,7 +463,7 @@ if(isset($_REQUEST["reqcode"])){
 							echo "<tr data-row-id=\"{$row['job_id']}\" class=\"mdc-data-table__row\">";
 //							echo '<td class="mdc-data-table__cell mdc-data-table__cell--checkbox">
 //                                                <div class="mdc-checkbox mdc-data-table__row-checkbox">';
-							// todo uncomment these below
+							// todo uncomment these below for checkboxes
 //							echo " <input type=\"checkbox\" class=\"mdc-checkbox__native-control\" aria-labelledby=\"{$row['job_id']}\"/>";
 
 							/*			echo '<div class="mdc-checkbox__background">
@@ -540,7 +540,7 @@ if(isset($_REQUEST["reqcode"])){
 			// Not using DataTables
 
 			case 9:
-			// todo where clause here probably from session would be safer
+
 
 			$sql = "SELECT `file_id`, `job_id`, `file_type`, `original_audio_type`, `filename`, `fileAudioBlob`, `fileTextBlob`, `file_tag`, `file_author`, `file_work_type`, `file_comment`, `file_speaker_type`, `file_date_dict`, (SELECT j_status_name From file_status_ref WHERE file_status_ref.j_status_id=files.file_status ORDER BY file_status LIMIT 1) as file_status, `last_audio_position`, `job_upload_date`, `job_uploaded_by`, `text_downloaded_date`, `times_text_downloaded_date`, `file_transcribed_date`, `typist_comments`, `isBillable`, `billed` FROM files
 			WHERE `file_status` IN (0,1,2) and acc_id = (SELECT account from users WHERE email = '" . $_SESSION['uEmail'] . "')";

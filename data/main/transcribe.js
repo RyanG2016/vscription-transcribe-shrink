@@ -213,7 +213,7 @@ $(document).ready(function () {
 
                                 clear();
 
-                            // todo add if clause using the below commented variable
+                            // todo FOR RYAN add if clause using the below commented variable
                             // -> jobDetails.file_status
                                 
                                 loadingTitle.text("Done");
