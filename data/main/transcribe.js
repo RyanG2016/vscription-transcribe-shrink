@@ -399,6 +399,7 @@ function clear() {
     $('#saveBtn').attr("disabled", "disabled");
     $('#suspendBtn').attr("disabled", "disabled");
     $('#discardBtn').attr("disabled", "disabled");
+    tinyMCE.activeEditor.setMode("readonly");
 }
 
 $(document).ready(function () {
@@ -597,6 +598,7 @@ function loadIntoPlayer(data) {
     $('#saveBtn').removeAttr("disabled");
     $('#suspendBtn').removeAttr("disabled");
     $('#discardBtn').removeAttr("disabled");
+    tinyMCE.activeEditor.setMode("design");
 
     var playPromise = AblePlayerInstances[0].media.play();
 

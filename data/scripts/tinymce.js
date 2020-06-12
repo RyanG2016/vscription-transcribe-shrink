@@ -12,6 +12,7 @@ tinymce.init({
 	autosave_interval: "5s",
 	autosave_ask_before_unload: true,
 	nanospell_autostart: true,
+	readonly: 1,
 	setup: function (ed) {
 
 		ed.on("KeyDown", function (e) {
