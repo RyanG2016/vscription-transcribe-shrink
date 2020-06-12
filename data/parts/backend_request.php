@@ -335,10 +335,11 @@ if(isset($_REQUEST["reqcode"])){
 									),
 								);
 
-								$path = "../../../uploads/". $row['filename'];
-								$type = pathinfo($path, PATHINFO_EXTENSION);
-								$data = file_get_contents($path, true, stream_context_create($arrContextOptions));
-								$base64 = 'data:audio/' . $type . ';base64,' . base64_encode($data);
+								//todo check the exact path for production
+								$path = "../uploads/". $row['filename'];
+//								$type = pathinfo($path, PATHINFO_EXTENSION);
+//								$data = file_get_contents($path, true, stream_context_create($arrContextOptions));
+//								$base64 = $path;
 
 									if (copy('../../../uploads/' . $row['filename'], '../../workingTemp/' . $randFileName )) {
 									}
@@ -359,7 +360,7 @@ if(isset($_REQUEST["reqcode"])){
 										"job_status" => $row['file_status'],
 										"file_speaker_type" => $row['file_speaker_type'],
 										"file_comment" => $row['file_comment'],
-										"base64" => $base64
+										"path" => $path
 									);
 
 //								header('Content-type:application/json;charset=utf-8');
