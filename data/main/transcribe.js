@@ -609,31 +609,12 @@ function loadIntoPlayer(data) {
 
     var $loadBtn = $('#loadBtn');
     var $completeBtn = $('#completeBtn');
-    //g_fileName = fileName;
 
-    fetch(jobDetails.path)
-        .then(res => res.blob()) // Gets the response and returns it as a blob
-        .then(blob => {
-            // Here's where you get access to the blob
-            // And you can use it for whatever you want
-            // Like calling ref().put(blob)
 
-            // Here, I use it to make an image appear on the page
-            var reader = new FileReader();
-
-//			  console.log($audio[0]);
-            if (blob) {
-                let reader = new FileReader();
-                reader.onload = function (e) {
-                    AblePlayerInstances[0].media.src = e.target.result;
-                }
-                reader.readAsDataURL(blob);
-            }
-        });
-
-    // audioTempFolder is a constant inside constants.js
-    // AblePlayerInstances[0].media.src = audioTempFolder + jobDetails.tempFilename;
+     // audioTempFolder is a constant inside constants.js
+    AblePlayerInstances[0].media.src = audioTempFolder + jobDetails.tempFilename;
     // AblePlayerInstances[0].media.src = jobDetails.base64;
+
     $loadBtn.addClass('noHover');
     $loadBtn.text(jobDetails.job_id + ' Loaded');
     $loadBtn.find("i").hide();

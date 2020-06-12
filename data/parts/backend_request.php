@@ -336,11 +336,25 @@ if(isset($_REQUEST["reqcode"])){
 								);
 
 								//todo check the exact path for production
-								$path = "../uploads/". $row['filename'];
-//								$type = pathinfo($path, PATHINFO_EXTENSION);
+								$path = "../../../uploads/". $row['filename'];
+//								$jsPath = "../uploads/". $row['filename'];
+								$type = pathinfo($path, PATHINFO_EXTENSION);
 //								$data = file_get_contents($path, true, stream_context_create($arrContextOptions));
-//								$base64 = $path;
 
+//								$handle = fopen($path, "r", true) or die("Couldn't get handle");
+/*								if ($handle) {
+									while (!feof($handle)) {
+										$buffer = fgets($handle, 4096);
+										// Process buffer here..
+										$data += $buffer;
+									}
+									fclose($handle);
+								}*/
+
+//								$base64 = 'data:audio/' . $type . ';base64,' . base64_encode($data);
+
+								// todo check relative path
+//									if (copy('../../../uploads/' . $row['filename'], '../../../workingTemp/' . $randFileName )) {
 									if (copy('../../../uploads/' . $row['filename'], '../../workingTemp/' . $randFileName )) {
 									}
 									else {
@@ -360,7 +374,8 @@ if(isset($_REQUEST["reqcode"])){
 										"job_status" => $row['file_status'],
 										"file_speaker_type" => $row['file_speaker_type'],
 										"file_comment" => $row['file_comment'],
-										"path" => $path
+//										"base64" => $base64,
+//										"path" => $path
 									);
 
 //								header('Content-type:application/json;charset=utf-8');
@@ -647,6 +662,7 @@ if(isset($_REQUEST["reqcode"])){
 			mysqli_stmt_close($stmt);
 
 			break;
+
 
 		// update job status only
 		case 16:
@@ -1055,7 +1071,7 @@ if(isset($_REQUEST["reqcode"])){
 			$sql4 = "INSERT INTO userlog(email, user_ip, action) VALUES (?,?,?)";
 
 			
-			$sql = "SELECT count(*),unlock_time,account_status,first_name,last_name,plan_id,password from users where email = ?";
+			$sql = "SELECT count(*),unlock_time,account_status,first_name,last_name,plan_id,password,account,id from users where email = ?";
 			$sql2 = "Update users set account_status=9,unlock_time='$onehourahead' where email = ?";
 			$sql3 = "Update users set account_status=1 where email = ?";
 			$stmt2 = mysqli_prepare($con, $sql2);
