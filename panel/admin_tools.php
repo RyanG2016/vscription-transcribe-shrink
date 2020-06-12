@@ -1,5 +1,5 @@
 <?php
-include('data/parts/head.php');
+include('../data/parts/head.php');
 
 
 //redirect to main
@@ -18,15 +18,15 @@ if ($_SESSION['role'] != "1") {
 
 <head>
     <title>vScription Admin Tools</title>
-    <link rel="shortcut icon" type="image/png" href="data/images/favicon.png"/>
+    <link rel="shortcut icon" type="image/png" href="../data/images/favicon.png"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="data/scripts/admin_tools.js"></script>
-    <link href="data/libs/node_modules/material-components-web/dist/material-components-web.css" rel="stylesheet">
-    <link href="data/css/admin_tools.css" rel="stylesheet">
+    <script src="../data/scripts/admin_tools.js"></script>
+    <link href="../data/libs/node_modules/material-components-web/dist/material-components-web.css" rel="stylesheet">
+    <link href="../data/css/admin_tools.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <script src="data/libs/node_modules/material-components-web/dist/material-components-web.js"></script>
-    <script src="data/libs/node_modules/@material/textfield/dist/mdc.textfield.js"></script>
-    <script src="data/libs/node_modules/@material/linear-progress/dist/mdc.linearProgress.js"></script>
+    <script src="../data/libs/node_modules/material-components-web/dist/material-components-web.js"></script>
+    <script src="../data/libs/node_modules/@material/textfield/dist/mdc.textfield.js"></script>
+    <script src="../data/libs/node_modules/@material/linear-progress/dist/mdc.linearProgress.js"></script>
 
 </head>
 
@@ -46,7 +46,7 @@ if ($_SESSION['role'] != "1") {
                 <td id="logbar" align="right" colspan="1">
                     Logged in as: <?php echo $_SESSION['uEmail'] ?> |
                     <!--                    </div>-->
-                    <a class="logout" href="logout.php">
+                    <a class="logout" href="../logout.php">
                         <i class="fas fa-sign-out-alt"></i>
                         Logout
                     </a>
@@ -63,7 +63,7 @@ if ($_SESSION['role'] != "1") {
                     </td>-->
 
                 <td width="300px">
-                    <img src="data/images/Logo_vScription_Transcribe_Pro_White.png" width="300px"/>
+                    <img src="../data/images/Logo_vScription_Transcribe_Pro_White.png" width="300px"/>
                 </td>
             </tr>
 
