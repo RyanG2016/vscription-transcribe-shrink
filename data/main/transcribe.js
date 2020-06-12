@@ -789,7 +789,7 @@ function checkBrowser(updateAvailable) {
 
 function getLatestAppVersionNumber(_callback) {
     $.ajax({
-        url: "https://pro.vscription.com/LatestVersion.txt",
+        url: baseURL + "LatestVersion.txt",
         success: function (result) {
             _callback(result.split("-")[0].trim(), checkBrowser);
         }
