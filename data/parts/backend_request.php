@@ -327,6 +327,19 @@ if(isset($_REQUEST["reqcode"])){
 							if ($row['filename'] != "") {
 									$randFileName = random_filename(15) . '.wav';
 									// These paths need to be relative to the PHP file making the call....
+
+								$arrContextOptions=array(
+									"ssl"=>array(
+										"verify_peer"=>false,
+										"verify_peer_name"=>false,
+									),
+								);
+
+								$path = "../../../uploads/". $row['filename'];
+								$type = pathinfo($path, PATHINFO_EXTENSION);
+								$data = file_get_contents($path, true, stream_context_create($arrContextOptions));
+								$base64 = 'data:audio/' . $type . ';base64,' . base64_encode($data);
+
 									if (copy('../../../uploads/' . $row['filename'], '../../workingTemp/' . $randFileName )) {
 									}
 									else {
@@ -345,7 +358,8 @@ if(isset($_REQUEST["reqcode"])){
 										"last_audio_position" => $row['last_audio_position'],
 										"job_status" => $row['file_status'],
 										"file_speaker_type" => $row['file_speaker_type'],
-										"file_comment" => $row['file_comment']
+										"file_comment" => $row['file_comment'],
+										"base64" => $base64
 									);
 
 //								header('Content-type:application/json;charset=utf-8');
@@ -513,7 +527,7 @@ if(isset($_REQUEST["reqcode"])){
 			// todo where clause here probably from session would be safer
 
 			$sql = "SELECT `file_id`, `job_id`, `file_type`, `original_audio_type`, `filename`, `fileAudioBlob`, `fileTextBlob`, `file_tag`, `file_author`, `file_work_type`, `file_comment`, `file_speaker_type`, `file_date_dict`, (SELECT j_status_name From file_status_ref WHERE file_status_ref.j_status_id=files.file_status ORDER BY file_status LIMIT 1) as file_status, `last_audio_position`, `job_upload_date`, `job_uploaded_by`, `text_downloaded_date`, `times_text_downloaded_date`, `file_transcribed_date`, `typist_comments`, `isBillable`, `billed` FROM files
-			WHERE `file_status` IN (0,1,2)";
+			WHERE `file_status` IN (0,1,2) and acc_id = (SELECT account from users WHERE email = '" . $_SESSION['uEmail'] . "')";
 
 			if($stmt = mysqli_prepare($con, $sql)){
 
@@ -1073,7 +1087,8 @@ if(isset($_REQUEST["reqcode"])){
 									$_SESSION['loggedIn'] = true;
 //									$_SESSION['lastPing'] = date("Y-m-d H:i:s");
 									$_SESSION['uEmail'] = $email;
-									$_SESSION['accID'] = $email;
+									$_SESSION['accID'] = $row['account'];
+									$_SESSION['uid'] = $row['id'];
 									$rememberme?$_SESSION['remember']=true:$_SESSION['remember']=false;
 									$_SESSION['fname'] = $row['first_name'];
 									$_SESSION['lname'] = $row['last_name'];
@@ -1250,8 +1265,8 @@ if(isset($_REQUEST["reqcode"])){
 			sendEmail(5,$a,$token,false);
 			break;
 
-			//JOB UPLOADER CASES
-		case 60: //Job Number Generator
+
+		case 60: // Next Job Number Generator/Retriever
 
 			$sql1 = "SELECT (SELECT AUTO_INCREMENT FROM information_schema.TABLES 
 						WHERE TABLE_SCHEMA = 'vtexvsi_transcribe' AND TABLE_NAME = 'files') AS next_job_id, 
@@ -1293,17 +1308,15 @@ if(isset($_REQUEST["reqcode"])){
 			mysqli_stmt_close($stmt);
 			
 			break;
-			
+
+			// Upload new Job
 		case 61:		
 			// InsertToDB Function 
 
 			// TODO Add Mime check for files in case someone tries to upload a file with supported extension
 			// but it isn't that filetype
-			// TODO
-			// I think that the jobnumber function needs to be enhanced. If a user is uploading many files at once
-			// and another user is uploading at the same time, there could be conflictss since subseuqent job numbers during
+			// and another user is uploading at the same time, there could be conflict's since subsequent job numbers during
 			// a multiple file upload is just incrementing the nextJobNum count without checking it may already have been used.
-			
 			// Is this conditional check even needed? request method should always be post but maybe this is a 
 			// security precaution or best practice?
 			if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -1647,12 +1660,13 @@ function insertToDB($dbcon, $input) {
 	
 	$nextJobNum = "UM-".str_pad($nextNum, 7, "0", STR_PAD_LEFT);
 
-	$sql = "INSERT INTO files (job_id, file_author, file_work_type, file_date_dict, file_speaker_type, file_comment, job_uploaded_by, filename, orig_filename) VALUES (?,?,?,?,?,?,?,?,?)";		
+	$sql = "INSERT INTO files (job_id, file_author, file_work_type, file_date_dict, file_speaker_type, file_comment, job_uploaded_by, filename, orig_filename, acc_id) VALUES (?,?,?,?,?,?,?,?,?,(SELECT account from users WHERE email = ?))";
 
 	if($stmt = mysqli_prepare($con, $sql))
 	{
 
-		if( !$stmt->bind_param("ssssissss", $nextJobNum, $authorName, $jobType, $dictDate, $speakerType, $comments, $uploadedBy, $file_name, $orig_filename) )
+		if( !$stmt->bind_param("ssssisssss", $nextJobNum, $authorName, $jobType, $dictDate,
+			$speakerType, $comments, $uploadedBy, $file_name, $orig_filename, $uploadedBy) )
 		{
 			die( "Error in bind_param: (" .$con->errno . ") " . $con->error);
 		}
@@ -1669,11 +1683,11 @@ function insertToDB($dbcon, $input) {
 //                    echo $sql1 . " ran succesfully";
                     return true;
                 }
-                else{
-                    "ERROR: Unable to increment next job number $sql1. " . mysqli_error($con);
-                    die( "Execution Error: (" .$con->errno . ") " . $con->error);
-                    echo 'dup';
-                }
+//                else{
+//                    "ERROR: Unable to increment next job number $sql1. " . mysqli_error($con);
+//                    die( "Execution Error: (" .$con->errno . ") " . $con->error);
+//                    echo 'dup';
+//                }
             }
             else
             {

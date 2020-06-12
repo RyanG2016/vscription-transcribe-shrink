@@ -39,20 +39,23 @@ $(document).ready(function () {
 
     let modal = document.getElementById("modal");
     let loading = document.getElementById("modalLoading");
-    loadingConfirmBtn = $("#loadingConfirm");
-    loadingSub = $("#modalLoading .modal-content p i");
-    loadingTitle = $("#modalLoading .modal-content h2");
 
     // buttons styling init
     new mdc.ripple.MDCRipple(document.querySelector('#saveBtn'));
     new mdc.ripple.MDCRipple(document.querySelector('#suspendBtn'));
     new mdc.ripple.MDCRipple(document.querySelector('#discardBtn'));
+    new mdc.ripple.MDCRipple(document.querySelector('#loadingConfirm'));
+
+    loadingConfirmBtn = $('#loadingConfirm');
+    loadingSub = $("#modalLoading .modal-content p i");
+    loadingTitle = $("#modalLoading .modal-content h2");
 
 
     // loading.style.display = "block";
 
     loadingConfirmBtn.on("click", function() {
-        loading.style.display = "none";
+        // loading.style.display = "none";
+        location.reload();
     });
 
     $(".close").on("click", function() {
@@ -102,7 +105,9 @@ $(document).ready(function () {
 
             loadingSub.text("Saving " + job_id + " data");
             loadingTitle.text("Please wait..")
+            loadingConfirmBtn.css('display', 'none');
             loading.style.display = 'block';
+
 
 
 
@@ -208,7 +213,7 @@ $(document).ready(function () {
                                 clear();
                                 loadingTitle.text("Done");
                                 loadingSub.text("Job " + job_id + " data updated successfully.");
-                                loadingConfirmBtn.style.display = 'block';
+                                loadingConfirmBtn.css('display', '');
 
                             } else {
 
@@ -220,7 +225,7 @@ $(document).ready(function () {
                                 clear();
                                 loadingTitle.text("Done");
                                 loadingSub.text("Job " + job_id + " data updated successfully.");
-                                loadingConfirmBtn.style.display = 'block';
+                                loadingConfirmBtn.css('display', '');
                             }
                         })
                 });
@@ -603,7 +608,8 @@ function loadIntoPlayer(data) {
 
 
     // audioTempFolder is a constant inside constants.js
-    AblePlayerInstances[0].media.src = audioTempFolder + jobDetails.tempFilename;
+    // AblePlayerInstances[0].media.src = audioTempFolder + jobDetails.tempFilename;
+    AblePlayerInstances[0].media.src = jobDetails.base64;
     $loadBtn.addClass('noHover');
     $loadBtn.text(jobDetails.job_id + ' Loaded');
     $loadBtn.find("i").hide();
@@ -643,10 +649,21 @@ function loadIntoPlayer(data) {
 
     AblePlayer.prototype.onMediaNewSourceLoad = function () {
 
+        // console.log("media loaded with status: " + jobDetails.job_status);
         if(jobDetails.job_status === 2 || jobDetails.job_status === 1) // suspend or being typed
         {
             // seek to last position
+            // console.log("seeking to " + jobDetails.last_audio_position);
+
+            AblePlayerInstances[0].playMedia();
+            AblePlayerInstances[0].pauseMedia();
             AblePlayerInstances[0].seekTo(jobDetails.last_audio_position - rewindAmountOnPause);
+
+            /*setTimeout(function() {
+                console.log("seek")
+                AblePlayerInstances[0].seekTo(jobDetails.last_audio_position - rewindAmountOnPause);
+                // AblePlayerInstances[0].seekTo(112);
+            }, 1000);*/
         }
     }
 

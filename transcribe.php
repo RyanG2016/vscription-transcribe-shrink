@@ -382,7 +382,7 @@ include_once("gaTrackingCode.php");
         <!-- Modal content -->
         <div class="modal-content">
             <h2>Please wait..</h2>
-            <p><i>Saving Job UM... data</i></p>
+            <p><i></i></p>
 
 
             <div style="text-align: right">
