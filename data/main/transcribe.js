@@ -257,14 +257,14 @@ $(document).ready(function () {
 $(function () {
     $("#date").datepicker({
         showAnim: "clip",
-        dateFormat: "dd/mm/yy"
+        dateFormat: "d-M-yy"
     });
 });
 
 $(function () {
     $("#dateT").datepicker({
         showAnim: "clip",
-        dateFormat: "dd/mm/yy"
+        dateFormat: "d-M-yy"
     });
 });
 

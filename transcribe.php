@@ -112,7 +112,7 @@ include_once("gaTrackingCode.php");
             $dateT = $_GET['DateTra'];
         }
         else{
-            $dateT = date("d/m/Y");
+            $dateT = date("d-M-yy");
         }
 
     }
@@ -276,7 +276,7 @@ include_once("gaTrackingCode.php");
 					<!--		Date Dictated	-->
 					<input type="text" name="DateDic" id="date" placeholder="Date Dictated" title="Date Dictated" <?php if($set == 1 && !empty($dateD)) {echo 'value="'.$dateD."\"";} ?>>
 					<!--		Date Transcripted	-->
-					<input type="text" name="DateTra" id="dateT" placeholder="Date Transcribed" title="Date Transcribed" <?php if($set == 1 && !empty($dateT)) {echo 'value="'.$dateT."\"";}else{echo date("d/m/Y");} ?>>
+					<input type="text" name="DateTra" id="dateT" placeholder="Date Transcribed" title="Date Transcribed" <?php if($set == 1 && !empty($dateT)) {echo 'value="'.$dateT."\"";}else{echo date("d-M-yy");} ?>>
 					<!--		Comments	-->
 					<input type="text" id="comments" name="comments" placeholder="Comments" title="Comments" <?php if($set == 1 && !empty($ph)) {echo 'value="'.$ph."\"";} ?>>
 
