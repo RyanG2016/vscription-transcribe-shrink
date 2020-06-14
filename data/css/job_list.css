@@ -342,4 +342,6 @@ table{
     border-radius: 10px;
 }
 
-
+.mdc-data-table__cell, .mdc-data-table__header-cell{
+    height: 32px !important;
+}
