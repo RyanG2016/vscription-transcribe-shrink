@@ -446,7 +446,10 @@ if(isset($_REQUEST["reqcode"])){
                                         <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Comments</th>
                                         <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Date Dictated</th>
                                         <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Date Uploaded</th>
-                                        <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Job Status</th>
+										<th class="mdc-data-table__header-cell" role="columnheader" scope="col">Job Status</th>
+                                        <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Date Transcribed</th>
+                                        <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Times Downloaded</th>
+                                        <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Initial Download Date</th>										
                                         <th class="mdc-data-table__header-cell" role="columnheader" scope="col">File</th>
                                     </tr>
                                     </thead>';
@@ -481,7 +484,10 @@ if(isset($_REQUEST["reqcode"])){
                                             <td class=\"mdc-data-table__cell\">{$row['file_comment']}</td>
                                             <td class=\"mdc-data-table__cell\">{$row['file_date_dict']}</td>
                                             <td class=\"mdc-data-table__cell\">{$row['job_upload_date']}</td>
-                                            <td class=\"mdc-data-table__cell\">{$row['file_status']}</td>";
+                                            <td class=\"mdc-data-table__cell\">{$row['file_status']}</td>
+                                            <td class=\"mdc-data-table__cell\">{$row['file_transcribed_date']}</td>
+											<td class=\"mdc-data-table__cell\">{$row['times_text_downloaded_date']}</td>
+                                            <td class=\"mdc-data-table__cell\">{$row['text_downloaded_date']}</td>											";
 
 							/*<td class=\"mdc-data-table__cell mdc-data-table__cell--numeric\">{$row['file_date_dict']}</td>
                                             <td class=\"mdc-data-table__cell mdc-data-table__cell--numeric\">{$row['job_upload_date']}</td>*/
