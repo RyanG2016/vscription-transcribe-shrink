@@ -413,7 +413,7 @@ if(isset($_REQUEST["reqcode"])){
 			
 			case 8:
 
-			$sql = "SELECT `file_id`, `job_id`, `file_type`, `original_audio_type`, `filename`, `fileAudioBlob`, `fileTextBlob`, `file_tag`, `file_author`, `file_work_type`, `file_comment`, `file_speaker_type`, `file_date_dict`, (SELECT j_status_name From file_status_ref WHERE file_status_ref.j_status_id=files.file_status ORDER BY file_status LIMIT 1) as file_status, `last_audio_position`, `job_upload_date`, `job_uploaded_by`, `text_downloaded_date`, `times_text_downloaded_date`, `file_transcribed_date`, `typist_comments`, `isBillable`, `billed` FROM files where acc_id = (SELECT account from users WHERE email = '" . $_SESSION['uEmail'] . "')";
+			$sql = "SELECT `file_id`, `job_id`, `file_type`, `original_audio_type`, `filename`, `fileAudioBlob`, `fileTextBlob`, `file_tag`, `file_author`, `file_work_type`, `file_comment`, `file_speaker_type`, `file_date_dict`, (SELECT j_status_name From file_status_ref WHERE file_status_ref.j_status_id=files.file_status ORDER BY file_status LIMIT 1) as file_status, `audio_length`, `last_audio_position`, `job_upload_date`, `job_uploaded_by`, `text_downloaded_date`, `times_text_downloaded_date`, `file_transcribed_date`, `typist_comments`, `isBillable`, `billed` FROM files where acc_id = (SELECT account from users WHERE email = '" . $_SESSION['uEmail'] . "')";
 
 			if($stmt = mysqli_prepare($con, $sql)){
 
@@ -445,7 +445,8 @@ if(isset($_REQUEST["reqcode"])){
                                         <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Job Type</th>
                                         <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Comments</th>
                                         <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Date Dictated</th>
-                                        <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Date Uploaded</th>
+										<th class="mdc-data-table__header-cell" role="columnheader" scope="col">Date Uploaded</th>
+                                        <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Job Length</th>										
 										<th class="mdc-data-table__header-cell" role="columnheader" scope="col">Job Status</th>
                                         <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Date Transcribed</th>
                                         <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Times Downloaded</th>
@@ -462,7 +463,10 @@ if(isset($_REQUEST["reqcode"])){
 
 
 						while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-
+							$fmtDate = sprintf('%02d:%02d:%02d', ($row['audio_length']/ 3600),($row['audio_length']/ 60 % 60), $row['audio_length']% 60);
+							if ($fmtDate === "00:00:00") {
+								$fmtDate = "";
+							}
 							echo "<tr data-row-id=\"{$row['job_id']}\" class=\"mdc-data-table__row\">";
 //							echo '<td class="mdc-data-table__cell mdc-data-table__cell--checkbox">
 //                                                <div class="mdc-checkbox mdc-data-table__row-checkbox">';
@@ -483,11 +487,12 @@ if(isset($_REQUEST["reqcode"])){
                                             <td class=\"mdc-data-table__cell\">{$row['file_work_type']}</td>
                                             <td class=\"mdc-data-table__cell\">{$row['file_comment']}</td>
                                             <td class=\"mdc-data-table__cell\">{$row['file_date_dict']}</td>
-                                            <td class=\"mdc-data-table__cell\">{$row['job_upload_date']}</td>
+											<td class=\"mdc-data-table__cell\">{$row['job_upload_date']}</td>	
+											<td class=\"mdc-data-table__cell\">{$fmtDate}</td>						
                                             <td class=\"mdc-data-table__cell\">{$row['file_status']}</td>
                                             <td class=\"mdc-data-table__cell\">{$row['file_transcribed_date']}</td>
 											<td class=\"mdc-data-table__cell\">{$row['times_text_downloaded_date']}</td>
-                                            <td class=\"mdc-data-table__cell\">{$row['text_downloaded_date']}</td>											";
+											<td class=\"mdc-data-table__cell\">{$row['text_downloaded_date']}</td>";
 
 							/*<td class=\"mdc-data-table__cell mdc-data-table__cell--numeric\">{$row['file_date_dict']}</td>
                                             <td class=\"mdc-data-table__cell mdc-data-table__cell--numeric\">{$row['job_upload_date']}</td>*/
