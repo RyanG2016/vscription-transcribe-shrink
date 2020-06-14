@@ -172,7 +172,8 @@ $(document).ready(function () {
                 formData.append("jobAuthorName", jobDetails.file_author);
                 formData.append("jobFileName", jobDetails.origFilename);
                 // formData.append("jobTempFileName", jobDetails.tempFilename);
-                formData.append("jobDateDic", jobDetails.file_date_dict);
+                $fmtOrigDateDic = moment(jobDetails.file_date_dict).format("yyyy-MM-D");
+                formData.append("jobDateDic", $fmtOrigDateDic);
                 formData.append("jobType", jobDetails.file_work_type);
                 formData.append("jobSpeakerType", jobDetails.file_speaker_type);
                 formData.append("jobComments", jobDetails.file_comment);
@@ -618,7 +619,8 @@ function loadIntoPlayer(data) {
     $('.job').val(jobDetails.job_id);
     $('#authorName').val(jobDetails.file_author);
     $('#jobType').val(jobDetails.file_work_type);
-    $('#date').val(jobDetails.file_date_dict);
+    var dispDateFormat = moment(jobDetails.file_date_dict).format("D-MMM-yyyy");
+    $('#date').val(dispDateFormat);
     $('#comments').val(jobDetails.file_comment);
 
     var $loadBtn = $('#loadBtn');
@@ -956,6 +958,7 @@ function getCurrentDateTime() {
 
     return dateTime;
 }
+
 //
 function convertFormToRTF() {
     event.preventDefault();

@@ -124,6 +124,7 @@ include_once("gaTrackingCode.php");
 	<script src="data/main/jquery.js"></script>
 	<script src="data/main/garlic.js"></script>
 	<script src="data/main/jquery-ui.js"></script>
+	<script src="data/thirdparty/scripts/moment.js"></script>
 
 	    <!--  MDC Components  -->
     <link href="data/libs/node_modules/material-components-web/dist/material-components-web.css" rel="stylesheet">
