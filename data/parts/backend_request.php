@@ -1026,7 +1026,18 @@ if(isset($_REQUEST["reqcode"])){
 			$sql = "INSERT INTO files (job_id,file_author, file_work_type, file_date_dict, file_speaker_type, file_comment, job_uploaded_by, filename)
 			VALUES (?,?,?,?,?,?,?,?)";
 
+			$ip = getIP();
 
+			$a = Array(
+				'email' => $_SESSION['uEmail'],
+				'activity' => 'Job uploaded to server',
+				'actPage' => 'jobupload.php',
+				//'actPage' => header('Location: '.$_SERVER['REQUEST_URI']),   //This isn't working. For now am going to hardcode the page into the function call
+				'actIP' => $ip,
+				'acc_id' => '1'
+			);
+			$b = json_encode($a);
+			insertAuditLogEntry($con, $b);
 
 
 			break;
@@ -1289,7 +1300,18 @@ if(isset($_REQUEST["reqcode"])){
 //					echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
 
 			}
+			$ip = getIP();
 
+			$a = Array(
+				'email' => $_SESSION['uEmail'],
+				'activity' => 'Password reset requested',
+				'actPage' => 'index.php',
+				//'actPage' => header('Location: '.$_SERVER['REQUEST_URI']),   //This isn't working. For now am going to hardcode the page into the function call
+				'actIP' => $ip,
+				'acc_id' => '1'
+			);
+			$b = json_encode($a);
+			insertAuditLogEntry($con, $b);
 
 			// Close statement
 			mysqli_stmt_close($stmt);
@@ -1508,7 +1530,18 @@ if(isset($_REQUEST["reqcode"])){
 				die( "Error in execute: (" .$con->errno . ") " . $con->error);
 			}
 			//$_SESSION['email'];
-	
+				$ip = getIP();
+
+				$a = Array(
+					'email' => $_SESSION['uEmail'],
+					'activity' => 'Job uploaded to server',
+					'actPage' => 'jobupload.php',
+					//'actPage' => header('Location: '.$_SERVER['REQUEST_URI']),   //This isn't working. For now am going to hardcode the page into the function call
+					'actIP' => $ip,
+					'acc_id' => '1'
+				);
+				$b = json_encode($a);
+				insertAuditLogEntry($con, $b);
 					break;
 	
 					
@@ -1808,17 +1841,18 @@ function generateEmailNotifications($sqlcon, $mailtype) {
 
 function insertAuditLogEntry($con, $args) {
 	/* Insert Audit Data Template
-				$ip = getIP();
+			$ip = getIP();
 
-				$a = Array(
+			$a = Array(
 				'email' => $_SESSION['uEmail'],
-				'activity' => "<Activity Text>",
-				'actPage' => header('Location: '.$_SERVER['REQUEST_URI']),
+				'activity' => 'Loading audio file into player',
+				'actPage' => 'transcribe.php',
+				//'actPage' => header('Location: '.$_SERVER['REQUEST_URI']),   //This isn't working. For now am going to hardcode the page into the function call
 				'actIP' => $ip,
 				'acc_id' => '1'
 			);
-
-			insertAuditLogEntry($con, $a);
+			$b = json_encode($a);
+			insertAuditLogEntry($con, $b);
 	*/
 				//INSERT AUDIT LOG DATA					
 					$a = json_decode($args,true);
