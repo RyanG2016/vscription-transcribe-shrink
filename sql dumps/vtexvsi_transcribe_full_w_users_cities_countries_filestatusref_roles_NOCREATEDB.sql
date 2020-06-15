@@ -3,18 +3,22 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 08, 2020 at 04:00 PM
+-- Generation Time: Jun 14, 2020 at 10:07 PM
 -- Server version: 5.7.26
 -- PHP Version: 7.3.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
 --
 -- Database: `vtexvsi_transcribe`
 --
-CREATE DATABASE IF NOT EXISTS `vtexvsi_transcribe` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `vtexvsi_transcribe`;
 
 -- --------------------------------------------------------
 
@@ -22,7 +26,6 @@ USE `vtexvsi_transcribe`;
 -- Table structure for table `access`
 --
 
-DROP TABLE IF EXISTS `access`;
 CREATE TABLE `access` (
   `access_id` int(11) NOT NULL,
   `acc_id` int(11) NOT NULL,
@@ -37,7 +40,6 @@ CREATE TABLE `access` (
 -- Table structure for table `accounts`
 --
 
-DROP TABLE IF EXISTS `accounts`;
 CREATE TABLE `accounts` (
   `acc_id` int(11) NOT NULL,
   `enabled` tinyint(1) NOT NULL DEFAULT '1',
@@ -71,12 +73,21 @@ CREATE TABLE `accounts` (
   `act_log_retention_time` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `accounts`
+-- Table structure for table `act_log`
 --
 
-INSERT INTO `accounts` (`acc_id`, `enabled`, `billable`, `acc_name`, `acc_retention_time`, `acc_creation_date`, `bill_rate1`, `bill_rate1_type`, `bill_rate1_TAT`, `bill_rate1_desc`, `bill_rate2`, `bill_rate2_type`, `bill_rate2_TAT`, `bill_rate2_desc`, `bill_rate3`, `bill_rate3_type`, `bill_rate3_TAT`, `bill_rate3_desc`, `bill_rate4`, `bill_rate4_type`, `bill_rate4_TAT`, `bill_rate4_desc`, `bill_rate5`, `bill_rate5_type`, `bill_rate5_TAT`, `bill_rate5_desc`, `lifetime_minutes`, `work_types`, `next_job_tally`, `act_log_retention_time`) VALUES
-(1, 1, 1, 'University of Manitoba', 14, '2020-06-08 20:58:39', '2', 1, 5, 'Single Speaker', '2', 2, 5, 'Multiple Speakers', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 180);
+CREATE TABLE `act_log` (
+  `act_log_id` int(11) NOT NULL,
+  `username` varchar(100) NOT NULL,
+  `act_log_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `acc_id` int(11) NOT NULL,
+  `actPage` varchar(50) NOT NULL,
+  `activity` varchar(255) NOT NULL,
+  `ip_addr` varchar(16) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -84,7 +95,6 @@ INSERT INTO `accounts` (`acc_id`, `enabled`, `billable`, `acc_name`, `acc_retent
 -- Table structure for table `cities`
 --
 
-DROP TABLE IF EXISTS `cities`;
 CREATE TABLE `cities` (
   `id` int(11) NOT NULL,
   `country` int(11) NOT NULL COMMENT '0: America, 1: Canada',
@@ -172,7 +182,6 @@ INSERT INTO `cities` (`id`, `country`, `city`) VALUES
 -- Table structure for table `countries`
 --
 
-DROP TABLE IF EXISTS `countries`;
 CREATE TABLE `countries` (
   `id` int(11) NOT NULL,
   `country` varchar(50) COLLATE utf8_bin NOT NULL
@@ -417,10 +426,10 @@ INSERT INTO `countries` (`id`, `country`) VALUES
 -- Table structure for table `files`
 --
 
-DROP TABLE IF EXISTS `files`;
 CREATE TABLE `files` (
   `file_id` int(11) NOT NULL,
   `job_id` varchar(10) NOT NULL,
+  `acc_id` int(11) NOT NULL DEFAULT '1',
   `file_type` int(11) DEFAULT NULL,
   `original_audio_type` int(11) DEFAULT NULL,
   `filename` varchar(254) DEFAULT NULL,
@@ -455,7 +464,6 @@ CREATE TABLE `files` (
 -- Table structure for table `file_status_ref`
 --
 
-DROP TABLE IF EXISTS `file_status_ref`;
 CREATE TABLE `file_status_ref` (
   `id` int(11) NOT NULL,
   `j_status_id` int(11) NOT NULL,
@@ -482,7 +490,6 @@ INSERT INTO `file_status_ref` (`id`, `j_status_id`, `j_status_name`) VALUES
 -- Table structure for table `protect`
 --
 
-DROP TABLE IF EXISTS `protect`;
 CREATE TABLE `protect` (
   `id` int(11) NOT NULL,
   `first_attempt` timestamp NULL DEFAULT NULL,
@@ -500,7 +507,6 @@ CREATE TABLE `protect` (
 -- Table structure for table `roles`
 --
 
-DROP TABLE IF EXISTS `roles`;
 CREATE TABLE `roles` (
   `role_id` int(11) NOT NULL,
   `role_name` varchar(23) COLLATE utf8_bin NOT NULL,
@@ -513,7 +519,6 @@ CREATE TABLE `roles` (
 -- Table structure for table `tokens`
 --
 
-DROP TABLE IF EXISTS `tokens`;
 CREATE TABLE `tokens` (
   `id` int(11) NOT NULL,
   `email` varchar(100) COLLATE utf8_bin NOT NULL,
@@ -529,7 +534,6 @@ CREATE TABLE `tokens` (
 -- Table structure for table `typist_log`
 --
 
-DROP TABLE IF EXISTS `typist_log`;
 CREATE TABLE `typist_log` (
   `tlog_id` int(11) NOT NULL,
   `uid` int(11) NOT NULL COMMENT 'typist user id',
@@ -545,7 +549,6 @@ CREATE TABLE `typist_log` (
 -- Table structure for table `userlog`
 --
 
-DROP TABLE IF EXISTS `userlog`;
 CREATE TABLE `userlog` (
   `id` int(11) NOT NULL,
   `email` varchar(255) COLLATE utf8_bin NOT NULL,
@@ -560,7 +563,6 @@ CREATE TABLE `userlog` (
 -- Table structure for table `users`
 --
 
-DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `first_name` varchar(50) COLLATE utf8_bin NOT NULL,
@@ -588,9 +590,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `country`, `city`, `state`, `registeration_date`, `last_ip_address`, `plan_id`, `account_status`, `unlock_time`, `newsletter`, `shortcuts`, `dictionary`, `email_notification`, `enabled`, `account`) VALUES
-(1, 'Ryan', 'Gaudet', 'ryangaudet@me.com', '$2y$10$DObJNzsN0Ke5v1OGlVSlbefSL6.K5KpfKrKkcK4TJkNS8dcIVs8x2', 'Canada', 'Winnipeg', 'Manitoba', '2020-05-21 02:33:37', '127.0.0.1', 3, 1, NULL, 0, '', '', 0, 0, 1),
-(2, 'Ryan', 'Gaudet', 'ryan.gaudet@gmail.com', '$2y$10$bDzwNexq4X5x/BthiCXgZeZTB7AKxNqe4ANA4zSN85e/xOmftmQlC', 'Canada', 'Winnipeg', 'Manitoba', '2020-05-21 20:33:19', '127.0.0.1', 1, 1, NULL, 0, '', '', 0, 0, 1),
-(3, 'Hossam', 'Elwahsh', 'hacker2894@gmail.com', '$2y$10$UIesrEKKKrNBwmpNcx8IoufJ3KUSKnzgZ7bA2wMaCsmblh9iyRkVS', 'Egypt', 'Alex', '', '2020-05-31 19:58:27', '::1', 1, 1, NULL, 0, '', '', 0, 0, 1),
+(1, 'Ryan', 'Gaudet', 'ryangaudet@me.com', '$2y$10$DObJNzsN0Ke5v1OGlVSlbefSL6.K5KpfKrKkcK4TJkNS8dcIVs8x2', 'Canada', 'Winnipeg', 'Manitoba', '2020-05-21 02:33:37', '127.0.0.1', 3, 1, NULL, 0, '', '', 1, 1, 1),
+(2, 'Ryan', 'Gaudet', 'ryan.gaudet@gmail.com', '$2y$10$bDzwNexq4X5x/BthiCXgZeZTB7AKxNqe4ANA4zSN85e/xOmftmQlC', 'Canada', 'Winnipeg', 'Manitoba', '2020-05-21 20:33:19', '127.0.0.1', 2, 1, NULL, 0, '', '', 1, 1, 1),
+(3, 'Hossam', 'Elwahsh', 'hacker2894@gmail.com', '$2y$10$UIesrEKKKrNBwmpNcx8IoufJ3KUSKnzgZ7bA2wMaCsmblh9iyRkVS', 'Egypt', 'Alex', '', '2020-05-31 19:58:27', '::1', 1, 1, NULL, 0, '', '', 1, 1, 1),
 (4, 'Client', 'Admin', 'cadmin@test.com', '$2y$10$ZNRLxyscDOx0O0uxKsYAUuSLD3mby9fedaZrDT7p6qx2/E/jxIbPa', 'Canada', 'Winnipeg', 'MB', '2020-06-08 20:56:24', NULL, 2, 1, NULL, 0, '1', '1', 1, 1, 1);
 
 --
@@ -608,6 +610,12 @@ ALTER TABLE `access`
 --
 ALTER TABLE `accounts`
   ADD PRIMARY KEY (`acc_id`);
+
+--
+-- Indexes for table `act_log`
+--
+ALTER TABLE `act_log`
+  ADD PRIMARY KEY (`act_log_id`);
 
 --
 -- Indexes for table `cities`
@@ -684,7 +692,13 @@ ALTER TABLE `access`
 -- AUTO_INCREMENT for table `accounts`
 --
 ALTER TABLE `accounts`
-  MODIFY `acc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `acc_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `act_log`
+--
+ALTER TABLE `act_log`
+  MODIFY `act_log_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `cities`
@@ -745,3 +759,7 @@ ALTER TABLE `userlog`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 14, 2020 at 01:50 PM
+-- Generation Time: Jun 14, 2020 at 10:04 PM
 -- Server version: 5.7.26
 -- PHP Version: 7.3.9
 
@@ -29,8 +29,9 @@ SET time_zone = "+00:00";
 CREATE TABLE `act_log` (
   `act_log_id` int(11) NOT NULL,
   `username` varchar(100) NOT NULL,
-  `act_log_date` datetime NOT NULL,
+  `act_log_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `acc_id` int(11) NOT NULL,
+  `actPage` varchar(50) NOT NULL,
   `activity` varchar(255) NOT NULL,
   `ip_addr` varchar(16) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
