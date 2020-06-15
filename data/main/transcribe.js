@@ -21,6 +21,98 @@ $(document).ready(function () {
     const form = document.querySelector('form');
 
 
+    //***************** Websocket Data *****************//
+
+    var wsocket;
+
+    function connect() {
+
+        wsocket = new WebSocket("ws://localhost:8001");
+        // wsocket = new WebSocket("wss://localhost:8000");
+        // wsocket = new WebSocket("wss://0.0.0.0:8000");
+        wsocket.onopen = onopen;
+        wsocket.onmessage = onmessage;
+        wsocket.onclose = onclose;
+    }
+
+    function onopen() {
+        console.log("Connected!");
+        wsocket.send('Transcribe Client Connected.');
+    }
+
+    function onmessage(event) {
+        console.log("Data received: " + event.data);
+
+        switch (event.data.toString()) {
+
+            case "play":
+                playAblePlayer(true);
+                break;
+
+            case "pause":
+                playAblePlayer(false);
+                break;
+
+            case "rw":
+                AblePlayerInstances[0].handleRewind();
+                break;
+
+            case "ff":
+                AblePlayerInstances[0].handleFastForward();
+
+        }
+    }
+
+    function playAblePlayer(play){
+        if(isAblePlayerMediaSet())
+        {
+            if(play)
+            {
+                AblePlayerInstances[0].media.play();
+                console.log("Playing able player.");
+            }
+            else{
+                AblePlayerInstances[0].media.pause();
+                console.log("Pausing able player.");
+            }
+        }
+        else{
+            console.log("Able Player not loaded");
+        }
+    }
+
+    function isAblePlayerMediaSet()
+    {
+        return AblePlayerInstances[0].media.src !== "";
+    }
+
+    function onclose(e) {
+        console.log("Connection closed from server.");
+    }
+
+    window.addEventListener("load", connect, false);
+
+    $(document).ready(function () {
+
+        $('#send').on('click', function (e) {
+            let text = $('#txt').val();
+            console.log("should send " + text);
+            wsocket.send(text);
+        });
+
+    });
+
+    window.addEventListener("unload", logData, false);
+
+    function logData() {
+        wsocket.send('transcribe client disconnecting..');
+        console.log("disconnecting..");
+    }
+
+    //***************** End Websocket data *****************//
+
+
+
     $("body").niceScroll({
         hwacceleration: true,
         smoothscroll: true,
