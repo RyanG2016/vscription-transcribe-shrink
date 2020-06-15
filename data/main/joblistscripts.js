@@ -64,6 +64,14 @@ function documentReady() {
                         }]*/
 					}
 				);
+
+				$("textarea").niceScroll(
+					{
+						hwacceleration: true,
+						smoothscroll: true,
+						cursorcolor: "#1e79be"
+					}
+				);
 			}
 		});
 

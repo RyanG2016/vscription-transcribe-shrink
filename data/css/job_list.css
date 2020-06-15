@@ -345,3 +345,23 @@ table{
 .mdc-data-table__cell, .mdc-data-table__header-cell{
     height: 32px !important;
 }
+
+/* MDC Comments column */
+.textarea-holder{
+    /*min-width: 170px !important;*/
+    /*max-width: 170px !important;*/
+    /*width: 170px !important;*/
+    /*min-height: 35px !important;*/
+}
+textarea{
+    min-width: 170px !important;
+    max-width: 170px !important;
+    /*width: 170px !important;*/
+    width: 100% !important;
+    white-space: nowrap;
+    min-height: 40px !important;
+    padding: 3px !important;
+    outline: none;
+    resize: none;
+    border-color: Transparent !important;
+}

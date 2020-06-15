@@ -500,7 +500,7 @@ if(isset($_REQUEST["reqcode"])){
 							echo "<td class=\"mdc-data-table__cell\">{$row['job_id']}</td>
                                             <td class=\"mdc-data-table__cell\" id=\"{$row['job_id']}\">{$row['file_author']}</td>
                                             <td class=\"mdc-data-table__cell\">{$row['file_work_type']}</td>
-                                            <td class=\"mdc-data-table__cell\">{$row['file_comment']}</td>
+                                            <td class=\"mdc-data-table__cell textarea-holder\"><textarea rows='1'>{$row['file_comment']}</textarea></td>
                                             <td class=\"mdc-data-table__cell\">{$row['file_date_dict']}</td>
 											<td class=\"mdc-data-table__cell\">{$row['job_upload_date']}</td>	
 											<td class=\"mdc-data-table__cell\">{$fmtDate}</td>						
@@ -562,9 +562,8 @@ if(isset($_REQUEST["reqcode"])){
 			
 			break;
 
-			// Job List Transcribe//
-			// Not using DataTables
 
+			// Job List Transcribe//
 			case 9:
 
 
@@ -603,7 +602,7 @@ if(isset($_REQUEST["reqcode"])){
 							   "<td class=\"mdc-data-table__cell\">{$row['job_id']}</td>
 								<td class=\"mdc-data-table__cell\">{$row['file_author']}</td>
 								<td class=\"mdc-data-table__cell\">{$row['file_work_type']}</td>
-								<td class=\"mdc-data-table__cell\">{$row['file_comment']}</td>
+								<td class=\"mdc-data-table__cell\"><textarea>{$row['file_comment']}</textarea>></td>
 								<td class=\"mdc-data-table__cell\">{$row['file_date_dict']}</td>
 								<td class=\"mdc-data-table__cell\">{$row['job_upload_date']}</td>
 								<td class=\"mdc-data-table__cell\">{$row['file_status']}</td>";

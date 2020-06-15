@@ -141,9 +141,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
                 <td colspan="3" align="right">
                     <button class="mdc-button mdc-button--unelevated foo-button" id="newupload_btn">
                         <div class="mdc-button__ripple"></div>
-                        <i class="material-icons mdc-button__icon" aria-hidden="true"
-                        >cloud_upload</i
-                        >
+                        <i class="material-icons mdc-button__icon" aria-hidden="true">cloud_upload</i>
                         <span class="mdc-button__label">Upload Jobs</span>
                     </button>
                     <button class="mdc-button mdc-button--unelevated foo-button" id="refresh_btn"
