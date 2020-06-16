@@ -147,7 +147,7 @@ h3 {
 /* ---------------------*/
 
 :root {
-    --light-bg-color: #a6d1f1;
+    --light-bg-color: #3498db;
     --dark-bg-color: #2c3e50;
 }
 
@@ -376,12 +376,15 @@ table{
     max-width: 170px !important;
     width: 100% !important;
     white-space: nowrap;
-    min-height: 40px !important;
-    padding: 3px !important;
+    /*min-height: 40px !important;*/
+    padding: 5px 3px 10px 3px !important;
+    /*margin-top: 10px;*/
     outline: none;
     resize: none;
     border-color: Transparent !important;
     font-family: 'oxygen', serif !important;
+    font-size: 0.875rem;
+    vertical-align: center;
 }
 
 .textarea-holder{

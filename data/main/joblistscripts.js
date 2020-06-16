@@ -71,6 +71,7 @@ function documentReady() {
 						smoothscroll: true,
 						cursorcolor: "#1e79be",
 						autohidemode: false
+
 					}
 				);
 			}
