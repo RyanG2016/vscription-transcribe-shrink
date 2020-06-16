@@ -245,8 +245,8 @@ $(document).ready(function () {
                 }*/
 
                 let jobLengthSecsRaw = Math.round(AblePlayerInstances[0].seekBar.duration);
-                let jobLengthSecs = `${new Date(jobLengthSecsRaw * 1000).toISOString().substr(11, 8)} (${jobLengthSecsRaw} secs)`;
-                let jobElapsedTimeSecs = Math.floor(AblePlayerInstances[0].seekBar.position);
+                let jobLengthSecs = new Date(jobLengthSecsRaw * 1000).toISOString().substr(11, 8).toString();
+                let jobElapsedTimeSecs = Math.floor(AblePlayerInstances[0].seekBar.position).toString();
 
                 var jobTranscribeDate = getCurrentDateTime();
                 //Demographics to send to server;
@@ -271,6 +271,7 @@ $(document).ready(function () {
                 formData.append("jobNo", jobDetails.job_id);
                 // formData.append("jobLengthStr", jobLengthStr);
                 formData.append("jobLengthSecs", jobLengthSecs);
+                formData.append("jobLengthSecsRaw", jobLengthSecsRaw);
                 // formData.append("jobElapsedTimeStr", jobElapsedTimeStr);
                 formData.append("jobElapsedTimeSecs", jobElapsedTimeSecs);  //If user suspends job, we can use this to resume where they left ;
                 formData.append("jobAuthorName", jobDetails.file_author);

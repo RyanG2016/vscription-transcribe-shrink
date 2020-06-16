@@ -914,7 +914,7 @@ if(isset($_REQUEST["reqcode"])){
 
 						$job_id = $_POST['jobNo'];
 						$file_id = $_POST['file_id'];
-						$audio_length = $_POST['jobLengthSecs'];
+						$audio_length = $_POST['jobLengthSecsRaw'];
 						$audio_elapsed = $_POST['jobElapsedTimeSecs'];
 						$file_status = $_POST['jobStatus'];
 						$file_transcribe_date = $dateTrans;
