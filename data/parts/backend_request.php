@@ -424,7 +424,7 @@ if(isset($_REQUEST["reqcode"])){
 
 			break;
 
-		// Job List Admin//
+		// Case 8//
 			
 			case 8:
 

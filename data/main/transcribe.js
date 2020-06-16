@@ -687,7 +687,7 @@ function jobLoadLookup(fileID) {
         reqcode: 7,
         args: JSON.stringify(a1)
     }).done(function (data) {
-        loadIntoPlayer(data);
+            loadIntoPlayer(data);
     });
 
 }
