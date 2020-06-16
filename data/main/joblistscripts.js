@@ -69,7 +69,8 @@ function documentReady() {
 					{
 						hwacceleration: true,
 						smoothscroll: true,
-						cursorcolor: "#1e79be"
+						cursorcolor: "#1e79be",
+						autohidemode: false
 					}
 				);
 			}
