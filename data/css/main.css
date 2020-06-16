@@ -365,3 +365,24 @@ table{
     border-color: Transparent !important;
     font-family: 'oxygen', serif !important;
 }
+
+.textarea-holder{
+    padding: 0 !important;
+}
+
+.download-icon{
+    /*font-size: 20px;*/
+    vertical-align: bottom;
+}
+
+td .times-downloaded{
+    /*text-align: center;*/
+    vertical-align: bottom !important;
+    font-family: 'oxygen', serif !important;
+}
+
+.times-downloaded-header{
+    /*text-align: center;*/
+    max-width: 8em !important;
+    width: 6em !important;
+}

@@ -464,14 +464,14 @@ if(isset($_REQUEST["reqcode"])){
                                         <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Job Length</th>										
 										<th class="mdc-data-table__header-cell" role="columnheader" scope="col">Job Status</th>
                                         <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Date Transcribed</th>
-                                        <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Times Downloaded</th>
                                         <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Initial Download Date</th>										
-                                        <th class="mdc-data-table__header-cell" role="columnheader" scope="col">File</th>
+                                        <th class="mdc-data-table__header-cell times-downloaded-header" role="columnheader" scope="col">Download</th>
                                     </tr>
                                     </thead>';
 
 						echo '<tbody class="mdc-data-table__content">';
 
+						//                                        <th class="mdc-data-table__header-cell times-downloaded mdc-data-table__cell--numeric" role="columnheader" scope="col"><i class="material-icons mdc-button__icon" aria-hidden="true">cloud_download</i></th>
 
 						/*<th class="mdc-data-table__header-cell mdc-data-table__header-cell--numeric" role="columnheader" scope="col">Date Dictated</th>
                                         <th class="mdc-data-table__header-cell mdc-data-table__header-cell--numeric" role="columnheader" scope="col">Date Uploaded</th>*/
@@ -506,13 +506,14 @@ if(isset($_REQUEST["reqcode"])){
 											<td class=\"mdc-data-table__cell\">{$fmtDate}</td>						
                                             <td class=\"mdc-data-table__cell\">{$row['file_status']}</td>
                                             <td class=\"mdc-data-table__cell\">{$row['file_transcribed_date']}</td>
-											<td class=\"mdc-data-table__cell\">{$row['times_text_downloaded_date']}</td>
+											
 											<td class=\"mdc-data-table__cell\">{$row['text_downloaded_date']}</td>";
 
+//							<td class=\"mdc-data-table__cell times-downloaded\"></td>
 							/*<td class=\"mdc-data-table__cell mdc-data-table__cell--numeric\">{$row['file_date_dict']}</td>
                                             <td class=\"mdc-data-table__cell mdc-data-table__cell--numeric\">{$row['job_upload_date']}</td>*/
 
-								echo "<td class=\"mdc-data-table__cell\">";
+								echo "<td class=\"mdc-data-table__cell \">";
 
 								if($row['file_status'] == "Completed") {
 									$job_id = $row['job_id'];
@@ -520,7 +521,7 @@ if(isset($_REQUEST["reqcode"])){
 										"job_id" => $job_id,
 									);
 									$dnldURL = $cbaselink . "/download.php?" . http_build_query($search);
-									echo "<a class=\"material-icons\" href='{$dnldURL}'>cloud_download</a>";
+									echo "<a class=\"material-icons download-icon\" href='{$dnldURL}'>cloud_download</a> <span class='times-downloaded'> +{$row['times_text_downloaded_date']}</span>";
 								}
 
 								echo "</td>";
