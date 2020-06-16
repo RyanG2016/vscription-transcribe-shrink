@@ -144,7 +144,7 @@ function expireDownloadLink($con, $fileID, $accID)
         if(mysqli_stmt_execute($stmt3) ){
             $result = mysqli_stmt_get_result($stmt3);
             // Check number of rows in the result set
-            if(mysqli_num_rows($result) == 1){
+            if($result){
                 // UPDATE OK
                 return true;
             } else {
