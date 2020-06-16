@@ -4,6 +4,7 @@
 
 include("config.php");
 include("../../mail.php");
+include("common_functions.php");
 
 //Should this go into the case statement? It was in the formsave.php file
 require_once('../../rtf3/src/HtmlToRtf.php');
@@ -424,7 +425,7 @@ if(isset($_REQUEST["reqcode"])){
 
 			break;
 
-		// Case 8//
+		// Get job list for main.php //
 			
 			case 8:
 
@@ -482,7 +483,7 @@ if(isset($_REQUEST["reqcode"])){
 							if ($fmtDate === "00:00:00") {
 								$fmtDate = "";
 							}
-							echo "<tr data-row-id=\"{$row['job_id']}\" class=\"mdc-data-table__row\">";
+							echo "<tr data-row-id=\"{$row['job_id']}\" class=\"mdc-data-table__row\" id=\"{$row['file_id']}\" >";
 //							echo '<td class="mdc-data-table__cell mdc-data-table__cell--checkbox">
 //                                                <div class="mdc-checkbox mdc-data-table__row-checkbox">';
 							// todo uncomment these below for checkboxes
@@ -520,8 +521,8 @@ if(isset($_REQUEST["reqcode"])){
 									$search = array (
 										"job_id" => $job_id,
 									);
-									$dnldURL = $cbaselink . "/download.php?" . http_build_query($search);
-									echo "<a class=\"material-icons download-icon\" href='{$dnldURL}'>cloud_download</a> <span class='times-downloaded'> +{$row['times_text_downloaded_date']}</span>";
+//									$dnldURL = $cbaselink . "/download.php?" . http_build_query($search);
+									echo "<a class=\"material-icons download-icon\">cloud_download</a> <span class='times-downloaded'> +{$row['times_text_downloaded_date']}</span>";
 								}
 
 								echo "</td>";
@@ -700,6 +701,18 @@ if(isset($_REQUEST["reqcode"])){
 
 			updateJobStatus($con, $file_id, $newStatus);
 
+			break;
+
+		// Download file
+		case 17:
+
+			$a = json_decode($args,true);
+			$file_id = $a['file_id'];
+			$currentAccID = $_SESSION['accID']; // to prevent downloading other files belonging to another account
+			$res = downloadJob($con, $file_id, $currentAccID); // true if permission granted and hash is generated (return is the hash val) - false if denied
+
+			echo $res;
+			$debug = 1;
 			break;
 
 		//---------------------------------------------------\\
@@ -1586,6 +1599,59 @@ function updateJobStatus($con, $fileID, $newStatus)
 
 }
 
+function downloadJob($con, $fileID, $accID)
+{
+	/*-----Get existing data for job --------*/
+
+	$sql3 = "SELECT times_text_downloaded_date, text_downloaded_date FROM files WHERE file_id = ?
+    AND acc_id = ?";
+	if($stmt3 = mysqli_prepare($con, $sql3))
+	{
+		mysqli_stmt_bind_param($stmt3, "ii", $fileID, $accID);
+		if(mysqli_stmt_execute($stmt3) ){
+			$result = mysqli_stmt_get_result($stmt3);
+			// Check number of rows in the result set
+			if(mysqli_num_rows($result) == 1){
+				// Fetch result rows as an associative array
+				$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+//				$times_downloaded = $row['times_text_downloaded_date'];
+//				$times_downloaded++;
+//				$text_downloaded_date = $row['text_downloaded_date'];
+
+			} else {
+				// TODO PERMISSION DENIED OR FILE DOESN'T EXIST RETURN ERROR MSG
+				return false;
+			}
+		} else {
+			//echo "Error executing " .$sql3;
+		}
+	}else{
+		//echo "ERROR: Could not prepare to execute $sql1. " . mysqli_error($con);
+		//die( "Error in excute: (" .$con->errno . ") " . $con->error);
+	}
+
+	// generate download hash
+	$downloadHash = md5(time() . mt_rand(1,1000000));
+	$sql = "INSERT INTO downloads(acc_id, hash, file_id) VALUES(?,?,?)";
+	//echo $sql;
+
+	if($stmt = mysqli_prepare($con, $sql)){
+
+		$stmt->bind_param("isi", $accID, $downloadHash, $fileID);
+
+		$a = mysqli_stmt_execute($stmt);
+		if($a){
+			return $downloadHash;
+		} else{
+			//echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
+			// todo failed to create download link
+			return false;
+		}
+	}
+	return false; // couldn't prepare hash statement at all
+
+}
+
 function sendEmail($mailType,$a,$token,$appendmsg)//0:login-default, 1:signup, 4:resetpwd 5:signup verify
 {
 	include('constants.php');
@@ -1661,16 +1727,6 @@ function genToken()
 {
 	$length = 78;
 	return bin2hex(random_bytes($length));	
-}
-
-function getIP()
-{
-	return getenv('HTTP_CLIENT_IP')?:
-				  getenv('HTTP_X_FORWARDED_FOR')?:
-				  getenv('HTTP_X_FORWARDED')?:
-				  getenv('HTTP_FORWARDED_FOR')?:
-				  getenv('HTTP_FORWARDED')?:
-				  getenv('REMOTE_ADDR');
 }
 
 function BRUTELOCK($msg, $src)
@@ -1793,96 +1849,45 @@ function insertToDB($dbcon, $input) {
 	// Close statement
 	//mysqli_stmt_close($stmt); //WE need to reuse it. It will get closed when the function closes
 }
-function generateEmailNotifications($sqlcon, $mailtype) {
-    $con = $sqlcon;
-  	$sql = "SELECT email FROM users WHERE 
+function generateEmailNotifications($sqlcon, $mailtype)
+{
+	$con = $sqlcon;
+	$sql = "SELECT email FROM users WHERE 
 		account = (SELECT account from users WHERE email = '" . $_SESSION['uEmail'] . "') AND 
-        email_notification = 1 AND plan_id = 3"; 
+        email_notification = 1 AND plan_id = 3";
 
 //    $sql = "SELECT * from users;";
-	
-	if($stmt = mysqli_prepare($con, $sql))
-	{
-		if(mysqli_stmt_execute($stmt)){
+
+	if ($stmt = mysqli_prepare($con, $sql)) {
+		if (mysqli_stmt_execute($stmt)) {
 			$result = mysqli_stmt_get_result($stmt);
 			// Check number of rows in the result set
-			if(mysqli_num_rows($result) > 0){
-                //echo "We found some rows";
+			if (mysqli_num_rows($result) > 0) {
+				//echo "We found some rows";
 				// Fetch result rows as an associative array
-				while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-                    //echo strval($row['email']);
-					$recipients[]=$row['email'];
+				while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+					//echo strval($row['email']);
+					$recipients[] = $row['email'];
 				}
-			}
-			else {
+			} else {
 				// If there are no records in the DB for this account
 
 				echo "No recipients are configured to received these notifications";
 			}
-		}
-		else{
+		} else {
 			echo "The SQL Call failed";
-        }
-        foreach($recipients as $item) {
-            echo $item . "<br />";
-            $a = Array (
-                "email" => $item
-            );
-            sendEmail($mailtype, $a,"", true);
-        } 
-        //mailtest($data);
-    }
-    else {
-        echo "ERROR: Could not execute $sql. " . mysqli_error($con->error) .'<br>';
-        die( "Error in execute: (" .$con->errno . ") " . $con->error);
-    }
-    //$_SESSION['email'];
-}
-
-function insertAuditLogEntry($con, $args) {
-	/* Insert Audit Data Template
-			$ip = getIP();
-
-			$a = Array(
-				'email' => $_SESSION['uEmail'],
-				'activity' => 'Loading audio file into player',
-				'actPage' => 'transcribe.php',
-				//'actPage' => header('Location: '.$_SERVER['REQUEST_URI']),   //This isn't working. For now am going to hardcode the page into the function call
-				'actIP' => $ip,
-				'acc_id' => '1'
+		}
+		foreach ($recipients as $item) {
+			echo $item . "<br />";
+			$a = array(
+				"email" => $item
 			);
-			$b = json_encode($a);
-			insertAuditLogEntry($con, $b);
-	*/
-				//INSERT AUDIT LOG DATA					
-					$a = json_decode($args,true);
-					$email = strtolower($a["email"]);
-					//$actDate = gmdate("Y-m-d\TH:i:s\Z"); //Lets' try using the TIMESTAMP field in mySQL instead
-					$activity = $a['activity'];
-					$actPage = $a['actPage'];
-					$actIP = $a['actIP'];
-					//$acc_id = "1";
-					$acc_id = $a['acc_id'];
-					
-					$sql = "INSERT INTO act_log(username, acc_id, actPage, activity, ip_addr) VALUES(?,?,?,?,?)";
-					//echo $sql;
-					
-					if($stmt = mysqli_prepare($con, $sql)){
-		
-						$stmt->bind_param("sisss", $email, $acc_id, $actPage, $activity, $accIP);
-						
-						$a = mysqli_stmt_execute($stmt);
-						if($a){
-							//echo "audit table record added succesfully!";
-							
-							//
-						} else{
-							//echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
-							
-						}
-					}	
-					//Again we're not closing the $con as we will need it and when we return to the calling switch statement it should close there
+			sendEmail($mailtype, $a, "", true);
+		}
+		//mailtest($data);
+	} else {
+		echo "ERROR: Could not execute $sql. " . mysqli_error($con->error) . '<br>';
+		die("Error in execute: (" . $con->errno . ") " . $con->error);
+	}
+	//$_SESSION['email'];
 }
-
-
-?>

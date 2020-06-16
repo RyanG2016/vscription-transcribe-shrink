@@ -74,6 +74,11 @@ function documentReady() {
 
 					}
 				);
+
+				$('.download-icon').click(function() {
+					let file_id = $(this).parent().parent().attr('id');
+					download(file_id, refreshJobList);
+				});
 			}
 		});
 
@@ -82,7 +87,7 @@ function documentReady() {
 	}
 
 	function makeSortTable() {
-		console.log('Sorting table...');
+		// console.log('Sorting table...');
 
 		/*setTimeout(function () {
 			// var table = $('#job-list').tablesort();
@@ -92,7 +97,31 @@ function documentReady() {
 	}
 
 	getJobList(makeSortTable);
+
+
 }
 
+
+function download(fileID, refreshBtn){
+
+	// alert('downloading');
+	let a1 = {
+        file_id: fileID
+    };
+
+    $.post("data/parts/backend_request.php", {
+        reqcode: 17,
+        args: JSON.stringify(a1)
+    }).done(function (data) {
+		// alert("hash received = " + data.toString());
+
+		// redirect to download with the generated hash
+		var win = window.open('./download.php?down='+data.toString(), '_blank');
+		win.focus();
+		// alert('refresh?');
+		location.reload();
+
+    });
+}
 
 document.addEventListener("DOMContentLoaded", documentReady);
