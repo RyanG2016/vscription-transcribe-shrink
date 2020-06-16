@@ -174,7 +174,8 @@ body {
 }
 
 .mdc-data-table__header-row{
-    background: rgba(30, 121, 190, 0.6);
+    /*background: rgba(30, 121, 190, 0.6);*/
+    background: rgba(30, 121, 190, 0.9);
 
 }
 .mdc-data-table__header-cell{
