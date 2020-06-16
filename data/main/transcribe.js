@@ -597,9 +597,8 @@ function completePlayer() {
         vScriptCallback("AudioComplete", g_fileName); //For vScription Application to move file to complete folder
     } catch (err) {}
 
-    //$('#fileLoadDiag').val(''); //clear file dialog
+    AblePlayerInstances[0].seekTo(0);
     AblePlayerInstances[0].media.pause();
-    AblePlayerInstances[0].media.load();
 
     setTimeout(function () {
         AblePlayerInstances[0].media.removeAttribute('src');
@@ -976,6 +975,7 @@ function addRowHandlers() {
     $('.jobs_tbl tbody').on('click', 'tr', function () {
         let fileID = table.row(this).id();
         jobLoadLookup(fileID);
+        $(".textarea-holder textarea").getNiceScroll().remove();
     } );
 
 
