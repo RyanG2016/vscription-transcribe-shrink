@@ -717,6 +717,8 @@ function loadIntoPlayer(data) {
     if(jobDetails.suspendedText !== null && jobDetails.job_status !== 0)
     {
         tinymce.get('report').setContent(decodeHtml(jobDetails.suspendedText));
+        tinyMCE.activeEditor.selection.select(tinyMCE.activeEditor.getBody(), true);
+        tinyMCE.activeEditor.selection.collapse(false);
     }
 
     $('.job').val(jobDetails.job_id);
