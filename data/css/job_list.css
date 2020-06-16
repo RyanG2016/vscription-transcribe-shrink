@@ -353,7 +353,7 @@ table{
     /*width: 170px !important;*/
     /*min-height: 35px !important;*/
 }
-textarea{
+.textarea-holder textarea{
     min-width: 170px !important;
     max-width: 170px !important;
     width: 100% !important;
