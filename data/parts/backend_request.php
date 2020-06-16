@@ -602,7 +602,7 @@ if(isset($_REQUEST["reqcode"])){
 							   "<td class=\"mdc-data-table__cell\">{$row['job_id']}</td>
 								<td class=\"mdc-data-table__cell\">{$row['file_author']}</td>
 								<td class=\"mdc-data-table__cell\">{$row['file_work_type']}</td>
-								<td class=\"mdc-data-table__cell\"><textarea>{$row['file_comment']}</textarea>></td>
+								<td class=\"mdc-data-table__cell textarea-holder\"><textarea rows='1'>{$row['file_comment']}</textarea></td>
 								<td class=\"mdc-data-table__cell\">{$row['file_date_dict']}</td>
 								<td class=\"mdc-data-table__cell\">{$row['job_upload_date']}</td>
 								<td class=\"mdc-data-table__cell\">{$row['file_status']}</td>";

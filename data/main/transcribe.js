@@ -155,15 +155,27 @@ $(document).ready(function () {
     });
 
 
+    $(".modal-content").on('animationend webkitAnimationEnd', function(){
+
+        $(".textarea-holder textarea").niceScroll(
+            {
+                hwacceleration: true,
+                smoothscroll: true,
+                cursorcolor: "#1e79be",
+                autohidemode: false
+            }
+        );
+
+    });
 
     $('#loadBtn').on('click', function (e) {
-        // alert("test");
         modal.style.display = "block";
         chooseJob();
     });
 
     window.onclick = function(event) {
         if (event.target == modal) {
+            $(".textarea-holder textarea").getNiceScroll().remove();
             modal.style.display = "none";
         }
     }
@@ -948,15 +960,6 @@ function getTransJobList(callback) {
             }
         );
 
-       /* tbl.on( 'click', 'tr', function () {
-            var id = dataTbl.row( this ).id();
-
-            alert( 'Clicked row id '+id );
-        } );*/
-
-
-
-
     });
 
     setTimeout(function() {
@@ -966,6 +969,7 @@ function getTransJobList(callback) {
 function addRowHandlers() {
     // console.log("Calling addRowHandler");
 
+
     // var table = $('#example').DataTable();
     let table = $('.jobs_tbl').DataTable();
 
@@ -973,6 +977,8 @@ function addRowHandlers() {
         let fileID = table.row(this).id();
         jobLoadLookup(fileID);
     } );
+
+
 }
 
 function toggleClass(el, className) {
