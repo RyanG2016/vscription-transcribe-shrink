@@ -574,4 +574,6 @@ table, th, td {
     resize: none;
     border-color: Transparent !important;
     font-family: 'oxygen', serif !important;
+    font-size: 0.875rem;
+    vertical-align: center;
 }
