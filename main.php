@@ -43,7 +43,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
 
 
 
-    <link rel="stylesheet" href="data/css/job_list.css">
+    <link rel="stylesheet" href="data/css/main.css">
 
     <script src="data/main/joblistscripts.js"></script>
 
