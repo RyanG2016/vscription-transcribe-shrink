@@ -356,7 +356,6 @@ table{
 textarea{
     min-width: 170px !important;
     max-width: 170px !important;
-    /*width: 170px !important;*/
     width: 100% !important;
     white-space: nowrap;
     min-height: 40px !important;
@@ -364,4 +363,5 @@ textarea{
     outline: none;
     resize: none;
     border-color: Transparent !important;
+    font-family: 'oxygen', serif !important;
 }
