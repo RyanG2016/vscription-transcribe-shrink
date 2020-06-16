@@ -14,7 +14,7 @@ var loadingTitle;
 
 $(document).ready(function () {
 
-    getLatestAppVersionNumber(checkVersions);
+    //getLatestAppVersionNumber(checkVersions);
 
 
     const backend_url = 'data/parts/backend_request.php';
@@ -127,7 +127,7 @@ $(document).ready(function () {
     $.ajaxSetup({
         cache: false
     });
-    checkBrowser();
+    //checkBrowser();
 
     let modal = document.getElementById("modal");
     let loading = document.getElementById("modalLoading");
