@@ -65,7 +65,7 @@ function documentReady() {
 					}
 				);
 
-				$("textarea").niceScroll(
+				$(".textarea-holder textarea").niceScroll(
 					{
 						hwacceleration: true,
 						smoothscroll: true,
