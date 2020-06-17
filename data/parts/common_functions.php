@@ -20,7 +20,7 @@ function insertAuditLogEntry($con, $args) {
     //$actDate = gmdate("Y-m-d\TH:i:s\Z"); //Lets' try using the TIMESTAMP field in mySQL instead
     $activity = $a['activity'];
     $actPage = $a['actPage'];
-    $actIP = $a['actIP'];
+    $ip = $a['actIP'];
     //$acc_id = "1";
     $acc_id = $a['acc_id'];
 
@@ -29,7 +29,7 @@ function insertAuditLogEntry($con, $args) {
 
     if($stmt = mysqli_prepare($con, $sql)){
 
-        $stmt->bind_param("sisss", $email, $acc_id, $actPage, $activity, $accIP);
+        $stmt->bind_param("sisss", $email, $acc_id, $actPage, $activity, $ip);
 
         $a = mysqli_stmt_execute($stmt);
         if($a){
