@@ -4,7 +4,8 @@
   "description": "",
   "main": "like.js",
   "dependencies": {
-    "material-components-web": "^6.0.0"
+    "material-components-web": "^6.0.0",
+    "uglify-js": "^3.9.4"
   },
   "devDependencies": {},
   "scripts": {
