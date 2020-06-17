@@ -1,5 +1,6 @@
 // JavaScript Document
 var g_fileName;
+var dataTbl;
 
 $(document).tooltip({
     //            track: true
@@ -946,8 +947,18 @@ function getTransJobList(callback) {
         jobListResult.html(data);
 
         new mdc.dataTable.MDCDataTable(document.querySelector('.mdc-data-table'));
-        var tbl = $('.jobs_tbl');
-        var dataTbl = tbl.DataTable(
+        dataTbl = $('.jobs_tbl');
+        dataTbl.on( 'init.dt', function () {
+            if(!$('.cTooltip').hasClass("tooltipstered"))
+            {
+                $('.cTooltip').tooltipster({
+                    animation: 'grow',
+                    theme: 'tooltipster-punk',
+                    arrow: true
+                });
+            }
+        } );
+        dataTbl = dataTbl.DataTable(
             {
                 lengthChange: false,
                 searching: false,
@@ -962,12 +973,15 @@ function getTransJobList(callback) {
                 }]*/
             }
         );
-
-        $('.tooltip').tooltipster({
-            animation: 'grow',
-            theme: 'tooltipster-punk',
-            arrow: true
-        });
+        // this function below fires after new page is completely drawn
+        dataTbl.on( 'draw', function () {
+            if(!$('.cTooltip').hasClass("tooltipstered"))
+            $('.cTooltip').tooltipster({
+                animation: 'grow',
+                theme: 'tooltipster-punk',
+                arrow: true
+            });
+        } );
 
     });
 

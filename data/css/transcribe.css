@@ -581,6 +581,6 @@ table, th, td {
 
 .job-comment{
     color: #1e79be;
-    font-size: 16px;
+    font-size: 18px !important;
     vertical-align: text-bottom;
 }

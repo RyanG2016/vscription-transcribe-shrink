@@ -500,7 +500,7 @@ if(isset($_REQUEST["reqcode"])){
                             $cmnt = "";
                             if(!empty($fetchedCmnt))
                             {
-                                $cmnt = "<i class=\"material-icons mdc-button__icon job-comment tooltip\" aria-hidden=\"true\" title='{$fetchedCmnt}'>speaker_notes</i>";
+                                $cmnt = "<i class=\"material-icons mdc-button__icon job-comment cTooltip\" aria-hidden=\"true\" title='{$fetchedCmnt}'>speaker_notes</i>";
                             }
 
 							echo   "<td class=\"mdc-data-table__cell\">{$row['job_id']} {$cmnt}</td>
@@ -604,7 +604,7 @@ if(isset($_REQUEST["reqcode"])){
                             $fetchedCmnt = encodeStr($fetchedCmnt);
                             if(!empty($fetchedCmnt))
                             {
-                                $cmnt = "<i class=\"material-icons mdc-button__icon job-comment tooltip\" aria-hidden=\"true\" title=\"{$fetchedCmnt}\">speaker_notes</i>";
+                                $cmnt = "<i class=\"material-icons mdc-button__icon job-comment cTooltip\" aria-hidden=\"true\" title=\"{$fetchedCmnt}\">speaker_notes</i>";
                             }
 
 							echo "<tr data-row-id=\"{$row['job_id']}\" class=\"mdc-data-table__row\" id=\"{$row['file_id']}\" >";

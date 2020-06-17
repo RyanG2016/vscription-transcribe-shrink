@@ -2,12 +2,16 @@
 	"use strict";
 })(jQuery);
 
+
+var dataTbl;
+
 function documentReady() {
 
 	const maximum_rows_per_page_jobs_list = 10;
 
 	// $('.tooltip').tooltipster();
 
+	dataTbl = $('.jobs_tbl');
 
 
 
@@ -53,7 +57,18 @@ function documentReady() {
 			if(data !== "<p>No matches found</p>")
 			{
 				new mdc.dataTable.MDCDataTable(document.querySelector('.mdc-data-table'));
-				$('.jobs_tbl').DataTable(
+
+				dataTbl.on( 'init.dt', function () {
+					if(!$('.cTooltip').hasClass("tooltipstered"))
+					{
+						$('.cTooltip').tooltipster({
+							animation: 'grow',
+							theme: 'tooltipster-punk',
+							arrow: true
+						});
+					}
+				} );
+				dataTbl = $('.jobs_tbl').DataTable(
 					{
 						lengthChange: false,
 						searching: false,
@@ -69,27 +84,24 @@ function documentReady() {
 					}
 				);
 
-				$(".textarea-holder textarea").niceScroll(
-					{
-						hwacceleration: true,
-						smoothscroll: true,
-						cursorcolor: "#1e79be",
-						autohidemode: false
-
+				dataTbl.on( 'draw', function () {
+						if(!$('.cTooltip').hasClass("tooltipstered"))
+						{
+							$('.cTooltip').tooltipster({
+								animation: 'grow',
+								theme: 'tooltipster-punk',
+								arrow: true
+							});
+						}
 					}
 				);
+
 
 				$('.download-icon').click(function() {
 					let file_id = $(this).parent().parent().attr('id');
 					download(file_id);
 				});
 
-
-				$('.tooltip').tooltipster({
-					animation: 'grow',
-					theme: 'tooltipster-punk',
-					arrow: true
-				});
 
 			}
 		});
