@@ -131,14 +131,12 @@ include_once("gaTrackingCode.php");
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="data/libs/node_modules/material-components-web/dist/material-components-web.js"></script>
 
-	<script src='tinymce/js/tinymce/tinymce.min.js?v=<?php echo $version_control ?>'></script>
+	<script src='tinymce/tinymce.min.js?v=<?php echo $version_control ?>'></script>
+
 	<script src='data/scripts/tinymce.js?v=<?php echo $version_control ?>'></script>
-	<script src="tinymce/js/tinymce/plugins/mention/plugin.js?v=<?php echo $version_control ?>"></script>
-	<link rel="stylesheet" type="text/css" href="tinymce/js/tinymce/plugins/mention/css/autocomplete.css">
-	<link rel="stylesheet" type="text/css" href="tinymce/js/tinymce/plugins/mention/css/rte-content.css">
-
-
-
+    <script src="tinymce/plugins/mention/plugin.js?v=<?php echo $version_control ?>"></script>
+    	<link rel="stylesheet" type="text/css" href="tinymce/plugins/mention/css/autocomplete.css">
+    	<link rel="stylesheet" type="text/css" href="tinymce/plugins/mention/css/rte-content.css">
 
 	<?php
     require "phpspellcheck/include.php";
@@ -335,8 +333,11 @@ include_once("gaTrackingCode.php");
 						</div>
 					</div>
 
-					<div id="divv"><textarea id="report" name="report" placeholder="" rows="25" class="area"></textarea></div>
-					<div class="userinfo">
+					<div id="divv">
+                        <textarea id="report" name="report" placeholder="" rows="25" class="area"></textarea>
+                    </div>
+
+                    <div class="userinfo">
 						<p class=userinfolbl>Logged in as:  <span class="typistemail" style="margin-left:4px;"> <?php echo $_SESSION["uEmail"]?></span></p>
 					</div>
 
