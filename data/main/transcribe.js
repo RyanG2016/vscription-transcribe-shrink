@@ -277,7 +277,7 @@ $(document).ready(function () {
                 formData.append("jobElapsedTimeSecs", jobElapsedTimeSecs);  //If user suspends job, we can use this to resume where they left ;
                 formData.append("jobAuthorName", jobDetails.file_author);
                 formData.append("jobFileName", jobDetails.origFilename);
-                // formData.append("jobTempFileName", jobDetails.tempFilename);
+                formData.append("tempFilename", jobDetails.tempFilename);
                 $fmtOrigDateDic = moment(jobDetails.file_date_dict).format("yyyy-MM-D");
                 formData.append("jobDateDic", $fmtOrigDateDic);
                 formData.append("jobType", jobDetails.file_work_type);
@@ -559,7 +559,7 @@ $(document).ready(function () {
 
         var tinymceContent = tinymce.get('report').getContent();
         //check for any text in the text area
-        if (!tinymceContent == "") //if not empty check saving
+        if (!tinymceContent === "") //if not empty check saving
         {
             //override complete == true
                 validateForm();

@@ -302,7 +302,7 @@ if(isset($_REQUEST["reqcode"])){
 		// Load Job Details for Player //
 		// Also move audio file to working directory
 
-		// this whole case needs adjustments as it is used in three different places some of them doesn't even need the tmp random file to be copid
+		// this whole case needs adjustments as it is used in three different places some of them doesn't even need the tmp random file to be copied
 
 		// currently known use to me is loading a job into the player in transcribe.js <<AKA LOAD BUTTON>>
 		case 7:
@@ -310,11 +310,11 @@ if(isset($_REQUEST["reqcode"])){
 		$a = json_decode($args,true);
 		$file_id = $a['file_id'];
 		$sql = "SELECT *
-				FROM files WHERE file_id = ?";
+				FROM files WHERE file_id = ? and acc_id = ?";
 
 		if($stmt = mysqli_prepare($con, $sql))
 			{
-				mysqli_stmt_bind_param($stmt, "i", $file_id);
+				mysqli_stmt_bind_param($stmt, "ii", $file_id, $_SESSION['accID']);
 
 				if(mysqli_stmt_execute($stmt) ){
 					$result = mysqli_stmt_get_result($stmt);
@@ -323,101 +323,121 @@ if(isset($_REQUEST["reqcode"])){
 					if(mysqli_num_rows($result) > 0){
 						// Fetch result rows as an associative array
 
+                        // If user has permission and file record exist
 						while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
 
+						    // check if the job record has a file saved on the server
 							if ($row['filename'] != "") {
-									$randFileName = random_filename(15) . '.wav';
-									// These paths need to be relative to the PHP file making the call....
+							    // file exists
 
-								$arrContextOptions=array(
-									"ssl"=>array(
-										"verify_peer"=>false,
-										"verify_peer_name"=>false,
-									),
-								);
+                                $tmpName = $row['tmp_name'];
+                                /** checking first if there's already a tmp file for this job on the server */
+                                if($tmpName != null && $tmpName != "")
+                                {
+                                    // Temp file name already exists in the db .. check if it's still on the server workingTmp directory
+                                    if(checkIfTmpFileExists($tmpName)){
 
-								//todo check the exact path for production
+                                        // pass the old file and exit this case
+
+                                        $jobDetails = array(
+                                            "file_id" => $row['file_id'],
+                                            "job_id" => $row['job_id'],
+                                            "file_author" => $row['file_author'],
+                                            "origFilename" => $row['filename'],
+                                            "suspendedText" => htmlentities($row['job_document_html'], ENT_QUOTES),
+                                            "tempFilename" => $tmpName,  /** REUSING OLD TMP FILE */
+                                            "file_date_dict" => $row['file_date_dict'],
+                                            "file_work_type" => $row['file_work_type'],
+                                            "last_audio_position" => $row['last_audio_position'],
+                                            "job_status" => $row['file_status'],
+                                            "file_speaker_type" => $row['file_speaker_type'],
+                                            "file_comment" => $row['file_comment']
+                                        );
+
+                                        echo json_encode($jobDetails);
+
+                                        if($row['file_status'] == 2 || $row['file_status'] == 0) // if the job was suspended/awaiting update it to being typed status = 1
+                                        {
+                                            updateJobStatus($con, $file_id, 1 );
+                                        }
+
+                                        // TO AUDIT LOG (act_log)
+                                        recordJobFileLoaded($con);
+                                        break; /** BREAKING FROM THE CASE TO PREVENT FURTHER CODE EXECUTION */
+                                    }
+                                }
+
+                                /** IF NO TMP FILE AVAILABLE FOR THE JOB CREATE A NEW ONE AND SAVE IT TO DB RECORD */
+
+                                $randFileName = random_filename(".wav");
+
+                                // These paths need to be relative to the PHP file making the call....
+
 								$path = "../../../uploads/". $row['filename'];
-//								$jsPath = "../uploads/". $row['filename'];
 								$type = pathinfo($path, PATHINFO_EXTENSION);
-//								$data = file_get_contents($path, true, stream_context_create($arrContextOptions));
 
-//								$handle = fopen($path, "r", true) or die("Couldn't get handle");
-/*								if ($handle) {
-									while (!feof($handle)) {
-										$buffer = fgets($handle, 4096);
-										// Process buffer here..
-										$data += $buffer;
-									}
-									fclose($handle);
-								}*/
 
-//								$base64 = 'data:audio/' . $type . ';base64,' . base64_encode($data);
+                                if(copy('../../../uploads/' . $row['filename'], '../../workingTemp/' . $randFileName )) {
 
-									if (copy('../../../uploads/' . $row['filename'], '../../workingTemp/' . $randFileName )) {
-									}
-									else {
-										//echo "Error moving file" . $randFileName . " to working directory..";
-									};
-									$jobDetails = array(
-										"file_id" => $row['file_id'],
-										"job_id" => $row['job_id'],
-										"file_author" => $row['file_author'],
-										"origFilename" => $row['filename'],
-										"suspendedText" => htmlentities($row['job_document_html'], ENT_QUOTES),
-//										"suspendedText" => $row['job_document_html'],
-										"tempFilename" => $randFileName,
-										"file_date_dict" => $row['file_date_dict'],
-										"file_work_type" => $row['file_work_type'],
-										"last_audio_position" => $row['last_audio_position'],
-										"job_status" => $row['file_status'],
-										"file_speaker_type" => $row['file_speaker_type'],
-										"file_comment" => $row['file_comment']
-//										"base64" => $base64,
-//										"path" => $path
-									);
+                                    // -> file is copied successfully to tmp -> set tmp value to db
 
-//								header('Content-type:application/json;charset=utf-8');
-								echo json_encode($jobDetails);
-//								echo json_encode($jobDetails, JSON_UNESCAPED_SLASHES);
+                                    $jobDetails = array(
+                                        "file_id" => $row['file_id'],
+                                        "job_id" => $row['job_id'],
+                                        "file_author" => $row['file_author'],
+                                        "origFilename" => $row['filename'],
+                                        "suspendedText" => htmlentities($row['job_document_html'], ENT_QUOTES),
+                                        "tempFilename" => $randFileName,
+                                        "file_date_dict" => $row['file_date_dict'],
+                                        "file_work_type" => $row['file_work_type'],
+                                        "last_audio_position" => $row['last_audio_position'],
+                                        "job_status" => $row['file_status'],
+                                        "file_speaker_type" => $row['file_speaker_type'],
+                                        "file_comment" => $row['file_comment']
+                                    );
 
-								if($row['file_status'] == 2 || $row['file_status'] == 0) // if the job was suspended/awaiting update it to being typed status = 1
-								{
-									updateJobStatus($con, $file_id, 1 );
-								}
+                                    // add audit log entry for job file loaded
+                                    recordJobFileLoaded($con);
+
+                                    $statusToUpdate = $row['file_status'];
+                                    // update status
+                                    if($row['file_status'] == 2 || $row['file_status'] == 0) // if the job was suspended/awaiting update it to being typed status = 1
+                                    {
+//                                        updateJobStatus($con, $file_id, 1 );
+                                        $statusToUpdate = 1;
+                                    }
+
+                                    saveJobTmpFileNameToDbRecord($con, $row['file_id'], $randFileName, $statusToUpdate);
+
+                                    // return the tmp_name & job details back to transcribe
+                                    echo json_encode($jobDetails);
+
+                                }
+                                else {
+                                    //echo "Error moving file" . $randFileName . " to working directory..";
+                                    echo false;
+
+                                    break;
+                                }
 
 							} else {
 								echo "No filename found in record --- ERROR"; //This should NEVER happen....Just for testing
+                                break;
 							}
 
 						}
-					}
-				}
-				else{
-//						echo "<p>No matches found</p>";
-
+					}else{
+					    // todo file doesn't exist or you don't have permission to access this file
+                        break;
+                    }
+				}else{
+                        // echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
+                    break;
 					}
 			} else{
-//					echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
-
+//					echo "ERROR: Could not prepare statement . " . mysqli_error($con);
+                    break;
 			}
-
-			//Insert audit detail. Note we will need to look at where we place this to ensure that we don't put it in a place where it may not fire
-			// like after a return call or something like that
-			//Need to figure out best way to get the acc_id. I think it should be added to the session but what if the user has access to multiple accounts?
-			$ip = getIP();
-
-			$a = Array(
-				'email' => $_SESSION['uEmail'],
-				'activity' => 'Loading audio file into player',
-				'actPage' => 'transcribe.php',
-				//'actPage' => header('Location: '.$_SERVER['REQUEST_URI']),   //This isn't working. For now am going to hardcode the page into the function call
-				'actIP' => $ip,
-				'acc_id' => $_SESSION['accID']
-			);
-			$b = json_encode($a);
-			insertAuditLogEntry($con, $b);
-
 			// Close statement
 			mysqli_stmt_close($stmt);
 
@@ -660,19 +680,11 @@ if(isset($_REQUEST["reqcode"])){
 
 						while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
 
-//							if ($row['filename'] != "") {
-								/*$randFileName = random_filename(15) . '.wav';
-								// These paths need to be relative to the PHP file making the call....
-								if (copy('../../../uploads/' . $row['filename'], '../../workingTemp/' . $randFileName )) {
-								}
-								else {
-									//echo "Error moving file" . $randFileName . " to working directory..";
-								};*/
 								$jobDetails = array(
 									"job_id" => $row['job_id'],
 									"file_author" => $row['file_author'],
 									"origFilename" => $row['filename'],
-//									"tempFilename" => $randFileName,
+									"tempFilename" => $row['tmp_name'],
 									"file_date_dict" => $row['file_date_dict'],
 									"file_status" => $row['file_status'],
 									"file_work_type" => $row['file_work_type'],
@@ -945,7 +957,8 @@ if(isset($_REQUEST["reqcode"])){
 						$file_status = $_POST['jobStatus'];
 						$file_transcribe_date = $dateTrans;
 						$transcribed_by = $_SESSION['uEmail'];
-			
+						$tmp_name = $_SESSION['tempFilename'];
+
 
 						$sql = "UPDATE FILES SET audio_length=?, last_audio_position=?, file_status=?, 
 								 file_transcribed_date=?, 
@@ -968,7 +981,14 @@ if(isset($_REQUEST["reqcode"])){
 			
 							if($B){
 								$result = mysqli_stmt_get_result($stmt);
-									echo "Data Updated Successfully!";
+
+								// if status is complete -> delete the tmpFile and update DB to empty tmp_name
+                                if($file_status == 3)
+                                {
+                                    deleteTmpFile($con, $file_id, $tmp_name);
+                                }
+
+                                echo "Data Updated Successfully!";
 							}
 							else{
 									echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
@@ -1597,7 +1617,7 @@ else{
 mysqli_close($con);
 
 
-//////Functions
+//////   <------------- Functions ----------------->  ////////
 
 function updateJobStatus($con, $fileID, $newStatus)
 {
@@ -1787,22 +1807,98 @@ function BRUTELOCK($msg, $src)
 // INSERT -> 3XX
 // Select -> 4XX
 
-function random_filename($length, $directory = '', $extension = '')
+//function random_filename($length, $directory = '', $extension = '')
+function random_filename($extension = '')
 {
     // default to this files directory if empty...
-    $dir = !empty($directory) && is_dir($directory) ? $directory : dirname(__FILE__);
+//    $dir = !empty($directory) && is_dir($directory) ? $directory : dirname(__FILE__);
 
-    do {
-        $key = '';
-        $keys = array_merge(range(0, 9), range('a', 'z'));
+    $dir = "../../workingTemp/";
 
-        for ($i = 0; $i < $length; $i++) {
-            $key .= $keys[array_rand($keys)];
-        }
-    } while (file_exists($dir . '/' . $key . (!empty($extension) ? '.' . $extension : '')));
+    $filename = uniqid(time()."_", true) . $extension;
 
-    return $key . (!empty($extension) ? '.' . $extension : '');
+    while (file_exists($dir . $filename))
+    {
+        $filename = uniqid(time()."_", true) . $extension;
+    }
+    return $filename;
 }
+
+function checkIfTmpFileExists($tmpName)
+{
+    $dir = "../../workingTemp/"; // working tmp directory
+    return file_exists($dir.$tmpName);
+}
+
+function recordJobFileLoaded($con)
+{
+    //Insert audit detail. Note we will need to look at where we place this to ensure that we don't put it in a place where it may not fire
+    // like after a return call or something like that
+    //Need to figure out best way to get the acc_id. I think it should be added to the session but what if the user has access to multiple accounts?
+    $ip = getIP();
+
+    $a = Array(
+        'email' => $_SESSION['uEmail'],
+        'activity' => 'Loading audio file into player',
+        'actPage' => 'transcribe.php',
+        'actIP' => $ip,
+        'acc_id' => $_SESSION['accID']
+    );
+    $b = json_encode($a);
+    insertAuditLogEntry($con, $b);
+}
+
+function saveJobTmpFileNameToDbRecord($con, $fileID, $newTmpName, $newStatus)
+{
+
+    $sql = "UPDATE FILES SET file_status=?, tmp_name = ? WHERE file_id=?";
+
+    if($stmt = mysqli_prepare($con, $sql))
+    {
+        mysqli_stmt_bind_param($stmt, "isi", $newStatus, $newTmpName, $fileID);
+
+        if(mysqli_stmt_execute($stmt) ){
+//			$result = mysqli_stmt_get_result($stmt);
+//			echo true;
+        }
+        else{
+            // couldn't update job status
+        }
+    } else{
+        //	echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
+    }
+    // Close statement
+    mysqli_stmt_close($stmt);
+}
+
+
+function deleteTmpFile($con, $fileID, $tmpName)
+{
+
+    $sql = "UPDATE FILES SET tmp_name=null WHERE file_id=?";
+
+    if($stmt = mysqli_prepare($con, $sql))
+    {
+        mysqli_stmt_bind_param($stmt, "i", $fileID);
+
+        if(mysqli_stmt_execute($stmt) ){
+
+            // if removed from db -> delete the file from workingTempDirectory
+
+            $dir = "../../workingTemp/"; // working tmp directory
+            unlink($dir.$tmpName);
+
+        }
+        else{
+            // couldn't update job status
+        }
+    } else{
+        //	echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
+    }
+    // Close statement
+    mysqli_stmt_close($stmt);
+}
+
 
 function insertToDB($dbcon, $input) {
 	$con = $dbcon;
