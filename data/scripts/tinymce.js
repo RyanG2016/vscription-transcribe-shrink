@@ -5,11 +5,11 @@ tinymce.init({
 	branding: false,
 	resize: false,
 	nanospell_dictionary: "en,en_ca,en_med",
-	height: 200,
+	height: "300",
 
 	external_plugins: { "nanospell": "/tinymce/plugins/nanospell/plugin.js" },
 	nanospell_server: "php",
-	nanospell_autostart: true,
+	nanospell_autostart: false,
 	nanospell_ignore_words_with_numerals: true,
 	nanospell_ignore_block_caps: false,
 	nanospell_compact_menu: false,
@@ -18,9 +18,9 @@ tinymce.init({
 	// plugins: "autosave,mention",
 	// plugins: "autosave",
 	plugins: "mention",
-	autosave_interval: "5s",
-	autosave_ask_before_unload: true,
-	// readonly: 1,
+	// autosave_interval: "5s",
+	// autosave_ask_before_unload: true,
+	readonly: 1,
 	setup: function (ed) {
 
 		ed.on("KeyDown", function (e) {

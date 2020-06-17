@@ -133,11 +133,11 @@ include_once("gaTrackingCode.php");
 
 	<script src='tinymce/tinymce.min.js?v=<?php echo $version_control ?>'></script>
 
-	<script src='data/scripts/tinymce.js?v=<?php echo $version_control ?>'></script>
+    <script src='data/scripts/tinymce.js?v=<?php echo $version_control ?>'></script>
     <script src="tinymce/plugins/mention/plugin.js?v=<?php echo $version_control ?>"></script>
-    	<link rel="stylesheet" type="text/css" href="tinymce/plugins/mention/css/autocomplete.css">
-    	<link rel="stylesheet" type="text/css" href="tinymce/plugins/mention/css/rte-content.css">
-
+    <link rel="stylesheet" type="text/css" href="tinymce/plugins/mention/css/autocomplete.css">
+    <link rel="stylesheet" type="text/css" href="tinymce/plugins/mention/css/rte-content.css">
+<!---->
 	<?php
     require "phpspellcheck/include.php";
 
