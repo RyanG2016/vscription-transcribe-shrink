@@ -1554,7 +1554,7 @@ if(isset($_REQUEST["reqcode"])){
 
 				$a = Array(
 					'email' => $_SESSION['uEmail'],
-					'activity' => 'Job uploaded to server',
+					'activity' => 'Notification Email Sent to ' . implode(",",$recipients),
 					'actPage' => 'jobupload.php',
 					//'actPage' => header('Location: '.$_SERVER['REQUEST_URI']),   //This isn't working. For now am going to hardcode the page into the function call
 					'actIP' => $ip,
