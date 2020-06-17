@@ -1023,7 +1023,14 @@ if(isset($_REQUEST["reqcode"])){
 //					echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
 
 			}
-			$nextJobNum = "UM-".str_pad($nextNum, 7, "0", STR_PAD_LEFT);
+			//This is a dirty way to change the job prefix for testing. We will ultimately pull this from
+			// the database and a new field has already been added and will be included in the production push
+			if ($_SESSION['accID'] === "1") {
+				$jobPrefix = "UM-";
+			} else if ($_SESSION['accID'] === "2") {
+				$jobPrefix = "VT-";
+			}
+			$nextJobNum = $jobPrefix.str_pad($nextNum, 7, "0", STR_PAD_LEFT);
 			$a = json_decode($args,true);
 
 			$jobid = $nextJobNum;
@@ -1498,8 +1505,8 @@ if(isset($_REQUEST["reqcode"])){
 			$a = json_decode($args,true);
 			$mailtype = $a['mailtype'];	
 			$usertype = $a['usertype'];
-			echo "Mail type is: " . $mailtype;
-			echo "User Type is :" . $usertype;
+			//echo "Mail type is: " . $mailtype;
+			//echo "User Type is :" . $usertype;
 			$sql = "SELECT email FROM users WHERE 
 						account = (SELECT account from users WHERE email = '" . $_SESSION['uEmail'] . "') AND 
 						email_notification = 1 AND plan_id =" . $usertype; 
@@ -1545,9 +1552,15 @@ if(isset($_REQUEST["reqcode"])){
 			//$_SESSION['email'];
 				$ip = getIP();
 
+				if (empty($recipients)) {
+					$activity = 'No receipients configured to receive notifications for ' . $mailtype . ' for this account';
+				} else {
+					$activity = 'Notification Email Type ' . $mailtype . ' Sent to ' . implode(",",$recipients);
+				}
+
 				$a = Array(
 					'email' => $_SESSION['uEmail'],
-					'activity' => 'Job uploaded to server',
+					'activity' => $activity,
 					'actPage' => 'jobupload.php',
 					//'actPage' => header('Location: '.$_SERVER['REQUEST_URI']),   //This isn't working. For now am going to hardcode the page into the function call
 					'actIP' => $ip,
@@ -1792,7 +1805,14 @@ function insertToDB($dbcon, $input) {
 	$file_name = $input[8];
 	$uploadedBy = $_SESSION['uEmail'];
 	
-	$nextJobNum = "UM-".str_pad($nextNum, 7, "0", STR_PAD_LEFT);
+		//This is a dirty way to change the job prefix for testing. We will ultimately pull this from
+	// the database and a new field has already been added and will be included in the production push
+	if ($_SESSION['accID'] === 1) {
+		$jobPrefix = "UM-";
+	} else if ($_SESSION['accID'] === 2) {
+		$jobPrefix = "VT-";
+	}
+	$nextJobNum = $jobPrefix .str_pad($nextNum, 7, "0", STR_PAD_LEFT);
 
 	$sql = "INSERT INTO files (job_id, file_author, file_work_type, file_date_dict, file_speaker_type, file_comment, job_uploaded_by, filename, orig_filename, acc_id) VALUES (?,?,?,?,?,?,?,?,?,(SELECT account from users WHERE email = ?))";
 

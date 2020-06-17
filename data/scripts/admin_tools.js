@@ -13,7 +13,7 @@ $(document).ready(function () {
             pwd: tf.value
         };
 
-        $.post("data/parts/backend_request.php", {
+        $.post("../data/parts/backend_request.php", {
             reqcode: 66,
             args: JSON.stringify(arg)
         }).done(function (data) {

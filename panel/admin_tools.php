@@ -6,7 +6,7 @@ include('../data/parts/head.php');
 if ($_SESSION['role'] != "1") {
 //User is a System or Client Administrator
     ob_start();
-    header('Location: '."accessdenied.php");
+    header('Location: '."../accessdenied.php");
     ob_end_flush();
     die();
 }
