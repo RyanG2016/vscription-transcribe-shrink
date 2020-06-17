@@ -782,8 +782,9 @@ function loadIntoPlayer(data) {
             // seek to last position
             // console.log("seeking to " + jobDetails.last_audio_position);
 
-            AblePlayerInstances[0].playMedia();
+            // AblePlayerInstances[0].playMedia();
             AblePlayerInstances[0].pauseMedia();
+            // AblePlayerInstances[0].media.load();
             AblePlayerInstances[0].seekTo(jobDetails.last_audio_position - rewindAmountOnPause);
 
             /*setTimeout(function() {
