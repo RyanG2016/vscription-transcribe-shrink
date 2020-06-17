@@ -58,9 +58,15 @@ function documentReady() {
 			{
 				new mdc.dataTable.MDCDataTable(document.querySelector('.mdc-data-table'));
 
+
 				dataTbl.on( 'init.dt', function () {
 					if(!$('.cTooltip').hasClass("tooltipstered"))
 					{
+						$('.download-icon').click(function() {
+							let file_id = $(this).parent().parent().parent().attr('id');
+							download(file_id);
+						});
+
 						$('.cTooltip').tooltipster({
 							animation: 'grow',
 							theme: 'tooltipster-punk',
@@ -85,6 +91,12 @@ function documentReady() {
 				);
 
 				dataTbl.on( 'draw', function () {
+
+						$('.download-icon').click(function() {
+							let file_id = $(this).parent().parent().parent().attr('id');
+							download(file_id);
+						});
+
 						if(!$('.cTooltip').hasClass("tooltipstered"))
 						{
 							$('.cTooltip').tooltipster({
@@ -95,13 +107,6 @@ function documentReady() {
 						}
 					}
 				);
-
-
-				$('.download-icon').click(function() {
-					let file_id = $(this).parent().parent().attr('id');
-					download(file_id);
-				});
-
 
 			}
 		});
