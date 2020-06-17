@@ -1023,7 +1023,14 @@ if(isset($_REQUEST["reqcode"])){
 //					echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
 
 			}
-			$nextJobNum = "UM-".str_pad($nextNum, 7, "0", STR_PAD_LEFT);
+			//This is a dirty way to change the job prefix for testing. We will ultimately pull this from
+			// the database and a new field has already been added and will be included in the production push
+			if ($_SESSION['accID'] === "1") {
+				$jobPrefix = "UM-";
+			} else if ($_SESSION['accID'] === "2") {
+				$jobPrefix = "VT-";
+			}
+			$nextJobNum = $jobPrefix.str_pad($nextNum, 7, "0", STR_PAD_LEFT);
 			$a = json_decode($args,true);
 
 			$jobid = $nextJobNum;
@@ -1792,7 +1799,14 @@ function insertToDB($dbcon, $input) {
 	$file_name = $input[8];
 	$uploadedBy = $_SESSION['uEmail'];
 	
-	$nextJobNum = "UM-".str_pad($nextNum, 7, "0", STR_PAD_LEFT);
+		//This is a dirty way to change the job prefix for testing. We will ultimately pull this from
+	// the database and a new field has already been added and will be included in the production push
+	if ($_SESSION['accID'] === 1) {
+		$jobPrefix = "UM-";
+	} else if ($_SESSION['accID'] === 2) {
+		$jobPrefix = "VT-";
+	}
+	$nextJobNum = $jobPrefix .str_pad($nextNum, 7, "0", STR_PAD_LEFT);
 
 	$sql = "INSERT INTO files (job_id, file_author, file_work_type, file_date_dict, file_speaker_type, file_comment, job_uploaded_by, filename, orig_filename, acc_id) VALUES (?,?,?,?,?,?,?,?,?,(SELECT account from users WHERE email = ?))";
 
