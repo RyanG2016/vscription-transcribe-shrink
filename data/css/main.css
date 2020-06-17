@@ -422,4 +422,5 @@ td .times-downloaded{
     color: #1e79be;
     font-size: 18px;
     vertical-align: text-bottom;
+    cursor: pointer;
 }

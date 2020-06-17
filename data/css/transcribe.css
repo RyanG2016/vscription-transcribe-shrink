@@ -583,4 +583,5 @@ table, th, td {
     color: #1e79be;
     font-size: 18px !important;
     vertical-align: text-bottom;
+    cursor: pointer;
 }
