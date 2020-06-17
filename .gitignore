@@ -19,3 +19,10 @@ workingTemp/
 /data/libs/node_modules/.bin/
 /data/libs/node_modules/commander/
 /data/libs/closure-compiler-v20200614.jar
+/data/scripts/admin_tools.js
+/data/scripts/job_upload.js
+/data/scripts/login.js
+/data/scripts/main.js
+/data/scripts/reset.js
+/data/scripts/tinymce.js
+/data/scripts/transcribe.js
