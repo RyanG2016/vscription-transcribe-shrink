@@ -354,8 +354,6 @@ if(isset($_REQUEST["reqcode"])){
 
 //								$base64 = 'data:audio/' . $type . ';base64,' . base64_encode($data);
 
-								// todo check relative path
-//									if (copy('../../../uploads/' . $row['filename'], '../../../workingTemp/' . $randFileName )) {
 									if (copy('../../../uploads/' . $row['filename'], '../../workingTemp/' . $randFileName )) {
 									}
 									else {
@@ -459,7 +457,6 @@ if(isset($_REQUEST["reqcode"])){
                                         <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Job #</th>
                                         <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Author</th>
                                         <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Job Type</th>
-                                        <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Comments</th>
                                         <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Date Dictated</th>
 										<th class="mdc-data-table__header-cell" role="columnheader" scope="col">Date Uploaded</th>
                                         <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Job Length</th>										
@@ -498,17 +495,23 @@ if(isset($_REQUEST["reqcode"])){
                                                             </div>
                                                         </td>';*/
 
-							echo "<td class=\"mdc-data-table__cell\">{$row['job_id']}</td>
-                                            <td class=\"mdc-data-table__cell\" id=\"{$row['job_id']}\">{$row['file_author']}</td>
-                                            <td class=\"mdc-data-table__cell\">{$row['file_work_type']}</td>
-                                            <td class=\"mdc-data-table__cell textarea-holder\"><textarea rows='1'>{$row['file_comment']}</textarea></td>
-                                            <td class=\"mdc-data-table__cell\">{$row['file_date_dict']}</td>
-											<td class=\"mdc-data-table__cell\">{$row['job_upload_date']}</td>	
-											<td class=\"mdc-data-table__cell\">{$fmtDate}</td>						
-                                            <td class=\"mdc-data-table__cell\">{$row['file_status']}</td>
-                                            <td class=\"mdc-data-table__cell\">{$row['file_transcribed_date']}</td>
-											
-											<td class=\"mdc-data-table__cell\">{$row['text_downloaded_date']}</td>";
+                            $fetchedCmnt = $row['file_comment'];
+                            $fetchedCmnt = encodeStr($fetchedCmnt);
+                            $cmnt = "";
+                            if(!empty($fetchedCmnt))
+                            {
+                                $cmnt = "<i class=\"material-icons mdc-button__icon job-comment tooltip\" aria-hidden=\"true\" title='{$fetchedCmnt}'>speaker_notes</i>";
+                            }
+
+							echo   "<td class=\"mdc-data-table__cell\">{$row['job_id']} {$cmnt}</td>
+                                    <td class=\"mdc-data-table__cell\" id=\"{$row['job_id']}\">{$row['file_author']}</td>
+                                    <td class=\"mdc-data-table__cell\">{$row['file_work_type']}</td>
+                                    <td class=\"mdc-data-table__cell\">{$row['file_date_dict']}</td>
+                                    <td class=\"mdc-data-table__cell\">{$row['job_upload_date']}</td>	
+                                    <td class=\"mdc-data-table__cell\">{$fmtDate}</td>						
+                                    <td class=\"mdc-data-table__cell\">{$row['file_status']}</td>
+                                    <td class=\"mdc-data-table__cell\">{$row['file_transcribed_date']}</td>
+                                    <td class=\"mdc-data-table__cell\">{$row['text_downloaded_date']}</td>";
 
 //							<td class=\"mdc-data-table__cell times-downloaded\"></td>
 							/*<td class=\"mdc-data-table__cell mdc-data-table__cell--numeric\">{$row['file_date_dict']}</td>
@@ -587,7 +590,6 @@ if(isset($_REQUEST["reqcode"])){
                                         <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Job #</th>
                                         <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Author</th>
                                         <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Job Type</th>
-                                        <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Comments</th>
                                         <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Date Dictated</th>
                                         <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Date Uploaded</th>
                                         <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Job Status</th>
@@ -598,13 +600,18 @@ if(isset($_REQUEST["reqcode"])){
 
 						while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
 
+                            $fetchedCmnt = $row['file_comment'];
+                            $fetchedCmnt = encodeStr($fetchedCmnt);
+                            if(!empty($fetchedCmnt))
+                            {
+                                $cmnt = "<i class=\"material-icons mdc-button__icon job-comment tooltip\" aria-hidden=\"true\" title=\"{$fetchedCmnt}\">speaker_notes</i>";
+                            }
 
 							echo "<tr data-row-id=\"{$row['job_id']}\" class=\"mdc-data-table__row\" id=\"{$row['file_id']}\" >";
 								echo
-							   "<td class=\"mdc-data-table__cell\">{$row['job_id']}</td>
+							   "<td class=\"mdc-data-table__cell\">{$row['job_id']} {$cmnt}</td>
 								<td class=\"mdc-data-table__cell\">{$row['file_author']}</td>
 								<td class=\"mdc-data-table__cell\">{$row['file_work_type']}</td>
-								<td class=\"mdc-data-table__cell textarea-holder\"><textarea rows='1'>{$row['file_comment']}</textarea></td>
 								<td class=\"mdc-data-table__cell\">{$row['file_date_dict']}</td>
 								<td class=\"mdc-data-table__cell\">{$row['job_upload_date']}</td>
 								<td class=\"mdc-data-table__cell\">{$row['file_status']}</td>";

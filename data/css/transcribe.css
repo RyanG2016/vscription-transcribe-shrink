@@ -500,7 +500,7 @@ table, th, td {
 }
 
 .mdc-data-table__header-row{
-    background: rgba(30, 121, 190, 0.6) !important;
+    background: rgba(30, 121, 190, 0.9) !important;
 
 }
 .mdc-data-table__header-cell{
@@ -576,4 +576,11 @@ table, th, td {
     font-family: 'oxygen', serif !important;
     font-size: 0.875rem;
     vertical-align: center;
+}
+
+
+.job-comment{
+    color: #1e79be;
+    font-size: 16px;
+    vertical-align: text-bottom;
 }

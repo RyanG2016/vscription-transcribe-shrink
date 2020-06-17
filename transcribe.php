@@ -167,15 +167,12 @@ include_once("gaTrackingCode.php");
     <link rel="stylesheet" type="text/css" href="data/libs/DataTables/datatables.css"/>
     <script type="text/javascript" src="data/libs/DataTables/datatables.js"></script>
 
-    <script type="application/javascript">
-
-        $(document).ready(function() {
-        });
-
-    </script>
+    <!--	Tooltip 	-->
+    <link rel="stylesheet" type="text/css" href="data/tooltipster/css/tooltipster.bundle.min.css" />
+    <link rel="stylesheet" type="text/css" href="data/tooltipster/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-punk.min.css" />
+    <script type="text/javascript" src="data/tooltipster/js/tooltipster.bundle.min.js"></script>
 
 </head>
-<!-- <?php //include_once("analyticstracking.php") ?> -->
 
 <body>
 	<div id="message_bar">For best experience and foot control support please download the <a href="https://pro.vscription.com/downloads/vScription_Transcribe_Installer.msi" target="_blank" title="Download Latest Version of vScription Transcribe">vScription Transcribe Application</a></div>

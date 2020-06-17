@@ -6,7 +6,11 @@ function documentReady() {
 
 	const maximum_rows_per_page_jobs_list = 10;
 
-	const url = 'process.php';
+	// $('.tooltip').tooltipster();
+
+
+
+
 	const refreshJobList = document.querySelector('#refresh_btn');
 	const goToUploader = document.querySelector('#newupload_btn');
 	// const refreshJobListLabel = document.querySelector('.refresh_lbl');
@@ -79,6 +83,14 @@ function documentReady() {
 					let file_id = $(this).parent().parent().attr('id');
 					download(file_id);
 				});
+
+
+				$('.tooltip').tooltipster({
+					animation: 'grow',
+					theme: 'tooltipster-punk',
+					arrow: true
+				});
+
 			}
 		});
 

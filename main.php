@@ -91,13 +91,10 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
 
     <script type="text/javascript" src="data/libs/DataTables/datatables.js"></script>
 
-    <script type="application/javascript">
-
-        $(document).ready(function() {
-            // new mdc.dataTable.MDCDataTable(document.querySelector('.mdc-data-table'));
-        });
-
-    </script>
+    <!--	Tooltip 	-->
+    <link rel="stylesheet" type="text/css" href="data/tooltipster/css/tooltipster.bundle.min.css" />
+    <link rel="stylesheet" type="text/css" href="data/tooltipster/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-punk.min.css" />
+    <script type="text/javascript" src="data/tooltipster/js/tooltipster.bundle.min.js"></script>
 
 </head>
 

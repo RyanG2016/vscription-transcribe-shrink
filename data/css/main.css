@@ -408,3 +408,9 @@ td .times-downloaded{
     max-width: 8em !important;
     width: 6em !important;
 }
+
+.job-comment{
+    color: #1e79be;
+    font-size: 16px;
+    vertical-align: text-bottom;
+}

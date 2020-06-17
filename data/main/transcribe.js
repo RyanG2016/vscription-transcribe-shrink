@@ -4,7 +4,7 @@ var g_fileName;
 $(document).tooltip({
     //            track: true
     // items: ':not(#report_ifr)'
-    items: ':not(#report_ifr,#TypistName, #jobNo)'
+    items: ':not(#report_ifr,#TypistName, #jobNo, .tooltip)'
 });
 
 var currentFileID = 0;
@@ -962,6 +962,12 @@ function getTransJobList(callback) {
                 }]*/
             }
         );
+
+        $('.tooltip').tooltipster({
+            animation: 'grow',
+            theme: 'tooltipster-punk',
+            arrow: true
+        });
 
     });
 
