@@ -77,7 +77,7 @@ function documentReady() {
 
 				$('.download-icon').click(function() {
 					let file_id = $(this).parent().parent().attr('id');
-					download(file_id, refreshJobList);
+					download(file_id);
 				});
 			}
 		});
@@ -102,9 +102,8 @@ function documentReady() {
 }
 
 
-function download(fileID, refreshBtn){
-
-	// alert('downloading');
+function download(fileID){
+	
 	let a1 = {
         file_id: fileID
     };
