@@ -133,7 +133,7 @@ include_once("gaTrackingCode.php");
 
 	<script src='tinymce/tinymce.min.js?v=<?php echo $version_control ?>'></script>
 
-    <script src='data/scripts/tinymce.js?v=<?php echo $version_control ?>'></script>
+    <script src='data/scripts/tinymce.min.js?v=<?php echo $version_control ?>'></script>
     <script src="tinymce/plugins/mention/plugin.js?v=<?php echo $version_control ?>"></script>
     <link rel="stylesheet" type="text/css" href="tinymce/plugins/mention/css/autocomplete.css">
     <link rel="stylesheet" type="text/css" href="tinymce/plugins/mention/css/rte-content.css">
@@ -151,9 +151,6 @@ include_once("gaTrackingCode.php");
 	<!-- JavaScript -->
 	<script src="ableplayer/build/ableplayer.js?v=<?php echo $version_control ?>"></script>
 	<!--	///// End of Able Player deps   /////-->
-
-	<!--	Transcribe Window    -->
-<!--	<script src="data/main/transcribe.js"></script>-->
 
 	<!--	Scroll Bar Dependencies    -->
 
@@ -178,7 +175,7 @@ include_once("gaTrackingCode.php");
 	<div id="message_bar">For best experience and foot control support please download the <a href="https://pro.vscription.com/downloads/vScription_Transcribe_Installer.msi" target="_blank" title="Download Latest Version of vScription Transcribe">vScription Transcribe Application</a></div>
 	<div id="updated_version_bar">There is a newer version of the vScription Transcribe application available. You can <a href="https://pro.vscription.com/downloads/vScription_Transcribe_Installer.msi" target="_blank" title="Download Latest Version of vScription Transcribe">download it here </a></div>
     <script src="data/scripts/parts/constants.js" type="text/javascript"></script>
-	<script src="data/main/transcribe.js"> </script>
+	<script src="data/scripts/transcribe.min.js"> </script>
 
 	<div id="container" style="width: 100%">
 		<div class="form-style-5">

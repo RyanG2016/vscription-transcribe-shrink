@@ -70,7 +70,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
     <script src="data/main/jquery-ui.js"></script>
 
 
-    <script src="data/scripts/main.js?v=<?php echo $version_control ?>"></script>
+    <script src="data/scripts/main.min.js?v=<?php echo $version_control ?>"></script>
 
     <!--	Scroll Bar Dependencies    -->
 

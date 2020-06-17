@@ -11,7 +11,7 @@ function documentReady() {
 	const confirm_popup_btn = document.getElementById('confirmUpload');
 	const preview = document.querySelector('.preview');
 	const previewModal = document.querySelector('.previewModal');
-	const process_files_url = 'process.php';
+	// const process_files_url = 'process.php';
 	const backend_url = 'data/parts/backend_request.php';
 	const form = document.querySelector('form');
 

@@ -33,7 +33,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="data/main/job_upload.js"></script>
+    <script src="data/scripts/job_upload.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,300&display=swap"
           rel="stylesheet">
     <link rel="stylesheet" href="data/css/upload_form.css">
@@ -61,9 +61,6 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
     <script src="data/main/jquery.js"></script>
     <script src="data/main/garlic.js"></script>
     <script src="data/main/jquery-ui.js"></script>
-
-
-<!--    <script src="data/main/main.js?v=--><?php //echo $version_control ?><!--"></script>-->
 
     <!--	Scroll Bar Dependencies    -->
 

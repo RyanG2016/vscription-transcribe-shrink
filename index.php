@@ -318,7 +318,7 @@ isset($_SESSION['uEmail'])?$uEmail = $_SESSION['uEmail']:$uEmail = "";
 	<!--	 <script src="data/login/vendor/daterangepicker/moment.min.js"></script> -->
 	<!--	 <script src="data/login/vendor/daterangepicker/daterangepicker.js"></script>-->
 	<!--	<script src="data/login/vendor/countdowntime/countdowntime.js"></script>-->
-	<script src="data/login/js/login.js"></script>
+	<script src="data/scripts/login.min.js"></script>
 
 
 
