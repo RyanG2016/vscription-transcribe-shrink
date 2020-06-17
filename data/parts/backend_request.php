@@ -1505,8 +1505,8 @@ if(isset($_REQUEST["reqcode"])){
 			$a = json_decode($args,true);
 			$mailtype = $a['mailtype'];	
 			$usertype = $a['usertype'];
-			echo "Mail type is: " . $mailtype;
-			echo "User Type is :" . $usertype;
+			//echo "Mail type is: " . $mailtype;
+			//echo "User Type is :" . $usertype;
 			$sql = "SELECT email FROM users WHERE 
 						account = (SELECT account from users WHERE email = '" . $_SESSION['uEmail'] . "') AND 
 						email_notification = 1 AND plan_id =" . $usertype; 
@@ -1554,7 +1554,7 @@ if(isset($_REQUEST["reqcode"])){
 
 				$a = Array(
 					'email' => $_SESSION['uEmail'],
-					'activity' => 'Notification Email Sent to ' . implode(",",$recipients),
+					'activity' => 'Notification Email Type ' . $mailtype . ' Sent to ' . implode(",",$recipients),
 					'actPage' => 'jobupload.php',
 					//'actPage' => header('Location: '.$_SERVER['REQUEST_URI']),   //This isn't working. For now am going to hardcode the page into the function call
 					'actIP' => $ip,
