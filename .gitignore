@@ -18,3 +18,4 @@ workingTemp/
 /data/libs/node_modules/uglify-js/
 /data/libs/node_modules/.bin/
 /data/libs/node_modules/commander/
+/data/libs/closure-compiler-v20200614.jar
