@@ -1552,9 +1552,15 @@ if(isset($_REQUEST["reqcode"])){
 			//$_SESSION['email'];
 				$ip = getIP();
 
+				if (empty($recipients)) {
+					$activity = 'No receipients configured to receive notifications for ' . $mailtype . ' for this account';
+				} else {
+					$activity = 'Notification Email Type ' . $mailtype . ' Sent to ' . implode(",",$recipients);
+				}
+
 				$a = Array(
 					'email' => $_SESSION['uEmail'],
-					'activity' => 'Notification Email Type ' . $mailtype . ' Sent to ' . implode(",",$recipients),
+					'activity' => $activity,
 					'actPage' => 'jobupload.php',
 					//'actPage' => header('Location: '.$_SERVER['REQUEST_URI']),   //This isn't working. For now am going to hardcode the page into the function call
 					'actIP' => $ip,
