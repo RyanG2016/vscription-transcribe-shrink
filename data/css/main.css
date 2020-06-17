@@ -394,6 +394,7 @@ table{
 .download-icon{
     /*font-size: 20px;*/
     vertical-align: bottom;
+    cursor: pointer;
 }
 
 td .times-downloaded{
