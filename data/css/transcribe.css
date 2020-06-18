@@ -593,3 +593,7 @@ table, th, td {
     color: #f78d2d;
     /*color: #3e943c;*/
 }
+
+u{
+    cursor: pointer;
+}
