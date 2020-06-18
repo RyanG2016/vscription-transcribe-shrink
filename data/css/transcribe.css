@@ -585,3 +585,11 @@ table, th, td {
     vertical-align: text-bottom;
     cursor: pointer;
 }
+
+.controller-status{
+    font-family: 'oxygen', serif;
+    margin-right: 15px;
+    vertical-align: bottom;
+    color: #f78d2d;
+    /*color: #3e943c;*/
+}

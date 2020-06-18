@@ -230,10 +230,9 @@ include_once("gaTrackingCode.php");
 
 						<td align="right">
 
-							<!--<a class="button" id="loadBtn">
-								<i class="fas fa-cloud-upload-alt"></i>
-								Load
-							</a>-->
+							<span class="controller-status" id="statusTxt">
+                                <i>connecting to controller please wait...</i>
+                            </span>
 
                             <button class="mdc-button mdc-button--unelevated load-button" id="loadBtn" name="loadBtn" type="button">
                                 <div class="mdc-button__ripple"></div>
