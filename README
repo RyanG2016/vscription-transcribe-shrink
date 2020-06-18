@@ -16,4 +16,8 @@ upload_max_filesize = 128M
 
 apache:
 
+<<<<<<< HEAD
 Make sure to turn indexes off to prevent directory browsing
+=======
+Make sure to turn indexes off to prevent directory browsing
+>>>>>>> dev

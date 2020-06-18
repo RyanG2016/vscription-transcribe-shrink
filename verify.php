@@ -257,7 +257,7 @@ else{ //token isn't set
 	<script src="data/login/vendor/daterangepicker/moment.min.js"></script>
 	<script src="data/login/vendor/daterangepicker/daterangepicker.js"></script>
 	<script src="data/login/vendor/countdowntime/countdowntime.js"></script>
-	<script src="data/login/js/reset.js"></script>
+	<script src="data/scripts/reset.min.js"></script>
 	
 	
 </body>

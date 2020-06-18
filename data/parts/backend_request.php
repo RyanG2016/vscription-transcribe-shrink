@@ -4,6 +4,7 @@
 
 include("config.php");
 include("../../mail.php");
+include("common_functions.php");
 
 //Should this go into the case statement? It was in the formsave.php file
 require_once('../../rtf3/src/HtmlToRtf.php');
@@ -301,7 +302,7 @@ if(isset($_REQUEST["reqcode"])){
 		// Load Job Details for Player //
 		// Also move audio file to working directory
 
-		// this whole case needs adjustments as it is used in three different places some of them doesn't even need the tmp random file to be copid
+		// this whole case needs adjustments as it is used in three different places some of them doesn't even need the tmp random file to be copied
 
 		// currently known use to me is loading a job into the player in transcribe.js <<AKA LOAD BUTTON>>
 		case 7:
@@ -309,11 +310,11 @@ if(isset($_REQUEST["reqcode"])){
 		$a = json_decode($args,true);
 		$file_id = $a['file_id'];
 		$sql = "SELECT *
-				FROM files WHERE file_id = ?";
+				FROM files WHERE file_id = ? and acc_id = ?";
 
 		if($stmt = mysqli_prepare($con, $sql))
 			{
-				mysqli_stmt_bind_param($stmt, "i", $file_id);
+				mysqli_stmt_bind_param($stmt, "ii", $file_id, $_SESSION['accID']);
 
 				if(mysqli_stmt_execute($stmt) ){
 					$result = mysqli_stmt_get_result($stmt);
@@ -322,98 +323,131 @@ if(isset($_REQUEST["reqcode"])){
 					if(mysqli_num_rows($result) > 0){
 						// Fetch result rows as an associative array
 
+                        // If user has permission and file record exist
 						while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
 
+						    // check if the job record has a file saved on the server
 							if ($row['filename'] != "") {
-									$randFileName = random_filename(15) . '.wav';
-									// These paths need to be relative to the PHP file making the call....
+							    // file exists
 
-								$arrContextOptions=array(
-									"ssl"=>array(
-										"verify_peer"=>false,
-										"verify_peer_name"=>false,
-									),
-								);
+                                $tmpName = $row['tmp_name'];
+                                /** checking first if there's already a tmp file for this job on the server */
+                                if($tmpName != null && $tmpName != "")
+                                {
+                                    // Temp file name already exists in the db .. check if it's still on the server workingTmp directory
+                                    if(checkIfTmpFileExists($tmpName)){
 
-								//todo check the exact path for production
+                                        // pass the old file and exit this case
+
+                                        $jobDetails = array(
+                                            "file_id" => $row['file_id'],
+                                            "job_id" => $row['job_id'],
+                                            "file_author" => $row['file_author'],
+                                            "origFilename" => $row['filename'],
+                                            "suspendedText" => htmlentities($row['job_document_html'], ENT_QUOTES),
+                                            "tempFilename" => $tmpName,  /** REUSING OLD TMP FILE */
+                                            "file_date_dict" => $row['file_date_dict'],
+                                            "file_work_type" => $row['file_work_type'],
+                                            "last_audio_position" => $row['last_audio_position'],
+                                            "job_status" => $row['file_status'],
+                                            "file_speaker_type" => $row['file_speaker_type'],
+                                            "file_comment" => $row['file_comment']
+                                        );
+
+                                        echo json_encode($jobDetails);
+
+                                        if($row['file_status'] == 2 || $row['file_status'] == 0) // if the job was suspended/awaiting update it to being typed status = 1
+                                        {
+                                            updateJobStatus($con, $file_id, 1 );
+                                        }
+
+                                        // TO AUDIT LOG (act_log)
+                                        recordJobFileLoaded($con);
+                                        break; /** BREAKING FROM THE CASE TO PREVENT FURTHER CODE EXECUTION */
+                                    }
+                                }
+
+                                /** IF NO TMP FILE AVAILABLE FOR THE JOB CREATE A NEW ONE AND SAVE IT TO DB RECORD */
+
+                                $randFileName = random_filename(".wav");
+
+                                // These paths need to be relative to the PHP file making the call....
+
 								$path = "../../../uploads/". $row['filename'];
-//								$jsPath = "../uploads/". $row['filename'];
 								$type = pathinfo($path, PATHINFO_EXTENSION);
-//								$data = file_get_contents($path, true, stream_context_create($arrContextOptions));
 
-//								$handle = fopen($path, "r", true) or die("Couldn't get handle");
-/*								if ($handle) {
-									while (!feof($handle)) {
-										$buffer = fgets($handle, 4096);
-										// Process buffer here..
-										$data += $buffer;
-									}
-									fclose($handle);
-								}*/
 
-//								$base64 = 'data:audio/' . $type . ';base64,' . base64_encode($data);
+                                if(copy('../../../uploads/' . $row['filename'], '../../workingTemp/' . $randFileName )) {
 
-								// todo check relative path
-//									if (copy('../../../uploads/' . $row['filename'], '../../../workingTemp/' . $randFileName )) {
-									if (copy('../../../uploads/' . $row['filename'], '../../workingTemp/' . $randFileName )) {
-									}
-									else {
-										//echo "Error moving file" . $randFileName . " to working directory..";
-									};
-									$jobDetails = array(
-										"file_id" => $row['file_id'],
-										"job_id" => $row['job_id'],
-										"file_author" => $row['file_author'],
-										"origFilename" => $row['filename'],
-										"suspendedText" => htmlentities($row['job_document_html'], ENT_QUOTES),
-//										"suspendedText" => $row['job_document_html'],
-										"tempFilename" => $randFileName,
-										"file_date_dict" => $row['file_date_dict'],
-										"file_work_type" => $row['file_work_type'],
-										"last_audio_position" => $row['last_audio_position'],
-										"job_status" => $row['file_status'],
-										"file_speaker_type" => $row['file_speaker_type'],
-										"file_comment" => $row['file_comment']
-//										"base64" => $base64,
-//										"path" => $path
-									);
+                                    // -> file is copied successfully to tmp -> set tmp value to db
 
-//								header('Content-type:application/json;charset=utf-8');
-								echo json_encode($jobDetails);
-//								echo json_encode($jobDetails, JSON_UNESCAPED_SLASHES);
+                                    $jobDetails = array(
+                                        "file_id" => $row['file_id'],
+                                        "job_id" => $row['job_id'],
+                                        "file_author" => $row['file_author'],
+                                        "origFilename" => $row['filename'],
+                                        "suspendedText" => htmlentities($row['job_document_html'], ENT_QUOTES),
+                                        "tempFilename" => $randFileName,
+                                        "file_date_dict" => $row['file_date_dict'],
+                                        "file_work_type" => $row['file_work_type'],
+                                        "last_audio_position" => $row['last_audio_position'],
+                                        "job_status" => $row['file_status'],
+                                        "file_speaker_type" => $row['file_speaker_type'],
+                                        "file_comment" => $row['file_comment']
+                                    );
 
-								if($row['file_status'] == 2 || $row['file_status'] == 0) // if the job was suspended/awaiting update it to being typed status = 1
-								{
-									updateJobStatus($con, $file_id, 1 );
-								}
+                                    // add audit log entry for job file loaded
+                                    recordJobFileLoaded($con);
+
+                                    $statusToUpdate = $row['file_status'];
+                                    // update status
+                                    if($row['file_status'] == 2 || $row['file_status'] == 0) // if the job was suspended/awaiting update it to being typed status = 1
+                                    {
+//                                        updateJobStatus($con, $file_id, 1 );
+                                        $statusToUpdate = 1;
+                                    }
+
+                                    saveJobTmpFileNameToDbRecord($con, $row['file_id'], $randFileName, $statusToUpdate);
+
+                                    // return the tmp_name & job details back to transcribe
+                                    echo json_encode($jobDetails);
+
+                                }
+                                else {
+                                    //echo "Error moving file" . $randFileName . " to working directory..";
+                                    echo false;
+
+                                    break;
+                                }
 
 							} else {
 								echo "No filename found in record --- ERROR"; //This should NEVER happen....Just for testing
+                                break;
 							}
 
 						}
-					}
-				}
-				else{
-//						echo "<p>No matches found</p>";
-
+					}else{
+					    // todo file doesn't exist or you don't have permission to access this file
+                        break;
+                    }
+				}else{
+                        // echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
+                    break;
 					}
 			} else{
-//					echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
-
+//					echo "ERROR: Could not prepare statement . " . mysqli_error($con);
+                    break;
 			}
-
-
 			// Close statement
 			mysqli_stmt_close($stmt);
 
 			break;
 
-		// Job List Admin//
+		// Get job list for main.php //
 			
 			case 8:
 
-			$sql = "SELECT `file_id`, `job_id`, `file_type`, `original_audio_type`, `filename`, `fileAudioBlob`, `fileTextBlob`, `file_tag`, `file_author`, `file_work_type`, `file_comment`, `file_speaker_type`, `file_date_dict`, (SELECT j_status_name From file_status_ref WHERE file_status_ref.j_status_id=files.file_status ORDER BY file_status LIMIT 1) as file_status, `last_audio_position`, `job_upload_date`, `job_uploaded_by`, `text_downloaded_date`, `times_text_downloaded_date`, `file_transcribed_date`, `typist_comments`, `isBillable`, `billed` FROM files where acc_id = (SELECT account from users WHERE email = '" . $_SESSION['uEmail'] . "')";
+			$sql = "SELECT `file_id`, `job_id`, `file_type`, `original_audio_type`, `filename`, `fileAudioBlob`, `fileTextBlob`, `file_tag`, `file_author`, `file_work_type`, `file_comment`, `file_speaker_type`, `file_date_dict`, (SELECT j_status_name From file_status_ref WHERE file_status_ref.j_status_id=files.file_status ORDER BY file_status LIMIT 1) as file_status, `audio_length`, `last_audio_position`, `job_upload_date`, `job_uploaded_by`, `text_downloaded_date`, `times_text_downloaded_date`, `file_transcribed_date`, `typist_comments`, `isBillable`, `billed` FROM files where acc_id = (SELECT account from users WHERE email = '" . $_SESSION['uEmail'] . "')";
 
 			if($stmt = mysqli_prepare($con, $sql)){
 
@@ -443,61 +477,83 @@ if(isset($_REQUEST["reqcode"])){
                                         <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Job #</th>
                                         <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Author</th>
                                         <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Job Type</th>
-                                        <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Comments</th>
                                         <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Date Dictated</th>
-                                        <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Date Uploaded</th>
-                                        <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Job Status</th>
-                                        <th class="mdc-data-table__header-cell" role="columnheader" scope="col">File</th>
+										<th class="mdc-data-table__header-cell" role="columnheader" scope="col">Date Uploaded</th>
+                                        <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Job Length</th>										
+										<th class="mdc-data-table__header-cell" role="columnheader" scope="col">Job Status</th>
+                                        <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Date Transcribed</th>
+                                        <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Initial Download Date</th>										
                                     </tr>
                                     </thead>';
 
 						echo '<tbody class="mdc-data-table__content">';
 
+						//                                        <th class="mdc-data-table__header-cell times-downloaded mdc-data-table__cell--numeric" role="columnheader" scope="col"><i class="material-icons mdc-button__icon" aria-hidden="true">cloud_download</i></th>
 
 						/*<th class="mdc-data-table__header-cell mdc-data-table__header-cell--numeric" role="columnheader" scope="col">Date Dictated</th>
                                         <th class="mdc-data-table__header-cell mdc-data-table__header-cell--numeric" role="columnheader" scope="col">Date Uploaded</th>*/
 
 
 						while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-
-							echo "<tr data-row-id=\"{$row['job_id']}\" class=\"mdc-data-table__row\">";
+							$fmtDate = sprintf('%02d:%02d:%02d', ($row['audio_length']/ 3600),($row['audio_length']/ 60 % 60), $row['audio_length']% 60);
+							if ($fmtDate === "00:00:00") {
+								$fmtDate = "";
+							}
+							echo "<tr data-row-id=\"{$row['job_id']}\" class=\"mdc-data-table__row\" id=\"{$row['file_id']}\" >";
 //							echo '<td class="mdc-data-table__cell mdc-data-table__cell--checkbox">
 //                                                <div class="mdc-checkbox mdc-data-table__row-checkbox">';
-							// todo uncomment these below
+							// todo uncomment these below for checkboxes
 //							echo " <input type=\"checkbox\" class=\"mdc-checkbox__native-control\" aria-labelledby=\"{$row['job_id']}\"/>";
 
-							/*			echo '<div class="mdc-checkbox__background">
-                                                                    <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
-                                                                        <path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59" />
-                                                                    </svg>
-                                                                    <div class="mdc-checkbox__mixedmark"></div>
-                                                                </div>
-                                                            </div>
-                                                        </td>';*/
+							/* echo '<div class="mdc-checkbox__background">
+                            <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
+                                    <path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59" />
+                                        </svg>
+                                        <div class="mdc-checkbox__mixedmark"></div>
+                                    </div>
+                                </div>
+                            </td>'; */
 
-							echo "<td class=\"mdc-data-table__cell\">{$row['job_id']}</td>
-                                            <td class=\"mdc-data-table__cell\" id=\"{$row['job_id']}\">{$row['file_author']}</td>
-                                            <td class=\"mdc-data-table__cell\">{$row['file_work_type']}</td>
-                                            <td class=\"mdc-data-table__cell\">{$row['file_comment']}</td>
-                                            <td class=\"mdc-data-table__cell\">{$row['file_date_dict']}</td>
-                                            <td class=\"mdc-data-table__cell\">{$row['job_upload_date']}</td>
-                                            <td class=\"mdc-data-table__cell\">{$row['file_status']}</td>";
+                            $fetchedCmnt = $row['file_comment'];
+                            $fetchedCmnt = encodeStr($fetchedCmnt);
+                            $cmnt = "";
+                            if(!empty($fetchedCmnt))
+                            {
+                                $cmnt = "<i class=\"material-icons mdc-button__icon job-comment cTooltip\" aria-hidden=\"true\" title='{$fetchedCmnt}'>speaker_notes</i>";
+                            }
 
+							echo   "<td class=\"mdc-data-table__cell\">{$row['job_id']} {$cmnt}</td>
+                                    <td class=\"mdc-data-table__cell\" id=\"{$row['job_id']}\">{$row['file_author']}</td>
+                                    <td class=\"mdc-data-table__cell\">{$row['file_work_type']}</td>
+                                    <td class=\"mdc-data-table__cell\">{$row['file_date_dict']}</td>
+                                    <td class=\"mdc-data-table__cell\">{$row['job_upload_date']}</td>	
+                                    <td class=\"mdc-data-table__cell\">{$fmtDate}</td>";
+
+
+                            $down = "";
+                            if($row['file_status'] == "Completed") {
+                                $job_id = $row['job_id'];
+                                $search = array (
+                                    "job_id" => $job_id,
+                                );
+//									$dnldURL = $cbaselink . "/download.php?" . http_build_query($search);
+                                $down =  "<div class='download-info-container'><a class=\"material-icons download-icon\">cloud_download</a> <span class='times-downloaded'> +{$row['times_text_downloaded_date']}</span></div>";
+                            }
+
+                            echo "<td class=\"mdc-data-table__cell\"><div class='file-status'>{$row['file_status']}</div>{$down}</td>";
+
+                            echo "<td class=\"mdc-data-table__cell\">{$row['file_transcribed_date']}</td>
+                                    <td class=\"mdc-data-table__cell\">{$row['text_downloaded_date']}</td>";
+
+//							<td class=\"mdc-data-table__cell times-downloaded\"></td>
 							/*<td class=\"mdc-data-table__cell mdc-data-table__cell--numeric\">{$row['file_date_dict']}</td>
                                             <td class=\"mdc-data-table__cell mdc-data-table__cell--numeric\">{$row['job_upload_date']}</td>*/
 
-								echo "<td class=\"mdc-data-table__cell\">";
+//								echo "<td class=\"mdc-data-table__cell \">";
 
-								if($row['file_status'] == "Completed") {
-									$job_id = $row['job_id'];
-									$search = array (
-										"job_id" => $job_id,
-									);
-									$dnldURL = $cbaselink . "/download.php?" . http_build_query($search);
-									echo "<a class=\"material-icons\" href='{$dnldURL}'>cloud_download</a>";
-								}
 
-								echo "</td>";
+
+//								echo "</td>";
 
 
 
@@ -536,11 +592,10 @@ if(isset($_REQUEST["reqcode"])){
 			
 			break;
 
-			// Job List Transcribe//
-			// Not using DataTables
 
+			// Job List Transcribe//
 			case 9:
-			// todo where clause here probably from session would be safer
+
 
 			$sql = "SELECT `file_id`, `job_id`, `file_type`, `original_audio_type`, `filename`, `fileAudioBlob`, `fileTextBlob`, `file_tag`, `file_author`, `file_work_type`, `file_comment`, `file_speaker_type`, `file_date_dict`, (SELECT j_status_name From file_status_ref WHERE file_status_ref.j_status_id=files.file_status ORDER BY file_status LIMIT 1) as file_status, `last_audio_position`, `job_upload_date`, `job_uploaded_by`, `text_downloaded_date`, `times_text_downloaded_date`, `file_transcribed_date`, `typist_comments`, `isBillable`, `billed` FROM files
 			WHERE `file_status` IN (0,1,2) and acc_id = (SELECT account from users WHERE email = '" . $_SESSION['uEmail'] . "')";
@@ -560,7 +615,6 @@ if(isset($_REQUEST["reqcode"])){
                                         <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Job #</th>
                                         <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Author</th>
                                         <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Job Type</th>
-                                        <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Comments</th>
                                         <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Date Dictated</th>
                                         <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Date Uploaded</th>
                                         <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Job Status</th>
@@ -571,13 +625,18 @@ if(isset($_REQUEST["reqcode"])){
 
 						while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
 
+                            $fetchedCmnt = $row['file_comment'];
+                            $fetchedCmnt = encodeStr($fetchedCmnt);
+                            if(!empty($fetchedCmnt))
+                            {
+                                $cmnt = "<i class=\"material-icons mdc-button__icon job-comment cTooltip\" aria-hidden=\"true\" title=\"{$fetchedCmnt}\">speaker_notes</i>";
+                            }
 
 							echo "<tr data-row-id=\"{$row['job_id']}\" class=\"mdc-data-table__row\" id=\"{$row['file_id']}\" >";
 								echo
-							   "<td class=\"mdc-data-table__cell\">{$row['job_id']}</td>
+							   "<td class=\"mdc-data-table__cell\">{$row['job_id']} {$cmnt}</td>
 								<td class=\"mdc-data-table__cell\">{$row['file_author']}</td>
 								<td class=\"mdc-data-table__cell\">{$row['file_work_type']}</td>
-								<td class=\"mdc-data-table__cell\">{$row['file_comment']}</td>
 								<td class=\"mdc-data-table__cell\">{$row['file_date_dict']}</td>
 								<td class=\"mdc-data-table__cell\">{$row['job_upload_date']}</td>
 								<td class=\"mdc-data-table__cell\">{$row['file_status']}</td>";
@@ -621,19 +680,11 @@ if(isset($_REQUEST["reqcode"])){
 
 						while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
 
-//							if ($row['filename'] != "") {
-								/*$randFileName = random_filename(15) . '.wav';
-								// These paths need to be relative to the PHP file making the call....
-								if (copy('../../../uploads/' . $row['filename'], '../../workingTemp/' . $randFileName )) {
-								}
-								else {
-									//echo "Error moving file" . $randFileName . " to working directory..";
-								};*/
 								$jobDetails = array(
 									"job_id" => $row['job_id'],
 									"file_author" => $row['file_author'],
 									"origFilename" => $row['filename'],
-//									"tempFilename" => $randFileName,
+									"tempFilename" => $row['tmp_name'],
 									"file_date_dict" => $row['file_date_dict'],
 									"file_status" => $row['file_status'],
 									"file_work_type" => $row['file_work_type'],
@@ -674,6 +725,18 @@ if(isset($_REQUEST["reqcode"])){
 
 			updateJobStatus($con, $file_id, $newStatus);
 
+			break;
+
+		// Download file
+		case 17:
+
+			$a = json_decode($args,true);
+			$file_id = $a['file_id'];
+			$currentAccID = $_SESSION['accID']; // to prevent downloading other files belonging to another account
+			$res = downloadJob($con, $file_id, $currentAccID); // true if permission granted and hash is generated (return is the hash val) - false if denied
+
+			echo $res;
+			$debug = 1;
 			break;
 
 		//---------------------------------------------------\\
@@ -889,12 +952,13 @@ if(isset($_REQUEST["reqcode"])){
 
 						$job_id = $_POST['jobNo'];
 						$file_id = $_POST['file_id'];
-						$audio_length = $_POST['jobLengthSecs'];
+						$audio_length = $_POST['jobLengthSecsRaw'];
 						$audio_elapsed = $_POST['jobElapsedTimeSecs'];
 						$file_status = $_POST['jobStatus'];
 						$file_transcribe_date = $dateTrans;
 						$transcribed_by = $_SESSION['uEmail'];
-			
+						$tmp_name = $_SESSION['tempFilename'];
+
 
 						$sql = "UPDATE FILES SET audio_length=?, last_audio_position=?, file_status=?, 
 								 file_transcribed_date=?, 
@@ -917,7 +981,14 @@ if(isset($_REQUEST["reqcode"])){
 			
 							if($B){
 								$result = mysqli_stmt_get_result($stmt);
-									echo "Data Updated Successfully!";
+
+								// if status is complete -> delete the tmpFile and update DB to empty tmp_name
+                                if($file_status == 3)
+                                {
+                                    deleteTmpFile($con, $file_id, $tmp_name);
+                                }
+
+                                echo "Data Updated Successfully!";
 							}
 							else{
 									echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
@@ -984,7 +1055,14 @@ if(isset($_REQUEST["reqcode"])){
 //					echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
 
 			}
-			$nextJobNum = "UM-".str_pad($nextNum, 7, "0", STR_PAD_LEFT);
+			//This is a dirty way to change the job prefix for testing. We will ultimately pull this from
+			// the database and a new field has already been added and will be included in the production push
+			if ($_SESSION['accID'] === "1") {
+				$jobPrefix = "UM-";
+			} else if ($_SESSION['accID'] === "2") {
+				$jobPrefix = "VT-";
+			}
+			$nextJobNum = $jobPrefix.str_pad($nextNum, 7, "0", STR_PAD_LEFT);
 			$a = json_decode($args,true);
 
 			$jobid = $nextJobNum;
@@ -1000,7 +1078,18 @@ if(isset($_REQUEST["reqcode"])){
 			$sql = "INSERT INTO files (job_id,file_author, file_work_type, file_date_dict, file_speaker_type, file_comment, job_uploaded_by, filename)
 			VALUES (?,?,?,?,?,?,?,?)";
 
+			$ip = getIP();
 
+			$a = Array(
+				'email' => $_SESSION['uEmail'],
+				'activity' => 'Job uploaded to server',
+				'actPage' => 'jobupload.php',
+				//'actPage' => header('Location: '.$_SERVER['REQUEST_URI']),   //This isn't working. For now am going to hardcode the page into the function call
+				'actIP' => $ip,
+				'acc_id' => $_SESSION['accID']
+			);
+			$b = json_encode($a);
+			insertAuditLogEntry($con, $b);
 
 
 			break;
@@ -1263,7 +1352,18 @@ if(isset($_REQUEST["reqcode"])){
 //					echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
 
 			}
+			$ip = getIP();
 
+			$a = Array(
+				'email' => $_SESSION['uEmail'],
+				'activity' => 'Password reset requested',
+				'actPage' => 'index.php',
+				//'actPage' => header('Location: '.$_SERVER['REQUEST_URI']),   //This isn't working. For now am going to hardcode the page into the function call
+				'actIP' => $ip,
+				'acc_id' => $_SESSION['accID']
+			);
+			$b = json_encode($a);
+			insertAuditLogEntry($con, $b);
 
 			// Close statement
 			mysqli_stmt_close($stmt);
@@ -1437,8 +1537,8 @@ if(isset($_REQUEST["reqcode"])){
 			$a = json_decode($args,true);
 			$mailtype = $a['mailtype'];	
 			$usertype = $a['usertype'];
-			echo "Mail type is: " . $mailtype;
-			echo "User Type is :" . $usertype;
+			//echo "Mail type is: " . $mailtype;
+			//echo "User Type is :" . $usertype;
 			$sql = "SELECT email FROM users WHERE 
 						account = (SELECT account from users WHERE email = '" . $_SESSION['uEmail'] . "') AND 
 						email_notification = 1 AND plan_id =" . $usertype; 
@@ -1482,8 +1582,26 @@ if(isset($_REQUEST["reqcode"])){
 				die( "Error in execute: (" .$con->errno . ") " . $con->error);
 			}
 			//$_SESSION['email'];
-	
+				$ip = getIP();
+
+				if (empty($recipients)) {
+					$activity = 'No receipients configured to receive notifications for ' . $mailtype . ' for this account';
+				} else {
+					$activity = 'Notification Email Type ' . $mailtype . ' Sent to ' . implode(",",$recipients);
+				}
+
+				$a = Array(
+					'email' => $_SESSION['uEmail'],
+					'activity' => $activity,
+					'actPage' => 'jobupload.php',
+					//'actPage' => header('Location: '.$_SERVER['REQUEST_URI']),   //This isn't working. For now am going to hardcode the page into the function call
+					'actIP' => $ip,
+					'acc_id' => $_SESSION['accID']
+				);
+				$b = json_encode($a);
+				insertAuditLogEntry($con, $b);
 					break;
+	
 					
 			
 	} //switch end
@@ -1499,7 +1617,7 @@ else{
 mysqli_close($con);
 
 
-//////Functions
+//////   <------------- Functions ----------------->  ////////
 
 function updateJobStatus($con, $fileID, $newStatus)
 {
@@ -1523,6 +1641,59 @@ function updateJobStatus($con, $fileID, $newStatus)
 	// Close statement
 	mysqli_stmt_close($stmt);
 
+
+}
+
+function downloadJob($con, $fileID, $accID)
+{
+	/*-----Get existing data for job --------*/
+
+	$sql3 = "SELECT times_text_downloaded_date, text_downloaded_date FROM files WHERE file_id = ?
+    AND acc_id = ?";
+	if($stmt3 = mysqli_prepare($con, $sql3))
+	{
+		mysqli_stmt_bind_param($stmt3, "ii", $fileID, $accID);
+		if(mysqli_stmt_execute($stmt3) ){
+			$result = mysqli_stmt_get_result($stmt3);
+			// Check number of rows in the result set
+			if(mysqli_num_rows($result) == 1){
+				// Fetch result rows as an associative array
+				$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+//				$times_downloaded = $row['times_text_downloaded_date'];
+//				$times_downloaded++;
+//				$text_downloaded_date = $row['text_downloaded_date'];
+
+			} else {
+				// TODO PERMISSION DENIED OR FILE DOESN'T EXIST RETURN ERROR MSG
+				return false;
+			}
+		} else {
+			//echo "Error executing " .$sql3;
+		}
+	}else{
+		//echo "ERROR: Could not prepare to execute $sql1. " . mysqli_error($con);
+		//die( "Error in excute: (" .$con->errno . ") " . $con->error);
+	}
+
+	// generate download hash
+	$downloadHash = md5(time() . mt_rand(1,1000000));
+	$sql = "INSERT INTO downloads(acc_id, hash, file_id) VALUES(?,?,?)";
+	//echo $sql;
+
+	if($stmt = mysqli_prepare($con, $sql)){
+
+		$stmt->bind_param("isi", $accID, $downloadHash, $fileID);
+
+		$a = mysqli_stmt_execute($stmt);
+		if($a){
+			return $downloadHash;
+		} else{
+			//echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
+			// todo failed to create download link
+			return false;
+		}
+	}
+	return false; // couldn't prepare hash statement at all
 
 }
 
@@ -1603,16 +1774,6 @@ function genToken()
 	return bin2hex(random_bytes($length));	
 }
 
-function getIP()
-{
-	return getenv('HTTP_CLIENT_IP')?:
-				  getenv('HTTP_X_FORWARDED_FOR')?:
-				  getenv('HTTP_X_FORWARDED')?:
-				  getenv('HTTP_FORWARDED_FOR')?:
-				  getenv('HTTP_FORWARDED')?:
-				  getenv('REMOTE_ADDR');
-}
-
 function BRUTELOCK($msg, $src)
 {
 	$_SESSION['msg'] = "You have been banned from this server for 1 hour unlocks on $msg";
@@ -1646,22 +1807,98 @@ function BRUTELOCK($msg, $src)
 // INSERT -> 3XX
 // Select -> 4XX
 
-function random_filename($length, $directory = '', $extension = '')
+//function random_filename($length, $directory = '', $extension = '')
+function random_filename($extension = '')
 {
     // default to this files directory if empty...
-    $dir = !empty($directory) && is_dir($directory) ? $directory : dirname(__FILE__);
+//    $dir = !empty($directory) && is_dir($directory) ? $directory : dirname(__FILE__);
 
-    do {
-        $key = '';
-        $keys = array_merge(range(0, 9), range('a', 'z'));
+    $dir = "../../workingTemp/";
 
-        for ($i = 0; $i < $length; $i++) {
-            $key .= $keys[array_rand($keys)];
-        }
-    } while (file_exists($dir . '/' . $key . (!empty($extension) ? '.' . $extension : '')));
+    $filename = uniqid(time()."_", true) . $extension;
 
-    return $key . (!empty($extension) ? '.' . $extension : '');
+    while (file_exists($dir . $filename))
+    {
+        $filename = uniqid(time()."_", true) . $extension;
+    }
+    return $filename;
 }
+
+function checkIfTmpFileExists($tmpName)
+{
+    $dir = "../../workingTemp/"; // working tmp directory
+    return file_exists($dir.$tmpName);
+}
+
+function recordJobFileLoaded($con)
+{
+    //Insert audit detail. Note we will need to look at where we place this to ensure that we don't put it in a place where it may not fire
+    // like after a return call or something like that
+    //Need to figure out best way to get the acc_id. I think it should be added to the session but what if the user has access to multiple accounts?
+    $ip = getIP();
+
+    $a = Array(
+        'email' => $_SESSION['uEmail'],
+        'activity' => 'Loading audio file into player',
+        'actPage' => 'transcribe.php',
+        'actIP' => $ip,
+        'acc_id' => $_SESSION['accID']
+    );
+    $b = json_encode($a);
+    insertAuditLogEntry($con, $b);
+}
+
+function saveJobTmpFileNameToDbRecord($con, $fileID, $newTmpName, $newStatus)
+{
+
+    $sql = "UPDATE FILES SET file_status=?, tmp_name = ? WHERE file_id=?";
+
+    if($stmt = mysqli_prepare($con, $sql))
+    {
+        mysqli_stmt_bind_param($stmt, "isi", $newStatus, $newTmpName, $fileID);
+
+        if(mysqli_stmt_execute($stmt) ){
+//			$result = mysqli_stmt_get_result($stmt);
+//			echo true;
+        }
+        else{
+            // couldn't update job status
+        }
+    } else{
+        //	echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
+    }
+    // Close statement
+    mysqli_stmt_close($stmt);
+}
+
+
+function deleteTmpFile($con, $fileID, $tmpName)
+{
+
+    $sql = "UPDATE FILES SET tmp_name=null WHERE file_id=?";
+
+    if($stmt = mysqli_prepare($con, $sql))
+    {
+        mysqli_stmt_bind_param($stmt, "i", $fileID);
+
+        if(mysqli_stmt_execute($stmt) ){
+
+            // if removed from db -> delete the file from workingTempDirectory
+
+            $dir = "../../workingTemp/"; // working tmp directory
+            unlink($dir.$tmpName);
+
+        }
+        else{
+            // couldn't update job status
+        }
+    } else{
+        //	echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
+    }
+    // Close statement
+    mysqli_stmt_close($stmt);
+}
+
 
 function insertToDB($dbcon, $input) {
 	$con = $dbcon;
@@ -1676,7 +1913,14 @@ function insertToDB($dbcon, $input) {
 	$file_name = $input[8];
 	$uploadedBy = $_SESSION['uEmail'];
 	
-	$nextJobNum = "UM-".str_pad($nextNum, 7, "0", STR_PAD_LEFT);
+		//This is a dirty way to change the job prefix for testing. We will ultimately pull this from
+	// the database and a new field has already been added and will be included in the production push
+	if ($_SESSION['accID'] === 1) {
+		$jobPrefix = "UM-";
+	} else if ($_SESSION['accID'] === 2) {
+		$jobPrefix = "VT-";
+	}
+	$nextJobNum = $jobPrefix .str_pad($nextNum, 7, "0", STR_PAD_LEFT);
 
 	$sql = "INSERT INTO files (job_id, file_author, file_work_type, file_date_dict, file_speaker_type, file_comment, job_uploaded_by, filename, orig_filename, acc_id) VALUES (?,?,?,?,?,?,?,?,?,(SELECT account from users WHERE email = ?))";
 
@@ -1733,51 +1977,45 @@ function insertToDB($dbcon, $input) {
 	// Close statement
 	//mysqli_stmt_close($stmt); //WE need to reuse it. It will get closed when the function closes
 }
-function generateEmailNotifications($sqlcon, $mailtype) {
-    $con = $sqlcon;
-  	$sql = "SELECT email FROM users WHERE 
+function generateEmailNotifications($sqlcon, $mailtype)
+{
+	$con = $sqlcon;
+	$sql = "SELECT email FROM users WHERE 
 		account = (SELECT account from users WHERE email = '" . $_SESSION['uEmail'] . "') AND 
-        email_notification = 1 AND plan_id = 3"; 
+        email_notification = 1 AND plan_id = 3";
 
 //    $sql = "SELECT * from users;";
-	
-	if($stmt = mysqli_prepare($con, $sql))
-	{
-		if(mysqli_stmt_execute($stmt)){
+
+	if ($stmt = mysqli_prepare($con, $sql)) {
+		if (mysqli_stmt_execute($stmt)) {
 			$result = mysqli_stmt_get_result($stmt);
 			// Check number of rows in the result set
-			if(mysqli_num_rows($result) > 0){
-                //echo "We found some rows";
+			if (mysqli_num_rows($result) > 0) {
+				//echo "We found some rows";
 				// Fetch result rows as an associative array
-				while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-                    //echo strval($row['email']);
-					$recipients[]=$row['email'];
+				while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+					//echo strval($row['email']);
+					$recipients[] = $row['email'];
 				}
-			}
-			else {
+			} else {
 				// If there are no records in the DB for this account
 
 				echo "No recipients are configured to received these notifications";
 			}
-		}
-		else{
+		} else {
 			echo "The SQL Call failed";
-        }
-        foreach($recipients as $item) {
-            echo $item . "<br />";
-            $a = Array (
-                "email" => $item
-            );
-            sendEmail($mailtype, $a,"", true);
-        } 
-        //mailtest($data);
-    }
-    else {
-        echo "ERROR: Could not execute $sql. " . mysqli_error($con->error) .'<br>';
-        die( "Error in execute: (" .$con->errno . ") " . $con->error);
-    }
-    //$_SESSION['email'];
+		}
+		foreach ($recipients as $item) {
+			echo $item . "<br />";
+			$a = array(
+				"email" => $item
+			);
+			sendEmail($mailtype, $a, "", true);
+		}
+		//mailtest($data);
+	} else {
+		echo "ERROR: Could not execute $sql. " . mysqli_error($con->error) . '<br>';
+		die("Error in execute: (" . $con->errno . ") " . $con->error);
+	}
+	//$_SESSION['email'];
 }
-
-
-?>

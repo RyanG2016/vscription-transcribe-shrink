@@ -190,7 +190,7 @@
 
         lookup: function () {
             // this.query = this.options.delimiter + $.trim($(this.editor.getBody()).find('#autocomplete-searchtext').text()).replace('\ufeff', '');
-            this.query = $.trim($(this.editor.getBody()).find('#autocomplete-searchtext').text()).replace('\ufeff', ''); // todo FIXED
+            this.query = $.trim($(this.editor.getBody()).find('#autocomplete-searchtext').text()).replace('\ufeff', '');
 
             if (this.$dropdown === undefined) {
                 this.show();

@@ -2,7 +2,7 @@
 //session_start();
 include('session_settings.php');
 
-include('data/parts/ping.php');
+require('ping.php');
 
 if(!isset($_SESSION['loggedIn']))
 {

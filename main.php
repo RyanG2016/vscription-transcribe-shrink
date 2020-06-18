@@ -43,7 +43,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
 
 
 
-    <link rel="stylesheet" href="data/css/job_list.css">
+    <link rel="stylesheet" href="data/css/main.css">
 
     <script src="data/main/joblistscripts.js"></script>
 
@@ -70,7 +70,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
     <script src="data/main/jquery-ui.js"></script>
 
 
-    <script src="data/main/main.js?v=<?php echo $version_control ?>"></script>
+    <script src="data/scripts/main.min.js?v=<?php echo $version_control ?>"></script>
 
     <!--	Scroll Bar Dependencies    -->
 
@@ -91,13 +91,10 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
 
     <script type="text/javascript" src="data/libs/DataTables/datatables.js"></script>
 
-    <script type="application/javascript">
-
-        $(document).ready(function() {
-            // new mdc.dataTable.MDCDataTable(document.querySelector('.mdc-data-table'));
-        });
-
-    </script>
+    <!--	Tooltip 	-->
+    <link rel="stylesheet" type="text/css" href="data/tooltipster/css/tooltipster.bundle.min.css" />
+    <link rel="stylesheet" type="text/css" href="data/tooltipster/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-punk.min.css" />
+    <script type="text/javascript" src="data/tooltipster/js/tooltipster.bundle.min.js"></script>
 
 </head>
 
@@ -141,9 +138,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
                 <td colspan="3" align="right">
                     <button class="mdc-button mdc-button--unelevated foo-button" id="newupload_btn">
                         <div class="mdc-button__ripple"></div>
-                        <i class="material-icons mdc-button__icon" aria-hidden="true"
-                        >cloud_upload</i
-                        >
+                        <i class="material-icons mdc-button__icon" aria-hidden="true">cloud_upload</i>
                         <span class="mdc-button__label">Upload Jobs</span>
                     </button>
                     <button class="mdc-button mdc-button--unelevated foo-button" id="refresh_btn"

@@ -112,7 +112,7 @@ include_once("gaTrackingCode.php");
             $dateT = $_GET['DateTra'];
         }
         else{
-            $dateT = date("d/m/Y");
+            $dateT = date("d-M-yy");
         }
 
     }
@@ -124,21 +124,20 @@ include_once("gaTrackingCode.php");
 	<script src="data/main/jquery.js"></script>
 	<script src="data/main/garlic.js"></script>
 	<script src="data/main/jquery-ui.js"></script>
+	<script src="data/thirdparty/scripts/moment.js"></script>
 
 	    <!--  MDC Components  -->
     <link href="data/libs/node_modules/material-components-web/dist/material-components-web.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="data/libs/node_modules/material-components-web/dist/material-components-web.js"></script>
 
-	<script src='tinymce/js/tinymce/tinymce.min.js?v=<?php echo $version_control ?>'></script>
-	<script src='data/scripts/tinymce.js?v=<?php echo $version_control ?>'></script>
-	<script src="tinymce/js/tinymce/plugins/mention/plugin.js?v=<?php echo $version_control ?>"></script>
-	<link rel="stylesheet" type="text/css" href="tinymce/js/tinymce/plugins/mention/css/autocomplete.css">
-	<link rel="stylesheet" type="text/css" href="tinymce/js/tinymce/plugins/mention/css/rte-content.css">
+	<script src='tinymce/tinymce.min.js?v=<?php echo $version_control ?>'></script>
 
-
-
-
+    <script src='data/scripts/tinymce.min.js?v=<?php echo $version_control ?>'></script>
+    <script src="tinymce/plugins/mention/plugin.js?v=<?php echo $version_control ?>"></script>
+    <link rel="stylesheet" type="text/css" href="tinymce/plugins/mention/css/autocomplete.css">
+    <link rel="stylesheet" type="text/css" href="tinymce/plugins/mention/css/rte-content.css">
+<!---->
 	<?php
     require "phpspellcheck/include.php";
 
@@ -153,9 +152,6 @@ include_once("gaTrackingCode.php");
 	<script src="ableplayer/build/ableplayer.js?v=<?php echo $version_control ?>"></script>
 	<!--	///// End of Able Player deps   /////-->
 
-	<!--	Transcribe Window    -->
-<!--	<script src="data/main/transcribe.js"></script>-->
-
 	<!--	Scroll Bar Dependencies    -->
 
 	<script src="data/scrollbar/jquery.nicescroll.js"></script>
@@ -168,21 +164,18 @@ include_once("gaTrackingCode.php");
     <link rel="stylesheet" type="text/css" href="data/libs/DataTables/datatables.css"/>
     <script type="text/javascript" src="data/libs/DataTables/datatables.js"></script>
 
-    <script type="application/javascript">
-
-        $(document).ready(function() {
-        });
-
-    </script>
+    <!--	Tooltip 	-->
+    <link rel="stylesheet" type="text/css" href="data/tooltipster/css/tooltipster.bundle.min.css" />
+    <link rel="stylesheet" type="text/css" href="data/tooltipster/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-punk.min.css" />
+    <script type="text/javascript" src="data/tooltipster/js/tooltipster.bundle.min.js"></script>
 
 </head>
-<!-- <?php //include_once("analyticstracking.php") ?> -->
 
 <body>
 	<div id="message_bar">For best experience and foot control support please download the <a href="https://pro.vscription.com/downloads/vScription_Transcribe_Installer.msi" target="_blank" title="Download Latest Version of vScription Transcribe">vScription Transcribe Application</a></div>
 	<div id="updated_version_bar">There is a newer version of the vScription Transcribe application available. You can <a href="https://pro.vscription.com/downloads/vScription_Transcribe_Installer.msi" target="_blank" title="Download Latest Version of vScription Transcribe">download it here </a></div>
     <script src="data/scripts/parts/constants.js" type="text/javascript"></script>
-	<script src="data/main/transcribe.js"> </script>
+	<script src="data/scripts/transcribe.min.js"> </script>
 
 	<div id="container" style="width: 100%">
 		<div class="form-style-5">
@@ -237,10 +230,9 @@ include_once("gaTrackingCode.php");
 
 						<td align="right">
 
-							<!--<a class="button" id="loadBtn">
-								<i class="fas fa-cloud-upload-alt"></i>
-								Load
-							</a>-->
+							<span class="controller-status" id="statusTxt">
+                                <i>connecting to controller please wait...</i>
+                            </span>
 
                             <button class="mdc-button mdc-button--unelevated load-button" id="loadBtn" name="loadBtn" type="button">
                                 <div class="mdc-button__ripple"></div>
@@ -276,7 +268,7 @@ include_once("gaTrackingCode.php");
 					<!--		Date Dictated	-->
 					<input type="text" name="DateDic" id="date" placeholder="Date Dictated" title="Date Dictated" <?php if($set == 1 && !empty($dateD)) {echo 'value="'.$dateD."\"";} ?>>
 					<!--		Date Transcripted	-->
-					<input type="text" name="DateTra" id="dateT" placeholder="Date Transcribed" title="Date Transcribed" <?php if($set == 1 && !empty($dateT)) {echo 'value="'.$dateT."\"";}else{echo date("d/m/Y");} ?>>
+					<input type="text" name="DateTra" id="dateT" placeholder="Date Transcribed" title="Date Transcribed" <?php if($set == 1 && !empty($dateT)) {echo 'value="'.$dateT."\"";}else{echo date("d-M-yy");} ?>>
 					<!--		Comments	-->
 					<input type="text" id="comments" name="comments" placeholder="Comments" title="Comments" <?php if($set == 1 && !empty($ph)) {echo 'value="'.$ph."\"";} ?>>
 
@@ -334,8 +326,11 @@ include_once("gaTrackingCode.php");
 						</div>
 					</div>
 
-					<div id="divv"><textarea id="report" name="report" placeholder="" rows="25" class="area"></textarea></div>
-					<div class="userinfo">
+					<div id="divv">
+                        <textarea id="report" name="report" placeholder="" rows="25" class="area"></textarea>
+                    </div>
+
+                    <div class="userinfo">
 						<p class=userinfolbl>Logged in as:  <span class="typistemail" style="margin-left:4px;"> <?php echo $_SESSION["uEmail"]?></span></p>
 					</div>
 

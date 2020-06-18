@@ -17,23 +17,6 @@
     width: 60%;
 }
 
-body{
-/*    background-color: #193f54;*/
-/*    background-color: #1d7ec1;*/
-	
-		/*	Between Night And Sky   */
-background: #2c3e50;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to right, #3498db, #2c3e50);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to right, #3498db, #2c3e50); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-	
-	
-/*background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);*/
-/*background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);*/
-/*background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);*/
-/*background-image: linear-gradient(270deg, #fff1eb 0%, #ace0f9 100%);*/
-/*background-image: linear-gradient(to bottom, #fff1eb 0%, #ace0f9 100%);*/
-}
-
 
 /*form data*/
 .form-style-5{

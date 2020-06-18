@@ -47,8 +47,6 @@ isset($_SESSION['uEmail'])?$uEmail = $_SESSION['uEmail']:$uEmail = "";
 
 	<link rel="stylesheet" type="text/css" href="data/login/vendor/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="data/login/vendor/animate/animate.css">
-	<link rel="stylesheet" type="text/css" href="data/tooltipster/css/tooltipster.bundle.min.css" />
-	<link rel="stylesheet" type="text/css" href="data/tooltipster/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-shadow.min.css" />
 
 	<link rel="stylesheet" type="text/css" href="data/login/vendor/select2/select2.min.css">
 	<link rel="stylesheet" type="text/css" href="data/login/css/util.css?v=<?php echo $version_control ?>">
@@ -57,6 +55,8 @@ isset($_SESSION['uEmail'])?$uEmail = $_SESSION['uEmail']:$uEmail = "";
 	<script src="data/login/vendor/jquery/jquery-3.2.1.min.js"></script>
 
 	<!--	Tooltip 	-->
+    <link rel="stylesheet" type="text/css" href="data/tooltipster/css/tooltipster.bundle.min.css" />
+    <link rel="stylesheet" type="text/css" href="data/tooltipster/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-shadow.min.css" />
 	<script type="text/javascript" src="data/tooltipster/js/tooltipster.bundle.min.js"></script>
 
 	<!--	Scroll bar  	-->
@@ -318,7 +318,7 @@ isset($_SESSION['uEmail'])?$uEmail = $_SESSION['uEmail']:$uEmail = "";
 	<!--	 <script src="data/login/vendor/daterangepicker/moment.min.js"></script> -->
 	<!--	 <script src="data/login/vendor/daterangepicker/daterangepicker.js"></script>-->
 	<!--	<script src="data/login/vendor/countdowntime/countdowntime.js"></script>-->
-	<script src="data/login/js/login.js"></script>
+	<script src="data/scripts/login.min.js"></script>
 
 
 

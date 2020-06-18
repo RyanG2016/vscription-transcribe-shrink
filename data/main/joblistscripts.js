@@ -2,11 +2,19 @@
 	"use strict";
 })(jQuery);
 
+
+var dataTbl;
+
 function documentReady() {
 
 	const maximum_rows_per_page_jobs_list = 10;
 
-	const url = 'process.php';
+	// $('.tooltip').tooltipster();
+
+	dataTbl = $('.jobs_tbl');
+
+
+
 	const refreshJobList = document.querySelector('#refresh_btn');
 	const goToUploader = document.querySelector('#newupload_btn');
 	// const refreshJobListLabel = document.querySelector('.refresh_lbl');
@@ -49,7 +57,24 @@ function documentReady() {
 			if(data !== "<p>No matches found</p>")
 			{
 				new mdc.dataTable.MDCDataTable(document.querySelector('.mdc-data-table'));
-				$('.jobs_tbl').DataTable(
+
+
+				dataTbl.on( 'init.dt', function () {
+					if(!$('.cTooltip').hasClass("tooltipstered"))
+					{
+						$('.download-icon').click(function() {
+							let file_id = $(this).parent().parent().parent().attr('id');
+							download(file_id);
+						});
+
+						$('.cTooltip').tooltipster({
+							animation: 'grow',
+							theme: 'tooltipster-punk',
+							arrow: true
+						});
+					}
+				} );
+				dataTbl = $('.jobs_tbl').DataTable(
 					{
 						lengthChange: false,
 						searching: false,
@@ -64,6 +89,25 @@ function documentReady() {
                         }]*/
 					}
 				);
+
+				dataTbl.on( 'draw', function () {
+
+						$('.download-icon').click(function() {
+							let file_id = $(this).parent().parent().parent().attr('id');
+							download(file_id);
+						});
+
+						if(!$('.cTooltip').hasClass("tooltipstered"))
+						{
+							$('.cTooltip').tooltipster({
+								animation: 'grow',
+								theme: 'tooltipster-punk',
+								arrow: true
+							});
+						}
+					}
+				);
+
 			}
 		});
 
@@ -72,7 +116,7 @@ function documentReady() {
 	}
 
 	function makeSortTable() {
-		console.log('Sorting table...');
+		// console.log('Sorting table...');
 
 		/*setTimeout(function () {
 			// var table = $('#job-list').tablesort();
@@ -82,7 +126,30 @@ function documentReady() {
 	}
 
 	getJobList(makeSortTable);
+
+
 }
 
+
+function download(fileID){
+	
+	let a1 = {
+        file_id: fileID
+    };
+
+    $.post("data/parts/backend_request.php", {
+        reqcode: 17,
+        args: JSON.stringify(a1)
+    }).done(function (data) {
+		// alert("hash received = " + data.toString());
+
+		// redirect to download with the generated hash
+		var win = window.open('./download.php?down='+data.toString(), '_blank');
+		win.focus();
+		// alert('refresh?');
+		location.reload();
+
+    });
+}
 
 document.addEventListener("DOMContentLoaded", documentReady);
