@@ -13,7 +13,7 @@ function documentReady() {
 
 	dataTbl = $('.jobs_tbl');
 
-
+ 
 
 	const refreshJobList = document.querySelector('#refresh_btn');
 	const goToUploader = document.querySelector('#newupload_btn');
