@@ -604,6 +604,17 @@ if(isset($_REQUEST["reqcode"])){
 
 				if(mysqli_stmt_execute($stmt)){
 					$result = mysqli_stmt_get_result($stmt);
+
+                    $a = Array(
+                        'email' => $_SESSION['uEmail'],
+                        'activity' => 'Job list requested by user',
+                        'actPage' => 'transcribe.php',
+                        'actIP' => getIP(),
+                        'acc_id' => $_SESSION['accID']
+                    );
+                    $b = json_encode($a);
+                    insertAuditLogEntry($con, $b);
+
 					// Check number of rows in the result set
 					if(mysqli_num_rows($result) > 0){
 						// Fetch result rows as an associative array
