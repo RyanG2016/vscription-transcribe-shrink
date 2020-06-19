@@ -812,17 +812,11 @@ function loadIntoPlayer(data) {
         {
             // seek to last position
 
-
-            // AblePlayerInstances[0].playMedia();
+            AblePlayerInstances[0].playMedia();
             AblePlayerInstances[0].pauseMedia();
             // AblePlayerInstances[0].media.load();
             AblePlayerInstances[0].seekTo(jobDetails.last_audio_position - rewindAmountOnPause);
-
-            /*setTimeout(function() {
-
-                AblePlayerInstances[0].seekTo(jobDetails.last_audio_position - rewindAmountOnPause);
-                // AblePlayerInstances[0].seekTo(112);
-            }, 1000);*/
+            // AblePlayerInstances[0].media.load();
         }
     }
 
