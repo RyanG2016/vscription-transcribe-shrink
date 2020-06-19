@@ -2,34 +2,42 @@
 <?php
 include('data/parts/session_settings.php');
 include('data/parts/config.php');
+include("data/parts/common_functions.php");
 // Getting logout time in db
 isset($_SESSION['uEmail'])?$uemail = $_SESSION['uEmail']:$uemail = "";
 $uip=$_SERVER['REMOTE_ADDR']; // get the user ip
 if(isset($_SESSION['loggedIn']))
 {
 	$uemail = $_SESSION['uEmail'];
-	$uip=$_SERVER['REMOTE_ADDR']; // get the user ip
-	$action="Logout";
-	// query for inser user log in to data base
-	$query=mysqli_query($con,"insert into userlog(email,user_ip,action) values('$uemail','$uip','$action')");
-	if($query){
-		$rmb = false;
-		if(isset( $_SESSION['remember'] ) )
-		{
-			$rmb = $_SESSION['remember'];
-		}		
-		session_unset();
-		
-		if($rmb)
-		{
-			$_SESSION['remember']=true;
-			$_SESSION['uEmail']=$uemail;
-		}
+
+    // log LOGOUT to act_log
+    $a = Array(
+        'email' => $uemail,
+        'activity' => 'LOGOUT',
+        'actPage' => 'logout.php',
+        'actIP' => getIP(),
+        'acc_id' => 0
+    );
+    $b = json_encode($a);
+    insertAuditLogEntry($con, $b);
+
+    $rmb = false;
+    if(isset( $_SESSION['remember'] ) )
+    {
+        $rmb = $_SESSION['remember'];
+    }
+    session_unset();
+
+    if($rmb)
+    {
+        $_SESSION['remember']=true;
+        $_SESSION['uEmail']=$uemail;
+    }
 		//session_destroy();
-	}
+
 	$_SESSION['msg']="Please login to continue";
 	
-	echo '<script language="javascript">
+	echo '<script type="text/javascript">
 document.location="index.php";
 </script>';
 }
@@ -50,7 +58,7 @@ else{//not even loggedIn
 		$_SESSION['uEmail']=$uemail;
 	}
 	
-	echo '<script language="javascript">
+	echo '<script type="text/javascript">
 document.location="index.php";
 </script>';
 }

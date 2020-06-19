@@ -1158,9 +1158,6 @@ if(isset($_REQUEST["reqcode"])){
 				  getenv('HTTP_FORWARDED')?:
 				  getenv('REMOTE_ADDR');
 			$action = "Login";
-		
-			
-			$sql4 = "INSERT INTO userlog(email, user_ip, action) VALUES (?,?,?)";
 
 			
 			$sql = "SELECT count(*),unlock_time,account_status,first_name,last_name,plan_id,password,account,id from users where email = ?";
@@ -1168,13 +1165,13 @@ if(isset($_REQUEST["reqcode"])){
 			$sql3 = "Update users set account_status=1 where email = ?";
 			$stmt2 = mysqli_prepare($con, $sql2);
 			$stmt3 = mysqli_prepare($con, $sql3);
-			$stmt4 = mysqli_prepare($con, $sql4);
+//			$stmt4 = mysqli_prepare($con, $sql4);
 			if($stmt = mysqli_prepare($con, $sql))
 			{
 				mysqli_stmt_bind_param($stmt, "s", $email);
 				mysqli_stmt_bind_param($stmt2, "s", $email);
 				mysqli_stmt_bind_param($stmt3, "s", $email);
-				mysqli_stmt_bind_param($stmt4, "sss", $email,$ip,$action);
+//				mysqli_stmt_bind_param($stmt4, "sss", $email,$ip,$action);
 				
 
 				if(mysqli_stmt_execute($stmt)){
@@ -1205,8 +1202,18 @@ if(isset($_REQUEST["reqcode"])){
 									$_SESSION['role'] = $row['plan_id'];
 									
 									echo 1;
-									//log login
-									mysqli_stmt_execute($stmt4);
+									//log login to act_log
+
+                                    $a = Array(
+                                        'email' => $email,
+                                        'activity' => 'LOGIN',
+                                        'actPage' => 'index.php',
+                                        'actIP' => $ip,
+                                        'acc_id' => 0
+                                    );
+                                    $b = json_encode($a);
+                                    insertAuditLogEntry($con, $b);
+
 								}
 								else if( password_verify($password, $row['password']) && $status == 5)//pending verification
 								{
@@ -1224,10 +1231,18 @@ if(isset($_REQUEST["reqcode"])){
 									
 									echo 2;
 									if($status == 1 || $status == 5){ //active
-									
+
+									    // log failed attempt to act_log
 											$_SESSION['msg'] = "Login failed, email or password is incorrect.";
-											$action = "Failed Login Attempt";
-											mysqli_stmt_execute($stmt4);
+                                            $a = Array(
+                                                'email' => $email,
+                                                'activity' => 'FAILED LOGIN',
+                                                'actPage' => 'index.php',
+                                                'actIP' => $ip,
+                                                'acc_id' => 0
+                                            );
+                                            $b = json_encode($a);
+                                            insertAuditLogEntry($con, $b);
 
 									}
 									else if($status == 0){ //disabled
@@ -1238,6 +1253,17 @@ if(isset($_REQUEST["reqcode"])){
 										$_SESSION['uEmail'] = $email;
 										$_SESSION['msg'] = "Account is disabled.";
 										echo 0;
+
+                                        // log failed attempt to act_log
+                                        $a = Array(
+                                            'email' => $email,
+                                            'activity' => 'FAILED LOGIN TO DISABLED',
+                                            'actPage' => 'index.php',
+                                            'actIP' => $ip,
+                                            'acc_id' => 0
+                                        );
+                                        $b = json_encode($a);
+                                        insertAuditLogEntry($con, $b);
 									}
 									
 									
@@ -1294,8 +1320,7 @@ if(isset($_REQUEST["reqcode"])){
 			$password = password_hash($password,PASSWORD_BCRYPT);
 			$token = $a["token"];
 			$action = "Password Reset";
-			
-			$sql4 = "INSERT INTO userlog(email, user_ip, action) VALUES (?,?,?)";
+
 
 			//check
 			$sql = "SELECT *, DATE_ADD(time, INTERVAL '30:0' MINUTE_SECOND) as expire FROM `tokens` WHERE identifier=? and email=? AND used=0 and token_type=4 and DATE_ADD(time, INTERVAL '30:0' MINUTE_SECOND) > NOW()";
@@ -1305,7 +1330,6 @@ if(isset($_REQUEST["reqcode"])){
 			$sql3 = "Update tokens set used=1 where identifier = ?";
 			$stmt2 = mysqli_prepare($con, $sql2);
 			$stmt3 = mysqli_prepare($con, $sql3);
-			$stmt4 = mysqli_prepare($con, $sql4);
 			if($stmt = mysqli_prepare($con, $sql) )
 			{
 				mysqli_stmt_bind_param($stmt, "ss", $token ,$email);
@@ -1326,8 +1350,15 @@ if(isset($_REQUEST["reqcode"])){
 						mysqli_stmt_execute($stmt2);
 						
 						//insert log entry
-						mysqli_stmt_bind_param($stmt4, "sss",$email, $ip, $action);
-						mysqli_stmt_execute($stmt4);
+                        $a = Array(
+                            'email' => $email,
+                            'activity' => 'RESET PASSWORD',
+                            'actPage' => 'index.php',
+                            'actIP' => $ip,
+                            'acc_id' => 0 // no account id while not logged in
+                        );
+                        $b = json_encode($a);
+                        insertAuditLogEntry($con, $b);
 						
 						
 						
@@ -1371,8 +1402,6 @@ if(isset($_REQUEST["reqcode"])){
 			// Close statement
 			mysqli_stmt_close($stmt);
 			mysqli_stmt_close($stmt2);
-//			mysqli_stmt_close($stmt3);
-			mysqli_stmt_close($stmt4);
 			
 			break;
 			
