@@ -13,7 +13,7 @@ if(isset($_SESSION['loggedIn']))
     // log LOGOUT to act_log
     $a = Array(
         'email' => $uemail,
-        'activity' => 'LOGOUT',
+        'activity' => 'Logout',
         'actPage' => 'logout.php',
         'actIP' => getIP(),
         'acc_id' => 0

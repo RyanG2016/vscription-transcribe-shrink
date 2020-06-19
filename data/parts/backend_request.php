@@ -1157,7 +1157,6 @@ if(isset($_REQUEST["reqcode"])){
 				  getenv('HTTP_FORWARDED_FOR')?:
 				  getenv('HTTP_FORWARDED')?:
 				  getenv('REMOTE_ADDR');
-			$action = "Login";
 
 			
 			$sql = "SELECT count(*),unlock_time,account_status,first_name,last_name,plan_id,password,account,id from users where email = ?";
@@ -1165,7 +1164,6 @@ if(isset($_REQUEST["reqcode"])){
 			$sql3 = "Update users set account_status=1 where email = ?";
 			$stmt2 = mysqli_prepare($con, $sql2);
 			$stmt3 = mysqli_prepare($con, $sql3);
-//			$stmt4 = mysqli_prepare($con, $sql4);
 			if($stmt = mysqli_prepare($con, $sql))
 			{
 				mysqli_stmt_bind_param($stmt, "s", $email);
@@ -1206,7 +1204,7 @@ if(isset($_REQUEST["reqcode"])){
 
                                     $a = Array(
                                         'email' => $email,
-                                        'activity' => 'LOGIN',
+                                        'activity' => 'Login',
                                         'actPage' => 'index.php',
                                         'actIP' => $ip,
                                         'acc_id' => 0
@@ -1236,7 +1234,7 @@ if(isset($_REQUEST["reqcode"])){
 											$_SESSION['msg'] = "Login failed, email or password is incorrect.";
                                             $a = Array(
                                                 'email' => $email,
-                                                'activity' => 'FAILED LOGIN',
+                                                'activity' => 'Failed login',
                                                 'actPage' => 'index.php',
                                                 'actIP' => $ip,
                                                 'acc_id' => 0
@@ -1257,7 +1255,7 @@ if(isset($_REQUEST["reqcode"])){
                                         // log failed attempt to act_log
                                         $a = Array(
                                             'email' => $email,
-                                            'activity' => 'FAILED LOGIN TO DISABLED',
+                                            'activity' => 'Failed login to disabled account',
                                             'actPage' => 'index.php',
                                             'actIP' => $ip,
                                             'acc_id' => 0
