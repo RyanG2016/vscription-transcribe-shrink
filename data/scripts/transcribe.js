@@ -963,7 +963,7 @@ function checkVersions(result, checkBrowser) {
     } else {
         checkBrowser(1);
     }
-};
+}
 
 function getTransJobList(callback) {
     let maximum_rows_per_page_jobs_list = 7;
@@ -973,8 +973,17 @@ function getTransJobList(callback) {
 
     $.post("data/parts/backend_request.php", {
         reqcode: 9
-    }).done(function (data) {
-        jobListResult.html(data);
+    }).done(function (res) {
+        let response = JSON.parse(res);
+        let data = response.data;
+        let error = response.error;
+
+        if(error){
+            jobListResult.html(response.data);
+            return true;
+        }
+
+        jobListResult.html(response.data);
 
         new mdc.dataTable.MDCDataTable(document.querySelector('.mdc-data-table'));
         dataTbl = $('.jobs_tbl');
@@ -1013,21 +1022,24 @@ function getTransJobList(callback) {
             });
         } );
 
+        setTimeout(function() {
+            callback(response.error);
+        }, 1000);
     });
 
-    setTimeout(function() {
-        callback();
-    }, 1000);
 }
-function addRowHandlers() {
+function addRowHandlers(error) {
 
-    let table = $('.jobs_tbl').DataTable();
+    if(!error)
+    {
+        let table = $('.jobs_tbl').DataTable();
 
-    $('.jobs_tbl tbody').on('click', 'tr', function () {
-        let fileID = table.row(this).id();
-        jobLoadLookup(fileID);
-        $(".textarea-holder textarea").getNiceScroll().remove();
-    } );
+        $('.jobs_tbl tbody').on('click', 'tr', function () {
+            let fileID = table.row(this).id();
+            jobLoadLookup(fileID);
+            $(".textarea-holder textarea").getNiceScroll().remove();
+        } );
+    }
 
 
 }

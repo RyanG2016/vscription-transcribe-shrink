@@ -58,3 +58,12 @@ function encodeStr($str) // encodes string entities as (') to show correctly in 
 {
     return htmlentities($str, ENT_QUOTES);
 }
+
+function generateResponse($data, $error)
+{
+    $a = Array(
+        'data' => $data,
+        'error' => $error
+    );
+    return json_encode($a);
+}

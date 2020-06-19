@@ -609,8 +609,7 @@ if(isset($_REQUEST["reqcode"])){
 						// Fetch result rows as an associative array
 //						echo "<table class='transjobs_tbl' aria-label='Job List' id='translist'>";
 //						echo "<thead><tr bgcolor='#1e79be' style='color: white;'><th class='table-sort'>Job Num</th><th class='table-sort'>Author</th><th class='table-sort'>Job Type</th><th class='table-sort'>Comments</th><th class='table-sort'>Date Dictated</th><th class='table-sort'>Date Uploaded</th><th class='table-sort'>Job Status</th></tr></thead>";
-
-						echo '<thead>
+                        $data = '<thead>
                                     <tr class="mdc-data-table__header-row">
                                         <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Job #</th>
                                         <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Author</th>
@@ -621,7 +620,7 @@ if(isset($_REQUEST["reqcode"])){
                                     </tr>
                                     </thead>';
 
-						echo '<tbody class="mdc-data-table__content">';
+						$data .= '<tbody class="mdc-data-table__content">';
 
 						while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
 
@@ -632,19 +631,23 @@ if(isset($_REQUEST["reqcode"])){
                                 $cmnt = "<i class=\"material-icons mdc-button__icon job-comment cTooltip\" aria-hidden=\"true\" title=\"{$fetchedCmnt}\">speaker_notes</i>";
                             }
 
-							echo "<tr data-row-id=\"{$row['job_id']}\" class=\"mdc-data-table__row\" id=\"{$row['file_id']}\" >";
-								echo
+							$data .= "<tr data-row-id=\"{$row['job_id']}\" class=\"mdc-data-table__row\" id=\"{$row['file_id']}\" >";
+								$data .=
 							   "<td class=\"mdc-data-table__cell\">{$row['job_id']} {$cmnt}</td>
 								<td class=\"mdc-data-table__cell\">{$row['file_author']}</td>
 								<td class=\"mdc-data-table__cell\">{$row['file_work_type']}</td>
 								<td class=\"mdc-data-table__cell\">{$row['file_date_dict']}</td>
 								<td class=\"mdc-data-table__cell\">{$row['job_upload_date']}</td>
 								<td class=\"mdc-data-table__cell\">{$row['file_status']}</td>";
-							echo '</tr>';
+							$data .= '</tr>';
 							}
-						echo "</tbody>";
+						$data .= "</tbody>";
+
+                        echo generateResponse($data, false);
+
 					} else{
-						echo "<p>No matches found</p>";
+					    $data = "<p>&nbsp; There are currently no jobs available for your account.</p>";
+                        echo generateResponse($data, true);
 
 					}
 				} else{
