@@ -45,7 +45,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
 
     <link rel="stylesheet" href="data/css/main.css">
 
-    <script src="data/scripts/joblistscripts.js"></script>
+    <script src="data/scripts/joblistscripts.min.js"></script>
 
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,300&display=swap"
           rel="stylesheet">
