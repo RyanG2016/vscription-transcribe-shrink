@@ -9,6 +9,7 @@ $(document).tooltip({
 });
 
 var currentFileID = 0;
+var currentFileData;
 var loadingConfirmBtn;
 var loadingSub;
 var loadingTitle;
@@ -457,9 +458,15 @@ function clearWithConfirm() {
 
 function suspendAndClearForDiscard()
 {
+    var new_status = 2;
+    if(currentFileData.job_status === 0){
+        new_status = 0;
+    }
+
+
     let a1 = {
         file_id: currentFileID,
-        new_status: 2 //suspended
+        new_status: new_status // suspend or awaiting.
 
     };
     $.post("data/parts/backend_request.php", {
@@ -735,6 +742,7 @@ function decodeHtml(html) {
 function loadIntoPlayer(data) {
     var jobDetails = JSON.parse(data);
 
+    currentFileData = jobDetails;
     currentFileID = jobDetails.file_id; // globaly set current fileID
 
     // load previous suspended text into tinyMCE if suspended
