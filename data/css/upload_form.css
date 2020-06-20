@@ -178,7 +178,8 @@ div form .submit_btn{
     --mdc-theme-primary: #1e79be;
 }
 div form .upload_btn_lbl{
-    --mdc-theme-primary: #7f9ccb;
+    /*--mdc-theme-primary: #7f9ccb;*/
+    --mdc-theme-primary: #1e79be;
 }
 div form .clear_btn{
     --mdc-theme-primary: #B00020;
