@@ -3,7 +3,7 @@
 $(document).ready(function () {
 
 
-	getLatestAppVersionNumber(checkVersions);
+	// getLatestAppVersionNumber(checkVersions);
 
 	$("body").niceScroll({
 		hwacceleration: true,
