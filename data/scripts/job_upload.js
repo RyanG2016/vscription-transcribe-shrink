@@ -7,6 +7,7 @@ function documentReady() {
 	const input = document.getElementById('upload_btn');
 	const chooseBtn = document.getElementById('upload_btn_lbl');
 	const reset = document.getElementById('clear_btn');
+	const submitUploadBtn = document.querySelector('.submit_btn');
 	const cancel_popup_btn = document.getElementById('cancelUpload');
 	const confirm_popup_btn = document.getElementById('confirmUpload');
 	const preview = document.querySelector('.preview');
@@ -22,6 +23,8 @@ function documentReady() {
 	new mdc.ripple.MDCRipple(document.querySelector('#confirmUpload'));
 	// new mdc.textfield.MDCTextField(document.querySelector('.mdc-text-field'));
 	let modal = document.getElementById("modal");
+	var filesCount = 0;
+	var duratedFiles = 0;
 
 
 	// const modalProgress = new mdc.linearProgress.MDCLinearProgress(document.querySelector('#modalProgress'));
@@ -284,6 +287,118 @@ function documentReady() {
 		}
 	}
 
+	function generateLoadingSpinner() {
+
+		// Generate a loading spinner //
+		//<div class="spinner">
+		//  <div class="bounce1"></div>
+		//  <div class="bounce2"></div>
+		//  <div class="bounce3"></div>
+		//</div>
+
+		const spinnerDiv = document.createElement("div");
+		spinnerDiv.setAttribute("class", "spinner");
+		const bounce1 = document.createElement("div");
+		const bounce2 = document.createElement("div");
+		const bounce3 = document.createElement("div");
+		bounce1.setAttribute("class", 'bounce1');
+		bounce2.setAttribute("class", 'bounce2');
+		bounce3.setAttribute("class", 'bounce3');
+
+		spinnerDiv.appendChild(bounce1);
+		spinnerDiv.appendChild(bounce2);
+		spinnerDiv.appendChild(bounce3);
+
+		return spinnerDiv;
+	}
+
+	function unlockUploadUI(unlock) {
+		if(unlock)
+		{
+			submitUploadBtn.removeAttribute("disabled");
+		}
+		else{
+			submitUploadBtn.setAttribute("disabled", "true");
+		}
+	}
+
+	function computeLength(id,file) {
+
+		// Create instance of FileReader
+		let reader = new FileReader();
+
+		// When the file has been succesfully read
+		reader.onload = function (event) {
+
+			// Create an instance of AudioContext
+			let audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+			// Asynchronously decode audio file data contained in an ArrayBuffer.
+			audioContext.decodeAudioData(event.target.result, function(buffer) {
+				// Obtain the duration in seconds of the audio file (with milliseconds as well, a float value)
+				var duration = buffer.duration;
+
+				// example 12.3234 seconds
+				console.log("The duration of file ("+id+") is of: " + duration + " seconds");
+				// Alternatively, just display the integer value with
+				// parseInt(duration)
+				// 12 seconds
+				// Update table with the duration
+				let durationTxt = new Date(duration * 1000).toISOString().substr(11, 8).toString();
+				$("#qfile"+id+" td:nth-child(4)").html(durationTxt);
+				$("#qfile"+id+" td:nth-child(5)").html(Math.round(duration));
+
+				// increase done files counter
+				duratedFiles ++;
+
+				// check if all files are durated
+				if(duratedFiles === filesCount){
+
+					// unlock the upload button
+					unlockUploadUI(true);
+				}
+			});
+		};
+
+		// In case that the file couldn't be read
+		reader.onerror = function (event) {
+			console.error("An error ocurred reading the file: ", event);
+		};
+
+		// Read file as an ArrayBuffer, important !
+		reader.readAsArrayBuffer(file);
+	}
+
+	function generateTblFileEntry(id, filename, size) {
+		// generating a file entry
+		const row = document.createElement("tr");
+		row.setAttribute("id", "qfile"+id);
+
+		const data1 = document.createElement("td");
+		data1.innerHTML = id+1;
+
+		const data2 = document.createElement("td");
+		data2.innerHTML = filename;
+
+		const data3 = document.createElement("td");
+		data3.innerHTML = returnFileSize(size);
+
+		const data4 = document.createElement("td");
+		// data4.innerHTML = generateLoadingSpinner();
+		data4.appendChild(generateLoadingSpinner());
+
+		const data5 = document.createElement("td");
+		data5.appendChild(generateLoadingSpinner());
+
+		row.appendChild(data1);
+		row.appendChild(data2);
+		row.appendChild(data3);
+		row.appendChild(data4);
+		row.appendChild(data5);
+
+		return row;
+	}
+
 	function addFilesToUpload() {
 		while (preview.firstChild) {
 			preview.removeChild(preview.firstChild);
@@ -295,25 +410,58 @@ function documentReady() {
 			par.textContent = 'No files currently selected for upload';
 			preview.appendChild(par);
 		} else {
-			document.querySelector('.submit_btn').removeAttribute("disabled");
-			document.querySelector('.clear_btn').removeAttribute("disabled");
-			const list = document.createElement('ol');
-			preview.appendChild(list);
 
+			filesCount = curFiles.length;
+
+			// document.querySelector('.submit_btn').removeAttribute("disabled");
+			document.querySelector('.clear_btn').removeAttribute("disabled");
+			// const list = document.createElement('ol');
+			// preview.appendChild(list);
+
+			const tbl = document.createElement("table");
+			const header = document.createElement("tr");
+			const headerD1 = document.createElement("th"); // file number
+			const headerD2 = document.createElement("th"); // file name
+			const headerD3 = document.createElement("th"); // file size
+			const headerD4 = document.createElement("th"); // file duration
+			const headerD5 = document.createElement("th"); // in secs
+
+			headerD1.innerHTML = '#';
+			headerD2.innerHTML = 'File Name';
+			headerD3.innerHTML = 'Size';
+			headerD4.innerHTML = 'Duration';
+			headerD5.innerHTML = 'in secs';
+			header.append(headerD1);
+			header.append(headerD2);
+			header.append(headerD3);
+			header.append(headerD4);
+			header.append(headerD5);
+
+			tbl.setAttribute("class", "que-files");
+			tbl.appendChild(header);
+			preview.appendChild(tbl);
+
+			let i = 0;
 			for (const file of curFiles) {
-				const listItem = document.createElement('li');
+				// const listItem = document.createElement('li');
 				const par = document.createElement('p');
 
 				if (validFileType(file)) {
-					par.textContent = `File name ${file.name}, file size ${returnFileSize(file.size)}.`;
 
-					listItem.appendChild(par);
+					// Get audio file duration
+
+					// generate a table entry
+					tbl.appendChild(generateTblFileEntry(i, file.name, file.size));
+
+					// par.textContent = `File name ${file.name}, file size ${returnFileSize(file.size)}.`;
+					computeLength(i, file); // async
 				} else {
 					par.textContent = `File name ${file.name}: Not a valid file type. Update your selection.`;
-					listItem.appendChild(par);
+					preview.appendChild(par);
 				}
 
-				list.appendChild(listItem);
+				preview.appendChild(par);
+				i++;
 			}
 		}
 	}
