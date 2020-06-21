@@ -169,7 +169,7 @@ div form .upload_btn_lbl{
     padding: 5px 10px;
     border-radius: 5px;
     /*border: 1px ridge black;*/
-    font-size: 1rem;
+    font-size: 0.9rem;
     height: auto;
     --mdc-theme-on-primary: white;
 }
