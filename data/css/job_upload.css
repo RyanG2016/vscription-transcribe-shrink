@@ -90,15 +90,18 @@ table{
 .que-files{
     border: groove black;
     border-collapse: collapse;
+    margin-left: 30px;
 }
 
 .que-files > tr > th{
     text-align: start;
     border: groove black;
     border-collapse: collapse;
+    padding: 10px;
 }
 .que-files > tr > td{
     text-align: start;
     border: groove black;
     border-collapse: collapse;
+    padding: 10px;
 }

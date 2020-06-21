@@ -1498,6 +1498,7 @@ if(isset($_REQUEST["reqcode"])){
 						$file_tmp = $_FILES['file' . $i]['tmp_name'];
 						$file_type = $_FILES['file' . $i]['type'];
 						$file_size = $_FILES['file' . $i]['size'];
+						$file_duration = $_POST['dur' . $i];
 						$array = explode('.', $_FILES['file' . $i]['name']);
 						$file_ext = strtolower(end($array));
 						if (isset($fileDemos)) {
@@ -1511,7 +1512,7 @@ if(isset($_REQUEST["reqcode"])){
 						$file = $path . $file_name;
 						
 						//Building demographic array for DB insert function call
-						$fileDemos = array($nextFileID, $nextJobNum, $authorName, $jobType, $dictDate, $speakerType, $comments,$orig_filename, $file_name); 
+						$fileDemos = array($nextFileID, $nextJobNum, $authorName, $jobType, $dictDate, $speakerType, $comments,$orig_filename, $file_name, $file_duration);
 
 						if (!in_array($file_ext, $extensions)) {
 							$uploadMsg[] = "<li>'File: ' $orig_filename . ' - UPLOAD FAILED (Extension not allowed)'</li>";              
@@ -1952,6 +1953,7 @@ function insertToDB($dbcon, $input) {
 	$comments = $input[6];
 	$orig_filename = $input[7];
 	$file_name = $input[8];
+    $file_duration = $input[9];
 	$uploadedBy = $_SESSION['uEmail'];
 	
 		//This is a dirty way to change the job prefix for testing. We will ultimately pull this from
@@ -1963,13 +1965,13 @@ function insertToDB($dbcon, $input) {
 	}
 	$nextJobNum = $jobPrefix .str_pad($nextNum, 7, "0", STR_PAD_LEFT);
 
-	$sql = "INSERT INTO files (job_id, file_author, file_work_type, file_date_dict, file_speaker_type, file_comment, job_uploaded_by, filename, orig_filename, acc_id) VALUES (?,?,?,?,?,?,?,?,?,(SELECT account from users WHERE email = ?))";
+	$sql = "INSERT INTO files (job_id, file_author, file_work_type, file_date_dict, file_speaker_type, file_comment, job_uploaded_by, filename, orig_filename, acc_id, audio_length) VALUES (?,?,?,?,?,?,?,?,?,(SELECT account from users WHERE email = ?),?)";
 
 	if($stmt = mysqli_prepare($con, $sql))
 	{
 
-		if( !$stmt->bind_param("ssssisssss", $nextJobNum, $authorName, $jobType, $dictDate,
-			$speakerType, $comments, $uploadedBy, $file_name, $orig_filename, $uploadedBy) )
+		if( !$stmt->bind_param("ssssisssssi", $nextJobNum, $authorName, $jobType, $dictDate,
+			$speakerType, $comments, $uploadedBy, $file_name, $orig_filename, $uploadedBy, $file_duration) )
 		{
 			die( "Error in bind_param: (" .$con->errno . ") " . $con->error);
 		}
@@ -2001,7 +2003,7 @@ function insertToDB($dbcon, $input) {
 
 		}
 		else{
-			"ERROR: Was not able to execute $sql. " . mysqli_error($con);
+//			"ERROR: Was not able to execute $sql. " . mysqli_error($con);
 			die( "Execution Error: (" .$con->errno . ") " . $con->error);
 			echo 'dup';
 		}

@@ -25,6 +25,7 @@ function documentReady() {
 	let modal = document.getElementById("modal");
 	var filesCount = 0;
 	var duratedFiles = 0;
+	var commSize = 0; // accumulated file sizes
 
 
 	// const modalProgress = new mdc.linearProgress.MDCLinearProgress(document.querySelector('#modalProgress'));
@@ -103,9 +104,10 @@ function documentReady() {
 			// formData.append('uploaded_file', file);
 
 			for (let i = 0; i < files.length; i++) {
-				let file = files[i]
+				let file = files[i];
 				// formData.append('files[]', file)
-				formData.append('file'+i, file)
+				formData.append('file'+i, file);
+				formData.append('dur'+i, $("#qfile"+i+" td:nth-child(5)").html());
 				console.log(files[i]);
 			}
 
@@ -324,49 +326,43 @@ function documentReady() {
 
 	function computeLength(id,file) {
 
-		// Create instance of FileReader
-		let reader = new FileReader();
+		// Create a non-dom allocated Audio element
+		let audio = document.createElement('audio');
+		audio.setAttribute("preload", "metadata");
 
-		// When the file has been succesfully read
-		reader.onload = function (event) {
+		let objectUrl = URL.createObjectURL(file);
+		// audio.prop("src", objectUrl);
+		audio.setAttribute("src", objectUrl);
 
-			// Create an instance of AudioContext
-			let audioContext = new (window.AudioContext || window.webkitAudioContext)();
+		audio.onloadedmetadata = function(){
+			// alert('meta loaded for file -> ' + id + "\n duration for file " + id + " is "+ audio.duration);
 
-			// Asynchronously decode audio file data contained in an ArrayBuffer.
-			audioContext.decodeAudioData(event.target.result, function(buffer) {
-				// Obtain the duration in seconds of the audio file (with milliseconds as well, a float value)
-				var duration = buffer.duration;
+			// Obtain the duration in seconds of the audio file (with milliseconds as well, a float value)
+			let duration = audio.duration;
 
-				// example 12.3234 seconds
-				console.log("The duration of file ("+id+") is of: " + duration + " seconds");
-				// Alternatively, just display the integer value with
-				// parseInt(duration)
-				// 12 seconds
-				// Update table with the duration
-				let durationTxt = new Date(duration * 1000).toISOString().substr(11, 8).toString();
-				$("#qfile"+id+" td:nth-child(4)").html(durationTxt);
-				$("#qfile"+id+" td:nth-child(5)").html(Math.round(duration));
+			// example 12.3234 seconds
+			console.log("The duration of file ("+id+") is of: " + duration + " seconds");
+			// Alternatively, just display the integer value with
+			// parseInt(duration)
+			// 12 seconds
+			// Update table with the duration
+			let durationTxt = new Date(duration * 1000).toISOString().substr(11, 8).toString();
+			$("#qfile"+id+" td:nth-child(4)").html(durationTxt);
+			$("#qfile"+id+" td:nth-child(5)").html(Math.round(duration));
 
-				// increase done files counter
-				duratedFiles ++;
+			// increase done files counter
+			duratedFiles ++;
 
-				// check if all files are durated
-				if(duratedFiles === filesCount){
+			// check if all files are durated
+			if(duratedFiles === filesCount){
 
-					// unlock the upload button
-					unlockUploadUI(true);
-				}
-			});
+				// unlock the upload button
+				unlockUploadUI(true);
+			}
+
+			audio.remove();
+
 		};
-
-		// In case that the file couldn't be read
-		reader.onerror = function (event) {
-			console.error("An error ocurred reading the file: ", event);
-		};
-
-		// Read file as an ArrayBuffer, important !
-		reader.readAsArrayBuffer(file);
 	}
 
 	function generateTblFileEntry(id, filename, size) {
@@ -493,6 +489,9 @@ function documentReady() {
 	}
 
 	function resetFiles() {
+		filesCount = 0;
+		duratedFiles = 0;
+		commSize = 0;
 		preview.removeChild(preview.firstChild);
 		const par = document.createElement('p');
 		par.textContent = 'No files currently selected for upload';
