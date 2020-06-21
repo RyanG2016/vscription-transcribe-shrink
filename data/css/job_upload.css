@@ -88,20 +88,43 @@ table{
 
 /* QUEUED FOR UPLOAD FILES TABLE */
 .que-files{
-    border: groove black;
-    border-collapse: collapse;
+    /*border-radius: 15px;*/
     margin-left: 30px;
+    border-collapse: collapse;
+}
+
+.que-files tr:last-child{
+    /*border-collapse: collapse;*/
+    border:solid #1e79be;
+    border-width:0 0 3px 0;
+}
+
+.que-files tr:hover{
+    /*border-collapse: collapse;*/
+    background: rgba(30, 121, 190, 0.1);
+}
+
+.que-files > tr:nth-child(1) > th:nth-child(1){
+
+    border-radius: 15px 0 0 0;
+    border-collapse: collapse;
+}
+
+.que-files > tr:nth-child(1) > th:nth-child(6){
+    border-radius: 0 15px 0 0;
+    /*border-collapse: collapse;*/
 }
 
 .que-files > tr > th{
     text-align: start;
-    border: groove black;
-    border-collapse: collapse;
+    /*border-collapse: collapse;*/
     padding: 10px;
+    background: #1e79be;
+    color: white;
 }
 .que-files > tr > td{
     text-align: start;
-    border: groove black;
-    border-collapse: collapse;
+    /*border: groove #1e79be;*/
+    /*border-collapse: collapse;*/
     padding: 10px;
 }
