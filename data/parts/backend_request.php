@@ -963,7 +963,12 @@ if(isset($_REQUEST["reqcode"])){
 						$audio_length = $_POST['jobLengthSecsRaw'];
 						$audio_elapsed = $_POST['jobElapsedTimeSecs'];
 						$file_status = $_POST['jobStatus'];
-						$file_transcribe_date = $dateTrans;
+                        if($file_status == 3)
+                        {
+                            $file_transcribe_date = $dateTrans;
+                        }else{
+                            $file_transcribe_date = null;
+                        }
 						$transcribed_by = $_SESSION['uEmail'];
 						$tmp_name = $_SESSION['tempFilename'];
 
