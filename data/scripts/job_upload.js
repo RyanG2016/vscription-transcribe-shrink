@@ -560,7 +560,7 @@ function documentReady() {
 			headerD2.innerHTML = 'File Name';
 			headerD3.innerHTML = 'Size';
 			headerD4.innerHTML = 'Duration';
-			headerD5.innerHTML = 'secs';
+			headerD5.innerHTML = '(secs)';
 			headerD6.innerHTML = 'Status';
 			header.append(headerD1);
 			header.append(headerD2);
@@ -640,7 +640,9 @@ function documentReady() {
 		filesDur = [];
 		filesIds = [];
 
-		preview.removeChild(preview.firstChild);
+		while (preview.firstChild) {
+			preview.removeChild(preview.firstChild);
+		}
 		const par = document.createElement('p');
 		par.textContent = 'No files currently selected for upload';
 		preview.appendChild(par);
