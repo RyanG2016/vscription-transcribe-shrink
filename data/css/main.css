@@ -397,17 +397,8 @@ table{
     cursor: pointer;
 }
 
-.file-status{
-    display: inline;
-    vertical-align: sub;
-}
-
-.download-info-container{
-    float: right;
-}
-
 td .times-downloaded{
-    text-align: end;
+    /*text-align: center;*/
     vertical-align: bottom !important;
     font-family: 'oxygen', serif !important;
 }

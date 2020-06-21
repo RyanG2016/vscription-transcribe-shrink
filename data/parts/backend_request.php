@@ -483,6 +483,7 @@ if(isset($_REQUEST["reqcode"])){
 										<th class="mdc-data-table__header-cell" role="columnheader" scope="col">Job Status</th>
                                         <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Date Transcribed</th>
                                         <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Initial Download Date</th>										
+                                        <th class="mdc-data-table__header-cell times-downloaded-header" role="columnheader" scope="col">Download</th>
                                     </tr>
                                     </thead>';
 
@@ -505,14 +506,14 @@ if(isset($_REQUEST["reqcode"])){
 							// todo uncomment these below for checkboxes
 //							echo " <input type=\"checkbox\" class=\"mdc-checkbox__native-control\" aria-labelledby=\"{$row['job_id']}\"/>";
 
-							/* echo '<div class="mdc-checkbox__background">
-                            <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
-                                    <path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59" />
-                                        </svg>
-                                        <div class="mdc-checkbox__mixedmark"></div>
-                                    </div>
-                                </div>
-                            </td>'; */
+							/*			echo '<div class="mdc-checkbox__background">
+                                                                    <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
+                                                                        <path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59" />
+                                                                    </svg>
+                                                                    <div class="mdc-checkbox__mixedmark"></div>
+                                                                </div>
+                                                            </div>
+                                                        </td>';*/
 
                             $fetchedCmnt = $row['file_comment'];
                             $fetchedCmnt = encodeStr($fetchedCmnt);
@@ -527,33 +528,26 @@ if(isset($_REQUEST["reqcode"])){
                                     <td class=\"mdc-data-table__cell\">{$row['file_work_type']}</td>
                                     <td class=\"mdc-data-table__cell\">{$row['file_date_dict']}</td>
                                     <td class=\"mdc-data-table__cell\">{$row['job_upload_date']}</td>	
-                                    <td class=\"mdc-data-table__cell\">{$fmtDate}</td>";
-
-
-                            $down = "";
-                            if($row['file_status'] == "Completed") {
-                                $job_id = $row['job_id'];
-                                $search = array (
-                                    "job_id" => $job_id,
-                                );
-//									$dnldURL = $cbaselink . "/download.php?" . http_build_query($search);
-                                $down =  "<div class='download-info-container'><a class=\"material-icons download-icon\">cloud_download</a> <span class='times-downloaded'> +{$row['times_text_downloaded_date']}</span></div>";
-                            }
-
-                            echo "<td class=\"mdc-data-table__cell\"><div class='file-status'>{$row['file_status']}</div>{$down}</td>";
-
-                            echo "<td class=\"mdc-data-table__cell\">{$row['file_transcribed_date']}</td>
+                                    <td class=\"mdc-data-table__cell\">{$fmtDate}</td>						
+                                    <td class=\"mdc-data-table__cell\">{$row['file_status']}</td>
+                                    <td class=\"mdc-data-table__cell\">{$row['file_transcribed_date']}</td>
                                     <td class=\"mdc-data-table__cell\">{$row['text_downloaded_date']}</td>";
 
 //							<td class=\"mdc-data-table__cell times-downloaded\"></td>
 							/*<td class=\"mdc-data-table__cell mdc-data-table__cell--numeric\">{$row['file_date_dict']}</td>
                                             <td class=\"mdc-data-table__cell mdc-data-table__cell--numeric\">{$row['job_upload_date']}</td>*/
 
-//								echo "<td class=\"mdc-data-table__cell \">";
+								echo "<td class=\"mdc-data-table__cell \">";
 
+								if($row['file_status'] == "Completed") {
+									$job_id = $row['job_id'];
+									$search = array (
+										"job_id" => $job_id,
+									);
+									echo "<a class=\"material-icons download-icon\">cloud_download</a> <span class='times-downloaded'> +{$row['times_text_downloaded_date']}</span>";
+								}
 
-
-//								echo "</td>";
+								echo "</td>";
 
 
 
