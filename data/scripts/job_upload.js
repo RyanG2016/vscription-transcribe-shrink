@@ -23,9 +23,19 @@ function documentReady() {
 	new mdc.ripple.MDCRipple(document.querySelector('#confirmUpload'));
 	// new mdc.textfield.MDCTextField(document.querySelector('.mdc-text-field'));
 	let modal = document.getElementById("modal");
+
+	// allowed files for upload queue variables
+	var filesArr = [];
+	var filesDur = [];
+	var filesIds = [];
 	var filesCount = 0;
+
+	var curFiles;
+	var qCount = 0; // Queue count
 	var duratedFiles = 0;
 	var commSize = 0; // accumulated file sizes
+	let maxFileSize  = 134217728;
+	const MAX_FILES_COUNT = 10;
 
 
 	// const modalProgress = new mdc.linearProgress.MDCLinearProgress(document.querySelector('#modalProgress'));
@@ -40,11 +50,12 @@ function documentReady() {
 
 	input.style.display = "none";
 
+	input.addEventListener('click', function(){
+		resetFiles();
+	})
+
 	input.addEventListener('change', addFilesToUpload);
 
-	function clickUpload() {
-		input.click();
-	}
 	// modal.style.display = "block";
 	const linearProgress = new mdc.linearProgress.MDCLinearProgress(document.querySelector('.mdc-linear-progress'));
 	const linearProgressLay = $('.mdc-linear-progress');
@@ -94,8 +105,8 @@ function documentReady() {
 			event.preventDefault();
 			// lets do ajax...
 			let formData = new FormData();
-			// let file = $('input[type=file]')[0].files[0];
-			let files = $('input[type=file]')[0].files;
+			// let files = $('input[type=file]')[0].files;
+			let files = filesArr;
 			let other_data = $("#upload_form").serializeArray();
 
 			$.each(other_data, function (key, input) {
@@ -107,7 +118,7 @@ function documentReady() {
 				let file = files[i];
 				// formData.append('files[]', file)
 				formData.append('file'+i, file);
-				formData.append('dur'+i, $("#qfile"+i+" td:nth-child(5)").html());
+				formData.append('dur'+i, filesDur[i]);
 				console.log(files[i]);
 			}
 
@@ -142,9 +153,9 @@ function documentReady() {
 						stopProgressWatcher();
 						updateUI(100);
 
-						console.log(msg);
-						console.log('Upload call was successful');
-						console.log(`Full JSON object: ${JSON.stringify(msg)}`);
+						// console.log(msg);
+						// console.log('Upload call was successful');
+						// console.log(`Full JSON object: ${JSON.stringify(msg)}`);
 						//Parse the HTML string(s) together so they can be inserted into the DOM html
 						resetAfterUpload();
 						var htmlEl = "";
@@ -152,9 +163,9 @@ function documentReady() {
 
 						for (i = 0; i < size; i++) {
 							htmlEl += msg[i];
-							console.log("Key: " + i);
-							console.log("Value: " + msg[i]);
-							console.log(htmlEl);
+							// console.log("Key: " + i);
+							// console.log("Value: " + msg[i]);
+							// console.log(htmlEl);
 						}
 
 						const list = document.createElement('ol');
@@ -171,7 +182,7 @@ function documentReady() {
 							reqcode: 80,
 							args: JSON.stringify(a1)
 						}).done(function (data) {
-							console.log(data);
+							// console.log(data);
 						});
 						// TODO HIDE LOADING DIALOG & redirect to main.php
 
@@ -201,9 +212,9 @@ function documentReady() {
 				});
 
 				// now query for upload progress...
-				console.log("enable watchdog1");
+				// console.log("enable watchdog1");
 				enableProgressWatcher('job_upload');
-				console.log("enable watchdog2");
+				// console.log("enable watchdog2");
 
 
 			})
@@ -284,6 +295,7 @@ function documentReady() {
 		else
 		{
 			progressTxt.text("Complete.");
+			$('.modal-content p i').html(""); // clear please wait message
 			cancel_popup_btn.style.display = "none";
 			confirm_popup_btn.style.display = "inline-block";
 		}
@@ -317,14 +329,17 @@ function documentReady() {
 	function unlockUploadUI(unlock) {
 		if(unlock)
 		{
-			submitUploadBtn.removeAttribute("disabled");
+			if(filesArr.length > 0)
+			{
+				submitUploadBtn.removeAttribute("disabled");
+			}
 		}
 		else{
 			submitUploadBtn.setAttribute("disabled", "true");
 		}
 	}
 
-	function computeLength(id,file) {
+	function computeDuration(id, file, status) {
 
 		// Create a non-dom allocated Audio element
 		let audio = document.createElement('audio');
@@ -341,7 +356,7 @@ function documentReady() {
 			let duration = audio.duration;
 
 			// example 12.3234 seconds
-			console.log("The duration of file ("+id+") is of: " + duration + " seconds");
+			// console.log("The duration of file ("+id+") is of: " + duration + " seconds");
 			// Alternatively, just display the integer value with
 			// parseInt(duration)
 			// 12 seconds
@@ -352,6 +367,12 @@ function documentReady() {
 
 			// increase done files counter
 			duratedFiles ++;
+
+			// add duration to upload Que in (secs) for Queued files
+			if(status === 0) // status OK
+			{
+				filesDur[filesIds.indexOf(id)] = Math.round(duration);// adding duration in the same arrangement as filesArr
+			}
 
 			// check if all files are durated
 			if(duratedFiles === filesCount){
@@ -364,8 +385,36 @@ function documentReady() {
 
 		};
 	}
+											 // 3 -> file count exceeds limit of 20
+	function getFileUploadStatus(id, size) { // 0 -> allowed,   1 -> file exceeds limit,     2 -> request exceeds limit
 
-	function generateTblFileEntry(id, filename, size) {
+		if(qCount <= MAX_FILES_COUNT-1) // -1 as the qCount++ is performed after the check
+		{
+			if(size > maxFileSize) // 128 MB
+			{
+				// file size not allowed
+				// remove file from upload queue
+				return 1;
+
+			}else{ // SINGLE SIZE OK -> CHECK FOR ACCUMULATIVE FILE SIZE
+				if(commSize+size > maxFileSize){ // Check if total uploaded files exceeds 128MB
+					// remove file from upload queue
+					return 2;
+
+				}else{ // File OK
+					commSize += size; // add file size to accumulative sizes
+					addFileToQueue(id);
+					return 0;
+				}
+			}
+		}else{
+			// File count exceeds the limit of @MAX_FILES_COUNT
+			return 3;
+		}
+
+	}
+
+	function generateTblFileEntry(id, filename, size, status) {
 		// generating a file entry
 		const row = document.createElement("tr");
 		row.setAttribute("id", "qfile"+id);
@@ -386,11 +435,77 @@ function documentReady() {
 		const data5 = document.createElement("td");
 		data5.appendChild(generateLoadingSpinner());
 
+		const data6 = document.createElement("td");
+
+
+
+		// Check for file size to decide its upload status
+		switch (status) {
+			case 0: // allowed
+				data6.setAttribute("style", "color: #53a13d;");
+				data6.innerHTML = "Ready to upload.";
+				break;
+
+			case 1: // file exceeds limit
+
+				data6.setAttribute("style", "color: #B00020;");
+				data6.innerHTML = "File exceeds 128MB - Skipped";
+				break;
+
+			case 2: //request exceeds limit
+				data6.setAttribute("style", "color: #B00020;");
+				data6.innerHTML = "Total files exceed 128MB - Skipped";
+				break;
+
+			case 3:
+				data6.setAttribute("style", "color: #B00020;");
+				data6.innerHTML = "File count exceeds the limit of "+ MAX_FILES_COUNT +" - Skipped";
+				break;
+		}
+
+
 		row.appendChild(data1);
 		row.appendChild(data2);
 		row.appendChild(data3);
 		row.appendChild(data4);
 		row.appendChild(data5);
+		row.appendChild(data6);
+
+		return row;
+	}
+
+	function addFileToQueue(id) {
+		// removing from files to be uploaded
+		// filesArr.splice(id, 1);
+
+		filesArr.push(curFiles[id]);
+		filesIds.push(id); // to keep track of file index in filesArr to add its duration when duration is computed
+
+		qCount++;
+	}
+
+	function generateErrTblFileEntry(id, filename) {
+		// generating a file entry
+		const row = document.createElement("tr");
+		row.setAttribute("id", "qfile"+id);
+
+		const data1 = document.createElement("td");
+		data1.innerHTML = id+1;
+
+		const data2 = document.createElement("td");
+		data2.innerHTML = filename;
+
+		const data3 = document.createElement("td");
+		data3.setAttribute("colspan","4");
+		data3.innerHTML = `Not a valid file type. Update your selection.`;
+		data3.setAttribute("style", "color: #B00020;");
+		
+		// remove file from upload queue
+		removeFile(id);
+
+		row.appendChild(data1);
+		row.appendChild(data2);
+		row.appendChild(data3);
 
 		return row;
 	}
@@ -400,7 +515,10 @@ function documentReady() {
 			preview.removeChild(preview.firstChild);
 		}
 
-		const curFiles = input.files;
+		curFiles = input.files; // current selected files to upload by user
+
+		// init filesArr (to be sent for upload) -> handling done on this
+
 		if (curFiles.length === 0) {
 			const par = document.createElement('p');
 			par.textContent = 'No files currently selected for upload';
@@ -421,17 +539,20 @@ function documentReady() {
 			const headerD3 = document.createElement("th"); // file size
 			const headerD4 = document.createElement("th"); // file duration
 			const headerD5 = document.createElement("th"); // in secs
+			const headerD6 = document.createElement("th"); // status
 
 			headerD1.innerHTML = '#';
 			headerD2.innerHTML = 'File Name';
 			headerD3.innerHTML = 'Size';
 			headerD4.innerHTML = 'Duration';
-			headerD5.innerHTML = 'in secs';
+			headerD5.innerHTML = 'secs';
+			headerD6.innerHTML = 'Status';
 			header.append(headerD1);
 			header.append(headerD2);
 			header.append(headerD3);
 			header.append(headerD4);
 			header.append(headerD5);
+			header.append(headerD6);
 
 			tbl.setAttribute("class", "que-files");
 			tbl.appendChild(header);
@@ -444,22 +565,27 @@ function documentReady() {
 
 				if (validFileType(file)) {
 
-					// Get audio file duration
+					// get file upload criteria
+					let status = getFileUploadStatus(i, file.size);
 
 					// generate a table entry
-					tbl.appendChild(generateTblFileEntry(i, file.name, file.size));
+					tbl.appendChild(generateTblFileEntry(i, file.name, file.size, status));
 
-					// par.textContent = `File name ${file.name}, file size ${returnFileSize(file.size)}.`;
-					computeLength(i, file); // async
+					// Get audio duration
+					computeDuration(i, file, status); // async
 				} else {
-					par.textContent = `File name ${file.name}: Not a valid file type. Update your selection.`;
-					preview.appendChild(par);
+					tbl.appendChild(generateErrTblFileEntry(i, file.name));
+
+					// preview.appendChild(par);
 				}
 
 				preview.appendChild(par);
 				i++;
+
+				// console.log("current files: " + filesArr.toString());
 			}
 		}
+		console.log("current files: " + filesArr.toString());
 	}
 
 	//https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Audio_codecs
@@ -492,6 +618,13 @@ function documentReady() {
 		filesCount = 0;
 		duratedFiles = 0;
 		commSize = 0;
+		qCount = 0;
+
+		// clearing arrays
+		filesArr = [];
+		filesDur = [];
+		filesIds = [];
+
 		preview.removeChild(preview.firstChild);
 		const par = document.createElement('p');
 		par.textContent = 'No files currently selected for upload';
