@@ -127,7 +127,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
                                 <li>1. &nbsp;Click Choose File</li>
                                 <li>2. Choose the file(s) to upload</li>
                                 <li>3. Enter the file information under the Upload Demographics section. <strong>Note:</strong> If uploading multiple files at once, all files will have the same demographics entered on the right.</li>
-                                <p class="upload_limits"><strong>(Maximum 10 files at once and each file size must be less than 128MB)</strong></p>
+                                <p class="upload_limits"><strong><i>(Maximum 10 files at once total files size must be less than 128MB)</i></strong></p>
                             </ul>
                         </div>
                         <div class="box box5">
