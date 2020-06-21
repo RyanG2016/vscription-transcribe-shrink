@@ -46,7 +46,8 @@ $(document).ready(function () {
             isConnecting = true;
             setControllerStatus(connecting);
 
-            wsocket = new WebSocket("ws://localhost:8001");
+            // wsocket = new WebSocket("ws://localhost:8001");
+            wsocket = new WebSocket("wss://localhost:8001");
             wsocket.onopen = onopen;
             wsocket.onmessage = onmessage;
             wsocket.onerror = onerror;
