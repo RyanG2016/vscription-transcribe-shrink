@@ -1650,7 +1650,9 @@ if(isset($_REQUEST["reqcode"])){
 
 }//if code is set end
 else{
-	header('location:../../index.php');
+//	header('location:../../index.php');
+    echo "Bad request"; // DO NOT MODIFY,
+    // CRITICAL FOR JOBUPLOAD @job_upload.js TO CHECK FOR FILE UPLOAD EXCEEDING THE LIMIT OF POST_MAX_SIZE
 }
 
  

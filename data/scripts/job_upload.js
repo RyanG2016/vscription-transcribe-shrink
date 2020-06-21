@@ -149,9 +149,14 @@ function documentReady() {
 					processData: false,
 					contentType: false,
 					success: function (msg) {
-						console.log("REQ65 RESPONSE: " + msg);
+						var error = false;
+						// console.log("REQ65 RESPONSE: " + msg);
+						if(msg === "Bad request")
+						{
+							error = true;
+						}
 						stopProgressWatcher();
-						updateUI(100);
+						updateUI(100, error);
 
 						// console.log(msg);
 						// console.log('Upload call was successful');
@@ -166,6 +171,9 @@ function documentReady() {
 							// console.log("Key: " + i);
 							// console.log("Value: " + msg[i]);
 							// console.log(htmlEl);
+						}
+						if(error){
+							htmlEl += ", make sure your uploaded files are less than 128 MB and are less than 10 files."
 						}
 
 						const list = document.createElement('ol');
@@ -247,11 +255,11 @@ function documentReady() {
 				processData: false,
 				contentType: false,
 				success: function (msg) {
-					console.log("watchdog running");
-					console.log("watchdog msg: " + msg);
+					// console.log("watchdog running");
+					// console.log("watchdog msg: " + msg);
 					if (msg === 'null') {
 						clearInterval(timer);
-						updateUI(100);
+						updateUI(100, false);
 					} else {
 						let progress = JSON.parse(msg);
 						let processed_bytes = progress['bytes_processed'];
@@ -260,13 +268,13 @@ function documentReady() {
 						let total_percent = Math.floor(processed_bytes * 100 / total_bytes);
 						console.log("percentage completed: " + total_percent);
 
-						updateUI(total_percent);
+						updateUI(total_percent, false);
 
 						if (total_percent >= 100) {
 
 							// console.log("Should stop the timer");
 							clearInterval(timer)
-							updateUI(100);
+							updateUI(100, false);
 						}
 
 					}
@@ -284,7 +292,7 @@ function documentReady() {
 	}
 
 
-	function updateUI(percentage)
+	function updateUI(percentage, err)
 	{
 		linearProgressLay.removeClass('mdc-linear-progress--closed'); // Show progressbar
 		linearProgress.progress = percentage / 100.0;
@@ -294,10 +302,17 @@ function documentReady() {
 		}
 		else
 		{
-			progressTxt.text("Complete.");
-			$('.modal-content p i').html(""); // clear please wait message
-			cancel_popup_btn.style.display = "none";
-			confirm_popup_btn.style.display = "inline-block";
+			if(!err){
+				progressTxt.text("Complete.");
+				$('.modal-content p i').html(""); // clear please wait message
+				cancel_popup_btn.style.display = "none";
+				confirm_popup_btn.style.display = "inline-block";
+			}else{
+				progressTxt.text("Cancelled.");
+				$('.modal-content p i').html(""); // clear please wait message
+				cancel_popup_btn.style.display = "none";
+				confirm_popup_btn.style.display = "inline-block";
+			}
 		}
 	}
 
