@@ -17,7 +17,7 @@ var isConnected = false;
 var isConnecting = true;
 var firstLaunch = true;
 let statusTxt;
-const not_connected = "<i>Couldn't connect to controller <u id=\"reconnect\">reconnect?</u></i> <i class=\"material-icons mdc-button__icon\" aria-hidden=\"true\">signal_cellular_connected_no_internet_4_bar</i>";
+const not_connected = "<i>Couldn't connect to controller <u id=\"reconnect\">reconnect?</u></i>";
 const connecting = '<i>connecting to controller please wait...</i>';
 const connected = '<i>Connected to vScription Controller </i>';
 const not_running = '<i>Controller not running. <u id="reconnect">reconnect?</u></i>';
