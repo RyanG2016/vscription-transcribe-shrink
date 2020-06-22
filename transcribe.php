@@ -177,7 +177,7 @@ include_once("gaTrackingCode.php");
     <script src="data/scripts/parts/constants.js" type="text/javascript"></script>
 	<script src="data/scripts/transcribe.min.js"> </script>
 
-<div id="updated_version_bar">There is a newer version (v<span></span>) of the vScription Transcribe Controller available.</div>
+<div id="updated_version_bar">There is a newer version (v<span></span>) of the vScription Transcribe Controller available -> <a href="" target="_blank">download</a></div>
 	<div id="container" style="width: 100%">
 		<div class="form-style-5">
 		<form class="validate-form" method="post" name="form" data-persist="garlic" id="form" enctype="multipart/form-data">

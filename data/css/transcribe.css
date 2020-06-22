@@ -440,6 +440,10 @@ table, th, td {
     color: white;
 }
 
+#updated_version_bar a{
+    color: white;
+}
+
 /*
 .tblButtons button {
     display: inline-block;

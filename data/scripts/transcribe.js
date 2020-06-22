@@ -961,6 +961,7 @@ function checkBrowser(updateAvailable, v) {
     }*/
     if (updateAvailable) {
         $("#updated_version_bar span").html(v);
+        $('#updated_version_bar a').attr('href', 'downloads/controller_'+v+'.jar');
         $("#updated_version_bar").slideDown("normal", "easeInOutBack");
     } else {
         $("#updated_version_bar").slideUp();
