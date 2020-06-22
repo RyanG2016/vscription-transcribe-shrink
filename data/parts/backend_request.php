@@ -591,7 +591,7 @@ if(isset($_REQUEST["reqcode"])){
 			case 9:
 
 
-			$sql = "SELECT `file_id`, `job_id`, `file_type`, `original_audio_type`, `filename`, `fileAudioBlob`, `fileTextBlob`, `file_tag`, `file_author`, `file_work_type`, `file_comment`, `file_speaker_type`, `file_date_dict`, (SELECT j_status_name From file_status_ref WHERE file_status_ref.j_status_id=files.file_status ORDER BY file_status LIMIT 1) as file_status, `last_audio_position`, `job_upload_date`, `job_uploaded_by`, `text_downloaded_date`, `times_text_downloaded_date`, `file_transcribed_date`, `typist_comments`, `isBillable`, `billed` FROM files
+			$sql = "SELECT `file_id`, `job_id`, `file_type`, `audio_length`, `original_audio_type`, `filename`, `fileAudioBlob`, `fileTextBlob`, `file_tag`, `file_author`, `file_work_type`, `file_comment`, `file_speaker_type`, `file_date_dict`, (SELECT j_status_name From file_status_ref WHERE file_status_ref.j_status_id=files.file_status ORDER BY file_status LIMIT 1) as file_status, `last_audio_position`, `job_upload_date`, `job_uploaded_by`, `text_downloaded_date`, `times_text_downloaded_date`, `file_transcribed_date`, `typist_comments`, `isBillable`, `billed` FROM files
 			WHERE `file_status` IN (0,1,2) and acc_id = (SELECT account from users WHERE email = '" . $_SESSION['uEmail'] . "')";
 
 			if($stmt = mysqli_prepare($con, $sql)){
@@ -622,6 +622,7 @@ if(isset($_REQUEST["reqcode"])){
                                         <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Date Dictated</th>
                                         <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Date Uploaded</th>
                                         <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Job Status</th>
+                                        <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Job Length</th>
                                     </tr>
                                     </thead>';
 
@@ -635,7 +636,7 @@ if(isset($_REQUEST["reqcode"])){
                             {
                                 $cmnt = "<i class=\"material-icons mdc-button__icon job-comment cTooltip\" aria-hidden=\"true\" title=\"{$fetchedCmnt}\">speaker_notes</i>";
                             }
-
+                            $len = sprintf('%02d:%02d:%02d', ($row['audio_length']/ 3600),($row['audio_length']/ 60 % 60), $row['audio_length']% 60);
 							$data .= "<tr data-row-id=\"{$row['job_id']}\" class=\"mdc-data-table__row\" id=\"{$row['file_id']}\" >";
 								$data .=
 							   "<td class=\"mdc-data-table__cell\">{$row['job_id']} {$cmnt}</td>
@@ -643,7 +644,8 @@ if(isset($_REQUEST["reqcode"])){
 								<td class=\"mdc-data-table__cell\">{$row['file_work_type']}</td>
 								<td class=\"mdc-data-table__cell\">{$row['file_date_dict']}</td>
 								<td class=\"mdc-data-table__cell\">{$row['job_upload_date']}</td>
-								<td class=\"mdc-data-table__cell\">{$row['file_status']}</td>";
+								<td class=\"mdc-data-table__cell\">{$row['file_status']}</td>
+								<td class=\"mdc-data-table__cell\">{$len}</td>";
 							$data .= '</tr>';
 							}
 						$data .= "</tbody>";
