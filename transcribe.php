@@ -37,8 +37,8 @@ include_once("gaTrackingCode.php");
 	<link href='data/fontawesome/css/all.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet' />
 	<link href='ableplayer/styles/ableplayer.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet' />
 
-	<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<!--	<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">-->
+<!--	<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">-->
 
 	<!--	Font 	-->
 	<!--	<link href="https://fonts.googleapis.com/css?family=Oxygen&display=swap" rel="stylesheet">-->
@@ -172,11 +172,12 @@ include_once("gaTrackingCode.php");
 </head>
 
 <body>
-	<div id="message_bar">For best experience and foot control support please download the <a href="https://pro.vscription.com/downloads/vScription_Transcribe_Installer.msi" target="_blank" title="Download Latest Version of vScription Transcribe">vScription Transcribe Application</a></div>
-	<div id="updated_version_bar">There is a newer version of the vScription Transcribe application available. You can <a href="https://pro.vscription.com/downloads/vScription_Transcribe_Installer.msi" target="_blank" title="Download Latest Version of vScription Transcribe">download it here </a></div>
+<!--	<div id="message_bar">For best experience and foot control support please download the <a href="https://pro.vscription.com/downloads/vScription_Transcribe_Installer.msi" target="_blank" title="Download Latest Version of vScription Transcribe">vScription Transcribe Application</a></div>-->
+<!--	<div id="updated_version_bar">There is a newer version of the vScription Transcribe Controller available. You can <a href="https://pro.vscription.com/downloads/vScription_Transcribe_Installer.msi" target="_blank" title="Download Latest Version of vScription Transcribe">download it here </a></div>-->
     <script src="data/scripts/parts/constants.js" type="text/javascript"></script>
 	<script src="data/scripts/transcribe.min.js"> </script>
 
+<div id="updated_version_bar">There is a newer version (v<span></span>) of the vScription Transcribe Controller available -> <a href="" target="_blank">download</a></div>
 	<div id="container" style="width: 100%">
 		<div class="form-style-5">
 		<form class="validate-form" method="post" name="form" data-persist="garlic" id="form" enctype="multipart/form-data">

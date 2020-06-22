@@ -483,6 +483,7 @@ if(isset($_REQUEST["reqcode"])){
 										<th class="mdc-data-table__header-cell" role="columnheader" scope="col">Job Status</th>
                                         <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Date Transcribed</th>
                                         <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Initial Download Date</th>										
+                                        <th class="mdc-data-table__header-cell times-downloaded-header" role="columnheader" scope="col">Download</th>
                                     </tr>
                                     </thead>';
 
@@ -505,14 +506,14 @@ if(isset($_REQUEST["reqcode"])){
 							// todo uncomment these below for checkboxes
 //							echo " <input type=\"checkbox\" class=\"mdc-checkbox__native-control\" aria-labelledby=\"{$row['job_id']}\"/>";
 
-							/* echo '<div class="mdc-checkbox__background">
-                            <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
-                                    <path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59" />
-                                        </svg>
-                                        <div class="mdc-checkbox__mixedmark"></div>
-                                    </div>
-                                </div>
-                            </td>'; */
+							/*			echo '<div class="mdc-checkbox__background">
+                                                                    <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
+                                                                        <path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59" />
+                                                                    </svg>
+                                                                    <div class="mdc-checkbox__mixedmark"></div>
+                                                                </div>
+                                                            </div>
+                                                        </td>';*/
 
                             $fetchedCmnt = $row['file_comment'];
                             $fetchedCmnt = encodeStr($fetchedCmnt);
@@ -527,33 +528,26 @@ if(isset($_REQUEST["reqcode"])){
                                     <td class=\"mdc-data-table__cell\">{$row['file_work_type']}</td>
                                     <td class=\"mdc-data-table__cell\">{$row['file_date_dict']}</td>
                                     <td class=\"mdc-data-table__cell\">{$row['job_upload_date']}</td>	
-                                    <td class=\"mdc-data-table__cell\">{$fmtDate}</td>";
-
-
-                            $down = "";
-                            if($row['file_status'] == "Completed") {
-                                $job_id = $row['job_id'];
-                                $search = array (
-                                    "job_id" => $job_id,
-                                );
-//									$dnldURL = $cbaselink . "/download.php?" . http_build_query($search);
-                                $down =  "<div class='download-info-container'><a class=\"material-icons download-icon\">cloud_download</a> <span class='times-downloaded'> +{$row['times_text_downloaded_date']}</span></div>";
-                            }
-
-                            echo "<td class=\"mdc-data-table__cell\"><div class='file-status'>{$row['file_status']}</div>{$down}</td>";
-
-                            echo "<td class=\"mdc-data-table__cell\">{$row['file_transcribed_date']}</td>
+                                    <td class=\"mdc-data-table__cell\">{$fmtDate}</td>						
+                                    <td class=\"mdc-data-table__cell\">{$row['file_status']}</td>
+                                    <td class=\"mdc-data-table__cell\">{$row['file_transcribed_date']}</td>
                                     <td class=\"mdc-data-table__cell\">{$row['text_downloaded_date']}</td>";
 
 //							<td class=\"mdc-data-table__cell times-downloaded\"></td>
 							/*<td class=\"mdc-data-table__cell mdc-data-table__cell--numeric\">{$row['file_date_dict']}</td>
                                             <td class=\"mdc-data-table__cell mdc-data-table__cell--numeric\">{$row['job_upload_date']}</td>*/
 
-//								echo "<td class=\"mdc-data-table__cell \">";
+								echo "<td class=\"mdc-data-table__cell \">";
 
+								if($row['file_status'] == "Completed") {
+									$job_id = $row['job_id'];
+									$search = array (
+										"job_id" => $job_id,
+									);
+									echo "<a class=\"material-icons download-icon\">cloud_download</a> <span class='times-downloaded'> +{$row['times_text_downloaded_date']}</span>";
+								}
 
-
-//								echo "</td>";
+								echo "</td>";
 
 
 
@@ -597,7 +591,7 @@ if(isset($_REQUEST["reqcode"])){
 			case 9:
 
 
-			$sql = "SELECT `file_id`, `job_id`, `file_type`, `original_audio_type`, `filename`, `fileAudioBlob`, `fileTextBlob`, `file_tag`, `file_author`, `file_work_type`, `file_comment`, `file_speaker_type`, `file_date_dict`, (SELECT j_status_name From file_status_ref WHERE file_status_ref.j_status_id=files.file_status ORDER BY file_status LIMIT 1) as file_status, `last_audio_position`, `job_upload_date`, `job_uploaded_by`, `text_downloaded_date`, `times_text_downloaded_date`, `file_transcribed_date`, `typist_comments`, `isBillable`, `billed` FROM files
+			$sql = "SELECT `file_id`, `job_id`, `file_type`, `audio_length`, `original_audio_type`, `filename`, `fileAudioBlob`, `fileTextBlob`, `file_tag`, `file_author`, `file_work_type`, `file_comment`, `file_speaker_type`, `file_date_dict`, (SELECT j_status_name From file_status_ref WHERE file_status_ref.j_status_id=files.file_status ORDER BY file_status LIMIT 1) as file_status, `last_audio_position`, `job_upload_date`, `job_uploaded_by`, `text_downloaded_date`, `times_text_downloaded_date`, `file_transcribed_date`, `typist_comments`, `isBillable`, `billed` FROM files
 			WHERE `file_status` IN (0,1,2) and acc_id = (SELECT account from users WHERE email = '" . $_SESSION['uEmail'] . "')";
 
 			if($stmt = mysqli_prepare($con, $sql)){
@@ -628,6 +622,7 @@ if(isset($_REQUEST["reqcode"])){
                                         <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Date Dictated</th>
                                         <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Date Uploaded</th>
                                         <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Job Status</th>
+                                        <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Job Length</th>
                                     </tr>
                                     </thead>';
 
@@ -641,7 +636,7 @@ if(isset($_REQUEST["reqcode"])){
                             {
                                 $cmnt = "<i class=\"material-icons mdc-button__icon job-comment cTooltip\" aria-hidden=\"true\" title=\"{$fetchedCmnt}\">speaker_notes</i>";
                             }
-
+                            $len = sprintf('%02d:%02d:%02d', ($row['audio_length']/ 3600),($row['audio_length']/ 60 % 60), $row['audio_length']% 60);
 							$data .= "<tr data-row-id=\"{$row['job_id']}\" class=\"mdc-data-table__row\" id=\"{$row['file_id']}\" >";
 								$data .=
 							   "<td class=\"mdc-data-table__cell\">{$row['job_id']} {$cmnt}</td>
@@ -649,7 +644,8 @@ if(isset($_REQUEST["reqcode"])){
 								<td class=\"mdc-data-table__cell\">{$row['file_work_type']}</td>
 								<td class=\"mdc-data-table__cell\">{$row['file_date_dict']}</td>
 								<td class=\"mdc-data-table__cell\">{$row['job_upload_date']}</td>
-								<td class=\"mdc-data-table__cell\">{$row['file_status']}</td>";
+								<td class=\"mdc-data-table__cell\">{$row['file_status']}</td>
+								<td class=\"mdc-data-table__cell\">{$len}</td>";
 							$data .= '</tr>';
 							}
 						$data .= "</tbody>";
@@ -969,7 +965,12 @@ if(isset($_REQUEST["reqcode"])){
 						$audio_length = $_POST['jobLengthSecsRaw'];
 						$audio_elapsed = $_POST['jobElapsedTimeSecs'];
 						$file_status = $_POST['jobStatus'];
-						$file_transcribe_date = $dateTrans;
+                        if($file_status == 3)
+                        {
+                            $file_transcribe_date = $dateTrans;
+                        }else{
+                            $file_transcribe_date = null;
+                        }
 						$transcribed_by = $_SESSION['uEmail'];
 						$tmp_name = $_SESSION['tempFilename'];
 
@@ -1498,6 +1499,7 @@ if(isset($_REQUEST["reqcode"])){
 						$file_tmp = $_FILES['file' . $i]['tmp_name'];
 						$file_type = $_FILES['file' . $i]['type'];
 						$file_size = $_FILES['file' . $i]['size'];
+						$file_duration = $_POST['dur' . $i];
 						$array = explode('.', $_FILES['file' . $i]['name']);
 						$file_ext = strtolower(end($array));
 						if (isset($fileDemos)) {
@@ -1511,7 +1513,7 @@ if(isset($_REQUEST["reqcode"])){
 						$file = $path . $file_name;
 						
 						//Building demographic array for DB insert function call
-						$fileDemos = array($nextFileID, $nextJobNum, $authorName, $jobType, $dictDate, $speakerType, $comments,$orig_filename, $file_name); 
+						$fileDemos = array($nextFileID, $nextJobNum, $authorName, $jobType, $dictDate, $speakerType, $comments,$orig_filename, $file_name, $file_duration);
 
 						if (!in_array($file_ext, $extensions)) {
 							$uploadMsg[] = "<li>'File: ' $orig_filename . ' - UPLOAD FAILED (Extension not allowed)'</li>";              
@@ -1649,7 +1651,9 @@ if(isset($_REQUEST["reqcode"])){
 
 }//if code is set end
 else{
-	header('location:../../index.php');
+//	header('location:../../index.php');
+    echo "Bad request"; // DO NOT MODIFY,
+    // CRITICAL FOR JOBUPLOAD @job_upload.js TO CHECK FOR FILE UPLOAD EXCEEDING THE LIMIT OF POST_MAX_SIZE
 }
 
  
@@ -1952,6 +1956,7 @@ function insertToDB($dbcon, $input) {
 	$comments = $input[6];
 	$orig_filename = $input[7];
 	$file_name = $input[8];
+    $file_duration = $input[9];
 	$uploadedBy = $_SESSION['uEmail'];
 	
 		//This is a dirty way to change the job prefix for testing. We will ultimately pull this from
@@ -1963,13 +1968,13 @@ function insertToDB($dbcon, $input) {
 	}
 	$nextJobNum = $jobPrefix .str_pad($nextNum, 7, "0", STR_PAD_LEFT);
 
-	$sql = "INSERT INTO files (job_id, file_author, file_work_type, file_date_dict, file_speaker_type, file_comment, job_uploaded_by, filename, orig_filename, acc_id) VALUES (?,?,?,?,?,?,?,?,?,(SELECT account from users WHERE email = ?))";
+	$sql = "INSERT INTO files (job_id, file_author, file_work_type, file_date_dict, file_speaker_type, file_comment, job_uploaded_by, filename, orig_filename, acc_id, audio_length) VALUES (?,?,?,?,?,?,?,?,?,(SELECT account from users WHERE email = ?),?)";
 
 	if($stmt = mysqli_prepare($con, $sql))
 	{
 
-		if( !$stmt->bind_param("ssssisssss", $nextJobNum, $authorName, $jobType, $dictDate,
-			$speakerType, $comments, $uploadedBy, $file_name, $orig_filename, $uploadedBy) )
+		if( !$stmt->bind_param("ssssisssssi", $nextJobNum, $authorName, $jobType, $dictDate,
+			$speakerType, $comments, $uploadedBy, $file_name, $orig_filename, $uploadedBy, $file_duration) )
 		{
 			die( "Error in bind_param: (" .$con->errno . ") " . $con->error);
 		}
@@ -2001,7 +2006,7 @@ function insertToDB($dbcon, $input) {
 
 		}
 		else{
-			"ERROR: Was not able to execute $sql. " . mysqli_error($con);
+//			"ERROR: Was not able to execute $sql. " . mysqli_error($con);
 			die( "Execution Error: (" .$con->errno . ") " . $con->error);
 			echo 'dup';
 		}

@@ -169,7 +169,7 @@ div form .upload_btn_lbl{
     padding: 5px 10px;
     border-radius: 5px;
     /*border: 1px ridge black;*/
-    font-size: 1rem;
+    font-size: 0.9rem;
     height: auto;
     --mdc-theme-on-primary: white;
 }
@@ -178,7 +178,8 @@ div form .submit_btn{
     --mdc-theme-primary: #1e79be;
 }
 div form .upload_btn_lbl{
-    --mdc-theme-primary: #7f9ccb;
+    /*--mdc-theme-primary: #7f9ccb;*/
+    --mdc-theme-primary: #1e79be;
 }
 div form .clear_btn{
     --mdc-theme-primary: #B00020;
@@ -197,9 +198,9 @@ div form .clear_btn{
     margin-bottom: 7px;
 }*/
 
-/* -----------------*/
+/* --------------------------*/
 /* --UPLOAD STATUS STYLING --*/
-/* -----------------*/
+/* --------------------------*/
 
 
 .ulInstructions {
