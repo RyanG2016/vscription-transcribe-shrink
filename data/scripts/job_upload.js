@@ -378,7 +378,7 @@ function documentReady() {
 			// Update table with the duration
 			let durationTxt = new Date(duration * 1000).toISOString().substr(11, 8).toString();
 			$("#qfile"+id+" td:nth-child(4)").html(durationTxt);
-			$("#qfile"+id+" td:nth-child(5)").html(Math.round(duration));
+			// $("#qfile"+id+" td:nth-child(5)").html(Math.round(duration));
 
 			// increase done files counter
 			duratedFiles ++;
@@ -447,8 +447,8 @@ function documentReady() {
 		// data4.innerHTML = generateLoadingSpinner();
 		data4.appendChild(generateLoadingSpinner());
 
-		const data5 = document.createElement("td");
-		data5.appendChild(generateLoadingSpinner());
+		// const data5 = document.createElement("td");
+		// data5.appendChild(generateLoadingSpinner());
 
 		const data6 = document.createElement("td");
 
@@ -483,7 +483,7 @@ function documentReady() {
 		row.appendChild(data2);
 		row.appendChild(data3);
 		row.appendChild(data4);
-		row.appendChild(data5);
+		// row.appendChild(data5);
 		row.appendChild(data6);
 
 		return row;
@@ -553,20 +553,20 @@ function documentReady() {
 			const headerD2 = document.createElement("th"); // file name
 			const headerD3 = document.createElement("th"); // file size
 			const headerD4 = document.createElement("th"); // file duration
-			const headerD5 = document.createElement("th"); // in secs
+			// const headerD5 = document.createElement("th"); // in secs
 			const headerD6 = document.createElement("th"); // status
 
 			headerD1.innerHTML = '#';
 			headerD2.innerHTML = 'File Name';
 			headerD3.innerHTML = 'Size';
 			headerD4.innerHTML = 'Duration';
-			headerD5.innerHTML = '(secs)';
+			// headerD5.innerHTML = '(secs)';
 			headerD6.innerHTML = 'Status';
 			header.append(headerD1);
 			header.append(headerD2);
 			header.append(headerD3);
 			header.append(headerD4);
-			header.append(headerD5);
+			// header.append(headerD5);
 			header.append(headerD6);
 
 			tbl.setAttribute("class", "que-files");
