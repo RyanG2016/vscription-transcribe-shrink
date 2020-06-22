@@ -19,11 +19,11 @@ var firstLaunch = true;
 let statusTxt;
 const not_connected = "<i>Couldn't connect to controller <u id=\"reconnect\">reconnect?</u></i> <i class=\"material-icons mdc-button__icon\" aria-hidden=\"true\">signal_cellular_connected_no_internet_4_bar</i>";
 const connecting = '<i>connecting to controller please wait...</i>';
-// const connected = '<i>Connected to vScription Controller </i> <i class="material-icons mdc-button__icon" aria-hidden="true">signal_cellular_4_bar</i>';
 const connected = '<i>Connected to vScription Controller </i>';
 const not_running = '<i>Controller not running. <u id="reconnect">reconnect?</u></i>';
 const greenColor = "#3e943c";
 const orangeColor = "#f78d2d";
+const versionCheck = "vCheck-"; // DONOT MODIFY
 
 $(document).ready(function () {
 
@@ -84,8 +84,9 @@ $(document).ready(function () {
 
     function onmessage(event) {
         // console.log("Data received: " + event.data);
-
-        switch (event.data.toString()) {
+        let msg = event.data.toString();
+        // console.log("received from server: " + msg);
+        switch (msg) {
 
             case "play":
                 playAblePlayer(true);
@@ -101,6 +102,15 @@ $(document).ready(function () {
 
             case "ff":
                 AblePlayerInstances[0].handleFastForward();
+                break;
+
+            default:
+                if(msg.substring(0,7) === versionCheck)
+                {
+                    // let controllerVersion = msg.substring(7);
+                    getLatestAppVersionNumber(msg.substring(7), checkVersions);
+                }
+                break;
 
         }
     }
@@ -394,6 +404,9 @@ $(document).ready(function () {
 
         }
     });
+
+
+
 });
 
 $(function () {
@@ -920,43 +933,38 @@ function hideValidate(input) {
     thisAlert.removeClass('alert-validate');
 }
 
-function checkBrowser(updateAvailable) {
-    var sUsrAg = navigator.userAgent;
+function getLatestAppVersionNumber(currentVersion ,_callback) {
+    $.ajax({
+        url: baseURL + "LatestVersion.txt",
+        success: function (result) {
+            console.log("latestversion: " + result);
+            _callback(result.split("-")[0].trim(), currentVersion);
+        }
+    });
+}
+
+function checkVersions(latestAppVersion, currentControllerVersion) {
+
+    if (latestAppVersion === currentControllerVersion) {
+        checkBrowser(false, latestAppVersion);
+    } else {
+        checkBrowser(true, latestAppVersion);
+    }
+}
+
+function checkBrowser(updateAvailable, v) {
+    /*var sUsrAg = navigator.userAgent;
     //alert(sUsrAg);
     if (sUsrAg.indexOf("78.0.3904.70") > -1) {
         $("#message_bar").slideUp();
     } else {
         $("#message_bar").slideDown("normal", "easeInOutBack");
-    }
+    }*/
     if (updateAvailable) {
+        $("#updated_version_bar span").html(v);
         $("#updated_version_bar").slideDown("normal", "easeInOutBack");
     } else {
-        $("updated_version_bar").slideUp();
-    }
-}
-
-function getLatestAppVersionNumber(_callback) {
-    $.ajax({
-        url: baseURL + "LatestVersion.txt",
-        success: function (result) {
-            _callback(result.split("-")[0].trim(), checkBrowser);
-        }
-    });
-}
-
-function checkVersions(result, checkBrowser) {
-    var latestAppVersion;
-    latestAppVersion = result;
-    var localAppVersion;
-    try {
-        localAppVersion = AppVersion;
-    } catch (err) {
-        localAppVersion = "";
-    }
-    if (latestAppVersion === localAppVersion || localAppVersion === "") {
-        checkBrowser(0);
-    } else {
-        checkBrowser(1);
+        $("#updated_version_bar").slideUp();
     }
 }
 

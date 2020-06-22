@@ -41,6 +41,7 @@ body{
     /*    background-color: #193f54;*/
     /*    background-color: #1d7ec1;*/
 
+    margin: 0 0 8px 0;
     /*	Between Night And Sky   */
     background: #2c3e50;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #3498db, #2c3e50);  /* Chrome 10-25, Safari 5.1-6 */
@@ -425,19 +426,17 @@ table, th, td {
     width: 100%;
     background: red;
     text-align: center;
-    font-family: "Oxygen";
+    font-family: "oxygen", serif;
     color: white;
 }
 #updated_version_bar{
     display:none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 25px;
+    padding: 5px;
     width: 100%;
-    background: green;
+    background: #f5862c;
     text-align: center;
-    font-family: "Oxygen";
+    vertical-align: center;
+    font-family: "oxygen", serif;
     color: white;
 }
 

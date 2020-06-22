@@ -172,11 +172,12 @@ include_once("gaTrackingCode.php");
 </head>
 
 <body>
-	<div id="message_bar">For best experience and foot control support please download the <a href="https://pro.vscription.com/downloads/vScription_Transcribe_Installer.msi" target="_blank" title="Download Latest Version of vScription Transcribe">vScription Transcribe Application</a></div>
-	<div id="updated_version_bar">There is a newer version of the vScription Transcribe application available. You can <a href="https://pro.vscription.com/downloads/vScription_Transcribe_Installer.msi" target="_blank" title="Download Latest Version of vScription Transcribe">download it here </a></div>
+<!--	<div id="message_bar">For best experience and foot control support please download the <a href="https://pro.vscription.com/downloads/vScription_Transcribe_Installer.msi" target="_blank" title="Download Latest Version of vScription Transcribe">vScription Transcribe Application</a></div>-->
+<!--	<div id="updated_version_bar">There is a newer version of the vScription Transcribe Controller available. You can <a href="https://pro.vscription.com/downloads/vScription_Transcribe_Installer.msi" target="_blank" title="Download Latest Version of vScription Transcribe">download it here </a></div>-->
     <script src="data/scripts/parts/constants.js" type="text/javascript"></script>
 	<script src="data/scripts/transcribe.min.js"> </script>
 
+<div id="updated_version_bar">There is a newer version (v<span></span>) of the vScription Transcribe Controller available.</div>
 	<div id="container" style="width: 100%">
 		<div class="form-style-5">
 		<form class="validate-form" method="post" name="form" data-persist="garlic" id="form" enctype="multipart/form-data">
