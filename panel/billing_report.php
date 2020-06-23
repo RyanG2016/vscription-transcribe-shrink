@@ -109,7 +109,7 @@ if ($_SESSION['role'] != "1") {
                                     <label for="endDate">End Date</label><input id="endDate" type="text" contenteditable="false"/>
                                 </td>
                                 <td  style="vertical-align: bottom">
-                                    <button class="mdc-button mdc-button--raised tools-button">
+                                    <button class="mdc-button mdc-button--raised tools-button" id="getReport">
                                         <div class="mdc-button__ripple"></div>
                                         <i class="material-icons mdc-button__icon" aria-hidden="true">text_fields</i>
                                         <span class="mdc-button__label">Retrieve Report</span>

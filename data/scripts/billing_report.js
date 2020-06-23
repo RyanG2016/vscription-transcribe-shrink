@@ -3,11 +3,9 @@ $(document).ready(function () {
 
     let today = new Date().toISOString().split('T')[0];
 
-    // let arg = {
-    //     pwd: tf.value
-    // };
     let startDate = $( "#startDate" );
     let endDate = $( "#endDate" );
+    let getReport = $( "#getReport" );
     startDate.datepicker({dateFormat: "yy-mm-dd"});
     endDate.datepicker({dateFormat: "yy-mm-dd"});
     
@@ -39,22 +37,28 @@ $(document).ready(function () {
 
     endDate.on("change paste keyup", function() {
         checkDates($(this).val(), false);
-    })
+    });
 
+    getReport.on("click", function() {
+        let arg = {
+            startDate: startDate.val(),
+            endDate: endDate.val()
+        };
+        getData(arg);
+    });
 
-    function getData() {
+    function getData(args) {
         $.post("/data/parts/backend_request.php", {
             reqcode: 200
-            // ,args: JSON.stringify(arg)
+            ,args: JSON.stringify(args)
         }).done(function (res) {
             let response = JSON.parse(res);
             let data = response.data;
             // let error = res.error;
-            $('.billing-report-container').append(data);
+            console.log("should add " + data);
+            $('.billing-report-container').html(data);
         });
     }
-
-    getData();
 
 
 

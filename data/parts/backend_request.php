@@ -1664,11 +1664,12 @@ if(isset($_REQUEST["reqcode"])){
 		isBillable = '1' AND
 		billed = '0' AND 
         acc_id = '1' AND
-        file_transcribed_date BETWEEN '2020-06-01' AND '2020-06-31'";
+        file_transcribed_date BETWEEN ? AND ?";
 
 
             if($stmt = mysqli_prepare($con, $sql))
             {
+                mysqli_stmt_bind_param($stmt, "ss", $a['startDate'], $a['endDate']);
                 if(mysqli_stmt_execute($stmt)){
                     $result = mysqli_stmt_get_result($stmt);
                     $minsTotal = 0;
