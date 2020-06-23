@@ -11,6 +11,7 @@
 
 .tools-button{
     --mdc-theme-primary: #1e79be;
+    width: 100%;
 }
 
 .mdc-text-field{
