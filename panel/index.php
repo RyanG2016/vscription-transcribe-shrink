@@ -1,5 +1,19 @@
 <?php
-include('../data/parts/head.php');
+//include('../data/parts/head.php');
+
+include('../data/parts/session_settings.php');
+
+require('../data/parts/ping.php');
+
+if(!isset($_SESSION['loggedIn']))
+{
+    header('location:../logout.php');
+    exit();
+}
+if(isset($_SESSION['counter']))
+{
+    unset($_SESSION['counter']);
+}
 
 // admin panel main
 
