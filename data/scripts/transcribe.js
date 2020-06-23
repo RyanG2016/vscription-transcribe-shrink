@@ -944,10 +944,10 @@ function getLatestAppVersionNumber(currentVersion ,_callback) {
 
 function checkVersions(latestAppVersion, currentControllerVersion) {
 
-    if (latestAppVersion === currentControllerVersion) {
-        checkBrowser(false, latestAppVersion);
-    } else {
+    if (latestAppVersion > currentControllerVersion) {
         checkBrowser(true, latestAppVersion);
+    } else {
+        checkBrowser(false, latestAppVersion);
     }
 }
 
