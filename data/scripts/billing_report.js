@@ -2,6 +2,9 @@
 $(document).ready(function () {
 
     let today = new Date().toISOString().split('T')[0];
+    let tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    tomorrow = tomorrow.toISOString().split('T')[0];
 
     let startDate = $( "#startDate" );
     let endDate = $( "#endDate" );
@@ -10,7 +13,7 @@ $(document).ready(function () {
     endDate.datepicker({dateFormat: "yy-mm-dd"});
     
     startDate.val(today);
-    endDate.val(today);
+    endDate.val(tomorrow);
 
 
     function checkDates(val, startDateGiven) {
