@@ -121,7 +121,7 @@ if ($_SESSION['role'] != "1") {
                 </tr>
                 <tr class="pad15">
                     <td style="vertical-align: top">
-                        <button class="mdc-button mdc-button--raised tools-button" onclick="location.href='typist_report.php'">
+                        <button class="mdc-button mdc-button--raised tools-button">
                             <div class="mdc-button__ripple"></div>
                             <i class="material-icons mdc-button__icon" aria-hidden="true">picture_as_pdf</i>
                             <span class="mdc-button__label">PDF</span>
