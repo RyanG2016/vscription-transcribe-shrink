@@ -6,6 +6,15 @@ body {
     padding: 10px;
 }
 
+.header .head-right img {
+    width: 350px;
+    height: auto;
+}
+
+.header .head-left h2 {
+    font-family: Oxygen;
+}
+
 .report {
     border: 1px solid;
     font-family: Oxygen;
