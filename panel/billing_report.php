@@ -45,7 +45,8 @@ if ($_SESSION['role'] != "1") {
     <script src="../data/libs/node_modules/@material/textfield/dist/mdc.textfield.js"></script>
     <script src="../data/libs/node_modules/@material/linear-progress/dist/mdc.linearProgress.js"></script>
 <!--    <link href='../data/fontawesome/css/all.css' type='text/css' rel='stylesheet'/>-->
-    <script src="../data/scripts/billing_report.min.js"></script>
+    <script src="../data/scripts/billing_report.js"></script>
+    <script src="/data/thirdparty/scripts/html2pdf.bundle.min.js"></script>
 
 </head>
 
@@ -121,7 +122,7 @@ if ($_SESSION['role'] != "1") {
                 </tr>
                 <tr class="pad15">
                     <td style="vertical-align: top">
-                        <button class="mdc-button mdc-button--raised tools-button">
+                        <button class="mdc-button mdc-button--raised tools-button" id="getPDF">
                             <div class="mdc-button__ripple"></div>
                             <i class="material-icons mdc-button__icon" aria-hidden="true">picture_as_pdf</i>
                             <span class="mdc-button__label">PDF</span>
