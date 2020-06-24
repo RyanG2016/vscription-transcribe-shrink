@@ -1682,7 +1682,9 @@ if(isset($_REQUEST["reqcode"])){
                     if(mysqli_num_rows($result) > 0){
                         $num_rows = mysqli_num_rows($result);
 
-                        $htmlhead = "<table class='report'><thead><tr id='header'><th class='jobnum'>Job Number</th><th class='author'>Author</th><th class='jobtype'>Job Type</th><th class='datedict'>Date Dictated</th><th class='audiolength'>Audio Length</th><th class='transdate'>Transcribed Date</th><th class='comments'>Comments</td></th></tr></thead><tbody>";
+                        $htmlHeader = "<h3>Billing Report Date: $rptStartDate to $rptEndDate </h3>";
+
+                        $htmlTblHead = "<table class='report'><thead><tr id='header'><th class='jobnum'>Job Number</th><th class='author'>Author</th><th class='jobtype'>Job Type</th><th class='datedict'>Date Dictated</th><th class='audiolength'>Audio Length</th><th class='transdate'>Transcribed Date</th><th class='comments'>Comments</td></th></tr></thead><tbody>";
 
                         while($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
                         {
@@ -1705,9 +1707,9 @@ if(isset($_REQUEST["reqcode"])){
 						$minsTotal = sprintf('%02d:%02d:%02d', ($seconds/ 3600),($seconds/ 60 % 60), $seconds% 60);
 						$rptGenDate = date("Y-m-d H:i:s");
                         $htmltablefoot = "</tbody></table>";
-                        $htmlfoot1 =  "<p><b>Total Jobs:</b> $num_rows &nbsp; &nbsp; &nbsp;";
-                        $htmlfoot2 = "<b>Total Length (hh:mm:ss):</b> $minsTotal</br></br><b>Report Date:</b> $rptStartDate to $rptEndDate</br><b>Report generated on:</b> $rptGenDate</p>";
-                        $data = html_entity_decode($htmlhead . $html . $htmltablefoot . $htmlfoot1 . $htmlfoot2);
+                        $htmlfoot1 =  "<p><b>Report generated on:</b> $rptGenDate  &nbsp; &nbsp; &nbsp;<b>Total Jobs:</b> $num_rows &nbsp; &nbsp; &nbsp;";
+                        $htmlfoot2 = "<b>Total Length (hh:mm:ss):</b> $minsTotal </p>";
+                        $data = html_entity_decode($htmlHeader . $htmlTblHead . $html . $htmltablefoot . $htmlfoot1 . $htmlfoot2);
                     }
                     else {
                         $data = "No Results Found";
