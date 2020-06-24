@@ -27,7 +27,7 @@ if ($_SESSION['role'] != "1") {
     <script src="../data/libs/node_modules/material-components-web/dist/material-components-web.js"></script>
     <script src="../data/libs/node_modules/@material/textfield/dist/mdc.textfield.js"></script>
     <script src="../data/libs/node_modules/@material/linear-progress/dist/mdc.linearProgress.js"></script>
-    <link href='../data/fontawesome/css/all.css' type='text/css' rel='stylesheet'/>
+    <script src="https://kit.fontawesome.com/00895b9561.js" crossorigin="anonymous"></script>
 
 </head>
 

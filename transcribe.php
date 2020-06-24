@@ -34,7 +34,7 @@ include_once("gaTrackingCode.php");
 
 	<link href='data/css/transcribe.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet' />
 
-	<link href='data/fontawesome/css/all.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet' />
+    <script src="https://kit.fontawesome.com/00895b9561.js" crossorigin="anonymous"></script>
 	<link href='ableplayer/styles/ableplayer.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet' />
 
 <!--	<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">-->

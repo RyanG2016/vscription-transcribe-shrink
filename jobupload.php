@@ -42,7 +42,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
     <title>vScription Transcribe Pro Dictation Upload</title>
     <link rel="shortcut icon" type="image/png" href="data/images/favicon.png"/>
     <link href='data/css/upload_form2.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet'/>
-    <link href='data/fontawesome/css/all.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet'/>
+    <script src="https://kit.fontawesome.com/00895b9561.js" crossorigin="anonymous"></script>
 
     <!--  MDC Components  -->
     <link href="data/libs/node_modules/material-components-web/dist/material-components-web.css" rel="stylesheet">

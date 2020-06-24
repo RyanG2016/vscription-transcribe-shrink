@@ -33,7 +33,7 @@ if ($_SESSION['role'] != "1") {
     <title>vScription Billing Reports</title>
     <link rel="shortcut icon" type="image/png" href="../data/images/favicon.png"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link href='../data/fontawesome/css/all.css' type='text/css' rel='stylesheet'/>
+    <script src="https://kit.fontawesome.com/00895b9561.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -44,7 +44,7 @@ if ($_SESSION['role'] != "1") {
     <script src="../data/libs/node_modules/material-components-web/dist/material-components-web.js"></script>
     <script src="../data/libs/node_modules/@material/textfield/dist/mdc.textfield.js"></script>
     <script src="../data/libs/node_modules/@material/linear-progress/dist/mdc.linearProgress.js"></script>
-<!--    <link href='../data/fontawesome/css/all.css' type='text/css' rel='stylesheet'/>-->
+<!--    <script src="https://kit.fontawesome.com/00895b9561.js" crossorigin="anonymous"></script>-->
     <script src="../data/scripts/billing_report.js"></script>
     <link href="https://printjs-4de6.kxcdn.com/print.min.css" rel="stylesheet">
     <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>

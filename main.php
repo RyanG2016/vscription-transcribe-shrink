@@ -49,7 +49,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
 
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,300&display=swap"
           rel="stylesheet">
-    <link href='data/fontawesome/css/all.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet'/>
+    <script src="https://kit.fontawesome.com/00895b9561.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="data/css/vs-style.css">
 
     <title>vScription Transcribe Pro Dictation Upload</title>
