@@ -81,7 +81,7 @@ $(document).ready(function () {
             type: 'html',
             showModal: true,
             scanStyles: true,
-            css: "../data/css/test_billing_print.css",
+            css: "../data/css/billing_print.css",
             style: '@page { size: Letter landscape; }'
         });
         // html2pdf($('.billing-report-container').html(), opt);
