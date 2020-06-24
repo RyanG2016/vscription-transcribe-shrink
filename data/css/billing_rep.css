@@ -122,6 +122,9 @@
     width: 125px;
     text-align: left;
 }
+.typ_account {
+    text-align: center;
+}
 .comments {
     width: 350px;
     text-align: left;
@@ -155,8 +158,13 @@ p {
     width: 100%;
 }
 
-input, label{
+input, label, select{
     font-family: 'oxygen', serif;
+}
+
+#typist {
+    width: 200px;
+    height: 23px;
 }
 
 .billing-report-container{
@@ -170,8 +178,9 @@ input, label{
 
 /* Grid */
 
-.start-date-item { grid-area: start; }
-.end-date-item { grid-area: end; }
+.typist { grid-area: start; }
+.start-date-item { grid-area: mid; }
+.end-date-item { grid-area: end; } 
 .retrieve-item { grid-area: get; }
 .pdf-item { grid-area: pdf; }
 .print-item { grid-area: printJS; }
@@ -180,13 +189,13 @@ input, label{
     display: inline-grid;
     /*display: grid;*/
     grid-template-areas:
-    '. start end get pdf printJS'
-    'report report report report report report';
+    '. start mid end get pdf printJS'
+    'report report report report report report report';
     grid-gap: 10px;
     /*background-color: #2196F3;*/
     padding: 20px;
     width: 100%;
-    grid-template-columns: 1fr fit-content(100%) fit-content(100%) fit-content(100%) fit-content(100%);
+    grid-template-columns: 1fr fit-content(100%) fit-content(100%) fit-content(100%) fit-content(100%) fit-content(100%) fit-content(100%);
 }
 
 

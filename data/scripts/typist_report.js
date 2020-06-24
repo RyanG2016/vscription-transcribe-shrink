@@ -14,6 +14,8 @@ $(document).ready(function () {
     let getReport = $( "#getReport" );
     let getPDF = $ ( "#getPDF" );
     let getPrintJS = $ ( "#getPrint" );
+    let typistEl = $ ( "#demo_job_type");
+    //let accountEl = $ ("#account");
     let htmlTable = $('.billing-report-container');
     startDate.datepicker({dateFormat: "yy-mm-dd"});
     endDate.datepicker({dateFormat: "yy-mm-dd"});
@@ -49,9 +51,12 @@ $(document).ready(function () {
     });
 
     getReport.on("click", function() {
+        //console.log("Account: " + accountEl.val());
+        console.log("Typist: " + $("#typist option:selected").val());
         let arg = {
             startDate: startDate.val(),
-            endDate: endDate.val()
+            endDate: endDate.val(),
+            typist: $("#typist option:selected").val()
         };
         document.title = "Typist_Bill_report_"+startDate.val()+"_to_" + endDate.val();
         getData(arg);

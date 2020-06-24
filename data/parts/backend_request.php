@@ -1725,14 +1725,18 @@ if(isset($_REQUEST["reqcode"])){
 			
 				$rptStartDate = $a['startDate'];
 				$rptEndDate = $a['endDate'];
+				$typist = $a['typist'];
+				// We dont' want to include account here as even if they work for multiple accounts they still get paid the same
+				//We can get more granular on reports if necessary
 				$sql="SELECT 
-			   file_id,
+			   	file_id,
 				job_id, 
 				file_author, 
 				file_work_type, 
 				file_date_dict, 
 				audio_length, 
 				file_transcribed_date,
+				acc_id,
 				file_comment
 			FROM 
 				files
@@ -1740,13 +1744,13 @@ if(isset($_REQUEST["reqcode"])){
 				file_status  = '3' AND 
 				isBillable = '1' AND
 				billed = '0' AND 
-				acc_id = '1' AND
+				job_transcribed_by = ? AND
 				file_transcribed_date BETWEEN ? AND ?";
 		
 		
 					if($stmt = mysqli_prepare($con, $sql))
 					{
-						mysqli_stmt_bind_param($stmt, "ss", $a['startDate'], $a['endDate']);
+						mysqli_stmt_bind_param($stmt, "sss", $a['typist'],$a['startDate'], $a['endDate']);
 						if(mysqli_stmt_execute($stmt)){
 							$result = mysqli_stmt_get_result($stmt);
 							$secsTotal = 0;
@@ -1756,9 +1760,9 @@ if(isset($_REQUEST["reqcode"])){
 							if(mysqli_num_rows($result) > 0){
 								$num_rows = mysqli_num_rows($result);
 		
-								$htmlHeader = "<h3>Billing Report Date: $rptStartDate to $rptEndDate </h3>";
+								$htmlHeader = "<h3>Billing Report Date: $rptStartDate to $rptEndDate for $typist</h3>";
 		
-								$htmlTblHead = "<table class='report'><thead><tr id='header'><th class='jobnum'>Job Number</th><th class='author'>Author</th><th class='jobtype'>Job Type</th><th class='datedict'>Date Dictated</th><th class='audiolength'>Audio Length</th><th class='transdate'>Transcribed Date</th><th class='comments'>Comments</td></th></tr></thead><tbody>";
+								$htmlTblHead = "<table class='report'><thead><tr id='header'><th class='jobnum'>Job Number</th><th class='author'>Author</th><th class='jobtype'>Job Type</th><th class='datedict'>Date Dictated</th><th class='audiolength'>Audio Length</th><th class='transdate'>Transcribed Date</th><th class='typ_account'>Account</th><th class='comments'>Comments</td></th></tr></thead><tbody>";
 		
 								while($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
 								{
@@ -1769,6 +1773,7 @@ if(isset($_REQUEST["reqcode"])){
 										"<td class='num'>" . $row['file_date_dict']. "</td>" .
 										"<td class='num'>" . $row['audio_length']. "</td>" .
 										"<td class='right'>" . $row['file_transcribed_date'] . "</td>" .
+										"<td class='right'>" . $row['acc_id'] . "</td>" .										
 										"<td class='right'>" . $row['file_comment'] . "</td>" .								
 										"</tr>";
 		
