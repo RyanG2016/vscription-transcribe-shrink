@@ -46,7 +46,8 @@ if ($_SESSION['role'] != "1") {
     <script src="../data/libs/node_modules/@material/linear-progress/dist/mdc.linearProgress.js"></script>
 <!--    <link href='../data/fontawesome/css/all.css' type='text/css' rel='stylesheet'/>-->
     <script src="../data/scripts/billing_report.js"></script>
-    <script src="/data/thirdparty/scripts/html2pdf.bundle.min.js"></script>
+    <link href="https://printjs-4de6.kxcdn.com/print.min.css" rel="stylesheet">
+    <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
 
 </head>
 
@@ -116,7 +117,14 @@ if ($_SESSION['role'] != "1") {
                     <span class="mdc-button__label">PDF</span>
                 </button>
             </div>
-            <div class="report-grid billing-report-container">
+            <div class="print-item">
+                <button class="mdc-button mdc-button--raised tools-button" id="getPrint">
+                    <div class="mdc-button__ripple"></div>
+                    <i class="material-icons mdc-button__icon" aria-hidden="true">picture_as_pdf</i>
+                    <span class="mdc-button__label">PrintJS</span>
+                </button>
+            </div>
+            <div class="report-grid billing-report-container" id="printableReport">
 <!--                <div class="billing-report-container"></div>-->
             </div>
         </div>

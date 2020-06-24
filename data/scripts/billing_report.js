@@ -11,6 +11,7 @@ $(document).ready(function () {
     let endDate = $( "#endDate" );
     let getReport = $( "#getReport" );
     let getPDF = $ ( "#getPDF" );
+    let getPrintJS = $ ( "#getPrint" );
     let htmlTable = $('.billing-report-container');
     startDate.datepicker({dateFormat: "yy-mm-dd"});
     endDate.datepicker({dateFormat: "yy-mm-dd"});
@@ -62,6 +63,28 @@ $(document).ready(function () {
             jsPDF: {unit: 'mm', format: 'letter', orientation: 'landscape'}
         }
         html2pdf($('.billing-report-container').html(), opt);
+    });
+
+    getPrintJS.on("click", function() {
+        // var opt = {
+        //     margin: 7,
+        //     filename: 'bill_report.pdf',
+        //     image: {type: 'jpeg', quality: 0.98 },
+        //     html2canvas: {scale: 2},
+        //     jsPDF: {unit: 'mm', format: 'letter', orientation: 'landscape'}
+        // }
+
+        // printJS('printableReport', 'html');
+        // printJS({printable: 'printableReport', type: 'html', properties: ['prop1', 'prop2', 'prop3']});
+        printJS({
+            printable: 'printableReport',
+            type: 'html',
+            showModal: true,
+            scanStyles: true,
+            css: "../data/css/test_billing_print.css",
+            style: '@page { size: Letter landscape; }'
+        });
+        // html2pdf($('.billing-report-container').html(), opt);
     });
 
 
