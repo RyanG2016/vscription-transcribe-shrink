@@ -221,7 +221,15 @@ if ($_SESSION['role'] != "1" && $_SESSION['role'] != "3") {
                     </tr>
                     <tr>
                         <td class="bold">
-                            VEC Footpedal
+                            VEC IN-USB
+                        </td>
+                        <td class="check">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bold">
+                            VEC INUSB2
                         </td>
                         <td class="check">
                             <i class="fa fa-check" aria-hidden="true"></i>
