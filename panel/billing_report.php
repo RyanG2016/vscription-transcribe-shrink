@@ -113,15 +113,15 @@ if ($_SESSION['role'] != "1") {
             <div class="pdf-item">
                 <button class="mdc-button mdc-button--unelevated tools-button" id="getPDF" disabled>
                     <div class="mdc-button__ripple"></div>
-                    <i class="material-icons mdc-button__icon" aria-hidden="true">picture_as_pdf</i>
-                    <span class="mdc-button__label">PDF</span>
+                    <i class="fas fa-file-pdf"></i>
+                    <span class="mdc-button__label">&nbsp;PDF</span>
                 </button>
             </div>
             <div class="print-item">
                 <button class="mdc-button mdc-button--unelevated tools-button" id="getPrint" disabled>
                     <div class="mdc-button__ripple"></div>
-                    <i class="material-icons mdc-button__icon" aria-hidden="true">picture_as_pdf</i>
-                    <span class="mdc-button__label">text</span>
+                    <i class="fas fa-print"></i>
+                    <span class="mdc-button__label">&nbsp;text</span>
                 </button>
             </div>
             <div class="report-grid billing-report-container" id="printableReport">
