@@ -30,7 +30,7 @@ if ($_SESSION['role'] != "1") {
 <html>
 
 <head>
-    <title>vScription Billing Reports</title>
+    <title>vScription Typist Billing Report</title>
     <link rel="shortcut icon" type="image/png" href="../data/images/favicon.png"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/00895b9561.js" crossorigin="anonymous"></script>
@@ -45,7 +45,7 @@ if ($_SESSION['role'] != "1") {
     <script src="../data/libs/node_modules/@material/textfield/dist/mdc.textfield.js"></script>
     <script src="../data/libs/node_modules/@material/linear-progress/dist/mdc.linearProgress.js"></script>
 <!--    <script src="https://kit.fontawesome.com/00895b9561.js" crossorigin="anonymous"></script>-->
-    <script src="../data/scripts/billing_report.js"></script>
+    <script src="../data/scripts/typist_report.js"></script>
     <link href="https://printjs-4de6.kxcdn.com/print.min.css" rel="stylesheet">
     <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
 
@@ -82,7 +82,7 @@ if ($_SESSION['role'] != "1") {
             <tr class="spacer"></tr>
             <tr style="margin-top: 50px">
                 <td class="title" align="left" width="450px">
-                    <legend class="page-title"><i class="fas fa-file-invoice-dollar"></i> Client Billing Reports</legend>
+                    <legend class="page-title"><i class="fas fa-file-invoice-dollar"></i> Typist Billing Reports</legend>
                 </td>
                 <!--<td align="right" rowspan="2" id="fix-td">
 
