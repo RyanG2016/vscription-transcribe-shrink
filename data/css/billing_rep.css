@@ -120,12 +120,15 @@
 .transdate {
     width: 125px;
 }
+.comments {
+    width: 350px;
+}
 
 .report > thead > tr > th:first-child{
     /*border: 2px dashed red;*/
     border-radius: 15px 0 0 0;
 }
-.report > thead > tr > th.transdate{
+.report > thead > tr > th.comments{
     border-radius: 0 15px 0 0;
 }
 
@@ -135,11 +138,11 @@
 
 p {
     font-family: 'oxygen', serif;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .pad15 > td{
-    padding: 15px;
+    padding: 12px;
 }
 
 .grid-wrapper-tbl{

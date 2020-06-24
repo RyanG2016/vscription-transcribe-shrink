@@ -1647,16 +1647,19 @@ if(isset($_REQUEST["reqcode"])){
 	
 
         // Cases starting from 200 related to reports
-        case 200:
-
-            $sql="SELECT 
+		case 200:
+			
+		$rptStartDate = $a['startDate'];
+		$rptEndDate = $a['endDate'];
+        $sql="SELECT 
        file_id,
 		job_id, 
 		file_author, 
 		file_work_type, 
 		file_date_dict, 
 		audio_length, 
-		file_transcribed_date
+		file_transcribed_date,
+		file_comment
     FROM 
 		files
 	WHERE 
@@ -1672,13 +1675,14 @@ if(isset($_REQUEST["reqcode"])){
                 mysqli_stmt_bind_param($stmt, "ss", $a['startDate'], $a['endDate']);
                 if(mysqli_stmt_execute($stmt)){
                     $result = mysqli_stmt_get_result($stmt);
-                    $minsTotal = 0;
-                    $html = "";
+					$secsTotal = 0;
+					$minsTotal = 0;
+					$html = "";
 
                     if(mysqli_num_rows($result) > 0){
                         $num_rows = mysqli_num_rows($result);
 
-                        $htmlhead = "<table class='report'><thead><tr id='header'><th class='fID'>ID</th><th class='jobnum'>Job Number</th><th class='author'>Author</th><th class='jobtype'>Job Type</th><th class='datedict'>Date Dictated</th><th class='audiolength'>Audio Length</th><th class='transdate'>Transcribed Date</th></tr></thead><tbody>";
+                        $htmlhead = "<table class='report'><thead><tr id='header'><th class='fID'>ID</th><th class='jobnum'>Job Number</th><th class='author'>Author</th><th class='jobtype'>Job Type</th><th class='datedict'>Date Dictated</th><th class='audiolength'>Audio Length</th><th class='transdate'>Transcribed Date</th><th class='comments'>Comments</td></th></tr></thead><tbody>";
 
                         while($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
                         {
@@ -1689,16 +1693,21 @@ if(isset($_REQUEST["reqcode"])){
                                 "<td class='left'>" . $row['file_work_type']. "</td>" .
                                 "<td class='num'>" . $row['file_date_dict']. "</td>" .
                                 "<td class='num'>" . $row['audio_length']. "</td>" .
-                                "<td class='right'>" . $row['file_transcribed_date'] . "</td>" .
+								"<td class='right'>" . $row['file_transcribed_date'] . "</td>" .
+                                "<td class='right'>" . $row['file_comment'] . "</td>" .								
                                 "</tr>";
 
-                            $minsTotal+=$row['audio_length'];
+                            $secsTotal+=$row['audio_length'];
                         }
                         // And now the totals:
-                        //$htmlfoot = "</tbody><tfoot><tr>Total Minutes:". $minsTotal . "</tr></tfoot></table>";
+						//$htmlfoot = "</tbody><tfoot><tr>Total Minutes:". $minsTotal . "</tr></tfoot></table>";
+						//Convert seconds to minutes for report
+						$seconds = round($secsTotal);
+						$minsTotal = sprintf('%02d:%02d:%02d', ($seconds/ 3600),($seconds/ 60 % 60), $seconds% 60);
+						$rptGenDate = date("Y-m-d H:i:s");
                         $htmltablefoot = "</tbody></table>";
-                        $htmlfoot1 =  "<p><b>Total Jobs:</b> $num_rows Jobs &nbsp; &nbsp; &nbsp;";
-                        $htmlfoot2 = "<b>Total Minutes:</b> $minsTotal</p>";
+                        $htmlfoot1 =  "<p><b>Total Jobs:</b> $num_rows &nbsp; &nbsp; &nbsp;";
+                        $htmlfoot2 = "<b>Total Length (hh:mm:ss):</b> $minsTotal</br></br>Report Date from $rptStartDate to $rptEndDate</br>Report generated on: $rptGenDate</p>";
                         $data = html_entity_decode($htmlhead . $html . $htmltablefoot . $htmlfoot1 . $htmlfoot2);
                     }
                     else {
