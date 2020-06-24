@@ -1,6 +1,7 @@
 
 $(document).ready(function () {
 
+
     let today = new Date().toISOString().split('T')[0];
     let tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
@@ -9,6 +10,8 @@ $(document).ready(function () {
     let startDate = $( "#startDate" );
     let endDate = $( "#endDate" );
     let getReport = $( "#getReport" );
+    let getPDF = $ ( "#getPDF" );
+    let htmlTable = $('.billing-report-container');
     startDate.datepicker({dateFormat: "yy-mm-dd"});
     endDate.datepicker({dateFormat: "yy-mm-dd"});
     
@@ -50,6 +53,18 @@ $(document).ready(function () {
         getData(arg);
     });
 
+    getPDF.on("click", function() {
+        var opt = {
+            margin: 7,
+            filename: 'bill_report.pdf',
+            image: {type: 'jpeg', quality: 0.98 },
+            html2canvas: {scale: 2},
+            jsPDF: {unit: 'mm', format: 'letter', orientation: 'landscape'}
+        }
+        html2pdf($('.billing-report-container').html(), opt);
+    });
+
+
     function getData(args) {
         $.post("/data/parts/backend_request.php", {
             reqcode: 200
@@ -58,7 +73,6 @@ $(document).ready(function () {
             let response = JSON.parse(res);
             let data = response.data;
             // let error = res.error;
-            console.log("should add " + data);
             $('.billing-report-container').html(data);
         });
     }
