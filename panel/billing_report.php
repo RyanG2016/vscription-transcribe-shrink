@@ -104,24 +104,24 @@ if ($_SESSION['role'] != "1") {
                 <label for="endDate">End Date</label><input id="endDate" type="text" contenteditable="false"/>
             </div>
             <div class="retrieve-item">
-                <button class="mdc-button mdc-button--raised tools-button" id="getReport">
+                <button class="mdc-button mdc-button--unelevated tools-button" id="getReport">
                     <div class="mdc-button__ripple"></div>
                     <i class="material-icons mdc-button__icon" aria-hidden="true">text_fields</i>
                     <span class="mdc-button__label">Retrieve Report</span>
                 </button>
             </div>
             <div class="pdf-item">
-                <button class="mdc-button mdc-button--raised tools-button" id="getPDF">
+                <button class="mdc-button mdc-button--unelevated tools-button" id="getPDF" disabled>
                     <div class="mdc-button__ripple"></div>
                     <i class="material-icons mdc-button__icon" aria-hidden="true">picture_as_pdf</i>
                     <span class="mdc-button__label">PDF</span>
                 </button>
             </div>
             <div class="print-item">
-                <button class="mdc-button mdc-button--raised tools-button" id="getPrint">
+                <button class="mdc-button mdc-button--unelevated tools-button" id="getPrint" disabled>
                     <div class="mdc-button__ripple"></div>
                     <i class="material-icons mdc-button__icon" aria-hidden="true">picture_as_pdf</i>
-                    <span class="mdc-button__label">PrintJS</span>
+                    <span class="mdc-button__label">text</span>
                 </button>
             </div>
             <div class="report-grid billing-report-container" id="printableReport">

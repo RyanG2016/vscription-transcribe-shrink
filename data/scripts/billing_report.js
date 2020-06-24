@@ -1,7 +1,9 @@
 
 $(document).ready(function () {
 
-
+    new mdc.ripple.MDCRipple(document.querySelector('#getPrint'));
+    new mdc.ripple.MDCRipple(document.querySelector('#getPDF'));
+    new mdc.ripple.MDCRipple(document.querySelector('#getReport'));
     let today = new Date().toISOString().split('T')[0];
     let tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
@@ -51,13 +53,14 @@ $(document).ready(function () {
             startDate: startDate.val(),
             endDate: endDate.val()
         };
+        document.title = "Bill_report_"+startDate.val()+"_to_" + endDate.val();
         getData(arg);
     });
 
     getPDF.on("click", function() {
         var opt = {
             margin: 7,
-            filename: 'bill_report.pdf',
+            filename: "Bill_report_"+startDate.val()+"_to_" + endDate.val()+".pdf",
             image: {type: 'jpeg', quality: 0.98 },
             html2canvas: {scale: 2},
             jsPDF: {unit: 'mm', format: 'letter', orientation: 'landscape'}
@@ -97,6 +100,14 @@ $(document).ready(function () {
             let data = response.data;
             // let error = res.error;
             $('.billing-report-container').html(data);
+            if(data !== "No Results Found"){
+                getPDF.removeAttr("disabled");
+                getPrintJS.removeAttr("disabled");
+            }
+            else{
+                getPDF.attr("disabled", "disabled");
+                getPrintJS.attr("disabled", "disabled");
+            }
         });
     }
 
