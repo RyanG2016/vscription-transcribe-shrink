@@ -38,7 +38,7 @@ if ($_SESSION['role'] != "1" && $_SESSION['role'] != "3") {
     <script src="data/libs/node_modules/material-components-web/dist/material-components-web.js"></script>
     <script src="data/libs/node_modules/@material/textfield/dist/mdc.textfield.js"></script>
     <script src="data/libs/node_modules/@material/linear-progress/dist/mdc.linearProgress.js"></script>
-    <link href='data/fontawesome/css/all.css' type='text/css' rel='stylesheet'/>
+    <script src="https://kit.fontawesome.com/00895b9561.js" crossorigin="anonymous"></script>
 
 </head>
 
@@ -151,7 +151,7 @@ if ($_SESSION['role'] != "1" && $_SESSION['role'] != "3") {
                     </tr>
                     <tr>
                         <td class="bold">
-                            Chrome
+                            <i class="fab fa-chrome"></i> Chrome
                         </td>
                         <td class="check">
                             <i class="fa fa-check" aria-hidden="true"></i>
@@ -159,7 +159,7 @@ if ($_SESSION['role'] != "1" && $_SESSION['role'] != "3") {
                     </tr>
                     <tr>
                         <td class="bold">
-                            Firefox
+                            <i class="fab fa-firefox-browser"></i> Firefox
                         </td>
                         <td class="check">
                             <i class="fa fa-check" aria-hidden="true"></i>
@@ -167,7 +167,7 @@ if ($_SESSION['role'] != "1" && $_SESSION['role'] != "3") {
                     </tr>
                     <tr>
                         <td class="bold">
-                            Safari
+                            <i class="fab fa-safari"></i> Safari
                         </td>
                         <td class="check">
                             <i class="fa fa-times" aria-hidden="true"></i>
@@ -185,7 +185,7 @@ if ($_SESSION['role'] != "1" && $_SESSION['role'] != "3") {
                     </tr>
                     <tr>
                         <td class="bold">
-                            Windows
+                            <i class="fab fa-windows"></i> Windows
                         </td>
                         <td class="check">
                             <i class="fa fa-check" aria-hidden="true"></i>
@@ -193,7 +193,7 @@ if ($_SESSION['role'] != "1" && $_SESSION['role'] != "3") {
                     </tr>
                     <tr>
                         <td class="bold">
-                            Mac OS
+                            <i class="fab fa-apple"></i> Mac OS
                         </td>
                         <td class="check">
                             <i class="fa fa-check" aria-hidden="true"></i>
@@ -201,7 +201,7 @@ if ($_SESSION['role'] != "1" && $_SESSION['role'] != "3") {
                     </tr>
                     <tr>
                         <td class="bold">
-                            Linux
+                            <i class="fab fa-ubuntu"></i> Linux
                         </td>
                         <td class="check">
                             <i class="fa fa-check" aria-hidden="true"></i>
