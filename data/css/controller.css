@@ -56,26 +56,22 @@
     display: inline-grid;
     /*display: grid;*/
     grid-template-areas:
-    'desc header header header compatHeader compatHeader compatHeader'
-    'menu main main main compatBrowsers compatOS compatHardware';
+    'desc menu menu menu menu menu menu'
+    'header header header header compatHeader compatHeader compatHeader'
+    'main main main main compatBrowsers compatOS compatHardware';
     /*'menu footer footer footer footer footer';*/
     grid-gap: 10px;
     /*background-color: #2196F3;*/
     padding: 20px;
     /*grid-template-columns: auto;*/
     /*grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr ;*/
-    grid-template-columns: 0.7fr 1fr 1fr 1fr fit-content(100%) fit-content(100%);
+    width: 100%;
+    /*grid-template-columns: 1fr 1fr 1fr 1fr fit-content(100%) fit-content(100%);*/
+    grid-template-columns: min-content 1fr 1fr 1fr fit-content(100%) fit-content(100%);
 }
 
 .grid-wrapper > div {
     text-align: left;
-
-}
-
-.item2 p{
-    text-align: justify;
-    text-justify: inter-word;
-    margin: 0;
 }
 
 .bold{
@@ -129,4 +125,24 @@ a:visited{
 }
 a:hover{
     color: #53a13d;
+}
+
+.item1{
+    border-radius: 0 10px 0 0;
+}
+
+.item2{
+    position: relative;
+}
+
+.item2 p{
+    /*text-align: justify;*/
+    /*text-justify: inter-word;*/
+    margin: 0;
+    position: absolute;
+    bottom: 0;
+}
+
+#container > div > div > div.item2-header.grid-headers > h3{
+    margin: 12px 18px;
 }
