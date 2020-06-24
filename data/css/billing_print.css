@@ -45,7 +45,6 @@
 .report tbody {
     border-collapse: collapse;
 }
-
 .report td.num{
     text-align: center;
 }
@@ -116,9 +115,6 @@ input, label{
     font-family: 'oxygen', serif;
 }
 
-.billing-report-container{
-
-}
 
 .flr{
     float: right;
@@ -137,12 +133,12 @@ input, label{
     display: inline-grid;
     /*display: grid;*/
     grid-template-areas:
-    '. start end get pdf printJS'
+    'start start end get pdf printJS'
     'report report report report report report';
-    grid-gap: 10px;
     /*background-color: #2196F3;*/
     padding: 20px;
-    width: 100%;
+    grid-gap: 10px;
+    width: 97%;
     grid-template-columns: 1fr fit-content(100%) fit-content(100%) fit-content(100%) fit-content(100%);
 }
 
