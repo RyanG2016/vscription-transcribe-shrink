@@ -60,6 +60,7 @@
     font-size: 12px;
     border-collapse: collapse;
     /*padding: 5px;*/
+    width: 100%;
 }
 
 .report table {
@@ -93,11 +94,12 @@
 }
 
 .report td.right{
-    text-align: right;
+    text-align: left;
 }
 
 .jobnum {
     width: 100px;
+    text-align: left;
 }
 
 .author {
@@ -115,15 +117,19 @@
 }
 .audiolength {
     width: 75px;
-    padding: 10px;
 }
 .transdate {
     width: 125px;
+    text-align: left;
 }
 .comments {
     width: 350px;
+    text-align: left;
 }
 
+.report > thead > tr > th{
+    padding: 10px;
+}
 .report > thead > tr > th:first-child{
     /*border: 2px dashed red;*/
     border-radius: 15px 0 0 0;
@@ -159,4 +165,40 @@ input, label{
 
 .flr{
     float: right;
+}
+
+
+/* Grid */
+
+.start-date-item { grid-area: start; }
+.end-date-item { grid-area: end; }
+.retrieve-item { grid-area: get; }
+.pdf-item { grid-area: pdf; }
+.report-grid {grid-area: report;}
+.grid-wrapper {
+    display: inline-grid;
+    /*display: grid;*/
+    grid-template-areas:
+    '. start end get pdf'
+    'report report report report report';
+    grid-gap: 10px;
+    /*background-color: #2196F3;*/
+    padding: 20px;
+    width: 100%;
+    grid-template-columns: 1fr fit-content(100%) fit-content(100%) fit-content(100%) fit-content(100%);
+}
+
+
+.grid-wrapper > div {
+    text-align: left;
+    /*background-color: rgba(30, 121, 190, 0.2);*/
+}
+
+.bold{
+    font-weight: bold;
+}
+
+.tools-button{
+    position: relative;
+    top: calc(100% - 36px);
 }

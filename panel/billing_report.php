@@ -96,42 +96,29 @@ if ($_SESSION['role'] != "1") {
         </table>
 
         <div class="grid-wrapper">
-
-            <table class="grid-wrapper-tbl">
-                <tr class="pad15">
-                    <td class="toolbar">Sidebar</td>
-                    <td class="flr">
-                        <table>
-                            <tr>
-                                <td>
-                                    <label for="startDate">Start Date</label><input id="startDate" type="text" contenteditable="false"/>
-                                </td>
-                                <td>
-                                    <label for="endDate">End Date</label><input id="endDate" type="text" contenteditable="false"/>
-                                </td>
-                                <td  style="vertical-align: bottom">
-                                    <button class="mdc-button mdc-button--raised tools-button" id="getReport">
-                                        <div class="mdc-button__ripple"></div>
-                                        <i class="material-icons mdc-button__icon" aria-hidden="true">text_fields</i>
-                                        <span class="mdc-button__label">Retrieve Report</span>
-                                    </button>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-                <tr class="pad15">
-                    <td style="vertical-align: top">
-                        <button class="mdc-button mdc-button--raised tools-button" id="getPDF">
-                            <div class="mdc-button__ripple"></div>
-                            <i class="material-icons mdc-button__icon" aria-hidden="true">picture_as_pdf</i>
-                            <span class="mdc-button__label">PDF</span>
-                        </button>
-                    </td>
-                    <td class="flr"><div class="billing-report-container"></div></td>
-                </tr>
-            </table>
-
+            <div class="start-date-item">
+                <label for="startDate">Start Date</label><input id="startDate" type="text" contenteditable="false"/>
+            </div>
+            <div class="end-date-item">
+                <label for="endDate">End Date</label><input id="endDate" type="text" contenteditable="false"/>
+            </div>
+            <div class="retrieve-item">
+                <button class="mdc-button mdc-button--raised tools-button" id="getReport">
+                    <div class="mdc-button__ripple"></div>
+                    <i class="material-icons mdc-button__icon" aria-hidden="true">text_fields</i>
+                    <span class="mdc-button__label">Retrieve Report</span>
+                </button>
+            </div>
+            <div class="pdf-item">
+                <button class="mdc-button mdc-button--raised tools-button" id="getPDF">
+                    <div class="mdc-button__ripple"></div>
+                    <i class="material-icons mdc-button__icon" aria-hidden="true">picture_as_pdf</i>
+                    <span class="mdc-button__label">PDF</span>
+                </button>
+            </div>
+            <div class="report-grid billing-report-container">
+<!--                <div class="billing-report-container"></div>-->
+            </div>
         </div>
 
 

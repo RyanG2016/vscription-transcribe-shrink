@@ -1706,7 +1706,7 @@ if(isset($_REQUEST["reqcode"])){
 						$rptGenDate = date("Y-m-d H:i:s");
                         $htmltablefoot = "</tbody></table>";
                         $htmlfoot1 =  "<p><b>Total Jobs:</b> $num_rows &nbsp; &nbsp; &nbsp;";
-                        $htmlfoot2 = "<b>Total Length (hh:mm:ss):</b> $minsTotal</br></br>Report Date from $rptStartDate to $rptEndDate</br>Report generated on: $rptGenDate</p>";
+                        $htmlfoot2 = "<b>Total Length (hh:mm:ss):</b> $minsTotal</br></br><b>Report Date:</b> $rptStartDate to $rptEndDate</br><b>Report generated on:</b> $rptGenDate</p>";
                         $data = html_entity_decode($htmlhead . $html . $htmltablefoot . $htmlfoot1 . $htmlfoot2);
                     }
                     else {
