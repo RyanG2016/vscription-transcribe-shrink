@@ -6,6 +6,12 @@
     include('data/parts/config.php');
     include('data/parts/common_functions.php');
 
+    if(!isset($_GET['down']))
+    {
+        header("Location: index.php");
+        exit();
+    }
+
     $hash = $_GET['down'];
 
 
