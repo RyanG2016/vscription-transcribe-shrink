@@ -1682,12 +1682,11 @@ if(isset($_REQUEST["reqcode"])){
                     if(mysqli_num_rows($result) > 0){
                         $num_rows = mysqli_num_rows($result);
 
-                        $htmlhead = "<table class='report'><thead><tr id='header'><th class='fID'>ID</th><th class='jobnum'>Job Number</th><th class='author'>Author</th><th class='jobtype'>Job Type</th><th class='datedict'>Date Dictated</th><th class='audiolength'>Audio Length</th><th class='transdate'>Transcribed Date</th><th class='comments'>Comments</td></th></tr></thead><tbody>";
+                        $htmlhead = "<table class='report'><thead><tr id='header'><th class='jobnum'>Job Number</th><th class='author'>Author</th><th class='jobtype'>Job Type</th><th class='datedict'>Date Dictated</th><th class='audiolength'>Audio Length</th><th class='transdate'>Transcribed Date</th><th class='comments'>Comments</td></th></tr></thead><tbody>";
 
                         while($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
                         {
-                            $html .= "<tr id='".$row['file_id']."'>" .
-                                "<td>" . $row['file_id']. "</td>" .
+                            $html .= 
                                 "<td>" . $row['job_id']. "</td>" .
                                 "<td class='left'>" . $row['file_author']. "</td>" .
                                 "<td class='left'>" . $row['file_work_type']. "</td>" .
