@@ -82,7 +82,7 @@ if ($_SESSION['role'] != "1") {
             <tr class="spacer"></tr>
             <tr style="margin-top: 50px">
                 <td class="title" align="left" width="450px">
-                    <legend class="page-title"><i class="fas fa-file-invoice-dollar"></i> Typist Billing Reports</legend>
+                    <legend class="page-title"><i class="fas fa-file-invoice"></i> Typist Billing Reports</legend>
                 </td>
                 <!--<td align="right" rowspan="2" id="fix-td">
 
