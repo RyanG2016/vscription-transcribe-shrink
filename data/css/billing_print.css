@@ -133,7 +133,7 @@ input, label{
     display: inline-grid;
     /*display: grid;*/
     grid-template-areas:
-    'start start end get pdf printJS'
+    '. start end get pdf printJS'
     'report report report report report report';
     /*background-color: #2196F3;*/
     padding: 20px;
