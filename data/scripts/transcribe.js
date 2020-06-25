@@ -666,10 +666,6 @@ function completePlayer() {
     $(".pop").css("display", "none");
     clearTempAudio(tempAudioFileName);
 
-    try {
-        vScriptCallback("AudioComplete", g_fileName); //For vScription Application to move file to complete folder
-    } catch (err) {}
-
     AblePlayerInstances[0].seekTo(0);
     AblePlayerInstances[0].media.pause();
 
@@ -698,9 +694,6 @@ function hideShowForm() {
 
         //$('fieldset').slideUp();
         $('fieldset').slideUp(400, function () {
-            setTimeout(function () {
-                vScriptCallback("hide", document.getElementsByClassName('form-style-5').item(0).offsetHeight, document.getElementsByClassName('form-style-5').item(0).offsetWidth);
-            }, 1200);
             $('.form-style-5').css('min-width', '500px');
             $('.form-style-5').css('width', '500px');
             //$('.form-style-5').css('max-width','500px');
@@ -725,7 +718,7 @@ function hideShowForm() {
         $("#control a").html('Hide Text Area');
 
         // Need to set timeout as we need to wait for the slideDown method to run before we get the correct values
-        vScriptCallback("show", document.getElementsByClassName('form-style-5').item(0).offsetHeight, document.getElementsByClassName('form-style-5').item(0).offsetWidth);
+        // vScriptCallback("show", document.getElementsByClassName('form-style-5').item(0).offsetHeight, document.getElementsByClassName('form-style-5').item(0).offsetWidth);
     }
 
 }
