@@ -27,3 +27,5 @@ workingTemp/
 /data/scripts/tinymce.js
 /data/scripts/transcribe.js
 /data/scripts/joblistscripts.js
+/data/scripts/billing_report.js
+/data/scripts/typist_report.js
