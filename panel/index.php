@@ -1,5 +1,19 @@
 <?php
-include('../data/parts/head.php');
+//include('../data/parts/head.php');
+
+include('../data/parts/session_settings.php');
+
+require('../data/parts/ping.php');
+
+if(!isset($_SESSION['loggedIn']))
+{
+    header('location:../logout.php');
+    exit();
+}
+if(isset($_SESSION['counter']))
+{
+    unset($_SESSION['counter']);
+}
 
 // admin panel main
 
@@ -19,14 +33,13 @@ if ($_SESSION['role'] != "1") {
     <title>vScription Admin Panel</title>
     <link rel="shortcut icon" type="image/png" href="../data/images/favicon.png"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="../data/scripts/admin_tools.min.js"></script>
     <link href="../data/libs/node_modules/material-components-web/dist/material-components-web.css" rel="stylesheet">
     <link href="../data/css/admin_panel.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="../data/libs/node_modules/material-components-web/dist/material-components-web.js"></script>
     <script src="../data/libs/node_modules/@material/textfield/dist/mdc.textfield.js"></script>
     <script src="../data/libs/node_modules/@material/linear-progress/dist/mdc.linearProgress.js"></script>
-    <link href='../data/fontawesome/css/all.css' type='text/css' rel='stylesheet'/>
+    <script src="https://kit.fontawesome.com/00895b9561.js" crossorigin="anonymous"></script>
 
 </head>
 
@@ -83,15 +96,46 @@ if ($_SESSION['role'] != "1") {
                 </span>
             </label>-->
 
-            <h2>Quick Tools</h2>
+            <table>
+                <tr>
+                    <td>
+                        <h2>Quick Tools</h2>
+                    </td>
+                    <td>
+                        Other contents
+                    </td>
+                </tr>
+                <tr>
+                    <td>
 
-            <button class="mdc-button mdc-button--raised tools-button" onclick="location.href='admin_tools.php'">
-                <div class="mdc-button__ripple"></div>
-                <i class="material-icons mdc-button__icon" aria-hidden="true"
-                >vpn_key</i
-                >
-                <span class="mdc-button__label">Admin Tools</span>
-            </button>
+                        <button class="mdc-button mdc-button--raised tools-button" onclick="location.href='admin_tools.php'">
+                            <div class="mdc-button__ripple"></div>
+                            <i class="material-icons mdc-button__icon" aria-hidden="true"
+                            >vpn_key</i
+                            >
+                            <span class="mdc-button__label">Admin Tools</span>
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="mdc-button mdc-button--raised tools-button" onclick="location.href='billing_report.php'">
+                            <div class="mdc-button__ripple"></div>
+                            <i class="material-icons mdc-button__icon" aria-hidden="true">attach_money</i>
+                            <span class="mdc-button__label">Billing Reports</span>
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="mdc-button mdc-button--raised tools-button" onclick="location.href='typist_report.php'">
+                            <div class="mdc-button__ripple"></div>
+                            <i class="material-icons mdc-button__icon" aria-hidden="true">text_fields</i>
+                            <span class="mdc-button__label">Typist Reports</span>
+                        </button>
+                    </td>
+                </tr>
+            </table>
 
         </div>
 

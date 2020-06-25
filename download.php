@@ -6,6 +6,12 @@
     include('data/parts/config.php');
     include('data/parts/common_functions.php');
 
+    if(!isset($_GET['down']))
+    {
+        header("Location: index.php");
+        exit();
+    }
+
     $hash = $_GET['down'];
 
 
@@ -39,13 +45,14 @@
 
                 }else{
                     /** PERMISSION DENIED ACCOUNT ID DOESN'T MATCH */
-                    //todo
+                    header("Location: accessdenied.php");
                 }
 
 
 
             } else {
-                // TODO PERMISSION DENIED OR LINK EXPIRED
+                /** PERMISSION DENIED ACCOUNT ID DOESN'T MATCH */
+                header("Location: accessdenied.php");
                 return false;
 
             }

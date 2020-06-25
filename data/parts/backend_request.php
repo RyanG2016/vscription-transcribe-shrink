@@ -1604,7 +1604,7 @@ if(isset($_REQUEST["reqcode"])){
 					}
 					else {
 						// If there are no records in the DB for this account
-		
+
 						echo "No recipients are configured to received these notifications";
 					}
 				}
@@ -1645,7 +1645,211 @@ if(isset($_REQUEST["reqcode"])){
 				insertAuditLogEntry($con, $b);
 					break;
 	
-					
+
+        // Cases starting from 200 related to reports
+		case 200:
+        confirmAdminPermission();
+			
+		$rptStartDate = $a['startDate'];
+		$rptEndDate = $a['endDate'];
+        $sql="SELECT 
+       file_id,
+		job_id, 
+		file_author, 
+		file_work_type, 
+		file_date_dict, 
+		audio_length, 
+		file_transcribed_date,
+		file_comment
+    FROM 
+		files
+	WHERE 
+		file_status  = '3' AND 
+		isBillable = '1' AND
+		billed = '0' AND 
+        acc_id = '1' AND
+        file_transcribed_date BETWEEN ? AND ?";
+
+
+            if($stmt = mysqli_prepare($con, $sql))
+            {
+                mysqli_stmt_bind_param($stmt, "ss", $a['startDate'], $a['endDate']);
+                if(mysqli_stmt_execute($stmt)){
+                    $result = mysqli_stmt_get_result($stmt);
+					$secsTotal = 0;
+					$minsTotal = 0;
+					$html = "";
+
+                    if(mysqli_num_rows($result) > 0){
+                        $num_rows = mysqli_num_rows($result);
+
+                        $htmlHeader = "<h3>Billing Report Date: $rptStartDate to $rptEndDate </h3>";
+
+                        $htmlTblHead = "<table class='report'><thead><tr id='header'><th class='jobnum'>Job Number</th><th class='author'>Author</th><th class='jobtype'>Job Type</th><th class='datedict'>Date Dictated</th><th class='audiolength'>Audio Length</th><th class='transdate'>Transcribed Date</th><th class='comments'>Comments</td></th></tr></thead><tbody>";
+
+                        while($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
+                        {
+                            $html .=
+                                "<td>" . $row['job_id']. "</td>" .
+                                "<td class='left'>" . $row['file_author']. "</td>" .
+                                "<td class='left'>" . $row['file_work_type']. "</td>" .
+                                "<td class='num'>" . $row['file_date_dict']. "</td>" .
+                                "<td class='num'>" . $row['audio_length']. "</td>" .
+								"<td class='right'>" . $row['file_transcribed_date'] . "</td>" .
+                                "<td class='right'>" . $row['file_comment'] . "</td>" .
+                                "</tr>";
+
+                            $secsTotal+=$row['audio_length'];
+                        }
+                        // And now the totals:
+						//$htmlfoot = "</tbody><tfoot><tr>Total Minutes:". $minsTotal . "</tr></tfoot></table>";
+						//Convert seconds to minutes for report
+						$seconds = round($secsTotal);
+						$minsTotal = sprintf('%02d:%02d:%02d', ($seconds/ 3600),($seconds/ 60 % 60), $seconds% 60);
+						$rptGenDate = date("Y-m-d H:i:s");
+                        $htmltablefoot = "</tbody></table>";
+                        $htmlfoot1 =  "<p><b>Report generated on:</b> $rptGenDate  &nbsp; &nbsp; &nbsp;<b>Total Jobs:</b> $num_rows &nbsp; &nbsp; &nbsp;";
+                        $htmlfoot2 = "<b>Total Length (hh:mm:ss):</b> $minsTotal </p>";
+                        $data = html_entity_decode($htmlHeader . $htmlTblHead . $html . $htmltablefoot . $htmlfoot1 . $htmlfoot2);
+                    }
+                    else {
+                        $data = "No Results Found";
+                    }
+                    echo generateResponse($data,false);
+
+                }
+            }
+			break;
+
+			// Typist Billing Report
+			case 201:
+                confirmAdminPermission();
+				$rptStartDate = $a['startDate'];
+				$rptEndDate = $a['endDate'];
+				$typist = $a['typist'];
+				// We dont' want to include account here as even if they work for multiple accounts they still get paid the same
+				//We can get more granular on reports if necessary
+				$sql="SELECT 
+			   	file_id,
+				job_id, 
+				file_author, 
+				file_work_type, 
+				file_date_dict, 
+				audio_length, 
+				file_transcribed_date,
+				acc_id,
+				file_comment
+			FROM 
+				files
+			WHERE 
+				file_status  = '3' AND 
+				isBillable = '1' AND
+				billed = '0' AND 
+				job_transcribed_by = ? AND
+				file_transcribed_date BETWEEN ? AND ?";
+		
+		
+					if($stmt = mysqli_prepare($con, $sql))
+					{
+						mysqli_stmt_bind_param($stmt, "sss", $a['typist'],$a['startDate'], $a['endDate']);
+						if(mysqli_stmt_execute($stmt)){
+							$result = mysqli_stmt_get_result($stmt);
+							$secsTotal = 0;
+							$minsTotal = 0;
+							$html = "";
+		
+							if(mysqli_num_rows($result) > 0){
+								$num_rows = mysqli_num_rows($result);
+		
+								$htmlHeader = "<h3>Billing Report Date: $rptStartDate to $rptEndDate for $typist</h3>";
+		
+								$htmlTblHead = "<table class='report'><thead><tr id='header'><th class='jobnum'>Job Number</th><th class='author'>Author</th><th class='jobtype'>Job Type</th><th class='datedict'>Date Dictated</th><th class='audiolength'>Audio Length</th><th class='transdate'>Transcribed Date</th><th class='typ_account'>Account</th><th class='comments'>Comments</td></th></tr></thead><tbody>";
+		
+								while($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
+								{
+									$html .= 
+										"<td>" . $row['job_id']. "</td>" .
+										"<td class='left'>" . $row['file_author']. "</td>" .
+										"<td class='left'>" . $row['file_work_type']. "</td>" .
+										"<td class='num'>" . $row['file_date_dict']. "</td>" .
+										"<td class='num'>" . $row['audio_length']. "</td>" .
+										"<td class='right'>" . $row['file_transcribed_date'] . "</td>" .
+										"<td class='right'>" . $row['acc_id'] . "</td>" .										
+										"<td class='right'>" . $row['file_comment'] . "</td>" .								
+										"</tr>";
+		
+									$secsTotal+=$row['audio_length'];
+								}
+								// And now the totals:
+								//$htmlfoot = "</tbody><tfoot><tr>Total Minutes:". $minsTotal . "</tr></tfoot></table>";
+								//Convert seconds to minutes for report
+								$seconds = round($secsTotal);
+								$minsTotal = sprintf('%02d:%02d:%02d', ($seconds/ 3600),($seconds/ 60 % 60), $seconds% 60);
+								$rptGenDate = date("Y-m-d H:i:s");
+								$htmltablefoot = "</tbody></table>";
+								$htmlfoot1 =  "<p><b>Report generated on:</b> $rptGenDate  &nbsp; &nbsp; &nbsp;<b>Total Jobs:</b> $num_rows &nbsp; &nbsp; &nbsp;";
+								$htmlfoot2 = "<b>Total Length (hh:mm:ss):</b> $minsTotal </p>";
+								$data = html_entity_decode($htmlHeader . $htmlTblHead . $html . $htmltablefoot . $htmlfoot1 . $htmlfoot2);
+							}
+							else {
+								$data = "No Results Found";
+							}
+							echo generateResponse($data,false);
+
+						}
+					}
+					break;
+
+        // get all available typist names for typist_billing selector
+        case 202:
+             confirmAdminPermission();
+            $sql="SELECT 
+                   email,
+                    first_name,
+                    last_name
+                FROM 
+                    users
+                WHERE 
+                    plan_id  = 3";
+
+            //<label for="typist">Typist</label>
+
+            //<select id="typist" class="typist-select">
+            //
+            //  <option value="ryangaudet@me.com">Ryan G</option>
+            //  <option value="bonnielhudacek@gmail.com">Bonnie H</option>
+            //
+            //</select>
+
+            if($stmt = mysqli_prepare($con, $sql))
+            {
+                if(mysqli_stmt_execute($stmt)){
+                    $result = mysqli_stmt_get_result($stmt);
+                    $html = "<label for=\"typist\">Typist</label><select id=\"typist\" class=\"typist-select\">";
+                    if(mysqli_num_rows($result) > 0){
+                        $num_rows = mysqli_num_rows($result);
+                        while($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
+                        {
+                            $html .=
+                                "<option value=\"".$row['email']."\">".
+                                $row['first_name'] . " " . $row['last_name'] .
+                                "</option>";
+                        }
+                        $html .= "</select>";
+                        echo generateResponse($html,false, false);
+                    }
+                    else {
+                            // "No Results Found"
+                        $html .= "<option value=\"0\">".
+                        "No Typists Found".
+                        "</option>";
+                        $html .= "</select>";
+                        echo generateResponse($html,false, true);
+                    }
+                }
+            }
+
+            break;
 			
 	} //switch end
 
@@ -2065,3 +2269,20 @@ function generateEmailNotifications($sqlcon, $mailtype)
 	}
 	//$_SESSION['email'];
 }
+
+function confirmAdminPermission()
+{
+    if($_SESSION['role'] != 1){
+        exit();
+    }else{
+        return true;
+    }
+}
+
+////////////////////////////////////////
+//           Index of                 //
+//           Req Codes                //
+//------------------------------------//
+// 200 -> Get Billing Reports
+// 201 -> Get Typist  Reports
+// 202 -> Get Typists names for 201

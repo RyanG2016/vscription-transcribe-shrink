@@ -59,10 +59,11 @@ function encodeStr($str) // encodes string entities as (') to show correctly in 
     return htmlentities($str, ENT_QUOTES);
 }
 
-function generateResponse($data, $error)
+function generateResponse($data, $error, $empty=false)
 {
     $a = Array(
         'data' => $data,
+        'no_result' => $empty,
         'error' => $error
     );
     return json_encode($a);

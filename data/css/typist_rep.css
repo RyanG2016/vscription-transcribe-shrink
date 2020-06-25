@@ -1,4 +1,11 @@
 @import "parts/card_view.css";
+@import "parts/spinner.css";
+
+/*-----------------------*/
+/* billing table styling */
+/*-----------------------*/
+
+@import "typist_print.css";
 
 /* -----------------*/
 /* --BUTTON STYLING --*/
@@ -38,4 +45,12 @@
 /*-----------------------*/
 #navbtn{
     font-size: 0.9em;
+}
+
+.typist-select{
+    height: 23px;
+}
+
+.typist{
+    margin: auto;
 }

@@ -1,0 +1,159 @@
+/*-----------------------*/
+/* billing table styling */
+/*-----------------------*/
+
+.report .header .head-right img {
+    width: 350px;
+    height: auto;
+}
+
+.report .header .head-left h2 {
+    font-family: 'oxygen', serif;
+}
+
+.report {
+    /*border: 1px solid;*/
+    font-family: 'oxygen', serif;
+    font-size: 12px;
+    border-collapse: collapse;
+    /*padding: 5px;*/
+    width: 100%;
+}
+
+.report table {
+    width: 70%;
+    margin-left: 15%;
+    margin-right: 15%;
+    border-collapse: collapse;
+}
+
+.report thead tr {
+    margin: 5px;
+    background-color: #1e79be;
+    color: white;
+    border-collapse: collapse;
+}
+
+.report > tbody > tr:last-child{
+    border-bottom: 3px dashed #1e79be;
+}
+
+.report > tbody > tr > td{
+    padding: 10px;
+}
+
+.report tbody {
+    border-collapse: collapse;
+}
+.report td.num{
+    text-align: center;
+}
+
+.report td.right{
+    text-align: left;
+}
+
+.jobnum {
+    width: 100px;
+    text-align: left;
+}
+
+.author {
+    width: 200px;
+    overflow-x: hidden;
+    text-align: left;
+}
+
+.jobtype {
+    width: 125px;
+    text-align: left;
+}
+.datedict {
+    width: 100px;
+}
+.audiolength {
+    width: 75px;
+}
+.transdate {
+    width: 125px;
+    text-align: left;
+}
+.comments {
+    width: 350px;
+    text-align: left;
+}
+
+.report > thead > tr > th{
+    padding: 10px;
+}
+.report > thead > tr > th:first-child{
+    /*border: 2px dashed red;*/
+    border-radius: 15px 0 0 0;
+}
+.report > thead > tr > th.comments{
+    border-radius: 0 15px 0 0;
+}
+
+.report tr:not(#header):hover{
+    background: rgba(30, 121, 190, 0.1);
+}
+
+p {
+    font-family: 'oxygen', serif;
+    font-size: 12px;
+}
+
+.pad15 > td{
+    padding: 12px;
+}
+
+.grid-wrapper-tbl{
+    width: 100%;
+}
+
+input, label{
+    font-family: 'oxygen', serif;
+}
+
+
+.flr{
+    float: right;
+}
+
+
+/* Grid */
+
+.start-date-item { grid-area: start; }
+.end-date-item { grid-area: end; }
+.retrieve-item { grid-area: get; }
+.pdf-item { grid-area: pdf; }
+.print-item { grid-area: printJS; }
+.report-grid {grid-area: report;}
+.typist {grid-area: typist;}
+.grid-wrapper {
+    display: inline-grid;
+    /*display: grid;*/
+    grid-template-areas:
+    '. typist start end get pdf printJS'
+    'report report report report report report report';
+    /*background-color: #2196F3;*/
+    padding: 20px;
+    grid-gap: 10px;
+    width: 97%;
+    grid-template-columns: 1fr fit-content(100%) fit-content(100%) fit-content(100%) fit-content(100%);
+}
+
+
+.grid-wrapper > div {
+    text-align: left;
+    /*background-color: rgba(30, 121, 190, 0.2);*/
+}
+
+.bold{
+    font-weight: bold;
+}
+
+.tools-button{
+    position: relative;
+    top: calc(100% - 36px);
+}

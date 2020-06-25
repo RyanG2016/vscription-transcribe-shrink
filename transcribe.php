@@ -34,7 +34,7 @@ include_once("gaTrackingCode.php");
 
 	<link href='data/css/transcribe.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet' />
 
-	<link href='data/fontawesome/css/all.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet' />
+    <script src="https://kit.fontawesome.com/00895b9561.js" crossorigin="anonymous"></script>
 	<link href='ableplayer/styles/ableplayer.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet' />
 
 <!--	<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">-->
@@ -198,6 +198,7 @@ include_once("gaTrackingCode.php");
 						</td>
 						<td id="help-td" align="right" width="225px">
 
+                            <u id="pop" class="pop">Pop-Up</u>
                             <span class="top-links">
 							<a  href="logout.php">
 								<i class="fas fa-sign-out-alt"></i>
@@ -284,7 +285,7 @@ include_once("gaTrackingCode.php");
 							<td id="nr">
 								<span class="top-links" id="help">
 									<a href="https://vscription.helpdocsonline.com/home" target="_blank" title="">Need help</a>
-									<i class="fal fa-question-circle fa-sm"></i>
+									<i class="far fa-question-circle"></i>
 								</span>
 							</td>
 
@@ -384,9 +385,7 @@ include_once("gaTrackingCode.php");
             <div style="text-align: right">
                 <button class="mdc-button mdc-button--unelevated confirm-button" id="loadingConfirm">
                     <div class="mdc-button__ripple"></div>
-                    <i class="material-icons mdc-button__icon" aria-hidden="true"
-                    >done_all</i
-                    >
+                    <i class="material-icons mdc-button__icon" aria-hidden="true">done_all</i>
                     <span class="mdc-button__label">OK</span>
                 </button>
             </div>
@@ -394,6 +393,11 @@ include_once("gaTrackingCode.php");
 
     </div>
 
+<form id="modalPlayerForm" method="post" action="popup.php" target="modalPlayer">
+    <input type="hidden" name="src" />
+    <input type="hidden" name="seek" />
+<!--    <input type="hidden" name="more" value="something" />-->
+</form>
 
 </body>
 
