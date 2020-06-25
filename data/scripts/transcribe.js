@@ -637,8 +637,25 @@ $(document).ready(function () {
         hideShowForm();
     });
 
+    $("#pop").click(function () {
+        let currentMediaSrc = AblePlayerInstances[0].media.src;
+        let seek = AblePlayerInstances[0].seekBar.position;
+        openWindowWithPost(currentMediaSrc, seek);
+        // document.getElementById('modalPlayerForm').submit();
+    });
+
 
 });
+
+// function openWindowWithPost(something, additional, misc) {
+function openWindowWithPost(src, seek) {
+    AblePlayerInstances[0].pauseMedia();
+    var f = document.getElementById('modalPlayerForm');
+    f.src.value = src;
+    f.seek.value = seek;
+    window.open("", "modalPlayer", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=500,height=135");
+    f.submit();
+}
 
 function completePlayer() {
     var $loadBtn = $('#loadBtn');
@@ -646,6 +663,7 @@ function completePlayer() {
     //Delete Temp Audio File
     var fullAudioSrc = AblePlayerInstances[0].media.src;
     var tempAudioFileName = fullAudioSrc.split("/").pop();
+    $(".pop").css("display", "none");
     clearTempAudio(tempAudioFileName);
 
     try {
@@ -831,6 +849,8 @@ function loadIntoPlayer(data) {
             AblePlayerInstances[0].seekTo(jobDetails.last_audio_position - rewindAmountOnPause);
             // AblePlayerInstances[0].media.load();
         }
+
+        $(".pop").css("display", "inline");
     }
 
     AblePlayerInstances[0].onMediaPause = function () {

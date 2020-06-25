@@ -198,6 +198,7 @@ include_once("gaTrackingCode.php");
 						</td>
 						<td id="help-td" align="right" width="225px">
 
+                            <u id="pop" class="pop">Pop-Up</u>
                             <span class="top-links">
 							<a  href="logout.php">
 								<i class="fas fa-sign-out-alt"></i>
@@ -384,9 +385,7 @@ include_once("gaTrackingCode.php");
             <div style="text-align: right">
                 <button class="mdc-button mdc-button--unelevated confirm-button" id="loadingConfirm">
                     <div class="mdc-button__ripple"></div>
-                    <i class="material-icons mdc-button__icon" aria-hidden="true"
-                    >done_all</i
-                    >
+                    <i class="material-icons mdc-button__icon" aria-hidden="true">done_all</i>
                     <span class="mdc-button__label">OK</span>
                 </button>
             </div>
@@ -394,6 +393,11 @@ include_once("gaTrackingCode.php");
 
     </div>
 
+<form id="modalPlayerForm" method="post" action="popup.php" target="modalPlayer">
+    <input type="hidden" name="src" />
+    <input type="hidden" name="seek" />
+<!--    <input type="hidden" name="more" value="something" />-->
+</form>
 
 </body>
 

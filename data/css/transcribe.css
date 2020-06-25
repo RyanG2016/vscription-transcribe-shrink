@@ -600,3 +600,9 @@ table, th, td {
 u{
     cursor: pointer;
 }
+
+.pop{
+    cursor: pointer;
+    display: none;
+    color: #2dace1;
+}
