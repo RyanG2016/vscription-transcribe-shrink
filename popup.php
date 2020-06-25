@@ -1,3 +1,13 @@
+<?php
+
+if(!isset($_POST) || !isset($_POST['src']))
+{
+    header("location: index.php");
+    exit();
+}
+
+?>
+
 <html>
 
 <head>
