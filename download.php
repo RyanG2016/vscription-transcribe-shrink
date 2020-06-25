@@ -45,13 +45,14 @@
 
                 }else{
                     /** PERMISSION DENIED ACCOUNT ID DOESN'T MATCH */
-                    //todo
+                    header("Location: accessdenied.php");
                 }
 
 
 
             } else {
-                // TODO PERMISSION DENIED OR LINK EXPIRED
+                /** PERMISSION DENIED ACCOUNT ID DOESN'T MATCH */
+                header("Location: accessdenied.php");
                 return false;
 
             }
