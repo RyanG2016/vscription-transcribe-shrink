@@ -284,7 +284,7 @@ include_once("gaTrackingCode.php");
 							<td id="nr">
 								<span class="top-links" id="help">
 									<a href="https://vscription.helpdocsonline.com/home" target="_blank" title="">Need help</a>
-									<i class="fal fa-question-circle fa-sm"></i>
+									<i class="far fa-question-circle"></i>
 								</span>
 							</td>
 
