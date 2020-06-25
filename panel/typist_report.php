@@ -39,12 +39,11 @@ if ($_SESSION['role'] != "1") {
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <link href="../data/libs/node_modules/material-components-web/dist/material-components-web.css" rel="stylesheet">
-    <link href="../data/css/billing_rep.css" rel="stylesheet">
+    <link href="../data/css/typist_rep.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="../data/libs/node_modules/material-components-web/dist/material-components-web.js"></script>
     <script src="../data/libs/node_modules/@material/textfield/dist/mdc.textfield.js"></script>
     <script src="../data/libs/node_modules/@material/linear-progress/dist/mdc.linearProgress.js"></script>
-<!--    <script src="https://kit.fontawesome.com/00895b9561.js" crossorigin="anonymous"></script>-->
     <script src="../data/scripts/typist_report.js"></script>
     <script src="/data/thirdparty/scripts/html2pdf.bundle.min.js"></script>
     <link href="https://printjs-4de6.kxcdn.com/print.min.css" rel="stylesheet">
@@ -98,8 +97,8 @@ if ($_SESSION['role'] != "1") {
         </table>
 
         <div class="grid-wrapper">
-            <div class="typist">
-                <label for="typist">Typist</label><select id="typist"><option value="ryangaudet@me.com">Ryan G</option><option value="bonnielhudacek@gmail.com">Bonnie H</option></select>
+            <div class="typist" id="typistContainer">
+<!--                <label for="typist">Typist</label><select id="typist" class="typist-select"><option value="ryangaudet@me.com">Ryan G</option><option value="bonnielhudacek@gmail.com">Bonnie H</option></select>-->
             </div>
             <div class="start-date-item">
                 <label for="startDate">Start Date</label><input id="startDate" type="text" contenteditable="false"/>
@@ -108,7 +107,7 @@ if ($_SESSION['role'] != "1") {
                 <label for="endDate">End Date</label><input id="endDate" type="text" contenteditable="false"/>
             </div>
             <div class="retrieve-item">
-                <button class="mdc-button mdc-button--unelevated tools-button" id="getReport">
+                <button class="mdc-button mdc-button--unelevated tools-button" id="getReport" disabled>
                     <div class="mdc-button__ripple"></div>
                     <i class="material-icons mdc-button__icon" aria-hidden="true">text_fields</i>
                     <span class="mdc-button__label">Retrieve Report</span>

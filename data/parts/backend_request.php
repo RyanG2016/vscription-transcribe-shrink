@@ -1648,6 +1648,7 @@ if(isset($_REQUEST["reqcode"])){
 
         // Cases starting from 200 related to reports
 		case 200:
+        confirmAdminPermission();
 			
 		$rptStartDate = $a['startDate'];
 		$rptEndDate = $a['endDate'];
@@ -1688,14 +1689,14 @@ if(isset($_REQUEST["reqcode"])){
 
                         while($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
                         {
-                            $html .= 
+                            $html .=
                                 "<td>" . $row['job_id']. "</td>" .
                                 "<td class='left'>" . $row['file_author']. "</td>" .
                                 "<td class='left'>" . $row['file_work_type']. "</td>" .
                                 "<td class='num'>" . $row['file_date_dict']. "</td>" .
                                 "<td class='num'>" . $row['audio_length']. "</td>" .
 								"<td class='right'>" . $row['file_transcribed_date'] . "</td>" .
-                                "<td class='right'>" . $row['file_comment'] . "</td>" .								
+                                "<td class='right'>" . $row['file_comment'] . "</td>" .
                                 "</tr>";
 
                             $secsTotal+=$row['audio_length'];
@@ -1722,7 +1723,7 @@ if(isset($_REQUEST["reqcode"])){
 
 			// Typist Billing Report
 			case 201:
-			
+                confirmAdminPermission();
 				$rptStartDate = $a['startDate'];
 				$rptEndDate = $a['endDate'];
 				$typist = $a['typist'];
@@ -1794,10 +1795,61 @@ if(isset($_REQUEST["reqcode"])){
 								$data = "No Results Found";
 							}
 							echo generateResponse($data,false);
-		
+
 						}
 					}
-					break;			
+					break;
+
+        // get all available typist names for typist_billing selector
+        case 202:
+             confirmAdminPermission();
+            $sql="SELECT 
+                   email,
+                    first_name,
+                    last_name
+                FROM 
+                    users
+                WHERE 
+                    plan_id  = 3";
+
+            //<label for="typist">Typist</label>
+
+            //<select id="typist" class="typist-select">
+            //
+            //  <option value="ryangaudet@me.com">Ryan G</option>
+            //  <option value="bonnielhudacek@gmail.com">Bonnie H</option>
+            //
+            //</select>
+
+            if($stmt = mysqli_prepare($con, $sql))
+            {
+                if(mysqli_stmt_execute($stmt)){
+                    $result = mysqli_stmt_get_result($stmt);
+                    $html = "<label for=\"typist\">Typist</label><select id=\"typist\" class=\"typist-select\">";
+                    if(mysqli_num_rows($result) > 0){
+                        $num_rows = mysqli_num_rows($result);
+                        while($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
+                        {
+                            $html .=
+                                "<option value=\"".$row['email']."\">".
+                                $row['first_name'] . " " . $row['last_name'] .
+                                "</option>";
+                        }
+                        $html .= "</select>";
+                        echo generateResponse($html,false, false);
+                    }
+                    else {
+                            // "No Results Found"
+                        $html .= "<option value=\"0\">".
+                        "No Typists Found".
+                        "</option>";
+                        $html .= "</select>";
+                        echo generateResponse($html,false, true);
+                    }
+                }
+            }
+
+            break;
 			
 	} //switch end
 
@@ -2218,9 +2270,19 @@ function generateEmailNotifications($sqlcon, $mailtype)
 	//$_SESSION['email'];
 }
 
+function confirmAdminPermission()
+{
+    if($_SESSION['role'] != 1){
+        exit();
+    }else{
+        return true;
+    }
+}
+
 ////////////////////////////////////////
 //           Index of                 //
 //           Req Codes                //
 //------------------------------------//
 // 200 -> Get Billing Reports
-//
+// 201 -> Get Typist  Reports
+// 202 -> Get Typists names for 201

@@ -14,11 +14,17 @@ $(document).ready(function () {
     let getReport = $( "#getReport" );
     let getPDF = $ ( "#getPDF" );
     let getPrintJS = $ ( "#getPrint" );
+    let typistContainer = $("#typistContainer");
     let typistEl = $ ( "#demo_job_type");
     //let accountEl = $ ("#account");
     let htmlTable = $('.billing-report-container');
     startDate.datepicker({dateFormat: "yy-mm-dd"});
     endDate.datepicker({dateFormat: "yy-mm-dd"});
+
+    typistContainer.html();
+    typistContainer.append(generateLoadingSpinner());
+    // typistContainer.appendChild(generateLoadingSpinner());
+    console.log(generateLoadingSpinner());
     
     startDate.val(today);
     endDate.val(tomorrow);
@@ -84,6 +90,8 @@ $(document).ready(function () {
         });
     });
 
+    getTypistsSelect();
+
 
     function getData(args) {
         $.post("/data/parts/backend_request.php", {
@@ -105,6 +113,51 @@ $(document).ready(function () {
         });
     }
 
+    function getTypistsSelect() {
+        $.post("/data/parts/backend_request.php", {
+            reqcode: 202
+        }).done(function (res) {
+            let response = JSON.parse(res);
+            let data = response.data;
+            let no_result = response.no_result;
+            // let err = response.error;
+            typistContainer.html(data);
 
+            if(no_result){
+                getReport.attr("disabled", "disabled");
+            }
+            else{
+                getReport.removeAttr("disabled");
+            }
+        });
+    }
+    
+    
+    // <label for="typist">Typist</label><select id="typist" class="typist-select"><option value="ryangaudet@me.com">Ryan G</option><option value="bonnielhudacek@gmail.com">Bonnie H</option></select>
+
+    function generateLoadingSpinner() {
+
+        // Generate a loading spinner //
+        //<div class="spinner">
+        //  <div class="bounce1"></div>
+        //  <div class="bounce2"></div>
+        //  <div class="bounce3"></div>
+        //</div>
+
+        const spinnerDiv = document.createElement("div");
+        spinnerDiv.setAttribute("class", "spinner");
+        const bounce1 = document.createElement("div");
+        const bounce2 = document.createElement("div");
+        const bounce3 = document.createElement("div");
+        bounce1.setAttribute("class", 'bounce1');
+        bounce2.setAttribute("class", 'bounce2');
+        bounce3.setAttribute("class", 'bounce3');
+
+        spinnerDiv.appendChild(bounce1);
+        spinnerDiv.appendChild(bounce2);
+        spinnerDiv.appendChild(bounce3);
+
+        return spinnerDiv;
+    }
 
 });
