@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 26, 2020 at 11:30 AM
+-- Generation Time: Jun 26, 2020 at 01:51 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.4.1
 
@@ -486,7 +486,9 @@ CREATE TABLE `files` (
   `file_transcribed_date` timestamp NULL DEFAULT NULL,
   `typist_comments` varchar(254) DEFAULT NULL,
   `isBillable` tinyint(1) NOT NULL DEFAULT '1',
-  `billed` tinyint(1) NOT NULL DEFAULT '0'
+  `billed` tinyint(1) NOT NULL DEFAULT '0',
+  `typ_billed` tinyint(1) NOT NULL DEFAULT '0',
+  `deleted` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
