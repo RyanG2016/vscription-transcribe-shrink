@@ -1721,7 +1721,16 @@ if(isset($_REQUEST["reqcode"])){
                     }
                     echo generateResponse($data,false);
 
-                }
+				}
+				$a = Array(
+					'email' => $_SESSION['uEmail'],
+					'activity' => 'Client Admin Billing Report Run for period '. $a['startDate'] . ' to ' . $a['endDate'],
+					'actPage' => 'billing_report.php',
+					'actIP' => getIP(),
+					'acc_id' => $_SESSION['accID']
+				);
+				$b = json_encode($a);
+				insertAuditLogEntry($con, $b);
             }
 			break;
 
@@ -1805,6 +1814,15 @@ if(isset($_REQUEST["reqcode"])){
 							echo generateResponse($data,false);
 
 						}
+						$a = Array(
+							'email' => $_SESSION['uEmail'],
+							'activity' => 'Typist Billing Report Run for '. $a['typist'] . ' from ' . $a['startDate'] . ' to ' . $a['endDate'],
+							'actPage' => 'typist_billing.php',
+							'actIP' => getIP(),
+							'acc_id' => $_SESSION['accID']
+						);
+						$b = json_encode($a);
+						insertAuditLogEntry($con, $b);
 					}
 					break;
 
