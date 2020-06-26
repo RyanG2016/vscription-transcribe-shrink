@@ -1709,10 +1709,11 @@ if(isset($_REQUEST["reqcode"])){
 						//Convert seconds to minutes for report
 						$seconds = round($secsTotal);
 						$minsTotal = sprintf('%02d:%02d:%02d', ($seconds/ 3600),($seconds/ 60 % 60), $seconds% 60);
+						$totalInMins = round(($seconds / 60),2);
 						$rptGenDate = date("Y-m-d H:i:s");
                         $htmltablefoot = "</tbody></table>";
                         $htmlfoot1 =  "<p><b>Report generated on:</b> $rptGenDate  &nbsp; &nbsp; &nbsp;<b>Total Jobs:</b> $num_rows &nbsp; &nbsp; &nbsp;";
-                        $htmlfoot2 = "<b>Total Length (hh:mm:ss):</b> $minsTotal </p>";
+                        $htmlfoot2 = "<b>Total Length (hh:mm:ss):</b> $minsTotal or $totalInMins minutes</p>";
                         $data = html_entity_decode($htmlHeader . $htmlTblHead . $html . $htmltablefoot . $htmlfoot1 . $htmlfoot2);
                     }
                     else {
@@ -1791,10 +1792,11 @@ if(isset($_REQUEST["reqcode"])){
 								//Convert seconds to minutes for report
 								$seconds = round($secsTotal);
 								$minsTotal = sprintf('%02d:%02d:%02d', ($seconds/ 3600),($seconds/ 60 % 60), $seconds% 60);
+								$totalInMins = round(($seconds / 60),2);
 								$rptGenDate = date("Y-m-d H:i:s");
 								$htmltablefoot = "</tbody></table>";
 								$htmlfoot1 =  "<p><b>Report generated on:</b> $rptGenDate  &nbsp; &nbsp; &nbsp;<b>Total Jobs:</b> $num_rows &nbsp; &nbsp; &nbsp;";
-								$htmlfoot2 = "<b>Total Length (hh:mm:ss):</b> $minsTotal </p>";
+								$htmlfoot2 = "<b>Total Length (hh:mm:ss):</b> $minsTotal or $totalInMins minutes</p>";
 								$data = html_entity_decode($htmlHeader . $htmlTblHead . $html . $htmltablefoot . $htmlfoot1 . $htmlfoot2);
 							}
 							else {
