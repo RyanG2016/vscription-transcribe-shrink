@@ -1668,9 +1668,15 @@ if(isset($_REQUEST["reqcode"])){
 		isBillable = '1' AND
 		billed = '0' AND 
         acc_id = '1' AND
-        file_transcribed_date BETWEEN ? AND ?";
+		file_transcribed_date BETWEEN ? AND ?";
 
-
+			//Hardcoded for now. Need to add selector to client billing page screen if role_type=3 or use logged in user if role_type=2
+		$acc_id = 1; 
+		
+		$billRatesObj = getBillRates($con, $acc_id);
+		$billRates = json_decode($billRatesObj, true);
+		$billRate1 = $billRates['billrate1'];
+		$bill_rate1_type = $billRates['bill_rate1_type'];
             if($stmt = mysqli_prepare($con, $sql))
             {
                 mysqli_stmt_bind_param($stmt, "ss", $a['startDate'], $a['endDate']);
@@ -1711,10 +1717,12 @@ if(isset($_REQUEST["reqcode"])){
 						$minsTotal = sprintf('%02d:%02d:%02d', ($seconds/ 3600),($seconds/ 60 % 60), $seconds% 60);
 						$totalInMins = round(($seconds / 60),2);
 						$rptGenDate = date("Y-m-d H:i:s");
+						$totalBillableAmount = round(($totalInMins * $billRate1),2);
                         $htmltablefoot = "</tbody></table>";
-                        $htmlfoot1 =  "<p><b>Report generated on:</b> $rptGenDate  &nbsp; &nbsp; &nbsp;<b>Total Jobs:</b> $num_rows &nbsp; &nbsp; &nbsp;";
-                        $htmlfoot2 = "<b>Total Length (hh:mm:ss):</b> $minsTotal or $totalInMins minutes</p>";
-                        $data = html_entity_decode($htmlHeader . $htmlTblHead . $html . $htmltablefoot . $htmlfoot1 . $htmlfoot2);
+                        $htmlfoot1 =  "<p><b>Report generated on:</b> $rptGenDate <b></br>Total Jobs:</b> $num_rows</br>";
+						$htmlfoot2 = "<b>Total Length (hh:mm:ss):</b> $minsTotal ($totalInMins minutes) with a rate of $$billRate1/min</br>";
+						$htmlfoot3 = "<b>Total Billable Amount is: $$totalBillableAmount</b></p>";
+                        $data = html_entity_decode($htmlHeader . $htmlTblHead . $html . $htmltablefoot . $htmlfoot1 . $htmlfoot2 . $htmlfoot3);
                     }
                     else {
                         $data = "No Results Found";
@@ -1838,14 +1846,6 @@ if(isset($_REQUEST["reqcode"])){
                 WHERE 
                     plan_id  = 3";
 
-            //<label for="typist">Typist</label>
-
-            //<select id="typist" class="typist-select">
-            //
-            //  <option value="ryangaudet@me.com">Ryan G</option>
-            //  <option value="bonnielhudacek@gmail.com">Bonnie H</option>
-            //
-            //</select>
 
             if($stmt = mysqli_prepare($con, $sql))
             {
@@ -1876,7 +1876,6 @@ if(isset($_REQUEST["reqcode"])){
             }
 
             break;
-			
 	} //switch end
 
 }//if code is set end
@@ -2303,6 +2302,48 @@ function confirmAdminPermission()
     }else{
         return true;
     }
+}
+ 
+function getBillRates($con, $acc_id) {
+
+	$sql="SELECT bill_rate1,bill_rate1_type,bill_rate1_desc,bill_rate2,bill_rate2_type,bill_rate2_TAT,bill_rate2_desc,bill_rate3,bill_rate3_type,bill_rate3_TAT,bill_rate3_desc
+	FROM accounts WHERE acc_id  = 1";
+	if($stmt = mysqli_prepare($con, $sql))
+	{
+ 		if(mysqli_stmt_execute($stmt)){
+			$result = mysqli_stmt_get_result($stmt);
+			$billInfo = "";
+			if(mysqli_num_rows($result) > 0){
+				$num_rows = mysqli_num_rows($result);
+				while($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
+				{
+					//We're going to send all billing rates even though we're only using one now
+					$billInfo = Array (
+						"billrate1" => $row['bill_rate1'],
+						"bill_rate1_type" => $row['bill_rate1_type'],
+						"billrate2" => $row['bill_rate2'],
+						"bill_rate2_type" => $row['bill_rate2_type'],
+						"billrate3" => $row['bill_rate3'],
+						"bill_rate3_type" => $row['bill_rate3_type'],
+						"billrate4" => $row['bill_rate4'],
+						"bill_rate4_type" => $row['bill_rate4_type'],
+						"billrate5" => $row['bill_rate5'],
+						"bill_rate5_type" => $row['bill_rate5_type'],
+					);
+				}
+				return json_encode($billInfo);
+			}
+			else {
+				// "No Results Found"
+				// Note this should NEVER happen as the billtype1 fields are NOT NULL values
+				$billInfo = Array (
+					"billrate1" => "0",
+					"bill_rate1_type" => "1"
+				);
+				return json_encode($billInfo);
+			}
+		}
+	}
 }
 
 ////////////////////////////////////////
