@@ -1,0 +1,3 @@
+ALTER TABLE `files` ADD COLUMN `typ_billed` TINYINT(1) NOT NULL DEFAULT 0 AFTER `billed`;
+
+ALTER TABLE `files` ADD COLUMN `deleted` TINYINT(1) NOT NULL DEFAULT 0 AFTER `typ_billed`;

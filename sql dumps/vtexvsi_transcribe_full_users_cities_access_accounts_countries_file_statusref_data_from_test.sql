@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.3
+-- version 4.9.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 14, 2020 at 10:07 PM
--- Server version: 5.7.26
--- PHP Version: 7.3.9
+-- Generation Time: Jun 26, 2020 at 01:51 PM
+-- Server version: 5.7.24
+-- PHP Version: 7.4.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -47,31 +49,45 @@ CREATE TABLE `accounts` (
   `acc_name` varchar(255) COLLATE utf8_bin NOT NULL,
   `acc_retention_time` int(11) NOT NULL,
   `acc_creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `bill_rate1` decimal(10,0) NOT NULL,
+  `bill_rate1` decimal(10,2) NOT NULL DEFAULT '0.00',
   `bill_rate1_type` int(11) NOT NULL,
   `bill_rate1_TAT` int(11) NOT NULL,
   `bill_rate1_desc` varchar(255) COLLATE utf8_bin NOT NULL,
-  `bill_rate2` decimal(10,0) DEFAULT NULL,
+  `bill_rate1_min_pay` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `bill_rate2` decimal(10,2) DEFAULT NULL,
   `bill_rate2_type` int(11) DEFAULT NULL,
   `bill_rate2_TAT` int(11) DEFAULT NULL,
   `bill_rate2_desc` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `bill_rate3` decimal(10,0) DEFAULT NULL,
+  `bill_rate2_min_pay` decimal(10,2) DEFAULT NULL,
+  `bill_rate3` decimal(10,2) DEFAULT NULL,
   `bill_rate3_type` int(11) DEFAULT NULL,
   `bill_rate3_TAT` int(11) DEFAULT NULL,
   `bill_rate3_desc` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `bill_rate4` decimal(10,0) DEFAULT NULL,
+  `bill_rate3_min_pay` decimal(10,2) DEFAULT NULL,
+  `bill_rate4` decimal(10,2) DEFAULT NULL,
   `bill_rate4_type` int(11) DEFAULT NULL,
   `bill_rate4_TAT` int(11) DEFAULT NULL,
   `bill_rate4_desc` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `bill_rate5` decimal(10,0) DEFAULT NULL,
+  `bill_rate4_min_pay` decimal(10,2) DEFAULT NULL,
+  `bill_rate5` decimal(10,2) DEFAULT NULL,
   `bill_rate5_type` int(11) DEFAULT NULL,
   `bill_rate5_TAT` int(11) DEFAULT NULL,
   `bill_rate5_desc` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `bill_rate5_min_pay` decimal(10,2) DEFAULT NULL,
   `lifetime_minutes` int(11) DEFAULT NULL,
   `work_types` text COLLATE utf8_bin,
   `next_job_tally` int(11) NOT NULL,
-  `act_log_retention_time` int(11) NOT NULL
+  `act_log_retention_time` int(11) NOT NULL,
+  `job_prefix` varchar(5) COLLATE utf8_bin NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `accounts`
+--
+
+INSERT INTO `accounts` (`acc_id`, `enabled`, `billable`, `acc_name`, `acc_retention_time`, `acc_creation_date`, `bill_rate1`, `bill_rate1_type`, `bill_rate1_TAT`, `bill_rate1_desc`, `bill_rate1_min_pay`, `bill_rate2`, `bill_rate2_type`, `bill_rate2_TAT`, `bill_rate2_desc`, `bill_rate2_min_pay`, `bill_rate3`, `bill_rate3_type`, `bill_rate3_TAT`, `bill_rate3_desc`, `bill_rate3_min_pay`, `bill_rate4`, `bill_rate4_type`, `bill_rate4_TAT`, `bill_rate4_desc`, `bill_rate4_min_pay`, `bill_rate5`, `bill_rate5_type`, `bill_rate5_TAT`, `bill_rate5_desc`, `bill_rate5_min_pay`, `lifetime_minutes`, `work_types`, `next_job_tally`, `act_log_retention_time`, `job_prefix`) VALUES
+(1, 1, 1, 'University of Manitoba', 14, '2020-06-26 17:28:41', '1.75', 1, 5, 'Single Speaker', '1.25', '2.00', 2, 5, 'Multiple Speakers', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 44, 180, ''),
+(2, 1, 1, 'VTEX Voice Solutions Inc.', 30, '2020-06-26 17:29:37', '1.56', 1, 5, 'Testing', '1.14', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 13, 180, 'VT-');
 
 -- --------------------------------------------------------
 
@@ -86,7 +102,7 @@ CREATE TABLE `act_log` (
   `acc_id` int(11) NOT NULL,
   `actPage` varchar(50) NOT NULL,
   `activity` varchar(255) NOT NULL,
-  `ip_addr` varchar(16) DEFAULT NULL
+  `ip_addr` varbinary(16) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -423,16 +439,31 @@ INSERT INTO `countries` (`id`, `country`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `downloads`
+--
+
+CREATE TABLE `downloads` (
+  `id` int(11) NOT NULL,
+  `acc_id` int(11) NOT NULL,
+  `hash` varchar(40) NOT NULL,
+  `file_id` int(11) NOT NULL,
+  `expired` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `files`
 --
 
 CREATE TABLE `files` (
+  `acc_id` int(11) NOT NULL DEFAULT '1',
   `file_id` int(11) NOT NULL,
   `job_id` varchar(10) NOT NULL,
-  `acc_id` int(11) NOT NULL DEFAULT '1',
   `file_type` int(11) DEFAULT NULL,
   `original_audio_type` int(11) DEFAULT NULL,
   `filename` varchar(254) DEFAULT NULL,
+  `tmp_name` varchar(50) DEFAULT NULL,
   `orig_filename` varchar(254) DEFAULT NULL,
   `fileAudioBlob` mediumblob,
   `fileTextBlob` mediumblob,
@@ -455,7 +486,9 @@ CREATE TABLE `files` (
   `file_transcribed_date` timestamp NULL DEFAULT NULL,
   `typist_comments` varchar(254) DEFAULT NULL,
   `isBillable` tinyint(1) NOT NULL DEFAULT '1',
-  `billed` tinyint(1) NOT NULL DEFAULT '0'
+  `billed` tinyint(1) NOT NULL DEFAULT '0',
+  `typ_billed` tinyint(1) NOT NULL DEFAULT '0',
+  `deleted` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -591,9 +624,19 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `country`, `city`, `state`, `registeration_date`, `last_ip_address`, `plan_id`, `account_status`, `unlock_time`, `newsletter`, `shortcuts`, `dictionary`, `email_notification`, `enabled`, `account`) VALUES
 (1, 'Ryan', 'Gaudet', 'ryangaudet@me.com', '$2y$10$DObJNzsN0Ke5v1OGlVSlbefSL6.K5KpfKrKkcK4TJkNS8dcIVs8x2', 'Canada', 'Winnipeg', 'Manitoba', '2020-05-21 02:33:37', '127.0.0.1', 3, 1, NULL, 0, '', '', 1, 1, 1),
-(2, 'Ryan', 'Gaudet', 'ryan.gaudet@gmail.com', '$2y$10$bDzwNexq4X5x/BthiCXgZeZTB7AKxNqe4ANA4zSN85e/xOmftmQlC', 'Canada', 'Winnipeg', 'Manitoba', '2020-05-21 20:33:19', '127.0.0.1', 2, 1, NULL, 0, '', '', 1, 1, 1),
+(2, 'Ryan', 'Gaudet', 'ryan.gaudet@gmail.com', '$2y$10$Zqxo3lcDRxMzx4hWVtp.9O7KSnmN97thUWlq183VdBRw8yCiKIeQy', 'Canada', 'Winnipeg', 'Manitoba', '2020-05-21 20:33:19', '127.0.0.1', 1, 1, NULL, 0, '', '', 1, 1, 1),
 (3, 'Hossam', 'Elwahsh', 'hacker2894@gmail.com', '$2y$10$UIesrEKKKrNBwmpNcx8IoufJ3KUSKnzgZ7bA2wMaCsmblh9iyRkVS', 'Egypt', 'Alex', '', '2020-05-31 19:58:27', '::1', 1, 1, NULL, 0, '', '', 1, 1, 1),
-(4, 'Client', 'Admin', 'cadmin@test.com', '$2y$10$ZNRLxyscDOx0O0uxKsYAUuSLD3mby9fedaZrDT7p6qx2/E/jxIbPa', 'Canada', 'Winnipeg', 'MB', '2020-06-08 20:56:24', NULL, 2, 1, NULL, 0, '1', '1', 1, 1, 1);
+(4, 'Client', 'Admin', 'cadmin@test.com', '$2y$10$ZNRLxyscDOx0O0uxKsYAUuSLD3mby9fedaZrDT7p6qx2/E/jxIbPa', 'Canada', 'Winnipeg', 'MB', '2020-06-08 20:56:24', NULL, 1, 1, NULL, 0, '1', '1', 1, 1, 2),
+(5, 'Acct', 'Test', 'rgaudet@vtexvsi.com', '$2y$10$kNFGSozDvWMCzX6JNCvg/.3DhaQrhcnxznJSdpJxOqC35qv0GhKH.', 'Canada', 'Winnipeg', 'Manitoba', '2020-06-17 01:11:18', NULL, 2, 1, NULL, 0, '1', '1', 1, 1, 2),
+(6, 'VscriptionAcc1', 'Test1', 'vstpacc1u01@vscription.com', '$2y$10$TZfQkpWpaVWTh8D6ca57Se1X35GXl4gDOjkm/zTeE7LhJCv2aVVv2', 'Canada', 'Winnipeg', 'Manitoba', '2020-06-17 15:36:11', NULL, 3, 1, NULL, 0, '', '', 1, 1, 1),
+(7, 'vScriptionAcc1', 'Test2', 'vstpacc1u02@vscription.com', '$2y$10$TZfQkpWpaVWTh8D6ca57Se1X35GXl4gDOjkm/zTeE7LhJCv2aVVv2', 'Canada', 'Winnipeg', 'Manitoba', '2020-06-17 15:37:30', NULL, 2, 1, NULL, 0, '', '', 1, 1, 1),
+(9, 'vScriptionAcc1', 'Test3', 'vstpacc1u03@vscription.com', '$2y$10$TZfQkpWpaVWTh8D6ca57Se1X35GXl4gDOjkm/zTeE7LhJCv2aVVv2', 'Canada', 'Winnipeg', 'Manitoba', '2020-06-17 15:38:38', NULL, 2, 1, NULL, 0, '', '', 1, 1, 1),
+(10, 'vScriptionAcc2', 'Test1', 'vstpacc2u01@vscription.com', '$2y$10$TZfQkpWpaVWTh8D6ca57Se1X35GXl4gDOjkm/zTeE7LhJCv2aVVv2', 'Canada', 'Winnipeg', 'Manitoba', '2020-06-17 15:40:47', NULL, 3, 1, NULL, 0, '', '', 1, 1, 2),
+(11, 'vScriptionAcc2', 'Test2', 'vstpacc2u02@vscription.com', '$2y$10$TZfQkpWpaVWTh8D6ca57Se1X35GXl4gDOjkm/zTeE7LhJCv2aVVv2', 'Canada', 'Winnipeg', 'Manitoba', '2020-06-17 15:41:32', NULL, 2, 1, NULL, 0, '', '', 1, 1, 2),
+(12, 'vScriptionAcc2', 'Test3', 'vstpacc2u03@vscription.com', '$2y$10$TZfQkpWpaVWTh8D6ca57Se1X35GXl4gDOjkm/zTeE7LhJCv2aVVv2', 'Canada', 'Winnipeg', 'Manitoba', '2020-06-17 15:42:35', NULL, 2, 1, NULL, 0, '', '', 1, 1, 2),
+(13, 'vScriptionAcc3', 'Test1', 'vstpacc3u01@vscription.com', '$2y$10$TZfQkpWpaVWTh8D6ca57Se1X35GXl4gDOjkm/zTeE7LhJCv2aVVv2', 'Canada', 'Winnipeg', 'Manitoba', '2020-06-17 15:44:47', NULL, 3, 1, NULL, 0, '', '', 1, 1, 3),
+(14, 'vScriptionAcc3', 'Test2', 'vstpacc3u02@vscription.com', '$2y$10$TZfQkpWpaVWTh8D6ca57Se1X35GXl4gDOjkm/zTeE7LhJCv2aVVv2', 'Canada', 'Winnipeg', 'Manitoba', '2020-06-17 15:46:57', NULL, 2, 1, NULL, 0, '', '', 1, 1, 3),
+(15, 'vScriptionAcc3', 'Test3', 'vstpacc3u03@vscription.com', '$2y$10$TZfQkpWpaVWTh8D6ca57Se1X35GXl4gDOjkm/zTeE7LhJCv2aVVv2', 'Canada', 'Winnipeg', 'Manitoba', '2020-06-17 15:47:44', NULL, 2, 1, NULL, 0, '', '', 1, 1, 3);
 
 --
 -- Indexes for dumped tables
@@ -627,6 +670,12 @@ ALTER TABLE `cities`
 -- Indexes for table `countries`
 --
 ALTER TABLE `countries`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `downloads`
+--
+ALTER TABLE `downloads`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -692,7 +741,7 @@ ALTER TABLE `access`
 -- AUTO_INCREMENT for table `accounts`
 --
 ALTER TABLE `accounts`
-  MODIFY `acc_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `acc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `act_log`
@@ -711,6 +760,12 @@ ALTER TABLE `cities`
 --
 ALTER TABLE `countries`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=430;
+
+--
+-- AUTO_INCREMENT for table `downloads`
+--
+ALTER TABLE `downloads`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `files`
@@ -758,7 +813,8 @@ ALTER TABLE `userlog`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

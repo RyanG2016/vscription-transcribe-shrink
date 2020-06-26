@@ -1668,9 +1668,15 @@ if(isset($_REQUEST["reqcode"])){
 		isBillable = '1' AND
 		billed = '0' AND 
         acc_id = '1' AND
-        file_transcribed_date BETWEEN ? AND ?";
+		file_transcribed_date BETWEEN ? AND ?";
 
-
+			//Hardcoded for now. Need to add selector to client billing page screen if role_type=3 or use logged in user if role_type=2
+		$acc_id = 1; 
+		
+		$billRatesObj = getBillRates($con, $acc_id);
+		$billRates = json_decode($billRatesObj, true);
+		$billRate1 = $billRates['billrate1'];
+		$bill_rate1_type = $billRates['bill_rate1_type'];
             if($stmt = mysqli_prepare($con, $sql))
             {
                 mysqli_stmt_bind_param($stmt, "ss", $a['startDate'], $a['endDate']);
@@ -1689,12 +1695,15 @@ if(isset($_REQUEST["reqcode"])){
 
                         while($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
                         {
+							$alSeconds = round($row['audio_length']);
+							$alMinutes = sprintf('%02d:%02d:%02d', ($alSeconds/ 3600),($alSeconds/ 60 % 60), $alSeconds% 60);
                             $html .=
                                 "<td>" . $row['job_id']. "</td>" .
                                 "<td class='left'>" . $row['file_author']. "</td>" .
                                 "<td class='left'>" . $row['file_work_type']. "</td>" .
                                 "<td class='num'>" . $row['file_date_dict']. "</td>" .
-                                "<td class='num'>" . $row['audio_length']. "</td>" .
+								//"<td class='num'>" . $row['audio_length']. "</td>" .
+								"<td class='num'>" . $alMinutes. "</td>" .
 								"<td class='right'>" . $row['file_transcribed_date'] . "</td>" .
                                 "<td class='right'>" . $row['file_comment'] . "</td>" .
                                 "</tr>";
@@ -1706,18 +1715,30 @@ if(isset($_REQUEST["reqcode"])){
 						//Convert seconds to minutes for report
 						$seconds = round($secsTotal);
 						$minsTotal = sprintf('%02d:%02d:%02d', ($seconds/ 3600),($seconds/ 60 % 60), $seconds% 60);
+						$totalInMins = round(($seconds / 60),2);
 						$rptGenDate = date("Y-m-d H:i:s");
+						$totalBillableAmount = number_format(round(($totalInMins * $billRate1),2),2);
                         $htmltablefoot = "</tbody></table>";
-                        $htmlfoot1 =  "<p><b>Report generated on:</b> $rptGenDate  &nbsp; &nbsp; &nbsp;<b>Total Jobs:</b> $num_rows &nbsp; &nbsp; &nbsp;";
-                        $htmlfoot2 = "<b>Total Length (hh:mm:ss):</b> $minsTotal </p>";
-                        $data = html_entity_decode($htmlHeader . $htmlTblHead . $html . $htmltablefoot . $htmlfoot1 . $htmlfoot2);
+                        $htmlfoot1 =  "<p><b>Report generated on:</b> $rptGenDate <b></br>Total Jobs:</b> $num_rows</br>";
+						$htmlfoot2 = "<b>Total Length (hh:mm:ss):</b> $minsTotal ($totalInMins minutes) with a rate of $$billRate1/min</br>";
+						$htmlfoot3 = "<b>Total Billable Amount is: $$totalBillableAmount</b></p>";
+                        $data = html_entity_decode($htmlHeader . $htmlTblHead . $html . $htmltablefoot . $htmlfoot1 . $htmlfoot2 . $htmlfoot3);
                     }
                     else {
                         $data = "No Results Found";
                     }
                     echo generateResponse($data,false);
 
-                }
+				}
+				$a = Array(
+					'email' => $_SESSION['uEmail'],
+					'activity' => 'Client Admin Billing Report Run for period '. $a['startDate'] . ' to ' . $a['endDate'],
+					'actPage' => 'billing_report.php',
+					'actIP' => getIP(),
+					'acc_id' => $_SESSION['accID']
+				);
+				$b = json_encode($a);
+				insertAuditLogEntry($con, $b);
             }
 			break;
 
@@ -1747,8 +1768,14 @@ if(isset($_REQUEST["reqcode"])){
 				billed = '0' AND 
 				job_transcribed_by = ? AND
 				file_transcribed_date BETWEEN ? AND ?";
-		
-		
+
+				//Hardcoded for now. Need to refine query to get pay rate for each job based on billtype and bill_rateX_min_pay
+				$acc_id = 1; 
+				
+				$typistBillRatesObj = getTypistBillRates($con, $acc_id);
+				$typistBillRates = json_decode($typistBillRatesObj, true);
+				$typistBillRate1 = $typistBillRates['bill_rate1_pay'];
+			
 					if($stmt = mysqli_prepare($con, $sql))
 					{
 						mysqli_stmt_bind_param($stmt, "sss", $a['typist'],$a['startDate'], $a['endDate']);
@@ -1767,12 +1794,15 @@ if(isset($_REQUEST["reqcode"])){
 		
 								while($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
 								{
+									$alSeconds = round($row['audio_length']);
+									$alMinutes = sprintf('%02d:%02d:%02d', ($alSeconds/ 3600),($alSeconds/ 60 % 60), $alSeconds% 60);
 									$html .= 
 										"<td>" . $row['job_id']. "</td>" .
 										"<td class='left'>" . $row['file_author']. "</td>" .
 										"<td class='left'>" . $row['file_work_type']. "</td>" .
 										"<td class='num'>" . $row['file_date_dict']. "</td>" .
-										"<td class='num'>" . $row['audio_length']. "</td>" .
+										//"<td class='num'>" . $row['audio_length']. "</td>" .
+										"<td class='num'>" . $alMinutes. "</td>" .						
 										"<td class='right'>" . $row['file_transcribed_date'] . "</td>" .
 										"<td class='right'>" . $row['acc_id'] . "</td>" .										
 										"<td class='right'>" . $row['file_comment'] . "</td>" .								
@@ -1785,11 +1815,14 @@ if(isset($_REQUEST["reqcode"])){
 								//Convert seconds to minutes for report
 								$seconds = round($secsTotal);
 								$minsTotal = sprintf('%02d:%02d:%02d', ($seconds/ 3600),($seconds/ 60 % 60), $seconds% 60);
+								$totalInMins = round(($seconds / 60),2);
+								$totalPayable = number_format(round(($totalInMins * $typistBillRate1),2),2);
 								$rptGenDate = date("Y-m-d H:i:s");
 								$htmltablefoot = "</tbody></table>";
-								$htmlfoot1 =  "<p><b>Report generated on:</b> $rptGenDate  &nbsp; &nbsp; &nbsp;<b>Total Jobs:</b> $num_rows &nbsp; &nbsp; &nbsp;";
-								$htmlfoot2 = "<b>Total Length (hh:mm:ss):</b> $minsTotal </p>";
-								$data = html_entity_decode($htmlHeader . $htmlTblHead . $html . $htmltablefoot . $htmlfoot1 . $htmlfoot2);
+								$htmlfoot1 =  "<br><p><b>Report generated on:</b> $rptGenDate</br><b>Total Jobs:</b> $num_rows</br>";
+								$htmlfoot2 = "<b>Total Length (hh:mm:ss):</b> $minsTotal($totalInMins minutes) at pay rate of $$typistBillRate1/min</br>";
+								$htmlfoot3 = "<b>Total Payable for Period: - $$totalPayable</b></p>";
+								$data = html_entity_decode($htmlHeader . $htmlTblHead . $html . $htmltablefoot . $htmlfoot1 . $htmlfoot2 . $htmlfoot3);
 							}
 							else {
 								$data = "No Results Found";
@@ -1797,6 +1830,15 @@ if(isset($_REQUEST["reqcode"])){
 							echo generateResponse($data,false);
 
 						}
+						$a = Array(
+							'email' => $_SESSION['uEmail'],
+							'activity' => 'Typist Billing Report Run for '. $a['typist'] . ' from ' . $a['startDate'] . ' to ' . $a['endDate'],
+							'actPage' => 'typist_billing.php',
+							'actIP' => getIP(),
+							'acc_id' => $_SESSION['accID']
+						);
+						$b = json_encode($a);
+						insertAuditLogEntry($con, $b);
 					}
 					break;
 
@@ -1812,14 +1854,6 @@ if(isset($_REQUEST["reqcode"])){
                 WHERE 
                     plan_id  = 3";
 
-            //<label for="typist">Typist</label>
-
-            //<select id="typist" class="typist-select">
-            //
-            //  <option value="ryangaudet@me.com">Ryan G</option>
-            //  <option value="bonnielhudacek@gmail.com">Bonnie H</option>
-            //
-            //</select>
 
             if($stmt = mysqli_prepare($con, $sql))
             {
@@ -1850,7 +1884,6 @@ if(isset($_REQUEST["reqcode"])){
             }
 
             break;
-			
 	} //switch end
 
 }//if code is set end
@@ -2277,6 +2310,88 @@ function confirmAdminPermission()
     }else{
         return true;
     }
+}
+ 
+function getBillRates($con, $acc_id) {
+
+	$sql="SELECT bill_rate1,bill_rate1_type,bill_rate1_desc,
+	bill_rate2,bill_rate2_type,bill_rate2_TAT,bill_rate2_desc,
+	bill_rate3,bill_rate3_type,bill_rate3_TAT,bill_rate3_desc, 
+	bill_rate4,bill_rate4_type,bill_rate4_TAT,bill_rate4_desc,
+	bill_rate5,bill_rate5_type,bill_rate5_TAT,bill_rate5_desc
+	FROM accounts WHERE acc_id  = 1";
+	if($stmt = mysqli_prepare($con, $sql))
+	{
+ 		if(mysqli_stmt_execute($stmt)){
+			$result = mysqli_stmt_get_result($stmt);
+			$billInfo = "";
+			if(mysqli_num_rows($result) > 0){
+				$num_rows = mysqli_num_rows($result);
+				while($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
+				{
+					//We're going to send all billing rates even though we're only using one now
+					$billInfo = Array (
+						"billrate1" => $row['bill_rate1'],
+						"bill_rate1_type" => $row['bill_rate1_type'],
+						"billrate2" => $row['bill_rate2'],
+						"bill_rate2_type" => $row['bill_rate2_type'],
+						"billrate3" => $row['bill_rate3'],
+						"bill_rate3_type" => $row['bill_rate3_type'],
+						"billrate4" => $row['bill_rate4'],
+						"bill_rate4_type" => $row['bill_rate4_type'],
+						"billrate5" => $row['bill_rate5'],
+						"bill_rate5_type" => $row['bill_rate5_type'],
+					);
+				}
+				return json_encode($billInfo);
+			}
+			else {
+				// "No Results Found"
+				// Note this should NEVER happen as the billtype1 fields are NOT NULL values
+				$billInfo = Array (
+					"billrate1" => "0",
+					"bill_rate1_type" => "1"
+				);
+				return json_encode($billInfo);
+			}
+		}
+	}
+}
+
+function getTypistBillRates($con, $acc_id) {
+
+	$sql="SELECT bill_rate1_min_pay, bill_rate2_min_pay, bill_rate3_min_pay, bill_rate4_min_pay, bill_rate5_min_pay
+	FROM accounts WHERE acc_id  = 1";
+	if($stmt = mysqli_prepare($con, $sql))
+	{
+ 		if(mysqli_stmt_execute($stmt)){
+			$result = mysqli_stmt_get_result($stmt);
+			$typistBillInfo = "";
+			if(mysqli_num_rows($result) > 0){
+				$num_rows = mysqli_num_rows($result);
+				while($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
+				{
+					//We're going to send all billing rates even though we're only using one now
+					$typistBillInfo = Array (
+						"bill_rate1_pay" => $row['bill_rate1_min_pay'],
+						"bill_rate2_pay" => $row['bill_rate2_min_pay'],
+						"bill_rate3_pay" => $row['bill_rate3_min_pay'],
+						"bill_rate4_pay" => $row['bill_rate4_min_pay'],
+						"bill_rate5_pay" => $row['bill_rate5_min_pay']
+					);
+				}
+				return json_encode($typistBillInfo);
+			}
+			else {
+				// "No Results Found"
+				// Note this should NEVER happen as the billtype1 fields are NOT NULL values
+				$typistBillInfo = Array (
+					"bill_rate1_pay" => 0
+				);
+				return json_encode($typistBillInfo);
+			}
+		}
+	}
 }
 
 ////////////////////////////////////////

@@ -103,6 +103,11 @@ p {
     font-size: 12px;
 }
 
+h3 {
+    font-family: 'oxygen', serif;
+    font-size: 14px;
+}
+
 .pad15 > td{
     padding: 12px;
 }
