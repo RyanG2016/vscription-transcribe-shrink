@@ -972,7 +972,7 @@ if(isset($_REQUEST["reqcode"])){
                             $file_transcribe_date = null;
                         }
 						$transcribed_by = $_SESSION['uEmail'];
-						$tmp_name = $_SESSION['tempFilename'];
+						$tmp_name = $_POST['tempFilename'];
 
 
 						$sql = "UPDATE FILES SET audio_length=?, last_audio_position=?, file_status=?, 
