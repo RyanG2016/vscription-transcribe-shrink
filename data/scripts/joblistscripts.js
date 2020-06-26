@@ -93,7 +93,7 @@ function documentReady() {
 				dataTbl.on( 'draw', function () {
 
 						$('.download-icon').click(function() {
-							let file_id = $(this).parent().parent().parent().attr('id');
+							let file_id = $(this).parent().parent().attr('id');
 							download(file_id);
 						});
 
