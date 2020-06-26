@@ -2314,7 +2314,11 @@ function confirmAdminPermission()
  
 function getBillRates($con, $acc_id) {
 
-	$sql="SELECT bill_rate1,bill_rate1_type,bill_rate1_desc,bill_rate2,bill_rate2_type,bill_rate2_TAT,bill_rate2_desc,bill_rate3,bill_rate3_type,bill_rate3_TAT,bill_rate3_desc
+	$sql="SELECT bill_rate1,bill_rate1_type,bill_rate1_desc,
+	bill_rate2,bill_rate2_type,bill_rate2_TAT,bill_rate2_desc,
+	bill_rate3,bill_rate3_type,bill_rate3_TAT,bill_rate3_desc, 
+	bill_rate4,bill_rate4_type,bill_rate4_TAT,bill_rate4_desc,
+	bill_rate3,bill_rate5_type,bill_rate5_TAT,bill_rate5_desc
 	FROM accounts WHERE acc_id  = 1";
 	if($stmt = mysqli_prepare($con, $sql))
 	{
