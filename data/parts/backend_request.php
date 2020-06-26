@@ -1689,12 +1689,15 @@ if(isset($_REQUEST["reqcode"])){
 
                         while($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
                         {
+							$alSeconds = round($row['audio_length']);
+							$alMinutes = sprintf('%02d:%02d:%02d', ($alSeconds/ 3600),($alSeconds/ 60 % 60), $alSeconds% 60);
                             $html .=
                                 "<td>" . $row['job_id']. "</td>" .
                                 "<td class='left'>" . $row['file_author']. "</td>" .
                                 "<td class='left'>" . $row['file_work_type']. "</td>" .
                                 "<td class='num'>" . $row['file_date_dict']. "</td>" .
-                                "<td class='num'>" . $row['audio_length']. "</td>" .
+								//"<td class='num'>" . $row['audio_length']. "</td>" .
+								"<td class='num'>" . $alMinutes. "</td>" .
 								"<td class='right'>" . $row['file_transcribed_date'] . "</td>" .
                                 "<td class='right'>" . $row['file_comment'] . "</td>" .
                                 "</tr>";
@@ -1767,12 +1770,15 @@ if(isset($_REQUEST["reqcode"])){
 		
 								while($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
 								{
+									$alSeconds = round($row['audio_length']);
+									$alMinutes = sprintf('%02d:%02d:%02d', ($alSeconds/ 3600),($alSeconds/ 60 % 60), $alSeconds% 60);
 									$html .= 
 										"<td>" . $row['job_id']. "</td>" .
 										"<td class='left'>" . $row['file_author']. "</td>" .
 										"<td class='left'>" . $row['file_work_type']. "</td>" .
 										"<td class='num'>" . $row['file_date_dict']. "</td>" .
-										"<td class='num'>" . $row['audio_length']. "</td>" .
+										//"<td class='num'>" . $row['audio_length']. "</td>" .
+										"<td class='num'>" . $alMinutes. "</td>" .						
 										"<td class='right'>" . $row['file_transcribed_date'] . "</td>" .
 										"<td class='right'>" . $row['acc_id'] . "</td>" .										
 										"<td class='right'>" . $row['file_comment'] . "</td>" .								
