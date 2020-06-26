@@ -1717,7 +1717,7 @@ if(isset($_REQUEST["reqcode"])){
 						$minsTotal = sprintf('%02d:%02d:%02d', ($seconds/ 3600),($seconds/ 60 % 60), $seconds% 60);
 						$totalInMins = round(($seconds / 60),2);
 						$rptGenDate = date("Y-m-d H:i:s");
-						$totalBillableAmount = round(($totalInMins * $billRate1),2);
+						$totalBillableAmount = number_format(round(($totalInMins * $billRate1),2),2);
                         $htmltablefoot = "</tbody></table>";
                         $htmlfoot1 =  "<p><b>Report generated on:</b> $rptGenDate <b></br>Total Jobs:</b> $num_rows</br>";
 						$htmlfoot2 = "<b>Total Length (hh:mm:ss):</b> $minsTotal ($totalInMins minutes) with a rate of $$billRate1/min</br>";
@@ -1768,8 +1768,14 @@ if(isset($_REQUEST["reqcode"])){
 				billed = '0' AND 
 				job_transcribed_by = ? AND
 				file_transcribed_date BETWEEN ? AND ?";
-		
-		
+
+				//Hardcoded for now. Need to refine query to get pay rate for each job based on billtype and bill_rateX_min_pay
+				$acc_id = 1; 
+				
+				$typistBillRatesObj = getTypistBillRates($con, $acc_id);
+				$typistBillRates = json_decode($typistBillRatesObj, true);
+				$typistBillRate1 = $typistBillRates['bill_rate1_pay'];
+			
 					if($stmt = mysqli_prepare($con, $sql))
 					{
 						mysqli_stmt_bind_param($stmt, "sss", $a['typist'],$a['startDate'], $a['endDate']);
@@ -1810,11 +1816,13 @@ if(isset($_REQUEST["reqcode"])){
 								$seconds = round($secsTotal);
 								$minsTotal = sprintf('%02d:%02d:%02d', ($seconds/ 3600),($seconds/ 60 % 60), $seconds% 60);
 								$totalInMins = round(($seconds / 60),2);
+								$totalPayable = number_format(round(($totalInMins * $typistBillRate1),2),2);
 								$rptGenDate = date("Y-m-d H:i:s");
 								$htmltablefoot = "</tbody></table>";
-								$htmlfoot1 =  "<p><b>Report generated on:</b> $rptGenDate  &nbsp; &nbsp; &nbsp;<b>Total Jobs:</b> $num_rows &nbsp; &nbsp; &nbsp;";
-								$htmlfoot2 = "<b>Total Length (hh:mm:ss):</b> $minsTotal or $totalInMins minutes</p>";
-								$data = html_entity_decode($htmlHeader . $htmlTblHead . $html . $htmltablefoot . $htmlfoot1 . $htmlfoot2);
+								$htmlfoot1 =  "<br><p><b>Report generated on:</b> $rptGenDate</br><b>Total Jobs:</b> $num_rows</br>";
+								$htmlfoot2 = "<b>Total Length (hh:mm:ss):</b> $minsTotal($totalInMins minutes) at pay rate of $$typistBillRate1/min</br>";
+								$htmlfoot3 = "<b>Total Payable for Period: - $$totalPayable</b></p>";
+								$data = html_entity_decode($htmlHeader . $htmlTblHead . $html . $htmltablefoot . $htmlfoot1 . $htmlfoot2 . $htmlfoot3);
 							}
 							else {
 								$data = "No Results Found";
@@ -2341,6 +2349,42 @@ function getBillRates($con, $acc_id) {
 					"bill_rate1_type" => "1"
 				);
 				return json_encode($billInfo);
+			}
+		}
+	}
+}
+
+function getTypistBillRates($con, $acc_id) {
+
+	$sql="SELECT bill_rate1_min_pay, bill_rate2_min_pay, bill_rate3_min_pay, bill_rate4_min_pay, bill_rate5_min_pay
+	FROM accounts WHERE acc_id  = 1";
+	if($stmt = mysqli_prepare($con, $sql))
+	{
+ 		if(mysqli_stmt_execute($stmt)){
+			$result = mysqli_stmt_get_result($stmt);
+			$typistBillInfo = "";
+			if(mysqli_num_rows($result) > 0){
+				$num_rows = mysqli_num_rows($result);
+				while($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
+				{
+					//We're going to send all billing rates even though we're only using one now
+					$typistBillInfo = Array (
+						"bill_rate1_pay" => $row['bill_rate1_min_pay'],
+						"bill_rate2_pay" => $row['bill_rate2_min_pay'],
+						"bill_rate3_pay" => $row['bill_rate3_min_pay'],
+						"bill_rate4_pay" => $row['bill_rate4_min_pay'],
+						"bill_rate5_pay" => $row['bill_rate5_min_pay']
+					);
+				}
+				return json_encode($typistBillInfo);
+			}
+			else {
+				// "No Results Found"
+				// Note this should NEVER happen as the billtype1 fields are NOT NULL values
+				$typistBillInfo = Array (
+					"bill_rate1_pay" => 0
+				);
+				return json_encode($typistBillInfo);
 			}
 		}
 	}
