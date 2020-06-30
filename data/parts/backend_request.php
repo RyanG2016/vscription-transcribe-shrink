@@ -310,7 +310,7 @@ if(isset($_REQUEST["reqcode"])){
 		$a = json_decode($args,true);
 		$file_id = $a['file_id'];
 		$sql = "SELECT *
-				FROM files WHERE file_id = ? and acc_id = ?";
+				FROM files WHERE file_id = ? and acc_id = ? and file_status != 3";
 
 		if($stmt = mysqli_prepare($con, $sql))
 			{
@@ -428,6 +428,7 @@ if(isset($_REQUEST["reqcode"])){
 						}
 					}else{
 					    // todo file doesn't exist or you don't have permission to access this file
+                        echo false;
                         break;
                     }
 				}else{
@@ -925,7 +926,7 @@ if(isset($_REQUEST["reqcode"])){
 
 			break ;
 
-			/** This updates the job/file details with new updates as Completed/Suspended job **/
+			/** This updates the job/file details with new updates as Completed/Suspended job FROM TRANSCRIBE FULL VIEW**/
 			case 32:
 
 				if(isset($_POST))
@@ -1884,6 +1885,126 @@ if(isset($_REQUEST["reqcode"])){
             }
 
             break;
+
+            // set session variable from transcribe prior to opening mini player
+        case 203:
+            $_SESSION['popFileID'] = $a['fileID'];
+            return true;
+
+            break;
+
+            // get session variable and load (popup/transcribe) (2-way)
+        case 204:
+            if(!isset($_SESSION['popFileID']))
+            {
+                echo false;
+            }else{
+                echo $_SESSION['popFileID'];
+                unset($_SESSION['popFileID']);
+            }
+
+            break;
+
+        /** This updates the job/file details with new updates as Completed/Suspended job **/
+        case 205:
+
+            if(isset($_POST))
+            {
+                if(isset($_POST['jobID']))
+                {
+//                    $initials = strtolower(substr($_SESSION['fname'],0,1)) . strtolower(substr($_SESSION['lname'],0,1));
+                    $dateTrans = date("Y-m-d H:i:s");
+
+//                    $plainTinyMCEContent = $_POST['report'];
+
+//                    $report = '<b>'.'Job Number: ' .'</b>'. $_POST['jobNo'] .'<br/>';
+//                    $report = $report . '<b>'.'Author Name: ' .'</b>'. $_POST['jobAuthorName'].'<br/>';
+//                    $report = $report . '<b>'.'Typist Name: ' .'</b>'. $initials .'<br/>';
+//                    $report = $report . '<b>'.'Job Type: ' .'</b>'.$_POST['jobType'].'<br/>';
+//                    $report = $report . '<b>'.'Job Length: ' .'</b>'.$_POST['jobLengthSecs'].'<br/>';
+//                    $report = $report . '<b>'.'Date Dictated: ' .'</b>'.$_POST['jobDateDic'].'<br/>';
+//                    $report = $report. '<b>'.'Date Transcribed: ' .'</b>' . $dateTrans .'<br/>';
+//                    $report = $report . '<b>'.'Comments: ' .'</b>'.$_POST['jobComments'].'<br/>';
+
+//                    $report = $report.'<br/>';
+//                    $report = $report.'<br/>';
+//                    $report = $report . $plainTinyMCEContent;
+
+
+
+//                    $htmlToRtfConverter = new HtmlToRtf\HtmlToRtf($report);
+//                    $convertedRTF = trim($htmlToRtfConverter->getRTF());
+
+                    //DB Insert Code
+
+                    $job_id = $_POST['jobID'];
+                    $file_id = $_POST['file_id'];
+//                    $audio_length = $_POST['jobLengthSecsRaw'];
+                    $audio_elapsed = $_POST['jobElapsedTimeSecs'];
+                    $file_status = $_POST['jobStatus'];
+                    if($file_status == 5)
+                    {
+                        $file_transcribe_date = $dateTrans;
+                    }else{
+                        $file_transcribe_date = null;
+                    }
+                    $transcribed_by = $_SESSION['uEmail'];
+                    $tmp_name = $_POST['tempFilename'];
+
+
+                    $sql = "UPDATE FILES SET 
+                                last_audio_position=?, 
+                                file_status=?, 
+								file_transcribed_date=?, 
+								job_transcribed_by=?
+									WHERE file_id = ?";
+
+                    if($stmt = mysqli_prepare($con, $sql))
+                    {
+
+                        if( !$stmt->bind_param("iissi",  $audio_elapsed, $file_status, $file_transcribe_date, $transcribed_by, $file_id)   )
+                        {
+                            die( "Error in bind_param: (" .$con->errno . ") " . $con->error);
+                        }
+                        $B = mysqli_stmt_execute($stmt);
+
+
+                        if($B){
+                            $result = mysqli_stmt_get_result($stmt);
+
+                            // if status is complete -> delete the tmpFile and update DB to empty tmp_name
+                            if($file_status == 5)
+                            {
+                                deleteTmpFile($con, $file_id, $tmp_name);
+                            }
+
+                            echo "Data Updated Successfully!";
+                        }
+                        else{
+                            echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
+                            die( "Error in excute: (" .$con->errno . ") " . $con->error);
+                        }
+                    }
+                    else
+                    {
+                        echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
+
+                    }
+
+
+                    // Close statement
+                    mysqli_stmt_close($stmt);
+
+                    break;
+                }
+            }
+            else
+            {
+                echo "Looks like JobNo is empty";
+
+            }
+
+            break;
 	} //switch end
 
 }//if code is set end
@@ -2401,3 +2522,6 @@ function getTypistBillRates($con, $acc_id) {
 // 200 -> Get Billing Reports
 // 201 -> Get Typist  Reports
 // 202 -> Get Typists names for 201
+// 203 -> set popFileID to pass to mini player (in sess var)
+// 204 -> get popFileID if any and clear the session var
+// 205 -> update file status from popup

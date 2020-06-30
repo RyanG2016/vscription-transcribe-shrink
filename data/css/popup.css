@@ -1,0 +1,138 @@
+@import "parts/spinner.css";
+
+/* --------------------------------*/
+/* vScription Transcribe Modal Box */
+/* --------------------------------*/
+
+@import "parts/modal_popup.css";
+
+/* Modal loading edits */
+#modalLoading .modal-content h2{
+    text-align: center;
+}
+
+#modalLoading .modal-content{
+    width: fit-content;
+    min-width: 300px;
+}
+
+#loading_confirm{
+    display: none;
+}
+
+body{
+    background: #f4f7f8;
+    font-family: 'oxygen', serif;
+}
+
+.logo{
+    width: 50px;
+    height: 50px;
+}
+
+.title{
+    font-size: 1.2rem;
+}
+.title img{
+    vertical-align: text-bottom;
+}
+
+.jobNo, .title-default-text{
+    color: #1e79be;
+}
+.title-default-text{
+    display: none;
+}
+.author{
+    color: #53a13d;
+}
+.jobType{
+    color: #f5862c;
+}
+
+.overlay{
+    position: fixed; /* Sit on top of the page content */
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+    text-align: center;
+    vertical-align: middle;
+    margin: auto;
+    background: white;
+    z-index: 9000;
+    display: block;
+}
+
+.overlay .spinner{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 50px;
+    color: white;
+    transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+}
+
+.mdc-button{
+    height: 27px;
+    text-transform: unset !important;
+}
+
+.toolbar{
+    margin-top: 16px;
+}
+
+.able{
+    margin-top: 5px !important;
+}
+
+.save-button{
+    --mdc-theme-primary: #53a13d;
+}
+
+.suspend-button{
+    --mdc-theme-primary: #f5862c;
+}
+
+.discard-button{
+    --mdc-theme-primary: #E53935;
+}
+
+.load-button{
+    --mdc-theme-primary: #1e79be;
+}
+
+.switch-back-button{
+    --mdc-theme-primary: #53a13d;
+}
+
+.confirm-button{
+    --mdc-theme-primary: #66BB6A;
+}
+
+u{
+    cursor: pointer;
+}
+
+#audio-td{
+    margin-right: 0;
+}
+
+#updated_version_bar{
+    display:none;
+    padding: 5px;
+    width: 100%;
+    background: #f5862c;
+    text-align: center;
+    vertical-align: center;
+    font-family: "oxygen", serif;
+    color: white;
+}
+
+#updated_version_bar a{
+    color: white;
+}
