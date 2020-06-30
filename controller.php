@@ -127,6 +127,18 @@ if ($_SESSION['role'] != "1" && $_SESSION['role'] != "3") {
                         </td>
                     </tr>
                     <tr>
+                        <td>
+                            Windows Bundle <i>(JRE included)</i>
+                        </td>
+                        <td>
+                            37.4 MB
+                        </td>
+                        <td>
+                            <a href="/controller_app/windows/controller_v1.5.zip">controller_v1.5.zip</a>
+                        </td>
+                    </tr>
+
+                    <tr>
                         <td colspan="3" style="text-align: center; background:#6c6c6c; color: white; font-size: 1rem">
                             <i>Older Versions</i>
                         </td>
