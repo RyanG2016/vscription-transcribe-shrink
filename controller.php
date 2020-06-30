@@ -271,6 +271,14 @@ if ($_SESSION['role'] != "1" && $_SESSION['role'] != "3") {
                             <i class="fa fa-check" aria-hidden="true"></i>
                         </td>
                     </tr>
+                    <tr>
+                        <td class="bold">
+                            Philips ACC2320
+                        </td>
+                        <td class="check">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                        </td>
+                    </tr>
                 </table>
 
             </div>
