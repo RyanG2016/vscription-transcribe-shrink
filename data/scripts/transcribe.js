@@ -19,11 +19,12 @@ var firstLaunch = true;
 let statusTxt;
 const not_connected = "<i>Couldn't connect to controller <u id=\"reconnect\">reconnect?</u></i>";
 const connecting = "<i>connecting to controller please wait...</i>";
-const connected = "<i>Connected to vScription Controller </i>";
+const connected = "<i>Connected to vScription Controller as </i>";
 const not_running = "<i>Controller not running. <u id=\"reconnect\">reconnect?</u></i>";
 const greenColor = "#3e943c";
 const orangeColor = "#f78d2d";
 const versionCheck = "vCheck-"; // DONOT MODIFY
+const welcomeName = "welcome-"; // DONOT MODIFY
 var compactViewWindow;
 
 $(document).ready(function () {
@@ -63,8 +64,8 @@ $(document).ready(function () {
         isConnected = true;
         isConnecting = false;
 
-        setControllerStatus(connected);
-        wsocket.send("Transcribe Client Connected.");
+        setControllerStatus(connected, true);
+        // wsocket.send("Transcribe Client Connected.");
     }
 
     function onclose() {
@@ -109,6 +110,9 @@ $(document).ready(function () {
                 {
                     // let controllerVersion = msg.substring(7);
                     getLatestAppVersionNumber(msg.substring(7), checkVersions);
+                }else if(msg.substring(0,8) === welcomeName){
+                    // console.log("welcome name received = " + msg.substr(8));
+                    setControllerStatus(connected + "<i>" + msg.substr(8) + "</i>", true);
                 }
                 break;
 
@@ -153,24 +157,22 @@ $(document).ready(function () {
 
     function logData() {
         wsocket.send("transcribe client disconnecting..");
-        // console.log("disconnecting..");
     }
 
 
     // WEB SOCKET FUNCTIONS //
-    let setControllerStatus = function (status) {
+    let setControllerStatus = function (status, connected=false) {
         // text
         statusTxt.html(status);
 
+
         // text color
-        switch (status) {
-            case connected:
+        switch (connected) {
+            case true:
                 statusTxt.css("color", greenColor);
                 break;
 
-            case not_running:
-            case not_connected:
-            case connecting:
+            case false:
                 statusTxt.css("color", orangeColor);
 
                 $("#reconnect").on("click", function (e) {

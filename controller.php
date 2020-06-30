@@ -123,6 +123,22 @@ if ($_SESSION['role'] != "1" && $_SESSION['role'] != "3") {
                             2.83 MB
                         </td>
                         <td>
+                            <a href="/controller_app/jars/controller_v1.5.jar">controller_v1.5.jar</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align: center; background:#6c6c6c; color: white; font-size: 1rem">
+                            <i>Older Versions</i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            cross platform Jar <i>(Requires Java > 8 installed)</i>
+                        </td>
+                        <td>
+                            2.83 MB
+                        </td>
+                        <td>
                             <a href="/controller_app/jars/controller_v1.4.jar">controller_v1.4.jar</a>
                         </td>
                     </tr>

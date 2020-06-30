@@ -14,11 +14,12 @@ var statusTxt;
 var overlay;
 var not_connected = "<i>Couldn't connect to controller <u id=\"reconnect\">reconnect?</u></i>";
 var connecting = "<i>connecting to controller please wait...</i>";
-var connected = "<i>Connected to vScription Controller </i>";
+var connected = "<i>Connected to vScription Controller as </i>";
 var not_running = "<i>Controller not running. <u id=\"reconnect\">reconnect?</u></i>";
 var greenColor = "#3e943c";
 var orangeColor = "#f78d2d";
 var versionCheck = "vCheck-"; // DONOT MODIFY
+const welcomeName = "welcome-"; // DONOT MODIFY
 var backend_url = "data/parts/backend_request.php";
 var wsocket;
 var jobPickerWindow;
@@ -68,8 +69,7 @@ $(document).ready(function () {
         isConnected = true;
         isConnecting = false;
 
-        setControllerStatus(connected);
-        wsocket.send("Transcribe Client Connected.");
+        setControllerStatus(connected, true);
     }
 
     function onclose() {
@@ -114,6 +114,9 @@ $(document).ready(function () {
                 {
                     // var controllerVersion = msg.substring(7);
                     getLatestAppVersionNumber(msg.substring(7), checkVersions);
+                } else if (msg.substring(0,8) === welcomeName) {
+                    // console.log("welcome name received = " + msg.substr(8));
+                    setControllerStatus(connected + "<i>" + msg.substr(8) + "</i>", true);
                 }
                 // break;
 
@@ -144,23 +147,19 @@ $(document).ready(function () {
     }
 
 
-    window.addEventListener("unload", postToParent, false);
-
-
     // WEB SOCKET FUNCTIONS //
-    var setControllerStatus = function (status) {
+    let setControllerStatus = function (status, connected=false) {
         // text
         statusTxt.html(status);
 
+
         // text color
-        switch (status) {
-            case connected:
+        switch (connected) {
+            case true:
                 statusTxt.css("color", greenColor);
                 break;
 
-            case not_running:
-            case not_connected:
-            case connecting:
+            case false:
                 statusTxt.css("color", orangeColor);
 
                 $("#reconnect").on("click", function (e) {
@@ -168,7 +167,7 @@ $(document).ready(function () {
                 });
                 break;
         }
-    };
+    }
 
     //***************** End Websocket data *****************//
 
@@ -668,16 +667,16 @@ function switchUI(loaded)
 // switch back to transcribe full mode
 function postToParent()
 {
-    disconnect();
+    // disconnect();
     if(window.opener !== null)
     {
         window.opener.switchBack();
     }
 }
+/*
 function disconnect() {
     if(isConnected || isConnecting)
     {
         wsocket.send("transcribe client disconnecting..");
-        wsocket.close();
     }
-}
+}*/
