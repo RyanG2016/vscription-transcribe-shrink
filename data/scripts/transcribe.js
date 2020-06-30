@@ -650,7 +650,7 @@ $(document).ready(function () {
         var fullAudioSrc = AblePlayerInstances[0].media.src;
         var tempAudioFileName = fullAudioSrc.split("/").pop();
         $(".pop").css("display", "none");
-        clearTempAudio(tempAudioFileName);
+        // clearTempAudio(tempAudioFileName);
 
         AblePlayerInstances[0].seekTo(0);
         AblePlayerInstances[0].media.pause();
@@ -1067,7 +1067,7 @@ $(document).ready(function () {
 
     /*----Lookup job details-----*/
 
-    function clearTempAudio(tempFileName) {
+    /*function clearTempAudio(tempFileName) {
         var a1 = {
             job_id: tempFileName
         };
@@ -1078,7 +1078,7 @@ $(document).ready(function () {
             //alert(data);
         });
 
-    }
+    }*/
 
 
 //Function to convert hh:mm:ss to seconds. This value is taken from ableplayer so
