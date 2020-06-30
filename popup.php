@@ -92,31 +92,31 @@ include_once("gaTrackingCode.php");
     </div>
     <div class="toolbar">
     <span class="loaded">
-        <button class="mdc-button mdc-button--outlined save-button" id="saveBtn" type="button" name="saveBtn">
+        <button class="mdc-button mdc-button--unelevated save-button" id="saveBtn" type="button" name="saveBtn">
             <div class="mdc-button__ripple"></div>
             <i class="material-icons mdc-button__icon" aria-hidden="true">save</i>
             <span class="mdc-button__label">Complete</span>
         </button>
 
-        <button class="mdc-button mdc-button--outlined suspend-button" id="suspendBtn" type="button" name="suspendBtn">
+        <button class="mdc-button mdc-button--unelevated suspend-button" id="suspendBtn" type="button" name="suspendBtn">
             <div class="mdc-button__ripple"></div>
             <i class="material-icons mdc-button__icon" aria-hidden="true">pause_circle_outline</i>
             <span class="mdc-button__label">Suspend</span>
         </button>
 
-        <button class="mdc-button mdc-button--outlined discard-button" id="discardBtn" name="discardBtn" type="button">
+        <button class="mdc-button mdc-button--unelevated discard-button" id="discardBtn" name="discardBtn" type="button">
             <div class="mdc-button__ripple"></div>
             <i class="material-icons mdc-button__icon" aria-hidden="true">clear</i>
             <span class="mdc-button__label">Discard</span>
         </button>
     </span>
         <span class="not-loaded">
-        <button class="mdc-button mdc-button--outlined switch-back-button" id="switchBackBtn" name="switchBackBtn" type="button">
+        <button class="mdc-button mdc-button--unelevated switch-back-button" id="switchBackBtn" name="switchBackBtn" type="button">
             <div class="mdc-button__ripple"></div>
             <i class="material-icons mdc-button__icon" aria-hidden="true">arrow_back</i>
             <span class="mdc-button__label">back to full view</span>
         </button>
-        <button class="mdc-button mdc-button--outlined load-button" id="loadBtn" name="loadBtn" type="button">
+        <button class="mdc-button mdc-button--unelevated load-button" id="loadBtn" name="loadBtn" type="button">
             <div class="mdc-button__ripple"></div>
             <i class="material-icons mdc-button__icon" aria-hidden="true">backup</i>
             <span class="mdc-button__label">Load</span>
