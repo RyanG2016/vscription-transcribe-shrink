@@ -417,18 +417,6 @@ table, th, td {
     overflow: hidden;
 }*/
 
-#message_bar{
-    display:none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 25px;
-    width: 100%;
-    background: red;
-    text-align: center;
-    font-family: "oxygen", serif;
-    color: white;
-}
 #updated_version_bar{
     display:none;
     padding: 5px;

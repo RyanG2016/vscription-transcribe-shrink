@@ -172,8 +172,7 @@ include_once("gaTrackingCode.php");
 </head>
 
 <body>
-<!--	<div id="message_bar">For best experience and foot control support please download the <a href="https://pro.vscription.com/downloads/vScription_Transcribe_Installer.msi" target="_blank" title="Download Latest Version of vScription Transcribe">vScription Transcribe Application</a></div>-->
-<!--	<div id="updated_version_bar">There is a newer version of the vScription Transcribe Controller available. You can <a href="https://pro.vscription.com/downloads/vScription_Transcribe_Installer.msi" target="_blank" title="Download Latest Version of vScription Transcribe">download it here </a></div>-->
+
     <script src="data/scripts/parts/constants.js" type="text/javascript"></script>
 	<script src="data/scripts/transcribe.min.js"> </script>
 
@@ -307,7 +306,7 @@ include_once("gaTrackingCode.php");
                                 </button>
 							</td>
 							<td id="nr">
-                                <button class="mdc-button mdc-button--unelevated discard-button" id="discardBtn" name="discardBtn" onclick="clearWithConfirm();" type="button" disabled>
+                                <button class="mdc-button mdc-button--unelevated discard-button" id="discardBtn" name="discardBtn" type="button" disabled>
                                     <div class="mdc-button__ripple"></div>
                                     <i class="material-icons mdc-button__icon" aria-hidden="true">clear</i>
                                     <span class="mdc-button__label">Discard</span>
@@ -392,12 +391,6 @@ include_once("gaTrackingCode.php");
         </div>
 
     </div>
-
-<form id="modalPlayerForm" method="post" action="popup.php" target="modalPlayer">
-    <input type="hidden" name="src" />
-    <input type="hidden" name="seek" />
-<!--    <input type="hidden" name="more" value="something" />-->
-</form>
 
 </body>
 
