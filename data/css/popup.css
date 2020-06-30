@@ -139,3 +139,9 @@ u{
 #updated_version_bar a{
     color: white;
 }
+
+.controller-status-holder{
+    width: 100%;
+    text-align: right;
+    font-size: 0.9rem;
+}

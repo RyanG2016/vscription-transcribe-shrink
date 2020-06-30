@@ -77,18 +77,37 @@ include_once("gaTrackingCode.php");
 <div id="updated_version_bar">There is a newer version (v<span></span>) of the vScription Transcribe Controller available -> <a href="" target="_blank">download</a></div>
 
 <div class="container">
+    <div style="text-align: right">
+
+    </div>
     <div class="title" id="title">
-        <img class="logo" src="data/images/Logo_only.png" alt="vScription Logo">
-    <span class="title-text-holder">
-        <span class="jobNo" id="jobNo"></span>
-         -
-        <span id="author" class="author"></span>
-         -
-        <span id="jobType" class="jobType"></span>
-    </span>
-        <span class="title-default-text">
-            Transcribe compact view
-        </span>
+
+        <table>
+            <tr>
+                <td rowspan="2"><img class="logo" src="data/images/Logo_only.png" alt="vScription Logo"></td>
+                <td class="controller-status-holder">
+                    <span class="controller-status" id="statusTxt">
+                        <i>connecting to controller please wait...</i>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="title-text-holder">
+                        <span class="jobNo" id="jobNo"></span>
+                         -
+                        <span id="author" class="author"></span>
+                         -
+                        <span id="jobType" class="jobType"></span>
+                    </span>
+                    <span class="title-default-text">
+                        Transcribe compact view
+                    </span>
+                </td>
+            </tr>
+
+        </table>
+
     </div>
     <div class="toolbar">
     <span class="loaded">
@@ -128,11 +147,7 @@ include_once("gaTrackingCode.php");
         </audio>
     </div>
 
-    <div>
-    <span class="controller-status" id="statusTxt">
-        <i>connecting to controller please wait...</i>
-    </span>
-    </div>
+
 
     <div class="overlay">
         <div class="spinner">
