@@ -2,6 +2,10 @@
 /* --- TABLE STYLING  --*/
 /* ---------------------*/
 
+/* BODY */
+body{
+    font-family: 'oxygen', serif;
+}
 
 .mdc-data-table{
     width: 100%;
