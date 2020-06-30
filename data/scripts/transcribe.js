@@ -412,9 +412,9 @@ $(document).ready(function () {
     //	$('#mainlogo-td').css("width","100%");
 
     window.hidetxt = true;
-    $("#control a").click(function () {
+    /*$("#control a").click(function () {
         hideShowForm();
-    });
+    });*/
 
     $("#pop").click(function () {
         let currentMediaSrc = AblePlayerInstances[0].media.src;
@@ -671,7 +671,7 @@ $(document).ready(function () {
         $completeBtn.removeClass('button-green');
     }
 
-    function hideShowForm() {
+    /*function hideShowForm() {
         if (window.hidetxt) {
             window.hidetxt = false;
             //hide text area
@@ -690,7 +690,7 @@ $(document).ready(function () {
             });
             $('#saveBtn').css('display', 'none');
             $('.button-red').css('display', 'none');
-            $("#control a").html('Show Text Area');
+            // $("#control a").html('Show Text Area');
         } else // show text area
         {
             window.hidetxt = true;
@@ -704,13 +704,13 @@ $(document).ready(function () {
             $('.form-style-5').css('min-width', '860px');
             $('#saveBtn').css('display', '');
             $('.button-red').css('display', '');
-            $("#control a").html('Hide Text Area');
+            // $("#control a").html('Hide Text Area');
 
             // Need to set timeout as we need to wait for the slideDown method to run before we get the correct values
             // vScriptCallback("show", document.getElementsByClassName('form-style-5').item(0).offsetHeight, document.getElementsByClassName('form-style-5').item(0).offsetWidth);
         }
 
-    }
+    }*/
 
     function performClick(elemId) {
         var elem = document.getElementById(elemId);

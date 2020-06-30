@@ -191,13 +191,15 @@ include_once("gaTrackingCode.php");
 
 						</td>
 						<td width="225px">
-							<span class="top-links" id="control">
-								<a href="#" title="">Hide Text Area</a>
+							<span class="popup-control" id="popup-control">
+								<i class="fas fa-external-link-alt" style="color: #2dace1"></i>
+								<u id="pop" class="pop">Pop-Up</u>
 							</span>
+
 						</td>
 						<td id="help-td" align="right" width="225px">
 
-                            <u id="pop" class="pop">Pop-Up</u>
+
                             <span class="top-links">
 							<a  href="logout.php">
 								<i class="fas fa-sign-out-alt"></i>
