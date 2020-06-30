@@ -642,7 +642,7 @@ $(document).ready(function () {
         // var f = document.getElementById('modalPlayerForm');
         // f.src.value = src;
         // f.seek.value = seek;
-        compactViewWindow = window.open("popup.php", "modalPlayer", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=530,height=290");
+        compactViewWindow = window.open("popup.php", "modalPlayer", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=530,height=262");
         // f.submit();
     }
 
