@@ -24,6 +24,9 @@ body{
     background: #f4f7f8;
     font-family: 'oxygen', serif;
 }
+.able-status-bar{
+    font-family: 'oxygen', serif;
+}
 
 .logo{
     width: 50px;
