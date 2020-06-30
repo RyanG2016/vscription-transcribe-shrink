@@ -144,7 +144,7 @@ $(document).ready(function () {
     }
 
 
-    window.addEventListener("unload", disconnect, false);
+    window.addEventListener("unload", postToParent, false);
 
 
     // WEB SOCKET FUNCTIONS //
@@ -177,7 +177,6 @@ $(document).ready(function () {
         cache: false
     });
 
-    var modal = document.getElementById("modal");
     var loading = document.getElementById("modalLoading");
 
     loadingConfirmBtn = $("#loadingConfirm");
@@ -188,7 +187,7 @@ $(document).ready(function () {
     // loading.style.display = "block";
 
     loadingConfirmBtn.on("click", function() {
-        location.reload();
+        loading.style.display = "none";
     });
 
     
@@ -670,7 +669,10 @@ function switchUI(loaded)
 function postToParent()
 {
     disconnect();
-    window.opener.switchBack();
+    if(window.opener !== null)
+    {
+        window.opener.switchBack();
+    }
 }
 function disconnect() {
     if(isConnected || isConnecting)
