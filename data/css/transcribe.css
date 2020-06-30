@@ -591,6 +591,6 @@ u{
 
 .pop{
     cursor: pointer;
-    display: none;
+    /*display: none;*/
     color: #2dace1;
 }

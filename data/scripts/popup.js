@@ -552,10 +552,16 @@ $(document).ready(function () {
     $.post(backend_url, {
         reqcode: 204
     }).done(function (data) {
-        // console.log("session saved id is " + data);
+        console.log("session saved id is " + data);
         if(data)
         {
-            loadID(data);
+            if(data === "0") // no job to load just a regular switch to mini view
+            {
+                switchUI(false);
+            }
+            else{
+                loadID(data);
+            }
         }
         else{
             switchUI(false);

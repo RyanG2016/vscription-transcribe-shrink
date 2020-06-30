@@ -460,6 +460,7 @@ $(document).ready(function () {
     }
 
     function prepareAndOpenPopup(){
+
         var a1 = {
             fileID: currentFileID
         };
@@ -474,11 +475,13 @@ $(document).ready(function () {
                 wsocket.send("transcribe client disconnecting..");
             }
 
-            // 2. open popup
-            openPopupWindow();
+            // 2. close/discard this
+            if(currentFileID !== 0){
+                suspendAndClearForDiscard();
+            }
 
-            // 3. close/discard this
-            suspendAndClearForDiscard();
+            // 3. open popup
+            openPopupWindow();
         });
     }
 
@@ -649,7 +652,7 @@ $(document).ready(function () {
         //Delete Temp Audio File
         var fullAudioSrc = AblePlayerInstances[0].media.src;
         var tempAudioFileName = fullAudioSrc.split("/").pop();
-        $(".pop").css("display", "none");
+        // $(".pop").css("display", "none");
         // clearTempAudio(tempAudioFileName);
 
         AblePlayerInstances[0].seekTo(0);
@@ -840,7 +843,7 @@ $(document).ready(function () {
                 // AblePlayerInstances[0].media.load();
             }
 
-            $(".pop").css("display", "inline");
+            // $(".pop").css("display", "inline");
         }
 
         AblePlayerInstances[0].onMediaPause = function () {
