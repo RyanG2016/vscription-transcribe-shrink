@@ -1,0 +1,10 @@
+/data/parts/config.php export-ignore
+/data/scripts/parts/constants.js export-ignore
+/data/parts/constants.php export-ignore
+/data/scripts/admin_tools.js export-ignore
+/data/scripts/job_upload.js export-ignore
+/data/scripts/login.js export-ignore
+/data/scripts/main.js export-ignore
+/data/scripts/reset.js export-ignore
+/data/scripts/tinymce.js export-ignore
+/data/scripts/transcribe.js export-ignore

@@ -1,0 +1,22 @@
+{
+  "name": "transcribe/src",
+  "description": "vScription Transcribe API",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Hossam",
+      "email": "hossamt7552@gmail.com"
+    }
+  ],
+  "require": {
+    "vlucas/phpdotenv": "^2.4",
+    "ext-json": "*",
+    "ext-pdo": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Src\\": "src/"
+    }
+  }
+}
