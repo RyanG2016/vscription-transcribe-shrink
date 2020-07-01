@@ -1,6 +1,21 @@
 <?php
 
-require '../bootstrap.php';
+require '../../../../api/bootstrap.php';
+
+include('../../../data/parts/session_settings.php');
+
+require('../../../data/parts/ping.php');
+
+if(!isset($_SESSION['loggedIn']))
+{
+    header("HTTP/1.1 401 ACCESS DENIED");
+    exit();
+}
+if(isset($_SESSION['counter']))
+{
+    unset($_SESSION['counter']);
+}
+
 
 use Src\Controller\FileController;
 
@@ -13,17 +28,17 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $uri = explode('/', $uri);
 
-// all of our endpoints start with /person
+// all of our endpoints start with /api/v1/file
 // everything else results in a 404 Not Found
-if ($uri[2] !== 'file') {
+if ($uri[3] !== 'file') {
     header("HTTP/1.1 404 Not Found");
     exit();
 }
 
 // the file id is, of course, optional and must be a number:
 $fileId = null;
-if (isset($uri[3])) {
-    $fileId = (int)$uri[3];
+if (isset($uri[4])) {
+    $fileId = (int)$uri[4];
 }
 
 $requestMethod = $_SERVER["REQUEST_METHOD"];
