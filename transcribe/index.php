@@ -5,7 +5,6 @@ include('data/parts/constants.php');
 include('data/parts/ping.php');
 
 
-//we have a message
 if(isset($_SESSION['loggedIn']))
 {
 	unset($_SESSION['counter']);

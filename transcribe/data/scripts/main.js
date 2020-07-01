@@ -18,31 +18,3 @@ $(document).ready(function () {
 		cache: false
 	});
 });
-
-
-
-
-//***************** Functions ***************//
-
-
-$(document).ready(function () {
-
-
-	window.hidetxt = true;
-	$("#control a").click(function () {
-		hideShowForm();
-	});
-
-
-});
-
-
-function toggleClass(el, className) {
-    if (el.className.indexOf(className) >= 0) {
-        el.className = el.className.replace(className,"");
-    }
-    else {
-        el.className  += className;
-    }
-}
-
