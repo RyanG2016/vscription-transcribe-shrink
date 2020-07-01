@@ -38,6 +38,16 @@ class FileGateway
             $statement = $this->db->prepare($statement);
             $statement->execute(array($_SESSION['accID']));
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            if(isset($_GET['dt'])){
+                $json_data = array(
+                        //            "draw"            => intval( $_REQUEST['draw'] ),
+                        //            "recordsTotal"    => intval( 2 ),
+                        //            "recordsFiltered" => intval( 1 ),
+                    "data"            => $result
+                );
+                //        $response['body'] = json_encode($result);
+                $result = $json_data;
+            }
             return $result;
         } catch (\PDOException $e) {
             exit($e->getMessage());

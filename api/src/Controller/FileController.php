@@ -60,9 +60,9 @@ class FileController {
     private function getFile($id)
     {
         $result = $this->fileGateway->find($id);
-        if (! $result) {
-            return $this->notFoundResponse();
-        }
+        /*if (! $result) {
+//            return $this->notFoundResponse();
+        }*/
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
         $response['body'] = json_encode($result);
         return $response;
