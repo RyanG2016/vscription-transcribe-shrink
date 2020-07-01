@@ -17,7 +17,7 @@ function parseParams($addWhereClause = false){
             {
                 case "file_id":
                 case "job_id":
-                case "acc_id":
+//                case "acc_id":
                 case "file_type":
                 case "original_audio_type":
                 case "file_name":

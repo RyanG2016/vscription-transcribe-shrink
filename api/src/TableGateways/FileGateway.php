@@ -21,7 +21,7 @@ class FileGateway
 
     public function findAll()
     {
-        $filter = parseParams(true);
+        $filter = parseParams();
 
         $statement = "
             SELECT 
@@ -30,10 +30,13 @@ class FileGateway
                    times_text_downloaded_date, job_transcribed_by, file_transcribed_date, typist_comments,isBillable, billed
             FROM
                 files
+            WHERE
+                  acc_id = ?
         " . $filter . ";";
 
         try {
-            $statement = $this->db->query($statement);
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($_SESSION['accID']));
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             return $result;
         } catch (\PDOException $e) {
@@ -43,7 +46,6 @@ class FileGateway
 
     public function find($id)
     {
-        $filter = parseParams();
 
         $statement = "
             SELECT 
@@ -54,12 +56,12 @@ class FileGateway
             
             FROM
                 files
-            WHERE file_id = ?;
+            WHERE file_id = ? and acc_id = ?;
         ";
 
         try {
             $statement = $this->db->prepare($statement);
-            $statement->execute(array($id));
+            $statement->execute(array($id, $_SESSION['accID']));
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             return $result;
         } catch (\PDOException $e) {
