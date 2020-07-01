@@ -1,5 +1,5 @@
 <?php
-//session_start();
+
 include('session_settings.php');
 
 require('ping.php');

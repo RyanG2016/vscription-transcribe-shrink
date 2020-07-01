@@ -60,7 +60,7 @@ if(isset($_REQUEST["reqcode"])){
 				break;
 				
 				
-			case 31: // SIGNUP
+			case 31: // SIGN UP
 				//SRC = 2;
 				$src = 2;
 				
