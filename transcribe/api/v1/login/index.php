@@ -8,8 +8,11 @@ require('../../../data/parts/ping.php');
 
 if(isset($_SESSION['loggedIn']))
 {
-    header("HTTP/1.1 200 Already LoggedIn");
-    echo "Already LoggedIn";
+    header("HTTP/1.1 200 OK");
+    echo json_encode([
+        'error' => false,
+        'msg' => "Already LoggedIn"
+    ]);
     exit();
 }
 if(isset($_SESSION['counter']))

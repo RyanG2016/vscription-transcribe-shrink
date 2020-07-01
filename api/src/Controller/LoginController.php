@@ -99,8 +99,12 @@ class LoginController {
         if($result["err"] == true){
             return $this -> AuthenticationFailed($result["msg"]);
         }
-        $response['status_code_header'] = 'HTTP/1.1 201 Created';
-        $response['body'] = $result['msg'];
+
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = json_encode([
+            'error' => false,
+            'msg' => $result["msg"]
+        ]);
         return $response;
     }
     /*
