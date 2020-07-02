@@ -199,8 +199,11 @@ body {
     color: white;
     font-weight: bold;
     /*font-size: 0.9rem;*/
-    /*font-family: oxygen;*/
+    font-family: oxygen, serif !important;
     padding-left: 10px !important;
+}
+.mdc-data-table__cell{
+    font-family: oxygen, serif !important;
 }
 
 .data-tbl{
@@ -414,4 +417,8 @@ td .times-downloaded{
     font-size: 18px;
     vertical-align: text-bottom;
     cursor: pointer;
+}
+
+.mdc-button--colored{
+    color: white !important;
 }

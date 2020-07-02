@@ -25,9 +25,14 @@ class FileGateway
 
         $statement = "
             SELECT 
-                file_id, job_id, acc_id, file_type, original_audio_type, filename, tmp_name, orig_filename, file_author, file_work_type,file_comment,
-                   file_speaker_type, file_date_dict, file_status,audio_length, last_audio_position, job_uploaded_by, text_downloaded_date,                  
-                   times_text_downloaded_date, job_transcribed_by, file_transcribed_date, typist_comments,isBillable, billed
+                file_id, job_id, acc_id, file_type, original_audio_type, filename, tmp_name, orig_filename, file_author,
+                   file_work_type,file_comment, file_speaker_type, file_date_dict, file_status,audio_length,
+                   last_audio_position, job_uploaded_by, job_upload_date, job_transcribed_by, text_downloaded_date,                  
+                   times_text_downloaded_date, job_transcribed_by, file_transcribed_date, typist_comments,isBillable,
+                   billed, 
+                   (SELECT j_status_name 
+                   From file_status_ref 
+                   WHERE file_status_ref.j_status_id=files.file_status ORDER BY file_status LIMIT 1) as file_status_ref
             FROM
                 files
             WHERE
