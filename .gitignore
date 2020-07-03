@@ -8,3 +8,4 @@
 .vs/*
 test*
 uploads
+api/.env
