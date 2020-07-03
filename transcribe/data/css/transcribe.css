@@ -588,11 +588,13 @@ u{
     cursor: pointer;
 }
 
-.pop{
-    cursor: pointer;
-    color: #2dace1;
-}
-
 .mdc-button--colored{
     color: white !important;
+}
+
+.compact-view-btn, .logout-btn{
+    -webkit-appearance: none;
+    --mdc-theme-primary: #2dace1;
+    height: 27px !important;
+    text-transform: unset !important;
 }

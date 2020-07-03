@@ -166,7 +166,6 @@ include_once("gaTrackingCode.php");
 </head>
 
 <body>
-
     <script src="data/scripts/parts/constants.js" type="text/javascript"></script>
 	<script src="data/scripts/transcribe.min.js?v=1"> </script>
 
@@ -185,22 +184,19 @@ include_once("gaTrackingCode.php");
 
 						</td>
 						<td width="225px">
-							<span class="popup-control" id="popup-control">
-								<i class="fas fa-external-link-alt" style="color: #2dace1"></i>
-								<u id="pop" class="pop">Compact View</u>
-							</span>
+                            <button class="mdc-button mdc-button--unelevated compact-view-btn" id="pop" name="compact-view" type="button">
+                                <div class="mdc-button__ripple"></div>
+                                <i class="fas fa-external-link-alt"></i>
+                                <span class="mdc-button__label">&nbsp;Compact View</span>
+                            </button>
 
 						</td>
 						<td id="help-td" align="right" width="225px">
-
-
-                            <span class="top-links">
-							<a  href="logout.php">
-								<i class="fas fa-sign-out-alt"></i>
-								Logout
-							</a>
-                            </span>
-
+                            <button class="mdc-button mdc-button--unelevated logout-btn" id="logoutBtn" name="logout-btn" type="button">
+                                <div class="mdc-button__ripple"></div>
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span class="mdc-button__label">&nbsp;Logout</span>
+                            </button>
 						</td>
 
 					</tr>

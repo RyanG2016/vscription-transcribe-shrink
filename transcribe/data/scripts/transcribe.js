@@ -211,6 +211,8 @@ $(document).ready(function () {
     new mdc.ripple.MDCRipple(document.querySelector("#suspendBtn"));
     new mdc.ripple.MDCRipple(document.querySelector("#discardBtn"));
     new mdc.ripple.MDCRipple(document.querySelector("#loadingConfirm"));
+    new mdc.ripple.MDCRipple(document.querySelector("#pop"));
+    new mdc.ripple.MDCRipple(document.querySelector("#logoutBtn"));
 
     jobsDT = $("#jobs-tbl");
     loadingConfirmBtn = $("#loadingConfirm");
@@ -491,6 +493,10 @@ $(document).ready(function () {
 
         // openWindowWithPost(currentMediaSrc, seek);
         // document.getElementById('modalPlayerForm').submit();
+    });
+
+    $("#logoutBtn").click(function () {
+        location.href = "logout.php";
     });
 
     $("#discardBtn").click(function () {
