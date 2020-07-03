@@ -187,7 +187,7 @@ include_once("gaTrackingCode.php");
 						<td width="225px">
 							<span class="popup-control" id="popup-control">
 								<i class="fas fa-external-link-alt" style="color: #2dace1"></i>
-								<u id="pop" class="pop">Pop-Up</u>
+								<u id="pop" class="pop">Compact View</u>
 							</span>
 
 						</td>
