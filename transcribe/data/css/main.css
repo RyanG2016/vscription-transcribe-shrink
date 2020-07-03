@@ -196,7 +196,7 @@ body {
 
 }
 .mdc-data-table__header-cell{
-    color: white;
+    color: white !important;
     font-weight: bold;
     /*font-size: 0.9rem;*/
     font-family: oxygen, serif !important;
@@ -417,6 +417,11 @@ td .times-downloaded{
     font-size: 18px;
     vertical-align: text-bottom;
     cursor: pointer;
+}
+
+.mdc-data-table__header-row{
+    background: rgba(30, 121, 190, 0.9) !important;
+
 }
 
 .mdc-button--colored{
