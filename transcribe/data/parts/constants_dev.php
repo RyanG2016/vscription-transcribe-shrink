@@ -19,14 +19,14 @@ switch($lang)
 		$chtml = 'lang="en"';
 		
 		//OPTIONS
-		$version_control ="2.4";
+		$version_control ="2.5";
 		$fileNameSuffix = "-NEEDSREVIEW";
 		$slashShortcut = "Expand Word";
 		$atShortcut = "Dr. List";
 		$clogin = "Login";
 		$cemail = "Email";
 		$cpassword = "Password";
-		$cbaselink = "https://vscriptiontranscribeupload.local:8888"; //for password reset without ending slash
+		$cbaselink = "https://vscriptiontranscribeupload.local"; //for password reset without ending slash
 		
 		$msgVerifyAccount= "Please verify your account first by following the link that was sent to your Email.";
 		
