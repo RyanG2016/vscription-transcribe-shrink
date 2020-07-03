@@ -427,3 +427,7 @@ td .times-downloaded{
 .mdc-button--colored{
     color: white !important;
 }
+
+.top-links{
+    vertical-align: bottom;
+}
