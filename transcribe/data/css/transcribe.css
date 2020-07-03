@@ -582,7 +582,6 @@ table, th, td {
     margin-right: 15px;
     vertical-align: bottom;
     color: #f78d2d;
-    /*color: #3e943c;*/
 }
 
 u{
@@ -591,6 +590,9 @@ u{
 
 .pop{
     cursor: pointer;
-    /*display: none;*/
     color: #2dace1;
+}
+
+.mdc-button--colored{
+    color: white !important;
 }

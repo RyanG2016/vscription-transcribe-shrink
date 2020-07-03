@@ -26,6 +26,8 @@ const orangeColor = "#f78d2d";
 const versionCheck = "vCheck-"; // DONOT MODIFY
 const welcomeName = "welcome-"; // DONOT MODIFY
 var compactViewWindow;
+var jobsDT;
+var jobsDTRef;
 
 $(document).ready(function () {
 
@@ -200,7 +202,6 @@ $(document).ready(function () {
     $.ajaxSetup({
         cache: false
     });
-    //checkBrowser();
 
     let modal = document.getElementById("modal");
     let loading = document.getElementById("modalLoading");
@@ -211,6 +212,7 @@ $(document).ready(function () {
     new mdc.ripple.MDCRipple(document.querySelector("#discardBtn"));
     new mdc.ripple.MDCRipple(document.querySelector("#loadingConfirm"));
 
+    jobsDT = $("#jobs-tbl");
     loadingConfirmBtn = $("#loadingConfirm");
     loadingSub = $("#modalLoading .modal-content p i");
     loadingTitle = $("#modalLoading .modal-content h2");
@@ -228,22 +230,9 @@ $(document).ready(function () {
     });
 
 
- /*   $(".modal-content").on("animationend webkitAnimationEnd", function(){
-
-        $(".textarea-holder textarea").niceScroll(
-            {
-                hwacceleration: true,
-                smoothscroll: true,
-                cursorcolor: "#1e79be",
-                autohidemode: false
-            }
-        );
-
-    });*/
-
     $("#loadBtn").on("click", function (e) {
         modal.style.display = "block";
-        chooseJob();
+        jobsDTRef.ajax.reload();
     });
 
     window.onclick = function(event) {
@@ -251,6 +240,86 @@ $(document).ready(function () {
             modal.style.display = "none";
         }
     }
+
+    let maximum_rows_per_page_jobs_list = 7;
+
+    jobsDT.on( 'init.dt', function () {
+        if(!$('.cTooltip').hasClass("tooltipstered"))
+        {
+            $('.download-icon').click(function() {
+                let file_id = $(this).parent().parent().attr('id');
+                download(file_id);
+            });
+
+            $('.cTooltip').tooltipster({
+                animation: 'grow',
+                theme: 'tooltipster-punk',
+                arrow: true
+            });
+        }
+    } );
+
+    jobsDTRef = jobsDT.DataTable( {
+        rowId: 'file_id',
+        "ajax": 'api/v1/file?dt',
+        "processing": true,
+        lengthChange: false,
+        pageLength: maximum_rows_per_page_jobs_list,
+        autoWidth: false,
+        columnDefs: [
+            {
+                targets: ['_all'],
+                className: 'mdc-data-table__cell'
+            }
+        ],
+        "columns": [
+            { "data": "job_id",
+                render: function ( data, type, row ) {
+                    if(row["file_comment"] != null)
+                    {
+                        return data + " <i class=\"material-icons mdc-button__icon job-comment cTooltip\" aria-hidden=\"true\" title='"
+                            +htmlEncodeStr(row["file_comment"])
+                            +"'>speaker_notes</i>";
+                    }else{
+                        return data;
+                    }
+                }
+            },
+            { "data": "file_author" },
+            { "data": "file_work_type" },
+            { "data": "file_date_dict" },
+            { "data": "job_upload_date" },
+            { "data": "file_status_ref" },
+            { "data": "audio_length",
+                render: function (data) {
+                    return new Date(data * 1000).toISOString().substr(11, 8);
+                }
+            }
+        ]
+    } );
+
+    jobsDT.on( 'draw.dt', function () {
+
+            $('.download-icon').click(function() {
+                let file_id = $(this).parent().parent().attr('id');
+                download(file_id);
+            });
+
+            if(!$('.cTooltip').hasClass("tooltipstered"))
+            {
+                $('.cTooltip').tooltipster({
+                    animation: 'grow',
+                    theme: 'tooltipster-punk',
+                    arrow: true
+                });
+            }
+        }
+    );
+
+    $('#jobs-tbl tbody').on('click', 'tr', function () {
+        let fileID = jobsDTRef.row(this).id();
+        jobLoadLookup(fileID);
+    } );
 
 
     form.addEventListener("submit", e => {
@@ -405,22 +474,11 @@ $(document).ready(function () {
 
         });
 
-    /*$("#loadBtn").click(function () {
-        // Complete Button click
-        performClick('fileLoadDiag');
-
-    });*/
-
-    //	$('#mainlogo-td').css("width","100%");
-
     window.hidetxt = true;
-    /*$("#control a").click(function () {
-        hideShowForm();
-    });*/
 
     $("#pop").click(function () {
-        let currentMediaSrc = AblePlayerInstances[0].media.src;
-        let seek = AblePlayerInstances[0].seekBar.position;
+        // let currentMediaSrc = AblePlayerInstances[0].media.src;
+        // let seek = AblePlayerInstances[0].seekBar.position;
         let tinymceContent = tinymce.get('report').getContent().toString();
 
         if(tinymceContent !== "")
@@ -566,14 +624,6 @@ $(document).ready(function () {
             }
         });
 
-        /*
-        if(retVal === true){
-            clear();
-            return true;
-        }
-        else{
-            return false;
-        }*/
     }
 
     function askForCompletePlayer() {
@@ -672,63 +722,6 @@ $(document).ready(function () {
         $completeBtn.addClass('button');
         $completeBtn.removeClass('button-green');
     }
-
-    /*function hideShowForm() {
-        if (window.hidetxt) {
-            window.hidetxt = false;
-            //hide text area
-            $('#audio-td').attr('align', 'center');
-            //$('#help-td').attr('align','center');
-            $('#fix-td').css('display', 'none');
-            $('#demo-td legend').css('display', 'none');
-            $('#mainlogo-td').css('display', 'none');
-
-            //$('fieldset').slideUp();
-            $('fieldset').slideUp(400, function () {
-                $('.form-style-5').css('min-width', '500px');
-                $('.form-style-5').css('width', '500px');
-                //$('.form-style-5').css('max-width','500px');
-
-            });
-            $('#saveBtn').css('display', 'none');
-            $('.button-red').css('display', 'none');
-            // $("#control a").html('Show Text Area');
-        } else // show text area
-        {
-            window.hidetxt = true;
-            $('#audio-td').attr('align', 'right');
-            $('#help-td').attr('align', 'right');
-            $('#fix-td').css('display', '');
-            $('#demo-td legend').css('display', '');
-            $('#mainlogo-td').css('display', '');
-            $('fieldset').slideDown(400);
-            $('.form-style-5').css('width', '90%');
-            $('.form-style-5').css('min-width', '860px');
-            $('#saveBtn').css('display', '');
-            $('.button-red').css('display', '');
-            // $("#control a").html('Hide Text Area');
-
-            // Need to set timeout as we need to wait for the slideDown method to run before we get the correct values
-            // vScriptCallback("show", document.getElementsByClassName('form-style-5').item(0).offsetHeight, document.getElementsByClassName('form-style-5').item(0).offsetWidth);
-        }
-
-    }*/
-
-    function performClick(elemId) {
-        var elem = document.getElementById(elemId);
-        if (elem && document.createEvent) {
-            var evt = document.createEvent("MouseEvents");
-            evt.initEvent("click", true, false);
-            elem.dispatchEvent(evt);
-        }
-    }
-
-    /*-----Open dialog for typist to choose job---*/
-
-    function chooseJob() {
-        getTransJobList(addRowHandlers);
-    }
-
 
     /*----Lookup job details-----*/
 
@@ -905,27 +898,6 @@ $(document).ready(function () {
         }
 
         return check;
-        //        return check;
-        /*     if (check) {
-                    document.getElementById('form').submit();
-
-                    var jobNum = jobID.val().trim();
-                    updateJobDetailsDB(jobStatus, jobNum);
-                    //clear();
-                    //clearAfterDownload(false); //ask to complete player = false
-
-
-            } else {
-                $(window).scrollTop(0);
-                $.alert({
-
-                    title: 'Error!',
-                    type: 'red',
-                    content: 'Please fill in all required form fields.',
-                });
-            } */
-        //    });
-
 
     }
 
@@ -983,122 +955,6 @@ $(document).ready(function () {
         }
     }
 
-    function getTransJobList(callback) {
-        let maximum_rows_per_page_jobs_list = 7;
-
-        // const maximum_rows_per_page_jobs_list = 7;
-        var jobListResult = $('.jobs_tbl'); //populating fields
-
-        $.post("data/parts/backend_request.php", {
-            reqcode: 9
-        }).done(function (res) {
-            let response = JSON.parse(res);
-            let data = response.data;
-            let error = response.error;
-
-            if(error){
-                jobListResult.html(response.data);
-                return true;
-            }
-
-            jobListResult.html(response.data);
-
-            new mdc.dataTable.MDCDataTable(document.querySelector('.mdc-data-table'));
-            dataTbl = $('.jobs_tbl');
-            dataTbl.on( 'init.dt', function () {
-                if(!$('.cTooltip').hasClass("tooltipstered"))
-                {
-                    $('.cTooltip').tooltipster({
-                        animation: 'grow',
-                        theme: 'tooltipster-punk',
-                        arrow: true
-                    });
-                }
-            } );
-            dataTbl = dataTbl.DataTable(
-                {
-                    lengthChange: false,
-                    searching: false,
-                    lengthMenu: false,
-                    pageLength: maximum_rows_per_page_jobs_list,
-                    destroy: true
-                    /*"columnDefs": [{
-                        "targets": [0],
-                        "visible": true,
-                        "searchable": false,
-                        "orderable": false
-                    }]*/
-                }
-            );
-            // this function below fires after new page is completely drawn
-            dataTbl.on( 'draw', function () {
-                if(!$('.cTooltip').hasClass("tooltipstered"))
-                    $('.cTooltip').tooltipster({
-                        animation: 'grow',
-                        theme: 'tooltipster-punk',
-                        arrow: true
-                    });
-            } );
-
-            setTimeout(function() {
-                callback(response.error);
-            }, 1000);
-        });
-
-    }
-    function addRowHandlers(error) {
-
-        if(!error)
-        {
-            let table = $('.jobs_tbl').DataTable();
-
-            $('.jobs_tbl tbody').on('click', 'tr', function () {
-                let fileID = table.row(this).id();
-                jobLoadLookup(fileID);
-            } );
-        }
-
-
-    }
-
-    function toggleClass(el, className) {
-        if (el.className.indexOf(className) >= 0) {
-            el.className = el.className.replace(className,"");
-        }
-        else {
-            el.className  += className;
-        }
-    }
-
-    /*----Lookup job details-----*/
-
-    /*function clearTempAudio(tempFileName) {
-        var a1 = {
-            job_id: tempFileName
-        };
-        $.post("data/parts/backend_request.php", {
-            reqcode: 33,
-            args: JSON.stringify(a1)
-        }).done(function () {
-            //alert(data);
-        });
-
-    }*/
-
-
-//Function to convert hh:mm:ss to seconds. This value is taken from ableplayer so
-//we are assuming that it is calculating correctly
-    function hmsToSecondsOnly(str) {
-        var p = str.split(':'),
-            s = 0, m = 1;
-
-        while (p.length > 0) {
-            s += m * parseInt(p.pop(), 10);
-            m *= 60;
-        }
-
-        return s;
-    }
 
     function getCurrentDateTime() {
         var today = new Date();
@@ -1107,28 +963,6 @@ $(document).ready(function () {
         var dateTime = date+' '+time;
 
         return dateTime;
-    }
-
-//
-    function convertFormToRTF() {
-        event.preventDefault();
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "formsave.php");
-        xhr.onload = function(event){
-            // console.log(`Response data: ${xhr.responseText}`);
-            //alert("Success, server responded with: " + event.target.response); // raw response
-            // return xhr.responseText;
-            responseReceived(xhr.responseText)
-        };
-        // or onerror, onabort
-        var formData = new FormData(document.getElementById("form"));
-        xhr.send(formData);
-
-    }
-
-    function responseReceived(rawtext)
-    {
-        // console.log(`Raw text is: ${rawtext}`);
     }
 
 });
@@ -1165,8 +999,11 @@ $(function () {
     });
 });
 
-function switchBack() // back to full view request from popup compact view
+function htmlEncodeStr(s)
 {
-    compactViewWindow.close();
-    $("#reconnect").click();
+    return s.replace(/&/g, "&amp;")
+        .replace(/>/g, "&gt;")
+        .replace(/</g, "&lt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&lsquo;");
 }

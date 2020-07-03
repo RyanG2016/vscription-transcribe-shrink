@@ -28,21 +28,10 @@ include_once("gaTrackingCode.php");
 	<title>vScription</title>
 	<link rel="shortcut icon" type="image/png" href="data/images/favicon.png" />
 
-	<!--The tablesort.css is causing some styling conflicts with main page-->
-<!--	<link href='data/thirdparty/scripts/css/styles.css?v=--><?php //echo $version_control ?><!--' type='text/css' rel='stylesheet' />-->
-<!--	<link href='data/thirdparty/scripts/css/tablesort.css?v=--><?php //echo $version_control ?><!--' type='text/css' rel='stylesheet' />-->
-
 	<link href='data/css/transcribe.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet' />
 
     <script src="https://kit.fontawesome.com/00895b9561.js" crossorigin="anonymous"></script>
 	<link href='ableplayer/styles/ableplayer.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet' />
-
-<!--	<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">-->
-<!--	<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">-->
-
-	<!--	Font 	-->
-	<!--	<link href="https://fonts.googleapis.com/css?family=Oxygen&display=swap" rel="stylesheet">-->
-	<!--	<link href="https://fonts.googleapis.com/css?family=Oxygen&display=swap" rel="stylesheet">-->
 
 
 	<?php
@@ -120,16 +109,25 @@ include_once("gaTrackingCode.php");
 
     ?>
 
+    <!--    JQuery    -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<link rel="stylesheet" href="data/main/jquery-ui.css">
-	<script src="data/main/jquery.js"></script>
+
 	<script src="data/main/garlic.js"></script>
 	<script src="data/main/jquery-ui.js"></script>
 	<script src="data/thirdparty/scripts/moment.js"></script>
 
 	    <!--  MDC Components  -->
-    <link href="data/libs/node_modules/material-components-web/dist/material-components-web.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="data/libs/node_modules/material-components-web/dist/material-components-web.js"></script>
+
+
+    <!--  Data table Jquery helping libs  -->
+    <link rel="stylesheet" type="text/css" href="data/libs/DataTables/datatables.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/material-components-web/4.0.0/material-components-web.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/dataTables.material.min.css"/>
+    <script type="text/javascript" src="data/libs/DataTables/datatables.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/dataTables.material.min.js"></script>
 
 	<script src='tinymce/tinymce.min.js?v=<?php echo $version_control ?>'></script>
 
@@ -159,10 +157,6 @@ include_once("gaTrackingCode.php");
 
 	<link rel="stylesheet" href="data/dialogues/jquery-confirm.min.css">
 	<script src="data/dialogues/jquery-confirm.min.js"></script>
-
-    <!--  Data table Jquery helping libs  -->
-    <link rel="stylesheet" type="text/css" href="data/libs/DataTables/datatables.css"/>
-    <script type="text/javascript" src="data/libs/DataTables/datatables.js"></script>
 
     <!--	Tooltip 	-->
     <link rel="stylesheet" type="text/css" href="data/tooltipster/css/tooltipster.bundle.min.css" />
@@ -357,19 +351,21 @@ include_once("gaTrackingCode.php");
         <!-- Modal content -->
         <div class="modal-content">
             <h2>Job Picker</h2>
-            <p><i>Filtering Jobs with Status of: Awaiting Transcription, In Progress and Suspended.</i></p>
-            <div class="mdc-data-table">
-            <!--Job table goes here-->
-                <table class="mdc-data-table__table jobs_tbl" aria-label="Jobs List">
+<!--            <p><i>Filtering Jobs with Status of: Awaiting Transcription, In Progress and Suspended.</i></p>-->
 
-                </table>
-            </div>
-
-            <!--<div class="tblButtons">
-                popup's close button
-                <button class="jobOpen">Open</button>
-                <button class="close">Close</button>
-            </div>-->
+            <table id="jobs-tbl" class="display" style="width:100%">
+                <thead>
+                <tr>
+                    <th>Job #</th>
+                    <th>Author</th>
+                    <th>Job Type</th>
+                    <th>Date Dictated</th>
+                    <th>Date Uploaded</th>
+                    <th>Job Status</th>
+                    <th>Job Length</th>
+                </tr>
+                </thead>
+            </table>
         </div>
 
     </div>
