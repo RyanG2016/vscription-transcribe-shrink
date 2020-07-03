@@ -92,7 +92,11 @@ $(document).ready(function () {
 			{ "data": "file_work_type" },
 			{ "data": "file_date_dict" },
 			{ "data": "job_upload_date" },
-			{ "data": "audio_length" },
+			{ "data": "audio_length",
+				render: function (data) {
+					return new Date(data * 1000).toISOString().substr(11, 8);
+				}
+			},
 			{ "data": "file_status_ref" },
 			{ "data": "file_transcribed_date" },
 			{ "data": "text_downloaded_date" },
