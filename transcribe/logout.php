@@ -5,7 +5,6 @@ include('data/parts/config.php');
 include("data/parts/common_functions.php");
 // Getting logout time in db
 isset($_SESSION['uEmail'])?$uemail = $_SESSION['uEmail']:$uemail = "";
-$uip=$_SERVER['REMOTE_ADDR']; // get the user ip
 if(isset($_SESSION['loggedIn']))
 {
 	$uemail = $_SESSION['uEmail'];
