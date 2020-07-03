@@ -80,7 +80,9 @@ $(document).ready(function () {
 				render: function ( data, type, row ) {
 					if(row["file_comment"] != null)
 					{
-						return data + " <i class=\"material-icons mdc-button__icon job-comment cTooltip\" aria-hidden=\"true\" title='"+row["file_comment"]+"'>speaker_notes</i>";
+						return data + " <i class=\"material-icons mdc-button__icon job-comment cTooltip\" aria-hidden=\"true\" title='"
+							+htmlEncodeStr(row["file_comment"])
+							+"'>speaker_notes</i>";
 					}else{
 						return data;
 					}
@@ -154,4 +156,11 @@ function download(fileID){
 	});
 }
 
-// document.addEventListener("DOMContentLoaded", documentReady);
+function htmlEncodeStr(s)
+{
+	return s.replace(/&/g, "&amp;")
+		.replace(/>/g, "&gt;")
+		.replace(/</g, "&lt;")
+		.replace(/"/g, "&quot;")
+		.replace(/'/g, "&lsquo;");
+}
