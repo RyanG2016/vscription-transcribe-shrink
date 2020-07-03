@@ -17,10 +17,10 @@ var isConnected = false;
 var isConnecting = true;
 var firstLaunch = true;
 let statusTxt;
-const not_connected = "<i>Couldn't connect to controller <u id=\"reconnect\">reconnect?</u></i>";
+const not_connected = "<i>Couldn't connect to controller <u id=\"reconnect\">reconnect?</u> <u class='download-controller' id=\"downloadController\">or download here</u></i>";
 const connecting = "<i>connecting to controller please wait...</i>";
 const connected = "<i>Connected to vScription Controller as </i>";
-const not_running = "<i>Controller not running. <u id=\"reconnect\">reconnect?</u></i>";
+const not_running = "<i>Controller not running. <u id=\"reconnect\">reconnect?</u> <u class='download-controller' id=\"downloadController\">or download here</u></i>";
 const greenColor = "#3e943c";
 const orangeColor = "#f78d2d";
 const versionCheck = "vCheck-"; // DONOT MODIFY
@@ -179,6 +179,13 @@ $(document).ready(function () {
 
                 $("#reconnect").on("click", function (e) {
                     connect();
+                });
+
+                $("#downloadController").on("click", function (e) {
+                    window.open(
+                        'controller.php',
+                        '_blank'
+                    );
                 });
                 break;
         }

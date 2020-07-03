@@ -598,3 +598,7 @@ u{
     height: 27px !important;
     text-transform: unset !important;
 }
+
+.download-controller{
+    color: #53a13d;
+}
