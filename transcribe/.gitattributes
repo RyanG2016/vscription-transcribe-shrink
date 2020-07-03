@@ -8,3 +8,4 @@
 /data/scripts/reset.js export-ignore
 /data/scripts/tinymce.js export-ignore
 /data/scripts/transcribe.js export-ignore
+* text=auto
