@@ -118,8 +118,7 @@ else {
                 </td>
                 <td colspan="3" align="right">
                     <span class="top-links" id="help">
-                        <a href="https://vscriptionpro.helpdocsonline.com/" target="_blank" title="">Need help</a>
-                        <i class="far fa-question-circle"></i>
+                        <a href="https://vscriptionpro.helpdocsonline.com/" target="_blank" title="">Need help <i class="far fa-question-circle"></i></a>
                     </span>
                     <button class="mdc-button mdc-button--unelevated foo-button" id="newupload_btn">
                         <div class="mdc-button__ripple"></div>
