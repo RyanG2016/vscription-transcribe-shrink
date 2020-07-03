@@ -78,9 +78,9 @@ $(document).ready(function () {
 		"columns": [
 			{ "data": "job_id",
 				render: function ( data, type, row ) {
-					if(row["typist_comments"] != null)
+					if(row["file_comment"] != null)
 					{
-						return data + " <i class=\"material-icons mdc-button__icon job-comment cTooltip\" aria-hidden=\"true\" title='"+row["typist_comments"]+"'>speaker_notes</i>";
+						return data + " <i class=\"material-icons mdc-button__icon job-comment cTooltip\" aria-hidden=\"true\" title='"+row["file_comment"]+"'>speaker_notes</i>";
 					}else{
 						return data;
 					}
