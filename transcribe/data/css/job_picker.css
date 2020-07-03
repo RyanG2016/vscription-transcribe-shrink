@@ -53,3 +53,7 @@ body{
     vertical-align: text-bottom;
     cursor: pointer;
 }
+
+.mdc-button--colored{
+    color: white !important;
+}
