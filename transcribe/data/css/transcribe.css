@@ -596,7 +596,6 @@ u{
     -webkit-appearance: none;
     --mdc-theme-primary: #2dace1;
     height: 27px !important;
-    text-transform: unset !important;
 }
 
 .download-controller{
