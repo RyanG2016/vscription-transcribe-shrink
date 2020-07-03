@@ -39,7 +39,7 @@ class LoginGateway
                     if($verified) {
                         $this->unlockUserAccount($user["id"]);          // to reset trials upon successful login
                         $this->sessionLogin($user);                     // set session variables as logged in + log inside
-                        return array("err" => false, "msg" => "Logged In");
+                        return array("error" => false, "msg" => "Logged In");
                     }
                     else {
                         $this->increaseTrials($user);
@@ -49,7 +49,7 @@ class LoginGateway
                         }else {
                             $this->insertAuditLogEntry(0, "Incorrect login attempt. (".($user["trials"]+1).")");
                         }
-                        return array("err" => true, "msg" => "Incorrect login attempt (" . ($user["trials"]+1) . ").");
+                        return array("error" => true, "msg" => "Incorrect login attempt (" . ($user["trials"]+1) . ").");
                     }
                 }
 
@@ -59,7 +59,7 @@ class LoginGateway
                     {
                         case 5: // email verification required
                             $this->insertAuditLogEntry(0, "Failed login - Pending Verification");
-                            return array("err" => true, "msg" => "Pending Verification.");
+                            return array("error" => true, "msg" => "Pending Verification.");
                             break;
                         case 0: // Account is locked
 
@@ -73,24 +73,24 @@ class LoginGateway
                                     $this->sessionLogin($user); // set session variables as logged in + audit log inside
 
                                 }else{
-                                    return array("err" => true, "msg" => "Incorrect Password"); // first incorrect attempt after account unlock
+                                    return array("error" => true, "msg" => "Incorrect Password"); // first incorrect attempt after account unlock
                                 }
                             }
 
-                            return array("err" => true, "msg" => "Account is locked - unlocks on: " . $user['unlock_time']);
+                            return array("error" => true, "msg" => "Account is locked - unlocks on: " . $user['unlock_time']);
                             break;
 
                     }
                 }
 
             }else{
-                return array("err" => true, "msg" => "User doesn't exists.");
+                return array("error" => true, "msg" => "User doesn't exists.");
             }
 
         } catch (\PDOException $e) {
             exit($e->getMessage());
         }
-        return array("err" => true, "msg" => "Incorrect Password");
+        return array("error" => true, "msg" => "Incorrect Password");
     }
 
     public function sessionLogin($row){
@@ -261,9 +261,9 @@ class LoginGateway
         try {
             $statement = $this->db->prepare($statement);
             $statement->execute(array(
-                $_REQUEST["email"],
+                $_SERVER["PHP_AUTH_USER"],
                 $accId,
-                "Login",
+                "Login API",
                 $activity,
                 getIP()
             ));

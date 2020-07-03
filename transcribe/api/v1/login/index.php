@@ -19,7 +19,11 @@ if(isset($_SESSION['counter']))
 {
     unset($_SESSION['counter']);
 }
-
+if (!isset($_SERVER['PHP_AUTH_USER'])) {
+    header('WWW-Authenticate: Basic realm="vScription Login"');
+    header('HTTP/1.0 401 Unauthorized');
+    exit;
+}
 
 use Src\Controller\LoginController;
 

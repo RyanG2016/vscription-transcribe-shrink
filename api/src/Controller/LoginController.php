@@ -22,19 +22,11 @@ class LoginController {
     public function processRequest()
     {
         switch ($this->requestMethod) {
+            case 'POST':
             case 'GET':
-                $response = $this->validateLogin($_GET);
+                $response = $this->validateLogin();
                 break;
 
-            case 'POST':
-                $response = $this->validateLogin($_POST);
-                break;
-            /*case 'PUT':
-                $response = $this->updateLoginFromRequest($this->loginId);
-                break;
-            case 'DELETE':
-                $response = $this->deleteLogin($this->loginId);
-                break;*/
             default:
                 $response = $this->notFoundResponse();
                 break;
@@ -45,46 +37,28 @@ class LoginController {
         }
     }
 
-    private function getAllLogins()
+    public function processSilentRequest()
     {
-        $result = $this->loginGateway->findAll();
-        $response['status_code_header'] = 'HTTP/1.1 200 OK';
-        $response['body'] = json_encode($result);
-        return $response;
-    }
+        switch ($this->requestMethod) {
+            case 'POST':
+            case 'GET':
+                $response = $this->validateLogin();
+                break;
 
-    private function getLogin($id)
-    {
-        $result = $this->loginGateway->find($id);
-        if (! $result) {
-            return $this->notFoundResponse();
-        }
-        $response['status_code_header'] = 'HTTP/1.1 200 OK';
-        $response['body'] = json_encode($result);
-        return $response;
-    }
-
-    private function validateLogin($arr)
-    {
-        $email = null;
-        $pass = null;
-        if(sizeof($arr) > 0)
-        {
-            foreach ($arr as  $key=>$value){
-
-                switch ($key)
-                {
-                    case "email":
-                        $email = $value;
-                        break;
-                    case "pass":
-                        $pass = $value;
-                        break;
-                }
-            }
+            default:
+                $response = $this->notFoundResponse();
+                break;
         }
 
-        if ($email == null || $pass == null) {
+        return $response; // pass response to the requester
+    }
+
+    private function validateLogin()
+    {
+        $email = $_SERVER["PHP_AUTH_USER"];
+        $pass = $_SERVER["PHP_AUTH_PW"];
+
+        if ($email == "" || $pass == "") {
             return $this->unprocessableEntityResponse();
         }
 
@@ -96,7 +70,7 @@ class LoginController {
 
         // logUserIn
         $result = $this->loginGateway->find($email, $pass);
-        if($result["err"] == true){
+        if($result["error"] == true){
             return $this -> AuthenticationFailed($result["msg"]);
         }
 
@@ -107,46 +81,7 @@ class LoginController {
         ]);
         return $response;
     }
-    /*
-    private function createLoginFromRequest()
-    {
-        $input = (array) json_decode(login_get_contents('php://input'), TRUE);
-        if (! $this->validateLogin($input)) {
-            return $this->unprocessableEntityResponse();
-        }
-        $this->loginGateway->insert($input);
-        $response['status_code_header'] = 'HTTP/1.1 201 Created';
-        $response['body'] = null;
-        return $response;
-    }*/
 
-    private function updateLoginFromRequest($id)
-    {
-        $result = $this->loginGateway->find($id);
-        if (! $result) {
-            return $this->notFoundResponse();
-        }
-        $input = (array) json_decode(login_get_contents('php://input'), TRUE);
-        if (! $this->validateLogin($input)) {
-            return $this->unprocessableEntityResponse();
-        }
-        $this->loginGateway->update($id, $input);
-        $response['status_code_header'] = 'HTTP/1.1 200 OK';
-        $response['body'] = null;
-        return $response;
-    }
-
-/*    private function deleteLogin($id)
-    {
-        $result = $this->loginGateway->find($id);
-        if (! $result) {
-            return $this->notFoundResponse();
-        }
-        $this->loginGateway->delete($id);
-        $response['status_code_header'] = 'HTTP/1.1 200 OK';
-        $response['body'] = null;
-        return $response;
-    }*/
 
     private function validateEmail($email)
     {
