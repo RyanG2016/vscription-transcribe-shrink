@@ -30,15 +30,15 @@ class FileController {
                     $response = $this->getAllFiles();
                 };
                 break;
-            case 'POST':
-                $response = $this->createFileFromRequest();
-                break;
-            case 'PUT':
-                $response = $this->updateFileFromRequest($this->fileId);
-                break;
-            case 'DELETE':
-                $response = $this->deleteFile($this->fileId);
-                break;
+//            case 'POST':
+//                $response = $this->createFileFromRequest();
+//                break;
+//            case 'PUT':
+//                $response = $this->updateFileFromRequest($this->fileId);
+//                break;
+//            case 'DELETE':
+//                $response = $this->deleteFile($this->fileId);
+//                break;
             default:
                 $response = $this->notFoundResponse();
                 break;
