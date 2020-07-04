@@ -35,7 +35,7 @@ else {
 
 
     <link rel="stylesheet" href="data/css/main.css">
-    <script src="data/scripts/main.min.js"></script>
+    <script src="data/scripts/main.min.js?v=3"></script>
 
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,300&display=swap"
           rel="stylesheet">

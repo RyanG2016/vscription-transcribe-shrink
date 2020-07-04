@@ -25,7 +25,7 @@ $uri = explode('/', $uri);
 
 // all of our endpoints start with /api/v1/file
 // everything else results in a 404 Not Found
-if ($uri[3] !== 'file') {
+if ($uri[3] !== 'files') {
     header("HTTP/1.1 404 Not Found");
     exit();
 }

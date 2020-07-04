@@ -24,7 +24,7 @@ $(document).ready(function () {
 
     jobsDTRef = jobsDT.DataTable( {
         rowId: 'file_id',
-        "ajax": 'api/v1/file?dt',
+        "ajax": 'api/v1/files?dt',
         "processing": true,
         lengthChange: false,
         pageLength: maximum_rows_per_page_jobs_list,
