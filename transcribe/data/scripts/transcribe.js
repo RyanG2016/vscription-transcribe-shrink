@@ -1020,3 +1020,9 @@ function htmlEncodeStr(s)
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&lsquo;");
 }
+
+function switchBack() // back to full view request from popup compact view
+{
+    compactViewWindow.close();
+    $("#reconnect").click();
+}
