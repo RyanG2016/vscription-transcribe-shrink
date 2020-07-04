@@ -121,16 +121,16 @@ $(document).ready(function () {
         }
     }
 
-    function playAblePlayer(play){
+    function playAblePlayer(play) {
         if(isAblePlayerMediaSet())
         {
             if(play)
             {
-                AblePlayerInstances[0].playMedia()
+                AblePlayerInstances[0].playMedia();
                 // console.log("Playing able player.");
             }
             else{
-                AblePlayerInstances[0].pauseMedia()
+                AblePlayerInstances[0].pauseMedia();
                 // console.log("Pausing able player.");
             }
         }
@@ -810,48 +810,15 @@ $(document).ready(function () {
         $('#discardBtn').removeAttr("disabled");
         tinyMCE.activeEditor.setMode("design");
 
-
-        var playPromise = AblePlayerInstances[0].media.play();
-
-        if (playPromise !== undefined) {
-            playPromise.then(_ => {
-                // Automatic playback started!
-                // Show playing UI.
-                AblePlayerInstances[0].media.pause();
-                AblePlayerInstances[0].seekTo(0);
-
-                AblePlayerInstances[0].onMediaPause = function () {
-                    if(AblePlayerInstances[0].seekBar.position-rewindAmountOnPause > 0)
-                    {
-                        AblePlayerInstances[0].seekTo(AblePlayerInstances[0].seekBar.position-rewindAmountOnPause);
-                    }
-                    else{
-                        AblePlayerInstances[0].seekTo(0);
-                    }
-
-                }
-            })
-                .catch(error => {
-                    // Auto-play was prevented
-                    // Show paused UI.
-                });
-        }
-
         AblePlayer.prototype.onMediaNewSourceLoad = function () {
-
 
             if(jobDetails.job_status === 2 || jobDetails.job_status === 1) // suspend or being typed
             {
                 // seek to last position
-
-                AblePlayerInstances[0].playMedia();
-                AblePlayerInstances[0].pauseMedia();
-                // AblePlayerInstances[0].media.load();
                 AblePlayerInstances[0].seekTo(jobDetails.last_audio_position - rewindAmountOnPause);
-                // AblePlayerInstances[0].media.load();
+            }else {
+                AblePlayerInstances[0].seekTo(0);
             }
-
-            // $(".pop").css("display", "inline");
         }
 
         AblePlayerInstances[0].onMediaPause = function () {
