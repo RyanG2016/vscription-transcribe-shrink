@@ -117,6 +117,27 @@ class FileGateway
 
     }
 
+    public function getAccountPrefix() {
+
+        $statement = "select job_prefix from accounts where acc_id = " . $_SESSION["accID"];
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute();
+            if($statement->rowCount() == 1) {
+                $result = $statement->fetch();
+                return $result['job_prefix'];
+
+            }else{
+                return false;
+            }
+        } catch (\PDOException $e) {
+//            exit($e->getMessage());
+            return false;
+        }
+
+    }
+
     public function insertUploadedFileToDB($input) {
         $nextFileID = $input[0];
         $nextNum = $input[1];
@@ -130,12 +151,10 @@ class FileGateway
         $file_duration = $input[9];
         $uploadedBy = $_SESSION['uEmail'];
 
-        //This is a dirty way to change the job prefix for testing. We will ultimately pull this from
-        // the database and a new field has already been added and will be included in the production push
-        if ($_SESSION['accID'] == 1) {
-            $jobPrefix = "UM-";
-        } else if ($_SESSION['accID'] == 2) {
-            $jobPrefix = "VT-";
+        $jobPrefix = $this->getAccountPrefix();
+        if(!$jobPrefix)
+        {
+            return false;
         }
         $nextJobNum = $jobPrefix .str_pad($nextNum, 7, "0", STR_PAD_LEFT);
 
