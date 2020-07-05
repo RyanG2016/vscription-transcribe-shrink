@@ -115,8 +115,8 @@ $(document).ready(function () {
                     // var controllerVersion = msg.substring(7);
                     getLatestAppVersionNumber(msg.substring(7), checkVersions);
                 } else if (msg.substring(0,8) === welcomeName) {
-                    // console.log("welcome name received = " + msg.substr(8));
-                    setControllerStatus(connected + "<i>" + msg.substr(8) + "</i>", true);
+                    // todo re-enable if client name is needed to be shown on UI
+                    // setControllerStatus(connected + "<i>" + msg.substr(8) + "</i>", true);
                 }
                 // break;
 
