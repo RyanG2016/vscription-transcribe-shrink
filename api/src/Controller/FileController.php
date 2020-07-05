@@ -98,7 +98,8 @@ class FileController {
                 "audio/mpeg",       // .mp3
                 "audio/x-wav",      // .wav
                 "audio/ogg",        // .ogg
-                "audio/x-dss"       // .dss
+                "audio/x-dss",      // .dss
+                "application/octet-stream" // .ds2
 
             );
             $nextJobNumbers = $this->fileGateway->getNextJobNumbers();
