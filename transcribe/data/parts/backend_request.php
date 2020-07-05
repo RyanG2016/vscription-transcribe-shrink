@@ -2175,9 +2175,9 @@ function insertToDB($dbcon, $input) {
 	
 		//This is a dirty way to change the job prefix for testing. We will ultimately pull this from
 	// the database and a new field has already been added and will be included in the production push
-	if ($_SESSION['accID'] === 1) {
+	if ($_SESSION['accID'] == 1) {
 		$jobPrefix = "UM-";
-	} else if ($_SESSION['accID'] === 2) {
+	} else if ($_SESSION['accID'] == 2) {
 		$jobPrefix = "VT-";
 	}
 	$nextJobNum = $jobPrefix .str_pad($nextNum, 7, "0", STR_PAD_LEFT);
