@@ -301,7 +301,7 @@ isset($_SESSION['uEmail'])?$uEmail = $_SESSION['uEmail']:$uEmail = "";
 					<input name="method" value="0" style="display: none">
 				</form>
 				<div class="text-right p-t-10" id="policy">
-					<a class="txt2" href="/transcribe/policy.php" id="btmtxt2" target="_blank">
+					<a class="txt2" href="./policy.php" id="btmtxt2" target="_blank">
 						Privacy Policy
 					</a>
 				</div>
