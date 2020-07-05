@@ -7,7 +7,7 @@ require "filesFilter.php";
 class FileGateway
 {
 
-    private $db = null;
+    private $db;
 
     public function __construct($db)
     {
@@ -85,55 +85,106 @@ class FileGateway
     }
 
 
-   /* public function insert(array $input)
-    {
-        $statement = "
-            INSERT INTO files 
-                (job_id, lastname, firstparent_id, secondparent_id)
-            VALUES
-                (:firstname, :lastname, :firstparent_id, :secondparent_id);
-        ";
+    public function getNextJobNumbers() {
+
+        $statement = "SELECT (SELECT AUTO_INCREMENT FROM information_schema.TABLES 
+						WHERE TABLE_SCHEMA = 'vtexvsi_transcribe' AND TABLE_NAME = 'files') AS next_job_id, 
+						(SELECT next_job_tally AS num2 FROM accounts WHERE acc_id = ".$_SESSION['accID'].") AS next_job_num
+						FROM DUAL";
 
         try {
             $statement = $this->db->prepare($statement);
-            $statement->execute(array(
-                'firstname' => $input['firstname'],
-                'lastname' => $input['lastname'],
-                'firstparent_id' => $input['firstparent_id'] ?? null,
-                'secondparent_id' => $input['secondparent_id'] ?? null,
-            ));
-            return $statement->rowCount();
-        } catch (\PDOException $e) {
-            exit($e->getMessage());
-        }
-    }*/
+            $statement->execute();
+            if($statement->rowCount() == 1) {
+                $result = $statement->fetch();
+                $numbers = array(
+                    "next_job_id" => strval($result['next_job_id']),
+                    "next_job_num" => strval($result['next_job_num'])
+                );
+                return json_encode($numbers);
 
-    /*public function update($id, array $input)
-    {
-        $statement = "
-            UPDATE person
-            SET 
-                firstname = :firstname,
-                lastname  = :lastname,
-                firstparent_id = :firstparent_id,
-                secondparent_id = :secondparent_id
-            WHERE id = :id;
-        ";
+            }else{
+                $numbers = array(
+                    "next_job_id" => "1",
+                    "next_job_num" => "1"
+                );
+                return json_encode($numbers);
+            }
+        } catch (\PDOException $e) {
+//            exit($e->getMessage());
+            return false;
+        }
+
+    }
+
+    public function insertUploadedFileToDB($input) {
+        $nextFileID = $input[0];
+        $nextNum = $input[1];
+        $authorName = $input[2];
+        $jobType = $input[3];
+        $dictDate = $input[4];
+        $speakerType = $input[5];
+        $comments = $input[6];
+        $orig_filename = $input[7];
+        $file_name = $input[8];
+        $file_duration = $input[9];
+        $uploadedBy = $_SESSION['uEmail'];
+
+        //This is a dirty way to change the job prefix for testing. We will ultimately pull this from
+        // the database and a new field has already been added and will be included in the production push
+        if ($_SESSION['accID'] == 1) {
+            $jobPrefix = "UM-";
+        } else if ($_SESSION['accID'] == 2) {
+            $jobPrefix = "VT-";
+        }
+        $nextJobNum = $jobPrefix .str_pad($nextNum, 7, "0", STR_PAD_LEFT);
+
+        $statement = "INSERT
+                        INTO 
+                            files 
+                            (
+                             job_id, 
+                             file_author, 
+                             file_work_type, 
+                             file_date_dict, 
+                             file_speaker_type, 
+                             file_comment, 
+                             job_uploaded_by, 
+                             filename, 
+                             orig_filename, 
+                             acc_id, 
+                             audio_length
+                             ) 
+                         VALUES 
+                                (?,?,?,?,?,?,?,?,?,?,?)";
 
         try {
             $statement = $this->db->prepare($statement);
-            $statement->execute(array(
-                'id' => (int)$id,
-                'firstname' => $input['firstname'],
-                'lastname' => $input['lastname'],
-                'firstparent_id' => $input['firstparent_id'] ?? null,
-                'secondparent_id' => $input['secondparent_id'] ?? null,
-            ));
-            return $statement->rowCount();
+            $statement->execute(array($nextJobNum, $authorName, $jobType, $dictDate,
+                $speakerType, $comments, $uploadedBy, $file_name, $orig_filename, $_SESSION["accID"], $file_duration));
+
+            if($statement->rowCount()){
+                $statement = "UPDATE accounts SET next_job_tally=next_job_tally+1 where acc_id = ".$_SESSION["accID"];
+
+                            try {
+                                $statement = $this->db->prepare($statement);
+                                $statement->execute();
+//                                return $statement->rowCount();
+                                return true;
+                            } catch (\PDOException $e) {
+//                                exit($e->getMessage());
+                                return false;
+                            }
+            }else{
+                return false;
+            }
+//            return $statement->rowCount();
         } catch (\PDOException $e) {
-            exit($e->getMessage());
+//            exit($e->getMessage());
+            return false;
         }
-    }*/
+
+    }
 
     public function delete($id)
     {
