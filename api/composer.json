@@ -12,7 +12,8 @@
   "require": {
     "vlucas/phpdotenv": "^2.4",
     "ext-json": "*",
-    "ext-pdo": "*"
+    "ext-pdo": "*",
+    "ext-fileinfo": "*"
   },
   "autoload": {
     "psr-4": {
