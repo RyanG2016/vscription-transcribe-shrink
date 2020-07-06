@@ -191,16 +191,16 @@ class FileGateway
 //                                return $statement->rowCount();
                                 return true;
                             } catch (\PDOException $e) {
-//                                exit($e->getMessage());
-                                return false;
+                                exit($e->getMessage());
+//                                return false;
                             }
             }else{
                 return false;
             }
 //            return $statement->rowCount();
         } catch (\PDOException $e) {
-//            exit($e->getMessage());
-            return false;
+            exit($e->getMessage());
+//            return false;
         }
 
     }
