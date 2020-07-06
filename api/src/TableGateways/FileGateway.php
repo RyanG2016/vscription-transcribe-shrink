@@ -154,7 +154,8 @@ class FileGateway
         $jobPrefix = $this->getAccountPrefix();
         if(!$jobPrefix)
         {
-            return false;
+            die("couldn't get job prefix");
+//            return false;
         }
         $nextJobNum = $jobPrefix .str_pad($nextNum, 7, "0", STR_PAD_LEFT);
 
