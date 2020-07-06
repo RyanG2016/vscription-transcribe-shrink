@@ -261,9 +261,9 @@ class FileController {
 
     private function validateAndReturnDate($date)
     {
-        // (accepted format: dd-mm-yyyy)
+        // (accepted format: yyyy-mm-dd)
         $dateArr = explode("-",$date);
-        if(sizeof($dateArr) == 3 && checkdate($dateArr[1], $dateArr[0], $dateArr[2])) {
+        if(sizeof($dateArr) == 3 && checkdate($dateArr[1], $dateArr[2], $dateArr[0])) {
             return $dateArr[2]."-".$dateArr[1]."-".$dateArr[0];
         }else{
             return false;
