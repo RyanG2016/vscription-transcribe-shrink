@@ -14,6 +14,7 @@ function documentReady() {
 	const previewModal = document.querySelector('.previewModal');
 	// const process_files_url = 'process.php';
 	const backend_url = 'data/parts/backend_request.php';
+	const api_insert_url = 'api/v1/files/';
 	const form = document.querySelector('form');
 
 	new mdc.ripple.MDCRipple(document.querySelector('.clear_btn'));
@@ -91,8 +92,6 @@ function documentReady() {
 		location.href = 'main.php';
 	});
 
-	// form.addEventListener('submit', e => {
-
 	// progress timer
 	var timer;
 
@@ -103,129 +102,102 @@ function documentReady() {
 			modal.style.display = "block"; // show the upload progress window
 
 			event.preventDefault();
-			// lets do ajax...
 			let formData = new FormData();
-			// let files = $('input[type=file]')[0].files;
 			let files = filesArr;
 			let other_data = $("#upload_form").serializeArray();
 
 			$.each(other_data, function (key, input) {
 				formData.append(input.name, input.value);
 			});
-			// formData.append('uploaded_file', file);
 
 			for (let i = 0; i < files.length; i++) {
 				let file = files[i];
-				// formData.append('files[]', file)
 				formData.append('file'+i, file);
 				formData.append('dur'+i, filesDur[i]);
 				console.log(files[i]);
 			}
 
 
-			$.post("data/parts/backend_request.php", {
-				reqcode: 60
-				// ,args: JSON.stringify(arg)
-			}).done(function (data) {
-				let nextNums = JSON.parse(data);
-				let nextJobID = nextNums.next_job_id;
-				let nextJobNum = nextNums.next_job_num;
 
-				formData.append("nextFileID", nextJobID);
-				formData.append("nextJobNum", nextJobNum);
-				formData.append("reqcode", 61);
-				formData.append("authorName", $('.demo_author').val());
-				formData.append("jobType", $("#demo_job_type option:selected").html());
-				formData.append("dictDate", $('.demo_dictdate').val());
-				formData.append("speakerType", $("#demo_speaker_type").val());
-				formData.append("comments", $('#demo_comments').val());
+			formData.append("authorName", $('.demo_author').val());
+			formData.append("jobType", $("#demo_job_type option:selected").html());
+			formData.append("dictDate", $('.demo_dictdate').val());
+			formData.append("speakerType", $("#demo_speaker_type").val());
+			if($('#demo_comments').val() !== "")
+			{
+				formData.append("comments",$('#demo_comments').val() );
+			}
 
 
-				// CHECK UPLOADED FILES AND SAVE IT TO DB
-				$.ajax({
-					type: 'POST',
-					url: backend_url,
-					data: formData,
-					processData: false,
-					contentType: false,
-					success: function (msg) {
-						var error = false;
-						// console.log("REQ65 RESPONSE: " + msg);
-						if(msg === "Bad request")
+			// CHECK UPLOADED FILES AND SAVE IT TO DB
+			$.ajax({
+				type: 'POST',
+				// url: backend_url,
+				url: api_insert_url,
+				data: formData,
+				processData: false,
+				contentType: false,
+				success: function (response) {
+					stopProgressWatcher();
+					updateUI(100, false);
+
+					// console.log(msg);
+					// console.log('Upload call was successful');
+					// console.log(`Full JSON object: ${JSON.stringify(msg)}`);
+					//Parse the HTML string(s) together so they can be inserted into the DOM html
+					resetAfterUpload();
+					var htmlEl = "";
+					let size = Object.keys(response).length
+
+					for (i = 0; i < size; i++) {
+						if(response[i]["error"] === false)
 						{
-							error = true;
+							htmlEl += "<li>File: "+response[i]["file_name"]+" - <span style='color:green;'>"+response[i]["status"]+"</span></li>"
+						}else{
+							htmlEl += "<li>File: "+response[i]["file_name"]+" - <span style='color:red;'>"+response[i]["status"]+"</span></li>"
 						}
-						stopProgressWatcher();
-						updateUI(100, error);
-
-						// console.log(msg);
-						// console.log('Upload call was successful');
-						// console.log(`Full JSON object: ${JSON.stringify(msg)}`);
-						//Parse the HTML string(s) together so they can be inserted into the DOM html
-						resetAfterUpload();
-						var htmlEl = "";
-						let size = Object.keys(msg).length
-
-						for (i = 0; i < size; i++) {
-							htmlEl += msg[i];
-							// console.log("Key: " + i);
-							// console.log("Value: " + msg[i]);
-							// console.log(htmlEl);
-						}
-						if(error){
-							htmlEl += ", make sure your uploaded files are less than 128 MB and are less than 10 files."
-						}
-
-						const list = document.createElement('ol');
-						list.setAttribute("class", "uploadResultList");
-						previewModal.appendChild(list);
-						previewModal.insertAdjacentHTML("afterbegin", htmlEl);
-
-						var a1 = {
-							mailtype: 15,
-							usertype: 3   //Typist
-						};
-						// Generate Email Notifications
-						$.post("data/parts/backend_request.php", {
-							reqcode: 80,
-							args: JSON.stringify(a1)
-						}).done(function (data) {
-							// console.log(data);
-						});
-						// TODO HIDE LOADING DIALOG & redirect to main.php
-
-
-						/*setTimeout(function () {
-							$('.upload_success_message p').html('Upload(s) Successful! ...Will automatically redirect to Job List in 2 seconds')
-							setTimeout(function () {
-								$('.upload_success_message p').html('Upload(s) Successful! ...Will automatically redirect to Job List in 1 seconds')
-								setTimeout(function () {
-									location.href = 'main.php';
-								}, 1000);
-							}, 1000);
-						}, 1000);*/
-
-					},
-					error: function (err) {
-						console.log("REQ65 RESPONSE: " + err);
-						stopProgressWatcher();
-
-						// TODO HIDE LOADING DIALOG
-						resetAfterUpload();
-						htmlEl = "<li><span style='color=#ff00multipart/form-data\"00;'>UPLOAD EXCEPTION HAS OCCURRED. PLEASE TRY AGAIN AND IF ERROR PERSISTS, PLEASE CONTACT SUPPORT</span></li>";
-						const list = document.createElement('ol');
-						previewModal.appendChild(list);
-						previewModal.insertAdjacentHTML("afterbegin", htmlEl);
 					}
-				});
 
-				// now query for upload progress...
-				// console.log("enable watchdog1");
-				enableProgressWatcher('job_upload');
-				// console.log("enable watchdog2");
+					const list = document.createElement('ol');
+					list.setAttribute("class", "uploadResultList");
+					previewModal.appendChild(list);
+					previewModal.insertAdjacentHTML("afterbegin", htmlEl);
+
+					var a1 = {
+						mailtype: 15,
+						usertype: 3   //Typist
+					};
+					// Generate Email Notifications
+					$.post("data/parts/backend_request.php", {
+						reqcode: 80,
+						args: JSON.stringify(a1)
+					}).done(function (data) {
+						// console.log(data);
+					});
+
+				},
+				error: function (err) {
+					console.log("REQ65 RESPONSE: " + err);
+					stopProgressWatcher();
+					resetAfterUpload();
+					updateUI(100, true);
+					progressTxt.text("Error.");
+					htmlEl =
+						"<span style='color: darkred'>"+err.responseJSON["msg"]+"</span>"
+						;
+					const list = document.createElement('ol');
+					previewModal.appendChild(list);
+					previewModal.insertAdjacentHTML("afterbegin", htmlEl);
+				}
+			});
+
+			// now query for upload progress...
+			// console.log("enable watchdog1");
+			enableProgressWatcher('job_upload');
+			// console.log("enable watchdog2");
 
 
-			})
+
 
 
 
