@@ -71,7 +71,7 @@ class LoginController {
         // logUserIn
         $result = $this->loginGateway->find($email, $pass);
         if($result["error"] == true){
-            return $this -> AuthenticationFailed($result["msg"]);
+            return $this -> AuthenticationFailed($result);
         }
 
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
@@ -97,12 +97,10 @@ class LoginController {
         return $response;
     }
 
-    private function AuthenticationFailed($err)
+    private function AuthenticationFailed($body)
     {
         $response['status_code_header'] = 'HTTP/1.1 401 Authentication Failed';
-        $response['body'] = json_encode([
-            'error' => $err
-        ]);
+        $response['body'] = json_encode($body);
         return $response;
     }
 
