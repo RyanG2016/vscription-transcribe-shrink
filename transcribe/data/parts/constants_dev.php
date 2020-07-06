@@ -1,8 +1,6 @@
 <?php
-/*if(session_status() != 1)
-{
-	session_start();
-}*/
+
+$DEBUG = true; // todo turn off on production
 if(isset($_SESSION['data']['lang']))
 {
 	$lang = $_SESSION['data']['lang'];

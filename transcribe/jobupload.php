@@ -6,7 +6,6 @@
 include('data/parts/head.php');
 include('rtf3/src/HtmlToRtf.php');
 include('data/parts/constants.php');
-include_once("gaTrackingCode.php");
 
 if (isset($_SESSION['role'])) {
     if ($_SESSION['role'] != "2" && $_SESSION['role'] != "1") {
@@ -26,6 +25,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
 ?>
 
 <head>
+    <?php include_once("gaTrackingCode.php");?>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <noscript>
         <meta http-equiv="refresh" content="0;url=noscript.php">

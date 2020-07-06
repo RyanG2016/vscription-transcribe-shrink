@@ -13,7 +13,6 @@
 <?php
 include('data/parts/head.php');
 include ('data/parts/constants.php');
-include_once("gaTrackingCode.php");
 
 // TODO RE ENABLE
 /*if(!isset($_POST) || !isset($_POST['src']))
@@ -28,6 +27,7 @@ include_once("gaTrackingCode.php");
 
 <head>
 
+    <?php include_once("gaTrackingCode.php");?>
     <!--  $this related  -->
     <script src="data/scripts/parts/constants.js" type="text/javascript"></script>
     <link rel="shortcut icon" type="image/png" href="data/images/favicon.png"/>
