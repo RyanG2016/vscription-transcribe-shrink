@@ -175,11 +175,11 @@ class FileController {
                         $uploadMsg[] = $this->formatFileResult($orig_filename, "upload successful", false);
                     } else {
 //                        $uploadMsg[] = "<li>'File: ' $orig_filename . ' - FAILED (File uploaded but error writing to database)'<li>";
-                        $uploadMsg[] = $this->formatFileResult($orig_filename, "upload failed please contact website administrator", true);
+                        $uploadMsg[] = $this->formatFileResult($orig_filename, "upload failed please contact website administrator (2)", true);
                     }
                 } else {
 //                    $uploadMsg[] = "<li>'File: ' . $orig_filename . ' - UPLOAD FAILED (An error occurred during upload)'</li>";
-                    $uploadMsg[] = $this->formatFileResult($orig_filename, "upload failed please contact website administrator", true);
+                    $uploadMsg[] = $this->formatFileResult($orig_filename, "upload failed please contact website administrator (3)", true);
                 }
 
                 $nextFileID++;
