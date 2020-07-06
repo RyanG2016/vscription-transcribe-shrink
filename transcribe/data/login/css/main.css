@@ -155,25 +155,31 @@ iframe {
 /*//////////////////////////////////////////////////////////////////
 [ Utility ]*/
 .txt1 {
-  font-family: oxygen;
+  font-family: oxygen, serif;
   font-size: 13px;
   color: #666666;
   line-height: 1.5;
 }
 
 .txt2 {
-  font-family: oxygen;
+  font-family: oxygen, serif;
   font-size: 13px;
   color: #333333;
   line-height: 1.5;
 }
 
 .txt3 {
-  font-family: oxygen;
+  font-family: oxygen, serif;
   font-size: 13px;
-  color: #333333;
   line-height: 1.5;
   color: blue;
+}
+
+.txt4 {
+  font-family: oxygen, serif;
+  font-size: 10px;
+  line-height: 1.5;
+  color: #4c4c4c;
 }
 
 /*//////////////////////////////////////////////////////////////////
