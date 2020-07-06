@@ -172,7 +172,7 @@ class FileGateway
                              filename, 
                              orig_filename, 
                              acc_id, 
-                             audio_lengt
+                             audio_length
                              ) 
                          VALUES 
                                 (?,?,?,?,?,?,?,?,?,?,?)";
