@@ -172,7 +172,7 @@ class FileGateway
                              filename, 
                              orig_filename, 
                              acc_id, 
-                             audio_length
+                             audio_lengt
                              ) 
                          VALUES 
                                 (?,?,?,?,?,?,?,?,?,?,?)";
@@ -195,7 +195,8 @@ class FileGateway
 //                                return false;
                             }
             }else{
-                return false;
+                die(print_r($statement->errorInfo(),true));
+//                return false;
             }
 //            return $statement->rowCount();
         } catch (\PDOException $e) {
