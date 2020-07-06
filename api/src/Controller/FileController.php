@@ -197,7 +197,8 @@ class FileController {
             // todo no files set for upload
             $response['status_code_header'] = 'HTTP/1.1 200 OK';
             $response['body'] = json_encode([
-                'error' => 'Invalid input'
+                'error' => true,
+                'msg' => 'Invalid input'
             ]);
             return $response;
         }
@@ -275,7 +276,8 @@ class FileController {
     {
         $response['status_code_header'] = 'HTTP/1.1 422 Unprocessable Entity';
         $response['body'] = json_encode([
-            'error' => 'Invalid input'
+            'error' => true,
+            'msg' => 'Invalid input'
         ]);
         return $response;
     }
