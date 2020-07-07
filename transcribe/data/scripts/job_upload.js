@@ -602,6 +602,7 @@ function documentReady() {
 	}
 
 	function resetFiles() {
+		input.value = "";
 		filesCount = 0;
 		duratedFiles = 0;
 		commSize = 0;
