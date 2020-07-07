@@ -22,7 +22,6 @@ if(isset($_SESSION['loggedIn']))
 
 }
 
-
 isset($_SESSION['uEmail'])?$uEmail = $_SESSION['uEmail']:$uEmail = "";
 	
 ?>
@@ -66,87 +65,7 @@ isset($_SESSION['uEmail'])?$uEmail = $_SESSION['uEmail']:$uEmail = "";
 	<link rel="stylesheet" href="data/dialogues/jquery-confirm.min2.css">
 	<script src="data/dialogues/jquery-confirm.min.js"></script>
 
-
-
-	<?php if ( isset( $_SESSION['src' ] ) ) {
-	$source =  $_SESSION['src' ];
-	
-/*	if($source == 3 || $source == 1 || $source == 0) //mail - reset pwd info / Signup / Login
-	{
-		
-	}*/
-	
-	if(isset($_SESSION['counter']))
-	{
-		$counter = $_SESSION['counter'];
-	}
-	else{
-		$counter = "0";
-	}
-	
-	?>
-	<!--	show dialog   -->
-	<script type="text/javascript">
-		$(document).ready(function() {
-
-			var src = '<?php echo $_SESSION['src']?>';
-			var error = '<?php echo $_SESSION['error']?>';
-			var msg = '<?php echo $_SESSION['msg']?>';
-			var counter = <?php echo isset($_SESSION['counter'])?$_SESSION['counter']:0 ?>;
-			if (counter > 0 && counter < 5 && <?php echo $source?> == 9) {
-				msg = msg + "<br/><br/><b>You have (" + (6 - counter) + ") tries left.</b>";
-			}
-			var tit = error == '1' ? "Error" : "Success";
-			if (src != 5) {
-				$.confirm({
-					title: tit,
-					type: error == '1' ? "red" : "green",
-					content: msg,
-					buttons: {
-						confirm: {
-							btnClass: error ? 'btn-red' : 'btn-green',
-							text: 'Ok'
-						},
-					}
-				});
-			} else { //src :5, verify email
-				$.confirm({
-					title: tit,
-					type: error == '1' ? "red" : "green",
-					content: msg,
-					buttons: {
-						confirm: {
-							btnClass: error ? 'btn-red' : 'btn-green',
-							text: 'Ok'
-						},
-						resend: {
-							btnClass: 'btn-green',
-							text: 'Resend Email',
-							action: function() {
-								var a1 = {
-									email: '<?php echo $uEmail?>'
-								};
-								$.post("data/parts/backend_search.php", {
-									reqcode: 50,
-									args: JSON.stringify(a1)
-								}).done(function(data) {
-									//alert(data);
-									location.href = 'index.php';
-								});
-
-							}
-						}
-					}
-				});
-			}
-
-
-		});
-
-	</script>
-
-	<?php }?>
-
+    <script src="https://kit.fontawesome.com/00895b9561.js" crossorigin="anonymous"></script>
 
 </head>
 
@@ -204,12 +123,12 @@ isset($_SESSION['uEmail'])?$uEmail = $_SESSION['uEmail']:$uEmail = "";
 					</div>
 
 
-					<div class="text-right" id="newsletter" style="margin-bottom: 25px;">
+					<div class="text-right" id="remember" style="margin-bottom: 25px;">
 						<span class="txt1">
 							Remember me?
 						</span>
 
-						<input type="checkbox" name="newsletter" <?php echo isset($_SESSION['remember']) ? "checked" : ""?>>
+						<input type="checkbox" name="remember" <?php echo isset($_SESSION['remember']) ? "checked" : ""?>>
 						<!--		checkbox-->
 					</div>
 
@@ -298,27 +217,22 @@ isset($_SESSION['uEmail'])?$uEmail = $_SESSION['uEmail']:$uEmail = "";
 							Sign Up
 						</a>
 					</div>
-					<input name="method" value="0" style="display: none">
 				</form>
 				<div class="text-right p-t-10" id="policy">
 					<a class="txt2" href="./policy.php" id="btmtxt2" target="_blank">
 						Privacy Policy
 					</a>
 				</div>
-                <?php echo $DEBUG?"<div class='text-right p-t-10 txt4'><i>2471bd9</i></div>":"" ?>
+                <?php echo $DEBUG?"<div class='text-right p-t-10 txt4'><i>bfa88a1</i></div>":"" ?>
 
 				<!--				</div>-->
 			</div>
 		</div>
 	</div>
 
-	<!--	<script src="data/login/vendor/animsition/js/animsition.min.js"></script>-->
 	<script src="data/login/vendor/bootstrap/js/popper.js"></script>
 	<script src="data/login/vendor/bootstrap/js/bootstrap.min.js"></script>
 	<script src="data/login/vendor/select2/select2.min.js"></script>
-	<!--	 <script src="data/login/vendor/daterangepicker/moment.min.js"></script> -->
-	<!--	 <script src="data/login/vendor/daterangepicker/daterangepicker.js"></script>-->
-	<!--	<script src="data/login/vendor/countdowntime/countdowntime.js"></script>-->
 	<script src="data/scripts/login.min.js"></script>
 
 

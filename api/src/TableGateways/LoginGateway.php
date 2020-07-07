@@ -14,7 +14,7 @@ class LoginGateway
 
     public function find($email, $pass)
     {
-        $cTime = strtotime(date("Y-m-d H:i:s"));
+            $cTime = strtotime(date("Y-m-d H:i:s"));
 
         $statement = "
             SELECT 
@@ -43,13 +43,14 @@ class LoginGateway
                     }
                     else {
                         $this->increaseTrials($user);
-
+                        $extra = "";
                         if($user["trials"]+1 == 5) {
+                            $extra = " - Account Locked";
                             $this->insertAuditLogEntry($user['id'], "Account Locked.");
                         }else {
                             $this->insertAuditLogEntry(0, "Incorrect login attempt. (".($user["trials"]+1).")");
                         }
-                        return array("error" => true, "msg" => "Incorrect login attempt (" . ($user["trials"]+1) . ").");
+                        return array("error" => true, "msg" => "Incorrect login attempt (" . ($user["trials"]+1) . ")".$extra);
                     }
                 }
 
@@ -59,7 +60,7 @@ class LoginGateway
                     {
                         case 5: // email verification required
                             $this->insertAuditLogEntry(0, "Failed login - Pending Verification");
-                            return array("error" => true, "msg" => "Pending Verification.");
+                            return array("error" => true, "msg" => "Pending Email Verification.", "code" => 5);
                             break;
                         case 0: // Account is locked
 
@@ -84,7 +85,7 @@ class LoginGateway
                 }
 
             }else{
-                return array("error" => true, "msg" => "User doesn't exists.");
+                return array("error" => true, "msg" => "We couldnt find your account.", "code" => 404);
             }
 
         } catch (\PDOException $e) {
