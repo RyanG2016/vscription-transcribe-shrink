@@ -223,7 +223,7 @@ isset($_SESSION['uEmail'])?$uEmail = $_SESSION['uEmail']:$uEmail = "";
 						Privacy Policy
 					</a>
 				</div>
-                <?php echo $DEBUG?"<div class='text-right p-t-10 txt4'><i>bfa88a1</i></div>":"" ?>
+                <?php echo $DEBUG?"<div class='text-right p-t-10 txt4'><i>6854df9</i></div>":"" ?>
 
 				<!--				</div>-->
 			</div>
