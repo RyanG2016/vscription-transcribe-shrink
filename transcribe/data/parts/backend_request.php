@@ -1750,34 +1750,6 @@ function genToken()
 	return bin2hex(random_bytes($length));	
 }
 
-function BRUTELOCK($msg, $src)
-{
-	$_SESSION['msg'] = "You have been banned from this server for 1 hour unlocks on $msg";
-	switch($src)
-	{
-		case 0: //emailing
-				$_SESSION['msg'] = "Try again in one hour.";
-			break;
-			
-		case 1: //login
-				$_SESSION['msg'] = "5 Login Attempts Failed, Try again in one hour.";
-			break;
-			
-		case 2: //signup
-				$_SESSION['msg'] = "Max number of signup reached, Try again in one hour.";
-			break;
-			
-			
-	}
-//	$_SESSION['msg'] = "You have been banned from this server for 1 hour unlocks on $msg";
-	$_SESSION['error'] = true;
-	$_SESSION['src'] = 2;
-		
-
-	die(); // !IMPORTANT DO NOT DELETE
-}
-
-
 
 /* REQUEST CODES */
 // INSERT -> 3XX
@@ -1875,85 +1847,6 @@ function deleteTmpFile($con, $fileID, $tmpName)
     mysqli_stmt_close($stmt);
 }
 
-
-function insertToDB($dbcon, $input) {
-	$con = $dbcon;
-	$nextFileID = $input[0];
-	$nextNum = $input[1];
-	$authorName = $input[2];
-	$jobType = $input[3];
-	$dictDate = $input[4];
-	$speakerType = $input[5];
-	$comments = $input[6];
-	$orig_filename = $input[7];
-	$file_name = $input[8];
-    $file_duration = $input[9];
-	$uploadedBy = $_SESSION['uEmail'];
-	
-		//This is a dirty way to change the job prefix for testing. We will ultimately pull this from
-	// the database and a new field has already been added and will be included in the production push
-	if ($_SESSION['accID'] == 1) {
-		$jobPrefix = "UM-";
-	} else if ($_SESSION['accID'] == 2) {
-		$jobPrefix = "VT-";
-	}
-	$nextJobNum = $jobPrefix .str_pad($nextNum, 7, "0", STR_PAD_LEFT);
-
-	$sql = "INSERT INTO files (job_id, file_author, file_work_type, file_date_dict, file_speaker_type, file_comment, job_uploaded_by, filename, orig_filename, acc_id, audio_length) VALUES (?,?,?,?,?,?,?,?,?,(SELECT account from users WHERE email = ?),?)";
-
-	if($stmt = mysqli_prepare($con, $sql))
-	{
-
-		if( !$stmt->bind_param("ssssisssssi", $nextJobNum, $authorName, $jobType, $dictDate,
-			$speakerType, $comments, $uploadedBy, $file_name, $orig_filename, $uploadedBy, $file_duration) )
-		{
-			die( "Error in bind_param: (" .$con->errno . ") " . $con->error);
-		}
-		$B = mysqli_stmt_execute($stmt);
-		if($B){
-            // $result = mysqli_stmt_get_result($stmt);
-            $sql1 = "UPDATE accounts SET next_job_tally=next_job_tally+1 where acc_id = (SELECT account from users WHERE email = '" . $uploadedBy . "')";
-
-            if($stmt = mysqli_prepare($con, $sql1))
-            {
-                $B = mysqli_stmt_execute($stmt);
-                if($B){
-                    $result = mysqli_stmt_get_result($stmt);
-//                    echo $sql1 . " ran succesfully";
-                    return true;
-                }
-//                else{
-//                    "ERROR: Unable to increment next job number $sql1. " . mysqli_error($con);
-//                    die( "Execution Error: (" .$con->errno . ") " . $con->error);
-//                    echo 'dup';
-//                }
-            }
-            else
-            {
-                echo "ERROR: Could not prepare to execute $sql1. " . mysqli_error($con);
-                die( "Execution Error: (" .$con->errno . ") " . $con->error);
-            }
-			return true;
-
-		}
-		else{
-//			"ERROR: Was not able to execute $sql. " . mysqli_error($con);
-			die( "Execution Error: (" .$con->errno . ") " . $con->error);
-			echo 'dup';
-		}
-	}
-	else
-	{
-		echo "ERROR: Could not prepare to execute $sql. " . mysqli_error($con);
-		die( "Execution Error: (" .$con->errno . ") " . $con->error);
-
-	}
-
-
-
-	// Close statement
-	//mysqli_stmt_close($stmt); //WE need to reuse it. It will get closed when the function closes
-}
 function generateEmailNotifications($sqlcon, $mailtype)
 {
 	$con = $sqlcon;
