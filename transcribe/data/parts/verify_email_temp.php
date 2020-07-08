@@ -246,9 +246,9 @@ $emHTML= "<!DOCTYPE html>
                 <tr>
                     <td align=\"center\" bgcolor=\"#e9ecef\" style=\"padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;\">
                         <p style=\"margin: 0;\">
-                            You had received this email because you have signed up for our service. If you didn't make the request you can safely delete this email.
+                            You've received this email because you have signed up for our service. If you didn't make the request you can safely delete this email.
                         </p>
-                        <p style=\"margin: 0;\">© 2020 VTEX Voice Solutions Inc.</p>
+                        <p style=\"margin: 0;\">&copy; 2020 VTEX Voice Solutions Inc.</p>
                     </td>
                 </tr>
                 <!-- end permission -->

@@ -242,8 +242,8 @@ $emHTML = "<!DOCTYPE html>
                 <!-- start permission -->
                 <tr>
                     <td align=\"center\" bgcolor=\"#e9ecef\" style=\"padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;\">
-                        <p style=\"margin: 0;\">You had received this email because we received a password reset request for your account. If you didn't request a reset you can safely delete this email.</p>
-                        <p style=\"margin: 0;\">© 2020 VTEX Voice Solutions Inc.</p>
+                        <p style=\"margin: 0;\">You've received this email because we received a password reset request for your account. If you didn't request a reset you can safely delete this email.</p>
+                        <p style=\"margin: 0;\">&copy; 2020 VTEX Voice Solutions Inc.</p>
                     </td>
                 </tr>
                 <!-- end permission -->
