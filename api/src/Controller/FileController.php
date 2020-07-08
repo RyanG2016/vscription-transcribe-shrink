@@ -33,7 +33,7 @@ class FileController {
                         $response = $this->getFile($this->fileId);
                     } else {
                         $response = $this->getAllFiles();
-                    };
+                    }
                 }
                 break;
             case 'POST':
