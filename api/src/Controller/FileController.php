@@ -265,7 +265,7 @@ class FileController {
         // (accepted format: yyyy-mm-dd)
         $dateArr = explode("-",$date);
         if(sizeof($dateArr) == 3 && checkdate($dateArr[1], $dateArr[2], $dateArr[0])) {
-            return $dateArr[2]."-".$dateArr[1]."-".$dateArr[0];
+            return $dateArr[0]."-".$dateArr[1]."-".$dateArr[2];
         }else{
             return false;
         }
