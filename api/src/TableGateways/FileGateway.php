@@ -154,8 +154,8 @@ class FileGateway
         $jobPrefix = $this->getAccountPrefix();
         if(!$jobPrefix)
         {
-//            die("couldn't get job prefix");
-            return false;
+            die("couldn't get job prefix");
+//            return false;
         }
         $nextJobNum = $jobPrefix .str_pad($nextNum, 7, "0", STR_PAD_LEFT);
 
@@ -192,16 +192,17 @@ class FileGateway
 //                                return $statement->rowCount();
                                 return true;
                             } catch (\PDOException $e) {
-//                                die($e->getMessage());
-                                return false;
+                                die($e->getMessage());
+//                                return false;
                             }
             }else{
-                return false;
+                die(print_r($statement->errorInfo(),true));
+//                return false;
             }
 //            return $statement->rowCount();
         } catch (\PDOException $e) {
-//            die($e->getMessage());
-            return false;
+            die($e->getMessage());
+//            return false;
         }
 
     }
