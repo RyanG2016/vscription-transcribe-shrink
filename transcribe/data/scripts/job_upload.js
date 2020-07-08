@@ -2,6 +2,8 @@
 	"use strict";
 })(jQuery);
 
+var uploadAjax;
+
 function documentReady() {
 
 	const input = document.getElementById('upload_btn');
@@ -84,6 +86,7 @@ function documentReady() {
 
 	cancel_popup_btn.addEventListener('click', e => {
 		// cancel the upload
+		uploadAjax.abort();
 		location.reload(); // reload is sufficient to cancel it
 	});
 
@@ -130,7 +133,7 @@ function documentReady() {
 
 
 			// CHECK UPLOADED FILES AND SAVE IT TO DB
-			$.ajax({
+			uploadAjax = $.ajax({
 				type: 'POST',
 				// url: backend_url,
 				url: api_insert_url,
@@ -659,3 +662,6 @@ function validateFields() {
 }
 
 document.addEventListener("DOMContentLoaded", documentReady);
+document.addEventListener('beforeunload', function(event) {
+	uploadAjax.abort();
+});
