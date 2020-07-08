@@ -87,11 +87,12 @@ function documentReady() {
 	cancel_popup_btn.addEventListener('click', e => {
 		// cancel the upload
 		if(uploadAjax !== undefined) {
+			stopProgressWatcher();
 			uploadAjax.abort();
 			document.getElementById("upload_form").reset();
 			console.log("Upload Cancelled (1)");
 		}
-		// location.reload(); // reload is sufficient to cancel it
+		location.reload(); // reload
 	});
 
 	confirm_popup_btn.addEventListener('click', e => {
