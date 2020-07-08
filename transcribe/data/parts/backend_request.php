@@ -1139,6 +1139,15 @@ if(isset($_REQUEST["reqcode"])){
 
 			break;
 
+			/** Cancel Current Pending Upload If any **/
+		case 67:
+
+            $suffix = "job_upload";
+            $key = ini_get("session.upload_progress.prefix") . $suffix;
+            $_SESSION[$key]["cancel_upload"] = true;
+
+			break;
+
 		/* Send Email Notification to user with job updates Generator Code */
 		case 80:
 
