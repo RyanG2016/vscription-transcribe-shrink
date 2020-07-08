@@ -185,7 +185,7 @@ function documentReady() {
 					stopProgressWatcher();
 					resetAfterUpload();
 					updateUI(100, true);
-					if(err !== undefined){
+					if(err.responseJSON !== undefined){
 						progressTxt.text("Error.");
 						htmlEl =
 							"<span style='color: darkred'>"+err.responseJSON["msg"]+"</span>"
