@@ -145,7 +145,7 @@ class FileController {
             {
                 return $this->errorOccurredResponse("invalid speaker type.");
             }else{
-                if($speakerType != 1 || $speakerType != 2){
+                if($speakerType != 1 && $speakerType != 2){
                     $speakerType = 1; // default
                 }
             }
