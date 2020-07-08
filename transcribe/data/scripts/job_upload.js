@@ -180,17 +180,21 @@ function documentReady() {
 
 				},
 				error: function (err) {
-					// console.log("REQ65 RESPONSE: " + err);
 					stopProgressWatcher();
 					resetAfterUpload();
 					updateUI(100, true);
-					progressTxt.text("Error.");
-					htmlEl =
-						"<span style='color: darkred'>"+err.responseJSON["msg"]+"</span>"
+					if(err.responseJSON["msg"] !== undefined){
+						progressTxt.text("Error.");
+						htmlEl =
+							"<span style='color: darkred'>"+err.responseJSON["msg"]+"</span>"
 						;
-					const list = document.createElement('ol');
-					previewModal.appendChild(list);
-					previewModal.insertAdjacentHTML("afterbegin", htmlEl);
+						const list = document.createElement('ol');
+						previewModal.appendChild(list);
+						previewModal.insertAdjacentHTML("afterbegin", htmlEl);
+					}else{
+						progressTxt.text("Upload Cancelled.");
+					}
+
 				}
 			});
 
