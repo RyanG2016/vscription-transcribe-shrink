@@ -26,11 +26,15 @@ class FileController {
     {
         switch ($this->requestMethod) {
             case 'GET':
-                if ($this->fileId) {
-                    $response = $this->getFile($this->fileId);
-                } else {
-                    $response = $this->getAllFiles();
-                };
+                if(isset($_GET["cancel"])){
+                    $response = $this->cancelUpload();
+                }else{
+                    if ($this->fileId) {
+                        $response = $this->getFile($this->fileId);
+                    } else {
+                        $response = $this->getAllFiles();
+                    };
+                }
                 break;
             case 'POST':
                 if(isset($_POST["cancel"])) {
