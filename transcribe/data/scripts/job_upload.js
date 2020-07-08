@@ -86,9 +86,11 @@ function documentReady() {
 
 	cancel_popup_btn.addEventListener('click', e => {
 		// cancel the upload
-		uploadAjax.abort();
-		document.getElementById("my_form").reset();
-		console.log("Upload Cancelled (1)");
+		if(uploadAjax !== undefined) {
+			uploadAjax.abort();
+			document.getElementById("upload_form").reset();
+			console.log("Upload Cancelled (1)");
+		}
 		// location.reload(); // reload is sufficient to cancel it
 	});
 
@@ -669,7 +671,9 @@ function validateFields() {
 
 document.addEventListener("DOMContentLoaded", documentReady);
 document.addEventListener('beforeunload', function(event) {
-	uploadAjax.abort();
-	document.getElementById("my_form").reset();
-	console.log("Upload Cancelled (2)");
+	if(uploadAjax !== undefined) {
+		uploadAjax.abort();
+		document.getElementById("upload_form").reset();
+		console.log("Upload Cancelled (2)");
+	}
 });
