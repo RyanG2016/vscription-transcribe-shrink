@@ -177,7 +177,7 @@ function documentReady() {
 
 				},
 				error: function (err) {
-					console.log("REQ65 RESPONSE: " + err);
+					// console.log("REQ65 RESPONSE: " + err);
 					stopProgressWatcher();
 					resetAfterUpload();
 					updateUI(100, true);
