@@ -33,7 +33,11 @@ class FileController {
                 };
                 break;
             case 'POST':
-                $response = $this->uploadFilesFromRequest();
+                if(isset($_POST["cancel"])) {
+                    $response = $this->cancelUpload();
+                }else{
+                    $response = $this->uploadFilesFromRequest();
+                }
                 break;
 //            case 'PUT':
 //                $response = $this->updateFileFromRequest($this->fileId);
@@ -79,6 +83,19 @@ class FileController {
         $this->fileGateway->insert($input);
         $response['status_code_header'] = 'HTTP/1.1 201 Created';
         $response['body'] = null;
+        return $response;
+    }
+
+    private function cancelUpload()
+    {
+        $suffix = "job_upload";
+        $key = ini_get("session.upload_progress.prefix") . $suffix;
+        $_SESSION[$key]["cancel_upload"] = true;
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = json_encode(array(
+            "msg" => "upload cancelled",
+            "error" => false
+        ));
         return $response;
     }
 
