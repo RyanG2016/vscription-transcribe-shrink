@@ -185,7 +185,7 @@ function documentReady() {
 					stopProgressWatcher();
 					resetAfterUpload();
 					updateUI(100, true);
-					if(err.responseJSON["msg"] !== undefined){
+					if(err !== undefined){
 						progressTxt.text("Error.");
 						htmlEl =
 							"<span style='color: darkred'>"+err.responseJSON["msg"]+"</span>"
@@ -193,7 +193,7 @@ function documentReady() {
 						const list = document.createElement('ol');
 						previewModal.appendChild(list);
 						previewModal.insertAdjacentHTML("afterbegin", htmlEl);
-					}else{
+					}else{ // upload was cancelled by user - no error
 						progressTxt.text("Upload Cancelled.");
 					}
 
