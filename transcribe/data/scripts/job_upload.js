@@ -87,7 +87,7 @@ function documentReady() {
 	cancel_popup_btn.addEventListener('click', e => {
 		// cancel the upload
 		uploadAjax.abort();
-		$("#upload_form").reset();
+		document.getElementById("my_form").reset();
 		console.log("Upload Cancelled (1)");
 		// location.reload(); // reload is sufficient to cancel it
 	});
@@ -670,6 +670,6 @@ function validateFields() {
 document.addEventListener("DOMContentLoaded", documentReady);
 document.addEventListener('beforeunload', function(event) {
 	uploadAjax.abort();
-	$("#upload_form").reset();
+	document.getElementById("my_form").reset();
 	console.log("Upload Cancelled (2)");
 });
