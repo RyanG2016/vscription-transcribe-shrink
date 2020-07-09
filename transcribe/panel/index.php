@@ -92,10 +92,14 @@ if ($_SESSION['role'] != "1") {
                 <div class="nav-btns-div">
                     <button class="mdc-button mdc-button--outlined tools-button" onclick="location.href='admin_tools.php'">
                         <div class="mdc-button__ripple"></div>
-                        <i class="material-icons mdc-button__icon" aria-hidden="true"
-                        >vpn_key</i
-                        >
+                        <i class="material-icons mdc-button__icon" aria-hidden="true">vpn_key</i>
                         <span class="mdc-button__label">Admin Tools</span>
+                    </button>
+
+                    <button class="mdc-button mdc-button--outlined tools-button" onclick="location.href='links.php'" disabled>
+                        <div class="mdc-button__ripple"></div>
+                        <i class="material-icons mdc-button__icon" aria-hidden="true">vpn_key</i>
+                        <span class="mdc-button__label">Useful Links</span>
                     </button>
 
                     <div class="vtex-card nav-header">
@@ -121,7 +125,7 @@ if ($_SESSION['role'] != "1") {
                         <i class="material-icons mdc-button__icon" aria-hidden="true">admin_panel_settings</i>
                         <span class="mdc-button__label">Manage Accounts</span>
                     </button>
-                    <button class="mdc-button mdc-button--outlined tools-button" onclick="location.href='typist_report.php'" disabled>
+                    <button class="mdc-button mdc-button--outlined tools-button" onclick="location.href='users.php'" disabled>
                         <div class="mdc-button__ripple"></div>
                         <i class="material-icons mdc-button__icon" aria-hidden="true">account_circle</i>
                         <span class="mdc-button__label">Manage Users</span>

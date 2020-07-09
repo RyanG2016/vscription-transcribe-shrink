@@ -1,5 +1,6 @@
 @import "parts/card_view.css";
 @import "parts/card.css";
+@import "parts/data-tbl.css";
 
 /* -----------------*/
 /* --BUTTON STYLING --*/
@@ -62,38 +63,28 @@
 /*      Grid Layout      */
 /*-----------------------*/
 
-/*.root { grid-area: root; }*/
 .nav-bar {grid-area: nav;}
 .contents {grid-area: content;}
-
-/*.item2 { grid-area: menu; }
-.item3 { grid-area: main; }
-.item4 { grid-area: compatBrowsers; }
-.item5 { grid-area: compatOS; }
-.item6 { grid-area: compatHardware; }
-.item4-5-header { grid-area: compatHeader; }*/
 .root {
-    display: inline-grid;
-    /*display: grid;*/
+    /*display: inline-grid;*/
+    display: grid;
     grid-template-areas:
     'nav content';
-
-    /*'nav content';*/
-    /*'main main main main compatBrowsers compatOS compatHardware';*/
-    /*'menu footer footer footer footer footer';*/
-
-    /*background-color: #2196F3;*/
-
-    /*grid-template-columns: auto;*/
-    /*grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr ;*/
-
     grid-gap: 20px;
-    /*padding: 20px;*/
     width: 100%;
-    /*grid-template-columns: 1fr 1fr 1fr 1fr fit-content(100%) fit-content(100%);*/
-    /*grid-template-columns: min-content 1fr 1fr 1fr fit-content(100%) fit-content(100%);*/
     grid-template-columns: 0.17fr 1fr;
     /*grid-template-columns: fit-content(100%) 1fr;*/
+}
+
+.accounts-tbl-title {grid-area: tbl-title;}
+.refresh-button {grid-area: refresh;}
+.vtex-top-bar{
+    display: inline-grid;
+    grid-template-areas:
+    'tbl-title refresh';
+    grid-gap: 20px;
+    width: 100%;
+    grid-template-columns: 1fr min-content;
 }
 
 
@@ -101,11 +92,18 @@
 .welcome{
     /*text-align: center;*/
     /*align-content: center;*/
-    /*margin-left:auto;*/
-    /*margin-right:auto;*/
-    margin: auto;
+    margin-left:auto;
+    margin-right:auto;
 }
 .welcome-icon{
     font-size: 5rem !important;
     color: #1e79be;
+}
+
+.accounts-tbl-title{
+    margin: 0 0 15px 0;
+}
+
+.refresh-button{
+    --mdc-theme-primary: #1e79be;
 }

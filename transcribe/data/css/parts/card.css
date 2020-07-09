@@ -8,3 +8,7 @@
 .vtex-card:not(.first){
     margin-top: 20px;
 }
+
+.contents{
+    padding: 16px;
+}
