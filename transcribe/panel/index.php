@@ -83,60 +83,73 @@ if ($_SESSION['role'] != "1") {
 
         </table>
 
-        <div class="grid-wrapper">
+        <div class="root">
+            <div class="nav-bar">
 
-            <!--<label class="mdc-text-field mdc-text-field--outlined" id="pwd">
-                <input type="text" class="mdc-text-field__input" aria-labelledby="my-label-id">
-                <span class="mdc-notched-outline">
-                <span class="mdc-notched-outline__leading"></span>
-                <span class="mdc-notched-outline__notch">
-                <span class="mdc-floating-label" id="my-label-id">Password</span>
-                </span>
-                <span class="mdc-notched-outline__trailing"></span>
-                </span>
-            </label>-->
+                <div class="vtex-card nav-header first">
+                    QUICK TOOLS
+                </div>
+                <div class="nav-btns-div">
+                    <button class="mdc-button mdc-button--outlined tools-button" onclick="location.href='admin_tools.php'">
+                        <div class="mdc-button__ripple"></div>
+                        <i class="material-icons mdc-button__icon" aria-hidden="true"
+                        >vpn_key</i
+                        >
+                        <span class="mdc-button__label">Admin Tools</span>
+                    </button>
 
-            <table>
-                <tr>
-                    <td>
-                        <h2>Quick Tools</h2>
-                    </td>
-                    <td>
-                        Other contents
-                    </td>
-                </tr>
-                <tr>
-                    <td>
+                    <div class="vtex-card nav-header">
+                        REPORTS
+                    </div>
 
-                        <button class="mdc-button mdc-button--raised tools-button" onclick="location.href='admin_tools.php'">
-                            <div class="mdc-button__ripple"></div>
-                            <i class="material-icons mdc-button__icon" aria-hidden="true"
-                            >vpn_key</i
-                            >
-                            <span class="mdc-button__label">Admin Tools</span>
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <button class="mdc-button mdc-button--raised tools-button" onclick="location.href='billing_report.php'">
-                            <div class="mdc-button__ripple"></div>
-                            <i class="material-icons mdc-button__icon" aria-hidden="true">attach_money</i>
-                            <span class="mdc-button__label">Billing Reports</span>
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <button class="mdc-button mdc-button--raised tools-button" onclick="location.href='typist_report.php'">
-                            <div class="mdc-button__ripple"></div>
-                            <i class="material-icons mdc-button__icon" aria-hidden="true">text_fields</i>
-                            <span class="mdc-button__label">Typist Reports</span>
-                        </button>
-                    </td>
-                </tr>
-            </table>
+                    <button class="mdc-button mdc-button--outlined tools-button" onclick="location.href='billing_report.php'">
+                        <div class="mdc-button__ripple"></div>
+                        <i class="material-icons mdc-button__icon" aria-hidden="true">attach_money</i>
+                        <span class="mdc-button__label">Billing Reports</span>
+                    </button>
+                    <button class="mdc-button mdc-button--outlined tools-button" onclick="location.href='typist_report.php'">
+                        <div class="mdc-button__ripple"></div>
+                        <i class="material-icons mdc-button__icon" aria-hidden="true">text_fields</i>
+                        <span class="mdc-button__label">Typist Reports</span>
+                    </button>
 
+                    <div class="vtex-card nav-header">
+                        MANAGEMENT
+                    </div>
+                    <button class="mdc-button mdc-button--outlined tools-button" onclick="location.href='accounts.php'">
+                        <div class="mdc-button__ripple"></div>
+                        <i class="material-icons mdc-button__icon" aria-hidden="true">admin_panel_settings</i>
+                        <span class="mdc-button__label">Manage Accounts</span>
+                    </button>
+                    <button class="mdc-button mdc-button--outlined tools-button" onclick="location.href='typist_report.php'" disabled>
+                        <div class="mdc-button__ripple"></div>
+                        <i class="material-icons mdc-button__icon" aria-hidden="true">account_circle</i>
+                        <span class="mdc-button__label">Manage Users</span>
+                    </button>
+                </div>
+
+            </div>
+            <div class="vtex-card contents first">
+
+                <!--        CONTENTS GOES HERE        -->
+
+                <table class="welcome">
+                    <tr>
+                        <td rowspan="2">
+                            <i class="material-icons mdc-button__icon welcome-icon" aria-hidden="true">format_quote</i>
+                        </td>
+                        <td rowspan="1" style="font-size: 1.6rem;">
+                            <span style="vertical-align: top"> Welcome back, <?php echo $_SESSION["fname"]?>!</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-size: 1rem; font-style: italic; color: dimgrey">
+                            <span style="vertical-align: bottom">Here you can find various tools to help you manage the website.</span>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
         </div>
 
 
