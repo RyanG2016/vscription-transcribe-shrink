@@ -53,7 +53,7 @@ if ($_SESSION['role'] != "1") {
             <tr>
                 <td id="navbtn" align="left" colspan="1">
 
-<!--                    <a class="logout" href="main.php"><i class="fas fa-arrow-left"></i> Go back to job list</a>-->
+                    <a class="logout" href="../main.php"><i class="fas fa-arrow-left"></i> Go back to job list</a>
                 </td>
 
                 <td id="logbar" align="right" colspan="1">
@@ -98,7 +98,7 @@ if ($_SESSION['role'] != "1") {
 
                     <button class="mdc-button mdc-button--outlined tools-button" onclick="location.href='links.php'" disabled>
                         <div class="mdc-button__ripple"></div>
-                        <i class="material-icons mdc-button__icon" aria-hidden="true">vpn_key</i>
+                        <i class="fas fa-link"></i>
                         <span class="mdc-button__label">Useful Links</span>
                     </button>
 
