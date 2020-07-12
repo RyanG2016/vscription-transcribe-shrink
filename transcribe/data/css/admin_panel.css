@@ -92,7 +92,7 @@
     width: 100%;
     /*grid-template-columns: 1fr 1fr 1fr 1fr fit-content(100%) fit-content(100%);*/
     /*grid-template-columns: min-content 1fr 1fr 1fr fit-content(100%) fit-content(100%);*/
-    grid-template-columns: 0.17fr 1fr;
+    grid-template-columns: fit-content(100%) 1fr;
     /*grid-template-columns: fit-content(100%) 1fr;*/
 }
 
