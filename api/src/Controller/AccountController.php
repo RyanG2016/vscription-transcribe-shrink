@@ -1,10 +1,12 @@
 <?php
+
 namespace Src\Controller;
 
 use PHPMailer\PHPMailer\Exception;
 use Src\TableGateways\AccountGateway;
 
-class AccountController {
+class AccountController
+{
 
     private $db;
     private $requestMethod;
@@ -25,20 +27,20 @@ class AccountController {
     {
         switch ($this->requestMethod) {
             case 'GET':
-                    if ($this->accountId) {
-                        $response = $this->getAccount($this->accountId);
-                    } else {
-                        $response = $this->getAllAccounts();
-                    }
+                if ($this->accountId) {
+                    $response = $this->getAccount($this->accountId);
+                } else {
+                    $response = $this->getAllAccounts();
+                }
 //                }
                 break;
             case 'POST':
-                    $response = $this->createAccountFromRequest();
+                $response = $this->createAccountFromRequest();
 //                }
                 break;
-//            case 'PUT':
-//                $response = $this->updateAccountFromRequest($this->accountId);
-//                break;
+            case 'PUT':
+                $response = $this->updateAccountFromRequest($this->accountId);
+                break;
             case 'DELETE':
                 $response = $this->deleteAccount($this->accountId);
                 break;
@@ -65,6 +67,11 @@ class AccountController {
         return $this->accountGateway->insertNewAccount();
     }
 
+    private function updateAccountFromRequest($accID)
+    {
+        return $this->accountGateway->updateAccount($accID);
+    }
+
     private function getAccount($id)
     {
         $result = $this->accountGateway->find($id);
@@ -77,21 +84,22 @@ class AccountController {
     }
 
 
-    private function formatAccountResult($accountName, $status, $error){
+    private function formatAccountResult($accountName, $status, $error)
+    {
         return array(
             "account_name" => $accountName,
             "status" => $status,
             "error" => $error
-            );
+        );
     }
 
     private function deleteAccount($id)
     {
-        if($id == null){
+        if ($id == null) {
             return $this->notFoundResponse();
         }
         $result = $this->accountGateway->find($id);
-        if (! $result) {
+        if (!$result) {
             return $this->notFoundResponse();
         }
         $this->accountGateway->delete($id);
@@ -105,10 +113,10 @@ class AccountController {
 
     private function validateAccount($input)
     {
-        if (! isset($input['firstname'])) {
+        if (!isset($input['firstname'])) {
             return false;
         }
-        if (! isset($input['lastname'])) {
+        if (!isset($input['lastname'])) {
             return false;
         }
         return true;
@@ -117,10 +125,10 @@ class AccountController {
     private function validateAndReturnDate($date)
     {
         // (accepted format: yyyy-mm-dd)
-        $dateArr = explode("-",$date);
-        if(sizeof($dateArr) == 3 && checkdate($dateArr[1], $dateArr[2], $dateArr[0])) {
-            return $dateArr[0]."-".$dateArr[1]."-".$dateArr[2];
-        }else{
+        $dateArr = explode("-", $date);
+        if (sizeof($dateArr) == 3 && checkdate($dateArr[1], $dateArr[2], $dateArr[0])) {
+            return $dateArr[0] . "-" . $dateArr[1] . "-" . $dateArr[2];
+        } else {
             return false;
         }
 

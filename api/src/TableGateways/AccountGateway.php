@@ -141,7 +141,7 @@ class AccountGateway
 
     public function generateNewAccountPrefix($accName)
     {
-        $accNameSub = strtoupper(substr($accName, 0,2));
+        $accNameSub = strtoupper(substr($accName, 0, 2));
 //        $accNameSub = "%";
         // SELECT count(job_prefix) FROM `accounts` where job_prefix like 'XX%'
         // -> if 0 skip
@@ -151,17 +151,17 @@ class AccountGateway
 
         try {
             $statement = $this->db->prepare($statement);
-            $statement->execute(array($accNameSub."%"));
+            $statement->execute(array($accNameSub . "%"));
             $count = $statement->rowCount();
-            if($count == 0){
-                return $accNameSub."-";
-            }else{
+            if ($count == 0) {
+                return $accNameSub . "-";
+            } else {
                 $result = $statement->fetch();
                 $lastPrefix = $result["job_prefix"];
                 $regex = "/(.{2})(.*)-/";
                 preg_match($regex, $lastPrefix, $matchGroups);
-                $nextNum = $matchGroups[2]+1;
-                return $matchGroups[1]. ($nextNum) ."-";
+                $nextNum = $matchGroups[2] + 1;
+                return $matchGroups[1] . ($nextNum) . "-";
             }
 
         } catch (\PDOException $e) {
@@ -173,7 +173,7 @@ class AccountGateway
 
     public function insertNewAccount()
     {
-        if(
+        if (
             !isset($_POST["enabled"]) ||
             !isset($_POST["billable"]) ||
             !isset($_POST["acc_name"])
@@ -182,16 +182,16 @@ class AccountGateway
         }
 
         $accName = $_POST["acc_name"];
-        if(
+        if (
             empty(trim($accName)) ||
             strpos($_POST['acc_name'], '%') !== FALSE || strpos($_POST['acc_name'], '_')
-        ){
+        ) {
             return $this->errorOccurredResponse("Invalid Input (2)");
         }
 
 
         $accPrefix = $this->generateNewAccountPrefix($accName);
-        if(!$accPrefix){
+        if (!$accPrefix) {
             return $this->errorOccurredResponse("Couldn't generate job prefix");
         }
 
@@ -201,10 +201,10 @@ class AccountGateway
 //        $i = 0;
 //        $len = count($_POST);
 
-        foreach ($_POST as $key=>$value){
+        foreach ($_POST as $key => $value) {
 
             // setting all empty params to 0
-            if(empty($input)){
+            if (empty($input)) {
                 $input = 0;
             }
 
@@ -213,9 +213,9 @@ class AccountGateway
             $valsQMarks .= "?";
 
 //            if ($i != $len - 1) {
-                // not last item add comma
-                $fields .= ", ";
-                $valsQMarks .= ", ";
+            // not last item add comma
+            $fields .= ", ";
+            $valsQMarks .= ", ";
 //            }
 
 //            $i++;
@@ -228,20 +228,19 @@ class AccountGateway
                         INTO 
                             accounts 
                             (
-                             ".$fields." job_prefix
+                             " . $fields . " job_prefix
                              ) 
                          VALUES 
-                                (".$valsQMarks."?)";
+                                (" . $valsQMarks . "?)";
 
 
         try {
             $statement = $this->db->prepare($statement);
             $statement->execute($valsArray);
 
-            if($statement->rowCount() > 0)
-            {
-                return $this->oKResponse($this->db->lastInsertId(),"Account Created");
-            }else{
+            if ($statement->rowCount() > 0) {
+                return $this->oKResponse($this->db->lastInsertId(), "Account Created");
+            } else {
                 return $this->errorOccurredResponse("Couldn't Create Account");
             }
 
@@ -251,7 +250,80 @@ class AccountGateway
         }
     }
 
-    public function oKResponse($id, $msg2 = ""){
+    public function updateAccount($id)
+    {
+        parse_str(file_get_contents('php://input'), $put);
+
+        if (
+            !isset($put["enabled"]) ||
+            !isset($put["billable"]) ||
+            !isset($put["acc_name"])
+        ) {
+            return $this->errorOccurredResponse("Invalid Input (1)");
+        }
+
+        $accName = $put["acc_name"];
+        if (
+            empty(trim($accName)) ||
+            strpos($put['acc_name'], '%') !== FALSE || strpos($put['acc_name'], '_')
+        ) {
+            return $this->errorOccurredResponse("Invalid Input (2)");
+        }
+
+        $valPairs = "";
+        $valsArray = array();
+
+        $i = 0;
+        $len = count($put);
+
+        foreach ($put as $key => $value) {
+
+            // setting all empty params to 0
+            if (empty($input)) {
+                $input = 0;
+            }
+
+            $valPairs .= "`$key` = ";
+            array_push($valsArray, $value);
+            $valPairs .= "?";
+
+            if ($i != $len - 1) {
+//                 not last item add comma
+                $valPairs .= ", ";
+            }
+
+            $i++;
+        }
+
+        array_push($valsArray, $id);
+
+        // update DB //
+        $statement = "UPDATE
+                        accounts 
+                        SET 
+                             " . $valPairs . " 
+                        WHERE 
+                            acc_id = ?";
+
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute($valsArray);
+
+            if ($statement->rowCount() > 0) {
+                return $this->oKResponse($id, "Account Updated");
+            } else {
+                return $this->errorOccurredResponse("Couldn't update account or no changes were found to update");
+            }
+
+        } catch (PDOException $e) {
+//            die($e->getMessage());
+            return false;
+        }
+    }
+
+    public function oKResponse($id, $msg2 = "")
+    {
 
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
         $response['body'] = json_encode([
