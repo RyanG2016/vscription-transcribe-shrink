@@ -115,6 +115,13 @@ class FileController {
             $uploadMsg = [];
             $path = '../../../../uploads/';
 
+            // prevent wildcards
+            foreach ($_POST as $item) {
+                if (strpos($item, '%') !== FALSE || strpos($item, '_')) {
+                    return $this->errorOccurredResponse("Invalid Input (5)");
+                }
+            }
+
             $allowedMimeTypes = array(
                 "audio/mpeg",       // .mp3
                 "audio/x-wav",      // .wav
