@@ -2,6 +2,9 @@
 
 namespace Src\TableGateways;
 
+use PDO;
+use PDOException;
+
 require "filesFilter.php";
 
 class FileGateway
@@ -42,7 +45,7 @@ class FileGateway
         try {
             $statement = $this->db->prepare($statement);
             $statement->execute(array($_SESSION['accID']));
-            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
             if(isset($_GET['dt'])){
                 $json_data = array(
                         //            "draw"            => intval( $_REQUEST['draw'] ),
@@ -54,7 +57,7 @@ class FileGateway
                 $result = $json_data;
             }
             return $result;
-        } catch (\PDOException $e) {
+        } catch (PDOException $e) {
             exit($e->getMessage());
         }
     }
@@ -77,9 +80,9 @@ class FileGateway
         try {
             $statement = $this->db->prepare($statement);
             $statement->execute(array($id, $_SESSION['accID']));
-            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
             return $result;
-        } catch (\PDOException $e) {
+        } catch (PDOException $e) {
             exit($e->getMessage());
         }
     }
@@ -110,7 +113,7 @@ class FileGateway
                 );
                 return json_encode($numbers);
             }
-        } catch (\PDOException $e) {
+        } catch (PDOException $e) {
 //            exit($e->getMessage());
             return false;
         }
@@ -131,7 +134,7 @@ class FileGateway
             }else{
                 return false;
             }
-        } catch (\PDOException $e) {
+        } catch (PDOException $e) {
 //            exit($e->getMessage());
             return false;
         }
@@ -139,7 +142,7 @@ class FileGateway
     }
 
     public function insertUploadedFileToDB($input) {
-        $nextFileID = $input[0];
+//        $nextFileID = $input[0];
         $nextNum = $input[1];
         $authorName = $input[2];
         $jobType = $input[3];
@@ -191,7 +194,7 @@ class FileGateway
                                 $statement->execute();
 //                                return $statement->rowCount();
                                 return true;
-                            } catch (\PDOException $e) {
+                            } catch (PDOException $e) {
 //                                die($e->getMessage());
                                 return false;
                             }
@@ -199,7 +202,7 @@ class FileGateway
                 return false;
             }
 //            return $statement->rowCount();
-        } catch (\PDOException $e) {
+        } catch (PDOException $e) {
 //            die($e->getMessage());
             return false;
         }
@@ -217,7 +220,7 @@ class FileGateway
             $statement = $this->db->prepare($statement);
             $statement->execute(array('id' => $id));
             return $statement->rowCount();
-        } catch (\PDOException $e) {
+        } catch (PDOException $e) {
             exit($e->getMessage());
         }
     }
