@@ -269,11 +269,11 @@ class AccountGateway
         return $response;
     }
 
-  /*  public function delete($id)
+    public function delete($id)
     {
         $statement = "
             DELETE FROM accounts
-            WHERE account_id = :id;
+            WHERE acc_id = :id;
         ";
 
         try {
@@ -283,5 +283,5 @@ class AccountGateway
         } catch (\PDOException $e) {
             exit($e->getMessage());
         }
-    }*/
+    }
 }

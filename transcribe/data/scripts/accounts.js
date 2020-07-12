@@ -154,7 +154,7 @@ $(document).ready(function () {
 	});
 
 	accountsDTRef = accountsDT.DataTable( {
-		rowId: 'file_id',
+		rowId: 'acc_id',
 		"ajax": '../api/v1/accounts?dt',
 		"processing": true,
 		lengthChange: false,
@@ -205,6 +205,100 @@ $(document).ready(function () {
 			}
 		]
 	} );
+
+	$.contextMenu({
+		selector: '.accounts-tbl tbody tr',
+		callback: function(key, options) {
+			var m = "clicked: " + key + "  ";
+			window.console && console.log(m) ;//|| alert(m);
+						// accountsDTRef.row(this).data()["enabled"] == true;
+			switch(key){
+				case "delete":
+					var accId = accountsDTRef.row(this).data()["acc_id"];
+					var accName = accountsDTRef.row(this).data()["acc_name"];
+					$.confirm({
+						title: '<i class="fas fa-user-minus"></i> Delete Account?',
+						content: 'Are you sure do you want to delete <b>'+
+							 accId + "-"+
+							accName +'</b> account?<br><br>' +
+							'<span style="color: red">USE WITH CAUTION THIS WILL DELETE THE ACCOUNT AND ALL RELATED DATA INCLUDING JOB ENTRIES</span>',
+						buttons: {
+							confirm: {
+								text: "yes",
+								btnClass: 'btn-red',
+								action: function () {
+
+									$.ajax({
+										type: 'DELETE',
+										url: API_INSERT_URL+accId,
+										processData: false,
+										contentType: false,
+										success: function (response) {
+											accountsDTRef.ajax.reload(); // refresh accounts table
+											$.confirm({
+												title: 'Success',
+												content: response["msg"],
+												buttons: {
+													confirm: {
+														btnClass: 'btn-green',
+														action: function () {
+															return true;
+														}
+													}
+												}
+											});
+
+
+										},
+										error: function (err) {
+											accountsDTRef.ajax.reload(); // refresh accounts table
+											$.confirm({
+												title: 'Error',
+												content: err.responseJSON["msg"],
+												buttons: {
+													confirm: {
+														btnClass: 'btn-red',
+														action: function () {
+															return true;
+														}
+													}
+												}
+											});
+										}
+									});
+
+									return true;
+								}
+							},
+							cancel:
+								{
+									text: "no",
+									btnClass: 'btn-green',
+									function () {
+										return true;
+									}
+							}
+						}
+					});
+					break;
+			}
+
+		},
+		items: {
+			"edit": {name: "Edit", icon: "fas fa-user-edit", disabled: true},
+			"sep1": "---------",
+			"delete": {name: "Delete", icon: "fas fa-user-minus"},
+			// "quit2": {name: "Quit2", icon: "quit"},
+			// "quit": {name: "Quit", icon: function(){
+			// 		console.log("return function for quit");
+			// 		return 'context-menu-icon context-menu-icon-quit';
+			// 	}}
+		}
+	});
+
+	$('.accounts-tbl tbody tr').on('click', function(e){
+		console.log('clicked', this);
+	})
 
 	refreshBtn.addEventListener('click', e => {
 		accountsDTRef.ajax.reload();

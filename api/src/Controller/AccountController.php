@@ -39,9 +39,9 @@ class AccountController {
 //            case 'PUT':
 //                $response = $this->updateAccountFromRequest($this->accountId);
 //                break;
-//            case 'DELETE':
-//                $response = $this->deleteAccount($this->accountId);
-//                break;
+            case 'DELETE':
+                $response = $this->deleteAccount($this->accountId);
+                break;
             default:
                 $response = $this->notFoundResponse();
                 break;
@@ -87,13 +87,19 @@ class AccountController {
 
     private function deleteAccount($id)
     {
+        if($id == null){
+            return $this->notFoundResponse();
+        }
         $result = $this->accountGateway->find($id);
         if (! $result) {
             return $this->notFoundResponse();
         }
         $this->accountGateway->delete($id);
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
-        $response['body'] = null;
+        $response['body'] = json_encode([
+            'error' => false,
+            'msg' => 'Account Deleted.'
+        ]);
         return $response;
     }
 
@@ -143,7 +149,10 @@ class AccountController {
     private function notFoundResponse()
     {
         $response['status_code_header'] = 'HTTP/1.1 404 Not Found';
-        $response['body'] = null;
+        $response['body'] = json_encode([
+            'error' => true,
+            'msg' => 'Account Not Found'
+        ]);
         return $response;
     }
 }

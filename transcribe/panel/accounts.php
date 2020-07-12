@@ -56,6 +56,10 @@ if ($_SESSION['role'] != "1") {
     <link rel="stylesheet" href="../data/dialogues/jquery-confirm.min.css">
     <script src="../data/dialogues/jquery-confirm.min.js"></script>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.ui.position.js"></script>
+
     <script src="../data/scripts/accounts.min.js"></script>
     <link href="../data/css/manage_accounts.css" rel="stylesheet">
 </head>
@@ -143,7 +147,7 @@ if ($_SESSION['role'] != "1") {
 
 
                 <!--        CONTENTS GOES HERE        -->
-                <table id="accounts-tbl" class="display" style="width:100%">
+                <table id="accounts-tbl" class="accounts-tbl" style="width:100%">
                     <thead>
                     <tr>
                         <th>ID</th>
