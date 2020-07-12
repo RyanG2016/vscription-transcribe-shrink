@@ -174,7 +174,7 @@ if ($_SESSION['role'] != "1") {
 
     <!-- Modal content -->
     <div class="modal-content">
-        <h2 style="color: #1e79be"><i class="fas fa-user-plus"></i>&nbsp;Create New Account</h2>
+        <h2 style="color: #1e79be" id="modalHeaderTitle"><i class="fas fa-user-plus"></i>&nbsp;Create New Account</h2>
 
         <form method="post" id="createAccForm" class="createAccForm" target="_self">
             <!--            <label for="enabled" class="vtex-form_lbl">Enabled</label>-->
@@ -251,7 +251,7 @@ if ($_SESSION['role'] != "1") {
 
                     <div class="br1desc">
                         <label for="bill_rate1_desc" class="vtex-form_lbl">Description</label>
-                        <input class="bill_rate1_desc vtex-input" name="bill_rate1_desc" type="text">
+                        <input class="bill_rate1_desc vtex-input" name="bill_rate1_desc" id="bill_rate1_desc" type="text">
                     </div>
                 </div>
             </fieldset>
@@ -290,7 +290,7 @@ if ($_SESSION['role'] != "1") {
 
                     <div class="br2desc">
                         <label for="bill_rate2_desc" class="vtex-form_lbl">Description</label>
-                        <input class="bill_rate2_desc vtex-input" name="bill_rate2_desc" type="text">
+                        <input class="bill_rate2_desc vtex-input" name="bill_rate2_desc" id="bill_rate2_desc" type="text">
                     </div>
                 </div>
             </fieldset>
@@ -328,7 +328,7 @@ if ($_SESSION['role'] != "1") {
 
                     <div class="br3desc">
                         <label for="bill_rate3_desc" class="vtex-form_lbl">Description</label>
-                        <input class="bill_rate3_desc vtex-input" name="bill_rate3_desc" type="text">
+                        <input class="bill_rate3_desc vtex-input" name="bill_rate3_desc" id="bill_rate3_desc" type="text">
                     </div>
                 </div>
             </fieldset>
@@ -367,7 +367,7 @@ if ($_SESSION['role'] != "1") {
 
                     <div class="br4desc">
                         <label for="bill_rate4_desc" class="vtex-form_lbl">Description</label>
-                        <input class="bill_rate4_desc vtex-input" name="bill_rate4_desc" type="text">
+                        <input class="bill_rate4_desc vtex-input" name="bill_rate4_desc" id="bill_rate4_desc" type="text">
                     </div>
                 </div>
             </fieldset>
@@ -406,13 +406,19 @@ if ($_SESSION['role'] != "1") {
 
                     <div class="br5desc">
                         <label for="bill_rate5_desc" class="vtex-form_lbl">Description</label>
-                        <input class="bill_rate5_desc vtex-input" name="bill_rate5_desc" type="text">
+                        <input class="bill_rate5_desc vtex-input" name="bill_rate5_desc" id="bill_rate5_desc" type="text">
                     </div>
                 </div>
             </fieldset>
 
             <div class="modal-footer">
-                <button class="mdc-button mdc-button--unelevated green-btn" id="createAccBtn" type="submit" disabled>
+                <button class="mdc-button mdc-button--unelevated blue-btn" id="updateAccBtn" type="button" disabled>
+                    <div class="mdc-button__ripple"></div>
+                    <i class="fas fa-user-edit"></i>
+                    <span class="mdc-button__label">&nbsp; Update</span>
+                </button>
+
+                <button class="mdc-button mdc-button--unelevated green-btn" id="createAccBtn" type="button" disabled>
                     <div class="mdc-button__ripple"></div>
                     <i class="fas fa-user-plus"></i>
                     <span class="mdc-button__label">&nbsp; Create</span>

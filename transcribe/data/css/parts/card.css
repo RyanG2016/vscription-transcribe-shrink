@@ -65,6 +65,10 @@
     --mdc-theme-primary: #53a13d;
 }
 
+.blue-btn{
+    --mdc-theme-primary: #1e79be;
+}
+
 legend{
     font-weight: bold;
     color: #1e79be;

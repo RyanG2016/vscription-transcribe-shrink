@@ -440,4 +440,4 @@ label{
     font-weight: bold;
 }
 
-.context-menu-item{font-family:oxygen, serif}
+.context-menu-item{font-family:oxygen, serif !important;}
