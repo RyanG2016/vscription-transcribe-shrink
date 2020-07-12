@@ -154,8 +154,9 @@ if ($_SESSION['role'] != "1") {
                         <th>Name</th>
                         <th>Prefix</th>
                         <th>Date Created</th>
-                        <th>Retention</th>
-                        <th>Log Retention</th>
+                        <th>Ret.</th>
+                        <th>Log Ret.</th>
+                        <th>Prefix</th>
                         <th>Enabled</th>
                         <th>Billable</th>
                     </tr>

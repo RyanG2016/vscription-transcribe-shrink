@@ -146,17 +146,22 @@ class AccountGateway
         // SELECT count(job_prefix) FROM `accounts` where job_prefix like 'XX%'
         // -> if 0 skip
 
-        $statement = "SELECT count(job_prefix) as count FROM `accounts` where `job_prefix` like ?";
+//        $statement = "SELECT count(job_prefix) as count FROM `accounts` where `job_prefix` like ?";
+        $statement = "SELECT job_prefix FROM `accounts` where job_prefix like ? order by job_prefix desc limit 1";
 
         try {
             $statement = $this->db->prepare($statement);
             $statement->execute(array($accNameSub."%"));
-            $result = $statement->fetch();
-            $count = $result["count"];
+            $count = $statement->rowCount();
             if($count == 0){
                 return $accNameSub."-";
             }else{
-                return $accNameSub.$count."-";
+                $result = $statement->fetch();
+                $lastPrefix = $result["job_prefix"];
+                $regex = "/(.{2})(.*)-/";
+                preg_match($regex, $lastPrefix, $matchGroups);
+                $nextNum = $matchGroups[2]+1;
+                return $matchGroups[1]. ($nextNum) ."-";
             }
 
         } catch (\PDOException $e) {
@@ -190,8 +195,6 @@ class AccountGateway
             return $this->errorOccurredResponse("Couldn't generate job prefix");
         }
 
-//        $enabled = $_POST["enabled"];
-//        $billable = $_POST["billable"];
         $fields = "";
         $valsQMarks = "";
         $valsArray = array();
@@ -237,7 +240,7 @@ class AccountGateway
 
             if($statement->rowCount() > 0)
             {
-                return $this->oKResponse("Account Created");
+                return $this->oKResponse($this->db->lastInsertId(),"Account Created");
             }else{
                 return $this->errorOccurredResponse("Couldn't Create Account");
             }
@@ -248,12 +251,13 @@ class AccountGateway
         }
     }
 
-    public function oKResponse($msg2 = ""){
+    public function oKResponse($id, $msg2 = ""){
 
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
         $response['body'] = json_encode([
             "error" => false,
-            "msg" => $msg2
+            "msg" => $msg2,
+            "id" => $id
         ]);
         return $response;
 

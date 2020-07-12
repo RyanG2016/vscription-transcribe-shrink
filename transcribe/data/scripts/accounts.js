@@ -183,6 +183,7 @@ $(document).ready(function () {
 			{ "data": "acc_creation_date" },
 			{ "data": "acc_retention_time" },
 			{ "data": "act_log_retention_time" },
+			{ "data": "job_prefix" },
 			{ "data": "enabled",
 				render: function (data) {
 					if(data == true)
