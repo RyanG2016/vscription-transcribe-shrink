@@ -73,3 +73,7 @@ legend{
 .vtex-spinner-4-digits{
     width: 60px;
 }
+
+.vtex-validate-error{
+    border: medium dashed var(--vtex-red);
+}

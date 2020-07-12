@@ -2,6 +2,8 @@
 
 namespace Src\TableGateways;
 
+use PDOException;
+
 require "accountsFilter.php";
 
 class AccountGateway
@@ -137,29 +139,26 @@ class AccountGateway
     }
 
 
-    public function generateNewAccountPrefix()
+    public function generateNewAccountPrefix($accName)
     {
+        $accNameSub = strtoupper(substr($accName, 0,2));
+//        $accNameSub = "%";
+        // SELECT count(job_prefix) FROM `accounts` where job_prefix like 'XX%'
+        // -> if 0 skip
 
-        $statement = "SELECT count(job_prefix) FROM `accounts` where job_prefix like '\?%'";
+        $statement = "SELECT count(job_prefix) as count FROM `accounts` where `job_prefix` like ?";
 
         try {
             $statement = $this->db->prepare($statement);
-            $statement->execute(array($concatName));
-            if ($statement->rowCount() == 1) {
-                $result = $statement->fetch();
-                $numbers = array(
-                    "next_job_id" => strval($result['next_job_id']),
-                    "next_job_num" => strval($result['next_job_num'])
-                );
-                return json_encode($numbers);
-
-            } else {
-                $numbers = array(
-                    "next_job_id" => "1",
-                    "next_job_num" => "1"
-                );
-                return json_encode($numbers);
+            $statement->execute(array($accNameSub."%"));
+            $result = $statement->fetch();
+            $count = $result["count"];
+            if($count == 0){
+                return $accNameSub."-";
+            }else{
+                return $accNameSub.$count."-";
             }
+
         } catch (\PDOException $e) {
 //            exit($e->getMessage());
             return false;
@@ -167,95 +166,107 @@ class AccountGateway
 
     }
 
-   /* public function getAccountPrefix()
+    public function insertNewAccount()
     {
+        if(
+            !isset($_POST["enabled"]) ||
+            !isset($_POST["billable"]) ||
+            !isset($_POST["acc_name"])
+        ) {
+            return $this->errorOccurredResponse("Invalid Input (1)");
+        }
 
-        $statement = "select job_prefix from accounts where acc_id = " . $_SESSION["accID"];
+        $accName = $_POST["acc_name"];
+        if(
+            empty(trim($accName)) ||
+            strpos($_POST['acc_name'], '%') !== FALSE || strpos($_POST['acc_name'], '_')
+        ){
+            return $this->errorOccurredResponse("Invalid Input (2)");
+        }
 
-        try {
-            $statement = $this->db->prepare($statement);
-            $statement->execute();
-            if ($statement->rowCount() == 1) {
-                $result = $statement->fetch();
-                return $result['job_prefix'];
 
-            } else {
-                return false;
+        $accPrefix = $this->generateNewAccountPrefix($accName);
+        if(!$accPrefix){
+            return $this->errorOccurredResponse("Couldn't generate job prefix");
+        }
+
+//        $enabled = $_POST["enabled"];
+//        $billable = $_POST["billable"];
+        $fields = "";
+        $valsQMarks = "";
+        $valsArray = array();
+//        $i = 0;
+//        $len = count($_POST);
+
+        foreach ($_POST as $key=>$value){
+
+            // setting all empty params to 0
+            if(empty($input)){
+                $input = 0;
             }
-        } catch (\PDOException $e) {
-//            exit($e->getMessage());
-            return false;
+
+            $fields .= "`$key`";
+            array_push($valsArray, $value);
+            $valsQMarks .= "?";
+
+//            if ($i != $len - 1) {
+                // not last item add comma
+                $fields .= ", ";
+                $valsQMarks .= ", ";
+//            }
+
+//            $i++;
         }
 
-    }*/
+        array_push($valsArray, $accPrefix);
 
-    public function insertNewAccount($input)
-    {
-        $nextAccountID = $input[0];
-        $nextNum = $input[1];
-        $authorName = $input[2];
-        $jobType = $input[3];
-        $dictDate = $input[4];
-        $speakerType = $input[5];
-        $comments = $input[6];
-        $orig_accountname = $input[7];
-        $account_name = $input[8];
-        $account_duration = $input[9];
-        $uploadedBy = $_SESSION['uEmail'];
-
-        $jobPrefix = $this->getAccountPrefix();
-        if (!$jobPrefix) {
-            die("couldn't get job prefix");
-//            return false;
-        }
-        $nextJobNum = $jobPrefix . str_pad($nextNum, 7, "0", STR_PAD_LEFT);
-
+        // insert to DB //
         $statement = "INSERT
                         INTO 
                             accounts 
                             (
-                             job_id, 
-                             account_author, 
-                             account_work_type, 
-                             account_date_dict, 
-                             account_speaker_type, 
-                             account_comment, 
-                             job_uploaded_by, 
-                             accountname, 
-                             orig_accountname, 
-                             acc_id, 
-                             audio_length
+                             ".$fields." job_prefix
                              ) 
                          VALUES 
-                                (?,?,?,?,?,?,?,?,?,?,?)";
+                                (".$valsQMarks."?)";
+
 
         try {
             $statement = $this->db->prepare($statement);
-            $statement->execute(array($nextJobNum, $authorName, $jobType, $dictDate,
-                $speakerType, $comments, $uploadedBy, $account_name, $orig_accountname, $_SESSION["accID"], $account_duration));
+            $statement->execute($valsArray);
 
-            if ($statement->rowCount()) {
-                $statement = "UPDATE accounts SET next_job_tally=next_job_tally+1 where acc_id = " . $_SESSION["accID"];
-
-                try {
-                    $statement = $this->db->prepare($statement);
-                    $statement->execute();
-//                                return $statement->rowCount();
-                    return true;
-                } catch (\PDOException $e) {
-                    die($e->getMessage());
-//                                return false;
-                }
-            } else {
-                die(print_r($statement->errorInfo(), true));
-//                return false;
+            if($statement->rowCount() > 0)
+            {
+                return $this->oKResponse("Account Created");
+            }else{
+                return $this->errorOccurredResponse("Couldn't Create Account");
             }
-//            return $statement->rowCount();
-        } catch (\PDOException $e) {
-            die($e->getMessage());
-//            return false;
-        }
 
+        } catch (PDOException $e) {
+//            die($e->getMessage());
+            return false;
+        }
+    }
+
+    public function oKResponse($msg2 = ""){
+
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = json_encode([
+            "error" => false,
+            "msg" => $msg2
+        ]);
+        return $response;
+
+    }
+
+    private function errorOccurredResponse($error_msg = "")
+    {
+        $response['status_code_header'] = 'HTTP/1.1 422 Error Occurred';
+        $response['body'] = json_encode([
+            'error' => true,
+            'msg' => $error_msg
+        ]);
+        return $response;
     }
 
   /*  public function delete($id)

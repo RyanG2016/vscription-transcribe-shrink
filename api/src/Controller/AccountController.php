@@ -25,9 +25,6 @@ class AccountController {
     {
         switch ($this->requestMethod) {
             case 'GET':
-//                if(isset($_GET["cancel"])){
-//                    $response = $this->cancelUpload();
-//                }else{
                     if ($this->accountId) {
                         $response = $this->getAccount($this->accountId);
                     } else {
@@ -36,10 +33,7 @@ class AccountController {
 //                }
                 break;
             case 'POST':
-//                if(isset($_POST["cancel"])) {
-//                    $response = $this->cancelUpload();
-//                }else{
-                    $response = $this->uploadAccountsFromRequest();
+                    $response = $this->createAccountFromRequest();
 //                }
                 break;
 //            case 'PUT':
@@ -66,6 +60,11 @@ class AccountController {
         return $response;
     }
 
+    private function createAccountFromRequest()
+    {
+        return $this->accountGateway->insertNewAccount();
+    }
+
     private function getAccount($id)
     {
         $result = $this->accountGateway->find($id);
@@ -77,31 +76,6 @@ class AccountController {
         return $response;
     }
 
-    private function createAccountFromRequest()
-    {
-        $input = (array) json_decode(account_get_contents('php://input'), TRUE);
-        if (! $this->validateAccount($input)) {
-            return $this->unprocessableEntityResponse();
-        }
-        $this->accountGateway->insert($input);
-        $response['status_code_header'] = 'HTTP/1.1 201 Created';
-        $response['body'] = null;
-        return $response;
-    }
-
-    private function cancelUpload()
-    {
-        $suffix = "job_upload";
-        $key = ini_get("session.upload_progress.prefix") . $suffix;
-        $_SESSION[$key]["cancel_upload"] = true;
-        $response['status_code_header'] = 'HTTP/1.1 200 OK';
-        $response['body'] = json_encode(array(
-            "msg" => "upload cancelled",
-            "error" => false
-        ));
-        return $response;
-    }
-
 
     private function formatAccountResult($accountName, $status, $error){
         return array(
@@ -109,22 +83,6 @@ class AccountController {
             "status" => $status,
             "error" => $error
             );
-    }
-
-    private function updateAccountFromRequest($id)
-    {
-        $result = $this->accountGateway->find($id);
-        if (! $result) {
-            return $this->notFoundResponse();
-        }
-        $input = (array) json_decode(account_get_contents('php://input'), TRUE);
-        if (! $this->validateAccount($input)) {
-            return $this->unprocessableEntityResponse();
-        }
-        $this->accountGateway->update($id, $input);
-        $response['status_code_header'] = 'HTTP/1.1 200 OK';
-        $response['body'] = null;
-        return $response;
     }
 
     private function deleteAccount($id)
