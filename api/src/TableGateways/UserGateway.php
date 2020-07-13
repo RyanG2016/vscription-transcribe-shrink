@@ -5,6 +5,7 @@ namespace Src\TableGateways;
 use PDOException;
 
 require "filters/usersFilter.php";
+include_once "common.php";
 
 class UserGateway
 {
@@ -22,28 +23,32 @@ class UserGateway
 
         $statement = "
             SELECT 
-                   id,
-                   first_name,
-                   last_name,
-                   email,
-                   country,
-                   country_id,
-                   city,
-                   city_id,
-                   state,
-                   registeration_date,
-                   last_ip_address,
-                   plan_id,
-                   account_status,
-                   last_login,
-                   newsletter,
-                   shortcuts,
-                   dictionary,
-                   email_notification,
-                   account,
-                   enabled
+                   users.id,
+                    users.first_name,
+                    users.last_name,
+                    users.email,
+                    users.country_id,
+                    countries.country,
+                    users.city,
+                    users.state_id,
+                    users.state,
+                    users.registeration_date,
+                    users.last_ip_address,
+                    users.plan_id,
+                    users.account_status,
+                    users.last_login,
+                    users.newsletter,
+                    users.shortcuts,
+                    users.dictionary,
+                    users.email_notification,
+                    users.account,
+                    users.enabled,
+                    cities.city as `state_ref`
+                                      
             FROM
                 users
+            INNER JOIN countries ON users.country_id = countries.id 
+            LEFT JOIN cities ON users.state_id = cities.id
         " . $filter . ";";
 
         try {
@@ -71,30 +76,34 @@ class UserGateway
 
         $statement = "
             SELECT 
-                   id,
-                   first_name,
-                   last_name,
-                   email,
-                   country,
-                   country_id,
-                   city,
-                   city_id,
-                   state,
-                   registeration_date,
-                   last_ip_address,
-                   plan_id,
-                   account_status,
-                   last_login,
-                   newsletter,
-                   shortcuts,
-                   dictionary,
-                   email_notification,
-                   account,
-                   enabled
+                   users.id,
+                    users.first_name,
+                    users.last_name,
+                    users.email,
+                    users.country_id,
+                    countries.country,
+                    users.city,
+                    users.state_id,
+                    users.state,
+                    users.registeration_date,
+                    users.last_ip_address,
+                    users.plan_id,
+                    users.account_status,
+                    users.last_login,
+                    users.newsletter,
+                    users.shortcuts,
+                    users.dictionary,
+                    users.email_notification,
+                    users.account,
+                    users.enabled,
+                   cities.city as `state_ref`
+                                      
             FROM
                 users
+            INNER JOIN countries ON users.country_id = countries.id
+            LEFT JOIN cities ON users.state_id = cities.id
             WHERE
-                id = ?";
+                users.id = ?";
 
         try {
             $statement = $this->db->prepare($statement);
@@ -108,33 +117,31 @@ class UserGateway
     
     public function insertNewUser()
     {
+        // Required Fields
         if (
-            !isset($_POST["enabled"]) ||
-            !isset($_POST["billable"]) ||
-            !isset($_POST["acc_name"])
+            !isset($_POST["first_name"]) ||
+            !isset($_POST["last_name"]) ||
+            !isset($_POST["email"]) ||
+            !isset($_POST["country_id"]) ||
+            !isset($_POST["newsletter"]) ||
+            !isset($_POST["enabled"])
         ) {
-            return $this->errorOccurredResponse("Invalid Input (1)");
+            return $this->errorOccurredResponse("Invalid Input, required fields missing (1)");
         }
 
-        $accName = $_POST["acc_name"];
-        if (
-            empty(trim($accName)) ||
-            strpos($_POST['acc_name'], '%') !== FALSE || strpos($_POST['acc_name'], '_')
-        ) {
-            return $this->errorOccurredResponse("Invalid Input (2)");
+        // Sql Injection Check
+        if(!sqlInjectionCreateCheckPassed($_POST))
+        {
+            return $this->errorOccurredResponse("Invalid Input (505)");
         }
 
-
-        $accPrefix = $this->generateNewUserPrefix($accName);
-        if (!$accPrefix) {
-            return $this->errorOccurredResponse("Couldn't generate job prefix");
-        }
+        // Parse post request params/fields
 
         $fields = "";
         $valsQMarks = "";
         $valsArray = array();
-//        $i = 0;
-//        $len = count($_POST);
+        $i = 0;
+        $len = count($_POST);
 
         foreach ($_POST as $key => $value) {
 
@@ -147,26 +154,52 @@ class UserGateway
             array_push($valsArray, $value);
             $valsQMarks .= "?";
 
-//            if ($i != $len - 1) {
-            // not last item add comma
+            if ($i != $len - 1) {
+//             not last item add comma
             $fields .= ", ";
             $valsQMarks .= ", ";
-//            }
+            }
 
-//            $i++;
+            $i++;
         }
 
-        array_push($valsArray, $accPrefix);
+        // Optional Fields Calculations //
+        // account_status
+        $fields .= ", " . "`account_status`";
+        $valsQMarks .= ", ?";
+        array_push($valsArray, 5);
+
+        // password
+        $fields .= ", " . "`password`";
+        $valsQMarks .= ", ?";
+
+        $newPass = $this->getNewPasswordWithHash();
+        $newPass["pwd"]; // return with the success response todo
+        array_push($valsArray, $newPass["hash"]);
+
+        // ip address
+        $fields .= ", " . "`last_ip_address`";
+        $valsQMarks .= ", ?";
+        array_push($valsArray, getIP());
+
+
+        // todo remove below
+        // plan_id hardcode default to typist
+        $fields .= ", " . "`plan_id`";
+        $valsQMarks .= ", ?";
+        array_push($valsArray, 3);
+
+
 
         // insert to DB //
         $statement = "INSERT
                         INTO 
                             users 
                             (
-                             " . $fields . " job_prefix
+                             " . $fields . "
                              ) 
                          VALUES 
-                                (" . $valsQMarks . "?)";
+                                (" . $valsQMarks . ")";
 
 
         try {
@@ -176,7 +209,14 @@ class UserGateway
             if ($statement->rowCount() > 0) {
                 return $this->oKResponse($this->db->lastInsertId(), "User Created");
             } else {
-                return $this->errorOccurredResponse("Couldn't Create User");
+//                return $this->errorOccurredResponse("Couldn't Create User");
+                if(strpos($statement->errorInfo()[2], 'Duplicate entry') !== false){
+                    return $this->errorOccurredResponse("User Already Exists");
+                }else{
+                    return $this->errorOccurredResponse("Couldn't Create User");
+//                    return $this->errorOccurredResponse("Couldn't Create User" . print_r($statement->errorInfo()));
+                }
+
             }
 
         } catch (PDOException $e) {
@@ -185,26 +225,30 @@ class UserGateway
         }
     }
 
+
     public function updateUser($id)
     {
         parse_str(file_get_contents('php://input'), $put);
 
-        if (
-            !isset($put["enabled"]) ||
-            !isset($put["billable"]) ||
-            !isset($put["acc_name"])
+        // Required Fields
+        /*if (
+            !isset($put["first_name"]) ||
+            !isset($put["last_name"]) ||
+            !isset($put["email"]) ||
+            !isset($put["country_id"]) ||
+            !isset($put["newsletter"]) ||
+            !isset($put["enabled"])
         ) {
-            return $this->errorOccurredResponse("Invalid Input (1)");
+            return $this->errorOccurredResponse("Invalid Input, required fields missing (31)");
+        }*/
+
+        // Sql Injection Check
+        if(!sqlInjectionCheckPassed($put))
+        {
+            return $this->errorOccurredResponse("Invalid Input (3505)");
         }
 
-        $accName = $put["acc_name"];
-        if (
-            empty(trim($accName)) ||
-            strpos($put['acc_name'], '%') !== FALSE || strpos($put['acc_name'], '_')
-        ) {
-            return $this->errorOccurredResponse("Invalid Input (2)");
-        }
-
+        // Parse post request params/fields
         $valPairs = "";
         $valsArray = array();
 
@@ -230,7 +274,20 @@ class UserGateway
             $i++;
         }
 
+        if(isset($put['state'])){
+
+            $valPairs .= ", `state_id` = ";
+            array_push($valsArray, null);
+            $valPairs .= "?";
+        }
+        else if(isset($put['state_id'])){
+            $valPairs .= ", `state` = ";
+            array_push($valsArray, null);
+            $valPairs .= "?";
+        }
+
         array_push($valsArray, $id);
+
 
         // update DB //
         $statement = "UPDATE
@@ -240,7 +297,6 @@ class UserGateway
                         WHERE 
                             id = ?";
 
-
         try {
             $statement = $this->db->prepare($statement);
             $statement->execute($valsArray);
@@ -248,7 +304,9 @@ class UserGateway
             if ($statement->rowCount() > 0) {
                 return $this->oKResponse($id, "User Updated");
             } else {
-                return $this->errorOccurredResponse("Couldn't update user or no changes were found to update");
+//                return $this->errorOccurredResponse("Couldn't update user or no changes were found to update");
+                return $this->errorOccurredResponse("Debug " . print_r($statement->errorInfo()) . "\n <br>"
+                . $statement->queryString);
             }
 
         } catch (PDOException $e) {
@@ -294,5 +352,19 @@ class UserGateway
         } catch (\PDOException $e) {
             exit($e->getMessage());
         }
+    }
+
+    public function getNewPasswordWithHash() {
+
+        $password = $this->generateRandomPassword();
+        return array(
+            "pwd" => $password,
+            "hash" => password_hash($password,PASSWORD_BCRYPT)
+        );
+    }
+
+    function generateRandomPassword($length = 12){
+        $chars = "0123456789bcdfghjkmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ";
+        return substr(str_shuffle($chars),0,$length);
     }
 }

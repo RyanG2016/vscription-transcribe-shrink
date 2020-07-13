@@ -125,7 +125,7 @@ if ($_SESSION['role'] != "1") {
                         <i class="material-icons mdc-button__icon" aria-hidden="true">admin_panel_settings</i>
                         <span class="mdc-button__label">Manage Accounts</span>
                     </button>
-                    <button class="mdc-button mdc-button--outlined tools-button" onclick="location.href='users.php'" disabled>
+                    <button class="mdc-button mdc-button--outlined tools-button" onclick="location.href='users.php'">
                         <div class="mdc-button__ripple"></div>
                         <i class="material-icons mdc-button__icon" aria-hidden="true">account_circle</i>
                         <span class="mdc-button__label">Manage Users</span>

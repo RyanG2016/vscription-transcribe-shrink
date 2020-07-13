@@ -19,7 +19,6 @@ function parseParams($addWhereClause = false){
                 case "first_name":
                 case "last_name":
                 case "email":
-                case "country":
                 case "city":
                 case "state":
                 case "registeration_date":
@@ -42,7 +41,7 @@ function parseParams($addWhereClause = false){
                             foreach ($values as $opt)
                             {
                                 if(!$firstMatch) {$filter .= " OR ";}
-                                $filter .= "$key = '$opt'";
+                                $filter .= "users.$key = '$opt'";
                                 $firstMatch = false;
                             }
 
@@ -52,7 +51,35 @@ function parseParams($addWhereClause = false){
 
                     }else if(gettype($value) == "string"){
                         if(!$firstMatch) {$filter .= " AND ";}
-                        $filter .= "$key = '$value'";
+                        $filter .= "users.$key = '$value'";
+                        $firstMatch = false;
+                    }
+                    break;
+
+
+                case "country":
+                    $addedEnum ++;
+
+                    // check if filter is multiple values
+                    if(gettype($value) == "array")
+                    {
+                        if(isset($value["mul"]))
+                        {
+                            $values = preg_split('/,/', $value["mul"], -1, PREG_SPLIT_NO_EMPTY);
+                            foreach ($values as $opt)
+                            {
+                                if(!$firstMatch) {$filter .= " OR ";}
+                                $filter .= "countries.$key = '$opt'";
+                                $firstMatch = false;
+                            }
+
+                        }else{
+                            unprocessableFilterResponse();
+                        }
+
+                    }else if(gettype($value) == "string"){
+                        if(!$firstMatch) {$filter .= " AND ";}
+                        $filter .= "countries.$key = '$value'";
                         $firstMatch = false;
                     }
                     break;
@@ -64,6 +91,113 @@ function parseParams($addWhereClause = false){
     else{
         return "";
     }
+
+}
+
+function sqlInjectionCheckPassed($array){
+    // Sql Injection Check
+    foreach ($array as $key => $value)
+    {
+        switch($key){
+
+//            case "id":
+            case "first_name":
+            case "last_name":
+            case "email":
+            case "city":
+            case "state":
+            case "last_ip_address":
+            case "plan_id":
+            case "account_status":
+            case "last_login":
+            case "trials":
+            case "unlock_time":
+            case "shortcuts":
+            case "dictionary":
+            case "email_notification":
+            case "account":
+                if (
+                    empty(trim($value)) ||
+                    strpos($value, '%') !== FALSE
+//                    ||strpos($value, '_')
+                ) {
+                    return false;
+                }
+
+                break;
+            case "country_id":
+            case "state_id":
+            case "enabled":
+            case "newsletter":
+                if (
+                    $value != 0 && empty(trim($value)) ||
+                    strpos($value, '%') !== FALSE ||
+                    strpos($value, '_') ||
+                    !is_numeric($value)
+                ) {
+                    return false;
+                }
+
+                break;
+            default: // prevent any other parameters
+                return false;
+                break;
+        }
+    }
+    return true;
+}
+
+function sqlInjectionCreateCheckPassed($array){
+    // Sql Injection Check
+    foreach ($array as $key => $value)
+    {
+        switch($key){
+//            case "shortcuts":
+//            case "dictionary":
+//            case "email_notification":
+//            case "account":
+//            case "last_ip_address":
+//            case "plan_id":
+//            case "account_status":
+//            case "trials":
+//            case "unlock_time":
+//            case "id":
+            case "first_name":
+            case "last_name":
+            case "email":
+            case "city":
+            case "state":
+            case "last_login":
+                if (
+                    empty(trim($value)) ||
+                    strpos($value, '%') !== FALSE ||
+                    strpos($value, '_')
+                ) {
+                    return false;
+                }
+
+                break;
+
+            case "country_id":
+            case "state_id":
+            case "enabled":
+            case "newsletter":
+                if (
+                    $value != 0 && empty(trim($value)) ||
+                    strpos($value, '%') !== FALSE ||
+                    strpos($value, '_') ||
+                    !is_numeric($value)
+                ) {
+                    return false;
+                }
+
+                break;
+            default: // prevent any other parameters
+                return false;
+                break;
+        }
+    }
+    return true;
 }
 
 function unprocessableFilterResponse()

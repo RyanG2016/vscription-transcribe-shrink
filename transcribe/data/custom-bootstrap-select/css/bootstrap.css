@@ -306,7 +306,8 @@ hr {
   background-image: none;
   border: 1px solid transparent;
   padding: 6px 12px;
-  font-size: 14px;
+  /*font-size: 14px;*/
+  font-size: 1rem;
   line-height: 1.42857143;
   border-radius: 4px;
   -webkit-user-select: none;
