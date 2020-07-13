@@ -26,7 +26,13 @@ class CityController {
             case 'GET':
 
                 if ($this->citiesId) {
-                    $response = $this->getCity($this->citiesId);
+                    if(isset($_GET["box_model"]))
+                    {
+                        $response = $this->getCity($this->citiesId, true);
+                    }
+                    else{
+                        $response = $this->getCity($this->citiesId, false);
+                    }
                 } else {
                     if(isset($_GET["box_model"]))
                     {
@@ -65,9 +71,9 @@ class CityController {
         return $response;
     }
 
-    private function getCity($id)
+    private function getCity($id, $combobox)
     {
-        $result = $this->citiesGateway->find($id);
+        $result = $this->citiesGateway->find($id, $combobox);
         /*if (! $result) {
 //            return $this->notFoundResponse();
         }*/

@@ -55,17 +55,28 @@ class CityGateway
         }
     }
 
-    public function find($id) // $id is country id
+    public function find($id, $parseForComboBox = false) // $id is country id
     {
+        if($parseForComboBox)
+        {
+            $statement = "
+            SELECT 
+                id as 'value', city as 'label', country
+            FROM
+                cities
+            WHERE country = ?;
+        ";
 
-        $statement = "
+
+        } else {
+            $statement = "
             SELECT 
                 *
             FROM
                 cities
             WHERE country = ?;
         ";
-
+        }
         try {
             $statement = $this->db->prepare($statement);
             $statement->execute(array($id));
