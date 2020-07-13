@@ -64,7 +64,7 @@ class AccountGateway
 
         try {
             $statement = $this->db->prepare($statement);
-            $statement->execute(array($_SESSION['accID']));
+            $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             if (isset($_GET['dt'])) {
                 $json_data = array(
