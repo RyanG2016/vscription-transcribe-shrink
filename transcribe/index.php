@@ -10,8 +10,12 @@ if(isset($_SESSION['loggedIn']))
 	unset($_SESSION['counter']);
     session_regenerate_id(true);
 	//redirect to main
-	if ($_SESSION['role'] == "2" || $_SESSION['role'] == "1") {
-		//User is a System or Client Administrator
+    if ($_SESSION['role'] == "1"){
+        // User is System Admin
+        redirect("panel/");
+    }
+	else if ($_SESSION['role'] == "2") {
+		// User is Client Administrator
 		redirect("main.php");
 	} else if ($_SESSION['role'] == "3"){
 		//User is a Transcriptionist
