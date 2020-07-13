@@ -339,11 +339,18 @@ $(document).ready(function () {
 				case "edit":
 					preFillForm(data);
 					break;
+
+				case "permit":
+					$('<form action="access.php" method="post" style="display: none">' +
+						'<input name="uid-access" value="'+data["id"]+'" />' +
+						'</form>').appendTo('body').submit();
+					break;
 			}
 
 		},
 		items: {
 			"edit": {name: "Edit", icon: "fas fa-user-edit"},
+			"permit": {name: "Manage Access", icon: "fas fa-user-shield"},
 			"sep1": "---------",
 			"delete": {name: "Delete", icon: "fas fa-user-minus"},
 			// "quit2": {name: "Quit2", icon: "quit"},

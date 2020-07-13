@@ -20,7 +20,18 @@ class AccountGateway
     {
         $filter = parseParams(true);
 
-        $statement = "
+        if (isset($_GET['access-model'])) {
+            $statement = "
+            SELECT 
+                acc_id,
+                acc_name
+            FROM
+                accounts
+        " . $filter . ";";
+        }
+
+        else{
+            $statement = "
             SELECT 
                 acc_id,
                 enabled,
@@ -61,6 +72,9 @@ class AccountGateway
             FROM
                 accounts
         " . $filter . ";";
+        }
+
+
 
         try {
             $statement = $this->db->prepare($statement);
@@ -247,7 +261,7 @@ class AccountGateway
 
         } catch (PDOException $e) {
 //            die($e->getMessage());
-            return false;
+            return $this->errorOccurredResponse("Couldn't Create Account (2)");
         }
     }
 
