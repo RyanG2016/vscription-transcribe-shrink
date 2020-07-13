@@ -241,8 +241,8 @@ class AccountGateway
             if ($statement->rowCount() > 0) {
                 return $this->oKResponse($this->db->lastInsertId(), "Account Created");
             } else {
-//                return $this->errorOccurredResponse("Couldn't Create Account");
-                return $this->errorOccurredResponse("Couldn't Create Account" . print_r($statement->errorInfo())); // todo disable for production
+                return $this->errorOccurredResponse("Couldn't Create Account");
+//                return $this->errorOccurredResponse("Couldn't Create Account" . print_r($statement->errorInfo()));
             }
 
         } catch (PDOException $e) {
