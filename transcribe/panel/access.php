@@ -22,11 +22,11 @@ if ($_SESSION['role'] != "1") {
     die();
 }
 
-/*if( !isset($_POST["uid-access"]) || $_POST["uid-access"] <= 0) {
+if( !isset($_POST["uid-access"]) || $_POST["uid-access"] <= 0) {
     header('Location: ' . "accesss.php");
     exit();
-}*/
-//$_POST["uid-access"] = 23; // todo remove hardcoded uid
+}
+
 $uid = $_POST["uid-access"];
 ?>
 
