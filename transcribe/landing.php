@@ -47,6 +47,17 @@ if(isset($_SESSION['counter']))
 
     <link href="data/css/landing.css" rel="stylesheet">
     <script src="data/scripts/landing.min.js" type="text/javascript"></script>
+
+    <?php
+        if(!isset($_SESSION['role']) && !isset($_SESSION['accID'])){
+            echo "<script type=\"text/javascript\">
+                    $(document).ready(function () {
+                        chooseJobModal.style.display = \"block\";
+                    });
+                </script>";
+        }
+    ?>
+
 </head>
 
 <body>
@@ -226,7 +237,7 @@ if(isset($_SESSION['counter']))
     <!-- Modal content -->
     <div class="modal-content">
         <h2 style="color: #1e79be" id="modalHeaderTitle">
-            <i class="fas fa-user-alt"></i>&nbsp;Choose An Account
+            <i class="fas fa-wrench"></i>&nbsp;Change Role
         </h2>
 
 

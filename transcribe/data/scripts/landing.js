@@ -43,7 +43,7 @@ $(document).ready(function () {
 
 
     updateRoleModalBtn.on("click", function (e) {
-        console.log("Setting role to: " + roleBox.selectpicker('val') + " || for acc: " +  accountBox.selectpicker('val'));
+        // console.log("Setting role to: " + roleBox.selectpicker('val') + " || for acc: " +  accountBox.selectpicker('val'));
         updateRoleModalBtn.attr("disabled", "disabled");
         var formData = new FormData();
         formData.append("acc_id", accountBox.selectpicker('val'));
@@ -163,7 +163,10 @@ $(document).ready(function () {
                 const tybox = document.getElementById("roleBox");
                 tybox.innerHTML = ""; // clear old values
                 for (const role of roles) {
-                    tybox.innerHTML += "<option value='" + role.acc_role + "'>" + role.role_desc + "</option>"
+                    tybox.innerHTML += "<option value='" + role.acc_role + "'>" +
+                        role.acc_role +
+                        " - " +
+                        role.role_desc + "</option>"
                 }
                 roleBox.selectpicker({
                     liveSearch: true,
