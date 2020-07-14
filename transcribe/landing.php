@@ -5,13 +5,11 @@ include('data/parts/session_settings.php');
 
 require('data/parts/ping.php');
 
-if(!isset($_SESSION['loggedIn']))
-{
+if (!isset($_SESSION['loggedIn'])) {
     header('location:../logout.php');
     exit();
 }
-if(isset($_SESSION['counter']))
-{
+if (isset($_SESSION['counter'])) {
     unset($_SESSION['counter']);
 }
 
@@ -31,7 +29,7 @@ if(isset($_SESSION['counter']))
     <script src="data/libs/node_modules/@material/linear-progress/dist/mdc.linearProgress.js"></script>
     <script src="https://kit.fontawesome.com/00895b9561.js" crossorigin="anonymous"></script>
 
-<!--    Jquery confirm  -->
+    <!--    Jquery confirm  -->
     <link rel="stylesheet" href="data/dialogues/jquery-confirm.min.css">
     <script src="data/dialogues/jquery-confirm.min.js"></script>
 
@@ -49,13 +47,13 @@ if(isset($_SESSION['counter']))
     <script src="data/scripts/landing.min.js" type="text/javascript"></script>
 
     <?php
-        if(!isset($_SESSION['role']) && !isset($_SESSION['accID'])){
-            echo "<script type=\"text/javascript\">
+    if (!isset($_SESSION['role']) && !isset($_SESSION['accID'])) {
+        echo "<script type=\"text/javascript\">
                     $(document).ready(function () {
                         chooseJobModal.style.display = \"block\";
                     });
                 </script>";
-        }
+    }
     ?>
 
 </head>
@@ -111,7 +109,7 @@ if(isset($_SESSION['counter']))
                         <div class="mdc-button__ripple"></div>
                         <i class="fas fa-keyboard"></i>
                         <span class="mdc-button__label" id="currentRole">
-                            <?php echo isset($_SESSION["role_desc"])?$_SESSION["role_desc"]:"None" ?>
+                            <?php echo isset($_SESSION["role_desc"]) ? $_SESSION["role_desc"] : "None" ?>
                         </span>
                     </button>
 
@@ -119,11 +117,11 @@ if(isset($_SESSION['counter']))
                         <div class="mdc-button__ripple"></div>
                         <i class="fas fa-user-alt"></i>
                         <span class="mdc-button__label" id="currentAccountName">
-                            <?php echo isset($_SESSION["acc_name"])?
-                                strlen($_SESSION["acc_name"])>21?
-                                    substr($_SESSION["acc_name"],0,20)."..":
+                            <?php echo isset($_SESSION["acc_name"]) ?
+                                strlen($_SESSION["acc_name"]) > 21 ?
+                                    substr($_SESSION["acc_name"], 0, 20) . ".." :
                                     $_SESSION["acc_name"]
-                                :"None" ?>
+                                : "None" ?>
                         </span>
                     </button>
 
@@ -136,11 +134,9 @@ if(isset($_SESSION['counter']))
                 </div>
 
                 <?php
-                if(isset($_SESSION["role"]))
-                {
+                if (isset($_SESSION["role"])) {
                     $rl = $_SESSION["role"];
-                    if($rl == 3)
-                    {
+                    if ($rl == 3) {
                         echo "<div class=\"vtex-card nav-header first\">
                                 Navigation
                             </div>
@@ -152,9 +148,7 @@ if(isset($_SESSION['counter']))
                                     </span>
                                 </button>
                             </div>";
-                    }
-                    else if($rl == 2)
-                    {
+                    } else if ($rl == 2) {
                         echo "<div class=\"vtex-card nav-header first\">
                                 Navigation
                             </div>
@@ -166,10 +160,7 @@ if(isset($_SESSION['counter']))
                                     </span>
                                 </button>
                             </div>";
-                    }
-
-                    else if($rl == 1)
-                    {
+                    } else if ($rl == 1) {
                         echo "<div class=\"vtex-card nav-header first\">
                                 Navigation
                             </div>
@@ -201,6 +192,16 @@ if(isset($_SESSION['counter']))
                 }
                 ?>
 
+                <div class="vtex-card nav-header first">Role Settings</div>
+                <div class="nav-btns-div">
+                    <button class="mdc-button mdc-button--outlined tools-button" id="setDefaultRoleBtn">
+                        <div class="mdc-button__ripple"></div>
+                        <i class="fas fa-wrench"></i>
+                        Set Default
+                        </span>
+                    </button>
+
+                </div>
 
             </div>
             <div class="vtex-card contents first">
@@ -213,13 +214,13 @@ if(isset($_SESSION['counter']))
                             <i class="material-icons mdc-button__icon welcome-icon" aria-hidden="true">format_quote</i>
                         </td>
                         <td rowspan="1" style="font-size: 1.6rem;">
-                            <span style="vertical-align: top"> Welcome back, <?php echo $_SESSION["fname"]?>!</span>
+                            <span style="vertical-align: top"> Welcome back, <?php echo $_SESSION["fname"] ?>!</span>
                         </td>
                     </tr>
                     <tr>
                         <td style="font-size: 1rem; font-style: italic; color: dimgrey">
                             <span style="vertical-align: bottom">Here you can choose your next job start by clicking change role from the sidebar.</span>
-<!--                            <span style="vertical-align: bottom">Here you can find all your assigned work and data.</span>-->
+                            <!--                            <span style="vertical-align: bottom">Here you can find all your assigned work and data.</span>-->
                         </td>
                     </tr>
                 </table>
@@ -241,7 +242,7 @@ if(isset($_SESSION['counter']))
         </h2>
 
 
-        <input id="uidIn" name="uid" value="<?php echo $_SESSION['uid']?>" style="display: none">
+        <input id="uidIn" name="uid" value="<?php echo $_SESSION['uid'] ?>" style="display: none">
 
         <form method="post" id="createAccForm" class="createAccForm" target="_self">
 
@@ -264,7 +265,6 @@ if(isset($_SESSION['counter']))
                     </select>
                 </label>
             </div>
-
             <!--===================================================-->
 
             <div class="modal-footer">

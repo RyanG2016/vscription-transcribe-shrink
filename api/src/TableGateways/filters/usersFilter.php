@@ -200,6 +200,32 @@ function sqlInjectionCreateCheckPassed($array){
     return true;
 }
 
+function sqlInjectionUpdateDefAccessCheckPassed($array){
+    // Sql Injection Check
+    foreach ($array as $key => $value)
+    {
+        switch($key){
+
+            case "acc_id":
+            case "acc_role":
+                if (
+                    $value != 0 && empty(trim($value)) ||
+                    strpos($value, '%') !== FALSE ||
+                    strpos($value, '_') ||
+                    !is_numeric($value)
+                ) {
+                    return false;
+                }
+
+                break;
+            default: // prevent any other parameters
+                return false;
+                break;
+        }
+    }
+    return true;
+}
+
 function unprocessableFilterResponse()
 {
     header('HTTP/1.1 422 Unprocessable Filter');

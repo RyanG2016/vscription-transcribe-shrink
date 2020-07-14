@@ -32,11 +32,16 @@ class UserController
                 } else {
                     $response = $this->getAllUsers();
                 }
-//                }
                 break;
             case 'POST':
-                $response = $this->createUserFromRequest();
-//                }
+
+                if ($this->userId == "set-default") {
+                    // set user default access
+//                    echo "setting-default-access-for-current-logged-in-user";
+                    $response = $this->updateUserDefaultAccess();
+                } else {
+                    $response = $this->createUserFromRequest();
+                }
                 break;
             case 'PUT':
                 $response = $this->updateUserFromRequest($this->userId);
@@ -65,6 +70,11 @@ class UserController
     private function createUserFromRequest()
     {
         return $this->userGateway->insertNewUser();
+    }
+
+    private function updateUserDefaultAccess()
+    {
+        return $this->userGateway->updateDefaultAccess();
     }
 
     private function updateUserFromRequest($accID)

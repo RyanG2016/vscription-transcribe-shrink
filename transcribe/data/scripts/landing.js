@@ -3,17 +3,26 @@ var currentAccName;
 var chooseJobModal;
 var updateRoleModalBtn;
 var closeModalBtn;
+var setDefaultRoleBtn;
 var changeRoleBtn;
 var accessesGlobal;
+var modalHeaderTitle;
+var accessId;
 
 var roleRequest;
 
 const ACCESS_URL = "../api/v1/access/?out";
+const SET_DEFAULT_ACCESS_URL = "../api/v1/users/set-default/";
 const ROLES_FOR_ACCOUNT_URL = "../api/v1/access?out&acc_id="; // + acc_id
+
+const CHANGE_ROLE_HEADER = "<i class=\"fas fa-wrench\"></i>&nbsp;Change Role";
+const SET_DEFAULT_ROLE_HEADER = "<i class=\"fas fa-user-edit\"></i>&nbsp;Set Default";
 
 // -- combobox vars -- //
 var accountBox;
 var roleBox;
+
+var setDefaultModal;
 
 var accountsArray = [];
 
@@ -24,6 +33,9 @@ $(document).ready(function () {
     updateRoleModalBtn = $("#updateRoleBtn");
     closeModalBtn = $("#closeModalBtn");
     changeRoleBtn = $("#changeRoleBtn");
+    modalHeaderTitle = $("#modalHeaderTitle");
+    setDefaultRoleBtn = $("#setDefaultRoleBtn");
+    accessId = $("#accessId");
 
     // comboBoxes
     accountBox = $("#accountBox");
@@ -38,6 +50,12 @@ $(document).ready(function () {
 
 
     changeRoleBtn.on("click", function (e) {
+        setModalUI(false);
+        chooseJobModal.style.display = "block";
+    });
+
+    setDefaultRoleBtn.on("click", function (e) {
+        setModalUI(true);
         chooseJobModal.style.display = "block";
     });
 
@@ -52,7 +70,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: 'POST',
-            url: ACCESS_URL,
+            url: setDefaultModal?SET_DEFAULT_ACCESS_URL:ACCESS_URL,
             processData: false,
             // contentType: "application/x-www-form-urlencoded",
             data: convertToSearchParam(formData),
@@ -223,4 +241,14 @@ function convertToSearchParam(params) {
     }
 
     return searchParams;
+}
+
+function setModalUI(setDefaultModalBool = false) {
+    setDefaultModal = setDefaultModalBool;
+
+    if(setDefaultModalBool) {
+        modalHeaderTitle.html(SET_DEFAULT_ROLE_HEADER);
+    } else{
+        modalHeaderTitle.html(CHANGE_ROLE_HEADER);
+    }
 }

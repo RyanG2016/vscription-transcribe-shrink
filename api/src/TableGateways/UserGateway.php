@@ -221,7 +221,94 @@ class UserGateway
 
         } catch (PDOException $e) {
 //            die($e->getMessage());
-            return false;
+//            return false;
+            return $this->errorOccurredResponse("Couldn't Create User (2)");
+        }
+    }
+
+
+
+    public function updateDefaultAccess()
+    {
+        // Required Fields
+        if (
+            !isset($_POST["acc_id"]) ||
+            !isset($_POST["acc_role"])
+        ) {
+            return $this->errorOccurredResponse("Invalid Input, required fields missing (1)");
+        }
+
+        // Sql Injection Check
+        if(!sqlInjectionUpdateDefAccessCheckPassed($_POST))
+        {
+            return $this->errorOccurredResponse("Invalid Input (505-UPDEF)");
+        }
+
+
+        // insert to DB //
+        $statement = "SELECT
+            access_id
+        FROM
+            access
+        WHERE
+            acc_id = ?
+        AND
+            acc_role = ?
+        AND
+              uid = ?
+        ";
+
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute( array(
+                $_POST["acc_id"],
+                $_POST["acc_role"],
+                $_SESSION['uid']
+            ) );
+
+            if ($statement->rowCount() > 0) {
+                $result = $statement->fetch();
+                return $this->setDefaultAccess($result['access_id']);
+            } else {
+                return $this->errorOccurredResponse("You don't have permission for this access token.");
+            }
+
+        } catch (PDOException $e) {
+//            die($e->getMessage());
+            return $this->errorOccurredResponse("Couldn't retrieve access token information.");
+        }
+    }
+
+    // this is executed after updateDefaultAccess checks if the role & acc IDS match for the current logged in user
+    public function setDefaultAccess($defAccessID) {
+
+        // update user access //
+        $statement = "UPDATE
+                            users
+                        SET  
+                            def_access_id = ?
+                        WHERE
+                            id = ?
+                        ";
+
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($defAccessID, $_SESSION['uid']));
+
+//            if ($statement->rowCount() > 0) {
+                return $this->oKResponse(0, "Default Access set successfully");
+//            } else {
+//                return $this->errorOccurredResponse("Couldn't set default");
+//                return $this->errorOccurredResponse("Couldn't set default" .
+//                    print_r($statement->errorInfo())
+//                );
+//            }
+
+        } catch (PDOException $e) {
+//            die($e->getMessage());
+            return $this->errorOccurredResponse("Couldn't set default (2)");
         }
     }
 
@@ -304,9 +391,9 @@ class UserGateway
             if ($statement->rowCount() > 0) {
                 return $this->oKResponse($id, "User Updated");
             } else {
-//                return $this->errorOccurredResponse("Couldn't update user or no changes were found to update");
-                return $this->errorOccurredResponse("Debug " . print_r($statement->errorInfo()) . "\n <br>"
-                . $statement->queryString);
+                return $this->errorOccurredResponse("Couldn't update user or no changes were found to update");
+//                return $this->errorOccurredResponse("Debug " . print_r($statement->errorInfo()) . "\n <br>"
+//                . $statement->queryString);
             }
 
         } catch (PDOException $e) {

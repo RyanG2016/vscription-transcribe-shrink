@@ -218,7 +218,6 @@ function documentReady() {
 			// MOVE CODE HERE //
 		}
 		else {
-			// TODO HIDE THE DIALOG
 			alert("Please fill in required fields");
 		}
 	});

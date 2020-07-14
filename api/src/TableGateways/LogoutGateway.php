@@ -68,7 +68,7 @@ class LogoutGateway
             $statement = $this->db->prepare($statement);
             $statement->execute(array(
                 $sessCopy["uEmail"],
-                $sessCopy["accID"],
+                isset($sessCopy["accID"])?$sessCopy["accID"]:0,
                 "Logout API",
                 $activity,
                 getIP()

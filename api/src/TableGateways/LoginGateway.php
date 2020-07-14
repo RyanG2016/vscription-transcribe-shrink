@@ -17,12 +17,22 @@ class LoginGateway
             $cTime = strtotime(date("Y-m-d H:i:s"));
 
         $statement = "
-            SELECT 
-                id,first_name, last_name, email, password, plan_id, account_status, last_login, trials, unlock_time, account
+            SELECT
+                id,first_name, last_name, email, password, plan_id, account_status, last_login, trials, unlock_time,
+                account, def_access_id, a.acc_role, a.acc_id, r.role_desc, a2.acc_name
             FROM
                 users
+            LEFT JOIN access a on users.def_access_id = a.access_id
+            LEFT JOIN roles r on a.acc_role = r.role_id
+            LEFT JOIN accounts a2 on a.acc_id = a2.acc_id
             WHERE email = ?;
         ";
+
+        // $_SESSION['accID'] = $result["acc_id"];
+        // $_SESSION['role'] = $result["acc_role"];
+        // $_SESSION['acc_name'] = $result["acc_name"];
+        // $_SESSION['role_desc'] = $result["role_desc"];
+        // $_SESSION['landed'] = true;
 
         try {
             $statement = $this->db->prepare($statement);
@@ -99,6 +109,16 @@ class LoginGateway
         $_SESSION['fname'] = $row['first_name'];
         $_SESSION['lname'] = $row['last_name'];
         $_SESSION['uEmail'] = $row["email"];
+
+         if($row["def_access_id"] != null)
+         {
+             $_SESSION['accID'] = $row["acc_id"];
+             $_SESSION['role'] = $row["acc_role"];
+             $_SESSION['acc_name'] = $row["acc_name"];
+             $_SESSION['role_desc'] = $row["role_desc"];
+             $_SESSION['landed'] = true;
+         }
+
 //        $_SESSION['role'] = $row['plan_id'];
 //        $_SESSION['accID'] = $row['account'];
 
