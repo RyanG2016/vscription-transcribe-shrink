@@ -67,8 +67,25 @@ if (isset($_SESSION['counter'])) {
         <table id="header-tbl">
             <tr>
                 <td id="navbtn" align="left" colspan="1">
+                    <?php
+                    if(isset($_SESSION['role']))
+                    {
+                        switch ($_SESSION['role'])
+                        {
+                            case 1:
+                                echo "<a class=\"logout\" href=\"panel/\"><i class=\"fas fa-arrow-left\"></i> Go to admin panel</a>";
+                                break;
 
-                    <a class="logout" href="main.php"><i class="fas fa-arrow-left"></i> Go back to work</a>
+                            case 2:
+                                echo "<a class=\"logout\" href=\"main.php\"><i class=\"fas fa-arrow-left\"></i> Go to job list</a>";
+                                break;
+
+                            case 3:
+                                echo "<a class=\"logout\" href=\"transcribe.php\"><i class=\"fas fa-arrow-left\"></i> Go to transcribe</a>";
+                                break;
+                        }
+                    }
+                    ?>
                 </td>
 
                 <td id="logbar" align="right" colspan="1">
