@@ -222,9 +222,6 @@ class AccountGateway
         foreach ($_POST as $key => $value) {
 
             // setting all empty params to 0
-            if (empty($input)) {
-                $input = 0;
-            }
 
             $fields .= "`$key`";
             switch ($key){
@@ -244,7 +241,7 @@ class AccountGateway
                 case "bill_rate5_TAT":
                 case "bill_rate5_min_pay":
             }{
-                if($value = ""){
+                if($value == ""){
                     $value = 0;
                 }
             }
