@@ -203,6 +203,10 @@ class AccountGateway
             return $this->errorOccurredResponse("Invalid Input (2)");
         }
 
+        if(!sqlInjectionCheckPassed($_POST))
+        {
+            return $this->errorOccurredResponse("Invalid Input (505-CACC)");
+        }
 
         $accPrefix = $this->generateNewAccountPrefix($accName);
         if (!$accPrefix) {
@@ -223,6 +227,28 @@ class AccountGateway
             }
 
             $fields .= "`$key`";
+            switch ($key){
+                case "bill_rate1":
+                case "bill_rate1_TAT":
+                case "bill_rate1_min_pay":
+                case "bill_rate2":
+                case "bill_rate2_TAT":
+                case "bill_rate2_min_pay":
+                case "bill_rate3":
+                case "bill_rate3_TAT":
+                case "bill_rate3_min_pay":
+                case "bill_rate4":
+                case "bill_rate4_TAT":
+                case "bill_rate4_min_pay":
+                case "bill_rate5":
+                case "bill_rate5_TAT":
+                case "bill_rate5_min_pay":
+            }{
+                if($value = ""){
+                    $value = 0;
+                }
+            }
+
             array_push($valsArray, $value);
             $valsQMarks .= "?";
 
