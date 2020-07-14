@@ -148,7 +148,7 @@ if(isset($_SESSION['counter']))
                                 Navigation
                             </div>
                             <div class=\"nav-btns-div\">
-                                <button class=\"mdc-button mdc-button--outlined tools-button\" onclick=\"location.href='transcribe.php'\">
+                                <button class=\"mdc-button mdc-button--outlined tools-button\" onclick=\"location.href='main.php'\">
                                     <div class=\"mdc-button__ripple\"></div>
                                     <i class=\"fas fa-angle-double-right\"></i>
                                         Go To Job Lister
