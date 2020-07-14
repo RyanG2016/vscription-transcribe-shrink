@@ -14,7 +14,7 @@ if (isset($_SESSION['counter'])) {
 }
 
 //redirect to main
-if ($_SESSION['role'] != "1") {
+if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
 //access is a System Administrator ONLY
     ob_start();
     header('Location: ' . "../accessdenied.php");

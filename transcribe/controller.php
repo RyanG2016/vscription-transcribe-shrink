@@ -18,12 +18,12 @@ if(isset($_SESSION['counter']))
 // admin panel main
 
 //redirect to main
-if ($_SESSION['role'] != "1" && $_SESSION['role'] != "3") {
+/*if ($_SESSION['role'] != "1" && $_SESSION['role'] != "3") {
     ob_start();
     header('Location: '."accessdenied.php");
     ob_end_flush();
     die();
-}
+}*/
 ?>
 
 <html>

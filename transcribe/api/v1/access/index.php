@@ -37,14 +37,25 @@ if (isset($uri[4])) {
 }
 
 $requestMethod = $_SERVER["REQUEST_METHOD"];
-if ($requestMethod == "POST") { // aka inserting new access
-    if ($_SESSION['role'] != "1") {
-    // System Administrator ONLY can add new types
+//if ($requestMethod == "POST") { // aka inserting new access
+//}
+if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
+    if(!isset($_REQUEST['out']))
+    {
+        // System Administrator ONLY can add new types
         header("HTTP/1.1 401 ACCESS DENIED");
         exit();
+    }else{ // marginal access to get current logged in user allowed access permissions
+        $controller = new accessController($dbConnection, $requestMethod, $accessId);
+        $controller->getPublicAccessForCurrentLoggedUser();
+        exit();
+    }
+}else{ // sys admin, access allowed
+    if(isset($_REQUEST['out'])){
+        $controller = new accessController($dbConnection, $requestMethod, $accessId);
+        $controller->getPublicAccessForCurrentLoggedUser();
+    }else{
+        $controller = new accessController($dbConnection, $requestMethod, $accessId);
+        $controller->processRequest();
     }
 }
-
-// pass the request method and user ID to the PersonController and process the HTTP request:
-$controller = new accessController($dbConnection, $requestMethod, $accessId);
-$controller->processRequest();

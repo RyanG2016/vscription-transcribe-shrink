@@ -38,7 +38,7 @@ if (isset($uri[4])) {
 
 $requestMethod = $_SERVER["REQUEST_METHOD"];
 if ($requestMethod == "POST") { // aka inserting new speaker type
-    if ($_SESSION['role'] != "1") {
+    if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
     // System Administrator ONLY can add new types
         header("HTTP/1.1 401 ACCESS DENIED");
         exit();

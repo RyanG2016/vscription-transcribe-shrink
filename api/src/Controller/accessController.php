@@ -53,12 +53,61 @@ class accessController
         }
     }
 
+    public function getPublicAccessForCurrentLoggedUser()
+    {
+        switch ($this->requestMethod) {
+            case 'GET':
+
+//                if ($this->accessId) {
+//                    $response = $this->getaccess($this->accessId);
+//                } else {
+                    $response = $this->getOutAccess();
+//                }
+
+                break;
+            case 'POST':
+                    $response = $this->setOutAccess();
+                break;
+            /*case 'PUT':
+                $response = $this->updateaccessFromRequest($this->accessId);
+                break;
+            case 'DELETE':
+                $response = $this->deleteaccess($this->accessId);
+                break;*/
+            default:
+                $response = $this->notFoundResponse();
+                break;
+        }
+        header($response['status_code_header']);
+        if ($response['body']) {
+            echo $response['body'];
+        }
+    }
+
     private function getAllaccess()
     {
         $result = $this->accessGateway->findAll();
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
         $response['body'] = json_encode($result);
         return $response;
+    }
+
+    private function getOutAccess()
+    {
+        $result = $this->accessGateway->findAllOut();
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = json_encode($result);
+        return $response;
+    }
+
+    private function setOutAccess()
+    {
+        $result = $this->accessGateway->findAndSetOutAccess();
+        header($result['status_code_header']);
+        if ($result['body']) {
+            echo $result['body'];
+        }
+        exit();
     }
 
     private function getaccess($id)

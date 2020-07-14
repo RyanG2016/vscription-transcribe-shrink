@@ -86,8 +86,42 @@ else {
 
         <table id="header-tbl">
             <tr>
-                <td id="logbar" align="right" colspan="2">
+                <td id="navbtn" align="left" colspan="1">
+
+                    <a class="logout" href="landing.php"><i class="fas fa-arrow-left"></i> Go back to landing page</a>
+                </td>
+
+                <td id="logbar" align="right" colspan="1">
                     Logged in as: <?php echo $_SESSION['uEmail'] ?> |
+                    <!--                    </div>-->
+                    <a class="logout" href="logout.php">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Logout
+                    </a>
+                </td>
+
+            </tr>
+            <tr class="spacer"></tr>
+            <tr style="margin-top: 50px">
+                <td class="title" align="left" width="450px">
+                    <legend class="page-title">vScription Transcribe Pro Job Lister</legend>
+                </td>
+                <!--<td align="right" rowspan="2" id="fix-td">
+
+                    </td>-->
+
+                <td width="300px">
+                    <img src="data/images/Logo_vScription_Transcribe_Pro_White.png" width="300px"/>
+                </td>
+            </tr>
+
+
+        </table>
+
+        <!--<table id="header-tbl">
+            <tr>
+                <td id="logbar" align="right" colspan="2">
+                    Logged in as: <?php /*echo $_SESSION['uEmail'] */?> |
 
                     <a class="logout" href="logout.php">
                         <i class="fas fa-sign-out-alt"></i>
@@ -100,15 +134,12 @@ else {
                 <td class="title" align="left" width="450px">
                     <legend>vScription Transcribe Pro Job Lister</legend>
                 </td>
-                <!--<td align="right" rowspan="2" id="fix-td">
-
-                    </td>-->
 
                 <td width="305">
                     <img src="data/images/Logo_vScription_Transcribe_Pro_White.png" width="300px"/>
                 </td>
             </tr>
-        </table>
+        </table>-->
 
 
         <table class="data-tbl">

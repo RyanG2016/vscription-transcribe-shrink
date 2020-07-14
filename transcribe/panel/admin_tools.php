@@ -3,7 +3,7 @@ include('../data/parts/head.php');
 
 
 //redirect to main
-if ($_SESSION['role'] != "1") {
+if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
 //User is a System or Client Administrator
     ob_start();
     header('Location: '."../accessdenied.php");

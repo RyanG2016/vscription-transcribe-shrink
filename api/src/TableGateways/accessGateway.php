@@ -56,6 +56,105 @@ class accessGateway
         }
     }
 
+    public function findAllOut()
+    {
+        $filter = parseParams();
+
+
+        $statement = "
+            SELECT 
+                access.*,
+                a.acc_name,
+                r.role_name,
+                r.role_desc,
+                u.email
+            FROM
+                access
+            
+            INNER JOIN accounts a on access.acc_id = a.acc_id
+            INNER JOIN roles r on access.acc_role = r.role_id
+            INNER JOIN users u on access.uid = u.id
+            where access.uid = ?
+            " . $filter . ";";
+
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($_SESSION["uid"]));
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            if (isset($_GET['dt'])) {
+                $json_data = array(
+                    //            "draw"            => intval( $_REQUEST['draw'] ),
+                    //            "recordsTotal"    => intval( 2 ),
+                    //            "recordsFiltered" => intval( 1 ),
+                    "data" => $result
+                );
+                //        $response['body'] = json_encode($result);
+                $result = $json_data;
+            }
+
+            return $result;
+        } catch (\PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+
+    public function findAndSetOutAccess()
+    {
+
+        // Required Fields
+        if (
+            !isset($_POST["acc_id"]) ||
+            !isset($_POST["acc_role"])
+        ) {
+            return $this->errorOccurredResponse("Invalid Input, required fields missing (1-OT)");
+        }
+
+        if(!sqlInjectionCheckPassed($_POST)){
+            return $this->errorOccurredResponse("Invalid Input (505-OT)");
+        }
+
+
+        $statement = "
+            SELECT 
+                access.*,
+                a.acc_name,
+                r.role_name,
+                r.role_desc,
+                u.email
+            FROM
+                access
+            
+            INNER JOIN accounts a on access.acc_id = a.acc_id
+            INNER JOIN roles r on access.acc_role = r.role_id
+            INNER JOIN users u on access.uid = u.id
+            where access.uid = ? and access.acc_id = ? and access.acc_role = ? ;";
+
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute( array($_SESSION["uid"], $_POST["acc_id"], $_POST["acc_role"]) );
+//            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            $result = $statement->fetch();
+            if($statement->rowCount() > 0) {  // user access exists check to prevent js altering
+                // access exists
+                $_SESSION['accID'] = $result["acc_id"];
+                $_SESSION['role'] = $result["acc_role"];
+                $_SESSION['acc_name'] = $result["acc_name"];
+                $_SESSION['role_desc'] = $result["role_desc"];
+                $_SESSION['landed'] = true;
+                return $this->oKResponse(null, "Role changed successfully");
+
+            }else{
+                return $this->errorOccurredResponse("You don't have permission for this role.");
+            }
+//            return $result;
+        } catch (\PDOException $e) {
+            return $this->errorOccurredResponse("Couldn't set role (4-OT)");
+//            exit($e->getMessage());
+        }
+    }
+
     public function find($id)
     {
 

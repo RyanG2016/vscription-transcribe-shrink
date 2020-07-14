@@ -18,7 +18,7 @@ if(isset($_SESSION['counter']))
 // admin panel main
 
 //redirect to main
-if ($_SESSION['role'] != "1") {
+if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
 //User is a System Administrator ONLY
     ob_start();
     header('Location: '."../accessdenied.php");
@@ -53,7 +53,7 @@ if ($_SESSION['role'] != "1") {
             <tr>
                 <td id="navbtn" align="left" colspan="1">
 
-                    <a class="logout" href="../main.php"><i class="fas fa-arrow-left"></i> Go back to job list</a>
+                    <a class="logout" href="../landing.php"><i class="fas fa-arrow-left"></i> Go back to landing page</a>
                 </td>
 
                 <td id="logbar" align="right" colspan="1">

@@ -21,7 +21,7 @@ if(isset($_SESSION['loggedIn']))
 		//User is a Transcriptionist
 		redirect("transcribe.php");
 	} else {
-		redirect("policy.php");
+		redirect("landing.php");
 	}
 
 }

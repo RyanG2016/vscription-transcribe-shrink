@@ -99,8 +99,8 @@ class LoginGateway
         $_SESSION['fname'] = $row['first_name'];
         $_SESSION['lname'] = $row['last_name'];
         $_SESSION['uEmail'] = $row["email"];
-        $_SESSION['role'] = $row['plan_id'];
-        $_SESSION['accID'] = $row['account'];
+//        $_SESSION['role'] = $row['plan_id'];
+//        $_SESSION['accID'] = $row['account'];
 
         $_SESSION['loggedIn'] = true;
         $_SESSION['lastPing'] = date("Y-m-d H:i:s");

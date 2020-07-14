@@ -10,7 +10,7 @@ if(isset($_SESSION['counter']))
 {
     unset($_SESSION['counter']);
 }
-if ($_SESSION['role'] != "1") {
+if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
 //User is a System Administrator ONLY
     header("HTTP/1.1 401 ACCESS DENIED");
     exit();
