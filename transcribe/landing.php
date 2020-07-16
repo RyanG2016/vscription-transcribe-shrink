@@ -227,7 +227,7 @@ if (isset($_SESSION['counter'])) {
                     <button class="mdc-button mdc-button--outlined tools-button" id="changeRoleBtn">
                         <div class="mdc-button__ripple"></div>
                         <i class="fas fa-wrench"></i>
-                        <span class="mdc-button__label">Change Role</span>
+                        <span class="mdc-button__label">SWITCH ACCOUNT/ROLE</span>
                     </button>
 
                     <button class="mdc-button mdc-button--outlined tools-button" id="setDefaultRoleBtn">
