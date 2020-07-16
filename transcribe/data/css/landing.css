@@ -41,6 +41,16 @@
 
 }
 
+.tools-label{
+    /*--mdc-theme-primary: #8bc34a;*/
+    --mdc-theme-primary: #fff;
+    display: block;
+    width: 100%;
+    margin: 8px 0;
+    cursor: default !important;
+
+}
+
 
 .nav-header{
     text-align: center;
@@ -87,7 +97,15 @@
 /*.root { grid-area: root; }*/
 .nav-bar {
     grid-area: nav;
+    max-width: 270px;
 }
+
+.tools-label{
+    display:block;
+    word-wrap:break-word;
+
+}
+
 .mdc-button__label{
     white-space: nowrap;
     overflow: hidden;
@@ -121,7 +139,7 @@
     width: 100%;
     /*grid-template-columns: 1fr 1fr 1fr 1fr fit-content(100%) fit-content(100%);*/
     /*grid-template-columns: min-content 1fr 1fr 1fr fit-content(100%) fit-content(100%);*/
-    grid-template-columns: fit-content(100%) 1fr;
+    grid-template-columns: auto 1fr;
     /*grid-template-columns: fit-content(100%) 1fr;*/
 }
 

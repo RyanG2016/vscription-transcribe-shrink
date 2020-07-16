@@ -13,13 +13,13 @@ if (isset($_SESSION['counter'])) {
     unset($_SESSION['counter']);
 }
 
-// landing page
+// User Setting
 ?>
 
 <html>
 
 <head>
-    <title>vScription Landing Page</title>
+    <title>vScription User Settings</title>
     <link rel="shortcut icon" type="image/png" href="data/images/favicon.png"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="data/libs/node_modules/material-components-web/dist/material-components-web.css" rel="stylesheet">
@@ -68,10 +68,8 @@ if (isset($_SESSION['counter'])) {
             <tr>
                 <td id="navbtn" align="left" colspan="1">
                     <?php
-                    if(isset($_SESSION['role']))
-                    {
-                        switch ($_SESSION['role'])
-                        {
+                    if (isset($_SESSION['role'])) {
+                        switch ($_SESSION['role']) {
                             case 1:
                                 echo "<a class=\"logout\" href=\"panel/\"><i class=\"fas fa-arrow-left\"></i> Go to admin panel</a>";
                                 break;
@@ -101,7 +99,7 @@ if (isset($_SESSION['counter'])) {
             <tr class="spacer"></tr>
             <tr style="margin-top: 50px">
                 <td class="title" align="left" width="450px">
-                    <legend class="page-title">Landing Page</legend>
+                    <legend class="page-title"><i class="fas fa-user-cog"></i> User Settings</legend>
                 </td>
                 <!--<td align="right" rowspan="2" id="fix-td">
 
@@ -122,31 +120,46 @@ if (isset($_SESSION['counter'])) {
                     Current Role
                 </div>
                 <div class="nav-btns-div">
-                    <button class="mdc-button mdc-button--outlined tools-button">
-                        <div class="mdc-button__ripple"></div>
-                        <i class="fas fa-keyboard"></i>
-                        <span class="mdc-button__label" id="currentRole">
-                            <?php echo isset($_SESSION["role_desc"]) ? $_SESSION["role_desc"] : "None" ?>
-                        </span>
-                    </button>
+                    <!--                    <button class="mdc-button mdc-button--outlined tools-button">-->
+                    <!--                        <div class="mdc-button__ripple"></div>-->
 
-                    <button class="mdc-button mdc-button--outlined tools-button">
-                        <div class="mdc-button__ripple"></div>
-                        <i class="fas fa-user-alt"></i>
-                        <span class="mdc-button__label" id="currentAccountName">
-                            <?php echo isset($_SESSION["acc_name"]) ?
-                                strlen($_SESSION["acc_name"]) > 21 ?
-                                    substr($_SESSION["acc_name"], 0, 20) . ".." :
-                                    $_SESSION["acc_name"]
-                                : "None" ?>
-                        </span>
-                    </button>
+                    <table>
+                        <tr>
+                            <td style="vertical-align: top;">
+                                <i class="fas fa-keyboard tools-label" style="color: white;"></i>
+                            </td>
+                            <td style="vertical-align: top">
+                                <span class="mdc-button tools-label" id="currentRole">
+                                    <?php echo isset($_SESSION["role_desc"]) ? $_SESSION["role_desc"] : "None" ?>
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
 
-                    <button class="mdc-button mdc-button--outlined tools-button" id="changeRoleBtn">
-                        <div class="mdc-button__ripple"></div>
-                        <i class="fas fa-wrench"></i>
-                        <span class="mdc-button__label">Change Role</span>
-                    </button>
+                    <!--                    </button>-->
+
+                    <!--                    <button class="mdc-button mdc-button--outlined tools-button">-->
+                    <!--                        <div class="mdc-button__ripple"></div>-->
+
+                    <table>
+                        <tr>
+                            <td style="vertical-align: top">
+                                <i class="fas fa-user-alt tools-label" style="color: white;"></i>
+                            </td>
+                            <td style="vertical-align: top">
+                                <span class="mdc-button tools-label" id="currentAccountName">
+                                    <?php echo isset($_SESSION["acc_name"]) ?
+        //                                strlen($_SESSION["acc_name"]) > 21 ?
+        //                                    substr($_SESSION["acc_name"], 0, 20) . ".." :
+                                        $_SESSION["acc_name"]
+                                        : "None" ?>
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+
+
+                    <!--                    </button>-->
 
                 </div>
 
@@ -211,6 +224,12 @@ if (isset($_SESSION['counter'])) {
 
                 <div class="vtex-card nav-header first">Role Settings</div>
                 <div class="nav-btns-div">
+                    <button class="mdc-button mdc-button--outlined tools-button" id="changeRoleBtn">
+                        <div class="mdc-button__ripple"></div>
+                        <i class="fas fa-wrench"></i>
+                        <span class="mdc-button__label">Change Role</span>
+                    </button>
+
                     <button class="mdc-button mdc-button--outlined tools-button" id="setDefaultRoleBtn">
                         <div class="mdc-button__ripple"></div>
                         <i class="fas fa-wrench"></i>
