@@ -81,7 +81,8 @@ $(document).ready(function () {
                 // accessDTRef.ajax.reload(); // refresh access table
                 chooseJobModal.style.display = "none";
 
-                $.confirm({
+                location.reload();
+                /*$.confirm({
                     title: 'Success',
                     content: response["msg"],
                     buttons: {
@@ -94,7 +95,7 @@ $(document).ready(function () {
                             }
                         }
                     }
-                });
+                });*/
 
 
             },
