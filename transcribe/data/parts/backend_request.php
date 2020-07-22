@@ -1542,12 +1542,10 @@ function downloadJob($con, $fileID, $accID)
 			}
 		} else {
 			//echo "Error executing " .$sql3;
-            return "Error executing \" .$sql3";
 		}
 	}else{
 		//echo "ERROR: Could not prepare to execute $sql1. " . mysqli_error($con);
 		//die( "Error in excute: (" .$con->errno . ") " . $con->error);
-        return "Error in excute: (" .$con->errno . ") " . $con->error;
 	}
 
 	// generate download hash
@@ -1569,8 +1567,7 @@ function downloadJob($con, $fileID, $accID)
 //			return false;
 		}
 	}
-//	return false; // couldn't prepare hash statement at all
-    return "couldn't prepare hash statement";
+	return false; // couldn't prepare hash statement at all
 
 }
 
