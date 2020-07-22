@@ -1570,7 +1570,7 @@ function downloadJob($con, $fileID, $accID)
 		}
 	}
 //	return false; // couldn't prepare hash statement at all
-    return "couldn't prepare hash statement: " . $accID . " - " . $downloadHash . " - " . $fileID;
+    return "couldn't prepare hash statement: " . $accID . " - " . $downloadHash . " - " . $fileID. " - " . $sql;
 
 }
 
