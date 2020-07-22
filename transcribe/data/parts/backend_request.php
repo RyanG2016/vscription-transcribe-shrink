@@ -1537,8 +1537,7 @@ function downloadJob($con, $fileID, $accID)
 
 			} else {
 				// TODO PERMISSION DENIED OR FILE DOESN'T EXIST RETURN ERROR MSG
-//				return false;
-				return "perm denied or file doesn't exist";
+				return false;
 			}
 		} else {
 			//echo "Error executing " .$sql3;
@@ -1563,8 +1562,7 @@ function downloadJob($con, $fileID, $accID)
 		} else{
 			//echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
 			// todo failed to create download link
-            return "failed to add download entry";
-//			return false;
+			return false;
 		}
 	}
 	return false; // couldn't prepare hash statement at all
