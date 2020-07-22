@@ -117,7 +117,7 @@ class FileController {
 
             // prevent wildcards
             foreach ($_POST as $item) {
-                if (strpos($item, '%') !== FALSE || strpos($item, '_')) {
+                if (strpos($item, '%') !== FALSE) {
                     return $this->errorOccurredResponse("Invalid Input (5)");
                 }
             }
