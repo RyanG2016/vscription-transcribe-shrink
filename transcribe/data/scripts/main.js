@@ -148,7 +148,7 @@ function download(fileID){
 		reqcode: 17,
 		args: JSON.stringify(a1)
 	}).done(function (data) {
-		// alert("hash received = " + data.toString());
+		alert("hash received = " + data.toString());
 
 		// redirect to download with the generated hash
 		var win = window.open('./download.php?down='+data.toString(), '_blank');
