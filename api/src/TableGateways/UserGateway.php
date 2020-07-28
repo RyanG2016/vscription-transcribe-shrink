@@ -3,6 +3,7 @@
 namespace Src\TableGateways;
 
 use PDOException;
+use Src\TableGateways\logger;
 
 require "filters/usersFilter.php";
 include_once "common.php";
@@ -11,10 +12,14 @@ class UserGateway
 {
 
     private $db;
+    private $logger;
+    private $API_NAME;
 
     public function __construct($db)
     {
         $this->db = $db;
+        $this->logger = new logger($db);
+        $this->API_NAME = "Users";
     }
 
     public function findAll()
@@ -207,6 +212,7 @@ class UserGateway
             $statement->execute($valsArray);
 
             if ($statement->rowCount() > 0) {
+                $this->logger->insertAuditLogEntry($this->API_NAME, "Created User: " . $_POST["email"]);
                 return $this->oKResponse($this->db->lastInsertId(), "User Created");
             } else {
 //                return $this->errorOccurredResponse("Couldn't Create User");
@@ -389,6 +395,7 @@ class UserGateway
             $statement->execute($valsArray);
 
             if ($statement->rowCount() > 0) {
+                $this->logger->insertAuditLogEntry($this->API_NAME, "Updated User: " . $id);
                 return $this->oKResponse($id, "User Updated");
             } else {
                 return $this->errorOccurredResponse("Couldn't update user or no changes were found to update");
@@ -435,6 +442,7 @@ class UserGateway
         try {
             $statement = $this->db->prepare($statement);
             $statement->execute(array('id' => $id));
+            $this->logger->insertAuditLogEntry($this->API_NAME, "Deleted user id: " . $id);
             return $statement->rowCount();
         } catch (\PDOException $e) {
             exit($e->getMessage());
