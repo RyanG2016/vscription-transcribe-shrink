@@ -671,6 +671,10 @@ function postToParent()
     if(window.opener !== null)
     {
         window.opener.switchBack();
+    } else{
+        // transcribe isn't open -> open it
+        window.open("transcribe.php", "_blank");
+        close();
     }
 }
 /*
