@@ -39,7 +39,9 @@ class FileGateway
             FROM
                 files
             WHERE
-                  acc_id = ?
+                  acc_id = ? 
+            AND
+                  deleted = 0
         " . $filter . ";";
 
         try {
