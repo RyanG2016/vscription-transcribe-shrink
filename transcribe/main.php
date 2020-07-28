@@ -60,11 +60,6 @@ else {
     <link rel="stylesheet" href="data/dialogues/jquery-confirm.min.css">
     <script src="data/dialogues/jquery-confirm.min.js"></script>
 
-
-    <!--    <link rel="stylesheet" href="data/thirdparty/scripts/css/tablesort.css">-->
-    <link rel="stylesheet" href="data/thirdparty/scripts/css/styles.css">
-    <!--    <script src="data/thirdparty/scripts/tablesort.js"></script>-->
-
     <!--  Data table Jquery helping libs  -->
     <link rel="stylesheet" type="text/css" href="data/libs/DataTables/datatables.css"/>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/material-components-web/4.0.0/material-components-web.min.css"/>
