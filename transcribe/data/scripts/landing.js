@@ -5,7 +5,10 @@ var updateRoleModalBtn;
 var closeModalBtn;
 var setDefaultRoleBtn;
 var changeRoleBtn;
+
 var accessesGlobal;
+var rolesGlobal;
+
 var modalHeaderTitle;
 var accessId;
 
@@ -25,8 +28,12 @@ var roleBox;
 var setDefaultModal;
 
 var accountsArray = [];
+var loading;
+var roleIsset; //-> from PHP (landing.php)
 
 $(document).ready(function () {
+    loading = document.getElementById("overlay");
+    loading.style.display = "block";
 
     currentRole = $("#currentRole");
     currentAccName = $("#currentAccountName");
@@ -159,6 +166,64 @@ $(document).ready(function () {
     });
 
 
+    function checkForSingleRoleToSet() {
+
+        if(accessesGlobal.length == 1)
+        {
+            if(rolesGlobal.length == 1){
+                // only one access - set it as current
+                setCurrentRole(
+                    rolesGlobal[0]["acc_id"],
+                    rolesGlobal[0]["acc_role"]
+                );
+            }else{
+                chooseJobModal.style.display = "block";
+                loading.style.display = "none";
+            }
+        }else{
+            chooseJobModal.style.display = "block";
+            loading.style.display = "none";
+        }
+    }
+
+    function setCurrentRole(accID, accRole){
+        var formData = new FormData();
+        formData.append("acc_id", accID);
+        formData.append("acc_role", accRole);
+
+
+        $.ajax({
+            type: 'POST',
+            url: ACCESS_URL,
+            processData: false,
+            // contentType: "application/x-www-form-urlencoded",
+            data: convertToSearchParam(formData),
+            // headers: update?{'Content-Type': 'application/x-www-form-urlencoded'}:{'Content-Type': "multipart/form-data; boundary="+formData.boundary},
+
+            success: function (response) {
+                // resetForm();
+                // accessDTRef.ajax.reload(); // refresh access table
+                chooseJobModal.style.display = "none";
+                location.reload();
+            },
+            error: function (err) {
+                /*$.confirm({
+                    title: 'Error',
+                    content: err.responseJSON["msg"],
+                    buttons: {
+                        confirm: {
+                            btnClass: 'btn-red',
+                            action: function () {
+                                updateRoleModalBtn.removeAttr("disabled");
+                                return true;
+                            }
+                        }
+                    }
+                });*/
+            }
+        });
+    }
+
     function loadRolesForAccount(accID) {
         // stateInputLbl.css("display","none");
         // stateBoxLbl.css("display","none");
@@ -178,6 +243,7 @@ $(document).ready(function () {
             url: ROLES_FOR_ACCOUNT_URL + accID,
             method: "GET",
             success: function (roles) {
+                rolesGlobal = roles;
                 updateRoleModalBtn.removeAttr("disabled");
                 const tybox = document.getElementById("roleBox");
                 tybox.innerHTML = ""; // clear old values
@@ -193,6 +259,11 @@ $(document).ready(function () {
                 });
                 roleBox.selectpicker('refresh');
 
+                if(!roleIsset){
+                    checkForSingleRoleToSet();
+                }else{
+                    loading.style.display = "none";
+                }
                 // removeLoadingSpinner();
             }
         });

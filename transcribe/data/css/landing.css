@@ -1,6 +1,7 @@
 @import "parts/user_card_view.css";
 @import "parts/card.css";
 @import "parts/modal_popup.css";
+@import "parts/modal_overlay.css";
 @import "parts/data-tbl.css";
 @import "parts/colors.css";
 @import "parts/spinner.css";
@@ -11,6 +12,21 @@
 
 .joblist {
     margin-left: 20px;
+}
+
+a {
+    text-decoration    : none;
+    cursor: pointer;
+    color              : rgb(0,155,194);
+    -webkit-transition : color 0.2s;
+    -moz-transition    : color 0.2s;
+    -ms-transition     : color 0.2s;
+    -o-transition      : color 0.2s;
+    transition         : color 0.2s;
+}
+
+a:hover {
+    color: rgb(83, 192, 235);
 }
 
 /* ---------------- */

@@ -43,18 +43,16 @@ if (isset($_SESSION['counter'])) {
           href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
 
-    <link href="data/css/landing.css" rel="stylesheet">
-    <script src="data/scripts/landing.min.js" type="text/javascript"></script>
-
     <?php
-    if (!isset($_SESSION['role']) && !isset($_SESSION['accID'])) {
-        echo "<script type=\"text/javascript\">
-                    $(document).ready(function () {
-                        chooseJobModal.style.display = \"block\";
-                    });
-                </script>";
-    }
+    ;
     ?>
+
+    <script type="text/javascript">
+        var roleIsset = <?php echo (!isset($_SESSION['role']) && !isset($_SESSION['accID']))?false:true ?>;
+    </script>
+
+    <link href="data/css/landing.css?v=2" rel="stylesheet">
+    <script src="data/scripts/landing.min.js" type="text/javascript"></script>
 
 </head>
 
@@ -320,6 +318,14 @@ if (isset($_SESSION['counter'])) {
         </form>
 
 
+    </div>
+</div>
+
+<div class="overlay" id="overlay">
+    <div class="spinner">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
     </div>
 </div>
 
