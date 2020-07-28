@@ -3,6 +3,7 @@
 namespace Src\TableGateways;
 
 use PDOException;
+use Src\TableGateways\logger;
 
 require "accountsFilter.php";
 
@@ -10,10 +11,14 @@ class AccountGateway
 {
 
     private $db;
+    private $logger;
+    private $API_NAME;
 
     public function __construct($db)
     {
         $this->db = $db;
+        $this->logger = new logger($db);
+        $this->API_NAME = "Accounts";
     }
 
     public function findAll()
@@ -276,6 +281,7 @@ class AccountGateway
             $statement->execute($valsArray);
 
             if ($statement->rowCount() > 0) {
+                $this->logger->insertAuditLogEntry($this->API_NAME, "Account Created: " . $_POST["acc_name"]);
                 return $this->oKResponse($this->db->lastInsertId(), "Account Created");
             } else {
                 return $this->errorOccurredResponse("Couldn't Create Account");
@@ -349,6 +355,7 @@ class AccountGateway
             $statement->execute($valsArray);
 
             if ($statement->rowCount() > 0) {
+                $this->logger->insertAuditLogEntry($this->API_NAME, "Account Updated: " . $id);
                 return $this->oKResponse($id, "Account Updated");
             } else {
                 return $this->errorOccurredResponse("Couldn't update account or no changes were found to update");
@@ -393,6 +400,7 @@ class AccountGateway
         try {
             $statement = $this->db->prepare($statement);
             $statement->execute(array('id' => $id));
+            $this->logger->insertAuditLogEntry($this->API_NAME, "Account Deleted: " . $id);
             return $statement->rowCount();
         } catch (\PDOException $e) {
             exit($e->getMessage());
