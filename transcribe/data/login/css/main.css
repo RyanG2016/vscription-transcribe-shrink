@@ -137,6 +137,10 @@ textarea::-moz-placeholder { color: #adadad;}
 textarea:-ms-input-placeholder { color: #adadad;}
 
 /*---------------------------------------------*/
+.wrap-login100-form-btn{
+    border-radius: 4px !important;
+}
+
 button {
 	outline: none !important;
 	border: none;
