@@ -140,6 +140,11 @@ class FileController {
             $authorName = $_POST["authorName"];
             $jobType = $_POST["jobType"];
             $dictDate = $_POST["dictDate"];
+
+            $uf1 = isset($_POST["user_field_1"])?$_POST["user_field_1"]:null;
+            $uf2 = isset($_POST["user_field_2"])?$_POST["user_field_2"]:null;
+            $uf3 = isset($_POST["user_field_3"])?$_POST["user_field_3"]:null;
+
             $dictDate = $this->validateAndReturnDate($dictDate);
             if(!$dictDate)
             {
@@ -193,7 +198,21 @@ class FileController {
                 $file_duration = (int)ceil(@$fileInfo['playtime_seconds']);
 
                 //Building demographic array for DB insert function call
-                $fileDemos = array($nextFileID, $nextJobNum, $authorName, $jobType, $dictDate, $speakerType, $comments,$orig_filename, $file_name, $file_duration);
+                $fileDemos = array(
+                    $nextFileID,
+                    $nextJobNum,
+                    $authorName,
+                    $jobType,
+                    $dictDate,
+                    $speakerType,
+                    $comments,
+                    $orig_filename,
+                    $file_name,
+                    $file_duration,
+                    $uf1,
+                    $uf2,
+                    $uf3
+                );
 
                 $uplSuccess = move_uploaded_file($file_tmp, $file);
                 if ($uplSuccess) {

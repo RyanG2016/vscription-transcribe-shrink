@@ -38,6 +38,9 @@ function parseParams($addWhereClause = false){
                 case "typist_comments":
                 case "isBillable":
                 case "billed":
+                case "user_field_1":
+                case "user_field_2":
+                case "user_field_3":
                     $addedEnum ++;
 
                     // check if filter is multiple values

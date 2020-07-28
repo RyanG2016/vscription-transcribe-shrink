@@ -32,7 +32,8 @@ class FileGateway
                    file_work_type,file_comment, file_speaker_type, file_date_dict, file_status,audio_length,
                    last_audio_position, job_uploaded_by, job_upload_date, job_transcribed_by, text_downloaded_date,                  
                    times_text_downloaded_date, job_transcribed_by, file_transcribed_date, typist_comments,isBillable,
-                   billed, 
+                   user_field_1, user_field_2, user_field_3,
+                   billed,
                    (SELECT j_status_name 
                    From file_status_ref 
                    WHERE file_status_ref.j_status_id=files.file_status ORDER BY file_status LIMIT 1) as file_status_ref
@@ -72,7 +73,9 @@ class FileGateway
                 file_id, job_id, acc_id, file_type, original_audio_type, filename, tmp_name, orig_filename, file_author, file_work_type,file_comment,
                    file_speaker_type, file_date_dict, file_status,audio_length, last_audio_position, job_uploaded_by, text_downloaded_date,
                    job_document_html, job_document_rtf,                  
-                   times_text_downloaded_date, job_transcribed_by, file_transcribed_date, typist_comments,isBillable, billed
+                   times_text_downloaded_date, job_transcribed_by, file_transcribed_date, typist_comments,isBillable,
+                   user_field_1, user_field_2, user_field_3, 
+                   billed
             
             FROM
                 files
@@ -154,6 +157,9 @@ class FileGateway
         $orig_filename = $input[7];
         $file_name = $input[8];
         $file_duration = $input[9];
+        $user_field_1 = $input[10];
+        $user_field_2 = $input[11];
+        $user_field_3 = $input[12];
         $uploadedBy = $_SESSION['uEmail'];
 
         $jobPrefix = $this->getAccountPrefix();
@@ -178,15 +184,34 @@ class FileGateway
                              filename, 
                              orig_filename, 
                              acc_id, 
-                             audio_length
+                             audio_length,
+                             user_field_1,
+                             user_field_2,
+                             user_field_3
                              ) 
                          VALUES 
-                                (?,?,?,?,?,?,?,?,?,?,?)";
+                                (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         try {
             $statement = $this->db->prepare($statement);
-            $statement->execute(array($nextJobNum, $authorName, $jobType, $dictDate,
-                $speakerType, $comments, $uploadedBy, $file_name, $orig_filename, $_SESSION["accID"], $file_duration));
+            $statement->execute(
+                array(
+                    $nextJobNum,
+                    $authorName,
+                    $jobType,
+                    $dictDate,
+                    $speakerType,
+                    $comments,
+                    $uploadedBy,
+                    $file_name,
+                    $orig_filename,
+                    $_SESSION["accID"],
+                    $file_duration,
+                    $user_field_1,
+                    $user_field_2,
+                    $user_field_3
+                )
+            );
 
             if($statement->rowCount()){
                 $statement = "UPDATE accounts SET next_job_tally=next_job_tally+1 where acc_id = ".$_SESSION["accID"];
