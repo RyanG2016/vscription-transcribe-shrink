@@ -290,7 +290,7 @@ class LoginGateway
             ));
             return $statement->rowCount();
         } catch (\PDOException $e) {
-            exit($e->getMessage());
+            return false;
         }
 
     }

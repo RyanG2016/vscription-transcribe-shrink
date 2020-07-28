@@ -75,7 +75,8 @@ class LogoutGateway
             ));
             return $statement->rowCount();
         } catch (\PDOException $e) {
-            exit($e->getMessage());
+//            exit($e->getMessage());
+            return false;
         }
 
     }
