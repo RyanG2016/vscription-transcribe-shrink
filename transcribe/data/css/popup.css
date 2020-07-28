@@ -151,3 +151,7 @@ u{
 .able-button-handler-preferences{
     display: none !important;
 }
+
+.able-tooltip{
+    font-family: 'oxygen', serif;
+}
