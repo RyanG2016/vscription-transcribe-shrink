@@ -129,7 +129,7 @@ isset($_SESSION['uEmail'])?$uEmail = $_SESSION['uEmail']:$uEmail = "";
 
 					<div class="text-right" id="remember" style="margin-bottom: 25px;">
 						<span class="txt1">
-							Remember me?
+							Remember E-Mail
 						</span>
 
 						<input type="checkbox" name="remember" <?php echo isset($_SESSION['remember']) ? "checked" : ""?>>
