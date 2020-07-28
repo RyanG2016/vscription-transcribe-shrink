@@ -145,12 +145,8 @@ isset($_SESSION['uEmail'])?$uEmail = $_SESSION['uEmail']:$uEmail = "";
 						<span class="focus-input100" data-placeholder="Password"></span>
 					</div>
 					<div class="text-right" id="forgotpwd">
-						<span class="txt1">
-							Forgot your password?
-						</span>
-
 						<a class="txt2" href="#">
-							Reset
+                            Forgot your password?
 						</a>
 					</div>
 
