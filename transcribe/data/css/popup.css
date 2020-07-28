@@ -147,3 +147,7 @@ u{
     text-align: right;
     font-size: 0.9rem;
 }
+
+.able-button-handler-preferences{
+    display: none !important;
+}

@@ -603,3 +603,7 @@ u{
     color: #0022f5;
     cursor: pointer;
 }
+
+.able-button-handler-preferences{
+    display: none !important;
+}
