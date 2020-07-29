@@ -10,17 +10,23 @@ if(isset($_SESSION['loggedIn']))
 	unset($_SESSION['counter']);
     session_regenerate_id(true);
 	//redirect to main
-    if ($_SESSION['role'] == "1"){
-        // User is System Admin
-        redirect("panel/");
-    }
-	else if ($_SESSION['role'] == "2") {
-		// User is Client Administrator
-		redirect("main.php");
-	} else if ($_SESSION['role'] == "3"){
-		//User is a Transcriptionist
-		redirect("transcribe.php");
-	} else {
+    if( isset($_SESSION['role']) ) {
+
+        if ($_SESSION['role'] == "1"){
+            // User is System Admin
+            redirect("panel/");
+        }
+        else if ($_SESSION['role'] == "2") {
+            // User is Client Administrator
+            redirect("main.php");
+        } else if ($_SESSION['role'] == "3"){
+            //User is a Transcriptionist
+            redirect("transcribe.php");
+        } else {
+            redirect("landing.php");
+        }
+
+    } else {
 		redirect("landing.php");
 	}
 
