@@ -316,7 +316,7 @@ class FileController
         // Set some options - we are passing in a useragent too here
         curl_setopt_array($curl, [
             CURLOPT_RETURNTRANSFER => 1,
-            CURLOPT_URL => 'https://pro.vtex/api/v1/access?out&account_id='.$accID,
+            CURLOPT_URL => getenv("BASE_LINK").'/api/v1/access?out&account_id='.$accID,
             CURLOPT_USERAGENT => 'Files API',
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_MAXREDIRS => 2,
