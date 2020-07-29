@@ -19,7 +19,7 @@ class LoginGateway
         $statement = "
             SELECT
                 id,first_name, last_name, email, password, plan_id, account_status, last_login, trials, unlock_time,
-                account, def_access_id, a.acc_role, a.acc_id, r.role_desc, a2.acc_name
+                account, def_access_id, users.enabled, a.acc_role, a.acc_id, r.role_desc, a2.acc_name
             FROM
                 users
             LEFT JOIN access a on users.def_access_id = a.access_id
@@ -44,54 +44,60 @@ class LoginGateway
                 $verified = password_verify($pass, $user["password"]); /** check password */
 
                 /** Check account status **/
-                /** -> Account is Active **/
-                if($user['account_status'] == 1) { // Active
-                    if($verified) {
-                        $this->unlockUserAccount($user["id"]);          // to reset trials upon successful login
-                        $this->sessionLogin($user);                     // set session variables as logged in + log inside
-                        return array("error" => false, "msg" => "Logged In");
-                    }
-                    else {
-                        $this->increaseTrials($user);
-                        $extra = "";
-                        if($user["trials"]+1 == 5) {
-                            $extra = " - Account Locked";
-                            $this->insertAuditLogEntry($user['id'], "Account Locked.");
-                        }else {
-                            $this->insertAuditLogEntry(0, "Incorrect login attempt. (".($user["trials"]+1).")");
+                if($user['enabled'])
+                {
+                    /** -> Account is Active **/
+                    if($user['account_status'] == 1) { // Active
+                        if($verified) {
+                            $this->unlockUserAccount($user["id"]);          // to reset trials upon successful login
+                            $this->sessionLogin($user);                     // set session variables as logged in + log inside
+                            return array("error" => false, "msg" => "Logged In");
                         }
-                        return array("error" => true, "msg" => "Incorrect login attempt (" . ($user["trials"]+1) . ")".$extra);
-                    }
-                }
-
-                /** -> Account is NOT Active **/
-                else{
-                    switch ($user['account_status'])
-                    {
-                        case 5: // email verification required
-                            $this->insertAuditLogEntry(0, "Failed login - Pending Verification");
-                            return array("error" => true, "msg" => "Pending Email Verification.", "code" => 5);
-                            break;
-                        case 0: // Account is locked
-
-                            $unlockTime = strtotime($user['unlock_time']);
-                            if($cTime > $unlockTime){ // unlock time passed
-                                // set account status to 1 and reset trials -> check password match
-                                $this->unlockUserAccount($user["id"]);
-                                $this->insertAuditLogEntry($user["account"], "User account unlocked.");
-                                // check for password
-                                if($verified){
-                                    $this->sessionLogin($user); // set session variables as logged in + audit log inside
-
-                                }else{
-                                    return array("error" => true, "msg" => "Incorrect Password"); // first incorrect attempt after account unlock
-                                }
+                        else {
+                            $this->increaseTrials($user);
+                            $extra = "";
+                            if($user["trials"]+1 == 5) {
+                                $extra = " - Account Locked";
+                                $this->insertAuditLogEntry($user['id'], "Account Locked.");
+                            }else {
+                                $this->insertAuditLogEntry(0, "Incorrect login attempt. (".($user["trials"]+1).")");
                             }
-
-                            return array("error" => true, "msg" => "Account is locked - unlocks on: " . $user['unlock_time']);
-                            break;
-
+                            return array("error" => true, "msg" => "Incorrect login attempt (" . ($user["trials"]+1) . ")".$extra);
+                        }
                     }
+
+                    /** -> Account is NOT Active **/
+                    else{
+                        switch ($user['account_status'])
+                        {
+                            case 5: // email verification required
+                                $this->insertAuditLogEntry(0, "Failed login - Pending Verification");
+                                return array("error" => true, "msg" => "Pending Email Verification.", "code" => 5);
+                                break;
+                            case 0: // Account is locked
+
+                                $unlockTime = strtotime($user['unlock_time']);
+                                if($cTime > $unlockTime){ // unlock time passed
+                                    // set account status to 1 and reset trials -> check password match
+                                    $this->unlockUserAccount($user["id"]);
+                                    $this->insertAuditLogEntry($user["account"], "User account unlocked.");
+                                    // check for password
+                                    if($verified){
+                                        $this->sessionLogin($user); // set session variables as logged in + audit log inside
+
+                                    }else{
+                                        return array("error" => true, "msg" => "Incorrect Password"); // first incorrect attempt after account unlock
+                                    }
+                                }
+
+                                return array("error" => true, "msg" => "Account is locked - unlocks on: " . $user['unlock_time']);
+                                break;
+
+                        }
+                    }
+                }else{
+                    $this->insertAuditLogEntry(0, "Failed login - Disabled");
+                    return array("error" => true, "msg" => "Account is disabled.");
                 }
 
             }else{
