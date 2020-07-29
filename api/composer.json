@@ -13,7 +13,8 @@
     "vlucas/phpdotenv": "^2.4",
     "ext-json": "*",
     "ext-pdo": "*",
-    "ext-fileinfo": "*"
+    "ext-fileinfo": "*",
+    "ext-curl": "*"
   },
   "autoload": {
     "psr-4": {

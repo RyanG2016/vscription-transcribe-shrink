@@ -99,6 +99,51 @@ class accessGateway
         }
     }
 
+
+    public function checkAccountAccessPermission($acc_id)
+    {
+
+        if (strpos($acc_id, '%') !== FALSE) {
+            return $this->errorOccurredResponse("Invalid Input (5-ACG)");
+        }
+
+
+        $statement = "
+            SELECT 
+                access.*,
+                a.acc_name,
+                r.role_name,
+                r.role_desc,
+                u.email
+            FROM
+                access
+            
+            INNER JOIN accounts a on access.acc_id = a.acc_id
+            INNER JOIN roles r on access.acc_role = r.role_id
+            INNER JOIN users u on access.uid = u.id
+            where access.uid = ?
+            AND access.acc_id = ?
+            AND access.acc_role in (1,2) 
+            ;";
+
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($_SESSION["uid"], $acc_id));
+//            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            $result = $statement->fetch();
+            if($statement->rowCount() > 0) {  // user access exists
+                return true;
+            }else{
+                return false;
+            }
+
+        } catch (\PDOException $e) {
+//            exit($e->getMessage());
+            return false;
+        }
+    }
+
     public function findAndSetOutAccess()
     {
 

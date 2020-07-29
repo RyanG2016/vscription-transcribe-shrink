@@ -93,11 +93,11 @@ class FileGateway
     }
 
 
-    public function getNextJobNumbers() {
+    public function getNextJobNumbers($accID) {
 
         $statement = "SELECT (SELECT AUTO_INCREMENT FROM information_schema.TABLES 
 						WHERE TABLE_SCHEMA = 'vtexvsi_transcribe' AND TABLE_NAME = 'files') AS next_job_id, 
-						(SELECT next_job_tally AS num2 FROM accounts WHERE acc_id = ".$_SESSION['accID'].") AS next_job_num
+						(SELECT next_job_tally AS num2 FROM accounts WHERE acc_id = ".$accID.") AS next_job_num
 						FROM DUAL";
 
         try {
@@ -125,9 +125,9 @@ class FileGateway
 
     }
 
-    public function getAccountPrefix() {
+    public function getAccountPrefix($acc_id) {
 
-        $statement = "select job_prefix from accounts where acc_id = " . $_SESSION["accID"];
+        $statement = "select job_prefix from accounts where acc_id = " . $acc_id;
 
         try {
             $statement = $this->db->prepare($statement);
@@ -160,15 +160,17 @@ class FileGateway
         $user_field_1 = $input[10];
         $user_field_2 = $input[11];
         $user_field_3 = $input[12];
+        $acc_id = $input[13];
         $uploadedBy = $_SESSION['uEmail'];
 
-        $jobPrefix = $this->getAccountPrefix();
+        $jobPrefix = $this->getAccountPrefix($acc_id);
         if(!$jobPrefix)
         {
 //            die("couldn't get job prefix");
             return false;
         }
         $nextJobNum = $jobPrefix .str_pad($nextNum, 7, "0", STR_PAD_LEFT);
+
 
         $statement = "INSERT
                         INTO 
@@ -205,7 +207,7 @@ class FileGateway
                     $uploadedBy,
                     $file_name,
                     $orig_filename,
-                    $_SESSION["accID"],
+                    $acc_id,
                     $file_duration,
                     $user_field_1,
                     $user_field_2,
@@ -214,7 +216,7 @@ class FileGateway
             );
 
             if($statement->rowCount()){
-                $statement = "UPDATE accounts SET next_job_tally=next_job_tally+1 where acc_id = ".$_SESSION["accID"];
+                $statement = "UPDATE accounts SET next_job_tally=next_job_tally+1 where acc_id = ".$acc_id;
 
                             try {
                                 $statement = $this->db->prepare($statement);

@@ -61,7 +61,12 @@ class accessController
 //                if ($this->accessId) {
 //                    $response = $this->getaccess($this->accessId);
 //                } else {
+                if(isset($_REQUEST['account_id']))
+                {
+                    $response = $this->checkAccountAccessPermission($_REQUEST['account_id']);
+                }else{
                     $response = $this->getOutAccess();
+                }
 //                }
 
                 break;
@@ -100,14 +105,28 @@ class accessController
         return $response;
     }
 
+    private function checkAccountAccessPermission($acc_id)
+    {
+        $result = $this->accessGateway->checkAccountAccessPermission($acc_id);
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = json_encode(array(
+            "msg" => $result?"Access Granted":"Access Denied",
+            "error" => !$result
+        ));
+        return $response;
+    }
+
     private function setOutAccess()
     {
         $result = $this->accessGateway->findAndSetOutAccess();
-        header($result['status_code_header']);
-        if ($result['body']) {
-            echo $result['body'];
-        }
-        exit();
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = json_encode($result);
+        return $response;
+//        header($result['status_code_header']);
+//        if ($result['body']) {
+//            echo $result['body'];
+//        }
+//        exit();
     }
 
     private function getaccess($id)
