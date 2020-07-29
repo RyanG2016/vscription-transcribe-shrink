@@ -96,7 +96,9 @@ if(isset($_SESSION['counter']))
             <div class="item1 grid-headers"><h3>Downloads</h3></div>
             <div class="item2-header grid-headers"><h3>Description</h3></div>
             <div class="item2">
-                <p>vScription Transcribe Controller specially made for vScription Typists, It allows to control transcribe player using foot control.</p>
+                <p>
+                    The vScription Controller is used to connect local hardware devices (foot control, digital recorder, microphone) to various vScription modules.
+                </p>
             </div>
             <div class="item3">
 
