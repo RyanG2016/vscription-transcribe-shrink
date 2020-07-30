@@ -48,12 +48,17 @@ class UserGateway
                     users.email_notification,
                     users.account,
                     users.enabled,
+                    users.def_access_id,
+                    accounts.acc_name,
+                    access.acc_role,
                     cities.city as `state_ref`
                                       
             FROM
                 users
             INNER JOIN countries ON users.country_id = countries.id 
             LEFT JOIN cities ON users.state_id = cities.id
+            LEFT JOIN access ON users.def_access_id = access.access_id
+            LEFT JOIN accounts ON access.acc_id = accounts.acc_id
         " . $filter . ";";
 
         try {

@@ -167,6 +167,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
                         <th>City</th>
                         <th>State</th>
                         <th>Status</th>
+                        <th>Def Access</th>
                         <th>Enabled</th>
                     </tr>
                     </thead>

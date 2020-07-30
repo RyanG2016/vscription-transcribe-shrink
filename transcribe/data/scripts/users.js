@@ -246,6 +246,15 @@ $(document).ready(function () {
 				}
 			},
 			{ "data": "account_status" },
+			{ "data": "acc_name",
+				render: function (data, type, row) {
+					if(data == null)
+					{
+						return "—";
+					}else{
+						return data + " - " + row["acc_role"];
+					}
+				} },
 			{ "data": "enabled",
 				render: function (data) {
 					if(data == true)
