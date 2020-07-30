@@ -255,6 +255,14 @@ class UserGateway
             return $this->errorOccurredResponse("Invalid Input (505-UPDEF)");
         }
 
+        $uid = $_SESSION['uid'];
+
+        // allow admin to set default access to a certain user instead of self
+        if(isset($_POST["uid"]) && is_numeric($_POST["uid"])) {
+            if($_SESSION["role"] == 1) {
+                $uid = $_POST["uid"];
+            }
+        }
 
         // insert to DB //
         $statement = "SELECT
@@ -275,12 +283,12 @@ class UserGateway
             $statement->execute( array(
                 $_POST["acc_id"],
                 $_POST["acc_role"],
-                $_SESSION['uid']
+                $uid
             ) );
 
             if ($statement->rowCount() > 0) {
                 $result = $statement->fetch();
-                return $this->setDefaultAccess($result['access_id']);
+                return $this->setDefaultAccess($result['access_id'], $uid);
             } else {
                 return $this->errorOccurredResponse("You don't have permission for this access token.");
             }
@@ -292,7 +300,7 @@ class UserGateway
     }
 
     // this is executed after updateDefaultAccess checks if the role & acc IDS match for the current logged in user
-    public function setDefaultAccess($defAccessID) {
+    public function setDefaultAccess($defAccessID, $uid) {
 
         // update user access //
         $statement = "UPDATE
@@ -306,7 +314,7 @@ class UserGateway
 
         try {
             $statement = $this->db->prepare($statement);
-            $statement->execute(array($defAccessID, $_SESSION['uid']));
+            $statement->execute(array($defAccessID, $uid));
 
 //            if ($statement->rowCount() > 0) {
                 return $this->oKResponse(0, "Default Access set successfully");

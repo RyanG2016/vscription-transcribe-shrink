@@ -208,6 +208,7 @@ function sqlInjectionUpdateDefAccessCheckPassed($array){
 
             case "acc_id":
             case "acc_role":
+            case "uid":
                 if (
                     $value != 0 && empty(trim($value)) ||
                     strpos($value, '%') !== FALSE ||

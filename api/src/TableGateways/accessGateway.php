@@ -25,7 +25,8 @@ class accessGateway
                 a.acc_name,
                 r.role_name,
                 r.role_desc,
-                u.email
+                u.email,
+                u.def_access_id
             FROM
                 access
             

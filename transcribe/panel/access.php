@@ -174,6 +174,7 @@ $uid = $_POST["uid-access"];
                         <th>Email</th>
                         <th>Role ID</th>
                         <th>Role</th>
+                        <th>Def</th>
                     </tr>
                     </thead>
                 </table>

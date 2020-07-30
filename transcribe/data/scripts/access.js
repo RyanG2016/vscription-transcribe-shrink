@@ -14,8 +14,8 @@ var accountsGlobal;
 var rolesGlobal;
 const ACCOUNTS_URL = "../api/v1/accounts/?access-model";
 const ROLES_URL = "../api/v1/roles/";
-const CITIES_URL = "../api/v1/cities/"; // + id + "?box_model"
 const API_INSERT_URL = '../api/v1/access/';
+const SET_DEFAULT_ACCESS_URL = "../api/v1/users/set-default/";
 
 const CREATE_ACC_HEADER = "<i class=\"fas fa-key\"></i>&nbsp;Add Permission";
 const UPDATE_ACC_HEADER = "<i class=\"fas fa-user-edit\"></i>&nbsp;Update Permission";
@@ -203,7 +203,17 @@ $(document).ready(function () {
             {"data": "username"},
             {"data": "email"},
             {"data": "acc_role"},
-            {"data": "role_desc"}
+            {"data": "role_desc"},
+            {
+                "data": "access_id",
+                render: function (data, type, row) {
+                    if(data == row["def_access_id"]) {
+                        return "<i class=\"fas fa-check-circle vtex-status-icon\"></i>";
+                    }else{
+                        return "";
+                    }
+                }
+            }
             /*,
             render: function (data, type, row) {
                 if(data)
@@ -304,6 +314,75 @@ $(document).ready(function () {
                     });
                     break;
 
+
+                case "def":
+                    var access_id = data["access_id"];
+                    var acc_id = data["acc_id"];
+                    var acc_role = data["acc_role"];
+                    var uid = data["uid"];
+                    // var accName = data["email"];
+                    $.confirm({
+                        title: '<i class="fas fa-key"></i> Set as default?',
+                        content: 'Are you sure do you want to set <b>' +
+                            access_id + '</b> as default access ?<br><br>'
+
+                        ,buttons: {
+                            confirm: {
+                                text: "yes",
+                                btnClass: 'btn-green',
+                                action: function () {
+
+                                    var formData = new FormData();
+                                    formData.append("acc_id", acc_id);
+                                    formData.append("acc_role", acc_role);
+                                    formData.append("uid", uid);
+
+                                    $.ajax({
+                                        type: 'POST',
+                                        url: SET_DEFAULT_ACCESS_URL,
+                                        processData: false,
+                                        // contentType: "application/x-www-form-urlencoded",
+                                        data: convertToSearchParam(formData),
+                                        // headers: update?{'Content-Type': 'application/x-www-form-urlencoded'}:{'Content-Type': "multipart/form-data; boundary="+formData.boundary},
+
+                                        success: function (response) {
+
+                                            accessDTRef.ajax.reload(); // refresh access table
+                                            return true;
+
+                                        },
+                                        error: function (err) {
+                                            $.confirm({
+                                                title: 'Error',
+                                                content: err.responseJSON["msg"],
+                                                buttons: {
+                                                    confirm: {
+                                                        btnClass: 'btn-red',
+                                                        action: function () {
+                                                            accessDTRef.ajax.reload(); // refresh access table
+                                                            return true;
+                                                        }
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    });
+
+                                    return true;
+                                }
+                            },
+                            cancel:
+                                {
+                                    text: "no",
+                                    btnClass: 'btn-red',
+                                    function() {
+                                        return true;
+                                    }
+                                }
+                        }
+                    });
+                    break;
+
                 case "edit":
                     preFillForm(data);
                     break;
@@ -312,6 +391,7 @@ $(document).ready(function () {
         },
         items: {
             "edit": {name: "Edit", icon: "fas fa-key"},
+            "def": {name: "Set as default", icon: "fas fa-toggle-on"},
             "sep1": "---------",
             "delete": {name: "Delete", icon: "fas fa-trash-alt"},
             // "quit2": {name: "Quit2", icon: "quit"},
