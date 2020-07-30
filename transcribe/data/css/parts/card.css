@@ -1,0 +1,83 @@
+.vtex-card{
+    box-shadow: 0 0 5px #262626;
+    background: white;
+    padding: 7px 0;
+    border-radius: 7px;
+}
+
+.vtex-card:not(.first) {
+    margin-top: 20px;
+}
+
+.contents{
+    padding: 16px;
+}
+
+.vtex-input{
+    display: block;
+    font-size: 1.0rem;
+    padding: 5px 10px;
+    background-color: rgba(255,255,255,0);
+    height: 36px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    color: #202020;
+    font-family: 'Oxygen' , serif  !important;
+    width: 100%;
+    margin: 7px 0 20px;
+}
+
+.vtex-input-no-padding{
+    /*display: block;*/
+    font-size: 1.0rem;
+    padding: 5px 5px;
+    background-color: rgba(255,255,255,0);
+    /*height: 36px;*/
+    border: 1px solid rgba(255, 255, 255, 0);
+    border-radius: 4px;
+    /*color: #202020;*/
+    font-family: 'Oxygen' , serif  !important;
+    width: 80%;
+    /*margin: 7px 0 20px;*/
+}
+
+.vtex-input:focus, .vtex-input-no-padding:focus{
+    border:  1px inset #1e79be !important;
+    outline-color: #1e79be !important;
+    /*border-style: inset;*/
+}
+
+.vtex-form_lbl{
+
+}
+
+.vtex-fieldset{
+    border: none;
+    padding: 0 0 10px 0;
+}
+
+.vtex-fieldset-light{
+    border: 0.6px dashed #1e79be;
+    margin: 0 0 20px 0;
+}
+
+.green-btn{
+    --mdc-theme-primary: #53a13d;
+}
+
+.blue-btn{
+    --mdc-theme-primary: #1e79be;
+}
+
+legend{
+    font-weight: bold;
+    color: #1e79be;
+}
+
+.vtex-spinner-4-digits{
+    width: 60px;
+}
+
+.vtex-validate-error{
+    border: medium dashed var(--vtex-red);
+}

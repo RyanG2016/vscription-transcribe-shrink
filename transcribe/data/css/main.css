@@ -1,0 +1,346 @@
+@import "parts/user_card_view.css";
+
+/* ---------------------*/
+/* ---BODY STYLING  --*/
+/* ---------------------*/
+
+:root {
+    --light-bg-color: #3498db;
+    --dark-bg-color: #2c3e50;
+}
+
+
+h1 {
+    font-size: 18px;
+}
+
+a {
+    text-decoration    : none;
+    color              : rgb(0,155,194);
+    -webkit-transition : color 0.2s;
+    -moz-transition    : color 0.2s;
+    -ms-transition     : color 0.2s;
+    -o-transition      : color 0.2s;
+    transition         : color 0.2s;
+}
+
+a:hover {
+    color: rgb(83, 192, 235);
+}
+
+code, code * {
+    font-size   : 13px;
+    font-family : monospace;
+}
+
+code {
+    display       : block;
+    margin-bottom : 10px;
+    padding       : 10px;
+    color         : rgb(172,172,172);
+    background    : rgb(46,46,46);
+}
+
+/* Keyword */
+code .value,
+code .keyword {
+    color: #f30084;
+}
+
+code .tag,
+code .string {
+    color: #8BC9D5;
+}
+
+code .attribute,
+code .params {
+    color: #fff;
+}
+
+
+body{
+    /*    background-color: #193f54;*/
+    /*    background-color: #1d7ec1;*/
+    font-family: 'oxygen', serif;
+    /*	Between Night And Sky   */
+    background: var(--dark-bg-color);  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, var(--light-bg-color), var(--dark-bg-color) );  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right,  var(--light-bg-color), var(--dark-bg-color) ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+/*
+
+body {
+    font-size: 16px;
+    font-family: Lato;
+}
+
+.preview {
+    font-style: italic;
+}
+*/
+
+.mdc-data-table{
+    width: 100%;
+    --mdc-theme-primary: #1e79be;
+    --mdc-theme-on-primary: #1e79be ;
+    --mdc-theme-secondary: #1e79be;
+    /*--mdc-theme-background:#1e79be;*/
+    /*--mdc-theme-surface:#1e79be;*/
+    --mdc-theme-on-secondary:#1e79be;
+    /*--mdc-theme-on-surface:#1e79be;*/
+}
+
+.mdc-data-table__row--selected{
+    /*background: rgba(30, 121, 190, 0.1);*/
+    background: rgba(232, 142, 43, 0.1);
+}
+
+.mdc-data-table__header-row{
+    /*background: rgba(30, 121, 190, 0.6);*/
+    background: rgba(30, 121, 190, 0.9);
+
+}
+.mdc-data-table__header-cell{
+    color: white !important;
+    font-weight: bold;
+    /*font-size: 0.9rem;*/
+    font-family: oxygen, serif !important;
+    padding-left: 10px !important;
+}
+.mdc-data-table__cell{
+    font-family: oxygen, serif !important;
+}
+
+.logout{
+    /*color: whitesmoke !important;*/
+    /*text-decoration: underline;*/
+    font-size: 13px !important;
+}
+
+.data-tbl{
+    width: 100%;
+    padding-right: 2.5%;
+    padding-left: 2.5%;
+    padding-bottom: 2.5%;
+
+}
+
+
+/* -----------------*/
+/* --BUTTON STYLING --*/
+/* -----------------*/
+
+div form label,
+div form .submit_btn,
+div form .clear_btn,
+div.listControl label,
+.refresh,
+.newupload {
+    background-color: #1e79be;
+    padding: 5px 10px;
+    border-radius: 5px;
+    /*border: 1px ridge black;*/
+    font-size: 0.8rem;
+    height: auto;
+}
+
+div form label:hover,
+div form .submit_btn:hover,
+div form .clear_btn:hover,
+div.listControl label:hover,
+.refresh:hover,
+.newupload:hover {
+    background-color: #2D5BA3;
+    color: white;
+}
+
+div form label:active,
+div form .submit_btn:active,
+div form .clear_btn:active,
+div.listControl label:active,
+.refresh:active,
+.newupload:active {
+    background-color: #0D3F8F;
+    color: white;
+}
+
+#newupload_btn, #refresh_btn{
+    --mdc-theme-primary: #1e79be;
+    --mdc-theme-on-primary: white;
+}
+
+
+/* -----------------*/
+/* --UPLOAD STATUS STYLING --*/
+/* -----------------*/
+
+
+
+div.upload_failed_message {
+    display: none;
+}
+
+div.upload_success_message {
+    display: none;
+}
+
+div.upload_success_message p {}
+
+i.fas.fa-check-circle {
+    float: left;
+    padding-right: 15px;
+    margin-left: 45%;
+    font-size: 250%;
+    color: green;
+}
+
+i.fas.fa-ban {
+    float: left;
+    padding-right: 15px;
+    margin-left: 45%;
+    font-size: 250%;
+    color: red;
+}
+
+.upload {
+    padding-left: 30px;
+}
+
+.box6 p {
+    padding-left: 30px;
+}
+
+/* -----------------*/
+/* --DEMOGRAPHICS STYLING --*/
+/* -----------------*/
+
+input[type=text],
+select,
+textarea {
+    width: 75%;
+    padding: 6px 20px;
+    margin: 8px 0;
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    font-family: Lato;
+}
+
+select {
+    /*width: 80%;*/
+    padding: 6px 20px;
+    margin: 8px 0;
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    font-family: Lato;
+}
+
+input[type=date] {
+    width: 75%;
+    padding: 6px 20px;
+    margin: 8px 0;
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 18px;
+    font-family: Lato;
+}
+
+
+.box7 .upload_fields {
+    padding-left: 30px;
+    padding-bottom: 20px;
+    width: 75% !important;
+}
+
+.joblist {
+     margin-left: 20px;
+ }
+
+/*
+
+.upload_fields input{
+
+}
+*/
+
+/* ------------------------------*/
+/* -- Additional Table Styling --*/
+/* ------------------------------*/
+table{
+    border-radius: 10px;
+}
+
+.mdc-data-table__cell, .mdc-data-table__header-cell{
+    height: 32px !important;
+}
+
+/* MDC Comments column */
+.textarea-holder{
+    /*min-width: 170px !important;*/
+    /*max-width: 170px !important;*/
+    /*width: 170px !important;*/
+    /*min-height: 35px !important;*/
+}
+.textarea-holder textarea{
+    min-width: 170px !important;
+    max-width: 170px !important;
+    width: 100% !important;
+    white-space: nowrap;
+    /*min-height: 40px !important;*/
+    padding: 5px 3px 10px 3px !important;
+    /*margin-top: 10px;*/
+    outline: none;
+    resize: none;
+    border-color: Transparent !important;
+    font-family: 'oxygen', serif !important;
+    font-size: 0.875rem;
+    vertical-align: center;
+}
+
+.textarea-holder{
+    padding: 0 !important;
+}
+
+.download-icon{
+    /*font-size: 20px;*/
+    vertical-align: bottom;
+    cursor: pointer;
+}
+
+td .times-downloaded{
+    /*text-align: center;*/
+    vertical-align: bottom !important;
+    font-family: 'oxygen', serif !important;
+}
+
+.times-downloaded-header{
+    /*text-align: center;*/
+    max-width: 8em !important;
+    width: 6em !important;
+}
+
+.job-comment{
+    color: #1e79be;
+    font-size: 18px;
+    vertical-align: text-bottom;
+    cursor: pointer;
+}
+
+.mdc-data-table__header-row{
+    background: rgba(30, 121, 190, 0.9) !important;
+
+}
+
+.mdc-button--colored{
+    color: white !important;
+}
+
+.top-links{
+    vertical-align: bottom;
+}

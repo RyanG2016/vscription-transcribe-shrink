@@ -1,0 +1,174 @@
+@import "parts/user_card_view.css";
+@import "parts/card.css";
+@import "parts/modal_popup.css";
+@import "parts/modal_overlay.css";
+@import "parts/data-tbl.css";
+@import "parts/colors.css";
+@import "parts/spinner.css";
+
+/* -----------------*/
+/* --BUTTON STYLING --*/
+/* -----------------*/
+
+.joblist {
+    margin-left: 20px;
+}
+
+a {
+    text-decoration    : none;
+    cursor: pointer;
+    color              : rgb(0,155,194);
+    -webkit-transition : color 0.2s;
+    -moz-transition    : color 0.2s;
+    -ms-transition     : color 0.2s;
+    -o-transition      : color 0.2s;
+    transition         : color 0.2s;
+}
+
+a:hover {
+    color: rgb(83, 192, 235);
+}
+
+/* ---------------- */
+/* CREATE User MODAL */
+/* ---------------- */
+.modal-content {
+    text-align: center;
+    width: fit-content;
+    padding: 0 50px;
+    /*min-width: 650px;*/
+}
+
+.modal-footer{
+    margin-top: 20px;
+    text-align: center;
+}
+
+.cancel-acc-button {
+    --mdc-theme-primary: var(--vtex-red);
+}
+
+.tools-button{
+    /*--mdc-theme-primary: #8bc34a;*/
+    --mdc-theme-primary: #fff;
+    display: block;
+    width: 100%;
+    margin: 8px 0;
+
+}
+
+.tools-label{
+    /*--mdc-theme-primary: #8bc34a;*/
+    --mdc-theme-primary: #fff;
+    display: block;
+    width: 100%;
+    margin: 8px 0;
+    cursor: default !important;
+
+}
+
+
+.nav-header{
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+    width: 100%;
+}
+
+.nav-btns-div{
+    padding: 0 5px;
+}
+
+.mdc-text-field{
+    --mdc-theme-primary: #1e79be;
+    --mdc-theme-on-primary: #1e79be ;
+    --mdc-theme-secondary: #1e79be;
+    --mdc-theme-background:#1e79be;
+    --mdc-theme-surface:#1e79be;
+    --mdc-theme-on-secondary:#1e79be;
+    --mdc-theme-on-surface:#1e79be;
+}
+.mdc-floating-label{
+    --mdc-theme-primary: #1e79be;
+    --mdc-theme-on-primary: #1e79be ;
+    --mdc-theme-secondary: #1e79be;
+    --mdc-theme-background:#1e79be;
+    --mdc-theme-surface:#1e79be;
+    --mdc-theme-on-secondary:#1e79be;
+    --mdc-theme-on-surface:#1e79be;
+}
+
+/*-----------------------*/
+/*   Header Styling      */
+/*-----------------------*/
+#navbtn{
+    font-size: 0.9em;
+}
+
+
+/*-----------------------*/
+/*      Grid Layout      */
+/*-----------------------*/
+
+/*.root { grid-area: root; }*/
+.nav-bar {
+    grid-area: nav;
+    max-width: 270px;
+}
+
+.tools-label{
+    display:block;
+    word-wrap:break-word;
+
+}
+
+.mdc-button__label{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.contents {grid-area: content;}
+
+/*.item2 { grid-area: menu; }
+.item3 { grid-area: main; }
+.item4 { grid-area: compatBrowsers; }
+.item5 { grid-area: compatOS; }
+.item6 { grid-area: compatHardware; }
+.item4-5-header { grid-area: compatHeader; }*/
+.root {
+    display: inline-grid;
+    /*display: grid;*/
+    grid-template-areas:
+    'nav content';
+
+    /*'nav content';*/
+    /*'main main main main compatBrowsers compatOS compatHardware';*/
+    /*'menu footer footer footer footer footer';*/
+
+    /*background-color: #2196F3;*/
+
+    /*grid-template-columns: auto;*/
+    /*grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr ;*/
+
+    grid-gap: 20px;
+    /*padding: 20px;*/
+    width: 100%;
+    /*grid-template-columns: 1fr 1fr 1fr 1fr fit-content(100%) fit-content(100%);*/
+    /*grid-template-columns: min-content 1fr 1fr 1fr fit-content(100%) fit-content(100%);*/
+    grid-template-columns: auto 1fr;
+    /*grid-template-columns: fit-content(100%) 1fr;*/
+}
+
+
+/* Contents Styling */
+.welcome{
+    /*text-align: center;*/
+    /*align-content: center;*/
+    /*margin-left:auto;*/
+    /*margin-right:auto;*/
+    margin: auto;
+}
+.welcome-icon{
+    font-size: 5rem !important;
+    color: #1e79be;
+}
