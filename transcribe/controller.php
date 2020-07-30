@@ -220,15 +220,15 @@ if(isset($_SESSION['counter']))
                     </tr>
                     <tr>
                         <td class="bold">
-                            <i class="fab fa-edge-legacy"></i> Edge Legacy
+                            <i class="fab fa-edge"></i> Edge Chromium
                         </td>
                         <td class="check">
-                            <i class="fa fa-times" aria-hidden="true"></i>
+                            <i class="fa fa-check" aria-hidden="true"></i>
                         </td>
                     </tr>
                     <tr>
                         <td class="bold">
-                            <i class="fab fa-edge"></i> Edge Chromium
+                            <i class="fab fa-edge-legacy"></i> Edge Legacy
                         </td>
                         <td class="check">
                             <i class="fa fa-times" aria-hidden="true"></i>
