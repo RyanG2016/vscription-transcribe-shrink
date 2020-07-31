@@ -1,6 +1,9 @@
 <?php
 namespace  Src\System;
 
+use PDO;
+use PDOException;
+date_default_timezone_set('America/Winnipeg');
 class DatabaseConnector {
 
     private $dbConnection = null;
@@ -14,12 +17,16 @@ class DatabaseConnector {
         $pass = getenv('DB_PASSWORD');
 
         try {
-            $this->dbConnection = new \PDO(
+            $this->dbConnection = new PDO(
                 "mysql:host=$host;port=$port;charset=utf8mb4;dbname=$db",
                 $user,
                 $pass
             );
-        } catch (\PDOException $e) {
+
+            $this->dbConnection->exec("set global time_zone = 'America/Winnipeg';
+                                        set @@global.time_zone = 'America/Winnipeg';
+                                        SET time_zone = 'America/Winnipeg';'");
+        } catch (PDOException $e) {
             exit($e->getMessage());
         }
     }
