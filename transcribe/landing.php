@@ -48,7 +48,7 @@ if (isset($_SESSION['counter'])) {
     ?>
 
     <script type="text/javascript">
-        var roleIsset = <?php echo (!isset($_SESSION['role']) && !isset($_SESSION['accID']))?false:true ?>;
+        var roleIsset = <?php echo (!isset($_SESSION['role']) && !isset($_SESSION['accID']))?0:true ?>;
     </script>
 
     <link href="data/css/landing.css?v=2" rel="stylesheet">
