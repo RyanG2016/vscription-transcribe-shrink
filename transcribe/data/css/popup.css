@@ -5,7 +5,10 @@
 /* --------------------------------*/
 
 @import "parts/modal_popup.css";
-
+@font-face {
+    font-family: oxygen;
+    src: url("../Fonts/Oxygen-Regular.ttf");
+}
 /* Modal loading edits */
 #modalLoading .modal-content h2{
     text-align: center;
@@ -22,11 +25,11 @@
 
 body{
     background: #f4f7f8;
-    font-family: 'oxygen', serif;
+    font-family: 'oxygen', sans-serif;
     margin-bottom: 0;
 }
 .able-status-bar{
-    font-family: 'oxygen', serif;
+    font-family: 'oxygen', sans-serif;
 }
 
 .logo{
@@ -134,7 +137,7 @@ u{
     background: #f5862c;
     text-align: center;
     vertical-align: center;
-    font-family: "oxygen", serif;
+    font-family: "oxygen", sans-serif;
     color: white;
 }
 
@@ -153,5 +156,5 @@ u{
 }
 
 .able-tooltip{
-    font-family: 'oxygen', serif;
+    font-family: 'oxygen', sans-serif;
 }
