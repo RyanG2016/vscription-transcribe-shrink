@@ -362,6 +362,18 @@ include ('data/parts/constants.php');
                     <th>Job Length</th>
                 </tr>
                 </thead>
+
+                <tfoot>
+                <tr>
+                    <th>Job #</th>
+                    <th>Author</th>
+                    <th>Job Type</th>
+                    <th>Date Dictated</th>
+                    <th>Date Uploaded</th>
+                    <th>Job Status</th>
+                    <th>Job Length</th>
+                </tr>
+                </tfoot>
             </table>
         </div>
 

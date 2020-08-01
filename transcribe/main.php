@@ -179,6 +179,21 @@ else {
                             <th>Download</th>
                         </tr>
                         </thead>
+
+                        <tfoot>
+                        <tr>
+                            <th>Job #</th>
+                            <th>Author</th>
+                            <th>Job Type</th>
+                            <th>Date Dictated</th>
+                            <th>Date Uploaded</th>
+                            <th>Job Length</th>
+                            <th>Job Status</th>
+                            <th>Job Transcribed</th>
+                            <th>Initial Download</th>
+                            <th>Download</th>
+                        </tr>
+                        </tfoot>
                     </table>
                 </td>
             </tr>
