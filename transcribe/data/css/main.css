@@ -217,7 +217,7 @@ i.fas.fa-ban {
 /* -----------------*/
 
 input[type=text],
-select,
+/*select,*/
 textarea {
     width: 75%;
     padding: 6px 20px;
@@ -230,14 +230,14 @@ textarea {
 }
 
 select {
-    /*width: 80%;*/
-    padding: 6px 20px;
+    width: 100%;
+    /*padding: 6px 20px;*/
     margin: 8px 0;
     display: block;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
-    font-family: Lato;
+    font-family: oxygen, sans-serif;
 }
 
 input[type=date] {
