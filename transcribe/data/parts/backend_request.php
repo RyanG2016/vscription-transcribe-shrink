@@ -178,63 +178,6 @@ if(isset($_REQUEST["reqcode"])){
 
 			break;
 
-
-		case 11:
-
-			$a = json_decode($args,true);
-//			$job_id = $a['job_id'];
-			$file_id = $a['file_id'];
-			$sql = "SELECT *
-					FROM files WHERE file_id = ?";
-
-			if($stmt = mysqli_prepare($con, $sql))
-			{
-				mysqli_stmt_bind_param($stmt, "i", $file_id);
-
-				if(mysqli_stmt_execute($stmt) ){
-					$result = mysqli_stmt_get_result($stmt);
-
-					// Check number of rows in the result set
-					if(mysqli_num_rows($result) > 0){
-						// Fetch result rows as an associative array
-
-						while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-
-								$jobDetails = array(
-									"job_id" => $row['job_id'],
-									"file_author" => $row['file_author'],
-									"origFilename" => $row['filename'],
-									"tempFilename" => $row['tmp_name'],
-									"file_date_dict" => $row['file_date_dict'],
-									"file_status" => $row['file_status'],
-									"file_work_type" => $row['file_work_type'],
-									"file_speaker_type" => $row['file_speaker_type'],
-									"file_comment" => $row['file_comment']
-								);
-								echo json_encode($jobDetails);
-//							} else {
-//								echo "No filename found in record --- ERROR"; //This should NEVER happen....Just for testing
-//							}
-
-						}
-					}
-				}
-				else{
-//						echo "<p>No matches found</p>";
-
-				}
-			} else{
-//					echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
-
-			}
-
-
-			// Close statement
-			mysqli_stmt_close($stmt);
-
-			break;
-
-
 		// update job status only
 		case 16:
 

@@ -32,6 +32,7 @@ var jobsDTRef;
 $(document).ready(function () {
 
     const backend_url = "data/parts/backend_request.php";
+    const files_api = "../api/v1/files/";
     const form = document.querySelector("form");
 
 
@@ -383,33 +384,41 @@ $(document).ready(function () {
             loading.style.display = "block";
 
 
-
-
-            //Get job details form DB
-
-            let a1 = {
-                file_id: currentFileID
-            };
-
-            // form submitted get job details
-            $.post("data/parts/backend_request.php", {
-                reqcode: 11,
-                args: JSON.stringify(a1)
-            }).done(function (data) {
-                prepareDemos(data);
+            $.ajax({
+                type: 'GET',
+                url: files_api + currentFileID,
+                processData: false,
+                success: function (response) {
+                    // var test = response;
+                    if(response.length != 0) {
+                        prepareDemos(response[0]);
+                    }else{
+                        errorWhileSavingFile();
+                    }
+                },
+                error: function (err) {
+                    $.confirm({
+                        title: 'Error',
+                        content: err.responseJSON["msg"],
+                        buttons: {
+                            confirm: {
+                                btnClass: 'btn-red',
+                                action: function () {
+                                    errorWhileSavingFile();
+                                    return true;
+                                }
+                            }
+                        }
+                    });
+                }
             });
+
+
             function prepareDemos(data) {  //I couldn't seem to access the data outside of the post call so I had to pass it to the function. How could this be accomplished without the function?
-                var jobDetails = JSON.parse(data);
+                // var jobDetails = JSON.parse(data);
+                var jobDetails = data;
                 var tinymceContent = tinymce.get("report").getContent();
                 // Get demographics to update job with
-
-                // var jobLengthStr = $('.able-duration').text().split("/")[1];
-
-
-                /*if (jobLengthStr === "") {
-                    alert('Audio Not Loaded Properly. Aborting');
-                    return false;
-                }*/
 
                 let jobLengthSecsRaw = Math.round(AblePlayerInstances[0].seekBar.duration);
                 let jobLengthSecs = new Date(jobLengthSecsRaw * 1000).toISOString().substr(11, 8).toString();
@@ -484,20 +493,23 @@ $(document).ready(function () {
 
 
                             } else {
-
-                                alert("Error Saving Job. Please contact support - ${data}\n We will attempt to save the text contents to your clipboard if there is any");
-                                tinyMCE.activeEditor.selection.select(tinyMCE.activeEditor.getBody());
-                                tinyMCE.activeEditor.execCommand( "Copy" );
-
-
-                                clear();
-                                // loadingTitle.text("Done");
-                                // loadingSub.text("Job " + job_id + " data updated successfully.");
-                                // loadingConfirmBtn.css('display', '');
-                                loading.style.display = "none";
+                                errorWhileSavingFile();
                             }
                         })
                 });
+            }
+
+            function errorWhileSavingFile() {
+                alert("Error Saving Job. Please contact support - ${data}\n We will attempt to save the text contents to your clipboard if there is any");
+                tinyMCE.activeEditor.selection.select(tinyMCE.activeEditor.getBody());
+                tinyMCE.activeEditor.execCommand( "Copy" );
+
+
+                clear();
+                // loadingTitle.text("Done");
+                // loadingSub.text("Job " + job_id + " data updated successfully.");
+                // loadingConfirmBtn.css('display', '');
+                loading.style.display = "none";
             }
 
         }

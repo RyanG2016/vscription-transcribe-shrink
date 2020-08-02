@@ -21,6 +21,7 @@ var orangeColor = "#f78d2d";
 var versionCheck = "vCheck-"; // DONOT MODIFY
 const welcomeName = "welcome-"; // DONOT MODIFY
 var backend_url = "data/parts/backend_request.php";
+var files_api = "../api/v1/files/";
 var wsocket;
 var jobPickerWindow;
 
@@ -220,22 +221,38 @@ $(document).ready(function () {
             loading.style.display = "block";
 
 
-            //Get job details form DB
-
-            var a1 = {
-                file_id: currentFileID
-            };
-
-            // form submitted get job details
-            $.post("data/parts/backend_request.php", {
-                reqcode: 11,
-                args: JSON.stringify(a1)
-            }).done(function (data) {
-                prepareDemos(data);
+            $.ajax({
+                type: 'GET',
+                url: files_api + currentFileID,
+                processData: false,
+                success: function (response) {
+                    // var test = response;
+                    if(response.length != 0) {
+                        prepareDemos(response[0]);
+                    }else{
+                        errorWhileSavingFile();
+                    }
+                },
+                error: function (err) {
+                    $.confirm({
+                        title: 'Error',
+                        content: err.responseJSON["msg"],
+                        buttons: {
+                            confirm: {
+                                btnClass: 'btn-red',
+                                action: function () {
+                                    errorWhileSavingFile();
+                                    return true;
+                                }
+                            }
+                        }
+                    });
+                }
             });
 
             function prepareDemos(data) {
-                var jobDetails = JSON.parse(data);
+                // var jobDetails = JSON.parse(data);
+                var jobDetails = data;
                 // Get demographics to update job with
 
                 // var jobLengthSecsRaw = jobDetails.audio_length;
@@ -310,19 +327,23 @@ $(document).ready(function () {
 
                             } else {
 
-                                alert("Error Saving Job. Please contact support - ${data}\n We will attempt to save the text contents to your clipboard if there is any");
-                                // tinyMCE.activeEditor.selection.select(tinyMCE.activeEditor.getBody());
-                                // tinyMCE.activeEditor.execCommand("Copy");
-
-
-                                clear();
-                                // loadingTitle.text("Done");
-                                // loadingSub.text("Job " + job_id + " data updated successfully.");
-                                // loadingConfirmBtn.css('display', '');
-                                loading.style.display = "none";
+                                errorWhileSavingFile();
                             }
                         })
                 });
+            }
+
+            function errorWhileSavingFile() {
+                alert("Error Saving Job. Please contact support - ${data}\n We will attempt to save the text contents to your clipboard if there is any");
+                tinyMCE.activeEditor.selection.select(tinyMCE.activeEditor.getBody());
+                tinyMCE.activeEditor.execCommand( "Copy" );
+
+
+                clear();
+                // loadingTitle.text("Done");
+                // loadingSub.text("Job " + job_id + " data updated successfully.");
+                // loadingConfirmBtn.css('display', '');
+                loading.style.display = "none";
             }
 
         }
