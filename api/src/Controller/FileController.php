@@ -229,6 +229,7 @@ class FileController
 
                 $getID3 = new \getID3;
                 $fileInfo = $getID3->analyze($file_tmp);
+                $org_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION)); // dss audio length check - working with DSS & DS2
                 $file_duration = (int)ceil(@$fileInfo['playtime_seconds']);
 
                 //Building demographic array for DB insert function call
@@ -246,7 +247,8 @@ class FileController
                     $uf1,
                     $uf2,
                     $uf3,
-                    $acc_id
+                    $acc_id,
+                    $org_ext
                 );
 
                 $uplSuccess = move_uploaded_file($file_tmp, $file);

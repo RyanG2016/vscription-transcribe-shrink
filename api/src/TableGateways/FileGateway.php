@@ -6,6 +6,7 @@ use PDO;
 use PDOException;
 
 require "filesFilter.php";
+require_once "common.php";
 
 class FileGateway
 {
@@ -28,7 +29,7 @@ class FileGateway
 
         $statement = "
             SELECT 
-                file_id, job_id, acc_id, file_type, original_audio_type, filename, tmp_name, orig_filename, file_author,
+                file_id, job_id, acc_id, file_type, org_ext, filename, tmp_name, orig_filename, file_author,
                    file_work_type,file_comment, file_speaker_type, file_date_dict, file_status,audio_length,
                    last_audio_position, job_uploaded_by, job_upload_date, job_transcribed_by, text_downloaded_date,                  
                    times_text_downloaded_date, job_transcribed_by, file_transcribed_date, typist_comments,isBillable,
@@ -70,7 +71,7 @@ class FileGateway
 
         $statement = "
             SELECT 
-                file_id, job_id, acc_id, file_type, original_audio_type, filename, tmp_name, orig_filename, file_author, file_work_type,file_comment,
+                file_id, job_id, acc_id, file_type, org_ext, filename, tmp_name, orig_filename, file_author, file_work_type,file_comment,
                    file_speaker_type, file_date_dict, file_status,audio_length, last_audio_position, job_uploaded_by, text_downloaded_date,
                    job_document_html, job_document_rtf,                  
                    times_text_downloaded_date, job_transcribed_by, file_transcribed_date, typist_comments,isBillable,
@@ -161,7 +162,14 @@ class FileGateway
         $user_field_2 = $input[11];
         $user_field_3 = $input[12];
         $acc_id = $input[13];
+        $org_ext = $input[14];
         $uploadedBy = $_SESSION['uEmail'];
+
+        $file_status = 0;
+        if($org_ext == "dss" || $org_ext == "ds2")
+        {
+            $file_status = 8; // Queued for conversion
+        }
 
         $jobPrefix = $this->getAccountPrefix($acc_id);
         if(!$jobPrefix)
@@ -189,10 +197,12 @@ class FileGateway
                              audio_length,
                              user_field_1,
                              user_field_2,
-                             user_field_3
+                             user_field_3,
+                             org_ext,
+                             file_status
                              ) 
                          VALUES 
-                                (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                                (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?, ?)";
 
         try {
             $statement = $this->db->prepare($statement);
@@ -211,11 +221,19 @@ class FileGateway
                     $file_duration,
                     $user_field_1,
                     $user_field_2,
-                    $user_field_3
+                    $user_field_3,
+                    $org_ext,
+                    $file_status
                 )
             );
 
             if($statement->rowCount()){
+                $file_id = $this->db->lastInsertId();
+                if($file_status == 8){
+                    // Queued for conversion - insert queue entry using curl
+                     vtexCurlPost(getenv("BASE_LINK").'/api/v1/conversions/'.$file_id); // should be sufficient
+                }
+
                 $statement = "UPDATE accounts SET next_job_tally=next_job_tally+1 where acc_id = ".$acc_id;
 
                             try {

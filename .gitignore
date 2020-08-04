@@ -9,3 +9,4 @@
 test*
 uploads
 api/.env
+api/src/Controller/conversionCron.php

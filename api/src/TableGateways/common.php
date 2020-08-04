@@ -23,3 +23,88 @@ function generateResponse($data, $error, $empty=false)
     );
     return json_encode($a);
 }
+
+function vtexCurlGet($url){
+
+    $curl = curl_init();
+    // Set some options - we are passing in a useragent too here
+    curl_setopt_array($curl, [
+        CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_URL => $url,
+            // getenv("BASE_LINK").'/api/v1/conversions'
+            // CURLOPT_URL => 'https://pro.vtex/api/v1/conversions',
+        CURLOPT_USERAGENT => 'Files API',
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_MAXREDIRS => 2,
+        //    CURLOPT_COOKIESESSION => false
+        //    CURLOPT_COOKIE => $strCookie,
+        CURLOPT_HTTPHEADER => array(
+            'Content-Type: application/json'
+        )
+    ]);
+
+    // todo disable for production the 2 lines below
+    curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+
+
+    // Send the request & save response to $resp
+    $resp = curl_exec($curl);
+    // Close request to clear up some resources
+    curl_close($curl);
+
+    $jsonArrayResponse = json_decode($resp, true);
+//    print_r($jsonArrayResponse);
+    return $jsonArrayResponse["error"];
+}
+
+
+function vtexCurlPost($url, $postRequestArray = null){
+
+    /*$postRequest = array(
+        'firstFieldData' => 'foo',
+        'secondFieldData' => 'bar'
+    );*/
+
+    $curl = curl_init();
+
+    // Set some options - we are passing in a useragent too here
+    curl_setopt_array($curl, [
+        CURLOPT_RETURNTRANSFER => 1,
+        CURLOPT_URL => $url,
+        CURLOPT_POSTFIELDS => $postRequestArray,
+            // getenv("BASE_LINK").'/api/v1/conversions'
+            // CURLOPT_URL => 'https://pro.vtex/api/v1/conversions',
+        CURLOPT_USERAGENT => 'Files API',
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_MAXREDIRS => 2,
+        //    CURLOPT_COOKIESESSION => false
+        //    CURLOPT_COOKIE => $strCookie,
+        CURLOPT_HTTPHEADER => array(
+            'Content-Type: application/json'
+        )
+    ]);
+
+    // todo disable for production the 2 lines below
+    curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+
+
+    // Send the request & save response to $resp
+    $resp = curl_exec($curl);
+    // Close request to clear up some resources
+    curl_close($curl);
+
+    $jsonArrayResponse = json_decode($resp, true);
+
+    /*
+     * Array
+        (
+            [msg] => Convert Record Created
+            [error] =>
+        )
+    */
+
+    return $jsonArrayResponse["error"];
+//    print_r($jsonArrayResponse);
+}
