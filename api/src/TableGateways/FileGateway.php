@@ -256,6 +256,34 @@ class FileGateway
 
     }
 
+    // used in conversionCronJob
+    public function directUpdateFileStatus($file_id ,$new_status){
+        $statement = "UPDATE files
+            SET file_status = ?
+            WHERE file_id = ?
+        ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array(
+                $new_status,
+                $file_id
+            ));
+
+            if ($statement->rowCount()) {
+                return true;
+//                return $this->formatResult("Convert Record Updated", false);
+            } else {
+                return false;
+//                return $this->formatResult("Failed to update convert record", true);
+            }
+//            return $statement->rowCount();
+        } catch (\PDOException $e) {
+            return false;
+//            return $this->formatResult("Failed to update convert record (2)", true);
+        }
+    }
+
     public function delete($id)
     {
         $statement = "

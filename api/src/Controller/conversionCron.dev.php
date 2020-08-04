@@ -6,9 +6,12 @@ require "$rootDir\api\bootstrap.php";
 require "$rootDir\api\src\TableGateways\common.php";
 //require '../../bootstrap.php';
 use Src\TableGateways\conversionGateway;
+use Src\TableGateways\FileGateway;
 
 global $conversionsGateway;
+global $fileGateway;
 $conversionsGateway = new conversionGateway($dbConnection);
+$fileGateway = new FileGateway($dbConnection);
 
 global $uploadsDir;
 global $switchPath;
@@ -74,8 +77,9 @@ function convertDssToMp3($fileName)
     global $plainName;
     global $orgFile;
     global $orgFileSize;
-    global $conversionsGateway;
     global $file_id;
+    global $conversionsGateway;
+    global $fileGateway;
 
 //    $command = "'$switchPath' -convert '$uploadsDir\out\\$fileName' -settempfolder '$uploadsDir\out\\tmp\' -format .mp3 -overwrite ALWAYS -hide -exit";
     $command = "'$switchPath' -convert '$orgFile' -format $conv_ext -overwrite ALWAYS -hide -exit";
@@ -119,6 +123,7 @@ function convertDssToMp3($fileName)
                         echo "File converted successfully to " . $conv_ext . "\n";
 
                         $conversionsGateway->updateConversionStatusFromParam($file_id ,1);
+                        $fileGateway->directUpdateFileStatus($file_id ,0);
 
                     }else{
                         // partial conversion - fail
