@@ -2,7 +2,7 @@
 
 namespace Src\TableGateways;
 
-require "filters/conversionFilter.php";
+//require "filters/conversionFilter.php";
 
 class conversionGateway
 {
