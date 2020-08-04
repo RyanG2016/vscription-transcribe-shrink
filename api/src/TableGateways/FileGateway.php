@@ -257,9 +257,9 @@ class FileGateway
     }
 
     // used in conversionCronJob
-    public function directUpdateFileStatus($file_id ,$new_status){
+    public function directUpdateFileStatus($file_id ,$new_status, $newName){
         $statement = "UPDATE files
-            SET file_status = ?
+            SET file_status = ?, filename = ?
             WHERE file_id = ?
         ";
 
@@ -267,6 +267,7 @@ class FileGateway
             $statement = $this->db->prepare($statement);
             $statement->execute(array(
                 $new_status,
+                $newName,
                 $file_id
             ));
 

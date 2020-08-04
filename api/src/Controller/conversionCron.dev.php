@@ -123,7 +123,7 @@ function convertDssToMp3($fileName)
                         echo "File converted successfully to " . $conv_ext . "\n";
 
                         $conversionsGateway->updateConversionStatusFromParam($file_id ,1);
-                        $fileGateway->directUpdateFileStatus($file_id ,0);
+                        $fileGateway->directUpdateFileStatus($file_id ,0, $plainName.$conv_ext);
 
                     }else{
                         // partial conversion - fail
