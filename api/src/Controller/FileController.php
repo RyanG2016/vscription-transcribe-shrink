@@ -208,8 +208,16 @@ class FileController
                 $file_size = $fileItem['size'];
                 $file_real_mime_type = mime_content_type($file_tmp);
 
+                $jobPrefix = $this->fileGateway->getAccountPrefix($acc_id);
+                if(!$jobPrefix)
+                {
+                    // die("couldn't get job prefix");
+                    $uploadMsg[] = $this->formatFileResult($file_name, "couldn't retrieve account prefix", true);
+                    unlink($file_tmp); // delete the tmp file.
+                    continue;
+                }
                 // enumerating file names
-                $enumName = "F" . $nextFileID . "_UM" . $nextJobNum . "_" . str_replace(" ", "_", $file_name);
+                $enumName = "F" . $nextFileID . "_" . str_replace("-", "", $jobPrefix) . $nextJobNum . "_" . str_replace(" ", "_", $file_name);
                 $orig_filename = $file_name;
                 $file_name = $enumName;
                 $file = $path . $file_name;
