@@ -82,7 +82,7 @@ function convertDssToMp3($fileName)
     global $fileGateway;
 
 //    $command = "'$switchPath' -convert '$uploadsDir\out\\$fileName' -settempfolder '$uploadsDir\out\\tmp\' -format .mp3 -overwrite ALWAYS -hide -exit";
-    $command = "'$switchPath' -convert '$orgFile' -format $conv_ext -overwrite ALWAYS -hide -exit";
+    $command = "'$switchPath' -convert '$orgFile' -outfolder '$uploadsDir' -format $conv_ext -overwrite ALWAYS -hide -exit";
 
     $taskName = "_" . $fileName . "_" . time();
     escapeshellarg($command);
