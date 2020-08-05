@@ -35,7 +35,7 @@ class conversionController
                 }
 
                 break;
-            case 'POST':
+            /*case 'POST':
 
                 if ($this->conversionsId) {
                     if(sizeof($_POST) > 0)
@@ -51,7 +51,7 @@ class conversionController
                 } else {
                     $response = $this->notFoundResponse();
                 }
-                break;
+                break;*/
 //            case 'PUT':
 //                $response = $this->updateconversionsFromRequest($this->conversionsId);
 //                break;

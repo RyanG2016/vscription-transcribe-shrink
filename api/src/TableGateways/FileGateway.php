@@ -4,6 +4,7 @@ namespace Src\TableGateways;
 
 use PDO;
 use PDOException;
+use Src\TableGateways\conversionGateway;
 
 require "filesFilter.php";
 require_once "common.php";
@@ -12,10 +13,12 @@ class FileGateway
 {
 
     private $db;
+    private $conversionsGateway;
 
     public function __construct($db)
     {
         $this->db = $db;
+        $this->conversionsGateway = new conversionGateway($db);
     }
 
 //        $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
@@ -231,7 +234,8 @@ class FileGateway
                 $file_id = $this->db->lastInsertId();
                 if($file_status == 8){
                     // Queued for conversion - insert queue entry using curl
-                     vtexCurlPost(getenv("BASE_LINK").'/api/v1/conversions/'.$file_id); // should be sufficient
+//                     vtexCurlPost(getenv("BASE_LINK").'/api/v1/conversions/'.$file_id); // should be sufficient
+                    $this->conversionsGateway->insertNewConversion($file_id);
                 }
 
                 $statement = "UPDATE accounts SET next_job_tally=next_job_tally+1 where acc_id = ".$acc_id;
