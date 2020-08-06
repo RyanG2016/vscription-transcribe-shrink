@@ -61,7 +61,8 @@ while ($start) {
 
         convertDssToMp3($fileName);
     }else{
-        vtexEcho("nothing to convert.. waiting\n");
+//        vtexEcho("nothing to convert.. waiting\n");
+        echo "nothing to convert.. waiting\n";
     }
 
 //    exit();
