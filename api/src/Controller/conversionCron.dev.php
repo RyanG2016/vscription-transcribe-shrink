@@ -22,6 +22,13 @@ global $orgFile;
 global $orgFileSize;
 global $retries;
 global $file_id;
+
+// switch process status vars //
+global $firstCheckPass;
+global $kill_pattern;
+$kill_pattern = '~(switch)\.exe~i';
+$firstCheckPass = false;
+
 $uploadsDir = "$rootDir\uploads";
 
 //$word = new com("IDPMControl.Initialize") or die("Unable to instantiate Word");
@@ -38,7 +45,7 @@ while ($start) {
     {
         $retries = 0;
         $fileEntry = $fileEntry[0];
-        print_r($fileEntry);
+//        print_r($fileEntry);
         $fileName = $fileEntry["filename"];
         $org_ext = $fileEntry["org_ext"];
         $orgFile = $uploadsDir . "\\". $fileName;
@@ -54,7 +61,7 @@ while ($start) {
 
         convertDssToMp3($fileName);
     }else{
-        echo "nothing to convert.. waiting\n";
+        vtexEcho("nothing to convert.. waiting\n");
     }
 
 //    exit();
@@ -64,8 +71,7 @@ while ($start) {
 
 convertDssToMp3($fileName);
 
-echo "\n";
-echo "\n";
+vtexEcho("\n\n");
 
 function convertDssToMp3($fileName)
 {
@@ -86,72 +92,69 @@ function convertDssToMp3($fileName)
 
     $taskName = "_" . $fileName . "_" . time();
     escapeshellarg($command);
-    echo shell_exec('SCHTASKS /F /Create /TN '.$taskName.' /TR "'.$command.'" /SC MONTHLY /RU INTERACTIVE');
+    vtexEcho(shell_exec('SCHTASKS /F /Create /TN '.$taskName.' /TR "'.$command.'" /SC MONTHLY /RU INTERACTIVE'));
     addSpace();
-    echo shell_exec('SCHTASKS /RUN /TN "'.$taskName.'"');
+    vtexEcho(shell_exec('SCHTASKS /RUN /TN "'.$taskName.'"'));
     addSpace();
 
     // lets start checking for status for this job
-    echo " -- Start checking job completion status -- ";
+    vtexEcho(" -- Monitoring convert status -- \n");
 
-    $statusCommand = "schtasks.exe /query  /tn \"$taskName\"";
+//    $statusCommand = "schtasks.exe /query  /tn \"$taskName\"";
     $checking = true;
+    $convertStartTime = time();
     while ($checking) {
 
-        sleep(2); // check convert progress intervals of 2 seconds
-        $result = exec($statusCommand, $output, $return_var);
-//        echo $result;
         echo "\n";
-        preg_match('/ (\w+$)/', $result, $output_array);
-        $status = $output_array[1];
-        echo "Status = " . $status; // Ready or Running - else should error out
-        echo "\n";
-        switch($status){
-            case "Ready":
-                // conversion done or failed
-                // check for converted file existence and logical size
+        sleep(5); // check convert progress intervals of 5 seconds
+        $switchDone = checkSwitchDone();
 
-                $convertedFile = $uploadsDir . "\\" . $plainName.$conv_ext;
-                $convertedFileExists = file_exists($convertedFile);
-                echo "File Exists = " . $convertedFileExists . "\n";
-                if($convertedFileExists)
-                {
-                    // check logical size
-                    if(filesize($convertedFile) > $orgFileSize)
-                    {
-                        // conversion OK
-                        echo "File converted successfully to " . $conv_ext . "\n";
+        if($switchDone) {
 
-                        $conversionsGateway->updateConversionStatusFromParam($file_id ,1);
-                        $fileGateway->directUpdateFileStatus($file_id ,0, $plainName.$conv_ext);
+            // conversion done or failed
+            // check for converted file existence and logical size
 
-                    }else{
-                        // partial conversion - fail
-                        // delete it and set as failed
-                        unlink($convertedFile);
-                        retryConvert();
-                    }
-                } else{
-                    // conversion failed
+            $convertedFile = $uploadsDir . "\\" . $plainName . $conv_ext;
+            $convertedFileExists = file_exists($convertedFile);
+            vtexEcho("File Exists = " . $convertedFileExists . "\n");
+            if ($convertedFileExists) {
+                // check logical size
+                if (filesize($convertedFile) > $orgFileSize) {
+                    // conversion OK
+
+                    vtexEcho("File converted successfully to " . $conv_ext . "\n");
+
+                    $diff = time() - $convertStartTime;
+                    vtexEcho("Finish time: " . $diff . " secs\n" );
+                    vtexEcho("Finish time: ".formatSecs($diff)." \n" );
+
+                    $conversionsGateway->updateConversionStatusFromParam($file_id, 1);
+                    $fileGateway->directUpdateFileStatus($file_id, 0, $plainName . $conv_ext);
+
+                } else {
+                    // partial conversion - fail
+                    // delete it and set as failed
+                    unlink($convertedFile);
                     retryConvert();
                 }
+            } else {
+                // conversion failed
+                retryConvert();
+            }
 
-                // Delete the scheduled task for this file
-                echo "Deleting Job Queue Entry \n";
-                echo shell_exec('SCHTASKS /DELETE /TN "'.$taskName.'" /F');
-                $checking = false;
-                break;
+            // Delete the scheduled task for this file
+            vtexEcho("Deleting Job Queue Entry \n");
+            vtexEcho( shell_exec('SCHTASKS /DELETE /TN "' . $taskName . '" /F') );
+            $checking = false;
 
-            case "Running":
-                // still converting
-                echo "Conversion in progress for file: " . $fileName;
-                echo "\n";
-                break;
-
-            default:
-                echo "Unexpected response recieved - conversion failed";
-                $checking = false;
-                break;
+            addSpace();
+        }else{
+            // still converting
+//            vtexEcho("==> X Switch is still running..\n");
+            $diff = time() - $convertStartTime;
+            vtexEcho("File: ($file_id) - " . $fileName . "\n");
+            vtexEcho("Elapsed time: " . $diff . " secs\n" );
+            vtexEcho("Elapsed time: ".formatSecs($diff)." \n" );
         }
 
         /*0  State = 'Unknown'
@@ -167,7 +170,79 @@ function convertDssToMp3($fileName)
 //    addSpace();
 }
 
-//_exec("youexe.exe");
+/** This function checks if switch.exe is still running or not
+ * @return true if switch has closed == completed.
+ * @return false if switch is still running == converting.
+ */
+function checkSwitchDone()
+{
+//    global  $task_list;
+    global $firstCheckPass;
+    global $kill_pattern;
+
+    $task_list = array();
+    exec("tasklist 2>NUL", $task_list);
+
+    $switchFound = false;
+    foreach ($task_list AS $task_line)
+    {
+        if (preg_match($kill_pattern, $task_line, $out))
+        {
+            vtexEcho("=> Detected: ".$out[1]." - file convert in progress..\n");
+//            $switchFound = true;
+            return false;
+//        exec("taskkill /F /IM ".$out[1].".exe 2>NUL");
+        }
+    }
+    if(!$switchFound)
+    {
+        if(!$firstCheckPass){
+            vtexEcho("=> Conversion may be completed.\n");
+            vtexEcho("Checking again in (5)\n");
+            sleep(1);
+            vtexEcho("Checking again in (4)\n");
+            sleep(1);
+            vtexEcho("Checking again in (3)\n");
+            sleep(1);
+            vtexEcho("Checking again in (2)\n");
+            sleep(1);
+            vtexEcho("Checking again in (1)\n");
+            sleep(1);
+            $firstCheckPass = true;
+            return checkSwitchDone();
+        }else{
+            vtexEcho("=> NCH convert completed.\n");
+            $firstCheckPass = false;
+            return true;
+        }
+    }
+}
+
+function vtexEcho($msg){
+    global $rootDir;
+    $mainLog = "$rootDir\\convert.log";
+    $oldLog = "$rootDir\\convert.old.log";
+
+    $date = new DateTime();
+    $date = $date->format("y:m:d h:i:s");
+    $str = "[$date]: $msg";
+    echo $str;
+
+    if(file_exists($mainLog))
+    {
+        if(filesize($mainLog) > 5000000) // 5MB
+        {
+            if(file_exists($oldLog))
+            {
+                unlink($oldLog);
+            }
+            rename($mainLog, $oldLog);
+        }
+    }
+
+    file_put_contents($mainLog, $str.PHP_EOL , FILE_APPEND | LOCK_EX);
+}
+
 function retryConvert(){
     global $conversionsGateway;
     global $retries;
@@ -175,20 +250,24 @@ function retryConvert(){
     global $file_id;
 
     if($retries >= 2){
-        echo "Failed to convert file\n";
+        vtexEcho("Failed to convert file\n");
         $conversionsGateway->updateConversionStatusFromParam($file_id ,3);
     }
     else{
-        echo "Conversion failed - retrying ($retries)";
+        vtexEcho("Conversion failed - retrying ($retries)");
         addSpace();
         $retries++;
         convertDssToMp3($fileName);
     }
 }
+
+function formatSecs($seconds) {
+    $t = round($seconds);
+    return sprintf('%02d:%02d:%02d', ($t/3600),($t/60%60), $t%60);
+}
+
 function addSpace(){
-    echo "\n";
-    echo "\n";
-    echo "--------------------------------";
-    echo "\n";
-    echo "\n";
+    echo "\n\n";
+    vtexEcho("--------------------------------");
+    echo "\n\n";
 }
