@@ -202,17 +202,6 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
                                                     </div>
                                                 </div>
                                             </div>
-<!--                                        </div>-->
-                                        <script type="text/javascript">
-                                            $(function () {
-                                                $('#dictdatetime').datetimepicker();
-                                            });
-                                        </script>
-<!--                                    </div>-->
-<!--                                </div>-->
-
-
-
 
                                 <div class="form-group">
                                     <label for="demo_speaker_type">Speaker Type</label>

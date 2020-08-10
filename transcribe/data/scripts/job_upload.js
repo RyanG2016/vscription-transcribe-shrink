@@ -17,7 +17,8 @@ function documentReady() {
 	// const process_files_url = 'process.php';
 	const backend_url = 'data/parts/backend_request.php';
 	const api_insert_url = 'api/v1/files/';
-	const form = document.querySelector('form');
+
+	$('#dictdatetime').datetimepicker({format: "DD-MMM-YYYY hh:mm:ss A"});
 
 	new mdc.ripple.MDCRipple(document.querySelector('.clear_btn'));
 	new mdc.ripple.MDCRipple(document.querySelector('.upload_btn_lbl'));
