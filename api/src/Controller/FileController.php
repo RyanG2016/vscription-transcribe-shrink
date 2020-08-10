@@ -141,8 +141,7 @@ class FileController
             $uf2 = isset($_POST["user_field_2"]) ? $_POST["user_field_2"] : null;
             $uf3 = isset($_POST["user_field_3"]) ? $_POST["user_field_3"] : null;
 
-            $dictDate = $this->validateAndReturnDate($dictDate);
-            if (!$dictDate) {
+            if (!$this->validateAndReturnDate($dictDate)) {
                 return $this->errorOccurredResponse("invalid date format.");
             }
 
@@ -402,13 +401,32 @@ class FileController
 
     private function validateAndReturnDate($date)
     {
-        // (accepted format: yyyy-mm-dd)
+        // (accepted format: yyyy-mm-dd hh:mm:ss)
+//        $dateArr = explode("-", $date);
+        $dateTimeArr = explode(" ", $date);
+        // Date check
+        $date = $dateTimeArr[0];
         $dateArr = explode("-", $date);
-        if (sizeof($dateArr) == 3 && checkdate($dateArr[1], $dateArr[2], $dateArr[0])) {
-            return $dateArr[0] . "-" . $dateArr[1] . "-" . $dateArr[2];
-        } else {
+        //                                             |> month - day - year
+        $dateValid = sizeof($dateArr) == 3 && checkdate($dateArr[1], $dateArr[2], $dateArr[0]);
+
+        if(sizeof($dateTimeArr) == 1)
+        {
+            // date only passed
+            return true;
+        }
+        else if(sizeof($dateTimeArr) > 2){
             return false;
         }
+
+        // Time check
+        $time = $dateTimeArr[1];
+        $timeArr = explode(":", $time);
+        $timeValid = sizeof($timeArr) == 3 &&
+            $timeArr[0] >= 0 && $timeArr[1] >= 0 && $timeArr[2] >= 0 &&  // not negative
+            $timeArr[0] < 24 && $timeArr[1] < 60 && $timeArr[2] < 60;
+
+        return $timeValid && $dateValid;
 
     }
 

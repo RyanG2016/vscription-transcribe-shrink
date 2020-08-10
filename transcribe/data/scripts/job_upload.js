@@ -100,16 +100,26 @@ function documentReady() {
 		location.href = 'main.php';
 	});
 
+// Fetch all the forms we want to apply custom Bootstrap validation styles to
+	var forms = document.getElementsByClassName('needs-validation');
+	// Loop over them and prevent submission
+
+
 	// progress timer
 	var timer;
+	var uploadForm =  $("#upload_form");
+	$("#datetimepicker5").datetimepicker();
 
-	$("#upload_form").on('submit', function (event) {
+
+	uploadForm.on('submit', function (event) {
 		event.preventDefault();
 
-		if (validateFields()) {
-			modal.style.display = "block"; // show the upload progress window
+		uploadForm.addClass('was-validated');
+		// uploadForm.addClass('was-validated');
 
-			event.preventDefault();
+		// if (validateFields()) {
+			if (uploadForm[0].checkValidity() === true) {
+			modal.style.display = "block"; // show the upload progress window
 			let formData = new FormData();
 			let files = filesArr;
 			let other_data = $("#upload_form").serializeArray();
@@ -129,7 +139,8 @@ function documentReady() {
 
 			formData.append("authorName", $('.demo_author').val());
 			formData.append("jobType", $("#demo_job_type option:selected").html());
-			formData.append("dictDate", $('.demo_dictdate').val());
+			formData.append("dictDate", $('#dictdatetime').datetimepicker('viewDate').format("YYYY-MM-DD HH:mm:ss"));
+			// formData.append("dictDate", $('.demo_dictdate').val());
 			formData.append("speakerType", $("#demo_speaker_type").val());
 			if($('#demo_comments').val() !== "")
 			{
@@ -218,7 +229,8 @@ function documentReady() {
 			// MOVE CODE HERE //
 		}
 		else {
-			alert("Please fill in required fields");
+			event.stopPropagation();
+			// alert("Please fill in required fields");
 		}
 	});
 
@@ -642,21 +654,22 @@ function documentReady() {
 		document.querySelector('.clear_btn').setAttribute("disabled", "true");
 		$('.demo_author').val("");
 		$("#demo_job_type option:selected").html();
-		$('.demo_dictdate').val("yyyy-mm-dd");
+		$('#dictdatetime').datetimepicker('clear');
 		$("#demo_speaker_type").val(0);
 		$('#demo_comments').val("");		
 	}
 }
 
 /////////////////////////////////////////
-function validateFields() {
+/*function validateFields() {
 			var passed = 1;
 			if ($('.demo_author').val() === ""){
 				document.querySelector('.demo_author').style.backgroundColor = '#eec5c9';
 				passed = 0;
 			}
-			if ($('.demo_dictdate').val() === ""){
-				document.querySelector('.demo_dictdate').style.backgroundColor = '#eec5c9';
+
+			if ( $('#dictdatetimeTxt').val() === ""){
+				document.querySelector('.dictdatetimeTxt').style.backgroundColor = '#eec5c9';
 				passed = 0;
 			}
 			var selOpt = document.getElementById('demo_speaker_type');
@@ -665,9 +678,10 @@ function validateFields() {
 				document.querySelector('#demo_speaker_type').style.backgroundColor = '#eec5c9';
 				passed = 0;
 			}
-
+			// todo remove
+	passed = 0;
 			return passed === 1;
-}
+}*/
 
 document.addEventListener("DOMContentLoaded", documentReady);
 document.addEventListener('beforeunload', function(event) {

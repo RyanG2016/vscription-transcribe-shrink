@@ -31,18 +31,27 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
         <meta http-equiv="refresh" content="0;url=noscript.php">
     </noscript>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/png" href="data/images/favicon.png"/>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
+
+    <script src="https://kit.fontawesome.com/00895b9561.js" crossorigin="anonymous"></script>
+
+
     <script src="data/scripts/job_upload.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,300&display=swap"
-          rel="stylesheet">
     <link rel="stylesheet" href="data/css/upload_form.css">
     <link rel="stylesheet" href="data/css/job_upload.css">
 
     <title>vScription Transcribe Pro Dictation Upload</title>
-    <link rel="shortcut icon" type="image/png" href="data/images/favicon.png"/>
+
     <link href='data/css/upload_form2.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet'/>
-    <script src="https://kit.fontawesome.com/00895b9561.js" crossorigin="anonymous"></script>
 
     <!--  MDC Components  -->
     <link href="data/libs/node_modules/material-components-web/dist/material-components-web.css" rel="stylesheet">
@@ -50,23 +59,8 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
     <script src="data/libs/node_modules/material-components-web/dist/material-components-web.js"></script>
     <script src="data/libs/node_modules/@material/textfield/dist/mdc.textfield.js"></script>
 
-<!--    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">-->
-<!--    <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">-->
-
-    <!--	Font 	-->
-    <!--	<link href="https://fonts.googleapis.com/css?family=Oxygen&display=swap" rel="stylesheet">-->
-    <!--	<link href="https://fonts.googleapis.com/css?family=Oxygen&display=swap" rel="stylesheet">-->
-
-    <link rel="stylesheet" href="data/main/jquery-ui.css">
-    <script src="data/main/jquery.js"></script>
-    <script src="data/main/garlic.js"></script>
-    <script src="data/main/jquery-ui.js"></script>
-
     <!--	Scroll Bar Dependencies    -->
-
     <script src="data/scrollbar/jquery.nicescroll.js"></script>
-    <!--	///// End of scrollbar depdns   /////-->
-
 
     <link rel="stylesheet" href="data/dialogues/jquery-confirm.min.css">
     <script src="data/dialogues/jquery-confirm.min.js"></script>
@@ -81,9 +75,6 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
         <table id="header-tbl">
             <tr>
                 <td id="navbtn" align="left" colspan="1">
-                    <!--                        Logged in as: --><?php //echo $_SESSION['uEmail']?><!-- |-->
-                    <!--                    </div>-->
-
                     <a class="logout" href="main.php"><i class="fas fa-arrow-left"></i> Go back to job list</a>
                 </td>
 
@@ -116,6 +107,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
 
         <div class="grid-wrapper">
 
+            <form class="upload needs-validation" id="upload_form" method="post" enctype="multipart/form-data" novalidate>
             <table width="100%" class="data-tbl">
 
                 <tr>
@@ -131,8 +123,6 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
                             </ul>
                         </div>
                         <div class="box box5">
-                            <form class="upload" id="upload_form" method="post" enctype="multipart/form-data">
-                                <!--                                <label for="upload_btn">Choose Files to Upload (wav, mp3, dss, ds2, ogg)</label>-->
 
                                 <label class="mdc-button mdc-button--unelevated upload_btn_lbl" for="upload_btn">
                                     <div class="mdc-button__ripple"></div>
@@ -142,9 +132,6 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
                                     <span class="mdc-button__label">Choose Files to Upload (wav, mp3, dss, ds2, ogg)</span>
                                 </label>
 
-
-                                <!--                                <input type="button" class="clear_btn" value="Clear Files" name="Clear" enabled />-->
-                                <!--                                <br>-->
                                 <button class="mdc-button mdc-button--unelevated foo-button clear_btn" disabled>
                                     <div class="mdc-button__ripple"></div>
                                     <i class="material-icons mdc-button__icon" aria-hidden="true"
@@ -166,8 +153,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
                                        accept=".wav, .mp3, .dss, .ds2, .ogg" multiple/>
 
                                 <input type="hidden" name="<?php echo ini_get("session.upload_progress.name"); ?>" value="job_upload"/>
-                                <!--                                <input class="submit_btn" type="submit" value="Upload File(s)" name="Upload" disabled />-->
-                            </form>
+
                         </div>
                         <div class="box box6">
                             <h3>Selected Files:</h3>
@@ -183,55 +169,88 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
                             <h3>Upload demographics</h3>
                             <div class="upload_fields">
 
-                                <label for="demo_author" class="job_upload_form_lbl">Author Name</label>
-                                <input class="demo_author" type="text">
+                                <div class="form-group">
+                                    <label for="demo_author">Author Name</label>
+                                    <input type="text" class="form-control demo_author" id="demo_author" >
+                                </div>
 
-                                <label for="demo_job_type" class="job_upload_form_lbl">Job Type</label>
-                                <select id="demo_job_type">
-                                    <option value="interview"> Interview</option>
-                                    <option value="focus_group">Focus Group</option>
-                                    <option value="notes">Notes</option>
-                                    <option value="letter">Letter</option>
-                                    <option value="other">Other</option>
-                                </select>
 
-                                <label for="demo_dictdate" class="job_upload_form_lbl">Dictated Date</label>
-                                <input class="demo_dictdate" type="date">
+                                <div class="form-group">
+                                    <label for="demo_job_type">Job Type</label>
+                                    <select class="form-control" id="demo_job_type">
+                                        <option value="interview"> Interview</option>
+                                        <option value="focus_group">Focus Group</option>
+                                        <option value="notes">Notes</option>
+                                        <option value="letter">Letter</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
 
-                                <label for="demo_speaker_type" class="job_upload_form_lbl">Speaker Type</label>
-                                <select id="demo_speaker_type">
-                                    <option value="0">--Please Select--</option>
-                                    <option value="1">Single Speaker</option>
-                                    <option value="2">Multiple Speakers</option>
-                                </select>
-                                <label for="demo_comments" class="job_upload_form_lbl">Comments</label>
-                                <textarea name="demo_comments" id="demo_comments" cols="30" rows="4"></textarea>
+                                            <div class="form-group">
+                                                <label for="dictdatetime">Dictated Date</label>
+                                                <div class="input-group date" id="dictdatetime" data-target-input="nearest">
+                                                    <input type="text" class="form-control datetimepicker-input dictdatetimeTxt" id="dictdatetimeTxt" data-target="#dictdatetime" required/>
+                                                    <div class="input-group-append" data-target="#dictdatetime" data-toggle="datetimepicker">
+                                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                                    </div>
+
+                                                    <div class="valid-feedback">
+                                                        Looks good!
+                                                    </div>
+                                                    <div class="invalid-feedback">
+                                                        Please select a valid date.
+                                                    </div>
+                                                </div>
+                                            </div>
+<!--                                        </div>-->
+                                        <script type="text/javascript">
+                                            $(function () {
+                                                $('#dictdatetime').datetimepicker();
+                                            });
+                                        </script>
+<!--                                    </div>-->
+<!--                                </div>-->
+
+
+
+
+                                <div class="form-group">
+                                    <label for="demo_speaker_type">Speaker Type</label>
+                                    <select class="form-control" id="demo_speaker_type">
+                                        <option value="1">Single Speaker</option>
+                                        <option value="2">Multiple Speakers</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-row">
+
+                                    <div class="form-group col-md-4">
+                                        <label for="user_field_1">user field 1</label>
+                                        <input type="text" class="form-control user_field_1" id="user_field_1" name="user_field_1" placeholder="(optional)">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="user_field_2">user field 2</label>
+                                        <input type="text" class="form-control user_field_2" id="user_field_2" name="user_field_2" placeholder="(optional)">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="user_field_3">user field 3</label>
+                                        <input type="text" class="form-control user_field_3" id="user_field_3" name="user_field_3" placeholder="(optional)">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="demo_comments">Comments</label>
+                                    <textarea name="demo_comments" class="form-control" id="demo_comments" rows="4" placeholder="(optional)"></textarea>
+                                </div>
+
+
                             </div>
                         </div>
                     </td>
 
                 </tr>
-
-<!--                <tr>
-                    <td colspan="2" class="upload_cell">
-                        <div class="box box8">
-                            <h3 class="insert_test">Upload Messages</h3>
-                            <div class="msgs_container">
-                                <div class="upload_success_message">
-                                    <i class="fas fa-check-circle"></i>
-                                    <p>Upload(s) Successful! ...Will automatically redirect to Job List in 3 seconds
-                                    </p>
-                                </div>
-                                <div class="upload_failed_message">
-                                    <i class="fas fa-ban"></i>
-                                    <p>Upload(s) Failed. Please try again.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                </tr>-->
-
             </table>
+            </form>
 
         </div>
 
@@ -244,7 +263,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
 
     <!-- Modal content -->
     <div class="modal-content">
-        <h2>Uploading <span id="progressTxt"></span></h2>
+        <h2 style="margin-top: 20px !important;">Uploading <span id="progressTxt"></span></h2>
         <p><i>Please wait while your file(s) are being uploaded..</i></p>
 
         <div role="progressbar" class="mdc-linear-progress mdc-linear-progress--closed" aria-label="Upload Progress Bar" aria-valuemin="0" aria-valuemax="1" aria-valuenow="0">
@@ -267,17 +286,13 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
         <div class="modal-buttons">
             <button class="mdc-button mdc-button--unelevated foo-button cancel_upload" id="confirmUpload">
                 <div class="mdc-button__ripple"></div>
-                <i class="material-icons mdc-button__icon" aria-hidden="true"
-                >done_all</i
-                >
+                <i class="material-icons mdc-button__icon" aria-hidden="true">done_all</i>
                 <span class="mdc-button__label">OK</span>
             </button>
 
             <button class="mdc-button mdc-button--unelevated foo-button cancel_upload" id="cancelUpload">
                 <div class="mdc-button__ripple"></div>
-                <i class="material-icons mdc-button__icon" aria-hidden="true"
-                >clear</i
-                >
+                <i class="material-icons mdc-button__icon" aria-hidden="true">clear</i>
                 <span class="mdc-button__label">Cancel</span>
             </button>
         </div>
