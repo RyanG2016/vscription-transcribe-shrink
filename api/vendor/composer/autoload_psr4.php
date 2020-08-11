@@ -6,7 +6,10 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'malkusch\\lock\\' => array($vendorDir . '/malkusch/lock/classes'),
+    'bandwidthThrottle\\tokenBucket\\' => array($vendorDir . '/bandwidth-throttle/token-bucket/classes'),
     'Symfony\\Polyfill\\Ctype\\' => array($vendorDir . '/symfony/polyfill-ctype'),
     'Src\\' => array($baseDir . '/src'),
+    'Psr\\Log\\' => array($vendorDir . '/psr/log/Psr/Log'),
     'Dotenv\\' => array($vendorDir . '/vlucas/phpdotenv/src'),
 );
