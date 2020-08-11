@@ -149,7 +149,7 @@ function showResetPasswordForm() {
     pwdDiv.slideUp();
     loginBtn.html("Send Reset Link");
     loginBtn.removeAttr("disabled");
-    formTitle.html('Reset Password');
+    formTitle.html('Password Reset');
     remember.slideUp();
 }
 
