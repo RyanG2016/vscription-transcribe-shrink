@@ -52,7 +52,7 @@ while ($start) {
         $orgFileSize = filesize($orgFile);
         $plainName = pathinfo($fileName, PATHINFO_FILENAME);
         $file_id = $fileEntry["file_id"];
-        $fileStatus = $fileEntry["file_status"]; // todo check if 8 (Queued for conversion)
+        $fileStatus = $fileEntry["file_status"];
 
         if($fileStatus != 8)
         {
