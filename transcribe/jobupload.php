@@ -214,15 +214,15 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
                                 <div class="form-row">
 
                                     <div class="form-group col-md-4">
-                                        <label for="user_field_1">user field 1</label>
+                                        <label for="user_field_1">User Field 1</label>
                                         <input type="text" class="form-control user_field_1" id="user_field_1" name="user_field_1" placeholder="(optional)">
                                     </div>
                                     <div class="form-group col-md-4">
-                                        <label for="user_field_2">user field 2</label>
+                                        <label for="user_field_2">User Field 2</label>
                                         <input type="text" class="form-control user_field_2" id="user_field_2" name="user_field_2" placeholder="(optional)">
                                     </div>
                                     <div class="form-group col-md-4">
-                                        <label for="user_field_3">user field 3</label>
+                                        <label for="user_field_3">User Field 3</label>
                                         <input type="text" class="form-control user_field_3" id="user_field_3" name="user_field_3" placeholder="(optional)">
                                     </div>
                                 </div>
