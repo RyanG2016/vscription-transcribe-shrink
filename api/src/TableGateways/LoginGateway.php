@@ -101,7 +101,7 @@ class LoginGateway
                 }
 
             }else{
-                return array("error" => true, "msg" => "We couldnt find your account.", "code" => 404);
+                return array("error" => true, "msg" => "We couldn't find your account.", "code" => 404);
             }
 
         } catch (\PDOException $e) {

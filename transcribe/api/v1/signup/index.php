@@ -6,9 +6,6 @@ include('../../../data/parts/session_settings.php');
 
 require('../../../data/parts/ping.php');
 
-use Src\System\Throttler;
-new Throttler("login", 10, \bandwidthThrottle\tokenBucket\Rate::MINUTE);
-
 if(isset($_SESSION['loggedIn']))
 {
     header("HTTP/1.1 200 OK");
