@@ -213,8 +213,8 @@ $(document).ready(function () {
 
     jobsDT = $("#jobs-tbl");
     loadingConfirmBtn = $("#loadingConfirm");
-    loadingSub = $("#modalLoading .loadingContent p i");
-    loadingTitle = $("#modalLoading .loadingContent h2");
+    loadingSub = $("#modalLoading #loadingContent p i");
+    loadingTitle = $("#modalLoading #loadingContent h2");
 
 
     // loading.style.display = "block";
