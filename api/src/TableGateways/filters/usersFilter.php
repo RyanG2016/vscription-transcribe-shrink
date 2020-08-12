@@ -38,12 +38,14 @@ function parseParams($addWhereClause = false){
                         if(isset($value["mul"]))
                         {
                             $values = preg_split('/,/', $value["mul"], -1, PREG_SPLIT_NO_EMPTY);
+                            $filter .= "(";
                             foreach ($values as $opt)
                             {
                                 if(!$firstMatch) {$filter .= " OR ";}
                                 $filter .= "users.$key = '$opt'";
                                 $firstMatch = false;
                             }
+                            $filter .= ")";
 
                         }else{
                             unprocessableFilterResponse();
@@ -66,12 +68,14 @@ function parseParams($addWhereClause = false){
                         if(isset($value["mul"]))
                         {
                             $values = preg_split('/,/', $value["mul"], -1, PREG_SPLIT_NO_EMPTY);
+                            $filter .= "(";
                             foreach ($values as $opt)
                             {
                                 if(!$firstMatch) {$filter .= " OR ";}
                                 $filter .= "countries.$key = '$opt'";
                                 $firstMatch = false;
                             }
+                            $filter .= ")";
 
                         }else{
                             unprocessableFilterResponse();
