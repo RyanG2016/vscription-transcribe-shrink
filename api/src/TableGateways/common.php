@@ -24,6 +24,22 @@ function generateResponse($data, $error, $empty=false)
     return json_encode($a);
 }
 
+function generateApiResponse($msg=false, $error=false, $data=false)
+{
+    $a = Array(
+        'data' => $data,
+        'msg' => $msg,
+        'error' => $error
+    );
+    if(!$data){
+        $a = Array(
+            'msg' => $msg,
+            'error' => $error
+        );
+    }
+    return json_encode($a);
+}
+
 function vtexCurlGet($url){
 
     $curl = curl_init();
@@ -124,3 +140,4 @@ function random_filename($extension = '')
     }
     return $filename;
 }
+

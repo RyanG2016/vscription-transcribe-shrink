@@ -105,7 +105,8 @@ class accessGateway
     {
 
         if (strpos($acc_id, '%') !== FALSE) {
-            return $this->errorOccurredResponse("Invalid Input (5-ACG)");
+//            return $this->errorOccurredResponse("Invalid Input (5-ACG)");
+            return false;
         }
 
 
@@ -137,6 +138,58 @@ class accessGateway
                 return true;
             }else{
                 return false;
+            }
+
+        } catch (\PDOException $e) {
+//            exit($e->getMessage());
+            return false;
+        }
+    }
+
+    // used to check for user permission to access a certain acc_id
+    // returns the highest role the user has for that account or 0 if no permissions found
+    // used in FileGateway once
+    public function checkForUpdatePermission($acc_id)
+    {
+
+        if (strpos($acc_id, '%') !== FALSE) {
+//            return $this->errorOccurredResponse("Invalid Input (5-ACG)");
+            return false;
+        }
+
+
+        $statement = "
+            SELECT 
+                access.*,
+                a.acc_name,
+                r.role_name,
+                r.role_desc,
+                u.email
+            FROM
+                access
+            
+            INNER JOIN accounts a on access.acc_id = a.acc_id
+            INNER JOIN roles r on access.acc_role = r.role_id
+            INNER JOIN users u on access.uid = u.id
+            where access.uid = ?
+            AND access.acc_id = ?
+            AND access.acc_role in (1,2,3) 
+            ;";
+
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($_SESSION["uid"], $acc_id));
+            $resultAll = $statement->fetchAll(\PDO::FETCH_ASSOC);
+//            $result = $statement->fetch();
+            if($statement->rowCount() > 0) {  // user access exists
+                $highestRole = 3;
+                foreach ($resultAll as $row){
+                    if($row["acc_role"]<$highestRole) $highestRole = $row["acc_role"];
+                }
+                return $highestRole;
+            }else{
+                return 0;
             }
 
         } catch (\PDOException $e) {

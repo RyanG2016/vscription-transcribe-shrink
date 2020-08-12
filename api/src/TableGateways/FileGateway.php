@@ -5,6 +5,7 @@ namespace Src\TableGateways;
 use PDO;
 use PDOException;
 use Src\TableGateways\conversionGateway;
+use Src\TableGateways\accessGateway;
 use Src\TableGateways\logger;
 
 require "filesFilter.php";
@@ -15,12 +16,14 @@ class FileGateway
 
     private $db;
     private $conversionsGateway;
+    private $accessGateway;
     private $logger;
 
     public function __construct($db)
     {
         $this->db = $db;
         $this->conversionsGateway = new conversionGateway($db);
+        $this->accessGateway = new accessGateway($db);
 
         $this->logger = new logger($db);
         $this->API_NAME = "Files";
@@ -33,7 +36,7 @@ class FileGateway
 
     public function findAll()
     {
-        $filter = parseParams();
+        $filter = parseFilesParams();
 
         $statement = "
             SELECT 
@@ -418,6 +421,178 @@ class FileGateway
 //            return $this->formatResult("Failed to update convert record (2)", true);
         }
     }
+
+    public function update($id)
+    {
+        // -- CHECK FOR PERMISSION TO UPDATE ACCOUNT //
+        $acc_id = null;
+        $post_acc_id = null;
+        $role = null;
+
+        if (isset($_POST["set_acc_id"]) && !empty($_POST["set_acc_id"])) {
+            $post_acc_id = $_POST["set_acc_id"];
+            // curl to check if current user have insert permission to the acc_id passed via the request params
+
+            $role = $this->accessGateway->checkForUpdatePermission($_POST["set_acc_id"]);
+            if($role == 0) { // no permission
+                return generateApiResponse("You don't have permission to update this account", true);
+            }else{
+                $acc_id = $post_acc_id;
+            }
+        } else{ // use current session accID
+            if(isset($_SESSION["accID"]))
+            {
+                $acc_id = $_SESSION["accID"];
+                if($acc_id == 0) {
+                    return generateApiResponse("Account not set", true);
+                }
+                if(isset($_SESSION["role"]))
+                {
+                    $role = $_SESSION["role"];
+                    if($role == 0) {
+                        return generateApiResponse("Role not set", true);
+                    }
+                } else{
+                    return generateApiResponse("Role not set", true);
+                }
+            } else{
+                return generateApiResponse("Account not set", true);
+            }
+        }
+        // =====================================
+        // ---- Update file
+        // =====================================
+
+
+        // filter params depending on current role
+        /*switch ($role){
+            case 1:
+                // system admin allow all modifications
+            case 2:
+                // client admin allow some modifications
+            case 3:
+                // typist allow minimal modifications
+        }*/
+
+        $fields = $filter = parseFileUpdateParams($role);
+
+        $statement = "
+            UPDATE files
+            $fields
+            WHERE file_id = :id
+            AND acc_id = $acc_id
+            ;
+        ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(
+                array('id' => $id)
+            );
+//            return $statement->rowCount();
+            if ($statement->rowCount() > 0) {
+                $this->logger->insertAuditLogEntry($this->API_NAME, "File Updated: " . $id);
+                return generateApiResponse("File $id updated");
+            } else {
+                return generateApiResponse("Couldn't update file or no changes were found to update");
+            }
+        } catch (PDOException $e) {
+            $this->logger->insertAuditLogEntry($this->API_NAME, "Error updating file: " . $id);
+            return generateApiResponse("Error occurred while updating file, consult system admin", true);
+//            exit($e->getMessage());
+        }
+
+    }
+
+//    public function updateUser($id)
+//    {
+//        parse_str(file_get_contents('php://input'), $put);
+//
+//        // Required Fields
+//        /*if (
+//            !isset($put["first_name"]) ||
+//            !isset($put["last_name"]) ||
+//            !isset($put["email"]) ||
+//            !isset($put["country_id"]) ||
+//            !isset($put["newsletter"]) ||
+//            !isset($put["enabled"])
+//        ) {
+//            return $this->errorOccurredResponse("Invalid Input, required fields missing (31)");
+//        }*/
+//
+//        // Sql Injection Check
+//        if(!sqlInjectionCheckPassed($put))
+//        {
+//            return $this->errorOccurredResponse("Invalid Input (3505)");
+//        }
+//
+//        // Parse post request params/fields
+//        $valPairs = "";
+//        $valsArray = array();
+//
+//        $i = 0;
+//        $len = count($put);
+//
+//        foreach ($put as $key => $value) {
+//
+//            // setting all empty params to 0
+//            if (empty($input)) {
+//                $input = 0;
+//            }
+//
+//            $valPairs .= "`$key` = ";
+//            array_push($valsArray, $value);
+//            $valPairs .= "?";
+//
+//            if ($i != $len - 1) {
+////                 not last item add comma
+//                $valPairs .= ", ";
+//            }
+//
+//            $i++;
+//        }
+//
+//        if(isset($put['state'])){
+//
+//            $valPairs .= ", `state_id` = ";
+//            array_push($valsArray, null);
+//            $valPairs .= "?";
+//        }
+//        else if(isset($put['state_id'])){
+//            $valPairs .= ", `state` = ";
+//            array_push($valsArray, null);
+//            $valPairs .= "?";
+//        }
+//
+//        array_push($valsArray, $id);
+//
+//
+//        // update DB //
+//        $statement = "UPDATE
+//                        users
+//                        SET
+//                             " . $valPairs . "
+//                        WHERE
+//                            id = ?";
+//
+//        try {
+//            $statement = $this->db->prepare($statement);
+//            $statement->execute($valsArray);
+//
+//            if ($statement->rowCount() > 0) {
+//                $this->logger->insertAuditLogEntry($this->API_NAME, "Updated User: " . $id);
+//                return $this->oKResponse($id, "User Updated");
+//            } else {
+//                return $this->errorOccurredResponse("Couldn't update user or no changes were found to update");
+////                return $this->errorOccurredResponse("Debug " . print_r($statement->errorInfo()) . "\n <br>"
+////                . $statement->queryString);
+//            }
+//
+//        } catch (PDOException $e) {
+////            die($e->getMessage());
+//            return false;
+//        }
+//    }
 
     public function delete($id)
     {

@@ -42,7 +42,12 @@ class FileController
                 if (isset($_POST["cancel"])) {
                     $response = $this->cancelUpload();
                 } else {
-                    $response = $this->uploadFilesFromRequest();
+                    if ($this->fileId) {
+                        $response = $this->updateFileFromRequest($this->fileId);
+                    } else {
+                        $response = $this->uploadFilesFromRequest();
+                    }
+//                    $response = $this->uploadFilesFromRequest();
                 }
                 break;
 //            case 'PUT':
@@ -163,10 +168,10 @@ class FileController
             $post_acc_id = null;
             $stopUpload = false;
 
-            if (isset($_POST["acc_id"]) && !empty($_POST["acc_id"])) {
-                $post_acc_id = $_POST["acc_id"];
+            if (isset($_POST["set_acc_id"]) && !empty($_POST["set_acc_id"])) {
+                $post_acc_id = $_POST["set_acc_id"];
                 // curl to check if current user have insert permission to the acc_id passed via the request params
-                if(!$this->checkForInsertPermission($_POST["acc_id"])) { // no permission
+                if(!$this->checkForInsertPermission($_POST["set_acc_id"])) { // no permission
                     $uploadMsg[] = $this->formatFileResult("NA", "You don't have permission to upload to this account", true);
                     $stopUpload = true; // stop the upload
                 }else{
@@ -366,17 +371,14 @@ class FileController
 
     private function updateFileFromRequest($id)
     {
-        $result = $this->fileGateway->find($id);
+        /*$result = $this->fileGateway->find($id);
         if (!$result) {
             return $this->notFoundResponse();
-        }
-        $input = (array)json_decode(file_get_contents('php://input'), TRUE);
-        if (!$this->validateFile($input)) {
-            return $this->unprocessableEntityResponse();
-        }
-        $this->fileGateway->update($id, $input);
+        }*/
+
+        $result = $this->fileGateway->update($id);
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
-        $response['body'] = null;
+        $response['body'] = $result;
         return $response;
     }
 
