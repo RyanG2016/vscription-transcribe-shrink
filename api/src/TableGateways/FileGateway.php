@@ -5,6 +5,7 @@ namespace Src\TableGateways;
 use PDO;
 use PDOException;
 use Src\TableGateways\conversionGateway;
+use Src\TableGateways\logger;
 
 require "filesFilter.php";
 require_once "common.php";
@@ -14,11 +15,15 @@ class FileGateway
 
     private $db;
     private $conversionsGateway;
+    private $logger;
 
     public function __construct($db)
     {
         $this->db = $db;
         $this->conversionsGateway = new conversionGateway($db);
+
+        $this->logger = new logger($db);
+        $this->API_NAME = "Files";
     }
 
 //        $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
@@ -69,6 +74,7 @@ class FileGateway
         }
     }
 
+    /* add ?tr to the request to move audio file to tmp directory for transcribe.php usage */
     public function find($id)
     {
 
@@ -90,10 +96,134 @@ class FileGateway
             $statement = $this->db->prepare($statement);
             $statement->execute(array($id, $_SESSION['accID']));
             $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-            return $result;
+
+            if(isset($_GET["tr"]))
+            {   // load tmp file for transcribe.php
+                return $this->loadTmpFile($result);
+            }else{
+                return $result;
+            }
+
         } catch (PDOException $e) {
             exit($e->getMessage());
         }
+    }
+
+    public function loadTmpFile($result) {
+        $row = $result[0];
+        $tmpName = $row['tmp_name'];
+        /** checking first if there's already a tmp file for this job on the server */
+        if($tmpName != null && $tmpName != "")
+        {
+            // Temp file name already exists in the db .. check if it's still on the server workingTmp directory
+            if($this->checkIfTmpFileExists($tmpName)){
+
+                // pass the old file and exit this case
+                $jobDetails = array(
+                    "file_id" => $row['file_id'],
+                    "job_id" => $row['job_id'],
+                    "file_author" => $row['file_author'],
+                    "origFilename" => $row['filename'],
+                    "suspendedText" => htmlentities($row['job_document_html'], ENT_QUOTES),
+                    "tmp_name" => $tmpName,  /** REUSING OLD TMP FILE */
+                    "file_date_dict" => $row['file_date_dict'],
+                    "file_work_type" => $row['file_work_type'],
+                    "last_audio_position" => $row['last_audio_position'],
+                    "job_status" => $row['file_status'],
+                    "file_speaker_type" => $row['file_speaker_type'],
+                    "file_comment" => $row['file_comment'],
+                    "user_field_1" => $row['user_field_1'],
+                    "user_field_2" => $row['user_field_2'],
+                    "user_field_3" => $row['user_field_3']
+                );
+
+
+                if($row['file_status'] == 2 || $row['file_status'] == 0) // if the job was suspended/awaiting update it to being typed status = 1
+                {
+                    $this->directUpdateFileStatus($row['file_id'], 1, $row["filename"]);
+                }
+
+                $this->logger->insertAuditLogEntry($this->API_NAME, "Loading file " . $row["file_id"] . " into player");
+
+                return json_encode($jobDetails);
+            }
+        }
+
+        /** IF NO TMP FILE AVAILABLE FOR THE JOB CREATE A NEW ONE AND SAVE IT TO DB RECORD */
+
+        $randFileName = random_filename(".mp3");
+
+        // These paths need to be relative to the PHP file making the call....
+
+        $path = __DIR__ . "/../../../uploads/". $row['filename'];
+//        $type = pathinfo($path, PATHINFO_EXTENSION);
+
+        if(copy(__DIR__ . '/../../../uploads/' . $row['filename'],
+                __DIR__.'/../../../transcribe/workingTemp/' . $randFileName )) {
+
+            // -> file is copied successfully to tmp -> set tmp value to db
+
+            $jobDetails = array(
+                "file_id" => $row['file_id'],
+                "job_id" => $row['job_id'],
+                "file_author" => $row['file_author'],
+                "origFilename" => $row['filename'],
+                "suspendedText" => htmlentities($row['job_document_html'], ENT_QUOTES),
+                "tempFilename" => $randFileName,
+                "file_date_dict" => $row['file_date_dict'],
+                "file_work_type" => $row['file_work_type'],
+                "last_audio_position" => $row['last_audio_position'],
+                "job_status" => $row['file_status'],
+                "file_speaker_type" => $row['file_speaker_type'],
+                "file_comment" => $row['file_comment'],
+                "user_field_1" => $row['user_field_1'],
+                "user_field_2" => $row['user_field_2'],
+                "user_field_3" => $row['user_field_3']
+            );
+
+            // add audit log entry for job file loaded
+            $this->logger->insertAuditLogEntry($this->API_NAME, "Loading file " . $row["file_id"] . " into player");
+
+            $statusToUpdate = $row['file_status'];
+            // update status
+            if($row['file_status'] == 2 || $row['file_status'] == 0) // if the job was suspended/awaiting update it to being typed status = 1
+            {
+                $statusToUpdate = 1;
+                $this->directUpdateFileStatus($row["file_id"], 1, $row["filename"]);
+            }
+
+            $statement = "UPDATE FILES SET file_status=?, tmp_name = ? WHERE file_id=?";
+
+            try {
+                $statement = $this->db->prepare($statement);
+                $statement->execute(
+                    array(
+                        $statusToUpdate,
+                        $randFileName,
+                        $row["file_id"]
+                    )
+                );
+//                $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+            } catch (PDOException $e) {
+                exit($e->getMessage());
+            }
+
+            // return the tmp_name & job details back to transcribe
+            return json_encode($jobDetails);
+
+        }
+        else {
+            //echo "Error moving file" . $randFileName . " to working directory..";
+//            echo false;
+
+            return false;
+        }
+    }
+
+    public function checkIfTmpFileExists($tmpName)
+    {
+        $dir = __DIR__ . "/../../../transcribe/workingTemp/"; // working tmp directory
+        return file_exists($dir.$tmpName);
     }
 
 
@@ -260,7 +390,7 @@ class FileGateway
 
     }
 
-    // used in conversionCronJob
+    // used in conversionCronJob && @this to update status to being transcribe when file is loaded in transcribe.php
     public function directUpdateFileStatus($file_id ,$new_status, $newName){
         $statement = "UPDATE files
             SET file_status = ?, filename = ?

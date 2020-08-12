@@ -108,3 +108,19 @@ function vtexCurlPost($url, $postRequestArray = null){
     return $jsonArrayResponse["error"];
 //    print_r($jsonArrayResponse);
 }
+
+function random_filename($extension = '')
+{
+    // default to this files directory if empty...
+//    $dir = !empty($directory) && is_dir($directory) ? $directory : dirname(__FILE__);
+
+    $dir = __DIR__ . "/../../../transcribe/workingTemp/";
+
+    $filename = uniqid(time()."_", true) . $extension;
+
+    while (file_exists($dir . $filename))
+    {
+        $filename = uniqid(time()."_", true) . $extension;
+    }
+    return $filename;
+}
