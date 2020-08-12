@@ -681,9 +681,12 @@ $(document).ready(function () {
         $('#date').garlic('destroy');
         //		$( '#dateT' ).garlic( 'destroy' );
         $('#jobType').garlic('destroy');
+        $("#jobType").attr("disabled","")
         $('#jobNo').garlic('destroy');
         //		$( '#TypistName' ).garlic( 'destroy' );
         $('#comments').garlic('destroy');
+        $("#comments").attr("disabled","")
+
         $('#authorName').garlic('destroy');
         $('#user_field_1').garlic('destroy');
         $('#user_field_2').garlic('destroy');
@@ -786,12 +789,14 @@ $(document).ready(function () {
 
         $('#jobNo').val(jobDetails.job_id);
         $('#authorName').val(jobDetails.file_author);
+        $("#jobType").removeAttr("disabled");
         $('#jobType').val(jobDetails.file_work_type);
         console.log("job type from database : =-----> " + jobDetails.file_work_type);
 
         var dispDateFormat = moment(jobDetails.file_date_dict).format("DD-MMM-YYYY hh:mm:ss a");
         $('#date').val(dispDateFormat);
         $('#comments').val(jobDetails.typist_comments);
+        $("#comments").removeAttr("disabled");
         console.log("Typist comments: " + jobDetails.typist_comments);
         $('#user_field_1').val(jobDetails.user_field_1);
         $('#user_field_2').val(jobDetails.user_field_2);

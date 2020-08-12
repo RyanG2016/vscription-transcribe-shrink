@@ -318,7 +318,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
                         echo 'value="' . $jt . "\"";
                     } */?>
 
-                    <select class="form-control" id="jobType" name="jobType">
+                    <select class="form-control" id="jobType" name="jobType" disabled>
                         <option value="Interview"> Interview</option>
                         <option value="Focus Group">Focus Group</option>
                         <option value="Notes">Notes</option>
@@ -379,7 +379,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
                     <input type="text" id="comments" name="comments" class="form-control"
                            title="Comments" <?php if ($set == 1 && !empty($ph)) {
                         echo 'value="' . $ph . "\"";
-                    } ?>>
+                    } ?> disabled>
                 </div>
             </div>
 
