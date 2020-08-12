@@ -992,12 +992,12 @@ $(document).ready(function () {
     });*!/
 });*/
 
-$(function () {
+/*$(function () {
     $("#dateT").datepicker({
         showAnim: "clip",
         dateFormat: "d-M-yy"
     });
-});
+});*/
 
 
 $("#jobNo").keypress(function () {
