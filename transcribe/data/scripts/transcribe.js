@@ -2,11 +2,11 @@
 var g_fileName;
 var dataTbl;
 
-$(document).tooltip({
+/*$(document).tooltip({
     //            track: true
     // items: ':not(#report_ifr)'
     items: ":not(#report_ifr,#TypistName, #jobNo, .tooltip)"
-});
+});*/
 
 var currentFileID = 0;
 var currentFileData;
@@ -706,6 +706,9 @@ $(document).ready(function () {
         document.getElementById('comments').value = "";
         document.getElementById('jobType').value = "";
         document.getElementById('authorName').value = "";
+        document.getElementById('user_field_1').value = "";
+        document.getElementById('user_field_2').value = "";
+        document.getElementById('user_field_3').value = "";
         document.getElementById('report').value = "";
         $('#date').garlic('destroy');
         //		$( '#dateT' ).garlic( 'destroy' );
@@ -714,6 +717,9 @@ $(document).ready(function () {
         //		$( '#TypistName' ).garlic( 'destroy' );
         $('#comments').garlic('destroy');
         $('#authorName').garlic('destroy');
+        $('#user_field_1').garlic('destroy');
+        $('#user_field_2').garlic('destroy');
+        $('#user_field_3').garlic('destroy');
         $('#report').garlic('destroy');
         document.title = 'Form';
         tinyMCE.activeEditor.setContent('');
@@ -773,12 +779,7 @@ $(document).ready(function () {
 
     function jobLoadLookup(fileID) {
 
-        var a1 = {
-            file_id: fileID
-        };
-        $.post("data/parts/backend_request.php", {
-            reqcode: 7,
-            args: JSON.stringify(a1)
+        $.get(files_api + fileID + "?tr", {
         }).done(function (data) {
             if(data)
             {
@@ -818,19 +819,23 @@ $(document).ready(function () {
             tinyMCE.activeEditor.selection.collapse(false);
         }
 
-        $('.job').val(jobDetails.job_id);
+        $('#jobNo').val(jobDetails.job_id);
         $('#authorName').val(jobDetails.file_author);
         $('#jobType').val(jobDetails.file_work_type);
-        var dispDateFormat = moment(jobDetails.file_date_dict).format("D-MMM-yyyy");
+
+        var dispDateFormat = moment(jobDetails.file_date_dict).format("DD-MMM-YYYY hh:mm:ss a");
         $('#date').val(dispDateFormat);
-        $('#comments').val(jobDetails.file_comment);
+        $('#comments').val(jobDetails.typist_comments);
+        $('#user_field_1').val(jobDetails.user_field_1);
+        $('#user_field_2').val(jobDetails.user_field_2);
+        $('#user_field_3').val(jobDetails.user_field_3);
 
         var $loadBtn = $('#loadBtn');
         var $completeBtn = $('#completeBtn');
 
 
         // audioTempFolder is a constant inside constants.js
-        AblePlayerInstances[0].media.src = audioTempFolder + jobDetails.tempFilename;
+        AblePlayerInstances[0].media.src = audioTempFolder + jobDetails.tmp_name;
         // AblePlayerInstances[0].media.src = jobDetails.base64;
 
         $loadBtn.addClass('noHover');
@@ -980,12 +985,12 @@ $(document).ready(function () {
 
 });
 
-$(function () {
-    $("#date").datepicker({
+/*$(function () {
+    /!*$("#date").datepicker({
         showAnim: "clip",
         dateFormat: "d-M-yy"
-    });
-});
+    });*!/
+});*/
 
 $(function () {
     $("#dateT").datepicker({

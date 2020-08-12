@@ -1,0 +1,40 @@
+.dropdown-item.active, .dropdown-item:active{
+    background-color: var(--vtex-blue);
+}
+
+/* =============================
+ BOOTSTRAP-SELECT CUSTOMIZATION
+ ===============================
+ */
+.dropdown-toggle {
+    background-color: transparent;
+
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-image-source: initial;
+    border-image-slice: initial;
+    border-image-repeat: initial;
+    border-radius: 0.25rem;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition-property: border-color, box-shadow;
+}
+
+
+.btn-light:active, .btn-light.active,
+.show > .btn-light.dropdown-toggle,
+.dropdown-toggle:active,
+.dropdown-toggle:focus  {
+    background-color: transparent;
+
+    border: 1px solid #80bdff;
+    border-image-source: initial;
+    border-image-slice: initial;
+    border-image-repeat: initial;
+    border-radius: 0.25rem;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition-property: border-color, box-shadow;
+}
+
+.dropdown-item:focus,
+.dropdown-item:hover{
+    background-color: var(--vtex-orange-30);
+}

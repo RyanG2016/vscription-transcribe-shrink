@@ -592,7 +592,7 @@ $(document).ready(function () {
 /*----Lookup job details-----*/
 
 function loadID(fileID) {
-    console.log("ID to load: " + fileID);
+    // console.log("ID to load: " + fileID);
     $(".overlay").css("display", "");
 
     if(jobPickerWindow)
@@ -600,12 +600,8 @@ function loadID(fileID) {
         jobPickerWindow.close();
     }
 
-    var a1 = {
-        file_id: fileID
-    };
-    $.post("data/parts/backend_request.php", {
-        reqcode: 7,
-        args: JSON.stringify(a1)
+
+    $.get(files_api + fileID + "?tr", {
     }).done(function (data) {
         if(data)
         {
@@ -640,7 +636,7 @@ function loadIntoPlayer(data) {
 
 
     // audioTempFolder is a varant inside varants.js
-    AblePlayerInstances[0].media.src = audioTempFolder + jobDetails.tempFilename;
+    AblePlayerInstances[0].media.src = audioTempFolder + jobDetails.tmp_name;
     // AblePlayerInstances[0].media.src = jobDetails.base64;
 
     AblePlayer.prototype.onMediaNewSourceLoad = function () {

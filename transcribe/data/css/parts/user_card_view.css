@@ -77,7 +77,7 @@ body{
     text-decoration: underline;
 }
 
-img:not(#norm){
+img:not(#norm, vtex-skip){
     float: right;
 }
 

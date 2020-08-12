@@ -24,3 +24,28 @@
     transform: translate(-50%,-50%);
     -ms-transform: translate(-50%,-50%);
 }
+
+.overlay{
+    text-align: center;
+}
+.loading-overlay-text{
+    position: relative;
+    top: 40%;
+    color: #444444;
+    font-family: oxygen, sans-serif;
+    font-size: 40px;
+    -webkit-animation: bounce 2.5s infinite ease-in-out both;
+    animation: bounce 2.5s infinite ease-in-out both;
+}
+
+@-webkit-keyframes bounce {
+    0% { transform: translateY(-3px)  }
+    50% { transform: translateY(6px) }
+    100% { transform: translateY(-3px) }
+}
+
+@keyframes bounce {
+    0% { transform: translateY(-3px)  }
+    50% { transform: translateY(6px) }
+    100% { transform: translateY(-3px) }
+}
