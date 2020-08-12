@@ -313,10 +313,19 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
                         <span class="input-group-text" id="jobType-addon1">Job Type</span>
                     </div>
                     <!--     TODO switch to spinner -->
-                    <input type="text" id="jobType" class="form-control" name="jobType" placeholder="Job Type"
-                           title="Job Type" <?php if ($set == 1 && !empty($jt)) {
+                    <!--<input type="text" id="jobType" class="form-control" name="jobType" placeholder="Job Type"
+                           title="Job Type" --><?php /*if ($set == 1 && !empty($jt)) {
                         echo 'value="' . $jt . "\"";
-                    } ?>>
+                    } */?>
+
+                    <select class="form-control" id="jobType" name="jobType">
+                        <option value="interview">Interview</option>
+                        <option value="focus_group">Focus Group</option>
+                        <option value="notes">Notes</option>
+                        <option value="letter">Letter</option>
+                        <option value="other">Other</option>
+                    </select>
+
                 </div>
 
                 <div class="input-group col">

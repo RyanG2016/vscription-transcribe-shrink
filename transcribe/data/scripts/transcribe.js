@@ -424,7 +424,7 @@ $(document).ready(function () {
                 let jobLengthSecs = new Date(jobLengthSecsRaw * 1000).toISOString().substr(11, 8).toString();
                 let jobElapsedTimeSecs = Math.floor(AblePlayerInstances[0].seekBar.position).toString();
 
-                var jobTranscribeDate = getCurrentDateTime();
+                // var jobTranscribeDate = getCurrentDateTime();
                 //Demographics to send to server;
 
                 //Append form data for POST
