@@ -1,4 +1,5 @@
 @import "parts/user_card_view.css";
+@import "parts/card.css";
 
 /* ---------------------*/
 /* ---BODY STYLING  --*/
@@ -19,7 +20,6 @@ a {
     color              : rgb(0,155,194);
     -webkit-transition : color 0.2s;
     -moz-transition    : color 0.2s;
-    -ms-transition     : color 0.2s;
     -o-transition      : color 0.2s;
     transition         : color 0.2s;
 }
@@ -121,12 +121,29 @@ body {
 
 .data-tbl{
     width: 100%;
-    padding-right: 2.5%;
-    padding-left: 2.5%;
-    padding-bottom: 2.5%;
+    border-collapse: separate;
+    padding: 24px 2.5% 2.5%;
 
 }
 
+/* Table Search Input position fix for bootstrap */
+
+#jobs-tbl_filter > label{
+    display: inline-flex;
+}
+
+#jobs-tbl_wrapper > div:nth-child(1){
+    margin-left: auto !important;
+}
+
+#jobs-tbl_wrapper > div:nth-child(3)
+{
+    width: 100%;
+}
+
+#jobs-tbl_wrapper > div.mdc-layout-grid.dt-table{
+    width: inherit;
+}
 
 /* -----------------*/
 /* --BUTTON STYLING --*/
@@ -226,7 +243,7 @@ textarea {
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
-    font-family: Lato;
+    font-family: oxygen, sans-serif;
 }
 
 select {
@@ -248,7 +265,7 @@ input[type=date] {
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 18px;
-    font-family: Lato;
+    font-family: oxygen, sans-serif;
 }
 
 
