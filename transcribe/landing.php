@@ -1,6 +1,6 @@
 <?php
 //include('../data/parts/head.php');
-
+$vtex_page = 0;
 include('data/parts/session_settings.php');
 
 require('data/parts/ping.php');
@@ -34,18 +34,19 @@ if (isset($_SESSION['counter'])) {
     <script src="data/dialogues/jquery-confirm.min.js"></script>
 
     <!-- BOOTSTRAP -->
-    <link rel="stylesheet" href="data/custom-bootstrap-select/css/bootstrap.css">
+
     <script src="data/custom-bootstrap-select/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
             integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
             crossorigin="anonymous"></script>
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
 
-    <?php
-    ;
-    ?>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="data/custom-bootstrap-select/css/bootstrap.css">
 
     <script type="text/javascript">
         var roleIsset = <?php echo (!isset($_SESSION['role']) && !isset($_SESSION['accID']))?0:true ?>;
@@ -58,6 +59,7 @@ if (isset($_SESSION['counter'])) {
 
 <body>
 
+<?php include_once "data/parts/nav.php" ?>
 
 <div id="container" style="width: 100%">
     <div class="form-style-5">
@@ -103,7 +105,7 @@ if (isset($_SESSION['counter'])) {
 
                     </td>-->
 
-                <td width="300px">
+                <td width="300px" style="text-align: right">
                     <img src="data/images/Logo_vScription_Transcribe_Pro_White.png" width="300px"/>
                 </td>
             </tr>
