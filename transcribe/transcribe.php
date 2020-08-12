@@ -278,7 +278,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="authorName-addon1">Author</span>
                     </div>
-                    <input type="text" id="authorName" class="form-control" name="authorName" placeholder="Author Name"
+                    <input type="text" id="authorName" class="form-control" name="authorName"
                            title="Author Name" <?php if ($set == 1 && !empty($n2)) {
                         echo 'value="' . $n2 . "\"";
                     } ?> disabled>
@@ -288,7 +288,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="TypistName-addon1">Typist</span>
                     </div>
-                    <input type="text" id="TypistName" class="form-control" name="TypistName" placeholder="Typist Name" title="Typist Name"
+                    <input type="text" id="TypistName" class="form-control" name="TypistName"  title="Typist Name"
                            value="<?php echo $popName ?>" readonly="readonly">
                     <div class="valid-feedback">
                         Looks good!
@@ -299,7 +299,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="date-addon1">Dictated</span>
                     </div>
-                    <input type="text" name="DateDic" class="form-control" id="date" placeholder="Date Dictated"
+                    <input type="text" name="DateDic" class="form-control" id="date"
                            title="Date Dictated" <?php if ($set == 1 && !empty($dateD)) {
                         echo 'value="' . $dateD . "\"";
                     } ?> readonly>
@@ -319,11 +319,11 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
                     } */?>
 
                     <select class="form-control" id="jobType" name="jobType">
-                        <option value="interview">Interview</option>
-                        <option value="focus_group">Focus Group</option>
-                        <option value="notes">Notes</option>
-                        <option value="letter">Letter</option>
-                        <option value="other">Other</option>
+                        <option value="Interview"> Interview</option>
+                        <option value="Focus Group">Focus Group</option>
+                        <option value="Notes">Notes</option>
+                        <option value="Letter">Letter</option>
+                        <option value="Other">Other</option>
                     </select>
 
                 </div>
@@ -332,7 +332,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="user_field_1-addon1">UF-1</span>
                     </div>
-                    <input type="text" id="user_field_1" name="user_field_1" class="form-control" placeholder="user_field_1"
+                    <input type="text" id="user_field_1" name="user_field_1" class="form-control"
                            title="User Field 1" <?php if ($set == 1 && !empty($uf1)) {
                         echo 'value="' . $uf1 . "\"";
                     } ?> disabled>
@@ -342,7 +342,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="user_field_2-addon1">UF-2</span>
                     </div>
-                    <input type="text" id="user_field_2" name="user_field_2" class="form-control" placeholder="user_field_2"
+                    <input type="text" id="user_field_2" name="user_field_2" class="form-control"
                            title="User Field 2" <?php if ($set == 1 && !empty($uf2)) {
                         echo 'value="' . $uf2 . "\"";
                     } ?> disabled>
@@ -352,7 +352,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="user_field_3-addon1">UF-3</span>
                     </div>
-                    <input type="text" id="user_field_3" name="user_field_3" class="form-control" placeholder="user_field_3"
+                    <input type="text" id="user_field_3" name="user_field_3" class="form-control"
                            title="User Field 3" <?php if ($set == 1 && !empty($uf3)) {
                         echo 'value="' . $uf3 . "\"";
                     } ?> disabled>
@@ -362,7 +362,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="dateT-addon1">Transcribed</span>
                     </div>
-                    <input type="text" name="DateTra" id="dateT" class="form-control" placeholder="Date Transcribed"
+                    <input type="text" name="DateTra" id="dateT" class="form-control"
                            title="Date Transcribed" <?php if ($set == 1 && !empty($dateT)) {
                         echo 'value="' . $dateT . "\"";
                     } else {
@@ -376,7 +376,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="comments-addon1">Comments</span>
                     </div>
-                    <input type="text" id="comments" name="comments" class="form-control" placeholder="Comments"
+                    <input type="text" id="comments" name="comments" class="form-control"
                            title="Comments" <?php if ($set == 1 && !empty($ph)) {
                         echo 'value="' . $ph . "\"";
                     } ?>>

@@ -787,6 +787,7 @@ $(document).ready(function () {
         $('#jobNo').val(jobDetails.job_id);
         $('#authorName').val(jobDetails.file_author);
         $('#jobType').val(jobDetails.file_work_type);
+        console.log("job type from database : =-----> " + jobDetails.file_work_type);
 
         var dispDateFormat = moment(jobDetails.file_date_dict).format("DD-MMM-YYYY hh:mm:ss a");
         $('#date').val(dispDateFormat);
