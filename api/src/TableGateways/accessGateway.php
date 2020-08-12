@@ -147,9 +147,10 @@ class accessGateway
     }
 
     // used to check for user permission to access a certain acc_id
+    // optional $certain_role if user needs to set a role like typist to update the html/rtf files
     // returns the highest role the user has for that account or 0 if no permissions found
     // used in FileGateway once
-    public function checkForUpdatePermission($acc_id)
+    public function checkForUpdatePermission($acc_id, $certain_role=0)
     {
 
         if (strpos($acc_id, '%') !== FALSE) {
@@ -183,9 +184,19 @@ class accessGateway
             $resultAll = $statement->fetchAll(\PDO::FETCH_ASSOC);
 //            $result = $statement->fetch();
             if($statement->rowCount() > 0) {  // user access exists
+                $match = false;
                 $highestRole = 3;
                 foreach ($resultAll as $row){
                     if($row["acc_role"]<$highestRole) $highestRole = $row["acc_role"];
+                    if($certain_role != 0)
+                    {
+                        if($row["acc_role"] == $certain_role) $match = true;
+                    }
+                }
+                if($certain_role != 0 && $match){
+                    return $certain_role;
+                }else if($certain_role != 0 && !$match){
+                    return 0;
                 }
                 return $highestRole;
             }else{
@@ -314,8 +325,8 @@ class accessGateway
 
             if ($i != $len - 1) {
 //             not last item add comma
-            $fields .= ", ";
-            $valsQMarks .= ", ";
+                $fields .= ", ";
+                $valsQMarks .= ", ";
             }
 
             $i++;
@@ -411,20 +422,20 @@ class accessGateway
 
 
     public function delete($id)
-      {
-          $statement = "
+    {
+        $statement = "
               DELETE FROM access
               WHERE access_id = :id;
           ";
 
-          try {
-              $statement = $this->db->prepare($statement);
-              $statement->execute(array('id' => $id));
-              return $statement->rowCount();
-          } catch (\PDOException $e) {
-              exit($e->getMessage());
-          }
-      }
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array('id' => $id));
+            return $statement->rowCount();
+        } catch (\PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
 
     public function oKResponse($id, $msg2 = "")
     {

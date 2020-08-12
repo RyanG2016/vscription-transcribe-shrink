@@ -180,7 +180,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
 <?php include_once "data/parts/nav.php" ?>
 
 <script src="data/scripts/parts/constants.js" type="text/javascript"></script>
-<script src="data/scripts/transcribe.js?v=3"></script>
+<script src="data/scripts/transcribe.min.js?v=3"></script>
 
 <div id="updated_version_bar">There is a newer version (v<span></span>) of the vScription Transcribe Controller
     available -> <a href="" target="_blank">download</a></div>
@@ -521,10 +521,10 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
 </div>
 
 <!-- The Modal -->
-<div id="modalLoading" class="modal">
+<div id="modalLoading" class="vtex-modal">
 
     <!-- Modal content -->
-    <div class="modal-content">
+    <div class="vtex-modal-content" id="loadingContent">
         <h2>Please wait..</h2>
         <p><i></i></p>
 

@@ -46,8 +46,7 @@ $(document).ready(function () {
 
     function connect() {
 
-        if(!isConnected || isConnecting)
-        {
+        if (!isConnected || isConnecting) {
             isConnecting = true;
             setControllerStatus(connecting);
 
@@ -56,8 +55,7 @@ $(document).ready(function () {
             wsocket.onmessage = onmessage;
             wsocket.onerror = onerror;
             wsocket.onclose = onclose;
-        }
-        else{
+        } else {
             // already connecting or connecting
         }
 
@@ -75,12 +73,10 @@ $(document).ready(function () {
         isConnected = false;
         isConnecting = false;
 
-        if(firstLaunch)
-        {
+        if (firstLaunch) {
             firstLaunch = false;
             setControllerStatus(not_running);
-        }
-        else{
+        } else {
             setControllerStatus(not_connected);
         }
 
@@ -109,11 +105,10 @@ $(document).ready(function () {
                 break;
 
             default:
-                if(msg.substring(0,7) === versionCheck)
-                {
+                if (msg.substring(0, 7) === versionCheck) {
                     // let controllerVersion = msg.substring(7);
                     getLatestAppVersionNumber(msg.substring(7), checkVersions);
-                }else if(msg.substring(0,8) === welcomeName){
+                } else if (msg.substring(0, 8) === welcomeName) {
                     // todo re-enable if client name is needed to be shown on UI
                     // setControllerStatus(connected + "<i>" + msg.substr(8) + "</i>", true);
                 }
@@ -123,25 +118,20 @@ $(document).ready(function () {
     }
 
     function playAblePlayer(play) {
-        if(isAblePlayerMediaSet())
-        {
-            if(play)
-            {
+        if (isAblePlayerMediaSet()) {
+            if (play) {
                 AblePlayerInstances[0].playMedia();
                 // console.log("Playing able player.");
-            }
-            else{
+            } else {
                 AblePlayerInstances[0].pauseMedia();
                 // console.log("Pausing able player.");
             }
-        }
-        else{
+        } else {
             // console.log("Able Player not loaded");
         }
     }
 
-    function isAblePlayerMediaSet()
-    {
+    function isAblePlayerMediaSet() {
         return AblePlayerInstances[0].media.src !== "";
     }
 
@@ -164,7 +154,7 @@ $(document).ready(function () {
 
 
     // WEB SOCKET FUNCTIONS //
-    let setControllerStatus = function (status, connected=false) {
+    let setControllerStatus = function (status, connected = false) {
         // text
         statusTxt.html(status);
 
@@ -195,7 +185,6 @@ $(document).ready(function () {
     //***************** End Websocket data *****************//
 
 
-
     $("body").niceScroll({
         hwacceleration: true,
         smoothscroll: true,
@@ -224,18 +213,18 @@ $(document).ready(function () {
 
     jobsDT = $("#jobs-tbl");
     loadingConfirmBtn = $("#loadingConfirm");
-    loadingSub = $("#modalLoading .modal-content p i");
-    loadingTitle = $("#modalLoading .modal-content h2");
+    loadingSub = $("#modalLoading .loadingContent p i");
+    loadingTitle = $("#modalLoading .loadingContent h2");
 
 
     // loading.style.display = "block";
 
-    loadingConfirmBtn.on("click", function() {
+    loadingConfirmBtn.on("click", function () {
         // loading.style.display = "none";
         location.reload();
     });
 
-    $(".close").on("click", function() {
+    $(".close").on("click", function () {
         modal.style.display = "none";
     });
 
@@ -245,7 +234,7 @@ $(document).ready(function () {
         jobsDTRef.ajax.reload();
     });
 
-    window.onclick = function(event) {
+    window.onclick = function (event) {
         if (event.target == modal) {
             modal.style.display = "none";
         }
@@ -253,10 +242,9 @@ $(document).ready(function () {
 
     let maximum_rows_per_page_jobs_list = 7;
 
-    jobsDT.on( 'init.dt', function () {
-        if(!$('.cTooltip').hasClass("tooltipstered"))
-        {
-            $('.download-icon').click(function() {
+    jobsDT.on('init.dt', function () {
+        if (!$('.cTooltip').hasClass("tooltipstered")) {
+            $('.download-icon').click(function () {
                 let file_id = $(this).parent().parent().attr('id');
                 download(file_id);
             });
@@ -267,9 +255,9 @@ $(document).ready(function () {
                 arrow: true
             });
         }
-    } );
+    });
 
-    jobsDTRef = jobsDT.DataTable( {
+    jobsDTRef = jobsDT.DataTable({
         rowId: 'file_id',
         "ajax": 'api/v1/files?dt&file_status[mul]=0,1,2',
         "processing": true,
@@ -283,24 +271,25 @@ $(document).ready(function () {
             }
         ],
         "columns": [
-            { "data": "job_id",
-                render: function ( data, type, row ) {
-                    if(row["file_comment"] != null)
-                    {
+            {
+                "data": "job_id",
+                render: function (data, type, row) {
+                    if (row["file_comment"] != null) {
                         return data + " <i class=\"material-icons mdc-button__icon job-comment cTooltip\" aria-hidden=\"true\" title='"
-                            +htmlEncodeStr(row["file_comment"])
-                            +"'>speaker_notes</i>";
-                    }else{
+                            + htmlEncodeStr(row["file_comment"])
+                            + "'>speaker_notes</i>";
+                    } else {
                         return data;
                     }
                 }
             },
-            { "data": "file_author" },
-            { "data": "file_work_type" },
-            { "data": "file_date_dict" },
-            { "data": "job_upload_date" },
-            { "data": "file_status_ref" },
-            { "data": "audio_length",
+            {"data": "file_author"},
+            {"data": "file_work_type"},
+            {"data": "file_date_dict"},
+            {"data": "job_upload_date"},
+            {"data": "file_status_ref"},
+            {
+                "data": "audio_length",
                 render: function (data) {
                     return new Date(data * 1000).toISOString().substr(11, 8);
                 }
@@ -308,36 +297,35 @@ $(document).ready(function () {
         ],
 
         initComplete: function () {
-            this.api().columns().every( function () {
+            this.api().columns().every(function () {
                 var column = this;
                 var select = $('<select><option value=""></option></select>')
-                    .appendTo( $(column.footer()).empty() )
-                    .on( 'change', function () {
+                    .appendTo($(column.footer()).empty())
+                    .on('change', function () {
                         var val = $.fn.dataTable.util.escapeRegex(
                             $(this).val()
                         );
 
                         column
-                            .search( val ? '^'+val+'$' : '', true, false )
+                            .search(val ? '^' + val + '$' : '', true, false)
                             .draw();
-                    } );
+                    });
 
-                column.data().unique().sort().each( function ( d, j ) {
-                    select.append( '<option value="'+d+'">'+d+'</option>' )
-                } );
-            } );
+                column.data().unique().sort().each(function (d, j) {
+                    select.append('<option value="' + d + '">' + d + '</option>')
+                });
+            });
         }
-    } );
+    });
 
-    jobsDT.on( 'draw.dt', function () {
+    jobsDT.on('draw.dt', function () {
 
-            $('.download-icon').click(function() {
+            $('.download-icon').click(function () {
                 let file_id = $(this).parent().parent().attr('id');
                 download(file_id);
             });
 
-            if(!$('.cTooltip').hasClass("tooltipstered"))
-            {
+            if (!$('.cTooltip').hasClass("tooltipstered")) {
                 $('.cTooltip').tooltipster({
                     animation: 'grow',
                     theme: 'tooltipster-punk',
@@ -350,7 +338,7 @@ $(document).ready(function () {
     $('#jobs-tbl tbody').on('click', 'tr', function () {
         let fileID = jobsDTRef.row(this).id();
         jobLoadLookup(fileID);
-    } );
+    });
 
 
     form.addEventListener("submit", e => {
@@ -358,163 +346,143 @@ $(document).ready(function () {
         e.preventDefault();
         let action = e.submitter.id;
 
-        if (validateForm()) {
-            const formData = new FormData()
-            //let jobDetails = "";  //I don't know what data the JSON.parse will be so it'll be able to mutate
-            var job_id = $("#jobNo").val().trim();
+        // if (validateForm()) {
+        const formData = new FormData();
+        //let jobDetails = "";  //I don't know what data the JSON.parse will be so it'll be able to mutate
+        // var job_id = $("#jobNo").val().trim();
 
-            var jobStatus = 3; //Need to figure out how to pass a 1 as jobStatus if clicking suspend and a 2 if clicking Save and Complete
-            switch (action) {
-                case "saveBtn":
-                    // job status = 3 // complete
-                    jobStatus = 3;
-                    break;
+        var jobStatus = 3; //Need to figure out how to pass a 1 as jobStatus if clicking suspend and a 2 if clicking Save and Complete
+        switch (action) {
+            case "saveBtn":
+                // job status = 3 // complete
+                jobStatus = 3;
+                break;
 
-                case "suspendBtn":
-                    // job status = 2 //suspend
-                    jobStatus = 2;
-                    break;
-            }
+            case "suspendBtn":
+                // job status = 2 //suspend
+                jobStatus = 2;
+                break;
+        }
 
-            // show popup dialog
+        // show popup dialog
+        loadingSub.text("Saving " + currentFileData.job_id + " data");
+        loadingTitle.text("Please wait..")
+        loadingConfirmBtn.css("display", "none");
+        loading.style.display = "block";
 
-            loadingSub.text("Saving " + job_id + " data");
-            loadingTitle.text("Please wait..")
-            loadingConfirmBtn.css("display", "none");
-            loading.style.display = "block";
+        /*
+            audio_length=,
+            last_audio_position=,
+            file_status=?,
+            file_transcribed_date=, // built in API
+            job_transcribed_by=,  // built in API
 
+            job_document_html=,
+            job_document_rtf=
+            */
 
-            $.ajax({
-                type: 'GET',
-                url: files_api + currentFileID,
-                processData: false,
-                success: function (response) {
-                    // var test = response;
-                    if(response.length != 0) {
-                        prepareDemos(response[0]);
-                    }else{
-                        errorWhileSavingFile();
-                    }
-                },
-                error: function (err) {
-                    $.confirm({
-                        title: 'Error',
-                        content: err.responseJSON["msg"],
-                        buttons: {
-                            confirm: {
-                                btnClass: 'btn-red',
-                                action: function () {
-                                    errorWhileSavingFile();
-                                    return true;
-                                }
-                            }
-                        }
+        var tinymceContent = tinymce.get("report").getContent();
+        // Get demographics to update job with
+
+        let jobLengthSecsRaw = Math.round(AblePlayerInstances[0].seekBar.duration);
+        // let jobLengthSecs = new Date(jobLengthSecsRaw * 1000).toISOString().substr(11, 8).toString();
+        let jobElapsedTimeSecs = Math.floor(AblePlayerInstances[0].seekBar.position).toString();
+
+        // var jobTranscribeDate = getCurrentDateTime();
+        //Demographics to send to server;
+
+        formData.append("audio_length", jobLengthSecsRaw);
+        formData.append("last_audio_position", jobElapsedTimeSecs);  //If user suspends job, we can use this to resume where they left ;
+        formData.append("file_status", jobStatus);
+        formData.append("job_document_html", tinymceContent);
+        formData.append("file_work_type", $("#jobType").val());
+        formData.append("typist_comments", $("#comments").val());
+        formData.append("set_role", 3);
+
+        //Append form data for POST
+
+        // formData.append("reqcode", 32);
+        // formData.append("jobNo", jobDetails.job_id);
+        // formData.append("jobLengthStr", jobLengthStr);
+        // formData.append("jobLengthSecs", jobLengthSecs);
+        // formData.append("jobElapsedTimeStr", jobElapsedTimeStr);
+        // formData.append("jobAuthorName", jobDetails.file_author);
+        // formData.append("jobFileName", jobDetails.origFilename);
+        // formData.append("tempFilename", jobDetails.tempFilename);
+        // $fmtOrigDateDic = moment(jobDetails.file_date_dict).format("yyyy-MM-D");
+        // formData.append("jobDateDic", $fmtOrigDateDic);
+
+        // formData.append("jobSpeakerType", jobDetails.file_speaker_type);
+        // formData.append("jobComments", jobDetails.file_comment);
+
+        // formData.append("file_id", currentFileID);
+
+        //** Send form data to the server **//
+        // -->  save or suspend clicked <-- //
+
+        $.ajax({
+            type: 'POST',
+            url: files_api+currentFileID,
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                var a1 = {
+                    mailtype: 10,
+                    usertype: 2    //Client Admins
+                };
+
+                if (jobStatus === 3) // completed then send an email notification by this
+                {
+                    $.post("data/parts/backend_request.php", {
+                        reqcode: 80,
+                        args: JSON.stringify(a1)
+                    }).done(function (data) {
+                        // console.log(data);
                     });
                 }
-            });
-
-
-            function prepareDemos(data) {  //I couldn't seem to access the data outside of the post call so I had to pass it to the function. How could this be accomplished without the function?
-                // var jobDetails = JSON.parse(data);
-                var jobDetails = data;
-                var tinymceContent = tinymce.get("report").getContent();
-                // Get demographics to update job with
-
-                let jobLengthSecsRaw = Math.round(AblePlayerInstances[0].seekBar.duration);
-                let jobLengthSecs = new Date(jobLengthSecsRaw * 1000).toISOString().substr(11, 8).toString();
-                let jobElapsedTimeSecs = Math.floor(AblePlayerInstances[0].seekBar.position).toString();
-
-                // var jobTranscribeDate = getCurrentDateTime();
-                //Demographics to send to server;
-
-                //Append form data for POST
-                formData.append("report", tinymceContent);
-                formData.append("reqcode", 32);
-                formData.append("jobNo", jobDetails.job_id);
-                // formData.append("jobLengthStr", jobLengthStr);
-                formData.append("jobLengthSecs", jobLengthSecs);
-                formData.append("jobLengthSecsRaw", jobLengthSecsRaw);
-                // formData.append("jobElapsedTimeStr", jobElapsedTimeStr);
-                formData.append("jobElapsedTimeSecs", jobElapsedTimeSecs);  //If user suspends job, we can use this to resume where they left ;
-                formData.append("jobAuthorName", jobDetails.file_author);
-                formData.append("jobFileName", jobDetails.origFilename);
-                formData.append("tempFilename", jobDetails.tempFilename);
-                $fmtOrigDateDic = moment(jobDetails.file_date_dict).format("yyyy-MM-D");
-                formData.append("jobDateDic", $fmtOrigDateDic);
-                formData.append("jobType", jobDetails.file_work_type);
-                formData.append("jobSpeakerType", jobDetails.file_speaker_type);
-                formData.append("jobComments", jobDetails.file_comment);
-                formData.append("jobStatus", jobStatus);
-                formData.append("file_id", currentFileID);
-
-                //** Send form data to the server **//
-                // -->  save or suspend clicked <-- //
-                fetch(backend_url, {
-                    method: "POST",
-                    body: formData,
-                }).then(response => {
-                    response.text()
-                        .then(data => {
-                            if (response.ok) {
-                            var a1 = {
-                                mailtype: 10,
-                                usertype: 2    //Client Admins
-                            };
-
-                            if(jobStatus === 3) // completed then send an email notification by this
-                            {
-                                $.post("data/parts/backend_request.php", {
-                                    reqcode: 80,
-                                    args: JSON.stringify(a1)
-                                }).done(function (data) {
-                                    // console.log(data);
-                                });
-                            }
-
-
-                                clear
-                                ();
-
-                            if (jobStatus === 2) {
-
-                                loadingTitle.text("Done");
-                                loadingSub.text("Job " + job_id + " suspended");
-                                loadingConfirmBtn.css("display", "");
-                            } else if (jobStatus === 3) {
-
-                                loadingTitle.text("Done");
-                                loadingSub.text("Job " + job_id + " marked as complete");
-                                loadingConfirmBtn.css("display", "");
-                            } else {
-                                loadingTitle.text("Done");
-                                loadingSub.text("Job " + job_id + " updated successfully");
-                                loadingConfirmBtn.css("display", "");
-                            }
-
-
-                            } else {
-                                errorWhileSavingFile();
-                            }
-                        })
-                });
-            }
-
-            function errorWhileSavingFile() {
-                alert("Error Saving Job. Please contact support - ${data}\n We will attempt to save the text contents to your clipboard if there is any");
-                tinyMCE.activeEditor.selection.select(tinyMCE.activeEditor.getBody());
-                tinyMCE.activeEditor.execCommand( "Copy" );
 
 
                 clear();
-                // loadingTitle.text("Done");
-                // loadingSub.text("Job " + job_id + " data updated successfully.");
-                // loadingConfirmBtn.css('display', '');
-                loading.style.display = "none";
-            }
 
+                if (jobStatus === 2) {
+
+                    loadingTitle.text("Done");
+                    loadingSub.text("Job " + currentFileData.job_id + " suspended");
+                    loadingConfirmBtn.css("display", "");
+                } else if (jobStatus === 3) {
+
+                    loadingTitle.text("Done");
+                    loadingSub.text("Job " + currentFileData.job_id + " marked as complete");
+                    loadingConfirmBtn.css("display", "");
+                } else {
+                    loadingTitle.text("Done");
+                    loadingSub.text("Job " + currentFileData.job_id + " updated successfully");
+                    loadingConfirmBtn.css("display", "");
+                }
+            },
+            error: function (err) {
+                errorWhileSavingFile();
+            }
+        });
+
+
+        function errorWhileSavingFile() {
+            alert("Error Saving Job. Please contact support - ${data}\n We will attempt to save the text contents to your clipboard if there is any");
+            tinyMCE.activeEditor.selection.select(tinyMCE.activeEditor.getBody());
+            tinyMCE.activeEditor.execCommand("Copy");
+
+
+            clear();
+            // loadingTitle.text("Done");
+            // loadingSub.text("Job " + currentFileData.job_id + " data updated successfully.");
+            // loadingConfirmBtn.css('display', '');
+            loading.style.display = "none";
         }
 
-        });
+        // }
+
+    });
 
     window.hidetxt = true;
 
@@ -523,10 +491,9 @@ $(document).ready(function () {
         // let seek = AblePlayerInstances[0].seekBar.position;
         let tinymceContent = tinymce.get('report').getContent().toString();
 
-        if(tinymceContent !== "")
-        {
+        if (tinymceContent !== "") {
             confirmDiscardTextPriorPopupSwitch();
-        }else{
+        } else {
             prepareAndOpenPopup();
         }
 
@@ -559,13 +526,14 @@ $(document).ready(function () {
                         return true;
                     }
                 },
-                cancel: function () {},
+                cancel: function () {
+                },
             }
         });
 
     }
 
-    function prepareAndOpenPopup(){
+    function prepareAndOpenPopup() {
 
         var a1 = {
             fileID: currentFileID
@@ -575,14 +543,14 @@ $(document).ready(function () {
             args: JSON.stringify(a1)
         }).done(function (data) {
             // 1. close websocket connection
-            if(isConnected){
+            if (isConnected) {
                 isConnected = false;
                 isConnecting = false;
                 wsocket.send("transcribe client disconnecting..");
             }
 
             // 2. close/discard this
-            if(currentFileID !== 0){
+            if (currentFileID !== 0) {
                 suspendAndClearForDiscard();
             }
 
@@ -612,10 +580,9 @@ $(document).ready(function () {
 
     }
 
-    function suspendAndClearForDiscard()
-    {
+    function suspendAndClearForDiscard() {
         var new_status = 2;
-        if(currentFileData.job_status === 0){
+        if (currentFileData.job_status === 0) {
             new_status = 0;
         }
 
@@ -685,7 +652,8 @@ $(document).ready(function () {
                         return true;
                     }
                 },
-                cancel: function () {},
+                cancel: function () {
+                },
                 /*somethingElse: {
                     text: 'Something else',
                     btnClass: 'btn-blue',
@@ -729,11 +697,11 @@ $(document).ready(function () {
         completePlayer();
 
         //clearing validation
-        $('.validate-form input').each(function () {
+        /*$('.validate-form input').each(function () {
             //        $(this).focus(function(){
             hideValidate(this);
             //       });
-        });
+        });*/
 
         $('#saveBtn').attr("disabled", "disabled");
         $('#suspendBtn').attr("disabled", "disabled");
@@ -779,18 +747,15 @@ $(document).ready(function () {
 
     function jobLoadLookup(fileID) {
 
-        $.get(files_api + fileID + "?tr", {
-        }).done(function (data) {
-            if(data)
-            {
+        $.get(files_api + fileID + "?tr").done(function (data) {
+            if (data) {
                 loadIntoPlayer(data);
-            }
-            else{
+            } else {
                 switchUI(false);
                 $.confirm({
                     title: 'Error',
                     content: "Job doesn't exist or you don't have permission to access it.",
-                    buttons: { confirm: {btnClass: 'btn-green', text: 'ok'} }
+                    buttons: {confirm: {btnClass: 'btn-green', text: 'ok'}}
                 });
             }
         });
@@ -804,6 +769,7 @@ $(document).ready(function () {
     }
 
     /*-----LOAD FROM SERVER VERSUS LOCAL----*/
+
 // Loading Audio File and details
     function loadIntoPlayer(data) {
         var jobDetails = JSON.parse(data);
@@ -812,8 +778,7 @@ $(document).ready(function () {
         currentFileID = jobDetails.file_id; // globaly set current fileID
 
         // load previous suspended text into tinyMCE if suspended
-        if(jobDetails.suspendedText !== null && jobDetails.job_status !== 0)
-        {
+        if (jobDetails.suspendedText !== null && jobDetails.job_status !== 0) {
             tinymce.get('report').setContent(decodeHtml(jobDetails.suspendedText));
             tinyMCE.activeEditor.selection.select(tinyMCE.activeEditor.getBody(), true);
             tinyMCE.activeEditor.selection.collapse(false);
@@ -826,6 +791,7 @@ $(document).ready(function () {
         var dispDateFormat = moment(jobDetails.file_date_dict).format("DD-MMM-YYYY hh:mm:ss a");
         $('#date').val(dispDateFormat);
         $('#comments').val(jobDetails.typist_comments);
+        console.log("Typist comments: " + jobDetails.typist_comments);
         $('#user_field_1').val(jobDetails.user_field_1);
         $('#user_field_2').val(jobDetails.user_field_2);
         $('#user_field_3').val(jobDetails.user_field_3);
@@ -850,11 +816,11 @@ $(document).ready(function () {
 
         AblePlayer.prototype.onMediaNewSourceLoad = function () {
 
-            if(jobDetails.job_status === 2 || jobDetails.job_status === 1) // suspend or being typed
+            if (jobDetails.job_status === 2 || jobDetails.job_status === 1) // suspend or being typed
             {
                 // seek to last position
                 AblePlayerInstances[0].seekTo(jobDetails.last_audio_position - rewindAmountOnPause);
-            }else {
+            } else {
                 AblePlayerInstances[0].seekTo(0);
             }
         }
@@ -870,9 +836,10 @@ $(document).ready(function () {
 
         modal.style.display = "none"; //hide modal popup
     }
+
     /*----END LOAD FROM SERVER -----*/
 
-    function validateForm() {
+    /*function validateForm() {
 
         var jobID = $('input[name="jobNo"]');
         var authorName = $('input[name="authorName"]');
@@ -917,9 +884,9 @@ $(document).ready(function () {
 
         return check;
 
-    }
+    }*/
 
-    $('.validate-form input').each(function () {
+    /*$('.validate-form input').each(function () {
         $(this).focus(function () {
             hideValidate(this);
         });
@@ -935,9 +902,9 @@ $(document).ready(function () {
     function hideValidate(input) {
         var thisAlert = $(input);
         thisAlert.removeClass('alert-validate');
-    }
+    }*/
 
-    function getLatestAppVersionNumber(currentVersion ,_callback) {
+    function getLatestAppVersionNumber(currentVersion, _callback) {
         $.ajax({
             url: baseURL + "LatestVersion.txt",
             success: function (result) {
@@ -973,15 +940,16 @@ $(document).ready(function () {
         }
     }
 
+    /*
 
-    function getCurrentDateTime() {
-        var today = new Date();
-        var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-        var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-        var dateTime = date+' '+time;
+        function getCurrentDateTime() {
+            var today = new Date();
+            var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+            var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+            var dateTime = date+' '+time;
 
-        return dateTime;
-    }
+            return dateTime;
+        }*/
 
 });
 
@@ -1017,8 +985,7 @@ $(function () {
     });
 });
 
-function htmlEncodeStr(s)
-{
+function htmlEncodeStr(s) {
     return s.replace(/&/g, "&amp;")
         .replace(/>/g, "&gt;")
         .replace(/</g, "&lt;")

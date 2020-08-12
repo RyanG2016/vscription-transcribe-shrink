@@ -83,6 +83,8 @@ function downloadFile($con, $fileID, $accID)
                 while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
                     $filename = $row['job_id'];
                     $rtf = $row['job_document_rtf'];
+//                    $rtf = html_entity_decode($rtf, ENT_QUOTES);
+                    $rtf = base64_decode($rtf);
                     header('Content-Disposition: attachment; filename="'.$filename.'.rtf"');
                     header('Content-Type: text/plain'); # Don't use application/force-download - it's not a real MIME type, and the Content-Disposition header is sufficient
                     header('Content-Length: ' . strlen($rtf));

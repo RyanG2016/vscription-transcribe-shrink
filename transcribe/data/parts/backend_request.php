@@ -428,7 +428,10 @@ if(isset($_REQUEST["reqcode"])){
 						$tmp_name = $_POST['tempFilename'];
 
 
-						$sql = "UPDATE FILES SET audio_length=?, last_audio_position=?, file_status=?, 
+						$sql = "UPDATE FILES SET 
+                                 audio_length=?, 
+                                 last_audio_position=?, 
+                                 file_status=?, 
 								 file_transcribed_date=?, 
 								 job_transcribed_by=?,  
 								 job_document_html=?, 
@@ -438,8 +441,16 @@ if(isset($_REQUEST["reqcode"])){
 						if($stmt = mysqli_prepare($con, $sql))
 						{
 			
-							if( !$stmt->bind_param("iiisssss", $audio_length, $audio_elapsed, $file_status, $file_transcribe_date, $transcribed_by, $plainTinyMCEContent, $convertedRTF, $file_id)   )
-							{
+							if( !$stmt->bind_param("iiisssss",
+                                $audio_length,
+                                $audio_elapsed,
+                                    $file_status,
+                                    $file_transcribe_date,
+                                    $transcribed_by,
+                                    $plainTinyMCEContent,
+                                    $convertedRTF,
+                                    $file_id)   )
+                            {
 			
 										die( "Error in bind_param: (" .$con->errno . ") " . $con->error);
 			

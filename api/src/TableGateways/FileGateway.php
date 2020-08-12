@@ -127,13 +127,14 @@ class FileGateway
                     "job_id" => $row['job_id'],
                     "file_author" => $row['file_author'],
                     "origFilename" => $row['filename'],
-                    "suspendedText" => htmlentities($row['job_document_html'], ENT_QUOTES),
+                    "suspendedText" => html_entity_decode($row['job_document_html'], ENT_QUOTES),
                     "tmp_name" => $tmpName,  /** REUSING OLD TMP FILE */
                     "file_date_dict" => $row['file_date_dict'],
                     "file_work_type" => $row['file_work_type'],
                     "last_audio_position" => $row['last_audio_position'],
                     "job_status" => $row['file_status'],
                     "file_speaker_type" => $row['file_speaker_type'],
+                    "typist_comments" => $row['typist_comments'],
                     "file_comment" => $row['file_comment'],
                     "user_field_1" => $row['user_field_1'],
                     "user_field_2" => $row['user_field_2'],
@@ -171,13 +172,14 @@ class FileGateway
                 "job_id" => $row['job_id'],
                 "file_author" => $row['file_author'],
                 "origFilename" => $row['filename'],
-                "suspendedText" => htmlentities($row['job_document_html'], ENT_QUOTES),
-                "tempFilename" => $randFileName,
+                "suspendedText" => html_entity_decode($row['job_document_html'], ENT_QUOTES),
+                "tmp_name" => $randFileName,  /** REUSING OLD TMP FILE */
                 "file_date_dict" => $row['file_date_dict'],
                 "file_work_type" => $row['file_work_type'],
                 "last_audio_position" => $row['last_audio_position'],
                 "job_status" => $row['file_status'],
                 "file_speaker_type" => $row['file_speaker_type'],
+                "typist_comments" => $row['typist_comments'],
                 "file_comment" => $row['file_comment'],
                 "user_field_1" => $row['user_field_1'],
                 "user_field_2" => $row['user_field_2'],
@@ -432,8 +434,9 @@ class FileGateway
         if (isset($_POST["set_acc_id"]) && !empty($_POST["set_acc_id"])) {
             $post_acc_id = $_POST["set_acc_id"];
             // curl to check if current user have insert permission to the acc_id passed via the request params
-
-            $role = $this->accessGateway->checkForUpdatePermission($_POST["set_acc_id"]);
+//            $certain_role = 0;
+            (isset($_POST["set_role"]) && $_POST["set_role"] != 0) ? $certain_role = $_POST["set_role"]:$certain_role = 0;
+            $role = $this->accessGateway->checkForUpdatePermission($_POST["set_acc_id"], $certain_role);
             if($role == 0) { // no permission
                 return generateApiResponse("You don't have permission to update this account", true);
             }else{
@@ -446,15 +449,26 @@ class FileGateway
                 if($acc_id == 0) {
                     return generateApiResponse("Account not set", true);
                 }
-                if(isset($_SESSION["role"]))
-                {
-                    $role = $_SESSION["role"];
-                    if($role == 0) {
-                        return generateApiResponse("Role not set", true);
+
+                // role check
+                if(isset($_POST["set_role"]) && $_POST["set_role"] != 0){
+                    $certain_role = $_POST["set_role"];
+                    $role = $this->accessGateway->checkForUpdatePermission($acc_id, $certain_role);
+                    if($role == 0) { // no permission
+                        return generateApiResponse("You don't have permission to update this account", true);
                     }
                 } else{
-                    return generateApiResponse("Role not set", true);
+                    if(isset($_SESSION["role"]))
+                    {
+                        $role = $_SESSION["role"];
+                        if($role == 0) {
+                            return generateApiResponse("Role not set", true);
+                        }
+                    } else{
+                        return generateApiResponse("Role not set", true);
+                    }
                 }
+
             } else{
                 return generateApiResponse("Account not set", true);
             }
@@ -474,7 +488,9 @@ class FileGateway
                 // typist allow minimal modifications
         }*/
 
-        $fields = $filter = parseFileUpdateParams($role);
+        $currentFile = $this->find($id);
+        $fields = parseFileUpdateParams($role, $currentFile);
+        $currentFile = $currentFile[0];
 
         $statement = "
             UPDATE files
@@ -492,6 +508,13 @@ class FileGateway
 //            return $statement->rowCount();
             if ($statement->rowCount() > 0) {
                 $this->logger->insertAuditLogEntry($this->API_NAME, "File Updated: " . $id);
+                if(isset($_POST["file_status"]))
+                {
+                    $file_status = $_POST["file_status"];
+                    if ($file_status == 5 || $file_status == 3) {
+                        $this->deleteTmpFile($id, $currentFile["tmp_name"]);
+                    }
+                }
                 return generateApiResponse("File $id updated");
             } else {
                 return generateApiResponse("Couldn't update file or no changes were found to update");
@@ -502,6 +525,27 @@ class FileGateway
 //            exit($e->getMessage());
         }
 
+    }
+
+    public function deleteTmpFile($fileID, $tmpName)
+    {
+        $statement = "
+            UPDATE FILES 
+            SET tmp_name=null
+            WHERE file_id= :id;
+        ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array('id' => $fileID));
+
+            $dir = __DIR__ . "/../../../transcribe/workingTemp/"; // working tmp directory
+            unlink($dir.$tmpName);
+
+            return $statement->rowCount();
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
     }
 
 //    public function updateUser($id)

@@ -221,117 +221,61 @@ $(document).ready(function () {
             loading.style.display = "block";
 
 
+            var jobLengthSecsRaw = Math.round(AblePlayerInstances[0].seekBar.duration);
+            var jobElapsedTimeSecs = Math.floor(AblePlayerInstances[0].seekBar.position).toString();
+
+            formData.append("audio_length", jobLengthSecsRaw);
+            formData.append("last_audio_position", jobElapsedTimeSecs);  //If user suspends job, we can use this to resume where they left ;
+            formData.append("file_status", jobStatus);
+            formData.append("set_role", 3);
+
+
             $.ajax({
-                type: 'GET',
-                url: files_api + currentFileID,
+                type: 'POST',
+                url: files_api+currentFileID,
+                data: formData,
                 processData: false,
+                contentType: false,
                 success: function (response) {
-                    // var test = response;
-                    if(response.length != 0) {
-                        prepareDemos(response[0]);
-                    }else{
-                        errorWhileSavingFile();
+                    var a1 = {
+                        mailtype: 10,
+                        usertype: 2    //Client Admins
+                    };
+
+                    if (jobStatus === 3) // competed then send an email notification by this
+                    {
+                        $.post("data/parts/backend_request.php", {
+                            reqcode: 80,
+                            args: JSON.stringify(a1)
+                        }).done(function (data) {
+                            // console.log(data);
+                        });
+                    }
+
+
+                    clear();
+
+                    if (jobStatus === 2) {
+
+                        loadingTitle.text("Done");
+                        loadingSub.text("Job " + job_id + " suspended");
+                        loadingConfirmBtn.css("display", "");
+                    } else if (jobStatus === 3) {
+
+                        loadingTitle.text("Done");
+                        loadingSub.text("Job " + job_id + " marked as complete");
+                        loadingConfirmBtn.css("display", "");
+                    } else {
+                        loadingTitle.text("Done");
+                        loadingSub.text("Job " + job_id + " updated successfully");
+                        loadingConfirmBtn.css("display", "");
                     }
                 },
                 error: function (err) {
-                    $.confirm({
-                        title: 'Error',
-                        content: err.responseJSON["msg"],
-                        buttons: {
-                            confirm: {
-                                btnClass: 'btn-red',
-                                action: function () {
-                                    errorWhileSavingFile();
-                                    return true;
-                                }
-                            }
-                        }
-                    });
+                    errorWhileSavingFile();
                 }
             });
 
-            function prepareDemos(data) {
-                // var jobDetails = JSON.parse(data);
-                var jobDetails = data;
-                // Get demographics to update job with
-
-                // var jobLengthSecsRaw = jobDetails.audio_length;
-                // var jobLengthSecs = new Date(jobLengthSecsRaw * 1000).toISOString().substr(11, 8).toString();
-                var jobElapsedTimeSecs = Math.floor(AblePlayerInstances[0].seekBar.position).toString();
-
-
-                //Append form data for POST
-                formData.append("reqcode", 205);
-                formData.append("file_id", currentFileID);
-                formData.append("jobID", jobDetails.job_id);
-                // formData.append("jobLengthSecs", jobLengthSecs);
-                // formData.append("jobLengthSecsRaw", jobLengthSecsRaw);
-                // formData.append("jobElapsedTimeStr", jobElapsedTimeStr);
-                formData.append("jobElapsedTimeSecs", jobElapsedTimeSecs);  //If user suspends job, we can use this to resume where they left ;
-                formData.append("jobAuthorName", jobDetails.file_author);
-                formData.append("jobFileName", jobDetails.origFilename);
-                formData.append("tempFilename", jobDetails.tempFilename);
-                $fmtOrigDateDic = moment(jobDetails.file_date_dict).format("yyyy-MM-D");
-                formData.append("jobDateDic", $fmtOrigDateDic);
-                // formData.append("jobType", jobDetails.file_work_type);
-                // formData.append("jobSpeakerType", jobDetails.file_speaker_type);
-                // formData.append("jobComments", jobDetails.file_comment);
-                formData.append("jobStatus", jobStatus);
-
-                //** Send form data to the server **//
-                // -->  save or suspend clicked <-- //
-                fetch(backend_url, {
-                    method: "POST",
-                    body: formData
-                }).then(function (response) {
-                    // noinspection JSLint
-                    response.text()
-                        .then(data => {
-                            console.log(data);
-                            console.log(response);
-                            if (response.ok) {
-                                var a1 = {
-                                    mailtype: 10,
-                                    usertype: 2    //Client Admins
-                                };
-
-                                if (jobStatus === 3) // competed then send an email notification by this
-                                {
-                                    $.post("data/parts/backend_request.php", {
-                                        reqcode: 80,
-                                        args: JSON.stringify(a1)
-                                    }).done(function (data) {
-                                        // console.log(data);
-                                    });
-                                }
-
-
-                                clear();
-
-                                if (jobStatus === 2) {
-
-                                    loadingTitle.text("Done");
-                                    loadingSub.text("Job " + job_id + " suspended");
-                                    loadingConfirmBtn.css("display", "");
-                                } else if (jobStatus === 3) {
-
-                                    loadingTitle.text("Done");
-                                    loadingSub.text("Job " + job_id + " marked as complete");
-                                    loadingConfirmBtn.css("display", "");
-                                } else {
-                                    loadingTitle.text("Done");
-                                    loadingSub.text("Job " + job_id + " updated successfully");
-                                    loadingConfirmBtn.css("display", "");
-                                }
-
-
-                            } else {
-
-                                errorWhileSavingFile();
-                            }
-                        })
-                });
-            }
 
             function errorWhileSavingFile() {
                 alert("Error Saving Job. Please contact support - ${data}\n We will attempt to save the text contents to your clipboard if there is any");
@@ -630,10 +574,6 @@ function loadIntoPlayer(data) {
     $("#jobNo").html(jobDetails.job_id);
     $("#author").html(jobDetails.file_author);
     $("#jobType").html(jobDetails.file_work_type);
-    // var dispDateFormat = moment(jobDetails.file_date_dict).format("D-MMM-yyyy");
-    // $("#date").val(dispDateFormat);
-    // $("#comments").val(jobDetails.file_comment);
-
 
     // audioTempFolder is a varant inside varants.js
     AblePlayerInstances[0].media.src = audioTempFolder + jobDetails.tmp_name;
