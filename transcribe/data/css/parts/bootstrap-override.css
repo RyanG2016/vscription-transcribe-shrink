@@ -38,3 +38,8 @@
 .dropdown-item:hover{
     background-color: var(--vtex-orange-30);
 }
+
+.popover-header{
+    background-color: #1e79be;
+    color: white;
+}
