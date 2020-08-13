@@ -53,7 +53,7 @@ class LoginController {
                 break;
 
             default:
-                $response = $this->notFoundResponse();
+                $response = $this->validateAndSignUp();
                 break;
         }
 
@@ -87,6 +87,37 @@ class LoginController {
             'msg' => $result["msg"]
         ]);
         return $response;
+    }
+
+
+    private function validateAndSignUp()
+    {
+        $email = isset($_POST["email"])?$_POST["email"]:"";
+        $pass = isset($_POST["password"])?$_POST["password"]:"";
+
+        if (empty($email) || empty($pass)) {
+            return $this->unprocessableEntityResponse();
+        }
+
+        // validate user email
+        if(!$this->validateEmail($email))
+        {
+            return $this->unprocessableEntityResponse();
+        }
+
+        return $this->notFoundResponse();
+        // sign-up user
+//        $result = $this->loginGateway->find($email, $pass);
+//        if($result["error"] == true){
+//            return $this -> AuthenticationFailed($result);
+//        }
+
+//        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+//        $response['body'] = json_encode([
+//            'error' => false,
+//            'msg' => $result["msg"]
+//        ]);
+//        return $response;
     }
 
 

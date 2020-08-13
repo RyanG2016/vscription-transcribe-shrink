@@ -18,8 +18,6 @@ var stateBox;
 var countriesURL = "../api/v1/countries/";
 var stateURL = "../api/v1/cities/";
 var firstLaunch = true;
-// - TODO NEEDS REVIEW -
-
 
 //*-------------------------------------------------------*\\
 //*--------------- Document Ready Scripts ----------------*\\
@@ -77,8 +75,8 @@ $(document).ready(function () {
     });
 
     form.addEventListener('submit', function (event) {
-        event.preventDefault();
-        event.stopPropagation();
+        // event.preventDefault();
+        // event.stopPropagation();
         var valid = checkPassword() && form.checkValidity();
         if (valid === true) {
             var countryTxt = $('#countryBox option:selected').text();
@@ -107,7 +105,10 @@ $(document).ready(function () {
                 }
             });
 
-        } // end if valid == true
+        }else{
+            /*event.preventDefault();
+            event.stopPropagation();*/
+        }
 
     }, false);
 
@@ -141,60 +142,8 @@ $(document).ready(function () {
     loadingText.html("Loading countries..");
     loadCountries();
 
-
-    // TODO NEEDS REVIEW -
-
 });
 
-/*================== Validate =============================== */
-var input = $('.validate-input .input100');
-
-$('.validate-form').on('submit', function () {
-    var valid = true;
-
-
-    if (srcIsLogin) {
-        for (var i = 0; i < input.length; i++) {
-
-            switch (input[i].name) {
-                // case "password":
-                case "email":
-
-                    if (validate(input[i]) === false) {
-                        showValidate(input[i]);
-                        valid = false;
-                    }
-
-                    break;
-
-                default:
-                    break;
-            }
-        }
-
-        if (valid === true) {
-            valid = false;
-            login();
-        }
-    } else { // reset pwd
-
-        if (validate(email) === false) {
-            showValidate(email);
-            valid = false;
-        }
-
-        if (valid === true) {
-            loginBtn.html("Please wait..");
-            loginBtn.attr("disabled", "");
-
-            valid = false;
-            resetpw();
-        }
-    }
-
-    return valid;
-
-});
 
 //*-------------------------------------------------------*\\
 //*----------------------- JS Functions ------------------*\\

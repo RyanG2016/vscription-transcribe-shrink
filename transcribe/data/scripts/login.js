@@ -195,7 +195,7 @@ function login() {
 
     $.ajax
     ({
-        type: "POST",
+        type: "GET",
         url: "api/v1/login/",
         // dataType: 'json',
         data: formData,
