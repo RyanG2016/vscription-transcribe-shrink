@@ -10,14 +10,24 @@ date_default_timezone_set('America/Winnipeg');
 
 class Throttler
 {
+    private $bucket;
+    private $bucketName;
+    private $tokensPerUnit;
+    private $unit;
 
     public function __construct($bucketName, $tokensPerUnit, $unit)
     {
+        $this->bucketName = $bucketName;
+        $this->tokensPerUnit = $tokensPerUnit;
+        $this->unit = $unit;
+
         //$storage = new FileStorage(__DIR__ . "/api.bucket");
         $storage = new SessionStorage($bucketName . ".bucket");
         $rate = new Rate($tokensPerUnit, $unit);
         $bucket = new TokenBucket($tokensPerUnit, $rate, $storage);
-        //$bucket->bootstrap(5);
+
+        $this->bucket = $bucket;
+        $bucket->bootstrap($tokensPerUnit);
 
         if (!$bucket->consume(1, $seconds)) {
             http_response_code(429);
@@ -35,8 +45,8 @@ class Throttler
         }
     }
 
-    /*public function getSth()
+    public function bootstrapStorage()
     {
-        return "Sth";
-    }*/
+        $this->bucket->bootstrap($this->tokensPerUnit);
+    }
 }
