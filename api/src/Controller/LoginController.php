@@ -2,6 +2,7 @@
 namespace Src\Controller;
 
 use Src\TableGateways\LoginGateway;
+use Src\System\Throttler;
 
 class LoginController {
 
@@ -22,9 +23,15 @@ class LoginController {
     public function processRequest()
     {
         switch ($this->requestMethod) {
-            case 'POST':
+
             case 'GET':
+                new Throttler("login", 10, \bandwidthThrottle\tokenBucket\Rate::MINUTE);
                 $response = $this->validateLogin();
+                break;
+
+            case 'POST': // sign-up
+                new Throttler("sign_up", 5, \bandwidthThrottle\tokenBucket\Rate::MINUTE);
+                $response = $this->notFoundResponse();
                 break;
 
             default:
