@@ -791,13 +791,13 @@ $(document).ready(function () {
         $('#authorName').val(jobDetails.file_author);
         $("#jobType").removeAttr("disabled");
         $('#jobType').val(jobDetails.file_work_type);
-        console.log("job type from database : =-----> " + jobDetails.file_work_type);
+        // console.log("job type from database : =-----> " + jobDetails.file_work_type);
 
         var dispDateFormat = moment(jobDetails.file_date_dict).format("DD-MMM-YYYY hh:mm:ss a");
         $('#date').val(dispDateFormat);
         $('#comments').val(jobDetails.typist_comments);
         $("#comments").removeAttr("disabled");
-        console.log("Typist comments: " + jobDetails.typist_comments);
+        // console.log("Typist comments: " + jobDetails.typist_comments);
         $('#user_field_1').val(jobDetails.user_field_1);
         $('#user_field_2').val(jobDetails.user_field_2);
         $('#user_field_3').val(jobDetails.user_field_3);

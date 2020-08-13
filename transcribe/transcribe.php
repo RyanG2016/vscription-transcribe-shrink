@@ -281,7 +281,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
                     <input type="text" id="authorName" class="form-control" name="authorName"
                            title="Author Name" <?php if ($set == 1 && !empty($n2)) {
                         echo 'value="' . $n2 . "\"";
-                    } ?> disabled>
+                    } ?> readonly>
                 </div>
 
                 <div class="input-group col mb-3">
