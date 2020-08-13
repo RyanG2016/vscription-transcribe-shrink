@@ -12,6 +12,7 @@ new Throttler("login", 10, \bandwidthThrottle\tokenBucket\Rate::MINUTE);
 if(isset($_SESSION['loggedIn']))
 {
     header("HTTP/1.1 200 OK");
+    header("Content-Type: application/json; charset=UTF-8");
     echo json_encode([
         'error' => false,
         'msg' => "Already LoggedIn"
