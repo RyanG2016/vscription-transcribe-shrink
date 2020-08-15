@@ -160,6 +160,21 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
                 </div>
             </div>
 
+            <!----------------------Confirm Password-------------->
+            <div class="form-group">
+                <label for="inputConfirmPassword">Confirm Password</label>
+                <input type="password" class="form-control" id="inputConfirmPassword" placeholder="Confirm Password"
+                       title="Confirm Password"
+                       data-trigger="focus"
+                       required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Passwords doesn't match.
+                </div>
+            </div>
+
             <!----------------------Country--------------->
             <div class="form-group">
                 <label for="countryBox">Country</label>
@@ -171,8 +186,8 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
             <!----------------------State----------------->
 
             <div class="form-group" id="stateGroup">
-                <label for="countryBox">State</label>
-                <select class="form-control show-tick" id="stateBox" data-container="body" data-dropup-auto="false" name="state">
+                <label for="countryBox">Province/State</label>
+                <select class="form-control show-tick" id="stateBox" data-container="body" data-dropup-auto="false" name="stateID">
                     <option selected>Loading...</option>
                 </select>
             </div>

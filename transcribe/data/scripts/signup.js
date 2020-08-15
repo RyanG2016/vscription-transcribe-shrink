@@ -10,6 +10,7 @@ var stateGroup;
 var signupBtn;
 var form;
 var pwd;
+var confirmPwd;
 
 // boxes
 var countryBox;
@@ -33,6 +34,7 @@ $(document).ready(function () {
     stateBox = $("#stateBox");
     loadingOverlay = $("#overlay");
     pwd = $("#inputPassword");
+    confirmPwd = $("#inputConfirmPassword");
     form = document.getElementById('signupForm');
 
     function checkPassword() {
@@ -43,8 +45,17 @@ $(document).ready(function () {
         {
             console.log("password match");
             pwd.removeClass("is-invalid");
-            form.classList.add('was-validated');
-            return true;
+
+            // check for confirm password
+            if(pwd.val() === confirmPwd.val())
+            {
+                form.classList.add('was-validated');
+                confirmPwd.removeClass("is-invalid");
+                return true;
+            }else{
+                form.classList.remove('was-validated');
+                confirmPwd.addClass("is-invalid");
+            }
         }else{
             form.classList.remove('was-validated');
             pwd.addClass("is-invalid");
@@ -74,9 +85,18 @@ $(document).ready(function () {
         }
     });
 
+    confirmPwd.keyup(function(){
+        if(firstLaunch)
+        {
+            firstLaunch = false;
+        }else{
+            checkPassword();
+        }
+    });
+
     form.addEventListener('submit', function (event) {
-        // event.preventDefault();
-        // event.stopPropagation();
+        event.preventDefault();
+        event.stopPropagation();
         var valid = checkPassword() && form.checkValidity();
         if (valid === true) {
             var countryTxt = $('#countryBox option:selected').text();
