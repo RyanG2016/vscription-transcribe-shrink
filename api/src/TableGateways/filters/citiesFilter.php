@@ -1,7 +1,7 @@
 <?php
 
 
-function parseParams($addWhereClause = false){
+function parseCitiesParams($addWhereClause = false){
     $addedEnum = 0;
     $firstMatch = true;
     if($addWhereClause){
@@ -36,7 +36,7 @@ function parseParams($addWhereClause = false){
                             $filter .= ")";
 
                         }else{
-                            unprocessableFilterResponse();
+                            unprocessableCitiesFilterResponse();
                         }
 
                     }else if(gettype($value) == "string"){
@@ -55,7 +55,7 @@ function parseParams($addWhereClause = false){
     }
 }
 
-function unprocessableFilterResponse()
+function unprocessableCitiesFilterResponse()
 {
     header('HTTP/1.1 422 Unprocessable Filter');
     echo json_encode([
