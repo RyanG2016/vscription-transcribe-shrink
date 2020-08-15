@@ -420,51 +420,56 @@ $(document).ready(function () {
         //** Send form data to the server **//
         // -->  save or suspend clicked <-- //
 
-        $.ajax({
-            type: 'POST',
-            url: files_api+currentFileID,
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function (response) {
-                var a1 = {
-                    mailtype: 10,
-                    usertype: 2    //Client Admins
-                };
+        let currentFile = currentFileID;
+        if(clear())
+        {
+            $.ajax({
+                type: 'POST',
+                url: files_api+currentFile,
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    var a1 = {
+                        mailtype: 10,
+                        usertype: 2    //Client Admins
+                    };
 
-                if (jobStatus === 3) // completed then send an email notification by this
-                {
-                    $.post("data/parts/backend_request.php", {
-                        reqcode: 80,
-                        args: JSON.stringify(a1)
-                    }).done(function (data) {
-                        // console.log(data);
-                    });
+                    if (jobStatus === 3) // completed then send an email notification by this
+                    {
+                        $.post("data/parts/backend_request.php", {
+                            reqcode: 80,
+                            args: JSON.stringify(a1)
+                        }).done(function (data) {
+                            // console.log(data);
+                        });
+                    }
+
+
+                    // clear();
+
+                    if (jobStatus === 2) {
+
+                        loadingTitle.text("Done");
+                        loadingSub.text("Job " + currentFileData.job_id + " suspended");
+                        loadingConfirmBtn.css("display", "");
+                    } else if (jobStatus === 3) {
+
+                        loadingTitle.text("Done");
+                        loadingSub.text("Job " + currentFileData.job_id + " marked as complete");
+                        loadingConfirmBtn.css("display", "");
+                    } else {
+                        loadingTitle.text("Done");
+                        loadingSub.text("Job " + currentFileData.job_id + " updated successfully");
+                        loadingConfirmBtn.css("display", "");
+                    }
+                },
+                error: function (err) {
+                    errorWhileSavingFile();
                 }
+            });
+        }
 
-
-                clear();
-
-                if (jobStatus === 2) {
-
-                    loadingTitle.text("Done");
-                    loadingSub.text("Job " + currentFileData.job_id + " suspended");
-                    loadingConfirmBtn.css("display", "");
-                } else if (jobStatus === 3) {
-
-                    loadingTitle.text("Done");
-                    loadingSub.text("Job " + currentFileData.job_id + " marked as complete");
-                    loadingConfirmBtn.css("display", "");
-                } else {
-                    loadingTitle.text("Done");
-                    loadingSub.text("Job " + currentFileData.job_id + " updated successfully");
-                    loadingConfirmBtn.css("display", "");
-                }
-            },
-            error: function (err) {
-                errorWhileSavingFile();
-            }
-        });
 
 
         function errorWhileSavingFile() {
@@ -473,7 +478,7 @@ $(document).ready(function () {
             tinyMCE.activeEditor.execCommand("Copy");
 
 
-            clear();
+            // clear();
             // loadingTitle.text("Done");
             // loadingSub.text("Job " + currentFileData.job_id + " data updated successfully.");
             // loadingConfirmBtn.css('display', '');
@@ -639,33 +644,6 @@ $(document).ready(function () {
 
     }
 
-    function askForCompletePlayer() {
-        $.confirm({
-            title: 'Unload Audio File?',
-            content: 'Do you want to unload and complete the loaded audio file?',
-            buttons: {
-                confirm: {
-                    btnClass: 'btn-green',
-                    action: function () {
-
-                        completePlayer();
-                        return true;
-                    }
-                },
-                cancel: function () {
-                },
-                /*somethingElse: {
-                    text: 'Something else',
-                    btnClass: 'btn-blue',
-                    keys: ['enter', 'shift'],
-                    action: function(){
-                        $.alert('Something else?');
-                    }
-                }*/
-            }
-        });
-    }
-
     function clear() {
         document.getElementById("date").value = "";
         //		document.getElementById('dateT').value= "";
@@ -697,19 +675,12 @@ $(document).ready(function () {
 
         currentFileID = 0;
 
-        completePlayer();
-
-        //clearing validation
-        /*$('.validate-form input').each(function () {
-            //        $(this).focus(function(){
-            hideValidate(this);
-            //       });
-        });*/
-
         $('#saveBtn').attr("disabled", "disabled");
         $('#suspendBtn').attr("disabled", "disabled");
         $('#discardBtn').attr("disabled", "disabled");
         tinyMCE.activeEditor.setMode("readonly");
+
+        return completePlayer();
     }
 
     function openPopupWindow() {
@@ -722,8 +693,8 @@ $(document).ready(function () {
     }
 
     function completePlayer() {
-        var $loadBtn = $('#loadBtn');
-        var $completeBtn = $('#completeBtn');
+        var loadBtn = $('#loadBtn');
+        var completeBtn = $('#completeBtn');
         //Delete Temp Audio File
         var fullAudioSrc = AblePlayerInstances[0].media.src;
         var tempAudioFileName = fullAudioSrc.split("/").pop();
@@ -733,17 +704,20 @@ $(document).ready(function () {
         AblePlayerInstances[0].seekTo(0);
         AblePlayerInstances[0].media.pause();
 
-        setTimeout(function () {
-            AblePlayerInstances[0].media.removeAttribute('src');
-            AblePlayerInstances[0].media.load();
-        }, 300);
+        AblePlayerInstances[0].media.removeAttribute('src');
+        AblePlayerInstances[0].media.load();
+        /*setTimeout(function () {
 
-        $loadBtn.removeClass('noHover');
-        $('#loadBtn').html('<i class="fas fa-cloud-upload-alt"></i>&nbsp;Load');
-        $loadBtn.find("i").show();
-        $completeBtn.addClass('noHover');
-        $completeBtn.addClass('button');
-        $completeBtn.removeClass('button-green');
+            AblePlayerInstances[0].media.load();
+        }, 300);*/
+
+        loadBtn.removeClass('noHover');
+        loadBtn.html('<i class="fas fa-cloud-upload-alt"></i>&nbsp;Load');
+        loadBtn.find("i").show();
+        completeBtn.addClass('noHover');
+        completeBtn.addClass('button');
+        completeBtn.removeClass('button-green');
+        return true;
     }
 
     /*----Lookup job details-----*/

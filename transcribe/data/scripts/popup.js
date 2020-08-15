@@ -230,51 +230,54 @@ $(document).ready(function () {
             formData.append("set_role", 3);
 
 
-            $.ajax({
-                type: 'POST',
-                url: files_api+currentFileID,
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function (response) {
-                    var a1 = {
-                        mailtype: 10,
-                        usertype: 2    //Client Admins
-                    };
+            let currentFile = currentFileID;
+            if(clear()){
+                $.ajax({
+                    type: 'POST',
+                    url: files_api+currentFile,
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        var a1 = {
+                            mailtype: 10,
+                            usertype: 2    //Client Admins
+                        };
 
-                    if (jobStatus === 3) // competed then send an email notification by this
-                    {
-                        $.post("data/parts/backend_request.php", {
-                            reqcode: 80,
-                            args: JSON.stringify(a1)
-                        }).done(function (data) {
-                            // console.log(data);
-                        });
+                        if (jobStatus === 3) // competed then send an email notification by this
+                        {
+                            $.post("data/parts/backend_request.php", {
+                                reqcode: 80,
+                                args: JSON.stringify(a1)
+                            }).done(function (data) {
+                                // console.log(data);
+                            });
+                        }
+
+
+                        // clear();
+
+                        if (jobStatus === 2) {
+
+                            loadingTitle.text("Done");
+                            loadingSub.text("Job " + job_id + " suspended");
+                            loadingConfirmBtn.css("display", "");
+                        } else if (jobStatus === 3) {
+
+                            loadingTitle.text("Done");
+                            loadingSub.text("Job " + job_id + " marked as complete");
+                            loadingConfirmBtn.css("display", "");
+                        } else {
+                            loadingTitle.text("Done");
+                            loadingSub.text("Job " + job_id + " updated successfully");
+                            loadingConfirmBtn.css("display", "");
+                        }
+                    },
+                    error: function (err) {
+                        errorWhileSavingFile();
                     }
-
-
-                    clear();
-
-                    if (jobStatus === 2) {
-
-                        loadingTitle.text("Done");
-                        loadingSub.text("Job " + job_id + " suspended");
-                        loadingConfirmBtn.css("display", "");
-                    } else if (jobStatus === 3) {
-
-                        loadingTitle.text("Done");
-                        loadingSub.text("Job " + job_id + " marked as complete");
-                        loadingConfirmBtn.css("display", "");
-                    } else {
-                        loadingTitle.text("Done");
-                        loadingSub.text("Job " + job_id + " updated successfully");
-                        loadingConfirmBtn.css("display", "");
-                    }
-                },
-                error: function (err) {
-                    errorWhileSavingFile();
-                }
-            });
+                });
+            }
 
 
             function errorWhileSavingFile() {
@@ -283,7 +286,7 @@ $(document).ready(function () {
                 tinyMCE.activeEditor.execCommand( "Copy" );
 
 
-                clear();
+                // clear();
                 // loadingTitle.text("Done");
                 // loadingSub.text("Job " + job_id + " data updated successfully.");
                 // loadingConfirmBtn.css('display', '');
@@ -348,14 +351,13 @@ $(document).ready(function () {
 
         currentFileID = 0;
 
-        completePlayer();
-
         /*//clearing validation
         $(".validate-form input").each(function () {
             hideValidate(this);
         });*/
 
         switchUI(false);
+        return completePlayer();
     }
 
     function completePlayer() {
@@ -366,10 +368,9 @@ $(document).ready(function () {
         AblePlayerInstances[0].seekTo(0);
         AblePlayerInstances[0].media.pause();
 
-        setTimeout(function () {
-            AblePlayerInstances[0].media.removeAttribute("src");
-            AblePlayerInstances[0].media.load();
-        }, 300);
+        AblePlayerInstances[0].media.removeAttribute("src");
+        AblePlayerInstances[0].media.load();
+        return true;
     }
 
     /*-----Open dialog for typist to choose job---*/
