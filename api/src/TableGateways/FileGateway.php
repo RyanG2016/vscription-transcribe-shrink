@@ -539,8 +539,12 @@ class FileGateway
             $statement = $this->db->prepare($statement);
             $statement->execute(array('id' => $fileID));
 
-            $dir = __DIR__ . "/../../../transcribe/workingTemp/"; // working tmp directory
-            unlink($dir.$tmpName);
+            $dir = realpath(__DIR__ . "/../../../transcribe/workingTemp/"); // working tmp directory
+            $file = $dir . "\\" . $tmpName;
+            if(file_exists($file)){
+                sleep(0.4);
+                unlink($file);
+            }
 
             return $statement->rowCount();
         } catch (PDOException $e) {
