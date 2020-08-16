@@ -181,7 +181,9 @@ $(document).ready(function () {
                 loading.style.display = "none";
             }
         }else{
-            chooseJobModal.style.display = "block";
+            if(accessesGlobal.length != 0){
+                chooseJobModal.style.display = "block";
+            }
             loading.style.display = "none";
         }
     }

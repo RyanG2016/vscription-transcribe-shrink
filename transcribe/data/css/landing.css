@@ -5,6 +5,7 @@
 @import "parts/data-tbl.css";
 @import "parts/colors.css";
 @import "parts/spinner.css";
+@import "parts/bootstrap-override.css";
 
 /* -----------------*/
 /* --BUTTON STYLING --*/
@@ -20,7 +21,6 @@ a {
     color              : rgb(0,155,194);
     -webkit-transition : color 0.2s;
     -moz-transition    : color 0.2s;
-    -ms-transition     : color 0.2s;
     -o-transition      : color 0.2s;
     transition         : color 0.2s;
 }
@@ -35,7 +35,7 @@ a:hover {
 .modal-content {
     text-align: center;
     width: fit-content;
-    padding: 0 50px;
+    padding: 30px 50px 0;
     /*min-width: 650px;*/
 }
 
