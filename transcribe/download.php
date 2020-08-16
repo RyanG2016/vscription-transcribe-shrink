@@ -68,7 +68,7 @@ function downloadFile($con, $fileID, $accID)
 {
 
     /*------Generate File download ------*/
-    $sql = "SELECT job_document_rtf, job_id FROM files WHERE file_id=? AND acc_id = ?";
+    $sql = "SELECT job_document_rtf, job_id, file_transcribed_date FROM files WHERE file_id=? AND acc_id = ?";
 
     if($stmt = mysqli_prepare($con, $sql))
     {
@@ -84,7 +84,12 @@ function downloadFile($con, $fileID, $accID)
                     $filename = $row['job_id'];
                     $rtf = $row['job_document_rtf'];
 //                    $rtf = html_entity_decode($rtf, ENT_QUOTES);
-                    $rtf = base64_decode($rtf);
+
+                    if($row["file_transcribed_date"] > date("Y-m-d h:i:sa", mktime(0,0,0, 8,15, 2020)))
+                    {
+                        $rtf = base64_decode($rtf);
+                    }
+
                     header('Content-Disposition: attachment; filename="'.$filename.'.rtf"');
                     header('Content-Type: text/plain'); # Don't use application/force-download - it's not a real MIME type, and the Content-Disposition header is sufficient
                     header('Content-Length: ' . strlen($rtf));
