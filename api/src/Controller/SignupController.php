@@ -1,38 +1,39 @@
 <?php
 namespace Src\Controller;
 
-use Src\TableGateways\LoginGateway;
+use Src\TableGateways\SignupGateway;
 use Src\System\Throttler;
 
-class LoginController {
+class SignupController {
 
     private $db;
     private $requestMethod;
-    private $loginId;
 
-    private $loginGateway;
+    private $signupGateway;
 
     public function __construct($db, $requestMethod)
     {
         $this->db = $db;
         $this->requestMethod = $requestMethod;
 
-        $this->loginGateway = new LoginGateway($db);
+        $this->signupGateway = new SignupGateway($db);
     }
 
     public function processRequest()
     {
+        new Throttler("signup", 10, \bandwidthThrottle\tokenBucket\Rate::MINUTE);
         switch ($this->requestMethod) {
 
-            case 'GET':
-            case 'POST':
-                new Throttler("login", 10, \bandwidthThrottle\tokenBucket\Rate::MINUTE);
-                $response = $this->validateLogin();
-                break;
+//            case 'GET':
+                /*new Throttler("signup", 10, \bandwidthThrottle\tokenBucket\Rate::MINUTE);
+                $response = $this->validateSignup();
+                break;*/
 
+            case 'POST':
+                // todo enable
 //                 new Throttler("sign_up", 5, \bandwidthThrottle\tokenBucket\Rate::MINUTE);
-//                $response = $this->validateAndSignUp();
-//                break;
+                $response = $this->validateAndSignUp();
+                break;
 
             default:
                 $response = $this->notFoundResponse();
@@ -49,8 +50,8 @@ class LoginController {
     {
         switch ($this->requestMethod) {
             case 'POST':
-            case 'GET':
-                $response = $this->validateLogin();
+//            case 'GET':
+                $response = $this->validateSignup();
                 break;
 
             default:
@@ -61,33 +62,49 @@ class LoginController {
         return $response; // pass response to the requester
     }
 
-    private function validateLogin()
-    {
-        $email = $_SERVER["PHP_AUTH_USER"];
-        $pass = $_SERVER["PHP_AUTH_PW"];
 
-        if ($email == "" || $pass == "") {
+    private function validateAndSignUp()
+    {
+//        echo "hi";
+        // fname=&lname=&email=hacker2894%40gmail.com&password=Iceman2801&countryID=209&stateID=70&city=
+        if(
+//            empty("city") optional
+            !isset($_POST["email"]) ||
+            !isset($_POST["password"]) ||
+            !isset($_POST["fname"]) ||
+            !isset($_POST["lname"]) ||
+            !isset($_POST["countryID"]) ||
+
+            ( isset($_POST["stateID"]) && !is_numeric($_POST["stateID"]) )
+            ||
+            empty($_POST["email"]) ||
+            empty($_POST["password"]) ||
+            empty($_POST["fname"]) ||
+            empty($_POST["lname"]) ||
+            empty($_POST["countryID"]) ||
+//            empty($_POST["stateID"]) ||
+            !is_numeric($_POST["countryID"])
+        ){
             return $this->unprocessableEntityResponse();
         }
 
         // validate user email
-        if(!$this->validateEmail($email))
+        if(!$this->validateEmail($_POST["email"]))
         {
             return $this->unprocessableEntityResponse();
         }
 
-        // logUserIn
-        $result = $this->loginGateway->find($email, $pass);
-        if($result["error"] == true){
-            return $this -> AuthenticationFailed($result);
+        // check if user already exists
+        if($this->signupGateway->userExist($_POST["email"]))
+        {
+            return generateApiHeaderResponse("You already have an account, login instead?", true,false,301);
         }
 
-        $response['status_code_header'] = 'HTTP/1.1 200 OK';
-        $response['body'] = json_encode([
-            'error' => false,
-            'msg' => $result["msg"]
-        ]);
-        return $response;
+        if(!$this->validatePasswordRequirements($_POST["password"])){
+            return generateApiHeaderResponse("Password doesn't meet requirements", true);
+        }
+
+        return $this->signupGateway->signUp();
     }
 
     /**
