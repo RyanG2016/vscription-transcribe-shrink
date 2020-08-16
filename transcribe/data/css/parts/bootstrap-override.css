@@ -43,3 +43,8 @@
     background-color: #1e79be;
     color: white;
 }
+
+/* Ableplayer buttons */
+svg{
+    vertical-align: baseline;
+}

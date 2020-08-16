@@ -174,6 +174,8 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
           href="data/tooltipster/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-punk.min.css"/>
     <script type="text/javascript" src="data/tooltipster/js/tooltipster.bundle.min.js"></script>
 
+    <link href='data/css/parts/bootstrap-override.css' type='text/css' rel='stylesheet'/>
+
 </head>
 
 <body>
