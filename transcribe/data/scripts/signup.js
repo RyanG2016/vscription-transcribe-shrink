@@ -18,6 +18,7 @@ var stateBox;
 
 var countriesURL = "../api/v1/countries/";
 var stateURL = "../api/v1/cities/";
+var signupURL = "../api/v1/signup/";
 var firstLaunch = true;
 
 //*-------------------------------------------------------*\\
@@ -43,7 +44,7 @@ $(document).ready(function () {
 
         if(regex.test(str))
         {
-            console.log("password match");
+            // console.log("password match");
             pwd.removeClass("is-invalid");
 
             // check for confirm password
@@ -59,7 +60,7 @@ $(document).ready(function () {
         }else{
             form.classList.remove('was-validated');
             pwd.addClass("is-invalid");
-            console.log("password doesn't match");
+            // console.log("password doesn't match");
             return false;
         }
     }
@@ -112,22 +113,74 @@ $(document).ready(function () {
 
             $.ajax({
                 type: 'POST',
-                // url: backend_url,
-                url: api_insert_url,
+                url: signupURL,
                 data: formData,
                 processData: false,
                 contentType: false,
                 success: function (response) {
+                    // var ajaxResponse = response;
+                    // console.log(response);
+
+                    $.confirm({
+                        title: 'Success',
+                        type: 'green',
+                        content: response["msg"],
+                        buttons: {
+                            confirm: {
+                                text: "OK",
+                                btnClass: 'btn-green',
+                                action: function () {
+                                    location.href = "index.php";
+                                }
+                            },
+
+                        }
+                    });
 
                 },
                 error: function (err) {
+                    // var ajaxError = err;
+                    // console.log(err);
+
+                    if(err.responseJSON["code"] != null && err.responseJSON["code"] == 301)
+                    {
+                        $.confirm({
+                            title: 'oops..',
+                            type: 'red',
+                            content: err.responseJSON["msg"],
+                            buttons: {
+                                confirm: {
+                                    text: "Yes",
+                                    btnClass: 'btn-green',
+                                    action: function () {
+                                        location.href = "index.php";
+                                    }
+                                }
+                                ,cancel: {
+                                    text: "No",
+                                    btnClass: 'btn-red'
+                                }
+
+                            }
+                        });
+                    }else {
+                        $.confirm({
+                            title: 'oops..',
+                            type: 'red',
+                            content: err.responseJSON["msg"],
+                            buttons: {
+                                confirm: {
+                                    text: "OK",
+                                    btnClass: 'btn-green'
+                                }
+
+                            }
+                        });
+                    }
 
                 }
             });
 
-        }else{
-            /*event.preventDefault();
-            event.stopPropagation();*/
         }
 
     }, false);
