@@ -235,7 +235,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
             <table width="100%" style="padding-bottom: 5px" id="demo-tbl">
                 <tr>
                     <td id="demo-td">
-                        <legend><span class="number">1</span> Demographics</legend>
+                        <legend><span class="number">1</span> Demographics &nbsp;<i class="fas fa-chevron-up vtex-glow" id="demoExpand"></i></legend>
                     </td>
 
 
@@ -264,146 +264,138 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
                 </tr>
             </table>
 
-            <div class="form-row mt-2">
+            <div id="demoItems">
+                <div class="form-row mt-2">
 
-                <div class="input-group col-md-2 mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="jobNo-addon1">#</span>
+                    <div class="input-group col-md-2 mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="jobNo-addon1">#</span>
+                        </div>
+                        <input type="text" class="form-control" id="jobNo" placeholder="Job/File ID"
+                               name="jobNo" <?php if ($set == 1 && !empty($n1)) {
+                            echo 'value="' . $n1 . "\"";
+                        } ?> readonly>
                     </div>
-                    <input type="text" class="form-control" id="jobNo" placeholder="Job/File ID"
-                           name="jobNo" <?php if ($set == 1 && !empty($n1)) {
-                        echo 'value="' . $n1 . "\"";
-                    } ?> readonly>
-                </div>
 
-                <div class="input-group col mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="authorName-addon1">Author</span>
+                    <div class="input-group col mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="authorName-addon1">Author</span>
+                        </div>
+                        <input type="text" id="authorName" class="form-control" name="authorName"
+                               title="Author Name" <?php if ($set == 1 && !empty($n2)) {
+                            echo 'value="' . $n2 . "\"";
+                        } ?> readonly>
                     </div>
-                    <input type="text" id="authorName" class="form-control" name="authorName"
-                           title="Author Name" <?php if ($set == 1 && !empty($n2)) {
-                        echo 'value="' . $n2 . "\"";
-                    } ?> readonly>
-                </div>
 
-                <div class="input-group col mb-3">
+                    <!--<div class="input-group col mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="TypistName-addon1">Typist</span>
                     </div>
                     <input type="text" id="TypistName" class="form-control" name="TypistName"  title="Typist Name"
-                           value="<?php echo $popName ?>" readonly="readonly">
+                           value="<?php /*echo $popName */?>" readonly="readonly">
                     <div class="valid-feedback">
                         Looks good!
                     </div>
+                </div>-->
+
+                    <div class="input-group mb-3 col-md-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="date-addon1"><i class="fas fa-calendar-alt"></i> &nbsp;Dictated</span>
+                        </div>
+                        <input type="text" name="DateDic" class="form-control" id="date"
+                               title="Date Dictated" <?php if ($set == 1 && !empty($dateD)) {
+                            echo 'value="' . $dateD . "\"";
+                        } ?> readonly>
+                    </div>
+
                 </div>
 
-                <div class="input-group mb-3 col-md-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="date-addon1">Dictated</span>
-                    </div>
-                    <input type="text" name="DateDic" class="form-control" id="date"
-                           title="Date Dictated" <?php if ($set == 1 && !empty($dateD)) {
-                        echo 'value="' . $dateD . "\"";
-                    } ?> readonly>
-                </div>
-
-            </div>
-
-            <div class="form-row mb-3">
-                <div class="input-group col-md-2">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="jobType-addon1">Job Type</span>
-                    </div>
-                    <!--     TODO switch to spinner -->
-                    <!--<input type="text" id="jobType" class="form-control" name="jobType" placeholder="Job Type"
-                           title="Job Type" --><?php /*if ($set == 1 && !empty($jt)) {
+                <div class="form-row mb-3">
+                    <div class="input-group col-md-2">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="jobType-addon1">Job Type</span>
+                        </div>
+                        <!--     TODO switch to spinner -->
+                        <!--<input type="text" id="jobType" class="form-control" name="jobType" placeholder="Job Type"
+                               title="Job Type" --><?php /*if ($set == 1 && !empty($jt)) {
                         echo 'value="' . $jt . "\"";
                     } */?>
 
-                    <select class="form-control" id="jobType" name="jobType" disabled>
-                        <option value="Interview"> Interview</option>
-                        <option value="Focus Group">Focus Group</option>
-                        <option value="Notes">Notes</option>
-                        <option value="Letter">Letter</option>
-                        <option value="Other">Other</option>
-                    </select>
+                        <select class="form-control" id="jobType" name="jobType" disabled>
+                            <option value="Interview"> Interview</option>
+                            <option value="Focus Group">Focus Group</option>
+                            <option value="Notes">Notes</option>
+                            <option value="Letter">Letter</option>
+                            <option value="Other">Other</option>
+                        </select>
 
+                    </div>
+
+                    <div class="input-group col">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="user_field_1-addon1">User Field 1</span>
+                        </div>
+                        <input type="text" id="user_field_1" name="user_field_1" class="form-control"
+                               title="User Field 1" <?php if ($set == 1 && !empty($uf1)) {
+                            echo 'value="' . $uf1 . "\"";
+                        } ?> readonly>
+                    </div>
+
+                    <div class="input-group col">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="user_field_2-addon1">User Field 2</span>
+                        </div>
+                        <input type="text" id="user_field_2" name="user_field_2" class="form-control"
+                               title="User Field 2" <?php if ($set == 1 && !empty($uf2)) {
+                            echo 'value="' . $uf2 . "\"";
+                        } ?> readonly>
+                    </div>
+
+                    <div class="input-group col">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="user_field_3-addon1">User Field 3</span>
+                        </div>
+                        <input type="text" id="user_field_3" name="user_field_3" class="form-control"
+                               title="User Field 3" <?php if ($set == 1 && !empty($uf3)) {
+                            echo 'value="' . $uf3 . "\"";
+                        } ?> readonly>
+                    </div>
+
+                    <div class="input-group col-md-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="dateT-addon1"><i class="fas fa-calendar-alt"></i> &nbsp;Transcribed</span>
+                        </div>
+                        <input type="text" name="DateTra" id="dateT" class="form-control"
+                               title="Date Transcribed" <?php if ($set == 1 && !empty($dateT)) {
+                            echo 'value="' . $dateT . "\"";
+                        } else {
+                            echo date("d-M-yy");
+                        } ?> readonly>
+                    </div>
                 </div>
 
-                <div class="input-group col">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="user_field_1-addon1">UF-1</span>
+                <div class="form-row mb-3">
+                    <div class="input-group col">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="comments-addon1"><i class="fas fa-comment-dots"></i> &nbsp;Typist</span>
+                        </div>
+                        <input type="text" id="comments" name="comments" class="form-control"
+                               title="Typist Comments" <?php if ($set == 1 && !empty($ph)) {
+                            echo 'value="' . $ph . "\"";
+                        } ?> disabled>
                     </div>
-                    <input type="text" id="user_field_1" name="user_field_1" class="form-control"
-                           title="User Field 1" <?php if ($set == 1 && !empty($uf1)) {
-                        echo 'value="' . $uf1 . "\"";
-                    } ?> disabled>
-                </div>
-
-                <div class="input-group col">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="user_field_2-addon1">UF-2</span>
+                    <div class="input-group col">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="file_comment-addon1"><i class="fas fa-comment-dots"></i> &nbsp;Job</span>
+                        </div>
+                        <input type="text" id="file_comment" name="file_comment" class="form-control"
+                               title="File Comments" <?php if ($set == 1 && !empty($ph)) {
+                            echo 'value="' . $ph . "\"";
+                        } ?> readonly>
                     </div>
-                    <input type="text" id="user_field_2" name="user_field_2" class="form-control"
-                           title="User Field 2" <?php if ($set == 1 && !empty($uf2)) {
-                        echo 'value="' . $uf2 . "\"";
-                    } ?> disabled>
-                </div>
-
-                <div class="input-group col">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="user_field_3-addon1">UF-3</span>
-                    </div>
-                    <input type="text" id="user_field_3" name="user_field_3" class="form-control"
-                           title="User Field 3" <?php if ($set == 1 && !empty($uf3)) {
-                        echo 'value="' . $uf3 . "\"";
-                    } ?> disabled>
-                </div>
-
-                <div class="input-group col-md-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="dateT-addon1">Transcribed</span>
-                    </div>
-                    <input type="text" name="DateTra" id="dateT" class="form-control"
-                           title="Date Transcribed" <?php if ($set == 1 && !empty($dateT)) {
-                        echo 'value="' . $dateT . "\"";
-                    } else {
-                        echo date("d-M-yy");
-                    } ?> disabled>
                 </div>
             </div>
 
-            <div class="form-row mb-3">
-                <div class="input-group col">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="comments-addon1">Comments</span>
-                    </div>
-                    <input type="text" id="comments" name="comments" class="form-control"
-                           title="Comments" <?php if ($set == 1 && !empty($ph)) {
-                        echo 'value="' . $ph . "\"";
-                    } ?> disabled>
-                </div>
-            </div>
-
-            <fieldset class="tooltip" style="padding-bottom: 0">
-
-                <!--	 Row 1	    -->
-
-
-
-                </br>
-                <!--	Row 2	    -->
-
-                <!--		Job Type	-->
-
-                <!--		Date Dictated	-->
-
-                <!--		Date Transcripted	-->
-
-                <!--		Comments	-->
-
-
-            </fieldset>
             <fieldset>
                 <table id="rep-tbl">
                     <tr>

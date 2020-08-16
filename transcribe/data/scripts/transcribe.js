@@ -28,6 +28,8 @@ const welcomeName = "welcome-"; // DONOT MODIFY
 var compactViewWindow;
 var jobsDT;
 var jobsDTRef;
+var demoExpandArrow;
+var demoFields;
 
 $(document).ready(function () {
 
@@ -43,6 +45,8 @@ $(document).ready(function () {
     var wsocket;
 
     statusTxt = $("#statusTxt");
+    demoExpandArrow = $("#demoExpand");
+    demoFields = $("#demoItems");
 
     function connect() {
 
@@ -116,6 +120,20 @@ $(document).ready(function () {
 
         }
     }
+
+    demoExpandArrow.on("click", function () {
+        if(demoExpandArrow.hasClass("fa-chevron-up"))
+        {
+            demoFields.slideUp();
+            demoExpandArrow.removeClass("fa-chevron-up");
+            demoExpandArrow.addClass("fa-chevron-down");
+        }else{
+            demoFields.slideDown();
+            demoExpandArrow.removeClass("fa-chevron-down");
+            demoExpandArrow.addClass("fa-chevron-up");
+        }
+
+    });
 
     function playAblePlayer(play) {
         if (isAblePlayerMediaSet()) {
@@ -770,6 +788,7 @@ $(document).ready(function () {
         var dispDateFormat = moment(jobDetails.file_date_dict).format("DD-MMM-YYYY hh:mm:ss a");
         $('#date').val(dispDateFormat);
         $('#comments').val(jobDetails.typist_comments);
+        $('#file_comment').val(jobDetails.file_comment);
         $("#comments").removeAttr("disabled");
         // console.log("Typist comments: " + jobDetails.typist_comments);
         $('#user_field_1').val(jobDetails.user_field_1);
@@ -819,70 +838,7 @@ $(document).ready(function () {
 
     /*----END LOAD FROM SERVER -----*/
 
-    /*function validateForm() {
 
-        var jobID = $('input[name="jobNo"]');
-        var authorName = $('input[name="authorName"]');
-        var TypistName = $('input[name="TypistName"]');
-
-        // Row 2
-        var jobType = $('input[name="jobType"]');
-        var DateDic = $('input[name="DateDic"]');
-        var DateTra = $('input[name="DateTra"]');
-
-        var check = true;
-
-        if (jobID.val().trim() == '') {
-            showValidate(jobID);
-            check = false;
-        }
-
-        if (authorName.val().trim() == '') {
-            showValidate(authorName);
-            check = false;
-        }
-
-        if (TypistName.val().trim() == '') {
-            showValidate(TypistName);
-            check = false;
-        }
-
-        if (jobType.val().trim() == '') {
-            showValidate(jobType);
-            check = false;
-        }
-
-        if (DateDic.val().trim() == '') {
-            showValidate(DateDic);
-            check = false;
-        }
-
-        if (DateTra.val().trim() == '') {
-            showValidate(DateTra);
-            check = false;
-        }
-
-        return check;
-
-    }*/
-
-    /*$('.validate-form input').each(function () {
-        $(this).focus(function () {
-            hideValidate(this);
-        });
-    });
-
-
-    function showValidate(input) {
-        var thisAlert = $(input); //.parent();
-
-        thisAlert.addClass('alert-validate');
-    }
-
-    function hideValidate(input) {
-        var thisAlert = $(input);
-        thisAlert.removeClass('alert-validate');
-    }*/
 
     function getLatestAppVersionNumber(currentVersion, _callback) {
         $.ajax({
@@ -904,13 +860,7 @@ $(document).ready(function () {
     }
 
     function checkBrowser(updateAvailable, v) {
-        /*var sUsrAg = navigator.userAgent;
-        //alert(sUsrAg);
-        if (sUsrAg.indexOf("78.0.3904.70") > -1) {
-            $("#message_bar").slideUp();
-        } else {
-            $("#message_bar").slideDown("normal", "easeInOutBack");
-        }*/
+
         if (updateAvailable) {
             $("#updated_version_bar span").html(v);
             $('#updated_version_bar a').attr('href', 'controller.php');
@@ -920,32 +870,8 @@ $(document).ready(function () {
         }
     }
 
-    /*
-
-        function getCurrentDateTime() {
-            var today = new Date();
-            var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-            var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-            var dateTime = date+' '+time;
-
-            return dateTime;
-        }*/
-
 });
 
-/*$(function () {
-    /!*$("#date").datepicker({
-        showAnim: "clip",
-        dateFormat: "d-M-yy"
-    });*!/
-});*/
-
-/*$(function () {
-    $("#dateT").datepicker({
-        showAnim: "clip",
-        dateFormat: "d-M-yy"
-    });
-});*/
 
 
 $("#jobNo").keypress(function () {

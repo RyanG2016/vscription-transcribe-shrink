@@ -4,6 +4,7 @@
 
 @import "parts/modal_popup.css";
 @import "parts/card.css";
+@import "parts/vars.css";
 
 /* Modal loading edits */
 #modalLoading .modal-content h2{
@@ -564,4 +565,9 @@ select {
 .vtex-card label {
     display: block;
     margin-bottom: 8px;
+}
+
+.vtex-glow:hover{
+    color: var(--vtex-green);
+    cursor: pointer;
 }
