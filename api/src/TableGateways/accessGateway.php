@@ -146,6 +146,44 @@ class accessGateway
         }
     }
 
+
+    public function getPermCountForCurUser()
+    {
+        if (isset($_REQUEST["type"]) && strpos($_REQUEST["type"], '%') !== FALSE) {
+            return false;
+        }
+
+        $type = isset($_REQUEST["type"])?
+            $_REQUEST["type"]
+            :0;
+
+
+        $statement = "
+            SELECT 
+                count(*) as count
+            FROM
+                access
+            
+            where uid = ?
+            ";
+
+        if(isset($_REQUEST["type"]))
+        {
+            $statement .= " and acc_role = $type";
+        }
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($_SESSION["uid"]));
+            $result = $statement->fetch();
+
+            return $result;
+
+        } catch (\PDOException $e) {
+            return false;
+        }
+    }
+
     // used to check for user permission to access a certain acc_id
     // optional $certain_role if user needs to set a role like typist to update the html/rtf files
     // returns the highest role the user has for that account or 0 if no permissions found
