@@ -122,15 +122,15 @@ $(document).ready(function () {
     }
 
     demoExpandArrow.on("click", function () {
-        if(demoExpandArrow.hasClass("fa-chevron-up"))
+        if(demoExpandArrow.hasClass("fa-chevron-down"))
         {
             demoFields.slideUp();
-            demoExpandArrow.removeClass("fa-chevron-up");
-            demoExpandArrow.addClass("fa-chevron-down");
+            demoExpandArrow.removeClass("fa-chevron-down");
+            demoExpandArrow.addClass("fa-chevron-right");
         }else{
             demoFields.slideDown();
-            demoExpandArrow.removeClass("fa-chevron-down");
-            demoExpandArrow.addClass("fa-chevron-up");
+            demoExpandArrow.removeClass("fa-chevron-right");
+            demoExpandArrow.addClass("fa-chevron-down");
         }
 
     });

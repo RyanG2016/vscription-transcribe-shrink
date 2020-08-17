@@ -235,7 +235,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
             <table width="100%" style="padding-bottom: 5px" id="demo-tbl">
                 <tr>
                     <td id="demo-td">
-                        <legend><span class="number">1</span> Demographics &nbsp;<i class="fas fa-chevron-up vtex-glow" id="demoExpand"></i></legend>
+                        <legend><span class="number">1</span> Demographics &nbsp;<i class="fas fa-chevron-down vtex-glow" id="demoExpand"></i></legend>
                     </td>
 
 
