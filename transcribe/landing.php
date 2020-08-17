@@ -53,7 +53,7 @@ if (isset($_SESSION['counter'])) {
     </script>
 
     <link href="data/css/landing.css?v=2" rel="stylesheet">
-    <script src="data/scripts/landing.js" type="text/javascript"></script>
+    <script src="data/scripts/landing.min.js" type="text/javascript"></script>
 
     <!-- Enjoyhint library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/kineticjs/5.2.0/kinetic.js"></script>
