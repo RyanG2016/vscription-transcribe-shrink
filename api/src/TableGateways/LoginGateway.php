@@ -83,7 +83,7 @@ class LoginGateway
                                 if ($cTime > $unlockTime) { // unlock time passed
                                     // set account status to 1 and reset trials -> check password match
                                     $this->unlockUserAccount($user["id"]);
-                                    $this->insertAuditLogEntry($user["account"], "User account unlocked.");
+                                    $this->insertAuditLogEntry($user["id"], "User account unlocked.");
                                     // check for password
                                     if ($verified) {
                                         $this->sessionLogin($user); // set session variables as logged in + audit log inside
@@ -134,7 +134,7 @@ class LoginGateway
         $_SESSION['loggedIn'] = true;
         $_SESSION['lastPing'] = date("Y-m-d H:i:s");
         isset($_REQUEST['rememberme']) ? $_SESSION['remember'] = true : $_SESSION['remember'] = false;
-        $this->insertAuditLogEntry($row['account'], "Login");
+        $this->insertAuditLogEntry(isset($row["acc_id"])?$row["acc_id"]:0, "Login");
     }
 
     // set account status to 1 and reset trials
