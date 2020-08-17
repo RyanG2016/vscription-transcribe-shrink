@@ -60,7 +60,7 @@ $(document).ready(function () {
         enjoyhint_instance.set(enjoyhint_script_steps);
 
     //run Enjoyhint script
-        enjoyhint_instance.run();
+    //     enjoyhint_instance.run();
 
     currentRole = $("#currentRole");
     currentAccName = $("#currentAccountName");
