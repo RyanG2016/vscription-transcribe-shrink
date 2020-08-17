@@ -64,7 +64,11 @@ class accessController
                 if(isset($_REQUEST['account_id']))
                 {
                     $response = $this->checkAccountAccessPermission($_REQUEST['account_id']);
-                }else{
+                }else if(isset($_REQUEST['count']))
+                {
+                    $response = $this->getAccessCountCurUser();
+                }
+                else{
                     $response = $this->getOutAccess();
                 }
 //                }
@@ -100,6 +104,14 @@ class accessController
     private function getOutAccess()
     {
         $result = $this->accessGateway->findAllOut();
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = json_encode($result);
+        return $response;
+    }
+
+    private function getAccessCountCurUser()
+    {
+        $result = $this->accessGateway->getPermCountForCurUser();
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
         $response['body'] = json_encode($result);
         return $response;
