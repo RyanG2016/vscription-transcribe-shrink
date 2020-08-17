@@ -270,12 +270,38 @@ if (isset($_SESSION['counter'])) {
 
                 <div class="row">
 
-                    <div id="adminCard" class="col text-center">
-                        <h3 class="col text-center border-right">Admin</h3>
+                    <div id="adminCard" class="col border-right">
+                        <h3 class="col text-center">Admin</h3>
+
+                        <?php
+                        if(!$_SESSION["adminAccountName"] && !$_SESSION["adminAccount"]){
+                            echo "<div class=\"alert alert-info\" role=\"alert\">
+                                <em>You don't have a client administrator account, <u class=\"vtex-cursor-pointer\" data-toggle=\"modal\" data-target=\"#createAccModal\" >create one?</u></em>
+                            </div>";
+                        }else{
+                            echo "<div class=\"alert alert-success\" role=\"alert\">
+                                You are admin of <b>".$_SESSION["adminAccountName"]."</b>.
+                            </div>";
+                        }
+                        ?>
+                        <div class="text-muted">A client administrator account allows you to manage your jobs,
+                            invite typists, download completed jobs, and more..</div>
                     </div>
 
-                    <div id="typistCard" class="col text-center">
-                        <h3>Typist</h3>
+                    <div id="typistCard" class="col">
+                        <h3 class="text-center">Typist</h3>
+                        <div class="alert alert-info" role="alert" id="alertT0">
+                            <em>No access found.</em>
+                        </div>
+                        <div class="alert alert-success" role="alert" id="alertT1">
+                            <em>You have access as a typist for
+                                <b id="typistCount">0</b>
+                                accounts.
+                                <br>
+                                </em>
+                        </div>
+                        <div id="typist1" class="text-muted">Switch your current role to typist from the side menu to start working.</div>
+                        <div id="typist0" class="text-muted">Please wait for a job invitation from an admin.</div>
                     </div>
                 </div>
 
@@ -356,6 +382,38 @@ if (isset($_SESSION['counter'])) {
     </div>
 </div>
 
+
+<div class="modal" tabindex="-1" id="createAccModal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 style="color: #1e79be" id="modalHeaderTitle">
+                    <i class="fas fa-user-circle"></i>
+                    &nbsp;Create Account
+                </h3>
+<!--                <h5 class="modal-title">Modal title</h5>-->
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><span aria-hidden="true"><i class="fas fa-times"></i></span></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label for="acc_name">Account Name</label>
+                <input type="text" class="form-control" id="accNameTxt" aria-describedby="acc_name_help" placeholder="Choose a name for your account">
+                <small id="acc_name_help" class="form-text text-muted">
+                    Name must be less than 254 characters with no special characters.
+                </small>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Please enter a valid name.
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="createAdminAccBtn"><i class="fas fa-plus"></i> &nbsp;Create</button>
+            </div>
+        </div>
     </div>
 </div>
 

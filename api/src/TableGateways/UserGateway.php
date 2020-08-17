@@ -24,7 +24,7 @@ class UserGateway
 
     public function findAll()
     {
-        $filter = parseParams(true);
+        $filter = parseUserParams(true);
 
         $statement = "
             SELECT 
@@ -238,6 +238,49 @@ class UserGateway
     }
 
 
+    /**
+     * Updates `account` field in `users` tbl with the user made client admin account ID
+     * and sets session variables with the account data
+     * @internal
+     * @param $accID int client admin account ID made by the user
+     * @param $accName string client admin account name
+     * @return boolean true -> success | false -> failed to update
+     */
+    public function internalUpdateUserClientAdminAccount($accID, $accName) {
+
+        // update user access //
+        $statement = "UPDATE
+                            users
+                        SET  
+                            account = ?
+                        WHERE
+                            id = ?
+                        ";
+
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array(
+                $accID,
+                $_SESSION['uid']
+            ));
+
+            if ($statement->rowCount() > 0) {
+
+                // setting session variables to bypass the need of logging out and in again
+                $_SESSION["adminAccount"] = $accID;
+                $_SESSION["adminAccountName"] = $accName;
+
+            return true;
+            } else {
+                return false;
+            }
+
+        } catch (PDOException $e) {
+//            die($e->getMessage());
+            return false;
+        }
+    }
 
     public function updateDefaultAccess()
     {
@@ -349,7 +392,7 @@ class UserGateway
         }*/
 
         // Sql Injection Check
-        if(!sqlInjectionCheckPassed($put))
+        if(!sqlInjectionUserCheckPassed($put))
         {
             return $this->errorOccurredResponse("Invalid Input (3505)");
         }

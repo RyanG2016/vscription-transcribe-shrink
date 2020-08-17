@@ -54,6 +54,41 @@ class AccountController
         }
     }
 
+
+    /**
+     * called if out param is present with the endpoint call (non-admin)
+     */
+    public function processPublicRequest()
+    {
+        switch ($this->requestMethod) {
+//            case 'GET':
+//                if ($this->accountId) {
+//                    $response = $this->getAccount($this->accountId);
+//                } else {
+//                    $response = $this->getAllAccounts();
+//                }
+//                }
+//                break;
+            case 'POST':
+                $response = $this->createClientAccount();
+//                }
+                break;
+//            case 'PUT':
+//                $response = $this->updateAccountFromRequest($this->accountId);
+//                break;
+//            case 'DELETE':
+//                $response = $this->deleteAccount($this->accountId);
+//                break;
+            default:
+                $response = $this->notFoundResponse();
+                break;
+        }
+        header($response['status_code_header']);
+        if ($response['body']) {
+            echo $response['body'];
+        }
+    }
+
     private function getAllAccounts()
     {
         $result = $this->accountGateway->findAll();
@@ -65,6 +100,30 @@ class AccountController
     private function createAccountFromRequest()
     {
         return $this->accountGateway->insertNewAccount();
+    }
+
+    /**
+     * Creates a client administrator account for the current logged in user
+     * <br> <i>(only allowed once per user account)</i>
+     * * @param string acc_name from post request
+     * @return string API response with header
+     */
+    private function createClientAccount()
+    {
+        $accName = isset($_POST["acc_name"])?$_POST["acc_name"]:"";
+        if ( empty(trim($accName)) ||
+            strpos($accName, '%') !== FALSE ||
+            strlen($accName) >= 50
+        ) {
+            return $this->errorOccurredResponse("Invalid Input (AC-2)");
+        }
+
+        // allowing one account only per user
+        if(isset($_SESSION["adminAccount"]) && $_SESSION["adminAccount"])
+        {
+            return $this->errorOccurredResponse("You already have a client account.");
+        }
+        return $this->accountGateway->createNewClientAdminAccount($accName);
     }
 
     private function updateAccountFromRequest($accID)
@@ -149,7 +208,7 @@ class AccountController
         $response['status_code_header'] = 'HTTP/1.1 422 Error Occurred';
         $response['body'] = json_encode([
             'error' => true,
-            'msg' => 'Error Occurred ' . $error_msg
+            'msg' => $error_msg
         ]);
         return $response;
     }

@@ -397,6 +397,51 @@ class accessGateway
     }
 
 
+    /**
+     * Inserts a new access permission directly to the current logged in user
+     * <br><i>used in create new account client admin form #landing</i>
+     * @param $accID int accountID to give client admin permission to
+     * @return boolean true -> success | false -> failed to add permission
+     */
+    public function giveClientAdminPermission($accID)
+    {
+        if (!$accID) {
+            return false;
+        }
+
+
+        // insert to DB //
+        $statement = "INSERT
+                        INTO 
+                            access 
+                            (
+                             acc_id, uid, username, acc_role
+                             ) 
+                         VALUES 
+                                (?, ?, ?, ?)";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array(
+                $accID,
+                $_SESSION['uid'],
+                $_SESSION['uEmail'],
+                2
+            ));
+
+            if ($statement->rowCount()) {
+                return true;
+            } else {
+                return false;
+            }
+//            return $statement->rowCount();
+        } catch (\PDOException $e) {
+            return false;
+        }
+
+    }
+
+
     public function updateAccess($id)
     {
         parse_str(file_get_contents('php://input'), $put);

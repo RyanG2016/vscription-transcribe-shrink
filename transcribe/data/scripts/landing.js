@@ -5,6 +5,7 @@ var updateRoleModalBtn;
 var closeModalBtn;
 var setDefaultRoleBtn;
 var changeRoleBtn;
+var accNameInput;
 
 var accessesGlobal;
 var rolesGlobal;
@@ -19,6 +20,7 @@ const ACCESS_URL = "../api/v1/access/?out";
 const SET_DEFAULT_ACCESS_URL = "../api/v1/users/set-default/";
 const ROLES_FOR_ACCOUNT_URL = "../api/v1/access?out&acc_id="; // + acc_id
 const ROLES_COUNT_FOR_ACCOUNT_URL = "../api/v1/access?out&count"; // + acc_id
+const CREATE_ACC_URL = "../api/v1/accounts/?out";
 
 const CHANGE_ROLE_HEADER = "<i class=\"fas fa-wrench\"></i>&nbsp;Change Role";
 const SET_DEFAULT_ROLE_HEADER = "<i class=\"fas fa-user-edit\"></i>&nbsp;Set Default";
@@ -36,7 +38,7 @@ var roleIsset; //-> from PHP (landing.php)
 
 $(document).ready(function () {
     loading = document.getElementById("overlay");
-    loading.style.display = "block";
+    changeLoading(true);
 
     //initialize instance
     var enjoyhint_instance = new EnjoyHint({});
@@ -66,6 +68,7 @@ $(document).ready(function () {
     //     enjoyhint_instance.run();
 
     loadingText = $("#loadingText");
+    accNameInput = $("#accNameTxt");
     currentRole = $("#currentRole");
     currentAccName = $("#currentAccountName");
     updateRoleModalBtn = $("#updateRoleBtn");
@@ -79,9 +82,7 @@ $(document).ready(function () {
     accountBox = $("#accountBox");
     roleBox = $("#roleBox");
 
-    // chooseJobModal = document.getElementById("modal");
     chooseJobModal = $("#modal");
-    // chooseJobModal.style.display = "block";
 
     closeModalBtn.on("click", function (e) {
         chooseJobModal.modal('hide');
@@ -94,19 +95,61 @@ $(document).ready(function () {
         chooseJobModal.modal('show');
     });
 
+    accNameInput.keyup(function(){
+        validAccName();
+    });
+
+    $("#createAdminAccBtn").on("click", function (e) {
+        if(validAccName()){
+            changeLoading(true, "Creating account...");
+            $('#createAccModal').modal('hide'); // close the create dialog
+            // block UI and create the account
+            var formData = new FormData();
+            formData.append("acc_name", accNameInput.val());
+
+            $.ajax({
+                type: 'POST',
+                url: CREATE_ACC_URL,
+                data: formData,
+                processData: false,
+                contentType: false,
+                // success: function (response) {
+                success: function () {
+
+                    loadingText.html("Account created!, redirecting..");
+                    setTimeout(function()
+                    {
+                        location.reload();
+                    }
+                    , 1000);
+                },
+                error: function (err) {
+                    changeLoading(false);
+                    $.confirm({
+                        title: 'Error',
+                        content: err.responseJSON["msg"],
+                        buttons: {
+                            confirm: {
+                                btnClass: 'btn-red'
+                            }
+                        }
+                    });
+                }
+            });
+        }
+    });
+
     setDefaultRoleBtn.on("click", function (e) {
         setModalUI(true);
         // chooseJobModal.style.display = "block";
         chooseJobModal.modal();
     });
-    $('#createAccModal').modal(); // todo turn off
     getRolesCount(3);
 
     updateRoleModalBtn.on("click", function (e) {
 
         updateRoleModalBtn.attr("disabled", "disabled");
-        loadingText.html("Setting role, please wait..");
-        loading.style.display = "block";
+        changeLoading(true, "Setting role, please wait..");
         var formData = new FormData();
         formData.append("acc_id", accountBox.selectpicker('val'));
         formData.append("acc_role", roleBox.selectpicker('val'));
@@ -145,7 +188,7 @@ $(document).ready(function () {
 
             },
             error: function (err) {
-                loading.style.display = "none";
+                changeLoading(false);
                 $.confirm({
                     title: 'Error',
                     content: err.responseJSON["msg"],
@@ -199,12 +242,28 @@ $(document).ready(function () {
                 // console.log("selection changed to: " + clickedIndex + " and prev was: " + previousValue+ "and e is ");
                 // console.log(e);
                 // console.log(countryBox.selectpicker('val')); // selected value
-                loadingText.html("Loading roles..");
-                loading.style.display = "block";
+                changeLoading(true, "Loading roles..");
                 loadRolesForAccount(accountBox.selectpicker('val'));
             });
         }
     });
+
+    function validAccName()
+    {
+        "hel@#l6o".search()
+        if(accNameInput.val() === "" ||
+            accNameInput.val().length >= 50 ||
+            accNameInput.val().search(/[!@#$%^&*)(+=._-]+/g) !== -1)
+        {
+            accNameInput.addClass("is-invalid");
+            accNameInput.removeClass("is-valid");
+            return false;
+        }else{
+            accNameInput.removeClass("is-invalid");
+            accNameInput.addClass("is-valid");
+            return true;
+        }
+    }
 
 
     function checkForSingleRoleToSet() {
@@ -220,14 +279,14 @@ $(document).ready(function () {
             }else{
                 // chooseJobModal.style.display = "block";
                 chooseJobModal.modal('show');
-                loading.style.display = "none";
+                changeLoading(false);
             }
         }else{
             if(accessesGlobal.length != 0){
                 // chooseJobModal.style.display = "block";
                 chooseJobModal.modal('show');
             }
-            loading.style.display = "none";
+            changeLoading(false);
         }
     }
 
@@ -308,7 +367,7 @@ $(document).ready(function () {
                 if(!roleIsset){
                     checkForSingleRoleToSet();
                 }else{
-                    loading.style.display = "none";
+                    changeLoading(false);
                 }
                 // removeLoadingSpinner();
             }
@@ -371,6 +430,17 @@ function generateLoadingSpinner() {
     spinnerDiv.appendChild(bounce3);
 
     return spinnerDiv;
+}
+
+function changeLoading(show, text = false) {
+    if(!show){
+        loading.style.display = "none"
+        $("body").css("overflow", "auto");
+    }else{
+        $("body").css("overflow", "none");
+        if(text) loadingText.html(text);
+        loading.style.display = "block";
+    }
 }
 
 function convertToSearchParam(params) {

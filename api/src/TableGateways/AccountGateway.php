@@ -4,6 +4,8 @@ namespace Src\TableGateways;
 
 use PDOException;
 use Src\TableGateways\logger;
+use Src\TableGateways\accessGateway;
+use Src\TableGateways\UserGateway;
 
 require "accountsFilter.php";
 
@@ -13,17 +15,21 @@ class AccountGateway
     private $db;
     private $logger;
     private $API_NAME;
+    private $accessGateway;
+    private $userGateway;
 
     public function __construct($db)
     {
         $this->db = $db;
         $this->logger = new logger($db);
+        $this->accessGateway = new accessGateway($db);
+        $this->userGateway = new UserGateway($db);
         $this->API_NAME = "Accounts";
     }
 
     public function findAll()
     {
-        $filter = parseParams(true);
+        $filter = parseAccountParams(true);
 
         if (isset($_GET['access-model'])) {
             $statement = "
@@ -208,7 +214,7 @@ class AccountGateway
             return $this->errorOccurredResponse("Invalid Input (2)");
         }
 
-        if(!sqlInjectionCheckPassed($_POST))
+        if(!accountSqlInjectionCheckPassed($_POST))
         {
             return $this->errorOccurredResponse("Invalid Input (505-CACC)");
         }
@@ -291,6 +297,115 @@ class AccountGateway
         } catch (PDOException $e) {
 //            die($e->getMessage());
             return $this->errorOccurredResponse("Couldn't Create Account (2)");
+        }
+    }
+
+
+    /**
+     * Creates a client administrator account for the current logged in user
+     * <br> <i>(only allowed once per user account)</i>
+     * @param string $accName from controller
+     * @return mixed
+     */
+    public function createNewClientAdminAccount($accName)
+    {
+        $accPrefix = $this->generateNewAccountPrefix($accName);
+        if (!$accPrefix) {
+            return $this->errorOccurredResponse("Couldn't generate job prefix");
+        }
+
+        // insert to DB //
+        $statement = "INSERT
+                        INTO 
+                            accounts 
+                            (
+                             enabled,
+                             billable,
+                             acc_name,
+                             acc_retention_time,
+                             bill_rate1,
+                             bill_rate1_type,
+                             bill_rate1_TAT,
+                             bill_rate1_min_pay,
+                             bill_rate1_desc,
+                             bill_rate2,
+                             bill_rate2_type,
+                             bill_rate2_TAT,
+                             bill_rate2_min_pay,
+                             bill_rate2_desc,
+                             bill_rate3,
+                             bill_rate3_type,
+                             bill_rate3_TAT, 
+                             bill_rate3_min_pay,
+                             bill_rate3_desc, 
+                             bill_rate4, 
+                             bill_rate4_type,
+                             bill_rate4_TAT,
+                             bill_rate4_min_pay,
+                             bill_rate4_desc, 
+                             bill_rate5, 
+                             bill_rate5_type, 
+                             bill_rate5_TAT,
+                             bill_rate5_min_pay, 
+                             bill_rate5_desc, 
+                             act_log_retention_time,
+                             job_prefix
+                             ) 
+                         VALUES 
+                                (
+                                 ?, ?, ?,
+                                 ?,
+                                 ?, ?, ?, ?,
+                                 ?,
+                                 ?, ?, ?, ?,
+                                 ?,
+                                 ?, ?, ?, ?,
+                                 ?,
+                                 ?, ?, ?, ?,
+                                 ?,
+                                 ?, ?, ?, ?,
+                                 ?,
+                                 ?, ?
+                                )";
+
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array(
+                1, 1, $accName,
+                0,// acc_ret,
+                0, 0, 0, 0,// br1, br1type, br1tat , br1 min
+                0, // br1 desc
+                0, 0, 0, 0,// br2, br2type, br2tat , br2 min
+                0, // br2 desc
+                0, 0, 0, 0,// br3, br3type, br3tat , br3 min
+                0, // br3 desc
+                0, 0, 0, 0,// br4, br4type, br4tat , br4 min
+                0, // br4 desc
+                0, 0, 0, 0,// br5, br5type, br5tat , br5 min
+                0, // br5 desc
+                0, $accPrefix// log retention, job prefix
+            ));
+
+            if ($statement->rowCount() > 0) {
+                $accountID = $this->db->lastInsertId();
+                $this->logger->insertAuditLogEntry($this->API_NAME, "Account Created: " . $accName);
+
+                // update account field in user entry and give client admin permission
+                if($this->userGateway->internalUpdateUserClientAdminAccount($accountID, $accName)){
+                    if($this->accessGateway->giveClientAdminPermission($accountID)){
+                        return $this->oKResponse($accountID, "Account Created");
+                    }
+                }
+                return $this->errorOccurredResponse("Couldn't Create Account (ACO-3)");
+            } else {
+                return $this->errorOccurredResponse("Couldn't Create Account (ACO-1)");
+//                return $this->errorOccurredResponse("Couldn't Create Account" . print_r($statement->errorInfo()));
+            }
+
+        } catch (PDOException $e) {
+//            die($e->getMessage());
+            return $this->errorOccurredResponse("Couldn't Create Account (ACO-2)");
         }
     }
 

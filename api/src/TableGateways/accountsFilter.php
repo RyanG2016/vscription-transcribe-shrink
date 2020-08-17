@@ -1,7 +1,7 @@
 <?php
 
 
-function parseParams($addWhereClause = false){
+function parseAccountParams($addWhereClause = false){
     $addedEnum = 0;
     $firstMatch = true;
     if($addWhereClause){
@@ -69,7 +69,7 @@ function parseParams($addWhereClause = false){
                             $filter .= ")";
 
                         }else{
-                            unprocessableFilterResponse();
+                            unprocessableAccFilterResponse();
                         }
 
                     }else if(gettype($value) == "string"){
@@ -88,7 +88,7 @@ function parseParams($addWhereClause = false){
     }
 }
 
-function sqlInjectionCheckPassed($array){
+function accountSqlInjectionCheckPassed($array){
     // Sql Injection Check
     foreach ($array as $key => $value)
     {
@@ -148,7 +148,7 @@ function sqlInjectionCheckPassed($array){
     return true;
 }
 
-function unprocessableFilterResponse()
+function unprocessableAccFilterResponse()
 {
     header('HTTP/1.1 422 Unprocessable Filter');
     echo json_encode([

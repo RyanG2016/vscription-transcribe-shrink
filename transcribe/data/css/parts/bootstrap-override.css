@@ -74,3 +74,13 @@ body{
 svg{
     vertical-align: baseline;
 }
+
+
+/* =============================
+    JQUERY CONFIRM CONFLICT
+ ===============================
+ */
+body > div.jconfirm.jconfirm-light.jconfirm-open > div.jconfirm-scrollpane > div > div > div > div > div > div {
+    max-width: unset;
+}
+
