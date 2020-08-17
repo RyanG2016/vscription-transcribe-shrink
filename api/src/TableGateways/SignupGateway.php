@@ -168,7 +168,7 @@ class SignupGateway
                 $token = $this->generateToken($email, 5);
                 sendEmail(5, $email, $token);
 
-                return generateApiHeaderResponse("Signed up successfully, please verify your email address before trying to signup",
+                return generateApiHeaderResponse("Signed up successfully, please verify your email address before trying to login",
                     false,
                     array("id"=>$this->db->lastInsertId()));
             }else{
