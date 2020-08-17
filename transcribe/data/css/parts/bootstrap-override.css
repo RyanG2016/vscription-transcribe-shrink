@@ -3,7 +3,16 @@
 }
 
 /* =============================
- BOOTSTRAP-SELECT CUSTOMIZATION
+ BOOTSTRAP BODY CUSTOMIZATION
+ ===============================
+ */
+
+body{
+    font-family: oxygen, sans-serif;
+}
+
+/* =============================
+ BOOTSTRAP SELECT CUSTOMIZATION
  ===============================
  */
 .dropdown-toggle {
@@ -39,12 +48,29 @@
     background-color: var(--vtex-orange-30);
 }
 
+/* =============================
+ BOOTSTRAP POPOVER CUSTOMIZATION
+ ===============================
+ */
+
 .popover-header{
     background-color: #1e79be;
     color: white;
 }
+/* =============================
+ BOOTSTRAP BUTTONS CUSTOMIZATION
+ ===============================
+ */
+.btn-primary{
+    background-color: var(--vtex-blue);
+    border-color: var(--vtex-blue);
+}
 
-/* Ableplayer buttons */
+/* =============================
+  BOOTSTRAP ABLEPLAYER BUTTONS
+        ICON CONFLICT
+ ===============================
+ */
 svg{
     vertical-align: baseline;
 }
