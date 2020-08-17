@@ -35,6 +35,33 @@ $(document).ready(function () {
     loading = document.getElementById("overlay");
     loading.style.display = "block";
 
+    //initialize instance
+    var enjoyhint_instance = new EnjoyHint({});
+
+    //simple config.
+    //Only one step - highlighting(with description) "New" button
+    //hide EnjoyHint after a click on the button.
+        var enjoyhint_script_steps = [
+            {
+                "next .navbar-text": "This is a test to focus on the navbar title in the landing page"
+            },
+            {
+                "next #adminCard": "This is the admin card in circle",
+                shape:"circle"
+            },
+            {
+                selector:'#typistCard',//jquery selector
+                description:'This is the typist card',
+                "skipButton":{text: "Finish"}
+            }
+        ];
+
+    //set script config
+        enjoyhint_instance.set(enjoyhint_script_steps);
+
+    //run Enjoyhint script
+        enjoyhint_instance.run();
+
     currentRole = $("#currentRole");
     currentAccName = $("#currentAccountName");
     updateRoleModalBtn = $("#updateRoleBtn");

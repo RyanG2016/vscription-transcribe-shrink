@@ -14,4 +14,6 @@
     --vtex-blue: #1e79be;
     --vtex-orange: #f5862c;
     --vtex-orange-30: rgba(245, 134, 44, 0.30);
+    --vtex-hint-border-color: #f5862c;
+    --vtex-hint-text-color: white;
 }

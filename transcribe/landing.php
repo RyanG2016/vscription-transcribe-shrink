@@ -16,7 +16,7 @@ if (isset($_SESSION['counter'])) {
 // User Setting
 ?>
 
-<html>
+<html lang="en">
 
 <head>
     <title>vScription User Settings</title>
@@ -53,7 +53,12 @@ if (isset($_SESSION['counter'])) {
     </script>
 
     <link href="data/css/landing.css?v=2" rel="stylesheet">
-    <script src="data/scripts/landing.min.js" type="text/javascript"></script>
+    <script src="data/scripts/landing.js" type="text/javascript"></script>
+
+    <!-- Enjoyhint library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/kineticjs/5.2.0/kinetic.js"></script>
+    <link href="data/thirdparty/enjoyhint/enjoyhint.css" rel="stylesheet">
+    <script src="data/thirdparty/enjoyhint/enjoyhint.min.js"></script>
 
 </head>
 
@@ -260,6 +265,19 @@ if (isset($_SESSION['counter'])) {
                         </td>
                     </tr>
                 </table>
+
+                <hr>
+
+                <div class="row">
+
+                    <div id="adminCard" class="col text-center">
+                        <h3 class="col text-center border-right">Admin</h3>
+                    </div>
+
+                    <div id="typistCard" class="col text-center">
+                        <h3>Typist</h3>
+                    </div>
+                </div>
 
             </div>
         </div>
