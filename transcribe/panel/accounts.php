@@ -412,6 +412,11 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
             </fieldset>
 
             <div class="modal-footer">
+                <button class="mdc-button mdc-button--unelevated cancel-acc-button" id="closeAccModal" type="button">
+                    <div class="mdc-button__ripple"></div>
+                    <i class="fas fa-times"></i>
+                    <span class="mdc-button__label">&nbsp; Cancel</span>
+                </button>
                 <button class="mdc-button mdc-button--unelevated blue-btn" id="updateAccBtn" type="button" disabled>
                     <div class="mdc-button__ripple"></div>
                     <i class="fas fa-user-edit"></i>
@@ -422,12 +427,6 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
                     <div class="mdc-button__ripple"></div>
                     <i class="fas fa-user-plus"></i>
                     <span class="mdc-button__label">&nbsp; Create</span>
-                </button>
-
-                <button class="mdc-button mdc-button--unelevated cancel-acc-button" id="closeAccModal" type="button">
-                    <div class="mdc-button__ripple"></div>
-                    <i class="fas fa-times"></i>
-                    <span class="mdc-button__label">&nbsp; Cancel</span>
                 </button>
             </div>
 
