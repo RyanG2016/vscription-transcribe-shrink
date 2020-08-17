@@ -8,6 +8,7 @@ var changeRoleBtn;
 
 var accessesGlobal;
 var rolesGlobal;
+var typistAccessCount;
 
 var modalHeaderTitle;
 var accessId;
@@ -17,6 +18,7 @@ var roleRequest;
 const ACCESS_URL = "../api/v1/access/?out";
 const SET_DEFAULT_ACCESS_URL = "../api/v1/users/set-default/";
 const ROLES_FOR_ACCOUNT_URL = "../api/v1/access?out&acc_id="; // + acc_id
+const ROLES_COUNT_FOR_ACCOUNT_URL = "../api/v1/access?out&count"; // + acc_id
 
 const CHANGE_ROLE_HEADER = "<i class=\"fas fa-wrench\"></i>&nbsp;Change Role";
 const SET_DEFAULT_ROLE_HEADER = "<i class=\"fas fa-user-edit\"></i>&nbsp;Set Default";
@@ -29,6 +31,7 @@ var setDefaultModal;
 
 var accountsArray = [];
 var loading;
+var loadingText;
 var roleIsset; //-> from PHP (landing.php)
 
 $(document).ready(function () {
@@ -62,6 +65,7 @@ $(document).ready(function () {
     //run Enjoyhint script
     //     enjoyhint_instance.run();
 
+    loadingText = $("#loadingText");
     currentRole = $("#currentRole");
     currentAccName = $("#currentAccountName");
     updateRoleModalBtn = $("#updateRoleBtn");
@@ -75,28 +79,34 @@ $(document).ready(function () {
     accountBox = $("#accountBox");
     roleBox = $("#roleBox");
 
-    chooseJobModal = document.getElementById("modal");
+    // chooseJobModal = document.getElementById("modal");
+    chooseJobModal = $("#modal");
     // chooseJobModal.style.display = "block";
 
     closeModalBtn.on("click", function (e) {
-        chooseJobModal.style.display = "none";
+        chooseJobModal.modal('hide');
     });
 
 
     changeRoleBtn.on("click", function (e) {
         setModalUI(false);
-        chooseJobModal.style.display = "block";
+        // chooseJobModal.style.display = "block";
+        chooseJobModal.modal('show');
     });
 
     setDefaultRoleBtn.on("click", function (e) {
         setModalUI(true);
-        chooseJobModal.style.display = "block";
+        // chooseJobModal.style.display = "block";
+        chooseJobModal.modal();
     });
-
+    $('#createAccModal').modal(); // todo turn off
+    getRolesCount(3);
 
     updateRoleModalBtn.on("click", function (e) {
-        // console.log("Setting role to: " + roleBox.selectpicker('val') + " || for acc: " +  accountBox.selectpicker('val'));
+
         updateRoleModalBtn.attr("disabled", "disabled");
+        loadingText.html("Setting role, please wait..");
+        loading.style.display = "block";
         var formData = new FormData();
         formData.append("acc_id", accountBox.selectpicker('val'));
         formData.append("acc_role", roleBox.selectpicker('val'));
@@ -113,7 +123,8 @@ $(document).ready(function () {
             success: function (response) {
                 // resetForm();
                 // accessDTRef.ajax.reload(); // refresh access table
-                chooseJobModal.style.display = "none";
+                // chooseJobModal.style.display = "none";
+                chooseJobModal.modal('hide');
 
                 location.reload();
                 /*$.confirm({
@@ -134,6 +145,7 @@ $(document).ready(function () {
 
             },
             error: function (err) {
+                loading.style.display = "none";
                 $.confirm({
                     title: 'Error',
                     content: err.responseJSON["msg"],
@@ -170,8 +182,8 @@ $(document).ready(function () {
                 accountsArray.push(access.acc_id);
 
                 cbox.innerHTML += "<option value='" + access.acc_id + "'>" +
-                    access.acc_id +
-                    " - " +
+                    // access.acc_id +
+                    // " - " +
                     access.acc_name +
                     "</option>";
             }
@@ -187,6 +199,8 @@ $(document).ready(function () {
                 // console.log("selection changed to: " + clickedIndex + " and prev was: " + previousValue+ "and e is ");
                 // console.log(e);
                 // console.log(countryBox.selectpicker('val')); // selected value
+                loadingText.html("Loading roles..");
+                loading.style.display = "block";
                 loadRolesForAccount(accountBox.selectpicker('val'));
             });
         }
@@ -204,18 +218,20 @@ $(document).ready(function () {
                     rolesGlobal[0]["acc_role"]
                 );
             }else{
-                chooseJobModal.style.display = "block";
+                // chooseJobModal.style.display = "block";
+                chooseJobModal.modal('show');
                 loading.style.display = "none";
             }
         }else{
             if(accessesGlobal.length != 0){
-                chooseJobModal.style.display = "block";
+                // chooseJobModal.style.display = "block";
+                chooseJobModal.modal('show');
             }
             loading.style.display = "none";
         }
     }
 
-    function setCurrentRole(accID, accRole){
+    function setCurrentRole(accID, accRole) {
         var formData = new FormData();
         formData.append("acc_id", accID);
         formData.append("acc_role", accRole);
@@ -232,7 +248,8 @@ $(document).ready(function () {
             success: function (response) {
                 // resetForm();
                 // accessDTRef.ajax.reload(); // refresh access table
-                chooseJobModal.style.display = "none";
+                // chooseJobModal.style.display = "none";
+                chooseJobModal.modal('hide');
                 location.reload();
             },
             error: function (err) {
@@ -278,8 +295,8 @@ $(document).ready(function () {
                 tybox.innerHTML = ""; // clear old values
                 for (const role of roles) {
                     tybox.innerHTML += "<option value='" + role.acc_role + "'>" +
-                        role.acc_role +
-                        " - " +
+                        // role.acc_role +
+                        // " - " +
                         role.role_desc + "</option>"
                 }
                 roleBox.selectpicker({
@@ -294,6 +311,32 @@ $(document).ready(function () {
                     loading.style.display = "none";
                 }
                 // removeLoadingSpinner();
+            }
+        });
+
+    }
+
+    function getRolesCount(type = 0) {
+
+        var param = "";
+        if(type){
+            param = "&type="+type;
+        }
+
+        $.ajax({
+            url: ROLES_COUNT_FOR_ACCOUNT_URL + param,
+            method: "GET",
+            success: function (response) {
+                typistAccessCount = response["count"];
+                $("#typistCount").html( typistAccessCount);
+                if(typistAccessCount > 0)
+                {
+                    $("#typist0").remove();
+                    $("#alertT0").remove();
+                }else{
+                    $("#typist1").remove();
+                    $("#alertT1").remove();
+                }
             }
         });
 

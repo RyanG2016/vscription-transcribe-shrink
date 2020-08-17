@@ -286,42 +286,59 @@ if (isset($_SESSION['counter'])) {
     </div>
 </div>
 
-<!-- The Modal -->
-<div id="modal" class="modal">
+<div class="overlay" id="overlay">
+    <div class="loading-overlay-text" id="loadingText">Please wait..</div>
+    <div class="spinner">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+    </div>
+</div>
 
-    <!-- Modal content -->
-    <div class="modal-content">
-        <h2 style="color: #1e79be" id="modalHeaderTitle">
-            <i class="fas fa-wrench"></i>&nbsp;Change Role
-        </h2>
-
-
-        <input id="uidIn" name="uid" value="<?php echo $_SESSION['uid'] ?>" style="display: none">
-
-        <form method="post" id="createAccForm" class="createAccForm" target="_self">
-
-            <!--<label for="email" class="vtex-form_lbl">
-                Email
-                <input class="email vtex-input" id="email" name="email" type="email">
-            </label>-->
-
-            <div class="account">
-                <label>Account</label><br>
-                <select id="accountBox" name="acc_id" class="account_select" data-width="250px">
-                </select>
+<div class="modal" tabindex="-1" id="modal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 style="color: #1e79be" id="modalHeaderTitle">
+                    <i class="fas fa-wrench"></i>&nbsp;Change Role
+                </h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                </button>
             </div>
-            <br>
+            <div class="modal-body">
+                <input id="uidIn" name="uid" value="<?php echo $_SESSION['uid'] ?>" style="display: none">
 
-            <!--===================================================-->
-            <div class="role">
-                <label id="role">Role<br>
-                    <select id="roleBox" name="acc_role" data-width="250px">
-                    </select>
-                </label>
+                <form method="post" id="createAccForm" class="createAccForm" target="_self">
+
+                    <!--<label for="email" class="vtex-form_lbl">
+                        Email
+                        <input class="email vtex-input" id="email" name="email" type="email">
+                    </label>-->
+
+                    <div class="account text-center w-100">
+                        <div><h4 class="font-weight-light">Account</h4></div>
+                        <select id="accountBox" name="acc_id" class="w-100 m-t-7" data-width="250px">
+                        </select>
+                    </div>
+                    <br>
+
+                    <!--===================================================-->
+                    <div class="role text-center w-100">
+                            <div><h4 class="font-weight-light">Role</h4></div>
+                            <select id="roleBox" class="w-100" name="acc_role" data-width="250px">
+                            </select>
+                        </label>
+                    </div>
+                    <!--===================================================-->
+
             </div>
-            <!--===================================================-->
-
             <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i>&nbsp; Cancel</button>
+                <button type="button" class="btn btn-primary" id="updateRoleBtn"><i class="fas fa-user-edit"></i> &nbsp;Set</button>
+            </div>
+
+            <!--<div class="modal-footer">
                 <button class="mdc-button mdc-button--unelevated blue-btn" id="updateRoleBtn" type="button" disabled>
                     <div class="mdc-button__ripple"></div>
                     <i class="fas fa-user-edit"></i>
@@ -333,19 +350,12 @@ if (isset($_SESSION['counter'])) {
                     <i class="fas fa-times"></i>
                     <span class="mdc-button__label">&nbsp; Cancel</span>
                 </button>
-            </div>
+            </div>-->
 
-        </form>
-
-
+        </div>
     </div>
 </div>
 
-<div class="overlay" id="overlay">
-    <div class="spinner">
-        <div class="bounce1"></div>
-        <div class="bounce2"></div>
-        <div class="bounce3"></div>
     </div>
 </div>
 
