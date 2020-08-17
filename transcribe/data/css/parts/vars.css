@@ -3,6 +3,11 @@
     src: url("../../Fonts/Oxygen-Regular.ttf");
 }
 
+/*@font-face {
+  font-family: oxygen-b;
+  src: url("../../Fonts/Oxygen-Bold.ttf");
+}*/
+
 @font-face {
     font-family: oxygen-l;
     src: url("../../Fonts/Oxygen-Light.ttf");
