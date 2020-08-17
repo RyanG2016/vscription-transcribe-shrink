@@ -457,19 +457,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
                     <textarea id="report" name="report" placeholder="" rows="25" class="area"></textarea>
                 </div>
 
-                <div class="userinfo">
-                    <p class=userinfolbl>Logged in as: <span class="typistemail"
-                                                             style="margin-left:4px;"> <?php echo $_SESSION["uEmail"] ?></span>
-                    </p>
-                </div>
-
             </fieldset>
-
-            <div align="center">
-
-                <!--	Buttons old alignment 	-->
-
-            </div>
 
         </form>
 
