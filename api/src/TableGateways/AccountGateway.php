@@ -373,7 +373,7 @@ class AccountGateway
             $statement = $this->db->prepare($statement);
             $statement->execute(array(
                 1, 1, $accName,
-                0,// acc_ret,
+                14,// acc_ret,
                 0, 0, 0, 0,// br1, br1type, br1tat , br1 min
                 0, // br1 desc
                 0, 0, 0, 0,// br2, br2type, br2tat , br2 min
@@ -384,7 +384,7 @@ class AccountGateway
                 0, // br4 desc
                 0, 0, 0, 0,// br5, br5type, br5tat , br5 min
                 0, // br5 desc
-                0, $accPrefix// log retention, job prefix
+                90, $accPrefix// log retention, job prefix
             ));
 
             if ($statement->rowCount() > 0) {
