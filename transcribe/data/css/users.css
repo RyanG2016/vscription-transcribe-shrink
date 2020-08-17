@@ -2,7 +2,7 @@
 @import "parts/admin_card_view.css";
 @import "parts/card.css";
 @import "parts/data-tbl.css";
-@import "parts/colors.css";
+@import "parts/vars.css";
 @import "parts/spinner.css";
 
 /* ---------------- */

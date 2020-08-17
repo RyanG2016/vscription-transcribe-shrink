@@ -1,9 +1,8 @@
+@import "parts/vars.css";
 @import "parts/user_card_view.css";
 @import "parts/card.css";
-@import "parts/modal_popup.css";
 @import "parts/modal_overlay.css";
 @import "parts/data-tbl.css";
-@import "parts/colors.css";
 @import "parts/spinner.css";
 @import "parts/bootstrap-override.css";
 
@@ -27,21 +26,6 @@ a {
 
 a:hover {
     color: rgb(83, 192, 235);
-}
-
-/* ---------------- */
-/* CREATE User MODAL */
-/* ---------------- */
-.modal-content {
-    text-align: center;
-    width: fit-content;
-    padding: 30px 50px 0;
-    /*min-width: 650px;*/
-}
-
-.modal-footer{
-    margin-top: 20px;
-    text-align: center;
 }
 
 .cancel-acc-button {
