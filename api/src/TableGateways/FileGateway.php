@@ -307,7 +307,7 @@ class FileGateway
         $uploadedBy = $_SESSION['uEmail'];
 
         $file_status = 0;
-        if($org_ext == "dss" || $org_ext == "ds2")
+        if($org_ext == "ds2")
         {
             $file_status = 8; // Queued for conversion
         }

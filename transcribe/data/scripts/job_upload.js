@@ -627,7 +627,6 @@ function documentReady() {
         'audio/mpeg',
         'audio/ogg',
         'audio/wav',
-        'audio/dss',
         'audio/ds2',
         'audio/vnd.wave',
         'audio/wave',

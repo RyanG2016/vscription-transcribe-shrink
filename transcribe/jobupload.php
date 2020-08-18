@@ -130,7 +130,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
                                     <i class="material-icons mdc-button__icon" aria-hidden="true"
                                     >insert_drive_file</i
                                     >
-                                    <span class="mdc-button__label">Choose Files to Upload (wav, mp3, dss, ds2, ogg)</span>
+                                    <span class="mdc-button__label">Choose Files to Upload (wav, mp3, ds2, ogg)</span>
                                 </label>
 
                                 <button class="mdc-button mdc-button--unelevated foo-button clear_btn" disabled>
@@ -151,7 +151,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
                                 </button>
 
                                 <input id="upload_btn" type="file" name="file[]"
-                                       accept=".wav, .mp3, .dss, .ds2, .ogg" multiple/>
+                                       accept=".wav, .mp3, .ds2, .ogg" multiple/>
 
                                 <input type="hidden" name="<?php echo ini_get("session.upload_progress.name"); ?>" value="job_upload"/>
 
