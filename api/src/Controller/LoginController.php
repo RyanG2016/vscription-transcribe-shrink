@@ -1,21 +1,31 @@
 <?php
 namespace Src\Controller;
 
+/*
+ * base url /login
+ * options:
+ *      POST /login/reset -> reset password email to user
+ * */
+
 use Src\TableGateways\LoginGateway;
 use Src\System\Throttler;
+use Src\System\Mailer;
 
 class LoginController {
 
     private $db;
     private $requestMethod;
-    private $loginId;
+    private $option;
+    private $mailer;
 
     private $loginGateway;
 
-    public function __construct($db, $requestMethod)
+    public function __construct($db, $requestMethod, $option)
     {
         $this->db = $db;
         $this->requestMethod = $requestMethod;
+        $this->option = $option;
+        $this->mailer = new Mailer($db);
 
         $this->loginGateway = new LoginGateway($db);
     }
@@ -27,7 +37,19 @@ class LoginController {
             case 'GET':
             case 'POST':
                 new Throttler("login", 10, \bandwidthThrottle\tokenBucket\Rate::MINUTE);
-                $response = $this->validateLogin();
+
+
+                if($this->option == "reset")
+                {
+                    $response = $this->sendResetPasswordEmail();
+                }
+                else if($this->option == null){
+                    $response = $this->validateLogin();
+                }
+                else{
+                    $response = $this->notFoundResponse();
+                }
+
                 break;
 
 //                 new Throttler("sign_up", 5, \bandwidthThrottle\tokenBucket\Rate::MINUTE);
@@ -103,6 +125,25 @@ class LoginController {
 
         return $output_array != false;
     }
+
+    // POST
+    private function sendResetPasswordEmail()
+    {
+//        echo "hi";
+        // fname=&lname=&email=hacker2894%40gmail.com&password=Iceman2801&countryID=209&stateID=70&city=
+        if(!isset($_POST["email"]) ||empty($_POST["email"]) ) {
+            return $this->unprocessableEntityResponse();
+        }
+
+        if($this->mailer->sendEmail(0, $_POST["email"]))
+        {
+            return generateApiHeaderResponse("Reset password email sent, please check your inbox", false);
+        }else{
+            return generateApiHeaderResponse("Failed to send reset password email", true);
+        }
+
+    }
+
 
     private function validateEmail($email)
     {
