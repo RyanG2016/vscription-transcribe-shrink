@@ -219,6 +219,7 @@ $(document).ready(function () {
                                         processData: false,
                                         contentType: false,
                                         success: function (response) {
+                                            getTypists();
                                             accessDTRef.ajax.reload(); // refresh access table
                                             $.confirm({
                                                 title: 'Success',
