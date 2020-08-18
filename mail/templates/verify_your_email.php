@@ -10,7 +10,7 @@ $emHTML= "<!DOCTYPE html>
 
     <meta charset=\"utf-8\">
     <meta http-equiv=\"x-ua-compatible\" content=\"ie=edge\">
-    <title>Email Verification</title>
+    <title>Account Verification</title>
     <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
     <style type=\"text/css\">
         /**
@@ -182,7 +182,7 @@ $emHTML= "<!DOCTYPE html>
                 <!-- start copy -->
                 <tr>
                     <td align=\"left\" bgcolor=\"#ffffff\" style=\"padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;\">
-                        <p style=\"margin: 0;\">Tap the button below to verify your email. If you didn't make the request, you can safely delete this email.</p>
+                        <p style=\"margin: 0;\">Thank you for signing up for vScription Pro, Please verify your email address by clicking the button below: </p>
                     </td>
                 </tr>
                 <!-- end copy -->
@@ -197,7 +197,7 @@ $emHTML= "<!DOCTYPE html>
                                         <tr>
                                             <td align=\"center\" bgcolor=\"#1a82e2\" style=\"border-radius: 6px;\">
                                                 <a href=\"$link\" target=\"_blank\" style=\"display: inline-block; padding: 16px 36px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; border-radius: 6px;\">
-                                                    Verify
+                                                    Verify Email
                                                 </a>
                                             </td>
                                         </tr>
@@ -283,12 +283,10 @@ $emHTML= "<!DOCTYPE html>
 $emPlain = "Hi $email,
 		
 
-Please verify your email address by following the link below:
-
-To choose a new password and complete your request, please follow the link below:
+Thank you for signing up for vScription Pro, Please verify your email address by clicking the button below:
 
 $link
 
-If it is not clickable, please copy and paste the URL into your browser's address bar.
+If it is not clickable, please copy and paste the URL into your browsers.
 
-Thanks.";
+Cheers,";
