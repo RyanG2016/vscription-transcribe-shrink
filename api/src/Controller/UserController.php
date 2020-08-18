@@ -4,6 +4,7 @@ namespace Src\Controller;
 
 //use PHPMailer\PHPMailer\Exception;
 use Src\TableGateways\UserGateway;
+use Src\TableGateways\accessGateway;
 use Src\System\Mailer;
 
 class UserController
@@ -14,6 +15,7 @@ class UserController
     private $userId;
     private $mailer;
 
+    private $accessGateway;
     private $userGateway;
 
     public function __construct($db, $requestMethod, $userId)
@@ -24,6 +26,7 @@ class UserController
         $this->mailer = new Mailer($db);
 
         $this->userGateway = new UserGateway($db);
+        $this->accessGateway = new accessGateway($db);
     }
 
     public function processRequest()
@@ -183,9 +186,14 @@ class UserController
             return generateApiHeaderResponse("User not found.", true);
         }
 
-        if( $this->mailer->sendEmail(6, $_POST["email"], $_SESSION["acc_name"]) )
+        $accessID = $this->accessGateway->internalManualInsertAccessRecord($_SESSION["accID"], $user["id"], $_POST["email"], 6);
+        if(!$accessID){
+            return generateApiHeaderResponse("Failed to send invitation. (AID-1)", true);
+        }
+        $emailSent = $this->mailer->sendEmail(6, $_POST["email"], $_SESSION["acc_name"], $accessID);
+        if( $emailSent )
         {
-            return generateApiHeaderResponse("Invitation sent, User will be added when the invitation is accepted.", false);
+            return generateApiHeaderResponse("Invitation sent.", false);
         }else{
             return generateApiHeaderResponse("Failed to send invitation.", true);
         }

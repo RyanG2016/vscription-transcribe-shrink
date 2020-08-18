@@ -1,24 +1,122 @@
 <?php
 
 namespace Src\TableGateways;
+use PDOException;
+use Src\TableGateways\accessGateway;
 
-require "filters/accessFilter.php";
+include_once "common.php";
 
-class accessGateway
+/** @internal */
+class tokenGateway
 {
 
     private $db;
+    private $accessGateway;
 
     public function __construct($db)
     {
         $this->db = $db;
+        $this->accessGateway = new accessGateway($db);
+    }
+
+    /**
+     * @param $token string token to parse
+     * @return array PHPArrayResponse -><br><u>codes:</u><br>
+     *
+     * &nbsp;&nbsp; 0: invalid <br>
+     * 498: expired or doesn't exist
+     * @internal internally used by secret.php
+     */
+    public function evaluateToken($token)
+    {
+
+        if (empty($token)) {
+            return generatePHPArrayResponse("Invalid token", true, 0);
+        }
+
+        $row = $this->find($token);
+        if (!$row) {
+            return generatePHPArrayResponse("Token expired or doesn't exist", true, 498);
+        }
+
+        // 6: typist invitation
+        switch ($row["token_type"]) {
+
+            case 6:
+                $access_id = $row["extra1"];
+                if($this->accessGateway->typistAcceptInvitation($access_id))
+                {
+                    // accepted
+                    $this->expireToken($row["id"]);
+                    return generatePHPArrayResponse("Invitation accepted, redirecting..", false, 0);
+                }else{
+                    // expired or revoked
+                    return generatePHPArrayResponse("Token expired or doesn't exist", true, 498);
+                }
+
+                break;
+
+            default:
+                return generatePHPArrayResponse("Invalid token (D-2)", true, 0);
+                break;
+
+        }
+    }
+
+    /**
+     * set token as used
+     * @param $id int token id
+     * @return boolean success
+     */
+    public function expireToken($id)
+    {
+
+        // update DB //
+        $statement = "UPDATE
+                        tokens 
+                        SET 
+                            used = 1  
+                        WHERE 
+                            id = ?";
+
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($id));
+
+            return $statement->rowCount();
+
+        } catch (PDOException $e) {
+//            return $this->errorOccurredResponse("Couldn't Update Permission (2)");
+            return false;
+        }
+    }
+
+    /**
+     * @param $token string token to get its info
+     * @return mixed <b>token object</b> if found <br> <b>false</b> if not found or expired (24 hours passed or used)
+     */
+    public function find($token)
+    {
+
+        $statement = "SELECT *
+                        FROM tokens 
+                        WHERE identifier = ? 
+                          AND used = 0  
+                          AND DATE_ADD(time, INTERVAL '24:0' HOUR_MINUTE) > NOW();";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($token));
+            return $statement->fetch();
+        } catch (\PDOException $e) {
+            return false;
+//            exit($e->getMessage());
+        }
     }
 
     public function findAll()
     {
-        $filter = parseParams(true);
-
-
         $statement = "
             SELECT 
                 access.*,
@@ -33,7 +131,7 @@ class accessGateway
             INNER JOIN accounts a on access.acc_id = a.acc_id
             INNER JOIN roles r on access.acc_role = r.role_id
             INNER JOIN users u on access.uid = u.id
-            " . $filter . ";";
+            ;";
 
 
         try {
@@ -178,9 +276,9 @@ class accessGateway
             $statement->execute(array($_SESSION["uid"], $acc_id));
 //            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $result = $statement->fetch();
-            if($statement->rowCount() > 0) {  // user access exists
+            if ($statement->rowCount() > 0) {  // user access exists
                 return true;
-            }else{
+            } else {
                 return false;
             }
 
@@ -197,9 +295,9 @@ class accessGateway
             return false;
         }
 
-        $type = isset($_REQUEST["type"])?
+        $type = isset($_REQUEST["type"]) ?
             $_REQUEST["type"]
-            :0;
+            : 0;
 
 
         $statement = "
@@ -211,8 +309,7 @@ class accessGateway
             where uid = ?
             ";
 
-        if(isset($_REQUEST["type"]))
-        {
+        if (isset($_REQUEST["type"])) {
             $statement .= " and acc_role = $type";
         }
 
@@ -232,7 +329,7 @@ class accessGateway
     // optional $certain_role if user needs to set a role like typist to update the html/rtf files
     // returns the highest role the user has for that account or 0 if no permissions found
     // used in FileGateway once
-    public function checkForUpdatePermission($acc_id, $certain_role=0)
+    public function checkForUpdatePermission($acc_id, $certain_role = 0)
     {
 
         if (strpos($acc_id, '%') !== FALSE) {
@@ -265,23 +362,22 @@ class accessGateway
             $statement->execute(array($_SESSION["uid"], $acc_id));
             $resultAll = $statement->fetchAll(\PDO::FETCH_ASSOC);
 //            $result = $statement->fetch();
-            if($statement->rowCount() > 0) {  // user access exists
+            if ($statement->rowCount() > 0) {  // user access exists
                 $match = false;
                 $highestRole = 3;
-                foreach ($resultAll as $row){
-                    if($row["acc_role"]<$highestRole) $highestRole = $row["acc_role"];
-                    if($certain_role != 0)
-                    {
-                        if($row["acc_role"] == $certain_role) $match = true;
+                foreach ($resultAll as $row) {
+                    if ($row["acc_role"] < $highestRole) $highestRole = $row["acc_role"];
+                    if ($certain_role != 0) {
+                        if ($row["acc_role"] == $certain_role) $match = true;
                     }
                 }
-                if($certain_role != 0 && $match){
+                if ($certain_role != 0 && $match) {
                     return $certain_role;
-                }else if($certain_role != 0 && !$match){
+                } else if ($certain_role != 0 && !$match) {
                     return 0;
                 }
                 return $highestRole;
-            }else{
+            } else {
                 return 0;
             }
 
@@ -302,7 +398,7 @@ class accessGateway
             return $this->errorOccurredResponse("Invalid Input, required fields missing (1-OT)");
         }
 
-        if(!sqlInjectionCheckPassed($_POST)){
+        if (!sqlInjectionCheckPassed($_POST)) {
             return $this->errorOccurredResponse("Invalid Input (505-OT)");
         }
 
@@ -325,10 +421,10 @@ class accessGateway
 
         try {
             $statement = $this->db->prepare($statement);
-            $statement->execute( array($_SESSION["uid"], $_POST["acc_id"], $_POST["acc_role"]) );
+            $statement->execute(array($_SESSION["uid"], $_POST["acc_id"], $_POST["acc_role"]));
 //            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $result = $statement->fetch();
-            if($statement->rowCount() > 0) {  // user access exists check to prevent js altering
+            if ($statement->rowCount() > 0) {  // user access exists check to prevent js altering
                 // access exists
                 $_SESSION['accID'] = $result["acc_id"];
                 $_SESSION['role'] = $result["acc_role"];
@@ -337,7 +433,7 @@ class accessGateway
                 $_SESSION['landed'] = true;
                 return $this->oKResponse(null, "Role changed successfully");
 
-            }else{
+            } else {
                 return $this->errorOccurredResponse("You don't have permission for this role.");
             }
 //            return $result;
@@ -347,31 +443,6 @@ class accessGateway
         }
     }
 
-    public function find($id)
-    {
-
-        $statement = "
-            SELECT 
-                access.*,
-                a.acc_name,
-                r.role_name
-            FROM
-                access
-            
-            INNER JOIN accounts a on access.acc_id = a.acc_id
-            INNER JOIN roles r on access.acc_role = r.role_id
-            where access.access_id = ?
-            ;";
-
-        try {
-            $statement = $this->db->prepare($statement);
-            $statement->execute(array($id));
-            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
-            return $result;
-        } catch (\PDOException $e) {
-            exit($e->getMessage());
-        }
-    }
 
     public function insertAccessRecord()
     {
@@ -383,8 +454,7 @@ class accessGateway
             return $this->errorOccurredResponse("Invalid Input, required fields missing (7)");
         }
 
-        if(!sqlInjectionCheckPassed($_POST))
-        {
+        if (!sqlInjectionCheckPassed($_POST)) {
             return $this->errorOccurredResponse("Invalid Input (7505)");
         }
 
@@ -442,51 +512,6 @@ class accessGateway
 
 
     /**
-     * * insert access record manually
-     * used currently to add a pending typist access by a client administrator
-     * @param $acc_id int account ID
-     * @param $uid int user ID
-     * @param $username string username/email of the user
-     * @param $acc_role int user role for the account @roles tbl, 6:pending invitation
-     * @return int inserted_id | 0 if failed
-     */
-    public function internalManualInsertAccessRecord($acc_id, $uid, $username, $acc_role)
-    {
-
-
-        // insert to DB //
-        $statement = "INSERT
-                        INTO 
-                            access 
-                            (
-                            acc_id, uid, username, acc_role
-                             ) 
-                         VALUES 
-                                (
-                                 ?, ?, ?, ?
-                                )";
-
-        try {
-            $statement = $this->db->prepare($statement);
-            $statement->execute(array($acc_id, $uid, $username, $acc_role));
-
-            if ($statement->rowCount()) {
-                return $this->db->lastInsertId();
-//                return $this->oKResponse($this->db->lastInsertId(), "Access Permission Created");
-            } else {
-                return 0;
-//                return $this->errorOccurredResponse("Couldn't Create Permission");
-            }
-//            return $statement->rowCount();
-        } catch (\PDOException $e) {
-            return 0;
-//            return $this->errorOccurredResponse("Couldn't Create Permission (2)");
-        }
-
-    }
-
-
-    /**
      * Inserts a new access permission directly to the current logged in user
      * <br><i>used in create new account client admin form #landing</i>
      * @param $accID int accountID to give client admin permission to
@@ -535,8 +560,7 @@ class accessGateway
     {
         parse_str(file_get_contents('php://input'), $put);
 
-        if(!sqlInjectionCheckPassed($put))
-        {
+        if (!sqlInjectionCheckPassed($put)) {
             return $this->errorOccurredResponse("Invalid Input (7505)");
         }
 
@@ -589,40 +613,6 @@ class accessGateway
         } catch (PDOException $e) {
             return $this->errorOccurredResponse("Couldn't Update Permission (2)");
 //            return false;
-        }
-    }
-
-    /**
-     * accept invitation for typist access
-     * @param $id
-     * @return mixed
-     * @internal
-     */
-    public function typistAcceptInvitation($accessID)
-    {
-        // update DB //
-        $statement = "UPDATE
-                        access 
-                        SET 
-                           acc_role = 3
-                        WHERE 
-                            access_id = ?";
-
-        try {
-            $statement = $this->db->prepare($statement);
-            $statement->execute(array($accessID));
-
-            if ($statement->rowCount() > 0) {
-                return true;
-//                return $this->oKResponse($accessID, "Access Updated");
-            } else {
-                return false;
-//                return $this->errorOccurredResponse("Couldn't update or no changes were found to update");
-            }
-
-        } catch (\PDOException $e) {
-//            return $this->errorOccurredResponse("Couldn't Update Permission (2)");
-            return false;
         }
     }
 

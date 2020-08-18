@@ -37,7 +37,8 @@ var loadingText;
 var roleIsset; //-> from PHP (landing.php)
 
 $(document).ready(function () {
-    loading = document.getElementById("overlay");
+    // loading = document.getElementById("overlay");
+    loading = $("#overlay");
     changeLoading(true);
 
     //initialize instance
@@ -441,12 +442,14 @@ function generateLoadingSpinner() {
 
 function changeLoading(show, text = false) {
     if(!show){
-        loading.style.display = "none"
+        // loading.style.display = "none";
+        loading.fadeOut();
         $("body").css("overflow", "auto");
     }else{
         $("body").css("overflow", "none");
         if(text) loadingText.html(text);
-        loading.style.display = "block";
+        loading[0].style.display = "block";
+        // loading.fadeIn();
     }
 }
 

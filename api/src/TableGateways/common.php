@@ -25,6 +25,17 @@ function generateResponse($data, $error, $empty = false)
     return json_encode($a);
 }
 
+function generatePHPArrayResponse($msg, $error = false, $code = 0, $data = false)
+{
+
+    return array(
+        'msg' => $msg,
+        'error' => $error,
+        'data' => $data,
+        'code' => $code
+    );
+}
+
 function generateApiResponse($msg = false, $error = false, $data = false)
 {
     $a = array(

@@ -24,6 +24,7 @@ class Mailer
     }
 
     // * @param $mailType int reset-password: 0 | sign-up -> 1 | password reset -> 4 | verify email: 5
+
     /**
      * Token is internally generated and inserted to tokens table
      * @param $mailType int  >0: reset-password <br>&nbsp; 5: verify email
@@ -31,9 +32,10 @@ class Mailer
      * <br>10: document-complete <br>15: job added
      * @param $user_email string user email address
      * @param string $account_name client admin account name for email type 6
+     * @param int $extra1 extra field to insert to tokens table
      * @return bool true -> OK | false -> failed to send email
      */
-    public function sendEmail($mailType, $user_email, $account_name = "")
+    public function sendEmail($mailType, $user_email, $account_name = "", $extra1 = 0)
     {
         global $cbaselink;
         global $link;
@@ -45,19 +47,20 @@ class Mailer
         $email = $user_email;
         $accName = $account_name;
 
-        $token = $this->generateToken($user_email, $mailType);
-        if(!$token) return false;
-
 //        $link = "$cbaselink/verify.php?token=$token";
         try {
             switch ($mailType) {
                 case 0:
+                    $token = $this->generateToken($user_email, $mailType);
+                    if(!$token) return false;
                     $link = "$cbaselink/reset.php?token=$token";
                     include(__DIR__ . '/../../../mail/templates/reset_pwd.php');
                     $sbj = "Password Reset";
                     break;
 
                 case 5:
+                    $token = $this->generateToken($user_email, $mailType);
+                    if(!$token) return false;
                     $link = "$cbaselink/verify.php?token=$token";
                     include(__DIR__ . '/../../../mail/templates/verify_your_email.php');
                     $sbj = "Account Verification";
@@ -65,8 +68,10 @@ class Mailer
                     break;
 
                 case 6:
-//                    $link = "$cbaselink/verify.php?token=$token";
-                    include(__DIR__ . '/../../../mail/templates/typist_invite.php');
+                    $token = $this->generateToken($user_email, $mailType, $extra1);
+                    if(!$token) return false;
+                    $link = "$cbaselink/secret.php?s=$token";
+                    include(__DIR__ . '/../../../mail/templates/typist_invitation.php');
                     $sbj = "Invitation";
 //                $mail->addCC("sales@vtexvsi.com");
                     break;
@@ -123,7 +128,7 @@ class Mailer
      * @param $reasonCode 5 -> email verification |
      * @return string token or (false) if failed
      */
-    public function generateToken($email ,$reasonCode)
+    public function generateToken($email ,$reasonCode, $extra1 = 0, $extra2 = 0)
     {
         $token = null;
 
@@ -142,8 +147,11 @@ class Mailer
                    email,
                    identifier,
                    used,
-                   token_type) 
-               values(?, ?, ?, ?)
+                   token_type,
+                   extra1,
+                   extra2
+                   ) 
+               values(?, ?, ?, ?, ?, ?)
         ;";
 
         try {
@@ -153,7 +161,9 @@ class Mailer
                     $email,
                     $token,
                     0,
-                    $reasonCode
+                    $reasonCode,
+                    $extra1,
+                    $extra2
                 )
             );
             if($statement->rowCount() > 0)
