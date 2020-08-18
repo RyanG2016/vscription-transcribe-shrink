@@ -46,7 +46,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
     <script src="../data/libs/node_modules/@material/linear-progress/dist/mdc.linearProgress.js"></script>
 <!--    <script src="https://kit.fontawesome.com/00895b9561.js" crossorigin="anonymous"></script>-->
     <script src="../data/scripts/billing_report.min.js"></script>
-    <script src="/data/thirdparty/scripts/html2pdf.bundle.min.js"></script>
+    <script src="../data/thirdparty/scripts/html2pdf.bundle.min.js"></script>
     <link href="https://printjs-4de6.kxcdn.com/print.min.css" rel="stylesheet">
     <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
 
