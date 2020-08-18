@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * base url /users
+ * options:
+ *      POST /users/invite          -> send invitation email to $POST[email]
+ *      POST /users/set-default     -> sets default access ID for current user
+ * */
+
 require '../../../../api/bootstrap.php';
 
 include('../../../data/parts/session_settings.php');
@@ -39,7 +46,6 @@ if ($uri[3] !== 'users') {
 // the user id is, of course, optional and must be a number:
 $userId = null;
 if (isset($uri[4])) {
-//    $userId = (int)$uri[4];
     $userId = $uri[4];
 }
 
@@ -47,4 +53,9 @@ $requestMethod = $_SERVER["REQUEST_METHOD"];
 
 // pass the request method and user ID to the PersonController and process the HTTP request:
 $controller = new UserController($dbConnection, $requestMethod, $userId);
-$controller->processRequest();
+if(isset($_SESSION["role"]) && $_SESSION["role"] != 1)
+{
+    $controller->processPublicRequest();
+}else{
+    $controller->processRequest();
+}

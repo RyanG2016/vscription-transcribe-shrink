@@ -183,7 +183,7 @@ div.listControl label:active,
     color: white;
 }
 
-#newupload_btn, #refresh_btn{
+#newupload_btn, #refresh_btn, .vtex-mtb{
     --mdc-theme-primary: #1e79be;
     --mdc-theme-on-primary: white;
 }

@@ -3,6 +3,7 @@
 namespace Src\Controller;
 
 use Src\TableGateways\accessGateway;
+use Src\TableGateways\UserGateway;
 
 class accessController
 {
@@ -12,12 +13,14 @@ class accessController
     private $accessId;
 
     private $accessGateway;
+    private $userGateway;
 
     public function __construct($db, $requestMethod, $accessId)
     {
         $this->db = $db;
         $this->requestMethod = $requestMethod;
         $this->accessId = $accessId;
+        $this->userGateway = new UserGateway($db);
 
         $this->accessGateway = new accessGateway($db);
     }
@@ -67,6 +70,9 @@ class accessController
                 }else if(isset($_REQUEST['count']))
                 {
                     $response = $this->getAccessCountCurUser();
+                }else if(isset($_REQUEST['jl']))
+                {
+                    $response = $this->getAllowedTypists();
                 }
                 else{
                     $response = $this->getOutAccess();
@@ -80,9 +86,10 @@ class accessController
             /*case 'PUT':
                 $response = $this->updateaccessFromRequest($this->accessId);
                 break;
+            */
             case 'DELETE':
-                $response = $this->deleteaccess($this->accessId);
-                break;*/
+                $response = $this->revokeAccess($this->accessId);
+                break;
             default:
                 $response = $this->notFoundResponse();
                 break;
@@ -104,6 +111,19 @@ class accessController
     private function getOutAccess()
     {
         $result = $this->accessGateway->findAllOut();
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = json_encode($result);
+        return $response;
+    }
+
+    /**
+     * Retrieves current typists working for the current logged in account
+     * called when jl param is added to the request
+     * @return mixed
+     */
+    private function getAllowedTypists()
+    {
+        $result = $this->accessGateway->findTypistsForCurLoggedInAccount();
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
         $response['body'] = json_encode($result);
         return $response;
@@ -200,6 +220,47 @@ class accessController
         return $response;
     }
 
+    /**
+     * Public API access - should be client admin and access should be for the same logged in Client Admin ID to be allowed
+     * @param $id int id of access to revoke
+     * @return mixed
+     */
+    private function revokeAccess($id)
+    {
+        if(!isset($_SESSION["role"]) || $_SESSION["role"] != 2 )
+        {
+            return $this->accessDeniedResponse();
+        }
+
+        $result = $this->accessGateway->find($id);
+        if (!$result) {
+            return $this->notFoundResponse();
+        }else{
+            $row = $result[0];
+            if($row["acc_id"] != $_SESSION["accID"]) {
+                return $this->accessDeniedResponse();
+            }else{
+                $user = $this->userGateway->find($row["uid"]);
+                if(!$user){
+                    return $this->notFoundResponse();
+                }else{
+                    if($user[0]["def_access_id"] == $id)
+                    {
+                        $this->userGateway->internalUpdateUserClearDefaultAccess($row["uid"]);
+                    }
+                }
+            }
+        }
+
+        $pass = $this->accessGateway->delete($id);
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = json_encode([
+            'error' => !$pass,
+            'msg' => $pass?'Access Revoked.':"Failed to revoke access."
+        ]);
+        return $response;
+    }
+
     private function validateaccess($input)
     {
         if (!isset($input['firstname'])) {
@@ -223,12 +284,12 @@ class accessController
 
     }
 
-    private function unprocessableEntityResponse()
+    private function accessDeniedResponse()
     {
-        $response['status_code_header'] = 'HTTP/1.1 422 Unprocessable Entity';
+        $response['status_code_header'] = 'HTTP/1.1 401 ACCESS DENIED';
         $response['body'] = json_encode([
             'error' => true,
-            'msg' => 'Invalid input'
+            'msg' => "You don't have permission for this action"
         ]);
         return $response;
     }

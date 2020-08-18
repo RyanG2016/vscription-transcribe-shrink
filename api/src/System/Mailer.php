@@ -26,11 +26,14 @@ class Mailer
     // * @param $mailType int reset-password: 0 | sign-up -> 1 | password reset -> 4 | verify email: 5
     /**
      * Token is internally generated and inserted to tokens table
-     * @param $mailType int reset-password 0 | verify email: 5 | document-complete: 10 | job added: 15
+     * @param $mailType int  >0: reset-password <br>&nbsp; 5: verify email
+     * <br> &nbsp; 6: typist-invitation
+     * <br>10: document-complete <br>15: job added
      * @param $user_email string user email address
+     * @param string $account_name client admin account name for email type 6
      * @return bool true -> OK | false -> failed to send email
      */
-    public function sendEmail($mailType, $user_email)
+    public function sendEmail($mailType, $user_email, $account_name = "")
     {
         global $cbaselink;
         global $link;
@@ -38,7 +41,9 @@ class Mailer
         global $emHTML;
         global $emPlain;
         global $email;
+        global $accName;
         $email = $user_email;
+        $accName = $account_name;
 
         $token = $this->generateToken($user_email, $mailType);
         if(!$token) return false;
@@ -56,6 +61,13 @@ class Mailer
                     $link = "$cbaselink/verify.php?token=$token";
                     include(__DIR__ . '/../../../mail/templates/verify_your_email.php');
                     $sbj = "Account Verification";
+//                $mail->addCC("sales@vtexvsi.com");
+                    break;
+
+                case 6:
+//                    $link = "$cbaselink/verify.php?token=$token";
+                    include(__DIR__ . '/../../../mail/templates/typist_invite.php');
+                    $sbj = "Invitation";
 //                $mail->addCC("sales@vtexvsi.com");
                     break;
 

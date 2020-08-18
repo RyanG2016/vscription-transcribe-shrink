@@ -33,15 +33,21 @@ $(document).ready(function () {
 
 	const refreshJobList = document.querySelector('#refresh_btn');
 	const goToUploader = document.querySelector('#newupload_btn');
+	const manage_typists_btn = document.querySelector('#manage_typists_btn');
 	// const refreshJobListLabel = document.querySelector('.refresh_lbl');
 	// const goToUploaderLabel = document.querySelector('.upload_lbl');
 
 	// Activate ripples effect for material buttons
 	new mdc.ripple.MDCRipple(document.querySelector('#newupload_btn'));
 	new mdc.ripple.MDCRipple(document.querySelector('#refresh_btn'));
+	new mdc.ripple.MDCRipple(document.querySelector('#manage_typists_btn'));
+
+	manage_typists_btn.addEventListener('click', e => {
+		document.location.href = 'manage_typists.php';
+	});
 
 	goToUploader.addEventListener('click', e => {
-		console.log("We should be going to the uploader page");
+		// console.log("We should be going to the uploader page");
 		document.location.href = 'jobupload.php';
 	});
 

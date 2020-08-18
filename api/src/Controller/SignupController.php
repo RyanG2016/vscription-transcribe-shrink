@@ -53,7 +53,7 @@ class SignupController {
         exit();
     }
 
-    public function processSilentRequest()
+ /*   public function processSilentRequest()
     {
         switch ($this->requestMethod) {
             case 'POST':
@@ -67,7 +67,7 @@ class SignupController {
         }
 
         return $response; // pass response to the requester
-    }
+    }*/
 
 
     // POST

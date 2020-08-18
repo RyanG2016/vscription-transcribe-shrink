@@ -57,6 +57,10 @@ class accessGateway
         }
     }
 
+    /**
+     * used in landing page drop down selection of current accesses to choose from
+     * used where clause to filter out unneeded roles from showing, like: pending invite acceptance
+     * */
     public function findAllOut()
     {
         $filter = parseParams();
@@ -82,6 +86,46 @@ class accessGateway
         try {
             $statement = $this->db->prepare($statement);
             $statement->execute(array($_SESSION["uid"]));
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            if (isset($_GET['dt'])) {
+                $json_data = array(
+                    //            "draw"            => intval( $_REQUEST['draw'] ),
+                    //            "recordsTotal"    => intval( 2 ),
+                    //            "recordsFiltered" => intval( 1 ),
+                    "data" => $result
+                );
+                //        $response['body'] = json_encode($result);
+                $result = $json_data;
+            }
+
+            return $result;
+        } catch (\PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+
+    public function findTypistsForCurLoggedInAccount()
+    {
+        $statement = "
+            SELECT 
+                access.*,
+                a.acc_name,
+                r.role_name,
+                r.role_desc,
+                u.email
+            FROM
+                access
+            
+            INNER JOIN accounts a on access.acc_id = a.acc_id
+            INNER JOIN roles r on access.acc_role = r.role_id
+            INNER JOIN users u on access.uid = u.id
+            where access.acc_id = ? and access.acc_role in (3,6)
+            ;";
+
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($_SESSION["accID"])); // todo (remember) this gets the accID dynamically not always the current user client admin acc
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             if (isset($_GET['dt'])) {
                 $json_data = array(
@@ -516,7 +560,8 @@ class accessGateway
             $statement->execute(array('id' => $id));
             return $statement->rowCount();
         } catch (\PDOException $e) {
-            exit($e->getMessage());
+            return false;
+//            exit($e->getMessage());
         }
     }
 

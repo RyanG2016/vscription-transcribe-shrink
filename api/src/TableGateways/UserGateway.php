@@ -112,7 +112,7 @@ class UserGateway
             from users
             where users.account_status = 1 and users.enabled = 1 and
                 (
-                    select count(access.acc_id) from access where access.acc_id = ? and uid = users.id and acc_role = 3
+                    select count(access.acc_id) from access where access.acc_id = ? and uid = users.id and (acc_role = 3 OR acc_role = 6)
                 ) != 1
             group by users.id order by users.id"; // todo identify typists ?? plan_id re-utilize maybe?
         //group by users.email
@@ -203,6 +203,7 @@ class UserGateway
                     users.email_notification,
                     users.account,
                     users.enabled,
+                    users.def_access_id,
                    cities.city as `state_ref`
                                       
             FROM
@@ -218,7 +219,59 @@ class UserGateway
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             return $result;
         } catch (\PDOException $e) {
-            exit($e->getMessage());
+            return false;
+//            exit($e->getMessage());
+        }
+    }
+
+    /**
+     * retrieves user data
+     * @param $email string user email address
+     * @return string JSON of user object
+     */
+    public function getUserByEmail($email)
+    {
+
+        $statement = "
+            SELECT 
+                   users.id,
+                    users.first_name,
+                    users.last_name,
+                    users.email,
+                    users.country_id,
+                    countries.country,
+                    users.city,
+                    users.state_id,
+                    users.state,
+                    users.registeration_date,
+                    users.last_ip_address,
+                    users.plan_id,
+                    users.account_status,
+                    users.last_login,
+                    users.newsletter,
+                    users.shortcuts,
+                    users.dictionary,
+                    users.email_notification,
+                    users.account,
+                    users.enabled,
+                   cities.city as `state_ref`
+                                      
+            FROM
+                users
+            INNER JOIN countries ON users.country_id = countries.id
+            LEFT JOIN cities ON users.state_id = cities.id
+            WHERE
+                users.email = ?";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($email));
+//            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            return $statement->fetch();
+//            return $result;
+        } catch (\PDOException $e) {
+            return false;
+//            exit($e->getMessage());
         }
     }
     
@@ -372,6 +425,39 @@ class UserGateway
             } else {
                 return false;
             }
+
+        } catch (PDOException $e) {
+//            die($e->getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Clears def_access_id to null
+     * used if a revoke access is invoked on a access entry which is the default for a user (will fail due to foreign key check)
+     * @internal
+     * @param $uid int user id
+     * @return boolean true -> success | false -> failed to update
+     */
+    public function internalUpdateUserClearDefaultAccess($uid) {
+
+        // update user access //
+        $statement = "UPDATE
+                            users
+                        SET  
+                            def_access_id = null
+                        WHERE
+                            id = ?
+                        ";
+
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array(
+                $uid
+            ));
+
+            return $statement->rowCount();
 
         } catch (PDOException $e) {
 //            die($e->getMessage());

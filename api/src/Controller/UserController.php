@@ -4,6 +4,7 @@ namespace Src\Controller;
 
 //use PHPMailer\PHPMailer\Exception;
 use Src\TableGateways\UserGateway;
+use Src\System\Mailer;
 
 class UserController
 {
@@ -11,6 +12,7 @@ class UserController
     private $db;
     private $requestMethod;
     private $userId;
+    private $mailer;
 
     private $userGateway;
 
@@ -19,6 +21,7 @@ class UserController
         $this->db = $db;
         $this->requestMethod = $requestMethod;
         $this->userId = $userId;
+        $this->mailer = new Mailer($db);
 
         $this->userGateway = new UserGateway($db);
     }
@@ -39,8 +42,11 @@ class UserController
                     // set user default access
 //                    echo "setting-default-access-for-current-logged-in-user";
                     $response = $this->updateUserDefaultAccess();
-                } else {
+                }
+                else if($this->userId == null) {
                     $response = $this->createUserFromRequest();
+                }else{
+                    $response = $this->notFoundResponse();
                 }
                 break;
             case 'PUT':
@@ -59,9 +65,62 @@ class UserController
         }
     }
 
+    public function processPublicRequest()
+    {
+        switch ($this->requestMethod) {
+            case 'GET':
+                if ($this->userId == "typists") {
+                    $response = $this->getTypistsForCurAdminAccount();
+                } else {
+//                    $response = $this->getAllUsers();
+                    $response = $this->notFoundResponse();
+                }
+                break;
+            case 'POST':
+
+                if ($this->userId == "set-default") {
+                    // set user default access
+//                    echo "setting-default-access-for-current-logged-in-user";
+                    $response = $this->updateUserDefaultAccess();
+                }
+                else if ($this->userId == "invite"){
+                    $response = $this->inviteTypistToCurrentAccount();
+                }
+                else{
+                    $response = $this->notFoundResponse();
+                }
+                break;
+//            case 'PUT':
+//                $response = $this->updateUserFromRequest($this->userId);
+//                break;
+//            case 'DELETE':
+//                $response = $this->deleteUser($this->userId);
+//                break;
+            default:
+                $response = $this->notFoundResponse();
+                break;
+        }
+        header($response['status_code_header']);
+        if ($response['body']) {
+            echo $response['body'];
+        }
+    }
+
     private function getAllUsers()
     {
         $result = $this->userGateway->findAll();
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = json_encode($result);
+        return $response;
+    }
+
+    /**
+     * Retrieves typists emails for invitation dropdown for client administrators management screen
+     * @return mixed
+     */
+    private function getTypistsForCurAdminAccount()
+    {
+        $result = $this->userGateway->getTypists();
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
         $response['body'] = json_encode($result);
         return $response;
@@ -102,6 +161,37 @@ class UserController
             "error" => $error
         );
     }*/
+
+    private function inviteTypistToCurrentAccount()
+    {
+
+
+        if(!isset($_POST["email"]) || empty($_POST["email"]) ||
+            !isset($_SESSION['role']) || $_SESSION['role'] != 2
+        ) {
+            return generateApiHeaderResponse("Invalid Input (UC-I1)", true);
+        }
+
+        $user = $this->userGateway->getUserByEmail($_POST["email"]);
+        if($user)
+        {
+            if($user["email_notification"] != 1) // todo OR plan ID != 3
+            {
+                return generateApiHeaderResponse("User is not accepting invites at the moment.", true);
+            }
+        }else{
+            return generateApiHeaderResponse("User not found.", true);
+        }
+
+        if( $this->mailer->sendEmail(6, $_POST["email"], $_SESSION["acc_name"]) )
+        {
+            return generateApiHeaderResponse("Invitation sent, User will be added when the invitation is accepted.", false);
+        }else{
+            return generateApiHeaderResponse("Failed to send invitation.", true);
+        }
+
+    }
+
 
     private function deleteUser($id)
     {

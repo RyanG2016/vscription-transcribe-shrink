@@ -155,6 +155,13 @@ else {
                         <i class="material-icons mdc-button__icon" aria-hidden="true">cloud_upload</i>
                         <span class="mdc-button__label">Upload Jobs</span>
                     </button>
+
+                    <button class="mdc-button mdc-button--unelevated vtex-mtb" id="manage_typists_btn">
+                        <div class="mdc-button__ripple"></div>
+                        <i class="fas fa-keyboard"></i>&nbsp;
+                        <span class="mdc-button__label">Manage Typists</span>
+                    </button>
+
                     <button class="mdc-button mdc-button--unelevated foo-button" id="refresh_btn"
                             >
                         <div class="mdc-button__ripple"></div>
