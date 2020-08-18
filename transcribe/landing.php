@@ -58,6 +58,7 @@ if (isset($_SESSION['counter'])) {
     <!-- Enjoyhint library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/kineticjs/5.2.0/kinetic.js"></script>
     <link href="data/thirdparty/enjoyhint/enjoyhint.css" rel="stylesheet">
+<!--    <script src="data/thirdparty/enjoyhint/enjoyhint.min.js"></script>-->
     <script src="data/thirdparty/enjoyhint/enjoyhint.min.js"></script>
 
 </head>
@@ -289,7 +290,7 @@ if (isset($_SESSION['counter'])) {
                     </div>
 
                     <div id="typistCard" class="col">
-                        <h3 class="text-center">Typist</h3>
+                        <h3 class="text-center" id="typistCardHead">Typist</h3>
                         <div class="alert alert-info" role="alert" id="alertT0">
                             <em>No access found.</em>
                         </div>

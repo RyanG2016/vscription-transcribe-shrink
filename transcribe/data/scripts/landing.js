@@ -48,24 +48,31 @@ $(document).ready(function () {
     //hide EnjoyHint after a click on the button.
         var enjoyhint_script_steps = [
             {
-                "next .navbar-text": "This is a test to focus on the navbar title in the landing page"
+                "next .navbar-text": "Here you will find your current email, account and role."
             },
             {
-                "next #adminCard": "This is the admin card in circle",
+                "next #adminCard": "Here you can create/manage your client administrator account <br> " +
+                    "<i>- You can only create <b>one</b> account -</i>",
                 shape:"circle"
             },
             {
-                selector:'#typistCard',//jquery selector
-                description:'This is the typist card',
+                "next #typistCardHead":'This is the typist card',
+                // shape:"circle",
+                // "skipButton":{text: "Finish"}
+            }
+            ,
+            {
+                "click #typistCard>div":'Here you can find information about your current status as a typist',
+                // shape:"circle",
                 "skipButton":{text: "Finish"}
             }
         ];
 
     //set script config
-        enjoyhint_instance.set(enjoyhint_script_steps);
+    //     enjoyhint_instance.set(enjoyhint_script_steps);
 
     //run Enjoyhint script
-    //     enjoyhint_instance.run();
+        enjoyhint_instance.run();
 
     loadingText = $("#loadingText");
     accNameInput = $("#accNameTxt");
