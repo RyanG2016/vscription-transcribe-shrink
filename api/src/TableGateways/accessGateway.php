@@ -75,7 +75,7 @@ class accessGateway
             INNER JOIN accounts a on access.acc_id = a.acc_id
             INNER JOIN roles r on access.acc_role = r.role_id
             INNER JOIN users u on access.uid = u.id
-            where access.uid = ?
+            where access.uid = ? and access.acc_role in (1,2,3)
             " . $filter . ";";
 
 
