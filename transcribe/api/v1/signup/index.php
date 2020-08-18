@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * base url /signup
+ * options:
+ *      POST /signup/resend -> resend verification email to user
+ * */
+
 require '../../../../api/bootstrap.php';
 
 include('../../../data/parts/session_settings.php');
@@ -42,6 +48,11 @@ if ($uri[3] !== 'signup') {
     exit();
 }
 
+$option = null;
+if (isset($uri[4])) {
+    $option = $uri[4];
+}
+
 // pass the request method and user ID to the PersonController and process the HTTP request:
-$controller = new SignupController($dbConnection, $requestMethod);
+$controller = new SignupController($dbConnection, $requestMethod, $option);
 $controller->processRequest();

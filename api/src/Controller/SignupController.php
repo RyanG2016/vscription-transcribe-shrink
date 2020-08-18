@@ -3,19 +3,22 @@ namespace Src\Controller;
 
 use Src\TableGateways\SignupGateway;
 use Src\System\Throttler;
+use Src\System\Mailer;
 
 class SignupController {
 
     private $db;
     private $requestMethod;
-
+    private $option;
     private $signupGateway;
+    private $mailer;
 
-    public function __construct($db, $requestMethod)
+    public function __construct($db, $requestMethod, $option)
     {
         $this->db = $db;
         $this->requestMethod = $requestMethod;
-
+        $this->option = $option;
+        $this->mailer = new Mailer($db);
         $this->signupGateway = new SignupGateway($db);
     }
 
@@ -30,9 +33,13 @@ class SignupController {
                 break;*/
 
             case 'POST':
-                // todo enable
-//                 new Throttler("sign_up", 5, \bandwidthThrottle\tokenBucket\Rate::MINUTE);
-                $response = $this->validateAndSignUp();
+                 new Throttler("sign_up", 6, \bandwidthThrottle\tokenBucket\Rate::MINUTE);
+                if($this->option == "resend")
+                {
+                    $response = $this->resendVerifyEmail();
+                }else {
+                    $response = $this->validateAndSignUp();
+                }
                 break;
 
             default:
@@ -60,6 +67,25 @@ class SignupController {
         }
 
         return $response; // pass response to the requester
+    }
+
+
+    // POST
+    private function resendVerifyEmail()
+    {
+//        echo "hi";
+        // fname=&lname=&email=hacker2894%40gmail.com&password=Iceman2801&countryID=209&stateID=70&city=
+        if(!isset($_POST["email"]) ||empty($_POST["email"]) ) {
+            return $this->unprocessableEntityResponse();
+        }
+
+        if($this->mailer->sendEmail(5, $_POST["email"]))
+        {
+            return generateApiHeaderResponse("Verification Email sent, please check your inbox", false);
+        }else{
+            return generateApiHeaderResponse("Failed to resend verification email", true);
+        }
+
     }
 
 
