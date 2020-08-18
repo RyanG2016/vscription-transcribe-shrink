@@ -2,6 +2,8 @@
 
 namespace Src\System;
 
+use Src\TableGateways\logger;
+
 date_default_timezone_set('America/Winnipeg');
 include_once(__DIR__ . '/../../../transcribe/data/parts/constants.php');
 include_once(__DIR__ . "/../../../mail/mail_init.php");
@@ -9,10 +11,13 @@ include_once(__DIR__ . "/../../../mail/mail_init.php");
 class Mailer
 {
      private $db;
+     private $logger;
+     private $API_NAME = "Mailer";
 
     public function __construct($db)
     {
         $this->db = $db;
+        $this->logger = new logger($db);
     }
 
     // * @param $mailType int reset-password: 0 | sign-up -> 1 | password reset -> 4 | verify email: 5
@@ -72,10 +77,12 @@ class Mailer
             $mail->AltBody = $emPlain;
 
             $result = $mail->send();
+            $this->logger->insertAuditLogEntry($this->API_NAME, "$sbj email sent to '$email'");
             return $result;
         } catch (\PHPMailer\PHPMailer\Exception $e) {
 //        $_SESSION['error'] = true;  //error=1 in session
 //        $_SESSION['msg'] = "Email couldn\'t be sent at this time please try again. {$mail->ErrorInfo}";
+            $this->logger->insertAuditLogEntry($this->API_NAME, "[Failed] $sbj email to '$email' error: " . $mail->ErrorInfo);
             return false;
         }
     } // send Email end
