@@ -7,6 +7,7 @@ use PDOException;
 use Src\TableGateways\conversionGateway;
 use Src\TableGateways\accessGateway;
 use Src\TableGateways\logger;
+use Src\System\Mailer;
 
 require "filesFilter.php";
 require_once "common.php";
@@ -18,12 +19,14 @@ class FileGateway
     private $conversionsGateway;
     private $accessGateway;
     private $logger;
+    private $mailer;
 
     public function __construct($db)
     {
         $this->db = $db;
         $this->conversionsGateway = new conversionGateway($db);
         $this->accessGateway = new accessGateway($db);
+        $this->mailer = new Mailer($db);
 
         $this->logger = new logger($db);
         $this->API_NAME = "Files";
@@ -512,6 +515,7 @@ class FileGateway
                 {
                     $file_status = $_POST["file_status"];
                     if ($file_status == 5 || $file_status == 3) {
+                        $this->mailer->sendEmail(10, "sales@vtexvsi.com");
                         $this->deleteTmpFile($id, $currentFile["tmp_name"]);
                     }
                 }

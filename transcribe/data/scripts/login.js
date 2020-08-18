@@ -227,29 +227,55 @@ function login() {
                                 action: function() {
                                     loginBtn.html("Please wait..");
                                     loginBtn.attr("disabled", "");
-                                    var a1 = {
-                                        email: vemail
-                                    };
-                                    $.post("data/parts/backend_request.php", {
-                                        reqcode: 50,
-                                        args: JSON.stringify(a1)
-                                    }).done(function(data) {
-                                        // location.href = 'index.php';
-                                        $.confirm({
-                                            title: 'Success',
-                                            type: 'green',
-                                            content: "Verification Email sent.",
-                                            buttons: {
-                                                confirm: {
-                                                    text: "OK",
-                                                    btnClass: 'btn-green',
-                                                    action: function () {
-                                                        showLoginFields()
-                                                    }
-                                                },
 
-                                            }
-                                        });
+                                    var formData = new FormData();
+                                    formData.append("email", vemail);
+
+                                    $.ajax({
+                                        type: 'POST',
+                                        url: "/api/v1/signup/resend/",
+                                        data: formData,
+                                        processData: false,
+                                        contentType: false,
+                                        success: function (response) {
+                                            // var ajaxResponse = response;
+                                            // console.log(response);
+
+                                            $.confirm({
+                                                title: 'Success',
+                                                type: 'green',
+                                                content: response["msg"],
+                                                buttons: {
+                                                    confirm: {
+                                                        text: "OK",
+                                                        btnClass: 'btn-green',
+                                                        action: function () {
+                                                            showLoginFields();
+                                                        }
+                                                    },
+
+                                                }
+                                            });
+
+                                        },
+                                        error: function (err) {
+
+                                            $.confirm({
+                                                title: 'oops..',
+                                                type: 'red',
+                                                content: err.responseJSON["msg"],
+                                                buttons: {
+                                                    confirm: {
+                                                        text: "OK",
+                                                        btnClass: 'btn-green',
+                                                        action: function () {
+                                                            showLoginFields();
+                                                        }
+                                                    }
+
+                                                }
+                                            });
+                                        }
                                     });
 
                                 }

@@ -3,8 +3,9 @@
 namespace Src\Controller;
 
 use Src\TableGateways\FileGateway;
+use Src\System\Mailer;
 
-require_once('../../../../audioParser/getid3/getid3.php');
+require_once( __DIR__ . '/../../../audioParser/getid3/getid3.php');
 
 class FileController
 {
@@ -12,6 +13,7 @@ class FileController
     private $db;
     private $requestMethod;
     private $fileId;
+    private $mailer;
 
     private $fileGateway;
 
@@ -20,6 +22,7 @@ class FileController
         $this->db = $db;
         $this->requestMethod = $requestMethod;
         $this->fileId = $fileId;
+        $this->mailer = new Mailer($db);
 
         $this->fileGateway = new FileGateway($db);
     }
@@ -201,6 +204,8 @@ class FileController
                 $nextJobNum = $nextJobNumbers["next_job_num"];
             }
 
+            $newFilesAvailable = false;
+
             foreach ($_FILES as $key => $fileItem) {
                 if($stopUpload){break;}
                 if ($fileItem["error"] != 0) {
@@ -273,6 +278,7 @@ class FileController
                     if ($result) {
 //                        $uploadMsg[] = "<li>File: $orig_filename - <span style='color:green;'>UPLOAD SUCCESSFUL</span></li>";
                         $uploadMsg[] = $this->formatFileResult($orig_filename, "upload successful", false);
+                        $newFilesAvailable = true;
                     } else {
 //                        $uploadMsg[] = "<li>'File: ' $orig_filename . ' - FAILED (File uploaded but error writing to database)'<li>";
                         $uploadMsg[] = $this->formatFileResult($orig_filename, "upload failed please contact website administrator (2)", true);
@@ -288,6 +294,9 @@ class FileController
 
 //            header('Content-Type: application/json');
 //            echo json_encode(array_values($uploadMsg), JSON_FORCE_OBJECT | JSON_PRETTY_PRINT);
+            if($newFilesAvailable){
+                $this->mailer->sendEmail(15, "sales@vtexvsi.com");
+            }
 
             $response['status_code_header'] = 'HTTP/1.1 200 OK';
             $response['body'] = json_encode(array_values($uploadMsg), JSON_FORCE_OBJECT | JSON_PRETTY_PRINT);;

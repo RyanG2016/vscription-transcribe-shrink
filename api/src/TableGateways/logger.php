@@ -27,8 +27,8 @@ class logger
         try {
             $statement = $this->db->prepare($statement);
             $statement->execute(array(
-                $_SESSION["uEmail"],
-                $_SESSION["accID"]?$_SESSION["accID"]:0,
+                isset($_SESSION["uEmail"])?$_SESSION["uEmail"]:"Not Logged In",
+                isset($_SESSION["accID"])?$_SESSION["accID"]:0,
                 $API_NAME . " API",
                 $activity,
                 getIP()

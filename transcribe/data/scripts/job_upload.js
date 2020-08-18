@@ -183,18 +183,6 @@ function documentReady() {
 					previewModal.appendChild(list);
 					previewModal.insertAdjacentHTML("afterbegin", htmlEl);
 
-					var a1 = {
-						mailtype: 15,
-						usertype: 3   //Typist
-					};
-					// Generate Email Notifications
-					$.post("data/parts/backend_request.php", {
-						reqcode: 80,
-						args: JSON.stringify(a1)
-					}).done(function (data) {
-						// console.log(data);
-					});
-
 				},
 				error: function (err) {
 					stopProgressWatcher();

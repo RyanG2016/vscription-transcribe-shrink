@@ -4,7 +4,7 @@ namespace Src\TableGateways;
 use Src\TableGateways\CityGateway;
 use Src\TableGateways\CountryGateway;
 use Src\System\Mailer;
-include "common.php";
+include_once "common.php";
 
 class SignupGateway
 {

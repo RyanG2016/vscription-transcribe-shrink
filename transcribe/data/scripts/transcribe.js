@@ -448,21 +448,6 @@ $(document).ready(function () {
                 processData: false,
                 contentType: false,
                 success: function (response) {
-                    var a1 = {
-                        mailtype: 10,
-                        usertype: 2    //Client Admins
-                    };
-
-                    if (jobStatus === 3) // completed then send an email notification by this
-                    {
-                        $.post("data/parts/backend_request.php", {
-                            reqcode: 80,
-                            args: JSON.stringify(a1)
-                        }).done(function (data) {
-                            // console.log(data);
-                        });
-                    }
-
 
                     // clear();
 

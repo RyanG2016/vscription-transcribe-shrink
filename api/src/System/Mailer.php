@@ -3,6 +3,7 @@
 namespace Src\System;
 
 use Src\TableGateways\logger;
+use Src\TableGateways\UserGateway;
 
 date_default_timezone_set('America/Winnipeg');
 include_once(__DIR__ . '/../../../transcribe/data/parts/constants.php');
@@ -12,12 +13,14 @@ class Mailer
 {
      private $db;
      private $logger;
+     private $userGateway;
      private $API_NAME = "Mailer";
 
     public function __construct($db)
     {
         $this->db = $db;
         $this->logger = new logger($db);
+        $this->userGateway = new UserGateway($db);
     }
 
     // * @param $mailType int reset-password: 0 | sign-up -> 1 | password reset -> 4 | verify email: 5
@@ -57,13 +60,27 @@ class Mailer
                 case 10:
                     include(__DIR__ . '/../../../mail/templates/document_complete.php');
                     $sbj = "New Document(s) Ready for Download";
-//                $mail->addCC("sales@vtexvsi.com");
+//                    $mail->addCC("sales@vtexvsi.com"); // duplicate do not uncomment
+                    $emailsArray = $this->userGateway->getClientAccAdminsEmailForJobUpdates();
+                    if(sizeof($emailsArray) > 0)
+                    {
+                        foreach ($emailsArray as $row) {
+                            $mail->addCC($row["email"]);
+                        }
+                    }
                     break;
 
                 case 15:
                     include(__DIR__ . '/../../../mail/templates/job_ready_for_typing.php');
                     $sbj = "New Job(s) Ready for Typing";
-//                $mail->addCC("sales@vtexvsi.com");
+                    $emailsArray = $this->userGateway->getCurrentTypistsForJobUpdates();
+                    if(sizeof($emailsArray) > 0)
+                    {
+                        foreach ($emailsArray as $row) {
+                            $mail->addCC($row["email"]);
+                        }
+                    }
+//                    $mail->addCC("sales@vtexvsi.com"); // duplicate do not uncomment
                     break;
 
                 default:
@@ -98,7 +115,7 @@ class Mailer
 
         while(true)
         {
-            $token = genToken();
+            $token = $this->getToken();
             if($token != 0)
             {
                 break;
@@ -131,6 +148,21 @@ class Mailer
             }
             return false;
         } catch (\PDOException $e) {
+            return false;
+        }
+    }
+
+    /**
+     * Generates a random token of 78 characters length
+     * used for verification emails
+     * @return string generated token
+     */
+    function getToken()
+    {
+        $length = 78;
+        try {
+            return bin2hex(random_bytes($length));
+        } catch (\Exception $e) {
             return false;
         }
     }

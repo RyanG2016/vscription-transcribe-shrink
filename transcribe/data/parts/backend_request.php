@@ -21,18 +21,18 @@ include("ping.php");
 if(isset($_REQUEST["reqcode"])){
 	$code = $_REQUEST["reqcode"];
 
-	
+
 	if(isset($_REQUEST['args']))
 	{
-		
+
 		$args = $_REQUEST['args'];
 		$a = json_decode($args,true);
 	}
-	
-	
+
+
 	switch($code)
 	{
-			
+
 		// Load Job Details for Player //
 		// Also move audio file to working directory
 
@@ -208,25 +208,25 @@ if(isset($_REQUEST["reqcode"])){
 		case 30:
 			//inserts random token to db and send reset pwd email to user
 			//
-			
+
 			$a = json_decode($args,true);
 			$email = strtolower($a["email"]);
-			
+
 			$length = 78;
 			$token = bin2hex(random_bytes($length));
 			$token_type = 4; //reset password
-			
+
 			$sql = "INSERT INTO tokens(email, identifier,token_type) VALUES(?,?,?)";
-			
+
 			if($stmt = mysqli_prepare($con, $sql)){
 
 				$stmt->bind_param("ssi", $email, $token,$token_type);
-				
+
 				$a = mysqli_stmt_execute($stmt);
 				if($a){
 					//success db record insertion
 					//send email to user
-					
+
 					$link = "$cbaselink/reset.php?token=$token";
 					include("reset_email_template.php");
 
@@ -247,17 +247,17 @@ if(isset($_REQUEST["reqcode"])){
 							//echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 							echo 1;
 						}
-					
+
 					//
 				} else{
 					echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
-					
+
 				}
 			}
 
 			// Close statement
 			mysqli_stmt_close($stmt);
-			
+
 			break;
 
 
@@ -300,13 +300,13 @@ if(isset($_REQUEST["reqcode"])){
 						$report = $report . '<b>'.'Date Dictated: ' .'</b>'.$_POST['jobDateDic'].'<br/>';
 						$report = $report. '<b>'.'Date Transcribed: ' .'</b>' . $dateTrans .'<br/>';
 						$report = $report . '<b>'.'Comments: ' .'</b>'.$_POST['jobComments'].'<br/>';
-						
+
 						$report = $report.'<br/>';
 						$report = $report.'<br/>';
 						$report = $report . $plainTinyMCEContent;
 
 
-				
+
 						$htmlToRtfConverter = new HtmlToRtf\HtmlToRtf($report);
 				//        $htmlToRtfConverter->getRTFFile();
 						$convertedRTF = trim($htmlToRtfConverter->getRTF());
@@ -338,10 +338,10 @@ if(isset($_REQUEST["reqcode"])){
 								 job_document_html=?, 
 								 job_document_rtf=? 
 									WHERE file_id = ?";
-						
+
 						if($stmt = mysqli_prepare($con, $sql))
 						{
-			
+
 							if( !$stmt->bind_param("iiisssss",
                                 $audio_length,
                                 $audio_elapsed,
@@ -352,13 +352,13 @@ if(isset($_REQUEST["reqcode"])){
                                     $convertedRTF,
                                     $file_id)   )
                             {
-			
+
 										die( "Error in bind_param: (" .$con->errno . ") " . $con->error);
-			
+
 							}
 							$B = mysqli_stmt_execute($stmt);
-			
-			
+
+
 							if($B){
 								$result = mysqli_stmt_get_result($stmt);
 
@@ -378,20 +378,20 @@ if(isset($_REQUEST["reqcode"])){
 						else
 						{
 								echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
-			
+
 						}
-			
-			
+
+
 						// Close statement
 						mysqli_stmt_close($stmt);
-			
+
 						break;
 					}
 				}
 				else
 				{
 					echo "Looks like JobNo is empty";
-				
+
 				}
 
 				break;
@@ -399,7 +399,7 @@ if(isset($_REQUEST["reqcode"])){
 			/*--------------------------------*/
 			case 39://INSERTS FILE UPLOAD DATA/////////
 			//We can remove this as it as been included with case 61
-			
+
 
 			// Get next job number. Since this is an interm solution and there will only
 			//be one client we are going to simply get the number of rows in the table,
@@ -473,7 +473,7 @@ if(isset($_REQUEST["reqcode"])){
 
 
 			break;
-			
+
 			//---------------------------------------------------\\
 			//-------------------Select Cases 4xx----------------\\
 			//---------------------------------------------------\\
@@ -481,7 +481,7 @@ if(isset($_REQUEST["reqcode"])){
 
 			$a = json_decode($args,true);
 			$email = strtolower($a["email"]);
-			
+
 			$sql = "SELECT count(*) FROM users WHERE email= ?";
 			if($stmt = mysqli_prepare($con, $sql))
 			{
@@ -493,7 +493,7 @@ if(isset($_REQUEST["reqcode"])){
 					// Check number of rows in the result set
 					if(mysqli_num_rows($result) > 0){
 						// Fetch result rows as an associative array
-						
+
 						while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
 
 							echo $row['count(*)']; //returns int
@@ -514,19 +514,19 @@ if(isset($_REQUEST["reqcode"])){
 
 			// Close statement
 			mysqli_stmt_close($stmt);
-			
+
 			break;
-			
-		
+
+
 		case 42: //Reset User Pwd
-			
+
 			$ip = getenv('HTTP_CLIENT_IP')?:
 				  getenv('HTTP_X_FORWARDED_FOR')?:
 				  getenv('HTTP_X_FORWARDED')?:
 				  getenv('HTTP_FORWARDED_FOR')?:
 				  getenv('HTTP_FORWARDED')?:
 				  getenv('REMOTE_ADDR');
-			
+
 			$a = json_decode($args,true);
 			$email = strtolower($a["email"]);
 			$password = $a["password"];
@@ -537,7 +537,7 @@ if(isset($_REQUEST["reqcode"])){
 
 			//check
 			$sql = "SELECT *, DATE_ADD(time, INTERVAL '30:0' MINUTE_SECOND) as expire FROM `tokens` WHERE identifier=? and email=? AND used=0 and token_type=4 and DATE_ADD(time, INTERVAL '30:0' MINUTE_SECOND) > NOW()";
-			
+
 			//update user password
 			$sql2 = "Update users set password=? where email = ?";
 			$sql3 = "Update tokens set used=1 where identifier = ?";
@@ -546,22 +546,22 @@ if(isset($_REQUEST["reqcode"])){
 			if($stmt = mysqli_prepare($con, $sql) )
 			{
 				mysqli_stmt_bind_param($stmt, "ss", $token ,$email);
-				
+
 
 				if(mysqli_stmt_execute($stmt)){
 					$result = mysqli_stmt_get_result($stmt);
 
-					
+
 					if(mysqli_num_rows($result) > 0){ //exists and valid
-						
+
 						//expire the token
 						mysqli_stmt_bind_param($stmt3, "s",$token);
 						mysqli_stmt_execute($stmt3);
-						
+
 						//update new password
 						mysqli_stmt_bind_param($stmt2, "ss", $password ,$email);
 						mysqli_stmt_execute($stmt2);
-						
+
 						//insert log entry
                         $a = Array(
                             'email' => $email,
@@ -572,9 +572,9 @@ if(isset($_REQUEST["reqcode"])){
                         );
                         $b = json_encode($a);
                         insertAuditLogEntry($con, $b);
-						
-						
-						
+
+
+
 						//set message and redirect
 						$_SESSION['msg'] = "You can now login with your new password.";
 						$_SESSION['error'] = false;
@@ -615,18 +615,9 @@ if(isset($_REQUEST["reqcode"])){
 			// Close statement
 			mysqli_stmt_close($stmt);
 			mysqli_stmt_close($stmt2);
-			
+
 			break;
-			
-			
-		case 50: //send verification email
-			$token = genToken();
-			$sql = "insert into tokens(email,identifier,used,token_type) values('".$a['email']."','$token',0,5) ";
-			$stmt = mysqli_prepare($con, $sql);
-			mysqli_stmt_execute($stmt);
-			
-			sendEmail(5,$a,$token,false);
-			break;
+
 
 		/** Upload Progress Watcher **/
 		case 65:
@@ -656,84 +647,11 @@ if(isset($_REQUEST["reqcode"])){
 
 			break;
 
-		/* Send Email Notification to user with job updates Generator Code */
-		case 80:
-		    // todo move to API
-            return true;
-
-			$a = json_decode($args,true);
-			$mailtype = $a['mailtype'];	
-			$usertype = $a['usertype'];
-			//echo "Mail type is: " . $mailtype;
-			//echo "User Type is :" . $usertype;
-			$sql = "SELECT email FROM users WHERE 
-						account = (SELECT account from users WHERE email = '" . $_SESSION['uEmail'] . "') AND 
-						email_notification = 1 AND plan_id =" . $usertype; 
-			echo "SQL Called is " . $sql;
-				
-				//    $sql = "SELECT * from users;";
-					
-			if($stmt = mysqli_prepare($con, $sql))
-			{
-				if(mysqli_stmt_execute($stmt)){
-					$result = mysqli_stmt_get_result($stmt);
-					// Check number of rows in the result set
-					if(mysqli_num_rows($result) > 0){
-						//echo "We found some rows";
-						// Fetch result rows as an associative array
-						while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-							//echo strval($row['email']);
-							$recipients[]=$row['email'];
-						}
-					}
-					else {
-						// If there are no records in the DB for this account
-
-						echo "No recipients are configured to received these notifications";
-					}
-				}
-				else{
-					echo "The SQL Call failed";
-				}
-				foreach($recipients as $item) {
-					echo $item . "<br />";
-					$a = Array (
-						"email" => $item
-					);
-					sendEmail($mailtype, $a,"", true);
-				} 
-				//mailtest($data);
-			}
-			else {
-				echo "ERROR: Could not execute $sql. " . mysqli_error($con->error) .'<br>';
-				die( "Error in execute: (" .$con->errno . ") " . $con->error);
-			}
-			//$_SESSION['email'];
-				$ip = getIP();
-
-				if (empty($recipients)) {
-					$activity = 'No receipients configured to receive notifications for ' . $mailtype . ' for this account';
-				} else {
-					$activity = 'Notification Email Type ' . $mailtype . ' Sent to ' . implode(",",$recipients);
-				}
-
-				$a = Array(
-					'email' => $_SESSION['uEmail'],
-					'activity' => $activity,
-					'actPage' => 'jobupload.php',
-					//'actPage' => header('Location: '.$_SERVER['REQUEST_URI']),   //This isn't working. For now am going to hardcode the page into the function call
-					'actIP' => $ip,
-					'acc_id' => $_SESSION['accID']
-				);
-				$b = json_encode($a);
-				insertAuditLogEntry($con, $b);
-					break;
-	
 
         // Cases starting from 200 related to reports
 		case 200:
         confirmAdminPermission();
-			
+
 		$rptStartDate = $a['startDate'];
 		$rptEndDate = $a['endDate'];
         $sql="SELECT 
@@ -755,8 +673,8 @@ if(isset($_REQUEST["reqcode"])){
 		file_transcribed_date BETWEEN ? AND ?";
 
 			//Hardcoded for now. Need to add selector to client billing page screen if role_type=3 or use logged in user if role_type=2
-		$acc_id = 1; 
-		
+		$acc_id = 1;
+
 		$billRatesObj = getBillRates($con, $acc_id);
 		$billRates = json_decode($billRatesObj, true);
 		$billRate1 = $billRates['billrate1'];
@@ -854,12 +772,12 @@ if(isset($_REQUEST["reqcode"])){
 				file_transcribed_date BETWEEN ? AND ?";
 
 				//Hardcoded for now. Need to refine query to get pay rate for each job based on billtype and bill_rateX_min_pay
-				$acc_id = 1; 
-				
+				$acc_id = 1;
+
 				$typistBillRatesObj = getTypistBillRates($con, $acc_id);
 				$typistBillRates = json_decode($typistBillRatesObj, true);
 				$typistBillRate1 = $typistBillRates['bill_rate1_pay'];
-			
+
 					if($stmt = mysqli_prepare($con, $sql))
 					{
 						mysqli_stmt_bind_param($stmt, "sss", $a['typist'],$a['startDate'], $a['endDate']);
@@ -868,30 +786,30 @@ if(isset($_REQUEST["reqcode"])){
 							$secsTotal = 0;
 							$minsTotal = 0;
 							$html = "";
-		
+
 							if(mysqli_num_rows($result) > 0){
 								$num_rows = mysqli_num_rows($result);
-		
+
 								$htmlHeader = "<h3>Billing Report Date: $rptStartDate to $rptEndDate for $typist</h3>";
-		
+
 								$htmlTblHead = "<table class='report'><thead><tr id='header'><th class='jobnum'>Job Number</th><th class='author'>Author</th><th class='jobtype'>Job Type</th><th class='datedict'>Date Dictated</th><th class='audiolength'>Audio Length</th><th class='transdate'>Transcribed Date</th><th class='typ_account'>Account</th><th class='comments'>Comments</td></th></tr></thead><tbody>";
-		
+
 								while($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
 								{
 									$alSeconds = round($row['audio_length']);
 									$alMinutes = sprintf('%02d:%02d:%02d', ($alSeconds/ 3600),($alSeconds/ 60 % 60), $alSeconds% 60);
-									$html .= 
+									$html .=
 										"<td>" . $row['job_id']. "</td>" .
 										"<td class='left'>" . $row['file_author']. "</td>" .
 										"<td class='left'>" . $row['file_work_type']. "</td>" .
 										"<td class='num'>" . $row['file_date_dict']. "</td>" .
 										//"<td class='num'>" . $row['audio_length']. "</td>" .
-										"<td class='num'>" . $alMinutes. "</td>" .						
+										"<td class='num'>" . $alMinutes. "</td>" .
 										"<td class='right'>" . $row['file_transcribed_date'] . "</td>" .
-										"<td class='right'>" . $row['acc_id'] . "</td>" .										
-										"<td class='right'>" . $row['file_comment'] . "</td>" .								
+										"<td class='right'>" . $row['acc_id'] . "</td>" .
+										"<td class='right'>" . $row['file_comment'] . "</td>" .
 										"</tr>";
-		
+
 									$secsTotal+=$row['audio_length'];
 								}
 								// And now the totals:
@@ -1097,7 +1015,7 @@ else{
     // CRITICAL FOR JOBUPLOAD @job_upload.js TO CHECK FOR FILE UPLOAD EXCEEDING THE LIMIT OF POST_MAX_SIZE
 }
 
- 
+
 // close connection
 
 mysqli_close($con);
@@ -1181,83 +1099,6 @@ function downloadJob($con, $fileID, $accID)
 	}
 	return false; // couldn't prepare hash statement at all
 
-}
-
-function sendEmail($mailType,$a,$token,$appendmsg)//0:login-default, 1:signup, 4:resetpwd 5:signup verify
-{
-	include('constants.php');
-	include("../../mail.php");
-	echo "Mail type is: " .$mailType;
-	$email = strtolower($a["email"]);
-	$_SESSION['src'] = $mailType;
-	
-
-//	$_SESSION['msg'] = $_SESSION['msg']; 
-	$link = "$cbaselink/verify.php?token=$token";
-	
-	switch($mailType)
-	{
-		case 0:
-			include('reset_email_template.php');
-			$sbj = "Password Reset";
-			$_SESSION['src'] = 2; //TDO
-				break;
-		case 5:
-			include('verify_email_temp.php');
-			$sbj = "Email Verification";
-			$_SESSION['src'] = 2;
-			$mail->addCC("sales@vtexvsi.com");
-				break;
-		case 10:
-			include('document_complete_template.php');
-			$sbj = "New Document(s) Ready for Download";
-			$_SESSION['src'] = 2; 
-			$mail->addCC("sales@vtexvsi.com");
-		break;
-		case 15:
-			include('job_ready_for_typing_template.php');
-			$sbj = "New Job(s) Ready for Typing";
-			$_SESSION['src'] = 2; 
-			$mail->addCC("sales@vtexvsi.com");
-		default:
-			$sbj = "vScription Transcribe Pro";
-				break;
-	}
-	
-	$mail->addAddress($email); //recepient
-	$mail->Subject = $sbj;
-	$mail->Body    = $emHTML;
-	$mail->AltBody = $emPlain;
-	
-	
-	try{
-			$mail->send();
-			$_SESSION['msg'] = $_SESSION['msg'];
-			if(!$appendmsg)
-			{
-				$_SESSION['error'] = false; //outputs empty error in session
-				$_SESSION['msg'] = "Email sent."; 
-			}
-			else{
-				$_SESSION['msg'] = $_SESSION['msg'] . "<br/><br/>" . "Email sent."; 
-			}
-		
-		} catch (Exception $e) {
-			if(!$appendmsg)
-			{
-				$_SESSION['error'] = true;  //error=1 in session
-				$_SESSION['msg'] = "Email couldn\'t be sent at this time please try again. {$mail->ErrorInfo}";
-			}
-			else{
-				$_SESSION['msg'] = $_SESSION['msg'] . "<br/><br/>" . "Email couldn\'t be sent at this time please try again. {$mail->ErrorInfo}";
-			}
-		}
-} //send Email end
-
-function genToken()
-{
-	$length = 78;
-	return bin2hex(random_bytes($length));	
 }
 
 
@@ -1365,7 +1206,7 @@ function confirmAdminPermission()
         return true;
     }
 }
- 
+
 function getBillRates($con, $acc_id) {
 
 	$sql="SELECT bill_rate1,bill_rate1_type,bill_rate1_desc,
