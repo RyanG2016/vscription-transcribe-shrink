@@ -338,7 +338,33 @@ function documentReady() {
 		}
 	}
 
-	function computeDuration(id, file, status) {
+	function computeDuration(id, file, status, dssType = 0) {
+
+		if(dssType === 2 || file.type == "audio/ds2"){
+			let duration = (file.size/1024.0)/3.4584746913; //apprx
+
+			let durationTxt = new Date(duration * 1000).toISOString().substr(11, 8).toString();
+			$("#qfile"+id+" td:nth-child(4)").html("~"+durationTxt);
+			// $("#qfile"+id+" td:nth-child(5)").html(Math.round(duration));
+
+			// increase done files counter
+			duratedFiles ++;
+
+			// add duration to upload Que in (secs) for Queued files
+			if(status === 0) // status OK
+			{
+				filesDur[filesIds.indexOf(id)] = Math.round(duration);// adding duration in the same arrangement as filesArr
+			}
+
+			// check if all files are durated
+			if(duratedFiles === filesCount){
+
+				// unlock the upload button
+				unlockUploadUI(true);
+			}
+
+			return;
+		}
 
 		// Create a non-dom allocated Audio element
 		let audio = document.createElement('audio');
@@ -562,7 +588,8 @@ function documentReady() {
 				// const listItem = document.createElement('li');
 				const par = document.createElement('p');
 
-				if (validFileType(file)) {
+				if (validFileType(file))
+				{
 
 					// get file upload criteria
 					let status = getFileUploadStatus(i, file.size);
@@ -572,6 +599,14 @@ function documentReady() {
 
 					// Get audio duration
 					computeDuration(i, file, status); // async
+				}else if(file.type === "" && file.name.substr(file.name.length-3,3).toLowerCase() === "ds2"){
+					let status = getFileUploadStatus(i, file.size);
+
+					// generate a table entry
+					tbl.appendChild(generateTblFileEntry(i, file.name, file.size, status));
+
+					// Get audio duration
+					computeDuration(i, file, status, 2); // async // 2: ds2
 				} else {
 					tbl.appendChild(generateErrTblFileEntry(i, file.name));
 
@@ -600,6 +635,7 @@ function documentReady() {
     ];
 
 	function validFileType(file) {
+		// console.log();
 		return fileTypes.includes(file.type);
 	}
 
