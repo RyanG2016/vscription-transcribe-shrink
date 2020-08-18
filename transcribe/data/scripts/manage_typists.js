@@ -401,6 +401,7 @@ $(document).ready(function () {
                     liveSearch: true,
                     liveSearchPlaceholder: "Find Typist"
                 });
+                accountBox.selectpicker('refresh');
             }
         });
     }
