@@ -80,7 +80,16 @@ svg{
     JQUERY CONFIRM CONFLICT
  ===============================
  */
-body > div.jconfirm.jconfirm-light.jconfirm-open > div.jconfirm-scrollpane > div > div > div > div > div > div {
+/*body > div.jconfirm.jconfirm-light.jconfirm-open > div.jconfirm-scrollpane > div > div > div > div > div > div {
     max-width: unset;
+    !*min-width: fit-content;*!
+}*/
+
+.jconfirm-box-container{
+    max-width: unset;
+    min-width: fit-content;
 }
 
+.modal-content{
+    border-radius: 15px;
+}
