@@ -3,6 +3,7 @@
 
 <?php
 //require_once ('rtf3/src/HtmlToRtf.php');
+$vtex_page = 404;
 include('data/parts/head.php');
 include('rtf3/src/HtmlToRtf.php');
 include('data/parts/constants.php');
@@ -68,7 +69,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
 </head>
 
 <body>
-
+<?php include_once "data/parts/nav.php" ?>
 <div id="container" style="width: 100%">
     <div class="form-style-5">
 
