@@ -79,6 +79,7 @@ if(isset($_GET['token']))
 						$_SESSION['error'] = true;
 						$_SESSION['src'] = 4;
 						redirect("index.php");
+						exit();
 					}
 
 				}
@@ -90,6 +91,7 @@ if(isset($_GET['token']))
 				$_SESSION['error'] = true;
 				$_SESSION['src'] = 0;
 				redirect("index.php");
+                exit();
 				
 			}
 		}
@@ -206,7 +208,7 @@ else{ //token isn't set
 		onContentReady: function () {
         // when content is fetched & rendered in DOM
 //        alert('onContentReady');
-		setTimeout(function(){ location.href = 'confirm.php'; }, 2500);
+		setTimeout(function(){ location.href = 'index.php'; }, 2500);
         
     }
 			
