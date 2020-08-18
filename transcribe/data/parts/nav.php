@@ -61,14 +61,23 @@
                 }
 
                 else if ($rl == 2) {
-                    echo "<li class=\"nav-item ";
+                    echo "<div class=\"form-row\">&nbsp;<li class=\"nav-item ";
                     if ($vtex_page == 2) echo 'active';
                     echo " \">
-                            <a class=\"nav-link\" href=\"/main.php\">
+                            <a class=\"nav-link col\" href=\"/main.php\">
                                 <i class=\"fas fa-angle-double-right\"></i>
                                 Job Lister
                             </a>
-                        </li>";
+                        </li>
+                        
+                        <li class=\"nav-item ";echo ($vtex_page == 4)?"active ":""; echo" col\">
+                            <a class=\"nav-link\" href=\"/manage_typists.php\">
+                                &nbsp;<i class=\"fas fa-caret-right\"></i>
+                                Manage Typists
+                            </a>
+                        </li>
+                        
+                        </div>";
 
                 }
 
@@ -110,7 +119,6 @@
                     Logout
                 </a>
             </li>
-
 
 
             <!--<li class="nav-item">

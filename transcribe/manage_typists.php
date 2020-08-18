@@ -1,6 +1,6 @@
 <?php
 //include('../data/parts/head.php');
-$vtex_page = 2;
+$vtex_page = 4;
 include('data/parts/session_settings.php');
 
 require('data/parts/ping.php');
