@@ -3,6 +3,7 @@
 namespace Src\TableGateways;
 use Src\TableGateways\CityGateway;
 use Src\TableGateways\CountryGateway;
+use Src\System\Mailer;
 include "common.php";
 
 class SignupGateway
@@ -11,12 +12,14 @@ class SignupGateway
     private $db = null;
     private $cityGateway = null;
     private $CountryGateway = null;
+    private $mailer;
 
     public function __construct($db)
     {
         $this->db = $db;
         $this->cityGateway = new CityGateway($db);
         $this->CountryGateway = new CountryGateway($db);
+        $this->mailer = new Mailer($db);
     }
 
     /**
@@ -165,8 +168,7 @@ class SignupGateway
             $count =  $statement->rowCount();
             if($count != 0)
             {
-                $token = $this->generateToken($email, 5);
-                sendEmail(5, $email, $token);
+                $this->mailer->sendEmail(5, $email);
 
                 return generateApiHeaderResponse("Signed up successfully, please verify your email address before trying to login",
                     false,
@@ -179,54 +181,6 @@ class SignupGateway
         }
 
 
-    }
-
-    /**
-     * Generates a random 78 length token, inserts it to tokens table
-     * @param $reasonCode 5 -> email verification |
-     * @return string token or (false) if failed
-     */
-    public function generateToken($email ,$reasonCode)
-    {
-        $token = null;
-
-        while(true)
-        {
-            $token = genToken();
-            if($token != 0)
-            {
-                break;
-            }
-        }
-
-        $statement = "
-        insert into 
-            tokens(
-                   email,
-                   identifier,
-                   used,
-                   token_type) 
-               values(?, ?, ?, ?)
-        ;";
-
-        try {
-            $statement = $this->db->prepare($statement);
-            $statement->execute(
-                array(
-                    $email,
-                    $token,
-                    0,
-                    $reasonCode
-                )
-            );
-            if($statement->rowCount() > 0)
-            {
-                return $token;
-            }
-            return false;
-        } catch (\PDOException $e) {
-            return false;
-        }
     }
 
     /**
