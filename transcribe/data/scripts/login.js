@@ -357,27 +357,55 @@ function resetpw() {
     }).done(function (data) {
         if (data == 1) //user exists proceed to procedures
         {
-            $.post("data/parts/backend_request.php", {
-                reqcode: 30,
-                args: JSON.stringify(a1)
-            }).done(function () {
-                $.confirm({
-                    title: 'Success',
-                    type: 'green',
-                    content: "Reset password email sent.",
-                    buttons: {
-                        confirm: {
-                            text: "OK",
-                            btnClass: 'btn-green',
-                            action: function () {
-                                showLoginFields()
+            var formData = new FormData();
+            formData.append("email", vemail);
+            $.ajax({
+                type: 'POST',
+                url: "/api/v1/login/reset/",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    // var ajaxResponse = response;
+                    // console.log(response);
+
+                    $.confirm({
+                        title: 'Success',
+                        type: 'green',
+                        content: response["msg"],
+                        buttons: {
+                            confirm: {
+                                text: "OK",
+                                btnClass: 'btn-green',
+                                action: function () {
+                                    showLoginFields();
+                                }
+                            },
+
+                        }
+                    });
+
+                },
+                error: function (err) {
+
+                    $.confirm({
+                        title: 'oops..',
+                        type: 'red',
+                        content: err.responseJSON["msg"],
+                        buttons: {
+                            confirm: {
+                                text: "OK",
+                                btnClass: 'btn-green',
+                                action: function () {
+                                    showLoginFields();
+                                }
                             }
-                        },
 
-                    }
-                });
-
+                        }
+                    });
+                }
             });
+
         } else { //user doesn't exist show error dialog
 
             $.confirm({
@@ -385,16 +413,14 @@ function resetpw() {
                 type: 'red',
                 content: "We couldn't find your account.",
                 buttons: {
-                    /*confirm: {
-                        text: 'Signup',
+                    confirm: {
+                        text: 'Signup?',
                         btnClass: 'btn-green',
                         action: function () {
-                            // todo signup link
-                            // loginBtn.removeAttr("disabled");
-                            // toggleFormAction();
+                            location.href = "signup.php";
                         }
-                    },*/
-                    confirm: {
+                    },
+                    cancel: {
                         text: "try again",
                         btnClass: 'btn-green',
                         action: function () {

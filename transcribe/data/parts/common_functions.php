@@ -44,7 +44,7 @@ function insertAuditLogEntry($con, $args) {
     //Again we're not closing the $con as we will need it and when we return to the calling switch statement it should close there
 }
 
-function getIP()
+function getIP2()
 {
     return getenv('HTTP_CLIENT_IP')?:
         getenv('HTTP_X_FORWARDED_FOR')?:

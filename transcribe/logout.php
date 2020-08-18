@@ -14,7 +14,7 @@ if(isset($_SESSION['loggedIn']))
         'email' => $uemail,
         'activity' => 'Logout',
         'actPage' => 'logout.php',
-        'actIP' => getIP(),
+        'actIP' => getIP2(),
         'acc_id' => 0
     );
     $b = json_encode($a);

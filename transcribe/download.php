@@ -123,7 +123,7 @@ function incrementDownloadCounter($con, $fileID, $accID)
         }
         $B = mysqli_stmt_execute($stmt1);
         if($B){ // file download incremented
-            $ip = getIP();
+            $ip = getIP2();
             /** logging download statistics */
 
             $a = Array(

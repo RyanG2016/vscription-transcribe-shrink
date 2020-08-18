@@ -202,65 +202,6 @@ if(isset($_REQUEST["reqcode"])){
 			$debug = 1;
 			break;
 
-		//---------------------------------------------------\\
-		//-------------------Insert Cases 3xx----------------\\
-		//---------------------------------------------------\\
-		case 30:
-			//inserts random token to db and send reset pwd email to user
-			//
-
-			$a = json_decode($args,true);
-			$email = strtolower($a["email"]);
-
-			$length = 78;
-			$token = bin2hex(random_bytes($length));
-			$token_type = 4; //reset password
-
-			$sql = "INSERT INTO tokens(email, identifier,token_type) VALUES(?,?,?)";
-
-			if($stmt = mysqli_prepare($con, $sql)){
-
-				$stmt->bind_param("ssi", $email, $token,$token_type);
-
-				$a = mysqli_stmt_execute($stmt);
-				if($a){
-					//success db record insertion
-					//send email to user
-
-					$link = "$cbaselink/reset.php?token=$token";
-					include("reset_email_template.php");
-
-					$mail->addAddress("$email"); //recepient
-					$mail->Subject = 'Password Reset';
-					$mail->Body    = $emHTML;
-					$mail->AltBody = $emPlain;
-					$_SESSION['src'] = 3; //source of message -> mail (3)
-					try{
-							$mail->send();
-							$_SESSION['error'] = false; //outputs empty error in session
-							$_SESSION['msg'] = "Reset Email sent."; //outputs empty error in session
-							//    echo 'Message has been sent';
-						} catch (Exception $e) {
-							$_SESSION['error'] = true;  //error=1 in session
-							$_SESSION['msg'] = "Reset Email couldn\'t be sent at this time please try again. {$mail->ErrorInfo}";
-//							$_SESSION['msg'] = "{$mail->ErrorInfo}";
-							//echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-							echo 1;
-						}
-
-					//
-				} else{
-					echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
-
-				}
-			}
-
-			// Close statement
-			mysqli_stmt_close($stmt);
-
-			break;
-
-
 			//CLEAR TEMP AUDIO FILE//
 			case 33:
 
@@ -458,7 +399,7 @@ if(isset($_REQUEST["reqcode"])){
 			$sql = "INSERT INTO files (job_id,file_author, file_work_type, file_date_dict, file_speaker_type, file_comment, job_uploaded_by, filename)
 			VALUES (?,?,?,?,?,?,?,?)";
 
-			$ip = getIP();
+			$ip = getIP2();
 
 			$a = Array(
 				'email' => $_SESSION['uEmail'],
@@ -599,7 +540,7 @@ if(isset($_REQUEST["reqcode"])){
 //					echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
 
 			}
-			$ip = getIP();
+			$ip = getIP2();
 
 			$a = Array(
 				'email' => $_SESSION['uEmail'],
@@ -736,7 +677,7 @@ if(isset($_REQUEST["reqcode"])){
 					'email' => $_SESSION['uEmail'],
 					'activity' => 'Client Admin Billing Report Run for period '. $a['startDate'] . ' to ' . $a['endDate'],
 					'actPage' => 'billing_report.php',
-					'actIP' => getIP(),
+					'actIP' => getIP2(),
 					'acc_id' => $_SESSION['accID']
 				);
 				$b = json_encode($a);
@@ -836,7 +777,7 @@ if(isset($_REQUEST["reqcode"])){
 							'email' => $_SESSION['uEmail'],
 							'activity' => 'Typist Billing Report Run for '. $a['typist'] . ' from ' . $a['startDate'] . ' to ' . $a['endDate'],
 							'actPage' => 'typist_billing.php',
-							'actIP' => getIP(),
+							'actIP' => getIP2(),
 							'acc_id' => $_SESSION['accID']
 						);
 						$b = json_encode($a);
@@ -1134,7 +1075,7 @@ function recordJobFileLoaded($con)
     //Insert audit detail. Note we will need to look at where we place this to ensure that we don't put it in a place where it may not fire
     // like after a return call or something like that
     //Need to figure out best way to get the acc_id. I think it should be added to the session but what if the user has access to multiple accounts?
-    $ip = getIP();
+    $ip = getIP2();
 
     $a = Array(
         'email' => $_SESSION['uEmail'],

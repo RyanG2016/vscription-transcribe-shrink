@@ -43,15 +43,17 @@ class Mailer
         $token = $this->generateToken($user_email, $mailType);
         if(!$token) return false;
 
-        $link = "$cbaselink/verify.php?token=$token";
+//        $link = "$cbaselink/verify.php?token=$token";
         try {
             switch ($mailType) {
                 case 0:
+                    $link = "$cbaselink/reset.php?token=$token";
                     include(__DIR__ . '/../../../mail/templates/reset_pwd.php');
                     $sbj = "Password Reset";
                     break;
 
                 case 5:
+                    $link = "$cbaselink/verify.php?token=$token";
                     include(__DIR__ . '/../../../mail/templates/verify_your_email.php');
                     $sbj = "Account Verification";
 //                $mail->addCC("sales@vtexvsi.com");
