@@ -104,17 +104,17 @@ class UserGateway
         where users.enabled = 1 
                 and account_status = 1
                 and access.acc_role != 3
-        
-        ;"; // todo identify typists ?? plan_id re-utilize maybe?*/
+
+        */
 
         $statement = "
             select users.id, email
             from users
-            where users.account_status = 1 and users.enabled = 1 and
+            where users.account_status = 1 and users.enabled = 1 and users.typist = 1 and
                 (
                     select count(access.acc_id) from access where access.acc_id = ? and uid = users.id and (acc_role = 3 OR acc_role = 6)
                 ) != 1
-            group by users.id order by users.id"; // todo identify typists ?? plan_id re-utilize maybe?
+            group by users.id order by users.id";
         //group by users.email
         try {
             $statement = $this->db->prepare($statement);
