@@ -162,7 +162,8 @@ function generateHTMLReport($html, $row)
 {
     $initials = strtolower(substr($_SESSION['fname'], 0, 1)) . strtolower(substr($_SESSION['lname'], 0, 1));
 
-    $report = '<b>' . 'Job Number: ' . '</b>' . $row['job_id'] . '<br/>';
+    $report = '<body style="font-family: Arial, Helvetica, sans-serif">';
+    $report .= '<b>' . 'Job Number: ' . '</b>' . $row['job_id'] . '<br/>';
     $report .= '<b>' . 'Author Name: ' . '</b>' . $row['file_author'] . '<br/>';
     $report .= '<b>' . 'Typist Name: ' . '</b>' . $initials . '<br/>';
     $report .= '<b>' . 'Job Type: ' . '</b>' . ucfirst($row['file_work_type']) . '<br/>';
@@ -178,6 +179,7 @@ function generateHTMLReport($html, $row)
     $report .= '<br/>';
     $report .= '<br/>';
     $report .= html_entity_decode($html, ENT_QUOTES);
+    $report .= "</body>";
 
     return convertHTMLToRTF($report);
 }
