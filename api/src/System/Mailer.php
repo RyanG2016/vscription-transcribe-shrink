@@ -64,7 +64,7 @@ class Mailer
                     $link = "$cbaselink/verify.php?token=$token";
                     include(__DIR__ . '/../../../mail/templates/verify_your_email.php');
                     $sbj = "Account Verification";
-//                $mail->addCC("sales@vtexvsi.com");
+                $mail->addCC("sales@vtexvsi.com");
                     break;
 
                 case 6:
@@ -73,7 +73,7 @@ class Mailer
                     $link = "$cbaselink/secret.php?s=$token";
                     include(__DIR__ . '/../../../mail/templates/typist_invitation.php');
                     $sbj = "Invitation";
-//                $mail->addCC("sales@vtexvsi.com");
+                $mail->addCC("sales@vtexvsi.com");
                     break;
 
                 case 10:
