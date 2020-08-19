@@ -793,8 +793,11 @@ $(document).ready(function () {
         $loadBtn.find("i").hide();
 
         // enable save etc.. buttons
-        $('#saveBtn').removeAttr("disabled");
-        $('#suspendBtn').removeAttr("disabled");
+        if(rl == 3)
+        {
+            $('#saveBtn').removeAttr("disabled");
+            $('#suspendBtn').removeAttr("disabled");
+        }
         $('#discardBtn').removeAttr("disabled");
         tinyMCE.activeEditor.setMode("design");
 

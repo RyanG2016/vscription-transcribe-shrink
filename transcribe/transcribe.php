@@ -8,8 +8,8 @@ include('data/parts/head.php');
 include('rtf3/src/HtmlToRtf.php');
 include('data/parts/constants.php');
 
-if (!isset($_SESSION['role']) || $_SESSION['role'] != "3") {
-//User is a System Administrator ONLY
+if (!isset($_SESSION['role']) || ($_SESSION['role'] != "3" && $_SESSION['role'] != "1")) {
+//User is a System Administrator or Typist
     ob_start();
     header('Location: ' . "index.php");
     ob_end_flush();
@@ -119,6 +119,10 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
 
 
     ?>
+
+    <script type="text/javascript">
+        var rl = <?php echo $_SESSION["role"] ?>;
+    </script>
 
     <!--    JQuery    -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
