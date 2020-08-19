@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d5bc74582f3f034b5385f089a51eab67",
+    "content-hash": "47c658e3a6190aa666c611091613e8c3",
     "packages": [
         {
             "name": "bandwidth-throttle/token-bucket",
@@ -139,6 +139,52 @@
                 "semaphore"
             ],
             "time": "2018-07-07T18:43:25+00:00"
+        },
+        {
+            "name": "mnvx/lowrapper",
+            "version": "1.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mnvx/lowrapper.git",
+                "reference": "fc4c1a60c3369cdf49a284e78539ebad8e9a2c8d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mnvx/lowrapper/zipball/fc4c1a60c3369cdf49a284e78539ebad8e9a2c8d",
+                "reference": "fc4c1a60c3369cdf49a284e78539ebad8e9a2c8d",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2",
+                "psr/log": "^1.0",
+                "symfony/process": "^3.1|^4.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Mnvx\\Lowrapper\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHP wrapper over LibreOffice converter",
+            "homepage": "https://github.com/mnvx/lowrapper",
+            "keywords": [
+                "LibreOffice",
+                "converter",
+                "docx",
+                "excel",
+                "pdf",
+                "word",
+                "xls",
+                "xlsx"
+            ],
+            "time": "2020-06-04T11:59:24+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -379,6 +425,69 @@
                 }
             ],
             "time": "2020-07-14T12:35:20+00:00"
+        },
+        {
+            "name": "symfony/process",
+            "version": "v4.4.11",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/process.git",
+                "reference": "65e70bab62f3da7089a8d4591fb23fbacacb3479"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/process/zipball/65e70bab62f3da7089a8d4591fb23fbacacb3479",
+                "reference": "65e70bab62f3da7089a8d4591fb23fbacacb3479",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Process\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Process Component",
+            "homepage": "https://symfony.com",
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-07-23T08:31:43+00:00"
         },
         {
             "name": "vlucas/phpdotenv",

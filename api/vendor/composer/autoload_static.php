@@ -23,12 +23,17 @@ class ComposerStaticInit6adee100c1c1d6b46b6a0aa11003ed2a
         'S' => 
         array (
             'Symfony\\Polyfill\\Ctype\\' => 23,
+            'Symfony\\Component\\Process\\' => 26,
             'Src\\' => 4,
         ),
         'P' => 
         array (
             'Psr\\Log\\' => 8,
             'PHPMailer\\PHPMailer\\' => 20,
+        ),
+        'M' => 
+        array (
+            'Mnvx\\Lowrapper\\' => 15,
         ),
         'D' => 
         array (
@@ -49,6 +54,10 @@ class ComposerStaticInit6adee100c1c1d6b46b6a0aa11003ed2a
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
         ),
+        'Symfony\\Component\\Process\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/process',
+        ),
         'Src\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
@@ -60,6 +69,10 @@ class ComposerStaticInit6adee100c1c1d6b46b6a0aa11003ed2a
         'PHPMailer\\PHPMailer\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
+        ),
+        'Mnvx\\Lowrapper\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mnvx/lowrapper/src',
         ),
         'Dotenv\\' => 
         array (
