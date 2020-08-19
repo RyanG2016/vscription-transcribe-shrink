@@ -30,6 +30,8 @@ var accountBox;
 var roleBox;
 
 var setDefaultModal;
+var typistAvSwitch;
+var typistAvSwitchMDC;
 
 var accountsArray = [];
 var loading;
@@ -57,25 +59,29 @@ $(document).ready(function () {
                 shape:"circle"
             },
             {
-                "next #typistCardHead":'This is the typist card',
-                // shape:"circle",
-                // "skipButton":{text: "Finish"}
+                "next #typistCardHead":'Here is the typist section',
             }
             ,
             {
-                "click #typistCard>div":'Here you can find information about your current status as a typist',
+                "next #typistCard>div":'Here you can find information about your current work permissions',
+                // shape:"circle",
+            }
+            ,
+            {
+                "click #alertT2":'Here you can set whether or not you\'re open for new work invites.',
                 // shape:"circle",
                 "skipButton":{text: "Finish"}
             }
         ];
 
     //set script config
-    //     enjoyhint_instance.set(enjoyhint_script_steps);
+        enjoyhint_instance.set(enjoyhint_script_steps);
 
     //run Enjoyhint script
-        enjoyhint_instance.run();
+    //     enjoyhint_instance.run();
 
     loadingText = $("#loadingText");
+    typistAvSwitch = $("#typist_av_switch");
     accNameInput = $("#accNameTxt");
     currentRole = $("#currentRole");
     currentAccName = $("#currentAccountName");
@@ -91,6 +97,18 @@ $(document).ready(function () {
     roleBox = $("#roleBox");
 
     chooseJobModal = $("#modal");
+
+    typistAvSwitchMDC = new mdc.switchControl.MDCSwitch(document.querySelector('#typist_av_switch'));
+
+    typistAvSwitch.on('change', function (e) {
+        typistAvSwitchMDC.disabled = true;
+        if(typistAvSwitchMDC.checked)
+        {
+            setAvailabilityAsTypist(1);
+        }else{
+            setAvailabilityAsTypist(2);
+        }
+    });
 
     closeModalBtn.on("click", function (e) {
         chooseJobModal.modal('hide');
@@ -214,6 +232,51 @@ $(document).ready(function () {
         });
 
     });
+
+    getAvailabilityAsTypist();
+    function getAvailabilityAsTypist()
+    {
+        $.ajax({
+            url: "../api/v1/users/available/",
+            method: "GET",
+            success: function (available) {
+                if(available == 1)
+                {
+                    typistAvSwitchMDC.checked = true;
+                }else{
+                    typistAvSwitchMDC.checked = false;
+                }
+                typistAvSwitchMDC.disabled = false;
+            }
+        });
+    }
+
+    function setAvailabilityAsTypist(availability)
+    {
+        typistAvSwitchMDC.disabled = true;
+        var formData = new FormData();
+        formData.append('av', availability);
+
+        $.ajax({
+            type: 'POST',
+            url: "../api/v1/users/set-available/",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (success) {
+                if(success)
+                {
+                    typistAvSwitchMDC.checked = availability === 1;
+                    typistAvSwitchMDC.disabled = false;
+                }else{
+                    getAvailabilityAsTypist();
+                }
+            },
+            error: function (err) {
+                getAvailabilityAsTypist();
+            }
+        });
+    }
 
 
     $.ajax({

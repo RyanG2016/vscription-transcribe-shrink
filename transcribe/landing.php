@@ -27,6 +27,7 @@ if (isset($_SESSION['counter'])) {
     <script src="data/libs/node_modules/material-components-web/dist/material-components-web.js"></script>
     <script src="data/libs/node_modules/@material/textfield/dist/mdc.textfield.js"></script>
     <script src="data/libs/node_modules/@material/linear-progress/dist/mdc.linearProgress.js"></script>
+    <script src="data/libs/node_modules/@material/switch/dist/mdc.switch.js"></script>
     <script src="https://kit.fontawesome.com/00895b9561.js" crossorigin="anonymous"></script>
 
     <!--    Jquery confirm  -->
@@ -47,19 +48,19 @@ if (isset($_SESSION['counter'])) {
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
-
     <script type="text/javascript">
         var roleIsset = <?php echo (!isset($_SESSION['role']) && !isset($_SESSION['accID']))?0:true ?>;
     </script>
-
-    <link href="data/css/landing.css?v=2" rel="stylesheet">
-    <script src="data/scripts/landing.min.js" type="text/javascript"></script>
 
     <!-- Enjoyhint library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/kineticjs/5.2.0/kinetic.js"></script>
     <link href="data/thirdparty/enjoyhint/enjoyhint.css" rel="stylesheet">
 <!--    <script src="data/thirdparty/enjoyhint/enjoyhint.min.js"></script>-->
     <script src="data/thirdparty/enjoyhint/enjoyhint.min.js"></script>
+
+
+    <link href="data/css/landing.css?v=2" rel="stylesheet">
+    <script src="data/scripts/landing.min.js" type="text/javascript"></script>
 
 </head>
 
@@ -285,12 +286,13 @@ if (isset($_SESSION['counter'])) {
                             </div>";
                         }
                         ?>
-                        <div class="text-muted">A client administrator account allows you to manage your jobs,
+                        <div class="text-muted text-justify">A client administrator account allows you to manage your jobs,
                             invite typists, download completed jobs, and more..</div>
                     </div>
 
                     <div id="typistCard" class="col">
                         <h3 class="text-center" id="typistCardHead">Typist</h3>
+
                         <div class="alert alert-info" role="alert" id="alertT0">
                             <em>No access found.</em>
                         </div>
@@ -301,8 +303,23 @@ if (isset($_SESSION['counter'])) {
                                 <br>
                                 </em>
                         </div>
-                        <div id="typist1" class="text-muted">Switch your current role to typist from the side menu to start working.</div>
+                        <div id="typist1" class="text-muted text-justify">Switch your current role to typist from the side menu to start working.</div>
                         <div id="typist0" class="text-muted">Please wait for a job invitation from an admin.</div>
+
+                        <div class="alert alert-light" role="alert" id="alertT2">
+                            <div class="form-row">
+                                <em>Open for new work invitations?</em>
+
+                                <div class="mdc-switch mdc-switch--disabled ml-auto mt-auto mb-auto" id="typist_av_switch">
+                                    <div class="mdc-switch__track"></div>
+                                    <div class="mdc-switch__thumb-underlay">
+                                        <div class="mdc-switch__thumb"></div>
+                                        <input type="checkbox" id="basic-switch" class="mdc-switch__native-control" role="switch" aria-checked="false" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 

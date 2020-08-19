@@ -5,6 +5,7 @@
 @import "parts/data-tbl.css";
 @import "parts/spinner.css";
 @import "parts/bootstrap-override.css";
+@import "parts/material-override.css";
 
 /* -----------------*/
 /* --BUTTON STYLING --*/

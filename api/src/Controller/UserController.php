@@ -33,7 +33,10 @@ class UserController
     {
         switch ($this->requestMethod) {
             case 'GET':
-                if ($this->userId) {
+                if ($this->userId == "available") {
+                    $response = $this->getAvailableForWork();
+                }
+                else if ($this->userId) {
                     $response = $this->getUser($this->userId);
                 } else {
                     $response = $this->getAllUsers();
@@ -45,6 +48,8 @@ class UserController
                     // set user default access
 //                    echo "setting-default-access-for-current-logged-in-user";
                     $response = $this->updateUserDefaultAccess();
+                }else if ($this->userId == "set-available") {
+                    $response = $this->setAvailableForWork();
                 }
                 else if($this->userId == null) {
                     $response = $this->createUserFromRequest();
@@ -74,6 +79,9 @@ class UserController
             case 'GET':
                 if ($this->userId == "typists") {
                     $response = $this->getTypistsForCurAdminAccount();
+                }
+                else if ($this->userId == "available") {
+                    $response = $this->getAvailableForWork();
                 } else {
 //                    $response = $this->getAllUsers();
                     $response = $this->notFoundResponse();
@@ -85,6 +93,9 @@ class UserController
                     // set user default access
 //                    echo "setting-default-access-for-current-logged-in-user";
                     $response = $this->updateUserDefaultAccess();
+                }
+                else if ($this->userId == "set-available") {
+                    $response = $this->setAvailableForWork();
                 }
                 else if ($this->userId == "invite"){
                     $response = $this->inviteTypistToCurrentAccount();
@@ -126,6 +137,35 @@ class UserController
         $result = $this->userGateway->getTypists();
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
         $response['body'] = json_encode($result);
+        return $response;
+    }
+
+    /**
+     * SET available to work as typist for current logged in user
+     * @param int POST av: availability (0,1,2)
+     * @return boolean success
+     */
+    private function setAvailableForWork()
+    {
+        if(!isset($_POST["av"]) || !is_numeric($_POST["av"]))
+        {
+            return  false;
+        }
+        $result = $this->userGateway->setAvailableForWorkAsTypist($_POST["av"]);
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = $result;
+        return $response;
+    }
+
+    /**
+     * Retrieves available to work as typist for current logged in user
+     * @return boolean [body] available
+     */
+    private function getAvailableForWork()
+    {
+        $result = $this->userGateway->getAvailableForWorkAsTypist();
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = $result;
         return $response;
     }
 

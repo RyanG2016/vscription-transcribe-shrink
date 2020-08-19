@@ -225,6 +225,62 @@ class UserGateway
     }
 
     /**
+     * Retrieves available to work as typist for current logged in user
+     * @return int typist status (0, 1, 2)
+     */
+    public function getAvailableForWorkAsTypist()
+    {
+
+        $statement = "
+            SELECT 
+                   users.typist       
+            FROM
+                users
+            WHERE
+                users.id = ?";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($_SESSION["uid"]));
+            $result = $statement->fetch();
+            if($statement->rowCount() > 0)
+            {
+                return $result["typist"];
+            }
+            return false;
+        } catch (\PDOException $e) {
+            return false;
+//            exit($e->getMessage());
+        }
+    }
+
+    /**
+     * SETs available to work as typist for current logged in user
+     * @param $availability (0,1,2)
+     * @return boolean success
+     */
+    public function setAvailableForWorkAsTypist($availability)
+    {
+
+        $statement = "
+            UPDATE
+                users
+                   SET       
+                typist = ?
+            WHERE
+                users.id = ?";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($availability, $_SESSION["uid"]));
+            return $statement->rowCount();
+        } catch (\PDOException $e) {
+            return false;
+//            exit($e->getMessage());
+        }
+    }
+
+    /**
      * retrieves user data
      * @param $email string user email address
      * @return string JSON of user object
