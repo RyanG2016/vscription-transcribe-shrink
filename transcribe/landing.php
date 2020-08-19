@@ -123,53 +123,6 @@ if (isset($_SESSION['counter'])) {
         <div class="root">
             <div class="nav-bar">
 
-                <div class="vtex-card nav-header first">
-                    Current Role
-                </div>
-                <div class="nav-btns-div">
-                    <!--                    <button class="mdc-button mdc-button--outlined tools-button">-->
-                    <!--                        <div class="mdc-button__ripple"></div>-->
-
-                    <table>
-                        <tr>
-                            <td style="vertical-align: top;">
-                                <i class="fas fa-keyboard tools-label" style="color: white;"></i>
-                            </td>
-                            <td style="vertical-align: top">
-                                <span class="mdc-button tools-label" id="currentRole">
-                                    <?php echo isset($_SESSION["role_desc"]) ? $_SESSION["role_desc"] : "None" ?>
-                                </span>
-                            </td>
-                        </tr>
-                    </table>
-
-                    <!--                    </button>-->
-
-                    <!--                    <button class="mdc-button mdc-button--outlined tools-button">-->
-                    <!--                        <div class="mdc-button__ripple"></div>-->
-
-                    <table>
-                        <tr>
-                            <td style="vertical-align: top">
-                                <i class="fas fa-user-alt tools-label" style="color: white;"></i>
-                            </td>
-                            <td style="vertical-align: top">
-                                <span class="mdc-button tools-label" id="currentAccountName">
-                                    <?php echo isset($_SESSION["acc_name"]) ?
-        //                                strlen($_SESSION["acc_name"]) > 21 ?
-        //                                    substr($_SESSION["acc_name"], 0, 20) . ".." :
-                                        $_SESSION["acc_name"]
-                                        : "None" ?>
-                                </span>
-                            </td>
-                        </tr>
-                    </table>
-
-
-                    <!--                    </button>-->
-
-                </div>
-
                 <?php
                 if (isset($_SESSION["role"])) {
                     $rl = $_SESSION["role"];
