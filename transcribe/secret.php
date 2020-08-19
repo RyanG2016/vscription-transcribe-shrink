@@ -20,9 +20,8 @@ if(isset($_GET['s']))
 }//end isset token
 else{ //token isn't set
 
-    // todo turn on
-//	redirect("index.php");
-//	exit();
+	redirect("index.php");
+	exit();
 }
 ?>
 
