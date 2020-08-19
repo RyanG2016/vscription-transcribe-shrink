@@ -795,7 +795,7 @@ if(isset($_REQUEST["reqcode"])){
                 FROM 
                     users
                 WHERE 
-                    plan_id  = 3";
+                    typist  != 0";
 
 
             if($stmt = mysqli_prepare($con, $sql))
