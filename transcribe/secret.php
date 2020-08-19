@@ -48,10 +48,6 @@ else{ //token isn't set
     <link rel="stylesheet" href="data/css/parts/modal_overlay.css">
     <link rel="stylesheet" href="data/css/parts/spinner.css">
 
-    <!-- todo remove below -->
-    <link rel="stylesheet" href="data/dialogues/jquery-confirm.min2.css">
-    <script src="data/dialogues/jquery-confirm.min.js"></script>
-
 <!--	show dialog   -->
 <script type="text/javascript">
 <?php if($msg){
