@@ -39,3 +39,4 @@ workingTemp/
 /data/scripts/signup.js
 /api/.env
 /uploads/
+/convert.log
