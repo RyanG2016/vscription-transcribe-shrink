@@ -241,7 +241,7 @@ background: linear-gradient(to right, #3498db, #2c3e50); /* W3C, IE 10+/ Edge, F
   background: #fff;
   border-radius: 10px;
   overflow: hidden;
-  padding: 77px 55px 33px 55px;
+  padding: 30px 30px 30px 30px;
 
   box-shadow: 0 5px 10px 0px rgba(38,38,38,1);
 /*  box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);*/

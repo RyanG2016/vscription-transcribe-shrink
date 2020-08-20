@@ -33,7 +33,7 @@ if ($uri[3] !== 'access') {
 // the speakerType id is, of course, optional and must be a number:
 $accessId = null;
 if (isset($uri[4])) {
-    $accessId = (int)$uri[4];
+    $accessId = $uri[4];
 }
 
 $requestMethod = $_SERVER["REQUEST_METHOD"];

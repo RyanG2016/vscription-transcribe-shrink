@@ -3,6 +3,8 @@
 /* --------------------------------*/
 
 @import "parts/modal_popup.css";
+@import "parts/card.css";
+@import "parts/vars.css";
 
 /* Modal loading edits */
 #modalLoading .modal-content h2{
@@ -56,98 +58,6 @@ body{
 }
 
 
-/*form data*/
-.form-style-5{
-
-    max-width: 90%;
-    min-width: 860px;
-    width: 90%;
-    /*    padding: 10px 20px;*/
-    background: #f4f7f8;
-    margin: 10px auto;
-    padding: 12px 20px 15px 20px;
-    border-radius: 8px;
-    font-family: 'Oxygen', serif  !important;
-    box-shadow: 0 0 16px #262626;
-
-    -webkit-transition: width 1s;
-    transition: width 1s;
-}
-
-.form-style-5 fieldset{
-    border: none;
-}
-.form-style-5 legend {
-    font-size: 1.4em;
-    /*    margin-bottom: 10px;*/
-    width: 100%;
-}
-
-
-.form-style-5 label {
-    display: block;
-    margin-bottom: 8px;
-}
-.form-style-5 input[type="text"],
-.form-style-5 input[type="date"],
-.form-style-5 input[type="datetime"],
-.form-style-5 input[type="email"],
-.form-style-5 input[type="number"],
-.form-style-5 input[type="search"],
-.form-style-5 input[type="time"],
-.form-style-5 input[type="url"],
-.form-style-5 select {
-    font-family: 'Oxygen' , serif  !important;
-    background: rgba(255,255,255,.1);
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    margin: 0;
-    outline: 0;
-    padding: 7px;
-    /*width: 100%;*/
-    box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    background-color: #e8eeef;
-    color:#8a97a0;
-    -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
-    box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
-    margin-bottom: 5px;
-}
-
-
-
-.form-style-5 input[type="text"]:focus,
-.form-style-5 input[type="date"]:focus,
-.form-style-5 input[type="datetime"]:focus,
-.form-style-5 input[type="email"]:focus,
-.form-style-5 input[type="number"]:focus,
-.form-style-5 input[type="search"]:focus,
-.form-style-5 input[type="time"]:focus,
-.form-style-5 input[type="url"]:focus,
-.form-style-5 textarea:focus,
-.form-style-5 select:focus{
-    background: #d2d9dd;
-}
-.form-style-5 select{
-    -webkit-appearance: menulist-button;
-    height:35px;
-}
-.form-style-5 .number {
-    background: #4892cc;
-    /*background: #eaaa3e;*/
-    color: #fff;
-    height: 30px;
-    width: 30px;
-    display: inline-block;
-    font-size: 0.8em;
-    margin-right: 4px;
-    line-height: 30px;
-    text-align: center;
-    text-shadow: 0 1px 0 rgba(255,255,255,0.2);
-    border-radius: 15px 15px 15px 0px;
-}
 
 img:not(#norm){
     float: right;
@@ -167,7 +77,6 @@ img:not(#norm){
     text-align: center;
     font-style: normal;
     width: 49%;
-    border: 1px solid #4892cc;
     /*border: 1px solid #dfa84d;*/
     border-width: 1px 1px 3px;
     margin-bottom: 10px;
@@ -194,31 +103,10 @@ img:not(#norm){
 }
 
 
-#jobNo{
-    width: 20%;
-}
-
-#authorName{
-    width: 40%
-}
-
-#TypistName{
-    width:39%;
-
-}
-#comments{
-    width: 34.5%;
-}
-
-#date,#dateT{
-    width: 20%;
-}
-#comments,#date,#dateT{
+/*#comments,#date,#dateT{
     margin-bottom: 5px;
-}
-#jobType{
-    width: 24%;
-}
+}*/
+
 /*
 
 #save,#clear{
@@ -249,7 +137,7 @@ img:not(#norm){
     height: auto;
 }
 #accord {
-    padding: 0px 10px 10px 10px;
+    padding: 0 10px 10px 10px;
     /*width: 440px;*/
     width: auto;
     /*height: 220px;*/
@@ -298,11 +186,11 @@ img:not(#norm){
     width: 150px !important;
     padding: 6px !important;
     font-size: 15px !important;
-    font-family: 'Oxygen' !important;
+    font-family: oxygen, sans-serif !important;
 }
 
 legend, h3,button{
-    font-family: 'Oxygen' !important;
+    font-family: oxygen, sans-serif !important;
 }
 
 .noHover{
@@ -383,7 +271,7 @@ legend, h3,button{
 
 #help{
     color: #2dace1;
-    font-family: oxygen-l;
+    font-family: oxygen-l, sans-serif;
 }
 
 .top-links a:link {
@@ -393,7 +281,7 @@ legend, h3,button{
 /* visited link */
 .top-links a:visited {
     color: #2dace1;
-    font-family: oxygen-l;
+    font-family: oxygen-l, sans-serif;
 }
 
 /* mouse over link */
@@ -617,4 +505,69 @@ select {
     border-radius: 4px;
     font-size: 16px;
     font-family: oxygen, sans-serif;
+}
+
+/* Table Search Input position fix for bootstrap */
+
+#jobs-tbl_filter > label{
+    display: inline-flex;
+}
+
+#jobs-tbl_wrapper > div:nth-child(1){
+    margin-left: auto !important;
+}
+
+#jobs-tbl_wrapper > div:nth-child(3)
+{
+    width: 100%;
+}
+
+#jobs-tbl_wrapper > div.mdc-layout-grid.dt-table{
+    width: inherit;
+}
+
+/* VTEX CARD OVERRIDE */
+.vtex-card{
+    background-color: #f4f7f8;
+    max-width: 90%;
+    min-width: 860px;
+    width: 90%;
+    margin: 10px auto;
+    padding: 12px 20px 15px 20px;
+    border-radius: 8px;
+    font-family: 'Oxygen', serif  !important;
+    -webkit-transition: width 1s;
+    transition: width 1s;
+}
+
+.vtex-card .number {
+    background: #4892cc;
+    /*background: #eaaa3e;*/
+    color: #fff;
+    height: 30px;
+    width: 30px;
+    display: inline-block;
+    font-size: 0.8em;
+    margin-right: 4px;
+    line-height: 30px;
+    text-align: center;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.2);
+    border-radius: 15px 15px 15px 0px;
+}
+
+.vtex-card legend {
+    font-size: 1.4em;
+    /*    margin-bottom: 10px;*/
+    width: 100%;
+}
+
+
+.vtex-card label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.vtex-glow:hover{
+    color: var(--vtex-green);
+    cursor: pointer;
 }

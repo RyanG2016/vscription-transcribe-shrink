@@ -24,7 +24,7 @@ class UserGateway
 
     public function findAll()
     {
-        $filter = parseParams(true);
+        $filter = parseUserParams(true);
 
         $statement = "
             SELECT 
@@ -81,7 +81,211 @@ class UserGateway
         }
     }
 
+
+    /**
+     * Retrieves typists emails for invitation dropdown for client administrators management screen
+     * @return mixed
+     */
+    public function getTypists()
+    {
+        /*$statement = "
+            SELECT 
+                   users.id,
+                    users.email,
+                    users.plan_id,
+                    users.account_status,
+                    users.email_notification,
+                    accounts.acc_name as 'admin_of',
+                    access.acc_role                                      
+            FROM
+                users
+            LEFT JOIN access ON users.id = access.uid
+            LEFT JOIN accounts ON users.account = accounts.acc_id
+        where users.enabled = 1 
+                and account_status = 1
+                and access.acc_role != 3
+
+        */
+
+        $statement = "
+            select users.id, email
+            from users
+            where users.account_status = 1 and users.enabled = 1 and users.typist = 1 and
+                (
+                    select count(access.acc_id) from access where access.acc_id = ? and uid = users.id and (acc_role = 3 OR acc_role = 6)
+                ) != 1
+            group by users.id order by users.id";
+        //group by users.email
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($_SESSION["accID"]));
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            if (isset($_GET['dt'])) {
+                $json_data = array(
+                    //            "draw"            => intval( $_REQUEST['draw'] ),
+                    //            "recordsTotal"    => intval( 2 ),
+                    //            "recordsFiltered" => intval( 1 ),
+                    "data" => $result
+                );
+                //        $response['body'] = json_encode($result);
+                $result = $json_data;
+            }
+            return $result;
+        } catch (\PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+
+    /**
+     * [Mail] [Mailing List] Retrieves current logged in Client Account's typists emails for mailing list for job updates
+     * @return mixed
+     */
+    public function getCurrentTypistsForJobUpdates()
+    {
+
+        $statement = "select u.email
+                        FROM access
+                    INNER JOIN users u on access.uid = u.id
+                    where acc_id = ? and acc_role = 3 and email_notification = 1";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($_SESSION["accID"]));
+            return $statement->fetchAll(\PDO::FETCH_ASSOC);
+        } catch (\PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+
+    /**
+     * [Mail] [Mailing List] Retrieves Account Admin Email to inform of job completion
+     * @return mixed
+     */
+    public function getClientAccAdminsEmailForJobUpdates()
+    {
+
+        $statement = "select u.email
+            from access
+            INNER JOIN users u on access.uid = u.id
+            where acc_id = ? and acc_role = 2 and email_notification = 1";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($_SESSION["accID"]));
+            return $statement->fetchAll(\PDO::FETCH_ASSOC);
+        } catch (\PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+
     public function find($id)
+    {
+
+        $statement = "
+            SELECT 
+                   users.id,
+                    users.first_name,
+                    users.last_name,
+                    users.email,
+                    users.country_id,
+                    countries.country,
+                    users.city,
+                    users.state_id,
+                    users.state,
+                    users.registeration_date,
+                    users.last_ip_address,
+                    users.plan_id,
+                    users.account_status,
+                    users.last_login,
+                    users.newsletter,
+                    users.shortcuts,
+                    users.dictionary,
+                    users.email_notification,
+                    users.account,
+                    users.enabled,
+                    users.def_access_id,
+                   cities.city as `state_ref`
+                                      
+            FROM
+                users
+            INNER JOIN countries ON users.country_id = countries.id
+            LEFT JOIN cities ON users.state_id = cities.id
+            WHERE
+                users.id = ?";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($id));
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            return $result;
+        } catch (\PDOException $e) {
+            return false;
+//            exit($e->getMessage());
+        }
+    }
+
+    /**
+     * Retrieves available to work as typist for current logged in user
+     * @return int typist status (0, 1, 2)
+     */
+    public function getAvailableForWorkAsTypist()
+    {
+
+        $statement = "
+            SELECT 
+                   users.typist       
+            FROM
+                users
+            WHERE
+                users.id = ?";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($_SESSION["uid"]));
+            $result = $statement->fetch();
+            if($statement->rowCount() > 0)
+            {
+                return $result["typist"];
+            }
+            return false;
+        } catch (\PDOException $e) {
+            return false;
+//            exit($e->getMessage());
+        }
+    }
+
+    /**
+     * SETs available to work as typist for current logged in user
+     * @param $availability (0,1,2)
+     * @return boolean success
+     */
+    public function setAvailableForWorkAsTypist($availability)
+    {
+
+        $statement = "
+            UPDATE
+                users
+                   SET       
+                typist = ?
+            WHERE
+                users.id = ?";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($availability, $_SESSION["uid"]));
+            return $statement->rowCount();
+        } catch (\PDOException $e) {
+            return false;
+//            exit($e->getMessage());
+        }
+    }
+
+    /**
+     * retrieves user data
+     * @param $email string user email address
+     * @return string JSON of user object
+     */
+    public function getUserByEmail($email)
     {
 
         $statement = "
@@ -113,15 +317,17 @@ class UserGateway
             INNER JOIN countries ON users.country_id = countries.id
             LEFT JOIN cities ON users.state_id = cities.id
             WHERE
-                users.id = ?";
+                users.email = ?";
 
         try {
             $statement = $this->db->prepare($statement);
-            $statement->execute(array($id));
-            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
-            return $result;
+            $statement->execute(array($email));
+//            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            return $statement->fetch();
+//            return $result;
         } catch (\PDOException $e) {
-            exit($e->getMessage());
+            return false;
+//            exit($e->getMessage());
         }
     }
     
@@ -238,6 +444,82 @@ class UserGateway
     }
 
 
+    /**
+     * Updates `account` field in `users` tbl with the user made client admin account ID
+     * and sets session variables with the account data
+     * @internal
+     * @param $accID int client admin account ID made by the user
+     * @param $accName string client admin account name
+     * @return boolean true -> success | false -> failed to update
+     */
+    public function internalUpdateUserClientAdminAccount($accID, $accName) {
+
+        // update user access //
+        $statement = "UPDATE
+                            users
+                        SET  
+                            account = ?
+                        WHERE
+                            id = ?
+                        ";
+
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array(
+                $accID,
+                $_SESSION['uid']
+            ));
+
+            if ($statement->rowCount() > 0) {
+
+                // setting session variables to bypass the need of logging out and in again
+                $_SESSION["adminAccount"] = $accID;
+                $_SESSION["adminAccountName"] = $accName;
+
+            return true;
+            } else {
+                return false;
+            }
+
+        } catch (PDOException $e) {
+//            die($e->getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Clears def_access_id to null
+     * used if a revoke access is invoked on a access entry which is the default for a user (will fail due to foreign key check)
+     * @internal
+     * @param $uid int user id
+     * @return boolean true -> success | false -> failed to update
+     */
+    public function internalUpdateUserClearDefaultAccess($uid) {
+
+        // update user access //
+        $statement = "UPDATE
+                            users
+                        SET  
+                            def_access_id = null
+                        WHERE
+                            id = ?
+                        ";
+
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array(
+                $uid
+            ));
+
+            return $statement->rowCount();
+
+        } catch (PDOException $e) {
+//            die($e->getMessage());
+            return false;
+        }
+    }
 
     public function updateDefaultAccess()
     {
@@ -349,7 +631,7 @@ class UserGateway
         }*/
 
         // Sql Injection Check
-        if(!sqlInjectionCheckPassed($put))
+        if(!sqlInjectionUserCheckPassed($put))
         {
             return $this->errorOccurredResponse("Invalid Input (3505)");
         }

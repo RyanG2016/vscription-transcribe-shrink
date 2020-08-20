@@ -228,7 +228,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
 
                     </div>
                     <div class="br1min">
-                        <label for="bill_rate1_min_pay" class="vtex-form_lbl">Minimum</label>
+                        <label for="bill_rate1_min_pay" class="vtex-form_lbl">Typing/Minute</label>
                         <br>
                         <input class="bill_rate1_min_pay vtex-input-no-padding" name="bill_rate1_min_pay"
                                    id="bill_rate1_min_pay" type="text">
@@ -267,7 +267,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
 
                     </div>
                     <div class="br2min">
-                        <label for="bill_rate2_min_pay" class="vtex-form_lbl">Minimum</label>
+                        <label for="bill_rate2_min_pay" class="vtex-form_lbl">Typing/Minute</label>
                         <br>
                         <input class="bill_rate2_min_pay vtex-input-no-padding" name="bill_rate2_min_pay"
                                    id="bill_rate2_min_pay" type="text">
@@ -305,7 +305,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
 
                     </div>
                     <div class="br3min">
-                        <label for="bill_rate3_min_pay" class="vtex-form_lbl">Minimum</label>
+                        <label for="bill_rate3_min_pay" class="vtex-form_lbl">Typing/Minute</label>
                         <br>
                         <input class="bill_rate3_min_pay vtex-input-no-padding" name="bill_rate3_min_pay"
                                    id="bill_rate3_min_pay" type="text">
@@ -344,7 +344,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
 
                     </div>
                     <div class="br4min">
-                        <label for="bill_rate4_min_pay" class="vtex-form_lbl">Minimum</label>
+                        <label for="bill_rate4_min_pay" class="vtex-form_lbl">Typing/Minute</label>
                         <br>
                         <input class="bill_rate4_min_pay vtex-input-no-padding" name="bill_rate4_min_pay"
                                    id="bill_rate4_min_pay" type="text">
@@ -383,7 +383,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
 
                     </div>
                     <div class="br5min">
-                        <label for="bill_rate5_min_pay" class="vtex-form_lbl">Minimum</label>
+                        <label for="bill_rate5_min_pay" class="vtex-form_lbl">Typing/Minute</label>
                         <br>
                         <input class="bill_rate5_min_pay vtex-input-no-padding" name="bill_rate5_min_pay"
                                    id="bill_rate5_min_pay" type="text">
@@ -412,6 +412,11 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
             </fieldset>
 
             <div class="modal-footer">
+                <button class="mdc-button mdc-button--unelevated cancel-acc-button" id="closeAccModal" type="button">
+                    <div class="mdc-button__ripple"></div>
+                    <i class="fas fa-times"></i>
+                    <span class="mdc-button__label">&nbsp; Cancel</span>
+                </button>
                 <button class="mdc-button mdc-button--unelevated blue-btn" id="updateAccBtn" type="button" disabled>
                     <div class="mdc-button__ripple"></div>
                     <i class="fas fa-user-edit"></i>
@@ -422,12 +427,6 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
                     <div class="mdc-button__ripple"></div>
                     <i class="fas fa-user-plus"></i>
                     <span class="mdc-button__label">&nbsp; Create</span>
-                </button>
-
-                <button class="mdc-button mdc-button--unelevated cancel-acc-button" id="closeAccModal" type="button">
-                    <div class="mdc-button__ripple"></div>
-                    <i class="fas fa-times"></i>
-                    <span class="mdc-button__label">&nbsp; Cancel</span>
                 </button>
             </div>
 

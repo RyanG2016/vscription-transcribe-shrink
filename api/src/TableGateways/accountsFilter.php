@@ -1,7 +1,7 @@
 <?php
 
 
-function parseParams($addWhereClause = false){
+function parseAccountParams($addWhereClause = false){
     $addedEnum = 0;
     $firstMatch = true;
     if($addWhereClause){
@@ -59,15 +59,17 @@ function parseParams($addWhereClause = false){
                         if(isset($value["mul"]))
                         {
                             $values = preg_split('/,/', $value["mul"], -1, PREG_SPLIT_NO_EMPTY);
+                            $filter .= "(";
                             foreach ($values as $opt)
                             {
                                 if(!$firstMatch) {$filter .= " OR ";}
                                 $filter .= "$key = '$opt'";
                                 $firstMatch = false;
                             }
+                            $filter .= ")";
 
                         }else{
-                            unprocessableFilterResponse();
+                            unprocessableAccFilterResponse();
                         }
 
                     }else if(gettype($value) == "string"){
@@ -86,7 +88,7 @@ function parseParams($addWhereClause = false){
     }
 }
 
-function sqlInjectionCheckPassed($array){
+function accountSqlInjectionCheckPassed($array){
     // Sql Injection Check
     foreach ($array as $key => $value)
     {
@@ -146,7 +148,7 @@ function sqlInjectionCheckPassed($array){
     return true;
 }
 
-function unprocessableFilterResponse()
+function unprocessableAccFilterResponse()
 {
     header('HTTP/1.1 422 Unprocessable Filter');
     echo json_encode([

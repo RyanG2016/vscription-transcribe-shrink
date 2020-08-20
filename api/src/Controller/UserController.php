@@ -4,6 +4,8 @@ namespace Src\Controller;
 
 //use PHPMailer\PHPMailer\Exception;
 use Src\TableGateways\UserGateway;
+use Src\TableGateways\accessGateway;
+use Src\System\Mailer;
 
 class UserController
 {
@@ -11,7 +13,9 @@ class UserController
     private $db;
     private $requestMethod;
     private $userId;
+    private $mailer;
 
+    private $accessGateway;
     private $userGateway;
 
     public function __construct($db, $requestMethod, $userId)
@@ -19,15 +23,20 @@ class UserController
         $this->db = $db;
         $this->requestMethod = $requestMethod;
         $this->userId = $userId;
+        $this->mailer = new Mailer($db);
 
         $this->userGateway = new UserGateway($db);
+        $this->accessGateway = new accessGateway($db);
     }
 
     public function processRequest()
     {
         switch ($this->requestMethod) {
             case 'GET':
-                if ($this->userId) {
+                if ($this->userId == "available") {
+                    $response = $this->getAvailableForWork();
+                }
+                else if ($this->userId) {
                     $response = $this->getUser($this->userId);
                 } else {
                     $response = $this->getAllUsers();
@@ -39,8 +48,13 @@ class UserController
                     // set user default access
 //                    echo "setting-default-access-for-current-logged-in-user";
                     $response = $this->updateUserDefaultAccess();
-                } else {
+                }else if ($this->userId == "set-available") {
+                    $response = $this->setAvailableForWork();
+                }
+                else if($this->userId == null) {
                     $response = $this->createUserFromRequest();
+                }else{
+                    $response = $this->notFoundResponse();
                 }
                 break;
             case 'PUT':
@@ -59,11 +73,99 @@ class UserController
         }
     }
 
+    public function processPublicRequest()
+    {
+        switch ($this->requestMethod) {
+            case 'GET':
+                if ($this->userId == "typists") {
+                    $response = $this->getTypistsForCurAdminAccount();
+                }
+                else if ($this->userId == "available") {
+                    $response = $this->getAvailableForWork();
+                } else {
+//                    $response = $this->getAllUsers();
+                    $response = $this->notFoundResponse();
+                }
+                break;
+            case 'POST':
+
+                if ($this->userId == "set-default") {
+                    // set user default access
+//                    echo "setting-default-access-for-current-logged-in-user";
+                    $response = $this->updateUserDefaultAccess();
+                }
+                else if ($this->userId == "set-available") {
+                    $response = $this->setAvailableForWork();
+                }
+                else if ($this->userId == "invite"){
+                    $response = $this->inviteTypistToCurrentAccount();
+                }
+                else{
+                    $response = $this->notFoundResponse();
+                }
+                break;
+//            case 'PUT':
+//                $response = $this->updateUserFromRequest($this->userId);
+//                break;
+//            case 'DELETE':
+//                $response = $this->deleteUser($this->userId);
+//                break;
+            default:
+                $response = $this->notFoundResponse();
+                break;
+        }
+        header($response['status_code_header']);
+        if ($response['body']) {
+            echo $response['body'];
+        }
+    }
+
     private function getAllUsers()
     {
         $result = $this->userGateway->findAll();
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
         $response['body'] = json_encode($result);
+        return $response;
+    }
+
+    /**
+     * Retrieves typists emails for invitation dropdown for client administrators management screen
+     * @return mixed
+     */
+    private function getTypistsForCurAdminAccount()
+    {
+        $result = $this->userGateway->getTypists();
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = json_encode($result);
+        return $response;
+    }
+
+    /**
+     * SET available to work as typist for current logged in user
+     * @param int POST av: availability (0,1,2)
+     * @return boolean success
+     */
+    private function setAvailableForWork()
+    {
+        if(!isset($_POST["av"]) || !is_numeric($_POST["av"]))
+        {
+            return  false;
+        }
+        $result = $this->userGateway->setAvailableForWorkAsTypist($_POST["av"]);
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = $result;
+        return $response;
+    }
+
+    /**
+     * Retrieves available to work as typist for current logged in user
+     * @return boolean [body] available
+     */
+    private function getAvailableForWork()
+    {
+        $result = $this->userGateway->getAvailableForWorkAsTypist();
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = $result;
         return $response;
     }
 
@@ -102,6 +204,42 @@ class UserController
             "error" => $error
         );
     }*/
+
+    private function inviteTypistToCurrentAccount()
+    {
+
+
+        if(!isset($_POST["email"]) || empty($_POST["email"]) ||
+            !isset($_SESSION['role']) || $_SESSION['role'] != 2
+        ) {
+            return generateApiHeaderResponse("Invalid Input (UC-I1)", true);
+        }
+
+        $user = $this->userGateway->getUserByEmail($_POST["email"]);
+        if($user)
+        {
+            if($user["email_notification"] != 1) // todo OR plan ID != 3
+            {
+                return generateApiHeaderResponse("User is not accepting invites at the moment.", true);
+            }
+        }else{
+            return generateApiHeaderResponse("User not found.", true);
+        }
+
+        $accessID = $this->accessGateway->internalManualInsertAccessRecord($_SESSION["accID"], $user["id"], $_POST["email"], 6);
+        if(!$accessID){
+            return generateApiHeaderResponse("Failed to send invitation. (AID-1)", true);
+        }
+        $emailSent = $this->mailer->sendEmail(6, $_POST["email"], $_SESSION["acc_name"], $accessID);
+        if( $emailSent )
+        {
+            return generateApiHeaderResponse("Invitation sent.", false);
+        }else{
+            return generateApiHeaderResponse("Failed to send invitation.", true);
+        }
+
+    }
+
 
     private function deleteUser($id)
     {

@@ -135,7 +135,7 @@ isset($_SESSION['uEmail'])?$uEmail = $_SESSION['uEmail']:$uEmail = "";
 
 					<div class="text-right" id="remember" style="margin-bottom: 25px;">
 						<span class="txt1">
-							Remember E-Mail
+							Remember Email
 						</span>
 
 						<input type="checkbox" name="remember" <?php echo isset($_SESSION['remember']) ? "checked" : ""?>>
@@ -143,7 +143,7 @@ isset($_SESSION['uEmail'])?$uEmail = $_SESSION['uEmail']:$uEmail = "";
 					</div>
 
 					<!----------------------PASSWORD----------------->
-					<div class="wrap-input100 validate-input" id="passwordDiv" data-validate="Enter password">
+					<div class="wrap-input100 validate-input" id="passwordDiv" style="margin-bottom: 0" data-validate="Enter password">
 						<span class="btn-show-pass">
 							<i class="zmdi zmdi-eye"></i>
 						</span>
@@ -214,17 +214,17 @@ isset($_SESSION['uEmail'])?$uEmail = $_SESSION['uEmail']:$uEmail = "";
 						</div>
 					</div>
 
-					<div class="text-center p-t-15" id="info" hidden>
+					<div class="text-center p-t-15" id="info">
 						<span class="txt1" id="btmtxt1">
 							Don’t have an account?
 						</span>
 
-						<a class="txt2" href="#" id="btmtxt2" hidden>
+						<a class="txt2" href="signup.php" id="btmtxt2">
 							Sign Up
 						</a>
 					</div>
 				</form>
-				<div class="text-right p-t-10" id="policy">
+				<div class="text-left p-t-10" id="policy">
 					<a class="txt2" href="./policy.php" id="btmtxt2" target="_blank">
 						Privacy Policy
 					</a>

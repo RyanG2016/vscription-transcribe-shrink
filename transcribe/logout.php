@@ -14,7 +14,7 @@ if(isset($_SESSION['loggedIn']))
         'email' => $uemail,
         'activity' => 'Logout',
         'actPage' => 'logout.php',
-        'actIP' => getIP(),
+        'actIP' => getIP2(),
         'acc_id' => 0
     );
     $b = json_encode($a);
@@ -35,13 +35,11 @@ if(isset($_SESSION['loggedIn']))
 		//session_destroy();
 
 	$_SESSION['msg']="Please login to continue";
-	
-	echo '<script type="text/javascript">
-document.location="index.php";
-</script>';
+
+    redirect("index.php");
 }
-else{//not even loggedIn
-	//go to default page (login page)
+else{// not even loggedIn
+	// go to default page (login page)
 	$rmb = false;
 	if(isset( $_SESSION['remember'] ) )
 	{
@@ -49,30 +47,12 @@ else{//not even loggedIn
 	}		
 	session_unset();
 	session_destroy();
-//    session_regenerate_id(true);
+    // session_regenerate_id(true);
 
 	if($rmb)
 	{
 		$_SESSION['remember']=true;
 		$_SESSION['uEmail']=$uemail;
 	}
-	
-	echo '<script type="text/javascript">
-document.location="index.php";
-</script>';
+    redirect("index.php");
 }
-
-?>
-<!--<script language="javascript">
-document.location="login.php";
-</script>-->
-<!doctype html>
-<html>
-<head>
-<title>Logging out..</title>
-</head>
-<body>
-	Please wait..
-</body>
-<noscript><meta http-equiv="refresh" content="0;url=noscript.php"></noscript> 
-</html>

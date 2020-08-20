@@ -13,6 +13,12 @@ class logger
         $this->db = $db;
     }
 
+    /**
+     * Adds a log record to act_log
+     * @param $API_NAME string api/page name
+     * @param $activity string activity to record
+     * @return bool (boolean) log recorded
+     */
     function insertAuditLogEntry($API_NAME, $activity) {
         //INSERT AUDIT LOG DATA
 
@@ -21,8 +27,8 @@ class logger
         try {
             $statement = $this->db->prepare($statement);
             $statement->execute(array(
-                $_SESSION["uEmail"],
-                $_SESSION["accID"]?$_SESSION["accID"]:0,
+                isset($_SESSION["uEmail"])?$_SESSION["uEmail"]:"Not Logged In",
+                isset($_SESSION["accID"])?$_SESSION["accID"]:0,
                 $API_NAME . " API",
                 $activity,
                 getIP()

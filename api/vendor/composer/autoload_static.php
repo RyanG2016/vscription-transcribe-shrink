@@ -7,14 +7,33 @@ namespace Composer\Autoload;
 class ComposerStaticInit6adee100c1c1d6b46b6a0aa11003ed2a
 {
     public static $files = array (
+        '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
     );
 
     public static $prefixLengthsPsr4 = array (
+        'm' => 
+        array (
+            'malkusch\\lock\\' => 14,
+        ),
+        'b' => 
+        array (
+            'bandwidthThrottle\\tokenBucket\\' => 30,
+        ),
         'S' => 
         array (
             'Symfony\\Polyfill\\Ctype\\' => 23,
+            'Symfony\\Component\\Process\\' => 26,
             'Src\\' => 4,
+        ),
+        'P' => 
+        array (
+            'Psr\\Log\\' => 8,
+            'PHPMailer\\PHPMailer\\' => 20,
+        ),
+        'M' => 
+        array (
+            'Mnvx\\Lowrapper\\' => 15,
         ),
         'D' => 
         array (
@@ -23,13 +42,37 @@ class ComposerStaticInit6adee100c1c1d6b46b6a0aa11003ed2a
     );
 
     public static $prefixDirsPsr4 = array (
+        'malkusch\\lock\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/malkusch/lock/classes',
+        ),
+        'bandwidthThrottle\\tokenBucket\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/bandwidth-throttle/token-bucket/classes',
+        ),
         'Symfony\\Polyfill\\Ctype\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
         ),
+        'Symfony\\Component\\Process\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/process',
+        ),
         'Src\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
+        ),
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
+        ),
+        'PHPMailer\\PHPMailer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
+        ),
+        'Mnvx\\Lowrapper\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mnvx/lowrapper/src',
         ),
         'Dotenv\\' => 
         array (

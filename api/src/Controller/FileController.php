@@ -3,8 +3,9 @@
 namespace Src\Controller;
 
 use Src\TableGateways\FileGateway;
+use Src\System\Mailer;
 
-require_once('../../../../audioParser/getid3/getid3.php');
+require_once( __DIR__ . '/../../../audioParser/getid3/getid3.php');
 
 class FileController
 {
@@ -12,6 +13,7 @@ class FileController
     private $db;
     private $requestMethod;
     private $fileId;
+    private $mailer;
 
     private $fileGateway;
 
@@ -20,6 +22,7 @@ class FileController
         $this->db = $db;
         $this->requestMethod = $requestMethod;
         $this->fileId = $fileId;
+        $this->mailer = new Mailer($db);
 
         $this->fileGateway = new FileGateway($db);
     }
@@ -42,7 +45,12 @@ class FileController
                 if (isset($_POST["cancel"])) {
                     $response = $this->cancelUpload();
                 } else {
-                    $response = $this->uploadFilesFromRequest();
+                    if ($this->fileId) {
+                        $response = $this->updateFileFromRequest($this->fileId);
+                    } else {
+                        $response = $this->uploadFilesFromRequest();
+                    }
+//                    $response = $this->uploadFilesFromRequest();
                 }
                 break;
 //            case 'PUT':
@@ -128,7 +136,6 @@ class FileController
                 "audio/mpeg",       // .mp3
                 "audio/x-wav",      // .wav
                 "audio/ogg",        // .ogg
-                "audio/x-dss",      // .dss
                 "application/octet-stream" // .ds2
 
             );
@@ -141,8 +148,7 @@ class FileController
             $uf2 = isset($_POST["user_field_2"]) ? $_POST["user_field_2"] : null;
             $uf3 = isset($_POST["user_field_3"]) ? $_POST["user_field_3"] : null;
 
-            $dictDate = $this->validateAndReturnDate($dictDate);
-            if (!$dictDate) {
+            if (!$this->validateAndReturnDate($dictDate)) {
                 return $this->errorOccurredResponse("invalid date format.");
             }
 
@@ -164,10 +170,10 @@ class FileController
             $post_acc_id = null;
             $stopUpload = false;
 
-            if (isset($_POST["acc_id"]) && !empty($_POST["acc_id"])) {
-                $post_acc_id = $_POST["acc_id"];
+            if (isset($_POST["set_acc_id"]) && !empty($_POST["set_acc_id"])) {
+                $post_acc_id = $_POST["set_acc_id"];
                 // curl to check if current user have insert permission to the acc_id passed via the request params
-                if(!$this->checkForInsertPermission($_POST["acc_id"])) { // no permission
+                if(!$this->checkForInsertPermission($_POST["set_acc_id"])) { // no permission
                     $uploadMsg[] = $this->formatFileResult("NA", "You don't have permission to upload to this account", true);
                     $stopUpload = true; // stop the upload
                 }else{
@@ -197,6 +203,8 @@ class FileController
                 $nextJobNum = $nextJobNumbers["next_job_num"];
             }
 
+            $newFilesAvailable = false;
+
             foreach ($_FILES as $key => $fileItem) {
                 if($stopUpload){break;}
                 if ($fileItem["error"] != 0) {
@@ -208,15 +216,23 @@ class FileController
                 $file_size = $fileItem['size'];
                 $file_real_mime_type = mime_content_type($file_tmp);
 
+                $jobPrefix = $this->fileGateway->getAccountPrefix($acc_id);
+                if(!$jobPrefix)
+                {
+                    // die("couldn't get job prefix");
+                    $uploadMsg[] = $this->formatFileResult($file_name, "couldn't retrieve account prefix", true);
+                    unlink($file_tmp); // delete the tmp file.
+                    continue;
+                }
                 // enumerating file names
-                $enumName = "F" . $nextFileID . "_UM" . $nextJobNum . "_" . str_replace(" ", "_", $file_name);
+                $enumName = "F" . $nextFileID . "_" . str_replace("-", "", $jobPrefix) . $nextJobNum . "_" . str_replace(" ", "_", $file_name);
                 $orig_filename = $file_name;
                 $file_name = $enumName;
                 $file = $path . $file_name;
 
 
                 if (!in_array($file_real_mime_type, $allowedMimeTypes)) {
-                    $uploadMsg[] = $this->formatFileResult($orig_filename, "upload failed (file type not allowed)", true);
+                    $uploadMsg[] = $this->formatFileResult($orig_filename, "upload failed (file type not allowed - $file_real_mime_type)", true);
                     unlink($file_tmp); // delete the tmp file.
                     continue;
                 }
@@ -229,8 +245,13 @@ class FileController
 
                 $getID3 = new \getID3;
                 $fileInfo = $getID3->analyze($file_tmp);
+                $org_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION)); // dss audio length check - working with DSS & DS2
                 $file_duration = (int)ceil(@$fileInfo['playtime_seconds']);
-
+                $dur_received = isset($_POST["dur" . str_replace("file", "", $key)])?$_POST["dur" . str_replace("file", "", $key)]:0;
+                if($file_duration == 0 && $dur_received != null && $dur_received != 0)
+                {
+                    $file_duration = $dur_received;
+                }
                 //Building demographic array for DB insert function call
                 $fileDemos = array(
                     $nextFileID,
@@ -246,7 +267,8 @@ class FileController
                     $uf1,
                     $uf2,
                     $uf3,
-                    $acc_id
+                    $acc_id,
+                    $org_ext
                 );
 
                 $uplSuccess = move_uploaded_file($file_tmp, $file);
@@ -255,6 +277,7 @@ class FileController
                     if ($result) {
 //                        $uploadMsg[] = "<li>File: $orig_filename - <span style='color:green;'>UPLOAD SUCCESSFUL</span></li>";
                         $uploadMsg[] = $this->formatFileResult($orig_filename, "upload successful", false);
+                        $newFilesAvailable = true;
                     } else {
 //                        $uploadMsg[] = "<li>'File: ' $orig_filename . ' - FAILED (File uploaded but error writing to database)'<li>";
                         $uploadMsg[] = $this->formatFileResult($orig_filename, "upload failed please contact website administrator (2)", true);
@@ -270,6 +293,9 @@ class FileController
 
 //            header('Content-Type: application/json');
 //            echo json_encode(array_values($uploadMsg), JSON_FORCE_OBJECT | JSON_PRETTY_PRINT);
+            if($newFilesAvailable){
+                $this->mailer->sendEmail(15, "sales@vtexvsi.com");
+            }
 
             $response['status_code_header'] = 'HTTP/1.1 200 OK';
             $response['body'] = json_encode(array_values($uploadMsg), JSON_FORCE_OBJECT | JSON_PRETTY_PRINT);;
@@ -353,17 +379,14 @@ class FileController
 
     private function updateFileFromRequest($id)
     {
-        $result = $this->fileGateway->find($id);
+        /*$result = $this->fileGateway->find($id);
         if (!$result) {
             return $this->notFoundResponse();
-        }
-        $input = (array)json_decode(file_get_contents('php://input'), TRUE);
-        if (!$this->validateFile($input)) {
-            return $this->unprocessableEntityResponse();
-        }
-        $this->fileGateway->update($id, $input);
+        }*/
+
+        $result = $this->fileGateway->update($id);
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
-        $response['body'] = null;
+        $response['body'] = $result;
         return $response;
     }
 
@@ -392,13 +415,32 @@ class FileController
 
     private function validateAndReturnDate($date)
     {
-        // (accepted format: yyyy-mm-dd)
+        // (accepted format: yyyy-mm-dd hh:mm:ss)
+//        $dateArr = explode("-", $date);
+        $dateTimeArr = explode(" ", $date);
+        // Date check
+        $date = $dateTimeArr[0];
         $dateArr = explode("-", $date);
-        if (sizeof($dateArr) == 3 && checkdate($dateArr[1], $dateArr[2], $dateArr[0])) {
-            return $dateArr[0] . "-" . $dateArr[1] . "-" . $dateArr[2];
-        } else {
+        //                                             |> month - day - year
+        $dateValid = sizeof($dateArr) == 3 && checkdate($dateArr[1], $dateArr[2], $dateArr[0]);
+
+        if(sizeof($dateTimeArr) == 1)
+        {
+            // date only passed
+            return true;
+        }
+        else if(sizeof($dateTimeArr) > 2){
             return false;
         }
+
+        // Time check
+        $time = $dateTimeArr[1];
+        $timeArr = explode(":", $time);
+        $timeValid = sizeof($timeArr) == 3 &&
+            $timeArr[0] >= 0 && $timeArr[1] >= 0 && $timeArr[2] >= 0 &&  // not negative
+            $timeArr[0] < 24 && $timeArr[1] < 60 && $timeArr[2] < 60;
+
+        return $timeValid && $dateValid;
 
     }
 

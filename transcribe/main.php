@@ -2,6 +2,7 @@
 <html lang="en">
 
 <?php
+$vtex_page = 2;
 include('data/parts/head.php');
 include('rtf3/src/HtmlToRtf.php');
 include('data/parts/constants.php');
@@ -32,9 +33,11 @@ else {
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="data/libs/node_modules/material-components-web/dist/material-components-web.js"></script>
 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
 
-    <link rel="stylesheet" href="data/css/main.css">
+
     <script src="data/scripts/main.min.js?v=3"></script>
 
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,300&display=swap"
@@ -42,7 +45,7 @@ else {
     <script src="https://kit.fontawesome.com/00895b9561.js" crossorigin="anonymous"></script>
 <!--    <link rel="stylesheet" href="data/css/vs-style.css">-->
 
-    <title>vScription Transcribe Pro Dictation Upload</title>
+    <title>vScription Job Lister</title>
     <link rel="shortcut icon" type="image/png" href="data/images/favicon.png"/>
     <link rel="stylesheet" href="data/css/job_lister_form_5.css">
 
@@ -72,10 +75,11 @@ else {
     <link rel="stylesheet" type="text/css" href="data/tooltipster/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-punk.min.css" />
     <script type="text/javascript" src="data/tooltipster/js/tooltipster.bundle.min.js"></script>
 
+    <link rel="stylesheet" href="data/css/main.css">
 </head>
 
 <body>
-
+<?php include_once "data/parts/nav.php" ?>
 <div id="container" style="width: 100%">
     <div class="form-style-5">
 
@@ -151,6 +155,13 @@ else {
                         <i class="material-icons mdc-button__icon" aria-hidden="true">cloud_upload</i>
                         <span class="mdc-button__label">Upload Jobs</span>
                     </button>
+
+                    <button class="mdc-button mdc-button--unelevated vtex-mtb" id="manage_typists_btn">
+                        <div class="mdc-button__ripple"></div>
+                        <i class="fas fa-keyboard"></i>&nbsp;
+                        <span class="mdc-button__label">Manage Typists</span>
+                    </button>
+
                     <button class="mdc-button mdc-button--unelevated foo-button" id="refresh_btn"
                             >
                         <div class="mdc-button__ripple"></div>

@@ -28,12 +28,14 @@ function parseParams($addWhereClause = false){
                         if(isset($value["mul"]))
                         {
                             $values = preg_split('/,/', $value["mul"], -1, PREG_SPLIT_NO_EMPTY);
+                            $filter .= "(";
                             foreach ($values as $opt)
                             {
                                 if(!$firstMatch) {$filter .= " OR ";}
                                 $filter .= "access.$key = '$opt'";
                                 $firstMatch = false;
                             }
+                            $filter .= ")";
 
                         }else{
                             unprocessableFilterResponse();
@@ -56,12 +58,14 @@ function parseParams($addWhereClause = false){
                         if(isset($value["mul"]))
                         {
                             $values = preg_split('/,/', $value["mul"], -1, PREG_SPLIT_NO_EMPTY);
+                            $filter .= "(";
                             foreach ($values as $opt)
                             {
                                 if(!$firstMatch) {$filter .= " OR ";}
                                 $filter .= "a.$key = '$opt'";
                                 $firstMatch = false;
                             }
+                            $filter .= ")";
 
                         }else{
                             unprocessableFilterResponse();
@@ -84,12 +88,14 @@ function parseParams($addWhereClause = false){
                         if(isset($value["mul"]))
                         {
                             $values = preg_split('/,/', $value["mul"], -1, PREG_SPLIT_NO_EMPTY);
+                            $filter .= "(";
                             foreach ($values as $opt)
                             {
                                 if(!$firstMatch) {$filter .= " OR ";}
                                 $filter .= "r.$key = '$opt'";
                                 $firstMatch = false;
                             }
+                            $filter .= ")";
 
                         }else{
                             unprocessableFilterResponse();
@@ -111,12 +117,14 @@ function parseParams($addWhereClause = false){
                         if(isset($value["mul"]))
                         {
                             $values = preg_split('/,/', $value["mul"], -1, PREG_SPLIT_NO_EMPTY);
+                            $filter .= "(";
                             foreach ($values as $opt)
                             {
                                 if(!$firstMatch) {$filter .= " OR ";}
                                 $filter .= "u.$key = '$opt'";
                                 $firstMatch = false;
                             }
+                            $filter .= ")";
 
                         }else{
                             unprocessableFilterResponse();

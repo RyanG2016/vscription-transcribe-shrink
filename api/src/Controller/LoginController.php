@@ -1,20 +1,31 @@
 <?php
 namespace Src\Controller;
 
+/*
+ * base url /login
+ * options:
+ *      POST /login/reset -> reset password email to user
+ * */
+
 use Src\TableGateways\LoginGateway;
+use Src\System\Throttler;
+use Src\System\Mailer;
 
 class LoginController {
 
     private $db;
     private $requestMethod;
-    private $loginId;
+    private $option;
+    private $mailer;
 
     private $loginGateway;
 
-    public function __construct($db, $requestMethod)
+    public function __construct($db, $requestMethod, $option)
     {
         $this->db = $db;
         $this->requestMethod = $requestMethod;
+        $this->option = $option;
+        $this->mailer = new Mailer($db);
 
         $this->loginGateway = new LoginGateway($db);
     }
@@ -22,10 +33,28 @@ class LoginController {
     public function processRequest()
     {
         switch ($this->requestMethod) {
-            case 'POST':
+
             case 'GET':
-                $response = $this->validateLogin();
+            case 'POST':
+                new Throttler("login", 10, \bandwidthThrottle\tokenBucket\Rate::MINUTE);
+
+
+                if($this->option == "reset")
+                {
+                    $response = $this->sendResetPasswordEmail();
+                }
+                else if($this->option == null){
+                    $response = $this->validateLogin();
+                }
+                else{
+                    $response = $this->notFoundResponse();
+                }
+
                 break;
+
+//                 new Throttler("sign_up", 5, \bandwidthThrottle\tokenBucket\Rate::MINUTE);
+//                $response = $this->validateAndSignUp();
+//                break;
 
             default:
                 $response = $this->notFoundResponse();
@@ -35,6 +64,7 @@ class LoginController {
         if ($response['body']) {
             echo $response['body'];
         }
+        exit();
     }
 
     public function processSilentRequest()
@@ -82,6 +112,38 @@ class LoginController {
         return $response;
     }
 
+    /**
+     * Validates password requirements for a given password - (min 8, uppercase, lowercase, special char.)
+     * @param $password string password to be validated
+     * @return bool (bool) password valid
+     */
+    private function validatePasswordRequirements($password)
+    {
+        $output_array = null;
+        $ptn = "/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};\':\"\\\\|,. <>\/?]).{8,}/";
+        preg_match($ptn, $password, $output_array);
+
+        return $output_array != false;
+    }
+
+    // POST
+    private function sendResetPasswordEmail()
+    {
+//        echo "hi";
+        // fname=&lname=&email=hacker2894%40gmail.com&password=Iceman2801&countryID=209&stateID=70&city=
+        if(!isset($_POST["email"]) ||empty($_POST["email"]) ) {
+            return $this->unprocessableEntityResponse();
+        }
+
+        if($this->mailer->sendEmail(0, $_POST["email"]))
+        {
+            return generateApiHeaderResponse("Reset password email sent, please check your inbox", false);
+        }else{
+            return generateApiHeaderResponse("Failed to send reset password email", true);
+        }
+
+    }
+
 
     private function validateEmail($email)
     {
@@ -92,7 +154,8 @@ class LoginController {
     {
         $response['status_code_header'] = 'HTTP/1.1 422 Unprocessable Entity';
         $response['body'] = json_encode([
-            'error' => 'Invalid input'
+            'error' => true,
+            "msg" => 'Invalid input (E)'
         ]);
         return $response;
     }

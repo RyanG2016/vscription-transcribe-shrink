@@ -4,20 +4,364 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "37490ab698c8720f647300a5e9a211f6",
+    "content-hash": "47c658e3a6190aa666c611091613e8c3",
     "packages": [
         {
-            "name": "symfony/polyfill-ctype",
-            "version": "v1.17.1",
+            "name": "bandwidth-throttle/token-bucket",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/polyfill-ctype.git",
-                "reference": "2edd75b8b35d62fd3eeabba73b26b8f1f60ce13d"
+                "url": "https://github.com/bandwidth-throttle/token-bucket.git",
+                "reference": "a0c31a4d0fbcf0c1a68c895fc91bf71455bcec08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/2edd75b8b35d62fd3eeabba73b26b8f1f60ce13d",
-                "reference": "2edd75b8b35d62fd3eeabba73b26b8f1f60ce13d",
+                "url": "https://api.github.com/repos/bandwidth-throttle/token-bucket/zipball/a0c31a4d0fbcf0c1a68c895fc91bf71455bcec08",
+                "reference": "a0c31a4d0fbcf0c1a68c895fc91bf71455bcec08",
+                "shasum": ""
+            },
+            "require": {
+                "ext-bcmath": "*",
+                "malkusch/lock": "^1",
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "ext-redis": "^2.2.4|^3",
+                "mikey179/vfsstream": "^1.5.0",
+                "php-mock/php-mock-phpunit": "^1",
+                "phpunit/phpunit": "^5",
+                "predis/predis": "^1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "bandwidthThrottle\\tokenBucket\\": "classes/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "WTFPL"
+            ],
+            "authors": [
+                {
+                    "name": "Markus Malkusch",
+                    "email": "markus@malkusch.de",
+                    "homepage": "http://markus.malkusch.de",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Implementation of the Token Bucket algorithm.",
+            "homepage": "https://github.com/bandwidth-throttle/token-bucket",
+            "keywords": [
+                "bandwidth",
+                "rate limit",
+                "rate limiting",
+                "throttle",
+                "throttling",
+                "token bucket"
+            ],
+            "time": "2017-10-13T19:09:01+00:00"
+        },
+        {
+            "name": "malkusch/lock",
+            "version": "v1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-lock/lock.git",
+                "reference": "96cd2d82180fc87bd8ad45aac25486f82d9fbf4b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-lock/lock/zipball/96cd2d82180fc87bd8ad45aac25486f82d9fbf4b",
+                "reference": "96cd2d82180fc87bd8ad45aac25486f82d9fbf4b",
+                "shasum": ""
+            },
+            "require": {
+                "paragonie/random_compat": "^1|^2",
+                "php": ">=5.6",
+                "psr/log": "^1"
+            },
+            "require-dev": {
+                "eloquent/liberator": "^2.0",
+                "ext-memcached": "*",
+                "ext-pcntl": "*",
+                "ext-pdo_mysql": "*",
+                "ext-pdo_sqlite": "*",
+                "ext-redis": "*",
+                "johnkary/phpunit-speedtrap": "^1.0",
+                "kriswallsmith/spork": "^0.3",
+                "mikey179/vfsstream": "^1.5.0",
+                "php-mock/php-mock-phpunit": "^1",
+                "phpunit/phpunit": "^5",
+                "predis/predis": "~1.0",
+                "squizlabs/php_codesniffer": "^3.2"
+            },
+            "suggest": {
+                "ext-pnctl": "Enables locking with flock without busy waiting in CLI scripts"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "malkusch\\lock\\": "classes/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "WTFPL"
+            ],
+            "authors": [
+                {
+                    "name": "Markus Malkusch",
+                    "email": "markus@malkusch.de",
+                    "homepage": "http://markus.malkusch.de",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Willem Stuursma-Ruwen",
+                    "email": "willem@stuursma.name",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Mutex library for exclusive code execution.",
+            "homepage": "https://github.com/malkusch/lock",
+            "keywords": [
+                "advisory locks",
+                "cas",
+                "flock",
+                "lock",
+                "locking",
+                "memcache",
+                "mutex",
+                "mysql",
+                "postgresql",
+                "redis",
+                "redlock",
+                "semaphore"
+            ],
+            "time": "2018-07-07T18:43:25+00:00"
+        },
+        {
+            "name": "mnvx/lowrapper",
+            "version": "1.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mnvx/lowrapper.git",
+                "reference": "fc4c1a60c3369cdf49a284e78539ebad8e9a2c8d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mnvx/lowrapper/zipball/fc4c1a60c3369cdf49a284e78539ebad8e9a2c8d",
+                "reference": "fc4c1a60c3369cdf49a284e78539ebad8e9a2c8d",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2",
+                "psr/log": "^1.0",
+                "symfony/process": "^3.1|^4.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Mnvx\\Lowrapper\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHP wrapper over LibreOffice converter",
+            "homepage": "https://github.com/mnvx/lowrapper",
+            "keywords": [
+                "LibreOffice",
+                "converter",
+                "docx",
+                "excel",
+                "pdf",
+                "word",
+                "xls",
+                "xlsx"
+            ],
+            "time": "2020-06-04T11:59:24+00:00"
+        },
+        {
+            "name": "paragonie/random_compat",
+            "version": "v2.0.18",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/paragonie/random_compat.git",
+                "reference": "0a58ef6e3146256cc3dc7cc393927bcc7d1b72db"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/0a58ef6e3146256cc3dc7cc393927bcc7d1b72db",
+                "reference": "0a58ef6e3146256cc3dc7cc393927bcc7d1b72db",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.*|5.*"
+            },
+            "suggest": {
+                "ext-libsodium": "Provides a modern crypto API that can be used to generate random bytes."
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "lib/random.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Paragon Initiative Enterprises",
+                    "email": "security@paragonie.com",
+                    "homepage": "https://paragonie.com"
+                }
+            ],
+            "description": "PHP 5.x polyfill for random_bytes() and random_int() from PHP 7",
+            "keywords": [
+                "csprng",
+                "polyfill",
+                "pseudorandom",
+                "random"
+            ],
+            "time": "2019-01-03T20:59:08+00:00"
+        },
+        {
+            "name": "phpmailer/phpmailer",
+            "version": "v6.1.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PHPMailer/PHPMailer.git",
+                "reference": "2c2370ba3df7034f9eb7b8f387c97b52b2ba5ad0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/2c2370ba3df7034f9eb7b8f387c97b52b2ba5ad0",
+                "reference": "2c2370ba3df7034f9eb7b8f387c97b52b2ba5ad0",
+                "shasum": ""
+            },
+            "require": {
+                "ext-ctype": "*",
+                "ext-filter": "*",
+                "php": ">=5.5.0"
+            },
+            "require-dev": {
+                "doctrine/annotations": "^1.2",
+                "friendsofphp/php-cs-fixer": "^2.2",
+                "phpunit/phpunit": "^4.8 || ^5.7"
+            },
+            "suggest": {
+                "ext-mbstring": "Needed to send email in multibyte encoding charset",
+                "hayageek/oauth2-yahoo": "Needed for Yahoo XOAUTH2 authentication",
+                "league/oauth2-google": "Needed for Google XOAUTH2 authentication",
+                "psr/log": "For optional PSR-3 debug logging",
+                "stevenmaguire/oauth2-microsoft": "Needed for Microsoft XOAUTH2 authentication",
+                "symfony/polyfill-mbstring": "To support UTF-8 if the Mbstring PHP extension is not enabled (^1.2)"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PHPMailer\\PHPMailer\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-2.1-only"
+            ],
+            "authors": [
+                {
+                    "name": "Marcus Bointon",
+                    "email": "phpmailer@synchromedia.co.uk"
+                },
+                {
+                    "name": "Jim Jagielski",
+                    "email": "jimjag@gmail.com"
+                },
+                {
+                    "name": "Andy Prevost",
+                    "email": "codeworxtech@users.sourceforge.net"
+                },
+                {
+                    "name": "Brent R. Matzelle"
+                }
+            ],
+            "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
+            "funding": [
+                {
+                    "url": "https://github.com/synchro",
+                    "type": "github"
+                }
+            ],
+            "time": "2020-07-14T18:50:27+00:00"
+        },
+        {
+            "name": "psr/log",
+            "version": "1.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/log.git",
+                "reference": "0f73288fd15629204f9d42b7055f72dacbe811fc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/0f73288fd15629204f9d42b7055f72dacbe811fc",
+                "reference": "0f73288fd15629204f9d42b7055f72dacbe811fc",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Log\\": "Psr/Log/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for logging libraries",
+            "homepage": "https://github.com/php-fig/log",
+            "keywords": [
+                "log",
+                "psr",
+                "psr-3"
+            ],
+            "time": "2020-03-23T09:12:05+00:00"
+        },
+        {
+            "name": "symfony/polyfill-ctype",
+            "version": "v1.18.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-ctype.git",
+                "reference": "1c302646f6efc070cd46856e600e5e0684d6b454"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/1c302646f6efc070cd46856e600e5e0684d6b454",
+                "reference": "1c302646f6efc070cd46856e600e5e0684d6b454",
                 "shasum": ""
             },
             "require": {
@@ -29,7 +373,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.17-dev"
+                    "dev-master": "1.18-dev"
                 },
                 "thanks": {
                     "name": "symfony/polyfill",
@@ -66,25 +410,102 @@
                 "polyfill",
                 "portable"
             ],
-            "time": "2020-06-06T08:46:27+00:00"
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-07-14T12:35:20+00:00"
         },
         {
-            "name": "vlucas/phpdotenv",
-            "version": "v2.6.5",
+            "name": "symfony/process",
+            "version": "v4.4.11",
             "source": {
                 "type": "git",
-                "url": "https://github.com/vlucas/phpdotenv.git",
-                "reference": "2e977311ffb17b2f82028a9c36824647789c6365"
+                "url": "https://github.com/symfony/process.git",
+                "reference": "65e70bab62f3da7089a8d4591fb23fbacacb3479"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/2e977311ffb17b2f82028a9c36824647789c6365",
-                "reference": "2e977311ffb17b2f82028a9c36824647789c6365",
+                "url": "https://api.github.com/repos/symfony/process/zipball/65e70bab62f3da7089a8d4591fb23fbacacb3479",
+                "reference": "65e70bab62f3da7089a8d4591fb23fbacacb3479",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Process\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Process Component",
+            "homepage": "https://symfony.com",
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-07-23T08:31:43+00:00"
+        },
+        {
+            "name": "vlucas/phpdotenv",
+            "version": "v2.6.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vlucas/phpdotenv.git",
+                "reference": "e1d57f62db3db00d9139078cbedf262280701479"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/e1d57f62db3db00d9139078cbedf262280701479",
+                "reference": "e1d57f62db3db00d9139078cbedf262280701479",
                 "shasum": ""
             },
             "require": {
                 "php": "^5.3.9 || ^7.0 || ^8.0",
-                "symfony/polyfill-ctype": "^1.16"
+                "symfony/polyfill-ctype": "^1.17"
             },
             "require-dev": {
                 "ext-filter": "*",
@@ -128,7 +549,17 @@
                 "env",
                 "environment"
             ],
-            "time": "2020-06-02T14:06:52+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/GrahamCampbell",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/vlucas/phpdotenv",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-07-14T17:54:18+00:00"
         }
     ],
     "packages-dev": [],
@@ -137,6 +568,12 @@
     "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
-    "platform-dev": []
+    "platform": {
+        "ext-json": "*",
+        "ext-pdo": "*",
+        "ext-fileinfo": "*",
+        "ext-curl": "*"
+    },
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
 }

@@ -37,7 +37,7 @@ class CountryGateway
 
         try {
             $statement = $this->db->prepare($statement);
-            $statement->execute(array($_SESSION['accID']));
+            $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             if (isset($_GET['dt'])) {
                 $json_data = array(
@@ -69,8 +69,7 @@ class CountryGateway
         try {
             $statement = $this->db->prepare($statement);
             $statement->execute(array($id));
-            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
-            return $result;
+            return $statement->fetch(\PDO::FETCH_ASSOC);
         } catch (\PDOException $e) {
             exit($e->getMessage());
         }

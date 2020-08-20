@@ -9,6 +9,7 @@ require('../../../data/parts/ping.php');
 if(isset($_SESSION['loggedIn']))
 {
     header("HTTP/1.1 200 OK");
+    header("Content-Type: application/json; charset=UTF-8");
     echo json_encode([
         'error' => false,
         'msg' => "Already LoggedIn"
@@ -18,11 +19,6 @@ if(isset($_SESSION['loggedIn']))
 if(isset($_SESSION['counter']))
 {
     unset($_SESSION['counter']);
-}
-if (!isset($_SERVER['PHP_AUTH_USER'])) {
-    header('WWW-Authenticate: Basic realm="vScription Login"');
-    header('HTTP/1.0 401 Unauthorized');
-    exit;
 }
 
 use Src\Controller\LoginController;
@@ -46,6 +42,17 @@ if ($uri[3] !== 'login') {
 
 $requestMethod = $_SERVER["REQUEST_METHOD"];
 
+$option = null;
+if (isset($uri[4])) {
+    $option = $uri[4];
+}
+
+if (!isset($_SERVER['PHP_AUTH_USER']) && $option == null) {
+    header('WWW-Authenticate: Basic realm="vScription Login"');
+    header('HTTP/1.0 401 Unauthorized');
+    exit;
+}
+
 // pass the request method and user ID to the PersonController and process the HTTP request:
-$controller = new LoginController($dbConnection, $requestMethod);
+$controller = new LoginController($dbConnection, $requestMethod, $option);
 $controller->processRequest();
