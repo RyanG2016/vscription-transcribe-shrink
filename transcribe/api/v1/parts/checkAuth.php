@@ -6,7 +6,7 @@ if(!isset($_SESSION['loggedIn']))
     if(isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER["PHP_AUTH_PW"]))
     {
         // Auth Headers Available -> try to login
-        $loginController = new LoginController($dbConnection, $_SERVER["REQUEST_METHOD"]);
+        $loginController = new LoginController($dbConnection, $_SERVER["REQUEST_METHOD"], null);
         $result = $loginController->processSilentRequest();
 
         // if login OK the script will resume..
