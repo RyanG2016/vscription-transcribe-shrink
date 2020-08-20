@@ -14,7 +14,7 @@ var statusTxt;
 var overlay;
 var not_connected = "<i>Couldn't connect to controller <u id=\"reconnect\">reconnect?</u></i>";
 var connecting = "<i>connecting to controller please wait...</i>";
-var connected = "<i>Connected to vScription Controller as </i>";
+var connected = "<i>Connected to vScription Controller</i>";
 var not_running = "<i>Controller not running. <u id=\"reconnect\">reconnect?</u></i>";
 var greenColor = "#3e943c";
 var orangeColor = "#f78d2d";
