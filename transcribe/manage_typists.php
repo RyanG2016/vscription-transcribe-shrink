@@ -95,7 +95,7 @@ $uid = $_POST["uid-access"];*/
         <table id="header-tbl">
             <tr>
                 <td id="navbtn" align="left" colspan="1">
-                    <a class="logout" href="panel/users.php"><i class="fas fa-arrow-left"></i> Go back to Users</a>
+                    <a class="logout" href="main.php"><i class="fas fa-arrow-left"></i> Go back to Job Lister</a>
                 </td>
 
                 <td id="logbar" align="right" colspan="1">
