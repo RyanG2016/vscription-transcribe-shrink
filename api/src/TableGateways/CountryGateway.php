@@ -16,7 +16,7 @@ class CountryGateway
 
     public function findAll($parseForComboBox = false)
     {
-        $filter = parseParams(true);
+        $filter = parseCountryParams(true);
 
         if($parseForComboBox)
         {
