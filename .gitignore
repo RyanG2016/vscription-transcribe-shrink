@@ -35,5 +35,7 @@ workingTemp/
 /data/scripts/joblistscripts.js
 /data/scripts/billing_report.js
 /data/scripts/typist_report.js
+/data/scripts/manage_typists.js
+/data/scripts/signup.js
 /api/.env
 /uploads/
