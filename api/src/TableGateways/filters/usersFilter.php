@@ -174,8 +174,7 @@ function sqlInjectionCreateCheckPassed($array){
             case "last_login":
                 if (
                     empty(trim($value)) ||
-                    strpos($value, '%') !== FALSE ||
-                    strpos($value, '_')
+                    strpos($value, '%') !== FALSE
                 ) {
                     return false;
                 }
