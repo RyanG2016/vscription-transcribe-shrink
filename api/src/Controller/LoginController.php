@@ -69,6 +69,7 @@ class LoginController {
 
     public function processSilentRequest()
     {
+        new Throttler("silent_login", 20, \bandwidthThrottle\tokenBucket\Rate::MINUTE);
         switch ($this->requestMethod) {
             case 'POST':
             case 'GET':
