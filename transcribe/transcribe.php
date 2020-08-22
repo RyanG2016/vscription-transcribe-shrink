@@ -334,7 +334,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
                     } */?>
 
                         <select class="form-control" id="jobType" name="jobType" disabled>
-                            <option value="Interview"> Interview</option>
+                            <option value="Interview">Interview</option>
                             <option value="Focus Group">Focus Group</option>
                             <option value="Notes">Notes</option>
                             <option value="Letter">Letter</option>
