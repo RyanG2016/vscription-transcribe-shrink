@@ -3,7 +3,7 @@ global $emHTML;
 global $emPlain;
 global $email;
 
-$emHTML= "vScription Transcribe Pro<br/></br>Hi $email,
+$emHTML= "vScription Transcribe Pro<br/></br>Hi,
 		
 <br/><br/><br/>
 There are one or more new jobs available for typing for an account you are assigned to.
@@ -15,7 +15,7 @@ There are one or more new jobs available for typing for an account you are assig
 $emPlain = "
 vScription Transcribe Pro
 
-Hi $email,
+Hi,
 		
 
 There are one or more new jobs available for typing for an account you are assigned to.

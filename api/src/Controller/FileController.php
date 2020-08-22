@@ -4,6 +4,7 @@ namespace Src\Controller;
 
 use Src\TableGateways\FileGateway;
 use Src\System\Mailer;
+use Src\TableGateways\accessGateway;
 
 require_once( __DIR__ . '/../../../audioParser/getid3/getid3.php');
 
@@ -16,6 +17,7 @@ class FileController
     private $mailer;
 
     private $fileGateway;
+    private $accessGateway;
 
     public function __construct($db, $requestMethod, $fileId)
     {
@@ -25,6 +27,7 @@ class FileController
         $this->mailer = new Mailer($db);
 
         $this->fileGateway = new FileGateway($db);
+        $this->accessGateway = new accessGateway($db);
     }
 
     public function processRequest()
@@ -173,13 +176,21 @@ class FileController
             if (isset($_POST["set_acc_id"]) && !empty($_POST["set_acc_id"])) {
                 $post_acc_id = $_POST["set_acc_id"];
                 // curl to check if current user have insert permission to the acc_id passed via the request params
-                if(!$this->checkForInsertPermission($_POST["set_acc_id"])) { // no permission
-                    $uploadMsg[] = $this->formatFileResult("NA", "You don't have permission to upload to this account", true);
-                    $stopUpload = true; // stop the upload
-                }else{
+                if($_SESSION["role"] == 1)
+                {
                     $acc_id = $post_acc_id;
+                }else{
+                    if(!$this->accessGateway->checkAccountAccessPermission($_POST["set_acc_id"])) {
+//                if(!$this->checkForInsertPermission($_POST["set_acc_id"])) { // no permission
+                        $uploadMsg[] = $this->formatFileResult("NA", "You don't have permission to upload to this account", true);
+                        $stopUpload = true; // stop the upload
+                    }else{
+                        $acc_id = $post_acc_id;
+                    }
                 }
-            } else{ // use current session accID
+
+            }
+            else{ // use current session accID
                 if(isset($_SESSION["accID"]))
                 {
                     $acc_id = $_SESSION["accID"];
