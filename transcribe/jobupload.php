@@ -179,7 +179,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
                                 <div class="form-group">
                                     <label for="demo_job_type">Job Type</label>
                                     <select class="form-control" id="demo_job_type">
-                                        <option value="Interview"> Interview</option>
+                                        <option value="Interview">Interview</option>
                                         <option value="Focus Group">Focus Group</option>
                                         <option value="Notes">Notes</option>
                                         <option value="Letter">Letter</option>
