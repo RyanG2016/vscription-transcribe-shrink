@@ -257,7 +257,7 @@ class FileController
                 $getID3 = new \getID3;
                 $fileInfo = $getID3->analyze($file_tmp, filesize($file_tmp), $orig_filename);
                 $org_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION)); // dss audio length check - working with DSS & DS2
-                $file_duration = (int)ceil(@$fileInfo['playtime_seconds']);
+                $file_duration = (int)floor(@$fileInfo['playtime_seconds']);
                 $dur_received = isset($_POST["dur" . str_replace("file", "", $key)])?$_POST["dur" . str_replace("file", "", $key)]:0;
                 if($file_duration == 0 && $dur_received != null && $dur_received != 0)
                 {

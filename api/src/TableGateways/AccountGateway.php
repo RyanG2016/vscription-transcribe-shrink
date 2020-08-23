@@ -521,4 +521,48 @@ class AccountGateway
             exit($e->getMessage());
         }
     }
+
+    /**
+     * Retrieves current account work types for jobtype combobox
+     * @param $accID int account ID
+     * @return array work types delimited by commas
+     * @internal used in transcribe.php
+     */
+    public function getWorkTypes($accID)
+    {
+        // Interview,Focus Group,Notes,Letter,Other
+        $defaultTypes = array(
+            "Interview", "Focus Group","Notes","Letter","Other"
+        );
+        $statement = "
+            SELECT 
+                work_types
+            FROM
+                accounts
+            WHERE acc_id = ?;
+        ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($accID));
+            if($statement->rowCount())
+            {
+                $db_work_types = $statement->fetch()["work_types"];
+                if($db_work_types != null)
+                {
+                    $arr_db_work_types = explode(",", $db_work_types);
+                    if(sizeof($arr_db_work_types) > 0)
+                    {
+                        // we got predefined account work types here
+                        return $arr_db_work_types;
+                    }
+                }
+            }
+
+        } catch (\PDOException $e) {
+            return $defaultTypes;
+//            exit($e->getMessage());
+        }
+        return $defaultTypes;
+    }
 }
