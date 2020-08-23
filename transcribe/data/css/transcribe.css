@@ -3,6 +3,8 @@
 /* --------------------------------*/
 
 @import "parts/modal_popup.css";
+@import "parts/modal_overlay.css";
+@import "parts/spinner.css";
 @import "parts/card.css";
 @import "parts/vars.css";
 

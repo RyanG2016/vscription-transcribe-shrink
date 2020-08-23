@@ -30,12 +30,14 @@ var jobsDT;
 var jobsDTRef;
 var demoExpandArrow;
 var demoFields;
+var loadingOv;
 
 $(document).ready(function () {
-
+    var loadingText = $("#loadingText");;
     const backend_url = "data/parts/backend_request.php";
     const files_api = "../api/v1/files/";
     const form = document.querySelector("form");
+    loadingOv = $("#overlay");
 
     var jobTypeDropDown = $('#jobType');
 
@@ -155,7 +157,7 @@ $(document).ready(function () {
     }
 
 
-    $(document).ready(function () {
+/*    $(document).ready(function () {
 
         $("#send").on("click", function (e) {
             let text = $("#txt").val();
@@ -163,7 +165,7 @@ $(document).ready(function () {
             wsocket.send(text);
         });
 
-    });
+    });*/
 
     window.addEventListener("unload", logData, false);
 
@@ -356,6 +358,7 @@ $(document).ready(function () {
 
     $('#jobs-tbl tbody').on('click', 'tr', function () {
         let fileID = jobsDTRef.row(this).id();
+        changeLoading(true, "Loading "+ jobsDTRef.row(this).data()["job_id"]);
         jobLoadLookup(fileID);
     });
 
@@ -662,7 +665,7 @@ $(document).ready(function () {
         document.getElementById('report').value = "";
         $('#date').garlic('destroy');
         //		$( '#dateT' ).garlic( 'destroy' );
-        $('#jobType').garlic('destroy');
+        jobTypeDropDown.garlic('destroy');
         $("#jobType").attr("disabled","")
         $('#jobNo').garlic('destroy');
         //		$( '#TypistName' ).garlic( 'destroy' );
@@ -734,6 +737,7 @@ $(document).ready(function () {
                 loadIntoPlayer(data);
             } else {
                 switchUI(false);
+                changeLoading(false, "Loading transcribe..");
                 $.confirm({
                     title: 'Error',
                     content: "Job doesn't exist or you don't have permission to access it.",
@@ -839,6 +843,7 @@ $(document).ready(function () {
 
 
         modal.style.display = "none"; //hide modal popup
+        changeLoading(false, "Loading transcribe..");
     }
 
     /*----END LOAD FROM SERVER -----*/
@@ -875,6 +880,19 @@ $(document).ready(function () {
         }
     }
 
+    changeLoading(false);
+    function changeLoading(show, text = false) {
+        if(!show){
+            loadingOv[0].style.display = "none";
+            // loadingOv.fadeOut();
+            $("body").css("overflow", "auto");
+        }else{
+            $("body").css("overflow", "none");
+            if(text) loadingText.html(text);
+            loadingOv[0].style.display = "block";
+            // loading.fadeIn();
+        }
+    }
 });
 
 
