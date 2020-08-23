@@ -801,17 +801,21 @@ $(document).ready(function () {
         $('#discardBtn').removeAttr("disabled");
         tinyMCE.activeEditor.setMode("design");
 
-        AblePlayer.prototype.onMediaNewSourceLoad = function () {
+        // AblePlayerInstances[0].
+        AblePlayerInstances[0].onMediaNewSourceLoad = function () {
 
-            if (jobDetails.job_status === 2 || jobDetails.job_status === 1) // suspend or being typed
+            if (jobDetails.job_status == 2 || jobDetails.job_status == 1) // suspend or being typed
             {
                 // seek to last position
                 AblePlayerInstances[0].seekTo(jobDetails.last_audio_position - rewindAmountOnPause);
+                setTimeout(function(){
+                    AblePlayerInstances[0].seekBar.setPosition(jobDetails.last_audio_position - rewindAmountOnPause);
+                    }, 50);
             } else {
                 AblePlayerInstances[0].seekTo(0);
             }
         }
-
+ 
         AblePlayerInstances[0].onMediaPause = function () {
             if (AblePlayerInstances[0].seekBar.position - rewindAmountOnPause > 0) {
                 AblePlayerInstances[0].seekTo(AblePlayerInstances[0].seekBar.position - rewindAmountOnPause);

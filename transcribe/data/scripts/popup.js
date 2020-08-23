@@ -568,10 +568,13 @@ function loadIntoPlayer(data) {
     AblePlayer.prototype.onMediaNewSourceLoad = function () {
 
         // var playPromise = AblePlayerInstances[0].playMedia();
-        if(jobDetails.job_status === 2 || jobDetails.job_status === 1) // suspend or being typed
+        if(jobDetails.job_status == 2 || jobDetails.job_status == 1) // suspend or being typed
         {
             // seek to last position
             AblePlayerInstances[0].seekTo(jobDetails.last_audio_position - rewindAmountOnPause);
+            setTimeout(function(){
+                AblePlayerInstances[0].seekBar.setPosition(jobDetails.last_audio_position - rewindAmountOnPause);
+            }, 50);
         }else {
             AblePlayerInstances[0].seekTo(0);
         }
