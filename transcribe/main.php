@@ -67,7 +67,7 @@ else {
     <link rel="stylesheet" type="text/css" href="data/libs/DataTables/datatables.css"/>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/material-components-web/4.0.0/material-components-web.min.css"/>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/dataTables.material.min.css"/>
-    <script type="text/javascript" src="data/libs/DataTables/datatables.js"></script>
+    <script type="text/javascript" src="data/libs/DataTables/datatables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/dataTables.material.min.js"></script>
 
     <!--	Tooltip 	-->
