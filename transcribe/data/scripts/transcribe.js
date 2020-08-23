@@ -37,6 +37,7 @@ $(document).ready(function () {
     const files_api = "../api/v1/files/";
     const form = document.querySelector("form");
 
+    var jobTypeDropDown = $('#jobType');
 
     //***************** Websocket Connect on page load *****************//
     window.addEventListener("load", connect, false);
@@ -708,6 +709,7 @@ $(document).ready(function () {
         AblePlayerInstances[0].media.pause();
 
         AblePlayerInstances[0].media.removeAttribute('src');
+        AblePlayerInstances[0].seekBar.setPosition(0);
         AblePlayerInstances[0].media.load();
         /*setTimeout(function () {
 
@@ -767,7 +769,18 @@ $(document).ready(function () {
         $('#jobNo').val(jobDetails.job_id);
         $('#authorName').val(jobDetails.file_author);
         $("#jobType").removeAttr("disabled");
-        $('#jobType').val(jobDetails.file_work_type);
+        // check if value doesn't exist
+
+        if(jobTypeDropDown.find("[value='"+jobDetails.file_work_type+"']").length)
+        {
+            jobTypeDropDown.val(jobDetails.file_work_type.toLowerCase().trim());
+        }else{
+            // append the option and select it
+            var option = '<option value="'+jobDetails.file_work_type.toLowerCase().trim()+'">'+jobDetails.file_work_type+'</option>';
+            jobTypeDropDown.html(jobTypeDropDown.html() + option);
+            jobTypeDropDown.val(jobDetails.file_work_type.toLowerCase().trim());
+        }
+
         // console.log("job type from database : =-----> " + jobDetails.file_work_type);
 
         var dispDateFormat = moment(jobDetails.file_date_dict).format("DD-MMM-YYYY hh:mm:ss a");

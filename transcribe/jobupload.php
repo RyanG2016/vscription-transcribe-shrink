@@ -7,6 +7,9 @@ $vtex_page = 404;
 include('data/parts/head.php');
 include('rtf3/src/HtmlToRtf.php');
 include('data/parts/constants.php');
+require '../api/bootstrap.php';
+
+use Src\TableGateways\AccountGateway;
 
 if (isset($_SESSION['role'])) {
     if ($_SESSION['role'] != "2" && $_SESSION['role'] != "1") {
@@ -21,6 +24,8 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
 } else {
     $popName = "";
 }
+$accountGateway = new AccountGateway($dbConnection);
+$workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 
 //$version_control = "1.0";
 ?>
@@ -179,11 +184,13 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
                                 <div class="form-group">
                                     <label for="demo_job_type">Job Type</label>
                                     <select class="form-control" id="demo_job_type">
-                                        <option value="Interview">Interview</option>
-                                        <option value="Focus Group">Focus Group</option>
-                                        <option value="Notes">Notes</option>
-                                        <option value="Letter">Letter</option>
-                                        <option value="Other">Other</option>
+                                        <?php
+                                        foreach ($workTypes as $type)
+                                        {
+                                            $type = trim($type);
+                                            echo '<option value="'.strtolower($type).'">'.$type.'</option>';
+                                        }
+                                        ?>
                                     </select>
                                 </div>
 

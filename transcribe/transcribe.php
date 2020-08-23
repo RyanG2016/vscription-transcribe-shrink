@@ -4,6 +4,10 @@
 <?php
 $vtex_page = 1;
 //require_once ('rtf3/src/HtmlToRtf.php');
+require '../api/bootstrap.php';
+
+use Src\TableGateways\AccountGateway;
+
 include('data/parts/head.php');
 include('rtf3/src/HtmlToRtf.php');
 include('data/parts/constants.php');
@@ -22,6 +26,9 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
 } else {
     $popName = "";
 }
+
+$accountGateway = new AccountGateway($dbConnection);
+$workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 
 //$version_control = "1.0";
 ?>
@@ -194,7 +201,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
 <?php include_once "data/parts/nav.php" ?>
 
 <script src="data/scripts/parts/constants.js" type="text/javascript"></script>
-<script src="data/scripts/transcribe.min.js?v=3"></script>
+<script src="data/scripts/transcribe.min.js?v=4"></script>
 
 <div id="updated_version_bar">There is a newer version (v<span></span>) of the vScription Transcribe Controller
     available -> <a href="" target="_blank">download</a></div>
@@ -334,11 +341,18 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
                     } */?>
 
                         <select class="form-control" id="jobType" name="jobType" disabled>
-                            <option value="Interview">Interview</option>
-                            <option value="Focus Group">Focus Group</option>
-                            <option value="Notes">Notes</option>
-                            <option value="Letter">Letter</option>
-                            <option value="Other">Other</option>
+                            <?php
+                             foreach ($workTypes as $type)
+                             {
+                                 $type = trim($type);
+                                 echo '<option value="'.strtolower($type).'">'.$type.'</option>';
+                             }
+                            ?>
+
+<!--                            <option value="Focus Group">Focus Group</option>-->
+<!--                            <option value="Notes">Notes</option>-->
+<!--                            <option value="Letter">Letter</option>-->
+<!--                            <option value="Other">Other</option>-->
                         </select>
 
                     </div>
