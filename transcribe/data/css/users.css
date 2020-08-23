@@ -4,6 +4,7 @@
 @import "parts/data-tbl.css";
 @import "parts/vars.css";
 @import "parts/spinner.css";
+@import "parts/bootstrap-override.css";
 
 /* ---------------- */
 /* JQUERY OVERRIDE  */
@@ -453,4 +454,4 @@ label{
     display: none;
 }
 
-.context-menu-item{font-family:oxygen, serif !important;}
+.context-menu-item{font-family: oxygen, serif !important;}

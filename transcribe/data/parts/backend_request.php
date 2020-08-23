@@ -662,7 +662,7 @@ if(isset($_REQUEST["reqcode"])){
 						$rptGenDate = date("Y-m-d H:i:s");
 						$totalBillableAmount = number_format(round(($totalInMins * $billRate1),2),2);
                         $htmltablefoot = "</tbody></table>";
-                        $htmlfoot1 =  "<p><b>Report generated on:</b> $rptGenDate <b></br>Total Jobs:</b> $num_rows</br>";
+                        $htmlfoot1 =  "<p class='mt-3'><b>Report generated on:</b> $rptGenDate <b></br>Total Jobs:</b> $num_rows</br>";
 						$htmlfoot2 = "<b>Total Length (hh:mm:ss):</b> $minsTotal ($totalInMins minutes) with a rate of $$billRate1/min</br>";
 						$htmlfoot3 = "<b>Total Billable Amount is: $$totalBillableAmount</b></p>";
                         $data = html_entity_decode($htmlHeader . $htmlTblHead . $html . $htmltablefoot . $htmlfoot1 . $htmlfoot2 . $htmlfoot3);
@@ -762,7 +762,7 @@ if(isset($_REQUEST["reqcode"])){
 								$totalPayable = number_format(round(($totalInMins * $typistBillRate1),2),2);
 								$rptGenDate = date("Y-m-d H:i:s");
 								$htmltablefoot = "</tbody></table>";
-								$htmlfoot1 =  "<br><p><b>Report generated on:</b> $rptGenDate</br><b>Total Jobs:</b> $num_rows</br>";
+								$htmlfoot1 =  "<br><p class='mt-3'><b>Report generated on:</b> $rptGenDate</br><b>Total Jobs:</b> $num_rows</br>";
 								$htmlfoot2 = "<b>Total Length (hh:mm:ss):</b> $minsTotal($totalInMins minutes) at pay rate of $$typistBillRate1/min</br>";
 								$htmlfoot3 = "<b>Total Payable for Period: - $$totalPayable</b></p>";
 								$data = html_entity_decode($htmlHeader . $htmlTblHead . $html . $htmltablefoot . $htmlfoot1 . $htmlfoot2 . $htmlfoot3);

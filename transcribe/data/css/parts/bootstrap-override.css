@@ -93,3 +93,55 @@ svg{
 .modal-content{
     border-radius: 15px;
 }
+
+/* Bootstrap4 Data tables search bar not on the right */
+#users-tbl_wrapper > div.row,
+#accounts-tbl_wrapper > div.row
+{
+    justify-content: space-between !important;
+
+}
+#users-tbl_wrapper > div.row > div.col-sm-12:nth-child(2),
+#accounts-tbl_wrapper > div.row > div.col-sm-12:nth-child(2)
+{
+    flex: 0 0 auto !important;
+    width: auto !important;
+    max-width: 100% !important;
+}
+thead{
+    white-space: nowrap;
+    border-radius: 16px;
+    background-color: var(--vtex-blue);
+    color: white;
+}
+
+/* Active page button */
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: var(--vtex-blue);
+    border-color: var(--vtex-blue);
+}
+.page-link {
+    color: var(--vtex-blue);
+}
+
+body{
+    overflow: auto !important;
+}
+
+tr{
+    font-size: .875rem;
+}
+
+tbody>tr:hover{
+    background-color: var(--vtex-blue-10);
+}
+
+td{
+    padding: 6px 12px !important;
+}
+
+.mdc-button{
+    white-space: nowrap;
+}

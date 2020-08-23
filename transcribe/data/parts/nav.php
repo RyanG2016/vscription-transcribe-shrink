@@ -100,14 +100,48 @@
                             </a>
                         </li>";
 
-                    echo "<li class=\"nav-item ";
+                    echo "<div class=\"form-row\">&nbsp;<li class=\"nav-item ";
                     if ($vtex_page == 3) echo 'active';
                     echo " \">
                             <a class=\"nav-link\" href=\"/panel/\">
                                 <i class=\"fas fa-angle-double-right\"></i>
                                 Admin Panel
                             </a>
-                        </li>";
+                        </li>
+                        <li class=\"nav-item col-sm-auto ";echo ($vtex_page == 5)?"active ":""; echo" col\">
+                            <a class=\"nav-link\" href=\"/panel/users.php\">
+                                &nbsp;<i class=\"fas fa-users\"></i>
+                                Users
+                            </a>
+                        </li>
+                        <li class=\"nav-item col-sm-auto ";echo ($vtex_page == 6)?"active ":""; echo" col\">
+                            <a class=\"nav-link\" href=\"/panel/accounts.php\">
+                                &nbsp;<i class=\"fas fa-id-card\"></i>
+                                Accounts
+                            </a>
+                        </li>
+                        <li class=\"nav-item col-sm-auto ";echo ($vtex_page == 7)?"active ":""; echo" col\">
+                            <a class=\"nav-link\" href=\"/panel/admin_tools.php\">
+                                &nbsp;<i class=\"fas fa-toolbox\"></i>
+                                Admin Tools
+                            </a>
+                        </li>
+                        
+                        <li class=\"nav-item col-sm-auto ";echo ($vtex_page == 8)?"active ":""; echo" col\">
+                            <a class=\"nav-link\" href=\"/panel/billing_report.php\">
+                                &nbsp;<i class=\"fas fa-dollar-sign\"></i>
+                                Billing Reports
+                            </a>
+                        </li>
+                        
+                        <li class=\"nav-item col-sm-auto ";echo ($vtex_page == 9)?"active ":""; echo" col\">
+                            <a class=\"nav-link\" href=\"/panel/typist_report.php\">
+                                &nbsp;<i class=\"fas fa-keyboard\"></i>
+                                Typist Reports
+                            </a>
+                        </li>
+                        
+                        </div>";
                 }
             }
             ?>

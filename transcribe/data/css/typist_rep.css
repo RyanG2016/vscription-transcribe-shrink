@@ -54,3 +54,8 @@
 .typist{
     margin: auto;
 }
+
+h3{
+    font-size: 14px !important;
+    font-weight: bold !important;
+}

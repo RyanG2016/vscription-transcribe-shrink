@@ -57,8 +57,9 @@
 }
 
 .vtex-fieldset-light{
-    border: 0.6px dashed #1e79be;
+    border: 0.6px solid #ced4da;
     margin: 0 0 20px 0;
+    padding: 10px;
 }
 
 .green-btn{
