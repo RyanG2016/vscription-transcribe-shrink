@@ -134,9 +134,9 @@ tr{
     font-size: .875rem;
 }
 
-tbody>tr:hover{
-    background-color: var(--vtex-blue-10);
-}
+/*tbody>tr:hover{*/
+/*    background-color: var(--vtex-blue-10);*/
+/*}*/
 
 td{
     padding: 6px 12px !important;
