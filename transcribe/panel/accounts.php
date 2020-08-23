@@ -23,6 +23,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
     ob_end_flush();
     die();
 }
+$vtex_page = 6;
 ?>
 
 <html>
@@ -43,12 +44,11 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
     <!--	///// End of scrollbar   /////-->
 
     <!--  Data table Jquery helping libs  -->
-    <link rel="stylesheet" type="text/css" href="../data/libs/DataTables/datatables.css"/>
+    <!--    <link rel="stylesheet" type="text/css" href="../data/libs/DataTables/datatables.css"/>-->
     <link rel="stylesheet" type="text/css"
           href="https://cdnjs.cloudflare.com/ajax/libs/material-components-web/4.0.0/material-components-web.min.css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/dataTables.material.min.css"/>
-    <script type="text/javascript" src="../data/libs/DataTables/datatables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/dataTables.material.min.js"></script>
+
+    <!--    <script type="text/javascript" src="../data/libs/DataTables/datatables.min.js"></script>-->
 
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -56,16 +56,43 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
     <link rel="stylesheet" href="../data/dialogues/jquery-confirm.min.css">
     <script src="../data/dialogues/jquery-confirm.min.js"></script>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.ui.position.js"></script>
+
+    <!-- BOOTSTRAP -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+            integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+            crossorigin="anonymous"></script>
+
+    <!--    <script src="../data/custom-bootstrap-select/js/bootstrap.min.js"></script>-->
+
+    <!-- BOOTSTRAP SELECT -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
+    <!--  Datatables  -->
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+
+
+    <!--  css  -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css"
+          crossorigin="anonymous">
 
     <script src="../data/scripts/accounts.min.js"></script>
     <link href="../data/css/manage_accounts.css" rel="stylesheet">
 </head>
 
 <body>
-
+<?php include_once "../data/parts/nav.php" ?>
 
 <div id="container" style="width: 100%">
     <div class="form-style-5">
@@ -147,7 +174,8 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
 
 
                 <!--        CONTENTS GOES HERE        -->
-                <table id="accounts-tbl" class="accounts-tbl" style="width:100%">
+                <table id="accounts-tbl" class="accounts-tbl users-tbl table row-border hover compact"
+                       style="width:100%">
                     <thead>
                     <tr>
                         <th>ID</th>
@@ -174,244 +202,357 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
 
     <!-- Modal content -->
     <div class="modal-content">
-        <h2 style="color: #1e79be" id="modalHeaderTitle"><i class="fas fa-user-plus"></i>&nbsp;Create New Account</h2>
-
         <form method="post" id="createAccForm" class="createAccForm" target="_self">
-            <!--            <label for="enabled" class="vtex-form_lbl">Enabled</label>-->
-            <!--            <input class="enabled vtex-input" type="text">-->
-            <div style="text-align: right">
-                <fieldset class="vtex-fieldset enabled-radios" style="display: inline;text-align: center;">
-                    <legend>Enabled</legend>
-                    <label class="vtex-jq-lbl-check" for="enabled-t"><i class="fas fa-check"></i></label>
-                    <input class="radio-no-icon" type="radio" name="enabled" id="enabled-t" value="1">
+            <div class="modal-header">
+                <div>
+                    <h3 style="color: #1e79be" id="modalHeaderTitle"><i class="fas fa-user-plus"></i>&nbsp;Create New
+                        Account</h3>
+                </div>
+                <div style="text-align: right">
+                    <fieldset class="vtex-fieldset enabled-radios" style="display: inline;text-align: center;">
+                        <legend>Enabled</legend>
+                        <label class="vtex-jq-lbl-check" for="enabled-t"><i class="fas fa-check"></i></label>
+                        <input class="radio-no-icon" type="radio" name="enabled" id="enabled-t" value="1">
 
-                    <label class="vtex-jq-lbl-cross" for="enabled-f"><i class="fas fa-times"></i></label>
-                    <input class="radio-no-icon" type="radio" name="enabled" id="enabled-f" value="0">
-                </fieldset>
-                <fieldset class="vtex-fieldset billable-radios" style="display: inline;text-align: center;">
-                    <legend>Billable</legend>
-                    <label class="vtex-jq-lbl-check" for="billable-t"><i class="fas fa-check"></i></label>
-                    <input class="radio-no-icon" type="radio" name="billable" id="billable-t" value="1">
+                        <label class="vtex-jq-lbl-cross" for="enabled-f"><i class="fas fa-times"></i></label>
+                        <input class="radio-no-icon" type="radio" name="enabled" id="enabled-f" value="0">
+                    </fieldset>
+                    <fieldset class="vtex-fieldset billable-radios" style="display: inline;text-align: center;">
+                        <legend>Billable</legend>
+                        <label class="vtex-jq-lbl-check" for="billable-t"><i class="fas fa-check"></i></label>
+                        <input class="radio-no-icon" type="radio" name="billable" id="billable-t" value="1">
 
-                    <label class="vtex-jq-lbl-cross" for="billable-f"><i class="fas fa-times"></i></label>
-                    <input class="radio-no-icon" type="radio" name="billable" id="billable-f" value="0">
-                </fieldset>
+                        <label class="vtex-jq-lbl-cross" for="billable-f"><i class="fas fa-times"></i></label>
+                        <input class="radio-no-icon" type="radio" name="billable" id="billable-f" value="0">
+                    </fieldset>
+                </div>
             </div>
 
-            <label for="acc_name" class="vtex-form_lbl">
-                Account Name
-                <input class="acc_name vtex-input" id="accName" name="acc_name" type="text">
-            </label>
+            <div class="modal-body m-t-8">
 
-            <fieldset class="vtex-fieldset">
-<!--                <legend>&nbsp;Retention&nbsp;</legend>-->
-                <div class="retention-grid">
-                    <label for="acc_retention_time" class="vtex-form_lbl rt1">
-                        Acc Retention Time
-                        <input class="acc_retention_time vtex-input-no-padding vtex-spinner-4-digits" name="acc_retention_time" id="acc_retention_time" type="text">
-                    </label>
-
-                    <label for="act_log_retention_time" class="vtex-form_lbl rt2">
-                        Act-Log Retention Time
-                        <input class="act_log_retention_time vtex-input-no-padding vtex-spinner-4-digits" name="act_log_retention_time" id="act_log_retention_time" type="text">
-                    </label>
-                </div>
-            </fieldset>
-
-            <fieldset class="vtex-fieldset-light">
-                <legend>&nbsp;Billing 1&nbsp;</legend>
-                <div class="bill1-grid">
-                    <div class="br1">
-                        <label for="bill_rate1" class="vtex-form_lbl">Rate ($)</label>
-                        <br>
-                        <input class="bill_rate1 vtex-input-no-padding" name="bill_rate1" id="bill_rate1" type="text">
-
-                    </div>
-                    <div class="br1min">
-                        <label for="bill_rate1_min_pay" class="vtex-form_lbl">Typing/Minute</label>
-                        <br>
-                        <input class="bill_rate1_min_pay vtex-input-no-padding" name="bill_rate1_min_pay"
-                                   id="bill_rate1_min_pay" type="text">
-
-                    </div>
-                    <div class="br1tat">
-                        <label for="bill_rate1_TAT" class="vtex-form_lbl">Turn Around Time (days)</label>
-                        <br>
-                        <input class="bill_rate1_TAT vtex-input-no-padding" name="bill_rate1_TAT" id="bill_rate1_TAT"
-                                   type="text">
-
-                    </div>
-
-                    <div class="br1type">
-                        <label>Type</label>
-                        <select id="br1box" name="bill_rate1_type">
-                        </select>
-                    </div>
+                <!--            <label for="enabled" class="vtex-form_lbl">Enabled</label>-->
+                <!--            <input class="enabled vtex-input" type="text">-->
 
 
-                    <div class="br1desc">
-                        <label for="bill_rate1_desc" class="vtex-form_lbl">Description</label>
-                        <input class="bill_rate1_desc vtex-input" name="bill_rate1_desc" id="bill_rate1_desc" type="text">
+                <!--                <label for="acc_name" class="vtex-form_lbl">-->
+                <!--                    Account Name-->
+                <!--                    <input class="acc_name vtex-input" id="accName" name="acc_name" type="text">-->
+                <!--                </label>-->
+
+                <div class="form-row">
+                    <div class="input-group col w-100 mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Account Name</span>
+                        </div>
+                        <input type="text" class="form-control" id="accName" placeholder="" name="acc_name">
                     </div>
                 </div>
-            </fieldset>
 
 
-            <fieldset class="vtex-fieldset-light">
-                <legend>&nbsp;Billing 2&nbsp;</legend>
-                <div class="bill2-grid">
-                    <div class="br2">
-                        <label for="bill_rate2" class="vtex-form_lbl">Rate ($)</label>
-                        <br>
-                        <input class="bill_rate2 vtex-input-no-padding" name="bill_rate2" id="bill_rate2" type="text">
-
-                    </div>
-                    <div class="br2min">
-                        <label for="bill_rate2_min_pay" class="vtex-form_lbl">Typing/Minute</label>
-                        <br>
-                        <input class="bill_rate2_min_pay vtex-input-no-padding" name="bill_rate2_min_pay"
-                                   id="bill_rate2_min_pay" type="text">
-
-                    </div>
-                    <div class="br2tat">
-                        <label for="bill_rate2_TAT" class="vtex-form_lbl">Turn Around Time (days)</label>
-                        <br>
-                        <input class="bill_rate2_TAT vtex-input-no-padding" name="bill_rate2_TAT" id="bill_rate2_TAT"
-                                   type="text">
-
+                <div class="form-row mb-2">
+                    <div class="input-group col">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Account Retention Time</span>
+                        </div>
+                        <input type="number" class="form-control" id="acc_retention_time" placeholder=""
+                               name="acc_retention_time" min="0"
+                               onkeyup="if(this.value<0){this.value= this.value * -1}">
                     </div>
 
-                    <div class="br2type">
-                        <label>Type</label>
-                        <select id="br2box" name="bill_rate2_type">
-                        </select>
+                    <div class="input-group col">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Act-Log Retention Time</span>
+                        </div>
+                        <input type="number" class="form-control" id="act_log_retention_time" placeholder=""
+                               name="act_log_retention_time" min="0"
+                               onkeyup="if(this.value<0){this.value= this.value * -1}">
                     </div>
 
-
-                    <div class="br2desc">
-                        <label for="bill_rate2_desc" class="vtex-form_lbl">Description</label>
-                        <input class="bill_rate2_desc vtex-input" name="bill_rate2_desc" id="bill_rate2_desc" type="text">
-                    </div>
                 </div>
-            </fieldset>
 
-            <fieldset class="vtex-fieldset-light">
-                <legend>&nbsp;Billing 3&nbsp;</legend>
-                <div class="bill3-grid">
-                    <div class="br3">
-                        <label for="bill_rate3" class="vtex-form_lbl">Rate ($)</label>
-                        <br>
-                        <input class="bill_rate3 vtex-input-no-padding" name="bill_rate3" id="bill_rate3" type="text">
+                <fieldset class="vtex-fieldset-light">
+                    <legend>&nbsp;Billing 1&nbsp;</legend>
 
-                    </div>
-                    <div class="br3min">
-                        <label for="bill_rate3_min_pay" class="vtex-form_lbl">Typing/Minute</label>
-                        <br>
-                        <input class="bill_rate3_min_pay vtex-input-no-padding" name="bill_rate3_min_pay"
-                                   id="bill_rate3_min_pay" type="text">
+                    <div class="form-row mb-2">
 
-                    </div>
-                    <div class="br3tat">
-                        <label for="bill_rate3_TAT" class="vtex-form_lbl">Turn Around Time (days)</label>
-                        <br>
-                        <input class="bill_rate3_TAT vtex-input-no-padding" name="bill_rate3_TAT" id="bill_rate3_TAT"
-                                   type="text">
+                        <div class="input-group col">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Rate ($)</span>
+                            </div>
+                            <input type="number" class="form-control" id="bill_rate1" placeholder="" name="bill_rate1"
+                                   min="0" onkeyup="if(this.value<0){this.value= this.value * -1}">
+                        </div>
 
-                    </div>
-
-                    <div class="br3type">
-                        <label>Type</label>
-                        <select id="br3box" name="bill_rate3_type">
-                        </select>
-                    </div>
-
-
-                    <div class="br3desc">
-                        <label for="bill_rate3_desc" class="vtex-form_lbl">Description</label>
-                        <input class="bill_rate3_desc vtex-input" name="bill_rate3_desc" id="bill_rate3_desc" type="text">
-                    </div>
-                </div>
-            </fieldset>
-
-
-            <fieldset class="vtex-fieldset-light">
-                <legend>&nbsp;Billing 4&nbsp;</legend>
-                <div class="bill4-grid">
-                    <div class="br4">
-                        <label for="bill_rate4" class="vtex-form_lbl">Rate ($)</label>
-                        <br>
-                        <input class="bill_rate4 vtex-input-no-padding" name="bill_rate4" id="bill_rate4" type="text">
-
-                    </div>
-                    <div class="br4min">
-                        <label for="bill_rate4_min_pay" class="vtex-form_lbl">Typing/Minute</label>
-                        <br>
-                        <input class="bill_rate4_min_pay vtex-input-no-padding" name="bill_rate4_min_pay"
-                                   id="bill_rate4_min_pay" type="text">
-
-                    </div>
-                    <div class="br4tat">
-                        <label for="bill_rate4_TAT" class="vtex-form_lbl">Turn Around Time (days)</label>
-                        <br>
-                        <input class="bill_rate4_TAT vtex-input-no-padding" name="bill_rate4_TAT" id="bill_rate4_TAT"
-                                   type="text">
+                        <div class="input-group col">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Typing/Minute</span>
+                            </div>
+                            <input type="number" class="form-control" id="bill_rate1_min_pay" placeholder=""
+                                   name="bill_rate1_min_pay" min="0"
+                                   onkeyup="if(this.value<0){this.value= this.value * -1}">
+                        </div>
 
                     </div>
 
-                    <div class="br4type">
-                        <label>Type</label>
-                        <select id="br4box" name="bill_rate4_type">
-                        </select>
+
+                    <div class="form-row mb-2">
+                        <div class="input-group col">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Turn Around Time (days)</span>
+                            </div>
+                            <input type="number" class="form-control" id="bill_rate1_TAT" placeholder=""
+                                   name="bill_rate1_TAT" min="0"
+                                   onkeyup="if(this.value<0){this.value= this.value * -1}">
+                        </div>
+
+                        <div class="input-group col">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Type</span>
+                            </div>
+                            <select class="form-control" id="br1box" name="bill_rate1_type"> </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row mb-2">
+                        <div class="input-group col">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Description</span>
+                            </div>
+                            <input type="text" class="form-control" id="bill_rate1_desc" placeholder=""
+                                   name="bill_rate1_desc">
+                        </div>
+                    </div>
+
+                </fieldset>
+
+
+                <fieldset class="vtex-fieldset-light">
+                    <legend>&nbsp;Billing 2&nbsp;</legend>
+
+                    <div class="form-row mb-2">
+
+                        <div class="input-group col">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Rate ($)</span>
+                            </div>
+                            <input type="number" class="form-control" id="bill_rate2" placeholder="" name="bill_rate2"
+                                   min="0" onkeyup="if(this.value<0){this.value= this.value * -1}">
+                        </div>
+
+                        <div class="input-group col">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Typing/Minute</span>
+                            </div>
+                            <input type="number" class="form-control" id="bill_rate2_min_pay" placeholder=""
+                                   name="bill_rate2_min_pay" min="0"
+                                   onkeyup="if(this.value<0){this.value= this.value * -1}">
+                        </div>
+
                     </div>
 
 
-                    <div class="br4desc">
-                        <label for="bill_rate4_desc" class="vtex-form_lbl">Description</label>
-                        <input class="bill_rate4_desc vtex-input" name="bill_rate4_desc" id="bill_rate4_desc" type="text">
-                    </div>
-                </div>
-            </fieldset>
+                    <div class="form-row mb-2">
+                        <div class="input-group col">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Turn Around Time (days)</span>
+                            </div>
+                            <input type="number" class="form-control" id="bill_rate2_TAT" placeholder=""
+                                   name="bill_rate2_TAT" min="0"
+                                   onkeyup="if(this.value<0){this.value= this.value * -1}">
+                        </div>
 
-
-            <fieldset class="vtex-fieldset-light">
-                <legend>&nbsp;Billing 5&nbsp;</legend>
-                <div class="bill5-grid">
-                    <div class="br5">
-                        <label for="bill_rate5" class="vtex-form_lbl">Rate ($)</label>
-                        <br>
-                        <input class="bill_rate5 vtex-input-no-padding" name="bill_rate5" id="bill_rate5" type="text">
-
-                    </div>
-                    <div class="br5min">
-                        <label for="bill_rate5_min_pay" class="vtex-form_lbl">Typing/Minute</label>
-                        <br>
-                        <input class="bill_rate5_min_pay vtex-input-no-padding" name="bill_rate5_min_pay"
-                                   id="bill_rate5_min_pay" type="text">
-
-                    </div>
-                    <div class="br5tat">
-                        <label for="bill_rate5_TAT" class="vtex-form_lbl">Turn Around Time (days)</label>
-                        <br>
-                        <input class="bill_rate5_TAT vtex-input-no-padding" name="bill_rate5_TAT" id="bill_rate5_TAT"
-                                   type="text">
-
+                        <div class="input-group col">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Type</span>
+                            </div>
+                            <select class="form-control" id="br2box" name="bill_rate2_type"> </select>
+                        </div>
                     </div>
 
-                    <div class="br5type">
-                        <label>Type</label>
-                        <select id="br5box" name="bill_rate5_type">
-                        </select>
+                    <div class="form-row mb-2">
+                        <div class="input-group col">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Description</span>
+                            </div>
+                            <input type="text" class="form-control" id="bill_rate2_desc" placeholder=""
+                                   name="bill_rate2_desc">
+                        </div>
+                    </div>
+
+                </fieldset>
+
+
+                <fieldset class="vtex-fieldset-light">
+                    <legend>&nbsp;Billing 3&nbsp;</legend>
+
+                    <div class="form-row mb-2">
+
+                        <div class="input-group col">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Rate ($)</span>
+                            </div>
+                            <input type="number" class="form-control" id="bill_rate3" placeholder="" name="bill_rate3"
+                                   min="0" onkeyup="if(this.value<0){this.value= this.value * -1}">
+                        </div>
+
+                        <div class="input-group col">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Typing/Minute</span>
+                            </div>
+                            <input type="number" class="form-control" id="bill_rate3_min_pay" placeholder=""
+                                   name="bill_rate3_min_pay" min="0"
+                                   onkeyup="if(this.value<0){this.value= this.value * -1}">
+                        </div>
+
                     </div>
 
 
-                    <div class="br5desc">
-                        <label for="bill_rate5_desc" class="vtex-form_lbl">Description</label>
-                        <input class="bill_rate5_desc vtex-input" name="bill_rate5_desc" id="bill_rate5_desc" type="text">
-                    </div>
-                </div>
-            </fieldset>
+                    <div class="form-row mb-2">
+                        <div class="input-group col">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Turn Around Time (days)</span>
+                            </div>
+                            <input type="number" class="form-control" id="bill_rate3_TAT" placeholder=""
+                                   name="bill_rate3_TAT" min="0"
+                                   onkeyup="if(this.value<0){this.value= this.value * -1}">
+                        </div>
 
-            <div class="modal-footer">
+                        <div class="input-group col">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Type</span>
+                            </div>
+                            <select class="form-control" id="br3box" name="bill_rate3_type"> </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row mb-2">
+                        <div class="input-group col">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Description</span>
+                            </div>
+                            <input type="text" class="form-control" id="bill_rate3_desc" placeholder=""
+                                   name="bill_rate3_desc">
+                        </div>
+                    </div>
+
+                </fieldset>
+
+
+                <fieldset class="vtex-fieldset-light">
+                    <legend>&nbsp;Billing 4&nbsp;</legend>
+
+                    <div class="form-row mb-2">
+
+                        <div class="input-group col">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Rate ($)</span>
+                            </div>
+                            <input type="number" class="form-control" id="bill_rate4" placeholder="" name="bill_rate4"
+                                   min="0" onkeyup="if(this.value<0){this.value= this.value * -1}">
+                        </div>
+
+                        <div class="input-group col">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Typing/Minute</span>
+                            </div>
+                            <input type="number" class="form-control" id="bill_rate4_min_pay" placeholder=""
+                                   name="bill_rate4_min_pay" min="0"
+                                   onkeyup="if(this.value<0){this.value= this.value * -1}">
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-row mb-2">
+                        <div class="input-group col">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Turn Around Time (days)</span>
+                            </div>
+                            <input type="number" class="form-control" id="bill_rate4_TAT" placeholder=""
+                                   name="bill_rate4_TAT" min="0"
+                                   onkeyup="if(this.value<0){this.value= this.value * -1}">
+                        </div>
+
+                        <div class="input-group col">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Type</span>
+                            </div>
+                            <select class="form-control" id="br4box" name="bill_rate4_type"> </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row mb-2">
+                        <div class="input-group col">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Description</span>
+                            </div>
+                            <input type="text" class="form-control" id="bill_rate4_desc" placeholder=""
+                                   name="bill_rate4_desc">
+                        </div>
+                    </div>
+
+                </fieldset>
+
+
+                <fieldset class="vtex-fieldset-light">
+                    <legend>&nbsp;Billing 5&nbsp;</legend>
+
+                    <div class="form-row mb-2">
+
+                        <div class="input-group col">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Rate ($)</span>
+                            </div>
+                            <input type="number" class="form-control" id="bill_rate5" placeholder="" name="bill_rate5"
+                                   min="0" onkeyup="if(this.value<0){this.value= this.value * -1}">
+                        </div>
+
+                        <div class="input-group col">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Typing/Minute</span>
+                            </div>
+                            <input type="number" class="form-control" id="bill_rate5_min_pay" placeholder=""
+                                   name="bill_rate5_min_pay" min="0"
+                                   onkeyup="if(this.value<0){this.value= this.value * -1}">
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-row mb-2">
+                        <div class="input-group col">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Turn Around Time (days)</span>
+                            </div>
+                            <input type="number" class="form-control" id="bill_rate5_TAT" placeholder=""
+                                   name="bill_rate5_TAT" min="0"
+                                   onkeyup="if(this.value<0){this.value= this.value * -1}">
+                        </div>
+
+                        <div class="input-group col">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Type</span>
+                            </div>
+                            <select class="form-control" id="br5box" name="bill_rate5_type"> </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row mb-2">
+                        <div class="input-group col">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Description</span>
+                            </div>
+                            <input type="text" class="form-control" id="bill_rate5_desc" placeholder=""
+                                   name="bill_rate5_desc">
+                        </div>
+                    </div>
+
+                </fieldset>
+
+
+            </div>
+
+            <div class="modal-footer pb-0">
                 <button class="mdc-button mdc-button--unelevated cancel-acc-button" id="closeAccModal" type="button">
                     <div class="mdc-button__ripple"></div>
                     <i class="fas fa-times"></i>

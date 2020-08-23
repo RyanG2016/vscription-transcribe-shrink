@@ -209,12 +209,12 @@ $(document).ready(function () {
 		lengthChange: false,
 		pageLength: maximum_rows_per_page_jobs_list,
 		autoWidth: false,
-		columnDefs: [
-			{
-				targets: ['_all'],
-				className: 'mdc-data-table__cell'
-			}
-		],
+		// columnDefs: [
+		// 	{
+		// 		targets: ['_all'],
+		// 		className: 'mdc-data-table__cell'
+		// 	}
+		// ],
 		/*
 		* 				<th>ID</th>
                         <th>Name</th>

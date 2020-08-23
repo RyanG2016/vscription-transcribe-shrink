@@ -203,7 +203,7 @@ class AccountGateway
             !isset($_POST["billable"]) ||
             !isset($_POST["acc_name"])
         ) {
-            return $this->errorOccurredResponse("Invalid Input (1)");
+            return $this->errorOccurredResponse("Invalid Input (I-1)");
         }
 
         $accName = $_POST["acc_name"];

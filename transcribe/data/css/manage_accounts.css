@@ -3,6 +3,7 @@
 @import "parts/card.css";
 @import "parts/vars.css";
 @import "parts/data-tbl.css";
+@import "parts/bootstrap-override.css";
 
 /* ---------------- */
 /* JQUERY OVERRIDE  */
@@ -435,9 +436,14 @@
 }
 
 label{
-    font-size: larger;
+    font-size: 16px;
     color: #4c4c4c;
     font-weight: bold;
+}
+
+legend{
+    font-size: 18px;
+    width: auto;
 }
 
 .context-menu-item{font-family:oxygen, serif !important;}

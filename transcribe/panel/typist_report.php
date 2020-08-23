@@ -25,9 +25,10 @@ if ($_SESSION['role'] != "1") {
     ob_end_flush();
     die();
 }
+$vtex_page = 9;
 ?>
 
-<html>
+<html lang="en">
 
 <head>
     <title>vScription Typist Billing Report</title>
@@ -44,15 +45,28 @@ if ($_SESSION['role'] != "1") {
     <script src="../data/libs/node_modules/material-components-web/dist/material-components-web.js"></script>
     <script src="../data/libs/node_modules/@material/textfield/dist/mdc.textfield.js"></script>
     <script src="../data/libs/node_modules/@material/linear-progress/dist/mdc.linearProgress.js"></script>
+
+
+    <!-- BOOTSTRAP -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+            integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+            crossorigin="anonymous"></script>
+
+    <!--  css  -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+
+
     <script src="../data/scripts/typist_report.min.js"></script>
-    <script src="/data/thirdparty/scripts/html2pdf.bundle.min.js"></script>
+    <script src="../data/thirdparty/scripts/html2pdf.bundle.min.js"></script>
     <link href="https://printjs-4de6.kxcdn.com/print.min.css" rel="stylesheet">
     <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
 
 </head>
 
 <body>
-
+<?php include_once "../data/parts/nav.php" ?>
 
 <div id="container" style="width: 100%">
     <div class="form-style-5">

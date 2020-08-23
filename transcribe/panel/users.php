@@ -21,9 +21,10 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
     ob_end_flush();
     die();
 }
+$vtex_page = 5;
 ?>
 
-<html>
+<html lang="en">
 
 <head>
     <title>vScription Manage Users</title>
@@ -40,42 +41,49 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
     <script src="../data/scrollbar/jquery.nicescroll.js"></script>
     <!--	///// End of scrollbar   /////-->
 
-    <!--  Data table Jquery helping libs  -->
-    <link rel="stylesheet" type="text/css" href="../data/libs/DataTables/datatables.css"/>
-    <link rel="stylesheet" type="text/css"
-          href="https://cdnjs.cloudflare.com/ajax/libs/material-components-web/4.0.0/material-components-web.min.css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/dataTables.material.min.css"/>
-    <script type="text/javascript" src="../data/libs/DataTables/datatables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/dataTables.material.min.js"></script>
-
+    <!--  JQUERY  -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
     <link rel="stylesheet" href="../data/dialogues/jquery-confirm.min.css">
     <script src="../data/dialogues/jquery-confirm.min.js"></script>
-
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.ui.position.js"></script>
 
+
     <!-- BOOTSTRAP -->
-    <link rel="stylesheet" href="../data/custom-bootstrap-select/css/bootstrap.css">
-    <script src="../data/custom-bootstrap-select/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
             integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
             crossorigin="anonymous"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+<!--    <script src="../data/custom-bootstrap-select/js/bootstrap.min.js"></script>-->
+
+    <!-- BOOTSTRAP SELECT -->
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
 
+    <!--  Datatables  -->
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
 
-    <script src="../data/scripts/users.min.js"></script>
+
+    <!--  css  -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" crossorigin="anonymous">
+
+
+<!--    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css"/>-->
+
+    <script src="../data/scripts/users.js"></script>
     <link href="../data/css/users.css" rel="stylesheet">
 </head>
 
 <body>
-
+<?php include_once "../data/parts/nav.php"?>
 
 <div id="container" style="width: 100%">
     <div class="form-style-5">
@@ -157,7 +165,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
 
 
                 <!--        CONTENTS GOES HERE        -->
-                <table id="users-tbl" class="users-tbl" style="width:100%">
+                <table id="users-tbl" class="users-tbl table row-border hover compact" style="width:100%">
                     <thead>
                     <tr>
                         <th>ID</th>
@@ -184,14 +192,14 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
 
     <!-- Modal content -->
     <div class="modal-content">
-        <h2 style="color: #1e79be" id="modalHeaderTitle"><i class="fas fa-user-plus"></i>&nbsp;Create New User</h2>
+        <h3 style="color: #1e79be" id="modalHeaderTitle"><i class="fas fa-user-plus"></i>&nbsp;Create New User</h3>
 
         <form method="post" id="createAccForm" class="createAccForm" target="_self">
             <!--            <label for="enabled" class="vtex-form_lbl">Enabled</label>-->
             <!--            <input class="enabled vtex-input" type="text">-->
             <div style="text-align: right">
                 <fieldset class="vtex-fieldset enabled-radios" style="display: inline;text-align: center;">
-                    <legend>Enabled</legend>
+                    <legend style="font-size: 18px">Enabled</legend>
                     <label class="vtex-jq-lbl-check" for="enabled-t"><i class="fas fa-check"></i></label>
                     <input class="radio-no-icon" type="radio" name="enabled" id="enabled-t" value="1">
 
@@ -199,7 +207,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
                     <input class="radio-no-icon" type="radio" name="enabled" id="enabled-f" value="0">
                 </fieldset>
                 <fieldset class="vtex-fieldset newsletter-radios" style="display: inline;text-align: center;">
-                    <legend>Newsletter</legend>
+                    <legend style="font-size: 18px">Newsletter</legend>
                     <label class="vtex-jq-lbl-check" for="newsletter-t"><i class="fas fa-check"></i></label>
                     <input class="radio-no-icon" type="radio" name="newsletter" id="newsletter-t" value="1">
 
@@ -256,7 +264,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
             </div>
             <!--===================================================-->
 
-            <div class="modal-footer">
+            <div class="modal-footer pb-0">
                 <button class="mdc-button mdc-button--unelevated blue-btn" id="updateAccBtn" type="button" disabled>
                     <div class="mdc-button__ripple"></div>
                     <i class="fas fa-user-edit"></i>

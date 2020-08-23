@@ -298,12 +298,12 @@ $(document).ready(function () {
 		lengthChange: false,
 		pageLength: maximum_rows_per_page_jobs_list,
 		autoWidth: false,
-		columnDefs: [
-			{
-				targets: ['_all'],
-				className: 'mdc-data-table__cell'
-			}
-		],
+		// columnDefs: [
+		// 	{
+		// 		targets: ['_all'],
+		// 		className: 'mdc-data-table__cell'
+		// 	}
+		// ],
 		/*
 		* 				<th>ID</th>
                         <th>Name</th>
@@ -482,55 +482,47 @@ $(document).ready(function () {
 		}
 	});
 
-	acc_retention_time.spinner({
-		spin: function( event, ui ) {
-			if ( ui.value < 0 ) {
-				$( this ).spinner( "value", 0 );
-				return false;
-			}
-		}
-	});
+	//
+	// act_log_retention_time.spinner({
+	// 	spin: function( event, ui ) {
+	// 		if ( ui.value < 0 ) {
+	// 			$( this ).spinner( "value", 0 );
+	// 			return false;
+	// 		}
+	// 	}
+	// });
 
-	act_log_retention_time.spinner({
-		spin: function( event, ui ) {
-			if ( ui.value < 0 ) {
-				$( this ).spinner( "value", 0 );
-				return false;
-			}
-		}
-	});
-
-	$(
-		"#bill_rate1_TAT,"+
-		"#bill_rate2_TAT,"+
-		"#bill_rate3_TAT,"+
-		"#bill_rate4_TAT,"+
-		"#bill_rate5_TAT"
-	).spinner({
-		spin: function( event, ui ) {
-			if ( ui.value < 0 ) {
-				$( this ).spinner( "value", 0 );
-				return false;
-			}
-		}
-	});
-
-	$( "#bill_rate1, #bill_rate1_min_pay," +
-		"#bill_rate2, #bill_rate2_min_pay," +
-		"#bill_rate3, #bill_rate3_min_pay," +
-		"#bill_rate4, #bill_rate4_min_pay," +
-		"#bill_rate5, #bill_rate5_min_pay"
-	).spinner({
-		min: 0,
-		step: 0.01,
-		numberFormat: "C",
-		spin: function( event, ui ) {
-			if ( ui.value < 0 ) {
-				$( this ).spinner( "value", 0 );
-				return false;
-			}
-		}
-	});
+	// $(
+	// 	"#bill_rate1_TAT,"+
+	// 	"#bill_rate2_TAT,"+
+	// 	"#bill_rate3_TAT,"+
+	// 	"#bill_rate4_TAT,"+
+	// 	"#bill_rate5_TAT"
+	// ).spinner({
+	// 	spin: function( event, ui ) {
+	// 		if ( ui.value < 0 ) {
+	// 			$( this ).spinner( "value", 0 );
+	// 			return false;
+	// 		}
+	// 	}
+	// });
+	//
+	// $( "#bill_rate1, #bill_rate1_min_pay," +
+	// 	"#bill_rate2, #bill_rate2_min_pay," +
+	// 	"#bill_rate3, #bill_rate3_min_pay," +
+	// 	"#bill_rate4, #bill_rate4_min_pay," +
+	// 	"#bill_rate5, #bill_rate5_min_pay"
+	// ).spinner({
+	// 	min: 0,
+	// 	step: 0.01,
+	// 	numberFormat: "C",
+	// 	spin: function( event, ui ) {
+	// 		if ( ui.value < 0 ) {
+	// 			$( this ).spinner( "value", 0 );
+	// 			return false;
+	// 		}
+	// 	}
+	// });
 
 
 
@@ -553,138 +545,9 @@ function setupComboBox(data, boxID){
 		type1cmb.appendChild(option);
 	});
 
-	$.widget( "custom.combobox", {
-		_create: function() {
-			this.wrapper = $( "<span>" )
-				.addClass( "custom-combobox custom-"+boxID )
-				.insertAfter( this.element );
 
-			this.element.hide();
-			this._createAutocomplete();
-			this._createShowAllButton();
-		},
 
-		_createAutocomplete: function() {
-			var selected = this.element.children( ":selected" ),
-				value = selected.val() ? selected.text() : "";
-
-			this.input = $( "<input>" )
-				.appendTo( this.wrapper )
-				.val( value )
-				.attr( "title", "" )
-				.addClass( "custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left" )
-				.autocomplete({
-					delay: 0,
-					minLength: 0,
-					source: $.proxy( this, "_source" )
-					// source: data
-				})
-				.tooltip({
-					classes: {
-						"ui-tooltip": "ui-state-highlight"
-					}
-				});
-
-			this._on( this.input, {
-				autocompleteselect: function( event, ui ) {
-					ui.item.option.selected = true;
-					this._trigger( "select", event, {
-						item: ui.item.option
-					});
-				},
-
-				autocompletechange: "_removeIfInvalid"
-			});
-		},
-
-		_createShowAllButton: function() {
-			var input = this.input,
-				wasOpen = false;
-
-			$( "<a>" )
-				.attr( "tabIndex", -1 )
-				// .attr( "title", "Show All Items" )
-				// .tooltip()
-				.appendTo( this.wrapper )
-				.button({
-					icons: {
-						primary: "ui-icon-triangle-1-s"
-					},
-					text: false
-				})
-				.removeClass( "ui-corner-all" )
-				.addClass( "custom-combobox-toggle ui-corner-right" )
-				.on( "mousedown", function() {
-					wasOpen = input.autocomplete( "widget" ).is( ":visible" );
-				})
-				.on( "click", function() {
-					input.trigger( "focus" );
-
-					// Close if already visible
-					if ( wasOpen ) {
-						return;
-					}
-
-					// Pass empty string as value to search for, displaying all results
-					input.autocomplete( "search", "" );
-				});
-		},
-
-		_source: function( request, response ) {
-			var matcher = new RegExp( $.ui.autocomplete.escapeRegex(request.term), "i" );
-			response( this.element.children( "option" ).map(function() {
-				var text = $( this ).text();
-				if ( this.value && ( !request.term || matcher.test(text) ) )
-					return {
-						label: text,
-						value: text,
-						option: this
-					};
-			}) );
-		},
-
-		_removeIfInvalid: function( event, ui ) {
-
-			// Selected an item, nothing to do
-			if ( ui.item ) {
-				return;
-			}
-
-			// Search for a match (case-insensitive)
-			var value = this.input.val(),
-				valueLowerCase = value.toLowerCase(),
-				valid = false;
-			this.element.children( "option" ).each(function() {
-				if ( $( this ).text().toLowerCase() === valueLowerCase ) {
-					this.selected = valid = true;
-					return false;
-				}
-			});
-
-			// Found a match, nothing to do
-			if ( valid ) {
-				return;
-			}
-
-			// Remove invalid value
-			this.input
-				.val( "" )
-				.attr( "title", value + " didn't match any item" )
-				.tooltip( "open" );
-			this.element.val( "" );
-			this._delay(function() {
-				this.input.tooltip( "close" ).attr( "title", "" );
-			}, 2500 );
-			this.input.autocomplete( "instance" ).term = "";
-		},
-
-		_destroy: function() {
-			this.wrapper.remove();
-			this.element.show();
-		}
-	});
-
-	$( "#" +boxID ).combobox();
+	// $( "#" +boxID ).combobox();
 }
 
 function htmlEncodeStr(s)
