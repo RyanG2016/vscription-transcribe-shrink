@@ -78,7 +78,7 @@ $vtex_page = 5;
 
 <!--    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css"/>-->
 
-    <script src="../data/scripts/users.js"></script>
+    <script src="../data/scripts/users.min.js"></script>
     <link href="../data/css/users.css" rel="stylesheet">
 </head>
 
