@@ -775,7 +775,7 @@ $(document).ready(function () {
         $("#jobType").removeAttr("disabled");
         // check if value doesn't exist
 
-        if(jobTypeDropDown.find("[value='"+jobDetails.file_work_type+"']").length)
+        if(jobTypeDropDown.find("[value='"+jobDetails.file_work_type.toLowerCase().trim()+"']").length)
         {
             jobTypeDropDown.val(jobDetails.file_work_type.toLowerCase().trim());
         }else{
