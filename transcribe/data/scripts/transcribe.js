@@ -115,10 +115,11 @@ $(document).ready(function () {
                 if (msg.substring(0, 7) === versionCheck) {
                     // let controllerVersion = msg.substring(7);
                     getLatestAppVersionNumber(msg.substring(7), checkVersions);
-                } else if (msg.substring(0, 8) === welcomeName) {
+                }
+                // else if (msg.substring(0, 8) === welcomeName) {
                     // todo re-enable if client name is needed to be shown on UI
                     // setControllerStatus(connected + "<i>" + msg.substr(8) + "</i>", true);
-                }
+                // }
                 break;
 
         }

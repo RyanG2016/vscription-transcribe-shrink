@@ -125,6 +125,36 @@ if(isset($_SESSION['counter']))
                             2.83 MB
                         </td>
                         <td>
+                            <a href="/controller_app/jars/controller_v1.7.jar">controller_v1.7.jar</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Windows Bundle <i>(JRE included)</i>
+                        </td>
+                        <td>
+                            37.5 MB
+                        </td>
+                        <td>
+                            <a href="/controller_app/windows/controller_v1.7.zip">controller_v1.7.zip</a>
+                        </td>
+                    </tr>
+
+                    <!--         OLDER VERSIONS           -->
+                    <tr>
+                        <td colspan="3" style="text-align: center; background:#6c6c6c; color: white; font-size: 1rem">
+                            <i>Older Versions</i>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            cross platform Jar <i>(Requires Java > 8 installed)</i>
+                        </td>
+                        <td>
+                            2.83 MB
+                        </td>
+                        <td>
                             <a href="/controller_app/jars/controller_v1.6.jar">controller_v1.6.jar</a>
                         </td>
                     </tr>
@@ -140,12 +170,6 @@ if(isset($_SESSION['counter']))
                         </td>
                     </tr>
 
-                    <!--         OLDER VERSIONS           -->
-                    <tr>
-                        <td colspan="3" style="text-align: center; background:#6c6c6c; color: white; font-size: 1rem">
-                            <i>Older Versions</i>
-                        </td>
-                    </tr>
                     <tr>
                         <td>
                             cross platform Jar <i>(Requires Java > 8 installed)</i>
