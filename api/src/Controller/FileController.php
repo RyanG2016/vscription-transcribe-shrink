@@ -305,7 +305,7 @@ class FileController
 //            header('Content-Type: application/json');
 //            echo json_encode(array_values($uploadMsg), JSON_FORCE_OBJECT | JSON_PRETTY_PRINT);
             if($newFilesAvailable){
-                $this->mailer->sendEmail(15, "sales@vtexvsi.com");
+                $this->mailer->sendEmail(15, false);
             }
 
             $response['status_code_header'] = 'HTTP/1.1 200 OK';
