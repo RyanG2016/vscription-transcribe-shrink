@@ -344,12 +344,12 @@ function login() {
 
 function resetpw() {
 
-    var semail = email.val();
+    var vemail = email.val();
 
     //checkIfUserExist
 
     var a1 = {
-        email: semail
+        email: vemail
     };
     $.post("data/parts/backend_request.php", {
         reqcode: 40,
