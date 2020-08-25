@@ -245,7 +245,7 @@ class UserGateway
             $result = $statement->fetch();
             if($statement->rowCount() > 0)
             {
-                return $result["typist"];
+                return $result["typist"]==0?5:$result["typist"];
             }
             return false;
         } catch (\PDOException $e) {
