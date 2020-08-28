@@ -119,24 +119,24 @@ if(isset($_SESSION['counter']))
                     <tbody>
                     <tr>
                         <td>
-                            cross platform Jar <i>(Requires Java > 8 installed)</i>
+                            cross platform Jar <i>(Requires Java > 12 installed)</i>
                         </td>
                         <td>
-                            2.83 MB
+                            3.88 MB
                         </td>
                         <td>
-                            <a href="/controller_app/jars/controller_v1.7.jar">controller_v1.7.jar</a>
+                            <a href="/controller_app/jars/controller_v1.8.jar">controller_v1.8.jar</a>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            Windows Bundle <i>(JRE included)</i>
+                            Windows Bundle <i>(JDK 14 included)</i>
                         </td>
                         <td>
-                            37.5 MB
+                            164 MB
                         </td>
                         <td>
-                            <a href="/controller_app/windows/controller_v1.7.zip">controller_v1.7.zip</a>
+                            <a href="/controller_app/windows/vScriptionControllerWin_v1.8.exe">vScriptionControllerWin_v1.8.exe</a>
                         </td>
                     </tr>
 
@@ -149,7 +149,7 @@ if(isset($_SESSION['counter']))
 
                     <tr>
                         <td>
-                            cross platform Jar <i>(Requires Java > 8 installed)</i>
+                            cross platform Jar <i>(Requires Java > 12 installed)</i>
                         </td>
                         <td>
                             2.83 MB
@@ -172,7 +172,7 @@ if(isset($_SESSION['counter']))
 
                     <tr>
                         <td>
-                            cross platform Jar <i>(Requires Java > 8 installed)</i>
+                            cross platform Jar <i>(Requires Java > 12 installed)</i>
                         </td>
                         <td>
                             2.83 MB
@@ -194,7 +194,7 @@ if(isset($_SESSION['counter']))
                     </tr>
                     <tr>
                         <td>
-                            cross platform Jar <i>(Requires Java > 8 installed)</i>
+                            cross platform Jar <i>(Requires Java > 12 installed)</i>
                         </td>
                         <td>
                             2.83 MB
