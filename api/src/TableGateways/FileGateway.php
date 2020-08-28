@@ -515,7 +515,7 @@ class FileGateway
                 {
                     $file_status = $_POST["file_status"];
                     if ($file_status == 5 || $file_status == 3) {
-                        $this->mailer->sendEmail(10, "sales@vtexvsi.com");
+                        $this->mailer->sendEmail(10, false);
                         $this->deleteTmpFile($id, $currentFile["tmp_name"]);
                     }
                 }

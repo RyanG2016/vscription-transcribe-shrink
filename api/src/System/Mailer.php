@@ -46,11 +46,13 @@ class Mailer
         global $accName;
         $email = $user_email;
         $accName = $account_name;
+        $mailingListSize = 0;
 
 //        $link = "$cbaselink/verify.php?token=$token";
         try {
             switch ($mailType) {
                 case 0:
+                    $mailingListSize = 1;
                     $token = $this->generateToken($user_email, $mailType);
                     if(!$token) return false;
                     $link = "$cbaselink/reset.php?token=$token";
@@ -59,29 +61,32 @@ class Mailer
                     break;
 
                 case 5:
+                    $mailingListSize = 1;
                     $token = $this->generateToken($user_email, $mailType);
                     if(!$token) return false;
                     $link = "$cbaselink/verify.php?token=$token";
                     include(__DIR__ . '/../../../mail/templates/verify_your_email.php');
                     $sbj = "Account Verification";
-                $mail->addCC("sales@vtexvsi.com");
+                    $mail->addBCC("sales@vtexvsi.com");
                     break;
 
                 case 6:
+                    $mailingListSize = 1;
                     $token = $this->generateToken($user_email, $mailType, $extra1);
                     if(!$token) return false;
                     $link = "$cbaselink/secret.php?s=$token";
                     include(__DIR__ . '/../../../mail/templates/typist_invitation.php');
                     $sbj = "Invitation";
-                $mail->addCC("sales@vtexvsi.com");
+                    $mail->addBCC("sales@vtexvsi.com");
                     break;
 
                 case 10:
                     include(__DIR__ . '/../../../mail/templates/document_complete.php');
                     $sbj = "New Document(s) Ready for Download";
-//                    $mail->addCC("sales@vtexvsi.com"); // duplicate do not uncomment
+                    $mail->addBCC("sales@vtexvsi.com"); // duplicate do not uncomment
                     $emailsArray = $this->userGateway->getClientAccAdminsEmailForJobUpdates();
-                    if(sizeof($emailsArray) > 0)
+                    $mailingListSize = sizeof($emailsArray);
+                    if($mailingListSize > 0)
                     {
                         foreach ($emailsArray as $row) {
                             $mail->addCC($row["email"]);
@@ -93,13 +98,14 @@ class Mailer
                     include(__DIR__ . '/../../../mail/templates/job_ready_for_typing.php');
                     $sbj = "New Job(s) Ready for Typing";
                     $emailsArray = $this->userGateway->getCurrentTypistsForJobUpdates();
-                    if(sizeof($emailsArray) > 0)
+                    $mailingListSize = sizeof($emailsArray);
+                    if($mailingListSize > 0)
                     {
                         foreach ($emailsArray as $row) {
                             $mail->addCC($row["email"]);
                         }
                     }
-//                    $mail->addCC("sales@vtexvsi.com"); // duplicate do not uncomment
+                    $mail->addBCC("sales@vtexvsi.com"); // duplicate do not uncomment
                     break;
 
                 default:
@@ -107,12 +113,17 @@ class Mailer
                     break;
             }
 
-            $mail->addAddress($email); //recipient
-            $mail->Subject = $sbj;
-            $mail->Body = $emHTML;
-            $mail->AltBody = $emPlain;
+            if($mailingListSize > 0)
+            {
+                $mail->addAddress($email); //recipient
+                $mail->Subject = $sbj;
+                $mail->Body = $emHTML;
+                $mail->AltBody = $emPlain;
 
-            $result = $mail->send();
+                $result = $mail->send();
+            }else{
+                return true;
+            }
             $this->logger->insertAuditLogEntry($this->API_NAME, "$sbj email sent to '$email'");
             return $result;
         } catch (\PHPMailer\PHPMailer\Exception $e) {
