@@ -187,7 +187,7 @@ else {
                             <th>Job Status</th>
                             <th>Job Transcribed</th>
                             <th>Initial Download</th>
-                            <th>Download</th>
+                            <th>Actions</th>
                         </tr>
                         </thead>
 
@@ -202,7 +202,7 @@ else {
                             <th>Job Status</th>
                             <th>Job Transcribed</th>
                             <th>Initial Download</th>
-                            <th>Download</th>
+                            <th>Actions</th>
                         </tr>
                         </tfoot>
                     </table>

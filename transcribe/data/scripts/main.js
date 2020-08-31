@@ -60,6 +60,11 @@ $(document).ready(function () {
 				download(file_id);
 			});
 
+			$('.view-icon').click(function() {
+				let file_id = $(this).parent().parent().attr('id');
+				view(file_id);
+			});
+
 			$('.cTooltip').tooltipster({
 				animation: 'grow',
 				theme: 'tooltipster-punk',
@@ -109,7 +114,7 @@ $(document).ready(function () {
 			{ "data": "times_text_downloaded_date",
 				render: function ( data, type, row ) {
 					if(row["file_status"] == 3){
-						return "<a class=\"material-icons download-icon\">cloud_download</a> <span class='times-downloaded'>+"+data+"</span>";
+						return "<a id='view-icon' class=\"material-icons view-icon\">visibility</a> <a class=\"material-icons download-icon\">cloud_download</a> <span class='times-downloaded'>+"+data+"</span>";
 					}else{
 						return "";
 					}
@@ -152,6 +157,11 @@ $(document).ready(function () {
 				download(file_id);
 			});
 
+			$('.view-icon').click(function() {
+				let file_id = $(this).parent().parent().attr('id');
+				view(file_id);
+			});
+
 			if(!$('.cTooltip').hasClass("tooltipstered"))
 			{
 				$('.cTooltip').tooltipster({
@@ -181,6 +191,28 @@ function download(fileID){
 
 		// redirect to download with the generated hash
 		var win = window.open('./download.php?down='+data.toString(), '_blank');
+		win.focus();
+		// alert('refresh?');
+		// location.reload();
+		jobsDTRef.ajax.reload();
+
+	});
+}
+
+
+function view(fileID){
+
+	let a1 = {
+		file_id: fileID
+	};
+
+	$.post("data/parts/backend_request.php", {
+		reqcode: 17,
+		args: JSON.stringify(a1)
+	}).done(function (data) {
+
+		// redirect to download with the generated hash
+		var win = window.open('./view.php?down='+data.toString(), '_blank');
 		win.focus();
 		// alert('refresh?');
 		// location.reload();

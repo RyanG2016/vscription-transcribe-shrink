@@ -330,6 +330,12 @@ table{
     cursor: pointer;
 }
 
+.view-icon{
+    /*font-size: 20px;*/
+    vertical-align: bottom;
+    cursor: pointer;
+}
+
 td .times-downloaded{
     /*text-align: center;*/
     vertical-align: bottom !important;
