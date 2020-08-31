@@ -4,6 +4,7 @@ namespace Src\TableGateways;
 
 use PDOException;
 use Src\TableGateways\logger;
+//use Src\System\Mailer;
 
 require "filters/usersFilter.php";
 include_once "common.php";
@@ -14,12 +15,14 @@ class UserGateway
     private $db;
     private $logger;
     private $API_NAME;
+    private $mailer;
 
     public function __construct($db)
     {
         $this->db = $db;
         $this->logger = new logger($db);
         $this->API_NAME = "Users";
+//        $this->mailer = new Mailer($db)
     }
 
     public function findAll()
