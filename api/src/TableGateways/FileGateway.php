@@ -104,7 +104,10 @@ class FileGateway
             $result = $statement->fetchAll(PDO::FETCH_ASSOC);
 
             if(isset($_GET["tr"]))
-            {   // load tmp file for transcribe.php
+            {
+                // set job start timer
+                $_SESSION['timerStart'] = date("Y-m-d H:i:s");
+                // load tmp file for transcribe.php
                 return $this->loadTmpFile($result);
             }else{
                 return $result;
@@ -113,6 +116,85 @@ class FileGateway
         } catch (PDOException $e) {
             exit($e->getMessage());
         }
+    }
+
+    /**
+     * retrieves file total elapsed time of being typed
+     * @param $id int file_id
+     * @return int job elapsed_time
+     */
+    public function getElapsed($id)
+    {
+
+        $statement = "
+            SELECT 
+                file_id, elapsed_time
+            
+            FROM
+                files
+            WHERE file_id = ?;
+        ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($id));
+//            $result = $statement->fetch();
+
+            if($statement->rowCount() > 0){
+                return $statement->fetch()["elapsed_time"];
+            }else{
+                return false;
+            }
+
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+
+
+    /**
+     * calculates and sets file elapsed time depending on $_SESSION['timerStart'] and current time
+     * @param $id int file_id
+     * @return bool success
+     */
+    public function updateElapsed($id)
+    {
+        $prevElapse = $this->getElapsed($id)?$this->getElapsed($id):0;
+//        $sessElapseStart = $_SESSION['timerStart'];
+        $elapsedTime = strtotime(date("Y-m-d H:i:s")) -
+            strtotime($_SESSION["timerStart"]) + $prevElapse;
+
+
+        $statement = "
+            UPDATE files
+            set elapsed_time = :elapsed
+            WHERE file_id = :id;
+        ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(
+                array(
+                    'id' => $id,
+                    'elapsed' => $elapsedTime
+                )
+            );
+
+            if ($statement->rowCount() > 0) {
+                $this->logger->insertAuditLogEntry($this->API_NAME, "Elapsed Time Updated for file_id: " . $id);
+                unset($_SESSION["timerStart"]);
+                return true;
+            } else {
+                return false;
+//                return generateApiResponse("Couldn't update file or no changes were found to update");
+            }
+        } catch (PDOException $e) {
+            $this->logger->insertAuditLogEntry($this->API_NAME, "Error updating elapsed time for (" . $id.") ");
+//            return generateApiResponse("Error occurred while updating file, consult system admin", true);
+            return false;
+//            exit($e->getMessage());
+        }
+
     }
 
     public function loadTmpFile($result) {
@@ -517,6 +599,11 @@ class FileGateway
                     if ($file_status == 5 || $file_status == 3) {
                         $this->mailer->sendEmail(10, false);
                         $this->deleteTmpFile($id, $currentFile["tmp_name"]);
+                    }
+
+                    // update elapsed time
+                    if($file_status == 2 || $file_status == 3 || $file_status == 4 || $file_status == 5 ){
+                        $this->updateElapsed($id);
                     }
                 }
                 return generateApiResponse("File $id updated");
