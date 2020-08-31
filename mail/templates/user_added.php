@@ -188,8 +188,9 @@ $emHTML= "<!DOCTYPE html>
                         A new user account has been created for you in vScription Transcribe Pro.<br><br>
                          
                         Your login details are:<br>
-                         username: $email <br>
-                         password: $pass<br><br>
+                         Login Server: $cbaselink <br>
+                         Username: $email <br>
+                         Password: $pass<br><br>
                           
                         <i>
                         If you would like to reset your password, press the login button below, enter your email address and click the Forgot Password link. That will send you an email with a link allowing you to reset your password.
@@ -295,8 +296,9 @@ $emHTML= "<!DOCTYPE html>
 $emPlain = "A new user account has been created for you in vScription Transcribe Pro. 
 		
 Your login details are:
-username: $email 
-password: $pass
+Login Server: $cbaselink
+Username: $email 
+Password: $pass
                           
                         
 If you would like to reset your password, press the link below, enter your email address and click the Forgot Password link. That will send you an email with a link allowing you to reset your password.
