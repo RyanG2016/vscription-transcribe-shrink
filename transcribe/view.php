@@ -37,8 +37,8 @@ if ($stmt3 = mysqli_prepare($con, $sql3)) {
 
             /** check if the current user acc_id match */
             if ($acc_id == $_SESSION['accID']) {
-//                /** Update download statistics */
-//                incrementDownloadCounter($con, $file_id, $acc_id);
+//                /** Update download/view statistics */
+                updateInitDownloadDate($con, $file_id, $acc_id);
 
                 /** set download link as expired */
                 expireDownloadLink($con, $file_id, $acc_id);
@@ -64,6 +64,42 @@ if ($stmt3 = mysqli_prepare($con, $sql3)) {
 } else {
     //echo "ERROR: Could not prepare to execute $sql1. " . mysqli_error($con);
     //die( "Error in excute: (" .$con->errno . ") " . $con->error);
+}
+
+function updateInitDownloadDate($con, $fileID, $accID)
+{
+    /*------Update download statistics ------*/
+
+    $text_downloaded_date = date("Y-m-d H:i:s");
+
+    $sql1 = "UPDATE files SET times_text_downloaded_date=times_text_downloaded_date+1, text_downloaded_date=COALESCE(text_downloaded_date, ?)
+       WHERE file_id = ? AND acc_id = ?";
+
+    if ($stmt1 = mysqli_prepare($con, $sql1)) {
+        if (!$stmt1->bind_param("sii", $text_downloaded_date, $fileID, $accID)) {
+            // die( "Error in bind_param: (" .$con->errno . ") " . $con->error);
+        }
+        $B = mysqli_stmt_execute($stmt1);
+        if ($B) {
+            /** logging download statistics */
+
+            $a = array(
+                'email' => $_SESSION['uEmail'],
+                'activity' => 'File viewed: ' . $fileID,
+                'actPage' => 'view.php',
+                //'actPage' => header('Location: '.$_SERVER['REQUEST_URI']),   //This isn't working. For now am going to hardcode the page into the function call
+                'actIP' => getIP2(),
+                'acc_id' => $_SESSION['accID']
+            );
+            $b = json_encode($a);
+            insertAuditLogEntry($con, $b);
+        } else {
+            //echo "ERROR: Could not able to execute $sql1. " . mysqli_error($con);
+            //die( "Error in excute: (" .$con->errno . ") " . $con->error);
+        }
+    } else {
+        //echo "ERROR: Could not able to execute $sql1. " . mysqli_error($con);
+    }
 }
 
 ?>
@@ -188,7 +224,8 @@ function viewFile($con, $fileID, $accID)
                 //echo "We found at least one row for job " . $job_id;
                 // Fetch result rows as an associative array
                 while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-                    $filename = $row['job_id'];
+//                    $filename = $row['job_id'];
+
                     echo generateHTMLReport($row["job_document_html"], $row);
 
 //                    header('Content-Disposition: attachment; filename="' . $filename . '.rtf"');
