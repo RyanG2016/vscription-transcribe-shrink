@@ -38,7 +38,7 @@ else {
 
 
 
-    <script src="data/scripts/main.min.js?v=4"></script>
+    <script src="data/scripts/main.min.js?v=5"></script>
 
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,300&display=swap"
           rel="stylesheet">

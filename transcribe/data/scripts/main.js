@@ -180,7 +180,7 @@ $(document).ready(function () {
 			});
 		}	// calculate total jobs duration
 			$("#tjd").html("Total Jobs Length: " + new Date(totalDur * 1000).toISOString().substr(11, 8));
-			$("#cbm").html("Current Backlog Minutes: " + new Date(totalDur * 1000).toISOString().substr(11, 8));
+			$("#cbm").html("Current Backlog Minutes: " + new Date(totalTrDur * 1000).toISOString().substr(11, 8));
 		}
 	);
 
