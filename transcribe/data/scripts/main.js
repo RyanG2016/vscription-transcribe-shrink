@@ -6,6 +6,7 @@
 var dataTbl;
 var jobsDT;
 var jobsDTRef;
+var totalDur = 0;
 
 $(document).ready(function () {
 
@@ -105,6 +106,7 @@ $(document).ready(function () {
 			{ "data": "job_upload_date" },
 			{ "data": "audio_length",
 				render: function (data) {
+					totalDur += parseInt(data);
 					return new Date(data * 1000).toISOString().substr(11, 8);
 				}
 			},
@@ -147,31 +149,35 @@ $(document).ready(function () {
 	} );
 
 	refreshJobList.addEventListener('click', e => {
+		totalDur = 0;
 		jobsDTRef.ajax.reload();
 	});
 
 	jobsDT.on( 'draw.dt', function () {
 
-			$('.download-icon').click(function() {
-				let file_id = $(this).parent().parent().attr('id');
-				download(file_id);
-			});
+		$('.download-icon').click(function () {
+			let file_id = $(this).parent().parent().attr('id');
+			download(file_id);
+		});
 
-			$('.view-icon').click(function() {
-				let file_id = $(this).parent().parent().attr('id');
-				view(file_id);
-			});
+		$('.view-icon').click(function () {
+			let file_id = $(this).parent().parent().attr('id');
+			view(file_id);
+		});
 
-			if(!$('.cTooltip').hasClass("tooltipstered"))
-			{
-				$('.cTooltip').tooltipster({
-					animation: 'grow',
-					theme: 'tooltipster-punk',
-					arrow: true
-				});
-			}
+		if (!$('.cTooltip').hasClass("tooltipstered")) {
+			$('.cTooltip').tooltipster({
+				animation: 'grow',
+				theme: 'tooltipster-punk',
+				arrow: true
+			});
+		}	// calculate total jobs duration
+			$("#tjd").html("Total Jobs Duration: " + new Date(totalDur * 1000).toISOString().substr(11, 8));
 		}
 	);
+
+
+
 
 
 });
@@ -194,6 +200,7 @@ function download(fileID){
 		win.focus();
 		// alert('refresh?');
 		// location.reload();
+		totalDur = 0;
 		jobsDTRef.ajax.reload();
 
 	});
@@ -220,6 +227,7 @@ function view(fileID){
 		win.focus();
 		// alert('refresh?');
 		// location.reload();
+		totalDur = 0;
 		jobsDTRef.ajax.reload();
 
 	});

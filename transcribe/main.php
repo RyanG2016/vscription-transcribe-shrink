@@ -113,33 +113,7 @@ else {
                     <img src="data/images/Logo_vScription_Transcribe_Pro_White.png" width="300px"/>
                 </td>
             </tr>
-
-
         </table>
-
-        <!--<table id="header-tbl">
-            <tr>
-                <td id="logbar" align="right" colspan="2">
-                    Logged in as: <?php /*echo $_SESSION['uEmail'] */?> |
-
-                    <a class="logout" href="logout.php">
-                        <i class="fas fa-sign-out-alt"></i>
-                        Logout
-                    </a>
-                </td>
-            </tr>
-            <tr class="spacer"></tr>
-            <tr style="margin-top: 50px">
-                <td class="title" align="left" width="450px">
-                    <legend>vScription Transcribe Pro Job Lister</legend>
-                </td>
-
-                <td width="305">
-                    <img src="data/images/Logo_vScription_Transcribe_Pro_White.png" width="300px"/>
-                </td>
-            </tr>
-        </table>-->
-
 
         <table class="data-tbl">
             <tr>
@@ -207,6 +181,9 @@ else {
                         </tfoot>
                     </table>
                 </td>
+            </tr>
+            <tr>
+                <td id="tjd"></td>
             </tr>
         </table>
 
