@@ -184,6 +184,7 @@ else {
             </tr>
             <tr>
                 <td id="tjd"></td>
+                <td id="cbm" style="text-align: right"></td>
             </tr>
         </table>
 

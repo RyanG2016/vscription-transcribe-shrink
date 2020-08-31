@@ -7,6 +7,7 @@ var dataTbl;
 var jobsDT;
 var jobsDTRef;
 var totalDur = 0;
+var totalTrDur = 0;
 
 $(document).ready(function () {
 
@@ -105,8 +106,14 @@ $(document).ready(function () {
 			{ "data": "file_date_dict" },
 			{ "data": "job_upload_date" },
 			{ "data": "audio_length",
-				render: function (data) {
+				render: function (data,type,row) {
 					totalDur += parseInt(data);
+
+					if(row["file_status"] == 1 || row["file_status"] == 2 || row["file_status"] == 0)
+					{
+						totalTrDur += parseInt(data);
+					}
+
 					return new Date(data * 1000).toISOString().substr(11, 8);
 				}
 			},
@@ -149,7 +156,7 @@ $(document).ready(function () {
 	} );
 
 	refreshJobList.addEventListener('click', e => {
-		totalDur = 0;
+		// totalDur = 0;
 		jobsDTRef.ajax.reload();
 	});
 
@@ -173,6 +180,7 @@ $(document).ready(function () {
 			});
 		}	// calculate total jobs duration
 			$("#tjd").html("Total Jobs Length: " + new Date(totalDur * 1000).toISOString().substr(11, 8));
+			$("#cbm").html("Current Backlog Minutes: " + new Date(totalDur * 1000).toISOString().substr(11, 8));
 		}
 	);
 
@@ -200,7 +208,7 @@ function download(fileID){
 		win.focus();
 		// alert('refresh?');
 		// location.reload();
-		totalDur = 0;
+		// totalDur = 0;
 		jobsDTRef.ajax.reload();
 
 	});
@@ -227,7 +235,7 @@ function view(fileID){
 		win.focus();
 		// alert('refresh?');
 		// location.reload();
-		totalDur = 0;
+		// totalDur = 0;
 		jobsDTRef.ajax.reload();
 
 	});
