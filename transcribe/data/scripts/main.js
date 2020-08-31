@@ -172,7 +172,7 @@ $(document).ready(function () {
 				arrow: true
 			});
 		}	// calculate total jobs duration
-			$("#tjd").html("Total Jobs Duration: " + new Date(totalDur * 1000).toISOString().substr(11, 8));
+			$("#tjd").html("Total Jobs Length: " + new Date(totalDur * 1000).toISOString().substr(11, 8));
 		}
 	);
 
