@@ -240,6 +240,7 @@ class FileController
                 $orig_filename = $file_name;
                 $file_name = $enumName;
                 $file = $path . $file_name;
+                $jobGeneratedNumberForResponse = $jobPrefix .str_pad($nextJobNum, 7, "0", STR_PAD_LEFT);
 
 
                 if (!in_array($file_real_mime_type, $allowedMimeTypes)) {
@@ -287,7 +288,7 @@ class FileController
                     $result = $this->fileGateway->insertUploadedFileToDB($fileDemos);
                     if ($result) {
 //                        $uploadMsg[] = "<li>File: $orig_filename - <span style='color:green;'>UPLOAD SUCCESSFUL</span></li>";
-                        $uploadMsg[] = $this->formatFileResult($orig_filename, "upload successful", false);
+                        $uploadMsg[] = $this->formatFileResult($orig_filename, "upload successful", false, $jobGeneratedNumberForResponse);
                         $newFilesAvailable = true;
                     } else {
 //                        $uploadMsg[] = "<li>'File: ' $orig_filename . ' - FAILED (File uploaded but error writing to database)'<li>";
@@ -379,13 +380,25 @@ class FileController
         return !$jsonArrayResponse["error"];
     }
 
-    private function formatFileResult($fileName, $status, $error)
+    private function formatFileResult($fileName, $status, $error, $jobNo = 0)
     {
+        if($jobNo)
+        {
+            return array(
+                "job_no" => $jobNo,
+                "file_name" => $fileName,
+                "status" => $status,
+                "error" => $error
+            );
+        }
+
         return array(
             "file_name" => $fileName,
             "status" => $status,
             "error" => $error
         );
+
+
     }
 
     private function updateFileFromRequest($id)
