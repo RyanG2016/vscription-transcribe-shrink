@@ -367,3 +367,12 @@ td .times-downloaded{
 .top-links{
     vertical-align: bottom;
 }
+
+.mdc-data-table{
+    overflow: hidden;
+}
+
+.mdc-layout-grid.dt-table
+{
+    overflow-x: auto;
+}
