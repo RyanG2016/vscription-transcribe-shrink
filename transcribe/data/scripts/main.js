@@ -212,7 +212,11 @@ function view(fileID){
 	}).done(function (data) {
 
 		// redirect to download with the generated hash
-		var win = window.open('./view.php?down='+data.toString(), '_blank');
+		var win = window.open('./view.php?down='+data.toString(), 'popUpWindow',
+			'height=800,width=750,left=100,top=100,resizable=yes,' +
+			'scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes'
+			);
+
 		win.focus();
 		// alert('refresh?');
 		// location.reload();
