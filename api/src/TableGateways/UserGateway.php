@@ -4,7 +4,7 @@ namespace Src\TableGateways;
 
 use PDOException;
 use Src\TableGateways\logger;
-//use Src\System\Mailer;
+use Src\System\Mailer;
 
 require "filters/usersFilter.php";
 include_once "common.php";
@@ -22,7 +22,7 @@ class UserGateway
         $this->db = $db;
         $this->logger = new logger($db);
         $this->API_NAME = "Users";
-//        $this->mailer = new Mailer($db)
+        $this->mailer = new Mailer($db);
     }
 
     public function findAll()
@@ -393,7 +393,6 @@ class UserGateway
         $valsQMarks .= ", ?";
 
         $newPass = $this->getNewPasswordWithHash();
-        $newPass["pwd"]; // return with the success response todo
         array_push($valsArray, $newPass["hash"]);
 
         // ip address
@@ -427,6 +426,7 @@ class UserGateway
 
             if ($statement->rowCount() > 0) {
                 $this->logger->insertAuditLogEntry($this->API_NAME, "Created User: " . $_POST["email"]);
+                $this->mailer->sendEmail(16, $_POST["email"], "", $newPass["pwd"]);
                 return $this->oKResponse($this->db->lastInsertId(), "User Created");
             } else {
 //                return $this->errorOccurredResponse("Couldn't Create User");
