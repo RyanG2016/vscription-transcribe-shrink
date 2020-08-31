@@ -10,7 +10,8 @@ if(isset($_SESSION['counter']))
 {
     unset($_SESSION['counter']);
 }
-if ((!isset($_SESSION['role']) || $_SESSION['role'] != "1") && !isset($_REQUEST["out"]) ) {
+//if ((!isset($_SESSION['role']) || $_SESSION['role'] != "1") && !isset($_REQUEST["out"]) ) {
+if (!isset($_SESSION['role'])) {
 //User is a System Administrator ONLY
     header("HTTP/1.1 401 ACCESS DENIED");
     exit();
@@ -45,7 +46,7 @@ $requestMethod = $_SERVER["REQUEST_METHOD"];
 
 // pass the request method and user ID to the PersonController and process the HTTP request:
 $controller = new AccountController($dbConnection, $requestMethod, $accountId);
-if(isset($_REQUEST["out"]))
+if(isset($_REQUEST["out"]) || $_SESSION['role'] != 1)
 {
     $controller->processPublicRequest();
 }else{

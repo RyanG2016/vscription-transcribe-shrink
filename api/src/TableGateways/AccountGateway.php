@@ -164,6 +164,42 @@ class AccountGateway
     }
 
 
+    public function findPubAccount($id)
+    {
+        $statement = "
+            SELECT 
+                accounts.acc_id,
+                enabled,
+                billable,
+                acc_name,
+                acc_retention_time,
+                acc_creation_date,
+                lifetime_minutes,
+                work_types,
+                next_job_tally,
+                act_log_retention_time,
+                job_prefix
+            FROM
+                accounts
+            INNER JOIN access a on accounts.acc_id = a.acc_id
+            WHERE accounts.acc_id = ?
+            AND a.uid = ?
+            AND a.acc_role = 2
+;
+        ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($id, $_SESSION["uid"]));
+            $result = $statement->fetch(\PDO::FETCH_ASSOC);
+            return $result;
+        } catch (\PDOException $e) {
+            return false;
+//            exit($e->getMessage());
+        }
+    }
+
+
     public function generateNewAccountPrefix($accName)
     {
         $accNameSub = strtoupper(substr($accName, 0, 2));
