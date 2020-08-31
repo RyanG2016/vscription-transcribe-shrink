@@ -11,7 +11,7 @@ $emHTML= "<!DOCTYPE html>
 
     <meta charset=\"utf-8\">
     <meta http-equiv=\"x-ua-compatible\" content=\"ie=edge\">
-    <title>Typist Invitation</title>
+    <title>New Typist Account Access Granted</title>
     <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
     <style type=\"text/css\">
         /**
@@ -281,13 +281,13 @@ $emHTML= "<!DOCTYPE html>
 </body>
 </html>";
 
-$emPlain = "Hi $email,
+$emPlain = "New Typist Account Access Granted
 		
 
 You have been granted access to $accName as Typist. Please click the link below to accept:
 
 $link
 
-If it is not clickable, please copy and paste the URL into your browsers.
+If it is not clickable, please copy and paste the URL into your browser.
 
 Cheers,";

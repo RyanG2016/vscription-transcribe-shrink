@@ -76,7 +76,7 @@ class Mailer
                     if(!$token) return false;
                     $link = "$cbaselink/secret.php?s=$token";
                     include(__DIR__ . '/../../../mail/templates/typist_invitation.php');
-                    $sbj = "Invitation";
+                    $sbj = "vScription Transcribe Pro - New Typist Account Access Granted";
                     $mail->addBCC("sales@vtexvsi.com");
                     break;
 
