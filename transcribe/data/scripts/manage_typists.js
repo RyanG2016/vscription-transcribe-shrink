@@ -108,6 +108,7 @@ $(document).ready(function () {
                     content: response["msg"],
                     buttons: {
                         confirm: {
+                            text: "Ok",
                             btnClass: 'btn-green'
                         }
                     }
@@ -124,7 +125,7 @@ $(document).ready(function () {
                     buttons: {
                         confirm: {
                             btnClass: 'btn-red',
-                            text: "OK"
+                            text: "Ok"
                         }
                     }
                 });
