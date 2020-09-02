@@ -565,7 +565,7 @@ function loadIntoPlayer(data) {
     AblePlayerInstances[0].media.src = audioTempFolder + jobDetails.tmp_name;
     // AblePlayerInstances[0].media.src = jobDetails.base64;
 
-    AblePlayer.prototype.onMediaNewSourceLoad = function () {
+/*    AblePlayer.prototype.onMediaNewSourceLoad = function () {
 
         // var playPromise = AblePlayerInstances[0].playMedia();
         if(jobDetails.job_status == 2 || jobDetails.job_status == 1) // suspend or being typed
@@ -579,7 +579,19 @@ function loadIntoPlayer(data) {
             AblePlayerInstances[0].seekTo(0);
         }
         switchUI(true);
+    }*/
+
+    if (jobDetails.job_status == 2 || jobDetails.job_status == 1) // suspend or being typed
+    {
+        // seek to last position
+        $("#audio1").attr("data-start-time",jobDetails.last_audio_position - rewindAmountOnPause);
+        AblePlayerInstances[0].media.currentTime = jobDetails.last_audio_position - rewindAmountOnPause;
+    } else {
+        $("#audio1").attr("data-start-time",0);
+        AblePlayerInstances[0].media.currentTime = 0;
     }
+    AblePlayerInstances[0].media.load();
+    switchUI(true);
 
     AblePlayerInstances[0].onMediaPause = function () {
         if (AblePlayerInstances[0].seekBar.position - rewindAmountOnPause > 0) {
