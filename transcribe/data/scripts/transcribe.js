@@ -820,7 +820,7 @@ $(document).ready(function () {
         tinyMCE.activeEditor.setMode("design");
 
         // AblePlayerInstances[0].
-        AblePlayerInstances[0].onMediaNewSourceLoad = function () {
+ /*       AblePlayerInstances[0].onMediaNewSourceLoad = function () {
 
             if (jobDetails.job_status == 2 || jobDetails.job_status == 1) // suspend or being typed
             {
@@ -833,7 +833,19 @@ $(document).ready(function () {
                 AblePlayerInstances[0].seekTo(0);
             }
         }
- 
+*/
+        if (jobDetails.job_status == 2 || jobDetails.job_status == 1) // suspend or being typed
+        {
+            // seek to last position
+            $("#audio1").attr("data-start-time",jobDetails.last_audio_position - rewindAmountOnPause);
+            AblePlayerInstances[0].media.currentTime = jobDetails.last_audio_position - rewindAmountOnPause;
+        } else {
+            $("#audio1").attr("data-start-time",0);
+            AblePlayerInstances[0].media.currentTime = 0;
+        }
+        AblePlayerInstances[0].media.load();
+
+
         AblePlayerInstances[0].onMediaPause = function () {
             if (AblePlayerInstances[0].seekBar.position - rewindAmountOnPause > 0) {
                 AblePlayerInstances[0].seekTo(AblePlayerInstances[0].seekBar.position - rewindAmountOnPause);
