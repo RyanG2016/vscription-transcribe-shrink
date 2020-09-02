@@ -313,6 +313,7 @@ class UserGateway
                     users.email_notification,
                     users.account,
                     users.enabled,
+                    users.typist,
                    cities.city as `state_ref`
                                       
             FROM
