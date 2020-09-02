@@ -231,9 +231,9 @@ $vtex_page = 5;
                 </div>
             </fieldset>
 
-            <label for="email" class="vtex-form_lbl">
+            <label for="email" class="vtex-form_lbl" style="width: 100%">
                 Email
-                <input class="email vtex-input" id="email" name="email" type="email">
+                <input class="email vtex-input" id="email" name="email" type="email" style="width: 100%">
             </label>
 
             <div class="country">
