@@ -215,7 +215,7 @@ if (isset($_SESSION['counter'])) {
                     </tr>
                     <tr>
                         <td style="font-size: 1rem; font-style: italic; color: dimgrey">
-                            <span style="vertical-align: bottom">Here you can choose your next job start by clicking change role from the sidebar.</span>
+                            <span style="vertical-align: bottom">Here you can choose your next job start by clicking <b>switch account/role</b> from the sidebar.</span>
                             <!--                            <span style="vertical-align: bottom">Here you can find all your assigned work and data.</span>-->
                         </td>
                     </tr>
