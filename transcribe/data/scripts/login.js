@@ -214,15 +214,15 @@ function login() {
                     // pending email verification //
                     $.confirm({
                         title: "Error",
-                        type: "red",
+                        type: "orange",
                         content: err.responseJSON["msg"],
                         buttons: {
                             confirm: {
-                                btnClass: 'btn-red',
+                                btnClass: 'btn-orange',
                                 text: 'Ok'
                             },
                             resend: {
-                                btnClass: 'btn-green',
+                                // btnClass: 'btn-green',
                                 text: 'Resend Email',
                                 action: function() {
                                     loginBtn.html("Please wait..");
