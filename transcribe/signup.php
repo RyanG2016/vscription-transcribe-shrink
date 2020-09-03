@@ -90,10 +90,9 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
 
     <script src="https://kit.fontawesome.com/00895b9561.js" crossorigin="anonymous"></script>
 
-    <link rel="stylesheet" href="data/css/parts/bootstrap-override.css" />
+<!--    <link rel="stylesheet" href="data/css/parts/bootstrap-override.css" />-->
 
-    <!-- todo return to minified version-->
-    <script src="data/scripts/signup.js"></script>
+    <script src="data/scripts/signup.min.js"></script>
 
 </head>
 
