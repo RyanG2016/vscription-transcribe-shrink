@@ -193,7 +193,7 @@ else{ //token isn't set
 		$(document).ready(function() {
 	
 	var error = false;
-		var msg = 'Email verified! redirecting...';
+		var msg = 'Email verified! redirecting please wait...';
 		var tit = "Success";
 		$.confirm({
 		title: tit,
@@ -202,7 +202,8 @@ else{ //token isn't set
 		buttons: {
 			ok: {
 				btnClass: 'btn-green',
-				text: 'ok'
+				text: 'ok',
+                isHidden: true
 			}
 		},//btns
 		onContentReady: function () {
