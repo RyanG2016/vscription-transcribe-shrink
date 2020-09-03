@@ -115,7 +115,7 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputfName">First Name</label>
-                    <input type="text" class="form-control" id="inputfName" placeholder="" name="fname" required>
+                    <input type="text" class="form-control" id="inputfName" placeholder="" name="fname" required autofocus>
                     <div class="valid-feedback">
                         Looks good!
                     </div>
