@@ -240,7 +240,7 @@ if (isset($_SESSION['counter'])) {
                         }
                         ?>
                         <div class="text-muted text-justify">A client administrator account allows you to manage your jobs,
-                            invite typists, download completed jobs, and more..</div>
+                            invite typists, download completed jobs</div>
                     </div>
 
                     <div id="typistCard" class="col">
