@@ -261,7 +261,7 @@ if (isset($_SESSION['counter'])) {
 
                         <div class="alert alert-light" role="alert" id="alertT2">
                             <div class="form-row">
-                                <em>Open for new work invitations?</em>
+                                <em>Open for work invitations  <span class="vtex-help-icon">(?)</span></em>
 
                                 <div class="mdc-switch mdc-switch--disabled ml-auto mt-auto mb-auto" id="typist_av_switch">
                                     <div class="mdc-switch__track"></div>

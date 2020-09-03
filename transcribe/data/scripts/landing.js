@@ -43,6 +43,16 @@ $(document).ready(function () {
     loading = $("#overlay");
     changeLoading(true);
 
+    $(".vtex-help-icon").popover({
+        html: true,
+        trigger: 'hover',
+        content: "<div>" +
+            "<b>This allows administrators to be able to invite you as a typist for their jobs.</b>" +
+            "<br><br>" +
+            "<i>This doesn't affect your current jobs</i>" +
+            "</div>"
+    });
+
     //initialize instance
     var enjoyhint_instance = new EnjoyHint({});
 

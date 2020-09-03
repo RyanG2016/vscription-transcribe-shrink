@@ -157,3 +157,9 @@ a:hover {
     font-size: 5rem !important;
     color: #1e79be;
 }
+
+.vtex-help-icon{
+    color: var(--vtex-blue);
+    cursor: pointer;
+    opacity: 80%;
+}
