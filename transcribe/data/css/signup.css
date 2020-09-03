@@ -17,7 +17,9 @@ body, html {
     font-family: oxygen, sans-serif;
 }
 
-
+.login100-form-btn{
+    text-transform: capitalize !important;
+}
 
 body {
     width: 100%;
