@@ -228,6 +228,7 @@ $(document).ready(function () {
                                                 buttons: {
                                                     confirm: {
                                                         btnClass: 'btn-green',
+                                                        text: "Ok",
                                                         action: function () {
                                                             return true;
                                                         }
@@ -244,6 +245,7 @@ $(document).ready(function () {
                                                 content: err.responseJSON["msg"],
                                                 buttons: {
                                                     confirm: {
+                                                        text: "Ok",
                                                         btnClass: 'btn-red',
                                                         action: function () {
                                                             return true;
@@ -312,6 +314,7 @@ $(document).ready(function () {
                                                 content: err.responseJSON["msg"],
                                                 buttons: {
                                                     confirm: {
+                                                        text: "Ok",
                                                         btnClass: 'btn-red',
                                                         action: function () {
                                                             accessDTRef.ajax.reload(); // refresh access table
