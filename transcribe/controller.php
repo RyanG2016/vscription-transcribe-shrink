@@ -322,7 +322,15 @@ if(isset($_SESSION['counter']))
                     </tr>
                     <tr>
                         <td class="bold">
-                            VEC INUSB2
+                            VEC IN-USB2
+                        </td>
+                        <td class="check">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bold">
+                            VEC IN-USB3
                         </td>
                         <td class="check">
                             <i class="fa fa-check" aria-hidden="true"></i>
