@@ -122,7 +122,7 @@ body {
 .data-tbl{
     width: 100%;
     border-collapse: separate;
-    padding: 24px 2.5% 2.5%;
+    padding: 24px 1% 2.5%;
 
 }
 
@@ -330,6 +330,12 @@ table{
     cursor: pointer;
 }
 
+.view-icon{
+    /*font-size: 20px;*/
+    vertical-align: bottom;
+    cursor: pointer;
+}
+
 td .times-downloaded{
     /*text-align: center;*/
     vertical-align: bottom !important;
@@ -360,4 +366,13 @@ td .times-downloaded{
 
 .top-links{
     vertical-align: bottom;
+}
+
+.mdc-data-table{
+    overflow: hidden;
+}
+
+.mdc-layout-grid.dt-table
+{
+    overflow-x: auto;
 }

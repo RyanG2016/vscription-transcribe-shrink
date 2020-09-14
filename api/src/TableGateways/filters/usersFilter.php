@@ -169,11 +169,20 @@ function sqlInjectionCreateCheckPassed($array){
             case "first_name":
             case "last_name":
             case "email":
-            case "city":
             case "state":
             case "last_login":
                 if (
                     empty(trim($value)) ||
+                    strpos($value, '%') !== FALSE
+                ) {
+                    return false;
+                }
+
+                break;
+
+            case "city":
+
+                if (
                     strpos($value, '%') !== FALSE
                 ) {
                     return false;

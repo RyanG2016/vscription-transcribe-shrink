@@ -373,6 +373,41 @@ class accessGateway
         }
     }
 
+
+    /**
+     * Checks if a user has access to an account with a defined role
+     * @param $uid int userID
+     * @param $accID int Account ID
+     * @param $role int Access Role
+     * @return int row count
+     * @internal used internally by logGateway
+     */
+    public function hasAccess($uid, $accID ,$role)
+    {
+
+        $statement = "
+            SELECT 
+                access_id
+            FROM
+                access
+            where
+                uid = ?
+            and
+                acc_id = ?
+            and
+                acc_role = ?
+            ;";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($uid,$accID,$role));
+            //$result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            return $statement->rowCount();
+        } catch (\PDOException $e) {
+            return 0;
+        }
+    }
+
     public function insertAccessRecord()
     {
         if (

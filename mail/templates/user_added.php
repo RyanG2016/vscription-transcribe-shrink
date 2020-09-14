@@ -2,6 +2,7 @@
 global $emHTML;
 global $emPlain;
 global $email;
+global $pass;
 global $link;
 global $accName;
 
@@ -11,7 +12,7 @@ $emHTML= "<!DOCTYPE html>
 
     <meta charset=\"utf-8\">
     <meta http-equiv=\"x-ua-compatible\" content=\"ie=edge\">
-    <title>New Typist Account Access Granted</title>
+    <title>New User Account Password</title>
     <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
     <style type=\"text/css\">
         /**
@@ -113,7 +114,7 @@ $emHTML= "<!DOCTYPE html>
 
 <!-- start preheader -->
 <div class=\"preheader\" style=\"display: none; max-width: 0; max-height: 0; overflow: hidden; font-size: 1px; line-height: 1px; color: #fff; opacity: 0;\">
-    New Typist Account Access Granted
+    New User Account Password
 </div>
 <!-- end preheader -->
 
@@ -157,7 +158,7 @@ $emHTML= "<!DOCTYPE html>
             <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"max-width: 600px;\">
                 <tr>
                     <td align=\"left\" bgcolor=\"#ffffff\" style=\"padding: 36px 24px 0; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; border-top: 3px solid #d4dadf;\">
-                        <h1 style=\"margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -1px; line-height: 48px;\">New Typist Account Access Granted</h1>
+                        <h1 style=\"margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -1px; line-height: 48px;\">New User Account Password</h1>
                     </td>
                 </tr>
             </table>
@@ -183,7 +184,18 @@ $emHTML= "<!DOCTYPE html>
                 <!-- start copy -->
                 <tr>
                     <td align=\"left\" bgcolor=\"#ffffff\" style=\"padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;\">
-                        <p style=\"margin: 0;\">You have been granted access to $accName as Typist. Please click the link below to accept. </p>
+                        <div style=\"margin: 0;\">
+                        A new user account has been created for you in vScription Transcribe Pro.<br><br>
+                         
+                        Your login details are:<br>
+                         Login Server: $cbaselink <br>
+                         Username: $email <br>
+                         Password: $pass<br><br>
+                          
+                        <i>
+                        If you would like to reset your password, press the login button below, enter your email address and click the Forgot Password link. That will send you an email with a link allowing you to reset your password.
+                        </i> 
+                        </div>
                     </td>
                 </tr>
                 <!-- end copy -->
@@ -198,7 +210,7 @@ $emHTML= "<!DOCTYPE html>
                                         <tr>
                                             <td align=\"center\" bgcolor=\"#1a82e2\" style=\"border-radius: 6px;\">
                                                 <a href=\"$link\" target=\"_blank\" style=\"display: inline-block; padding: 16px 36px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; border-radius: 6px;\">
-                                                    Accept
+                                                    Login
                                                 </a>
                                             </td>
                                         </tr>
@@ -214,7 +226,7 @@ $emHTML= "<!DOCTYPE html>
                 <tr>
                     <td align=\"left\" bgcolor=\"#ffffff\" style=\"padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;\">
                         <p style=\"margin: 0;\">If that doesn't work, copy and paste the following link in your browser:</p>
-                        <p style=\"margin: 0;\"><a href=\"$link\" target=\"_blank\">$link</a></p>
+                        <p style=\"margin: 0;\"><a href=\"$cbaselink\" target=\"_blank\">$cbaselink</a></p>
                     </td>
                 </tr>
                 <!-- end copy -->
@@ -281,12 +293,17 @@ $emHTML= "<!DOCTYPE html>
 </body>
 </html>";
 
-$emPlain = "New Typist Account Access Granted
+$emPlain = "A new user account has been created for you in vScription Transcribe Pro. 
 		
+Your login details are:
+Login Server: $cbaselink
+Username: $email 
+Password: $pass
+                          
+                        
+If you would like to reset your password, press the link below, enter your email address and click the Forgot Password link. That will send you an email with a link allowing you to reset your password.
 
-You have been granted access to $accName as Typist. Please click the link below to accept:
-
-$link
+$cbaselink
 
 If it is not clickable, please copy and paste the URL into your browser.
 

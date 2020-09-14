@@ -218,7 +218,8 @@ class UserController
         $user = $this->userGateway->getUserByEmail($_POST["email"]);
         if($user)
         {
-            if($user["email_notification"] != 1) // todo OR plan ID != 3
+//            if($user["email_notification"] != 1) // oldTodo OR plan ID != 3
+            if($user["typist"] != 1)
             {
                 return generateApiHeaderResponse("User is not accepting invites at the moment.", true);
             }

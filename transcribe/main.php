@@ -38,7 +38,7 @@ else {
 
 
 
-    <script src="data/scripts/main.min.js?v=3"></script>
+    <script src="data/scripts/main.min.js?v=5"></script>
 
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,300&display=swap"
           rel="stylesheet">
@@ -113,33 +113,7 @@ else {
                     <img src="data/images/Logo_vScription_Transcribe_Pro_White.png" width="300px"/>
                 </td>
             </tr>
-
-
         </table>
-
-        <!--<table id="header-tbl">
-            <tr>
-                <td id="logbar" align="right" colspan="2">
-                    Logged in as: <?php /*echo $_SESSION['uEmail'] */?> |
-
-                    <a class="logout" href="logout.php">
-                        <i class="fas fa-sign-out-alt"></i>
-                        Logout
-                    </a>
-                </td>
-            </tr>
-            <tr class="spacer"></tr>
-            <tr style="margin-top: 50px">
-                <td class="title" align="left" width="450px">
-                    <legend>vScription Transcribe Pro Job Lister</legend>
-                </td>
-
-                <td width="305">
-                    <img src="data/images/Logo_vScription_Transcribe_Pro_White.png" width="300px"/>
-                </td>
-            </tr>
-        </table>-->
-
 
         <table class="data-tbl">
             <tr>
@@ -187,7 +161,7 @@ else {
                             <th>Job Status</th>
                             <th>Job Transcribed</th>
                             <th>Initial Download</th>
-                            <th>Download</th>
+                            <th>Actions</th>
                         </tr>
                         </thead>
 
@@ -202,11 +176,15 @@ else {
                             <th>Job Status</th>
                             <th>Job Transcribed</th>
                             <th>Initial Download</th>
-                            <th>Download</th>
+                            <th>Actions</th>
                         </tr>
                         </tfoot>
                     </table>
                 </td>
+            </tr>
+            <tr>
+                <td id="tjd"></td>
+                <td id="cbm" style="text-align: right"></td>
             </tr>
         </table>
 

@@ -3,7 +3,7 @@
 namespace Src\System;
 
 use Src\TableGateways\logger;
-use Src\TableGateways\UserGateway;
+use Src\TableGateways\MailingGateway;
 
 date_default_timezone_set('America/Winnipeg');
 include_once(__DIR__ . '/../../../transcribe/data/parts/constants.php');
@@ -13,14 +13,14 @@ class Mailer
 {
      private $db;
      private $logger;
-     private $userGateway;
+     private $mailingGateway;
      private $API_NAME = "Mailer";
 
     public function __construct($db)
     {
         $this->db = $db;
         $this->logger = new logger($db);
-        $this->userGateway = new UserGateway($db);
+        $this->mailingGateway = new MailingGateway($db);
     }
 
     // * @param $mailType int reset-password: 0 | sign-up -> 1 | password reset -> 4 | verify email: 5
@@ -30,6 +30,7 @@ class Mailer
      * @param $mailType int  >0: reset-password <br>&nbsp; 5: verify email
      * <br> &nbsp; 6: typist-invitation
      * <br>10: document-complete <br>15: job added
+     * <br>16: user-added-via-sys-admin
      * @param $user_email string user email address
      * @param string $account_name client admin account name for email type 6
      * @param int $extra1 extra field to insert to tokens table
@@ -76,7 +77,7 @@ class Mailer
                     if(!$token) return false;
                     $link = "$cbaselink/secret.php?s=$token";
                     include(__DIR__ . '/../../../mail/templates/typist_invitation.php');
-                    $sbj = "Invitation";
+                    $sbj = "vScription Transcribe Pro - New Typist Account Access Granted";
                     $mail->addBCC("sales@vtexvsi.com");
                     break;
 
@@ -84,7 +85,7 @@ class Mailer
                     include(__DIR__ . '/../../../mail/templates/document_complete.php');
                     $sbj = "New Document(s) Ready for Download";
                     $mail->addBCC("sales@vtexvsi.com"); // duplicate do not uncomment
-                    $emailsArray = $this->userGateway->getClientAccAdminsEmailForJobUpdates();
+                    $emailsArray = $this->mailingGateway->getClientAccAdminsEmailForJobUpdates();
                     $mailingListSize = sizeof($emailsArray);
                     if($mailingListSize > 0)
                     {
@@ -97,7 +98,7 @@ class Mailer
                 case 15:
                     include(__DIR__ . '/../../../mail/templates/job_ready_for_typing.php');
                     $sbj = "New Job(s) Ready for Typing";
-                    $emailsArray = $this->userGateway->getCurrentTypistsForJobUpdates();
+                    $emailsArray = $this->mailingGateway->getCurrentTypistsForJobUpdates();
                     $mailingListSize = sizeof($emailsArray);
                     if($mailingListSize > 0)
                     {
@@ -106,6 +107,18 @@ class Mailer
                         }
                     }
                     $mail->addBCC("sales@vtexvsi.com"); // duplicate do not uncomment
+                    break;
+
+                case 16:
+                    $mailingListSize = 1;
+//                    $token = $this->generateToken($user_email, $mailType, $extra1);
+//                    if(!$token) return false;
+                    $link = "$cbaselink/index.php";
+                    global $pass;
+                    $pass = $extra1;
+                    include(__DIR__ . '/../../../mail/templates/user_added.php');
+                    $sbj = "vScription Transcribe Pro - New User Account Password";
+                    $mail->addBCC("sales@vtexvsi.com");
                     break;
 
                 default:

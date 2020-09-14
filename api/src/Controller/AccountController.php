@@ -61,14 +61,14 @@ class AccountController
     public function processPublicRequest()
     {
         switch ($this->requestMethod) {
-//            case 'GET':
-//                if ($this->accountId) {
-//                    $response = $this->getAccount($this->accountId);
-//                } else {
-//                    $response = $this->getAllAccounts();
-//                }
-//                }
-//                break;
+            case 'GET':
+                if ($this->accountId) {
+                    $response = $this->getPublicAccount($this->accountId);
+                } else {
+                    $response = $this->notFoundResponse();
+                }
+
+                break;
             case 'POST':
                 $response = $this->createClientAccount();
 //                }
@@ -134,6 +134,17 @@ class AccountController
     private function getAccount($id)
     {
         $result = $this->accountGateway->find($id);
+        /*if (! $result) {
+//            return $this->notFoundResponse();
+        }*/
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = json_encode($result);
+        return $response;
+    }
+
+    private function getPublicAccount($id)
+    {
+        $result = $this->accountGateway->findPubAccount($id);
         /*if (! $result) {
 //            return $this->notFoundResponse();
         }*/

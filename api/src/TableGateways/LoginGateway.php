@@ -77,7 +77,7 @@ class LoginGateway
                         switch ($user['account_status']) {
                             case 5: // email verification required
                                 $this->insertAuditLogEntry(0, "Failed login - Pending Verification");
-                                return array("error" => true, "msg" => "Pending Email Verification.", "code" => 5);
+                                return array("error" => true, "msg" => "Please verify your email first.", "code" => 5);
                                 break;
                             case 0: // Account is locked
 

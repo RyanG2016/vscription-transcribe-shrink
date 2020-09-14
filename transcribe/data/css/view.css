@@ -1,0 +1,23 @@
+@import "parts/user_card_view.css";
+@import "parts/card.css";
+@import "parts/vars.css";
+
+/* ---------------------*/
+/* ---BODY STYLING  --*/
+/* ---------------------*/
+
+:root {
+    --light-bg-color: #3498db;
+    --dark-bg-color: #2c3e50;
+}
+
+body{
+    font-family: oxygen, sans-serif;
+    /*text-align: center;*/
+}
+
+.vtex-card{
+    max-width: 700px;
+    padding: 30px;
+    margin: 0 auto;
+}
