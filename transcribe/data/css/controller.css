@@ -51,14 +51,15 @@
 .item4 { grid-area: compatBrowsers; }
 .item5 { grid-area: compatOS; }
 .item6 { grid-area: compatHardware; }
+.item7 { grid-area: compatDRHardware; }
 .item4-5-header { grid-area: compatHeader; }
 .grid-wrapper {
     display: inline-grid;
     /*display: grid;*/
     grid-template-areas:
-    'desc menu menu menu menu menu menu'
-    'header header header header compatHeader compatHeader compatHeader'
-    'main main main main compatBrowsers compatOS compatHardware';
+    'desc menu menu menu menu menu menu menu'
+    'header header header header compatHeader compatHeader compatHeader compatHeader'
+    'main main main main compatBrowsers compatOS compatHardware compatDRHardware';
     /*'menu footer footer footer footer footer';*/
     grid-gap: 10px;
     /*background-color: #2196F3;*/
@@ -67,7 +68,7 @@
     /*grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr ;*/
     width: 100%;
     /*grid-template-columns: 1fr 1fr 1fr 1fr fit-content(100%) fit-content(100%);*/
-    grid-template-columns: min-content 1fr 1fr 1fr fit-content(100%) fit-content(100%);
+    grid-template-columns: min-content 1fr 1fr 1fr fit-content(100%) fit-content(100%) fit-content(100%);
 }
 
 .grid-wrapper > div {
