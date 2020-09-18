@@ -89,8 +89,12 @@ class Mailer
                     $mailingListSize = sizeof($emailsArray);
                     if($mailingListSize > 0)
                     {
-                        foreach ($emailsArray as $row) {
-                            $mail->addCC($row["email"]);
+                        foreach ($emailsArray as $key=>$row) {
+                            if($key == 0) {
+                                $email = $row["email"];
+                            }else{
+                                $mail->addCC($row["email"]);
+                            }
                         }
                     }
                     break;
@@ -102,8 +106,12 @@ class Mailer
                     $mailingListSize = sizeof($emailsArray);
                     if($mailingListSize > 0)
                     {
-                        foreach ($emailsArray as $row) {
-                            $mail->addCC($row["email"]);
+                        foreach ($emailsArray as $key=>$row) {
+                            if($key == 0) {
+                                $email = $row["email"];
+                            }else{
+                                $mail->addCC($row["email"]);
+                            }
                         }
                     }
                     $mail->addBCC("sales@vtexvsi.com"); // duplicate do not uncomment
@@ -128,7 +136,8 @@ class Mailer
 
             if($mailingListSize > 0)
             {
-                $mail->addAddress($email); //recipient
+                if($email) $mail->addAddress($email); //recipient
+//                if($email) $mail->addAddress($email); //recipient
                 $mail->Subject = $sbj;
                 $mail->Body = $emHTML;
                 $mail->AltBody = $emPlain;
@@ -137,7 +146,12 @@ class Mailer
             }else{
                 return true;
             }
-            $this->logger->insertAuditLogEntry($this->API_NAME, "$sbj email sent to '$email'");
+            if($mailingListSize > 1)
+            {
+                $this->logger->insertAuditLogEntry($this->API_NAME, "$sbj email sent to ".$mailingListSize . " emails");
+            }else{
+                $this->logger->insertAuditLogEntry($this->API_NAME, "$sbj email sent to '$email'");
+            }
             return $result;
         } catch (\PHPMailer\PHPMailer\Exception $e) {
 //        $_SESSION['error'] = true;  //error=1 in session
