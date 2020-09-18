@@ -146,7 +146,11 @@ class Mailer
             }else{
                 return true;
             }
-            if($mailingListSize > 1)
+            if($mailingListSize == 0)
+            {
+                $this->logger->insertAuditLogEntry($this->API_NAME, "$sbj mailing list is empty");
+            }
+            else if($mailingListSize > 1)
             {
                 $this->logger->insertAuditLogEntry($this->API_NAME, "$sbj email sent to ".$mailingListSize . " emails");
             }else{
