@@ -53,40 +53,86 @@ $(document).ready(function () {
             "</div>"
     });
 
+    //<editor-fold desc="Tutorial Snippet to copy">
+    /**
+     * Copy this fold to any JS file for any page and just edit the following
+     * 1. enjoyhint_script_steps -> steps of the tutorial text and screen items to be highlighted
+     * 2. tutorialViewed function -> ajax 'url' relative path MAY need to be edited
+     * finally copy over the following to the page PHP code before the initializing of the JS file
+     *
+     <?php $tuts=(isset($_SESSION['tutorials']))?$_SESSION['tutorials']:'{}'; ?>
+    <script type="text/javascript">
+            var tutorials='<?php echo $tuts;?>';
+    </script>
+     */
     //initialize instance
-    var enjoyhint_instance = new EnjoyHint({});
+    var enjoyhint_instance
+        = new EnjoyHint({
+        onEnd:function(){
+            tutorialViewed();
+        },
+        onSkip:function(){
+            tutorialViewed();
+        }
+    });
 
     //simple config.
     //Only one step - highlighting(with description) "New" button
     //hide EnjoyHint after a click on the button.
-        var enjoyhint_script_steps = [
-            {
-                "next .navbar-text": "Here you will find your current email, account and role."
-            },
-            {
-                "next #adminCard": "Here you can create/manage your client administrator account <br> " +
-                    "<i>- You can only create <b>one</b> account -</i>",
-                shape:"circle"
-            },
-            {
-                "next #typistCardHead":'Here is the typist section',
-            }
-            ,
-            {
-                "next #typistCard>div":'Here you can find information about your current work permissions',
-                // shape:"circle",
-            }
-            ,
-            {
-                "click #alertT2":'Here you can set whether or not you\'re open for new work invites.',
-                // shape:"circle",
-                "skipButton":{text: "Finish"}
-            }
-        ];
+    var enjoyhint_script_steps = [
+        {
+            "next .navbar-text": "Here you will find your current email, account and role."
+        },
+        {
+            "next #adminCard": "Here you can create/manage your client administrator account <br> " +
+                "<i>- You can only create <b>one</b> account -</i>",
+            shape:"circle"
+        },
+        {
+            "next #typistCardHead":'Here is the typist section',
+        }
+        ,
+        {
+            "next #typistCard>div":'Here you can find information about your current work permissions',
+            // shape:"circle",
+        }
+        ,
+        {
+            "click #alertT2":'Here you can set whether or not you\'re open for new work invites.',
+            // shape:"circle",
+            "skipButton":{text: "Finish"}
+        }
+    ];
 
     //set script config
-        enjoyhint_instance.set(enjoyhint_script_steps);
+    enjoyhint_instance.set(enjoyhint_script_steps);
 
+    // get page name
+    const currentPageName = location.pathname.split("/").slice(-1)[0].replace(".php","");
+    // parse user tutorials data to JSON
+    var tutorialsJson = JSON.parse(tutorials);
+    // check if tutorial for the current page isn't viewed before
+    if(tutorialsJson[currentPageName] == undefined || tutorialsJson[currentPageName] == 0){
+        // show tutorial
+        enjoyhint_instance.run();
+    }
+
+    function tutorialViewed() {
+        var formData = new FormData();
+        formData.append("page", currentPageName);
+        $.ajax({
+            type: 'POST',
+            url: "../api/v1/users/tutorial-viewed/",
+            processData: false,
+            data: convertToSearchParam(formData)
+        });
+    }
+    //</editor-fold>
+
+
+
+        // console.log("tutorials variable: " + tutorials);
+        // console.log(JSON.parse(tutorials));
     //run Enjoyhint script
     //     enjoyhint_instance.run();
 

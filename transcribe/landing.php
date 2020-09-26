@@ -58,7 +58,10 @@ if (isset($_SESSION['counter'])) {
 <!--    <script src="data/thirdparty/enjoyhint/enjoyhint.min.js"></script>-->
     <script src="data/thirdparty/enjoyhint/enjoyhint.min.js"></script>
 
-
+    <?php $tuts=(isset($_SESSION['tutorials']))?$_SESSION['tutorials']:'{}'; ?>
+    <script type="text/javascript">
+        var tutorials='<?php echo $tuts;?>';
+    </script>
     <link href="data/css/landing.css?v=2" rel="stylesheet">
     <script src="data/scripts/landing.min.js" type="text/javascript"></script>
 
