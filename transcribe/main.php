@@ -38,8 +38,6 @@ else {
 
 
 
-    <script src="data/scripts/main.min.js?v=5"></script>
-
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,300&display=swap"
           rel="stylesheet">
     <script src="https://kit.fontawesome.com/00895b9561.js" crossorigin="anonymous"></script>
@@ -75,7 +73,20 @@ else {
     <link rel="stylesheet" type="text/css" href="data/tooltipster/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-punk.min.css" />
     <script type="text/javascript" src="data/tooltipster/js/tooltipster.bundle.min.js"></script>
 
-    <link rel="stylesheet" href="data/css/main.css">
+	
+	 <!-- Enjoyhint library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/kineticjs/5.2.0/kinetic.js"> </script>
+    <link href="data/thirdparty/enjoyhint/enjoyhint.css" rel="stylesheet">
+    <script src="data/thirdparty/enjoyhint/enjoyhint.min.js"></script>
+
+	<?php $tuts=(isset($_SESSION['tutorials']))?$_SESSION['tutorials']:'{}'; ?>
+    <script type="text/javascript">
+        var tutorials='<?php echo $tuts;?>';
+    </script>
+	
+	<link rel="stylesheet" href="data/css/main.css">
+	<script src="data/scripts/main.js?v=5"></script>
+	
 </head>
 
 <body>
