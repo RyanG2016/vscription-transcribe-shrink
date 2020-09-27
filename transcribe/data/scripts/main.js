@@ -285,6 +285,38 @@ $(document).ready(function () {
 		var tutorialsJson = JSON.parse(tutorials);
 		// check if tutorial for the current page isn't viewed before
 		if(tutorialsJson[currentPageName] == undefined || tutorialsJson[currentPageName] == 0){
+			//Insert sample dictation row in case there are not files in the account
+			jobsDTRef.row.add(
+				{acc_id: "1",
+				audio_length: "60",
+				billed: "0",
+				file_author: "Sample Author",
+				file_comment: "Sample file comment",
+				file_date_dict: "2020-09-28 03:50:25",
+				file_id: "0",
+				file_speaker_type: "1",
+				file_status: "3",
+				file_status_ref: "Completed",
+				file_transcribed_date: "2020-09-28 03:50:25",
+				file_type: null,
+				file_work_type: "Sample",
+				filename: "F1_AA000_Sample_File.mp3",
+				isBillable: "0",
+				job_id: "AA-0000001",
+				job_transcribed_by: "typist@mail.com",
+				job_upload_date: "2020-09-28 03:50:25",
+				job_uploaded_by: "admin@mail.com",
+				last_audio_position: "0",
+				org_ext: "mp3",
+				orig_filename: "Sample_File.mp3",
+				text_downloaded_date: "2020-09-28 03:50:25",
+				times_text_downloaded_date: "5",
+				tmp_name: null,
+				typist_comments: "WElcome to vScription Transcribe Pro!",
+				user_field_1: "",
+				user_field_2: "",
+				user_field_3: ""}
+				).draw();
 			// show tutorial
 			enjoyhint_instance.run();
 		}
@@ -292,6 +324,7 @@ $(document).ready(function () {
 		function tutorialViewed() {
 			var formData = new FormData();
 			formData.append("page", currentPageName);
+			jobsDTRef.row('#0').remove().draw();
 			$.ajax({
 				type: 'POST',
 				url: "../api/v1/users/tutorial-viewed/",
