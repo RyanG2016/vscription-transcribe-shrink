@@ -100,7 +100,6 @@ $(document).ready(function () {
             contentType: false,
             success: function (response) {
                 accessDTRef.ajax.reload(); // refresh access table
-                getTypists(); // refresh typists dropdown list
                 createAccModal.modal('hide');
                 changeLoading(false);
                 $.confirm({
@@ -220,7 +219,6 @@ $(document).ready(function () {
                                         processData: false,
                                         contentType: false,
                                         success: function (response) {
-                                            getTypists();
                                             accessDTRef.ajax.reload(); // refresh access table
                                             $.confirm({
                                                 title: 'Success',
@@ -383,7 +381,7 @@ $(document).ready(function () {
     });
 
 
-    getTypists();
+    /*getTypists();
 
     function getTypists()
     {
@@ -408,7 +406,7 @@ $(document).ready(function () {
                 accountBox.selectpicker('refresh');
             }
         });
-    }
+    }*/
 
 });
 

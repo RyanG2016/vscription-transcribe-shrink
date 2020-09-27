@@ -110,6 +110,10 @@ $(document).ready(function () {
             });
 
             formData.append("country", countryTxt);
+            if(ref)
+            {
+                formData.append("ref", ref);
+            }
 
             $.ajax({
                 type: 'POST',
