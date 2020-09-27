@@ -260,7 +260,7 @@ $(document).ready(function () {
 			}
 			,		
 			{
-				"next .mdc-button__ripple":'Click here to manually upload new jobs',
+				"next #newupload_btn > div":'Click here to manually upload new jobs',
 				// shape:"circle",
 			}
 			,
