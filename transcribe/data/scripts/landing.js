@@ -52,7 +52,7 @@ $(document).ready(function () {
             "<i>This doesn't affect your current jobs</i>" +
             "</div>"
     });
-
+ 
     //<editor-fold desc="Tutorial Snippet to copy">
     /**
      * Copy this fold to any JS file for any page and just edit the following

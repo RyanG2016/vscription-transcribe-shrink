@@ -10,7 +10,7 @@ var loadingTitle;
 var isConnected = false;
 var isConnecting = true;
 var firstLaunch = true;
-var statusTxt;
+var statusTxt; 
 var overlay;
 var not_connected = "<i>Couldn't connect to controller <u id=\"reconnect\">reconnect?</u></i>";
 var connecting = "<i>connecting to controller please wait...</i>";

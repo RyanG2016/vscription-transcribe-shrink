@@ -379,7 +379,7 @@ $(document).ready(function () {
     $("#closeAccModal").on("click", function (e) {
         createAccModal.modal('hide');
     });
-
+ 
 
     /*getTypists();
 
