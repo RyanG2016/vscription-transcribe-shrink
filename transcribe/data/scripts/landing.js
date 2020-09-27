@@ -81,24 +81,19 @@ $(document).ready(function () {
     //hide EnjoyHint after a click on the button.
     var enjoyhint_script_steps = [
         {
-            "next .navbar-text": "Here you will find your current email, account and role."
+            "next .navbar-text": "Here you will find your login name, current account and role within that account"
         },
         {
-            "next #adminCard": "Here you can create/manage your client administrator account <br> " +
-                "<i>- You can only create <b>one</b> account -</i>",
+            "next #adminCard": "Here you can create and manage your client administrator account",
             shape:"circle"
         },
         {
-            "next #typistCardHead":'Here is the typist section',
-        }
-        ,
-        {
-            "next #typistCard>div":'Here you can find information about your current work permissions',
+            "next #typistCard>div":'Here you can find information about your current access permissions',
             // shape:"circle",
         }
         ,
         {
-            "click #alertT2":'Here you can set whether or not you\'re open for new work invites.',
+            "click #alertT2":'Here you can set whether or not you\'re open for new work invites from other accounts.',
             // shape:"circle",
             "skipButton":{text: "Finish"}
         }
