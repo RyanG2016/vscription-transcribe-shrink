@@ -482,7 +482,7 @@ class accessGateway
      * @param $acc_id int account ID
      * @param $uid int user ID
      * @param $username string username/email of the user
-     * @param $acc_role int user role for the account @roles tbl, 6:pending invitation
+     * @param $acc_role int user role for the account @roles tbl, 6:pending invite acceptance to be typist | 3: typist
      * @return int inserted_id | 0 if failed
      */
     public function internalManualInsertAccessRecord($acc_id, $uid, $username, $acc_role)

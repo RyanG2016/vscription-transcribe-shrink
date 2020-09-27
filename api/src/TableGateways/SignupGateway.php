@@ -3,6 +3,8 @@
 namespace Src\TableGateways;
 use Src\TableGateways\CityGateway;
 use Src\TableGateways\CountryGateway;
+use Src\TableGateways\accessGateway;
+use Src\TableGateways\tokenGateway;
 use Src\System\Mailer;
 include_once "common.php";
 
@@ -12,6 +14,8 @@ class SignupGateway
     private $db = null;
     private $cityGateway = null;
     private $CountryGateway = null;
+    private $accessGateway = null;
+    private $tokenGateway = null;
     private $mailer;
 
     public function __construct($db)
@@ -19,6 +23,8 @@ class SignupGateway
         $this->db = $db;
         $this->cityGateway = new CityGateway($db);
         $this->CountryGateway = new CountryGateway($db);
+        $this->accessGateway = new accessGateway($db);
+        $this->tokenGateway = new tokenGateway($db);
         $this->mailer = new Mailer($db);
     }
 
@@ -76,6 +82,7 @@ class SignupGateway
         $pass = $_POST["password"];
         $fname = $_POST["fname"];
         $lname = $_POST["lname"];
+        $ref = $_POST["ref"];
         $countryID = $_POST["countryID"];
         $stateID = $_POST["stateID"]?$_POST["stateID"]:null;
         $city = isset($_POST["city"])?$_POST["city"]:null;
@@ -165,14 +172,44 @@ class SignupGateway
                 "last_ip_address" => getIP(),
                 "plan_id" => 2
             ));
+            $lastInsertedUID = $this->db->lastInsertId();
             $count =  $statement->rowCount();
             if($count != 0)
             {
                 $this->mailer->sendEmail(5, $email);
 
+                // check if there's a pending typist invite (ref)
+                if($ref)
+                {
+                    // get accID
+                    $tokenData = $this->tokenGateway->find($ref);
+                    if($tokenData)
+                    {
+                        $accID = $tokenData["extra1"];
+
+                        // accept invite
+                        $this->accessGateway->internalManualInsertAccessRecord(
+                            $accID,
+                            $lastInsertedUID,
+                            $_POST["email"],
+                            3);
+
+                        $this->tokenGateway->expireToken($tokenData["id"]);
+
+                        return generateApiHeaderResponse("Signed up successfully, \nTypist invitation accepted, \n\nPlease verify your email address before trying to login",
+                            false,
+                            array("id"=>$lastInsertedUID));
+                    }else{
+                        // token not found or expired
+                        return generateApiHeaderResponse("Signed up successfully, please verify your email address before trying to login, couldn't accept typist invitation (Invalid or Expired token)",
+                            false,
+                            array("id"=>$lastInsertedUID));
+                    }
+                }
+
                 return generateApiHeaderResponse("Signed up successfully, please verify your email address before trying to login",
                     false,
-                    array("id"=>$this->db->lastInsertId()));
+                    array("id"=>$lastInsertedUID));
             }else{
                 return generateApiHeaderResponse("Couldn't sign you up, please contact system admin", true);
             }

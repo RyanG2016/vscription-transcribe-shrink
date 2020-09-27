@@ -249,7 +249,11 @@ class UserController
                 return generateApiHeaderResponse("User is not accepting invites at the moment.", true);
             }
         }else{
-            return generateApiHeaderResponse("User not found.", true);
+            // send signup and accept invite email to user email address
+            // 1. send signup_typist_invitation email
+            $this->mailer->sendEmail(7, $_POST["email"], $_SESSION["acc_name"], $_SESSION["accID"]);
+            return generateApiHeaderResponse("Signup invitation sent, user will be granted permission once signed up.", false);
+//            return generateApiHeaderResponse("User not found.", true);
         }
 
         $accessID = $this->accessGateway->internalManualInsertAccessRecord($_SESSION["accID"], $user["id"], $_POST["email"], 6);

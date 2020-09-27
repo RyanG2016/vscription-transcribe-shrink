@@ -113,7 +113,7 @@ $emHTML= "<!DOCTYPE html>
 
 <!-- start preheader -->
 <div class=\"preheader\" style=\"display: none; max-width: 0; max-height: 0; overflow: hidden; font-size: 1px; line-height: 1px; color: #fff; opacity: 0;\">
-    New Typist Account Access Granted
+    Typist role invitation by $accName
 </div>
 <!-- end preheader -->
 
@@ -157,7 +157,7 @@ $emHTML= "<!DOCTYPE html>
             <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"max-width: 600px;\">
                 <tr>
                     <td align=\"left\" bgcolor=\"#ffffff\" style=\"padding: 36px 24px 0; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; border-top: 3px solid #d4dadf;\">
-                        <h1 style=\"margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -1px; line-height: 48px;\">New Typist Account Access Granted</h1>
+                        <h1 style=\"margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -1px; line-height: 48px;\">Typist role invitation by $accName</h1>
                     </td>
                 </tr>
             </table>
@@ -183,7 +183,7 @@ $emHTML= "<!DOCTYPE html>
                 <!-- start copy -->
                 <tr>
                     <td align=\"left\" bgcolor=\"#ffffff\" style=\"padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;\">
-                        <p style=\"margin: 0;\">You have been granted access to $accName as Typist. Please click the link below to accept. </p>
+                        <p style=\"margin: 0;\">You have been invited to typist role by $accName, Please click the button below to signup and accept the invitation.</p>
                     </td>
                 </tr>
                 <!-- end copy -->
@@ -281,10 +281,10 @@ $emHTML= "<!DOCTYPE html>
 </body>
 </html>";
 
-$emPlain = "New Typist Account Access Granted
+$emPlain = "You have been invited to typist role by $accName
 		
 
-You have been granted access to $accName as Typist. Please click the link below to accept:
+Please click the link below to signup and accept the invitation:
 
 $link
 
