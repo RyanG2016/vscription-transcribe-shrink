@@ -319,7 +319,20 @@ $(document).ready(function () {
         ],
 
         initComplete: function () {
-            this.api().columns().every(function () {
+
+            this.api().columns([0,3,4,6]).every( function () {
+                var that = this;
+
+                $( 'input', this.footer() ).on( 'keyup change clear', function () {
+                    if ( that.search() !== this.value ) {
+                        that
+                            .search( this.value )
+                            .draw();
+                    }
+                } );
+            } );
+
+            this.api().columns([1,2,5]).every(function () {
                 var column = this;
                 var select = $('<select><option value=""></option></select>')
                     .appendTo($(column.footer()).empty())
@@ -339,6 +352,17 @@ $(document).ready(function () {
             });
         }
     });
+
+    $(
+        '#jobs-tbl tfoot th:eq(0),' +
+        '#jobs-tbl tfoot th:eq(3),' +
+        '#jobs-tbl tfoot th:eq(4),' +
+        '#jobs-tbl tfoot th:eq(6)'
+    ).each( function () {
+        // var title = $(this).text();
+        // $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+        $(this).html( '<input class="dt-search" type="text"/>' );
+    } );
 
     jobsDT.on('draw.dt', function () {
 

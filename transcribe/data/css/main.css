@@ -233,8 +233,7 @@ i.fas.fa-ban {
 /* --DEMOGRAPHICS STYLING --*/
 /* -----------------*/
 
-input[type=text],
-/*select,*/
+input[type=text]:not(.dt-search),
 textarea {
     width: 75%;
     padding: 6px 20px;
@@ -246,7 +245,7 @@ textarea {
     font-family: oxygen, sans-serif;
 }
 
-select {
+select,.dt-search {
     width: 100%;
     /*padding: 6px 20px;*/
     margin: 8px 0;

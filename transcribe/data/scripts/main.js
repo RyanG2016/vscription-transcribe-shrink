@@ -132,27 +132,56 @@ $(document).ready(function () {
 		],
 
 		initComplete: function () {
-			this.api().columns().every( function () {
-				var column = this;
-				var select = $('<select><option value=""></option></select>')
-					.appendTo( $(column.footer()).empty() )
-					.on( 'change', function () {
-						var val = $.fn.dataTable.util.escapeRegex(
-							$(this).val()
-						);
 
-						column
-							.search( val ? '^'+val+'$' : '', true, false )
+			this.api().columns([0,3,4,5,7,8]).every( function () {
+				var that = this;
+
+				$( 'input', this.footer() ).on( 'keyup change clear', function () {
+					if ( that.search() !== this.value ) {
+						that
+							.search( this.value )
 							.draw();
-					} );
-
-				column.data().unique().sort().each( function ( d, j ) {
-					select.append( '<option value="'+d+'">'+d+'</option>' )
+					}
 				} );
 			} );
+
+			this.api().columns([1,2,6]).every(
+				function () {
+					var column = this;
+					var select = $('<select><option value=""></option></select>')
+						.appendTo($(column.footer()).empty())
+						.on('change', function () {
+							var val = $.fn.dataTable.util.escapeRegex(
+								$(this).val()
+							);
+
+							column
+								.search(val ? '^' + val + '$' : '', true, false)
+								.draw();
+						});
+
+					column.data().unique().sort().each(function (d, j) {
+						select.append('<option value="' + d + '">' + d + '</option>')
+					});
+				}
+			);
+
 		}
 
 		
+	} );
+
+	$(
+		'#jobs-tbl tfoot th:eq(0),' +
+		'#jobs-tbl tfoot th:eq(3),' +
+		'#jobs-tbl tfoot th:eq(4),' +
+		'#jobs-tbl tfoot th:eq(7),' +
+		'#jobs-tbl tfoot th:eq(8),' +
+		'#jobs-tbl tfoot th:eq(5)'
+	 ).each( function () {
+		// var title = $(this).text();
+		// $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+		$(this).html( '<input class="dt-search" type="text"/>' );
 	} );
 
 	refreshJobList.addEventListener('click', e => {

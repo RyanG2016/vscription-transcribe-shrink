@@ -498,7 +498,7 @@ u{
     display: none !important;
 }
 
-select {
+select, .dt-search {
     width: 100%;
     /*padding: 6px 20px;*/
     margin: 8px 0;
