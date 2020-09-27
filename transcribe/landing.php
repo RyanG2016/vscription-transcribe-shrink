@@ -152,6 +152,13 @@ if (isset($_SESSION['counter'])) {
                                         Go To Job Lister
                                     </span>
                                 </button>
+                                
+                                <button class=\"mdc-button mdc-button--outlined tools-button\" onclick=\"location.href='manage_typists.php'\">
+                                    <div class=\"mdc-button__ripple\"></div>
+                                    <i class=\"fas fa-keyboard\"></i>
+                                        Manage Typists
+                                    </span>
+                                </button>
                             </div>";
                     } else if ($rl == 1) {
                         echo "<div class=\"vtex-card nav-header first\">
