@@ -700,20 +700,19 @@ function documentReady() {
 				"next .mdc-button__ripple": "Click here to open a file dialog where you can choose your file(s) to upload"
 			},
 			{
-				"next .upload_fields": "Fill in the job details here",
-				shape: "circle",
-				radius: 100
+				"next .box.box7>h3": "Fill in the job details here"
 			},
 			{
-				"next .submit_btn":'Click here to upload the file(s)',
+				"next .submit_btn":'Click here to upload the file(s)'
 			}
 			,
 			{
-				"next .preview":'This will show you all of the file(s) you will be uploading',
+				"next .preview":'This will show you all of the file(s) you will be uploading'
 			}
 			,
 			{
-				"next .clear_btn":'Accidentally choose the wrong files? Click here to remove the file(s) from the upload list',
+				" .clear_btn":'Accidentally choose the wrong files? Click here to remove the file(s) from the upload list',
+				"showNext":false,
 				"skipButton":{text: "Finish"}
 			}
 			,				
