@@ -51,10 +51,6 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
     <script src="https://kit.fontawesome.com/00895b9561.js" crossorigin="anonymous"></script>
 
 
-    <script src="data/scripts/job_upload.min.js"></script>
-    <link rel="stylesheet" href="data/css/upload_form.css">
-    <link rel="stylesheet" href="data/css/job_upload.css">
-
     <title>vScription Transcribe Pro Dictation Upload</title>
 
     <link href='data/css/upload_form2.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet'/>
@@ -70,6 +66,22 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 
     <link rel="stylesheet" href="data/dialogues/jquery-confirm.min.css">
     <script src="data/dialogues/jquery-confirm.min.js"></script>
+	
+	<!-- Enjoyhint library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/kineticjs/5.2.0/kinetic.js"> </script>
+    <link href="data/thirdparty/enjoyhint/enjoyhint.css" rel="stylesheet">
+    <script src="data/thirdparty/enjoyhint/enjoyhint.min.js"></script>
+
+	<?php $tuts=(isset($_SESSION['tutorials']))?$_SESSION['tutorials']:'{}'; ?>
+    <script type="text/javascript">
+        var tutorials='<?php echo $tuts;?>';
+    </script>
+	
+	 <script src="data/scripts/job_upload.js"></script>
+    <link rel="stylesheet" href="data/css/upload_form.css">
+    <link rel="stylesheet" href="data/css/job_upload.css">
+	
+	
 
 </head>
 

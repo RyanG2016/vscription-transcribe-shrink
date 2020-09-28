@@ -682,6 +682,101 @@ function documentReady() {
 		$("#demo_speaker_type").val(0);
 		$('#demo_comments').val("");		
 	}
+		// Tutorial area
+	
+		//initialize instance
+		var enjoyhint_instance
+			= new EnjoyHint({
+			onEnd:function(){
+				tutorialViewed();
+			},
+			onSkip:function(){
+				tutorialViewed();
+			}
+		});
+
+		var enjoyhint_script_steps = [
+			{
+				"next .mdc-button__ripple": "Click here to open a file dialog where you can choose your file(s) to upload"
+			},
+			{
+				"next .upload_fields": "Fill in the job details here",
+				shape: "circle",
+				radius: 100
+			},
+			{
+				"next .submit_btn":'Click here to upload the file(s)',
+			}
+			,
+			{
+				"next .preview":'This will show you all of the file(s) you will be uploading',
+			}
+			,
+			{
+				"next .clear_btn":'Accidentally choose the wrong files? Click here to remove the file(s) from the upload list',
+				"skipButton":{text: "Finish"}
+			}
+			,				
+			/**{
+				"click #help > a":"Click here to access the online help",
+				// shape:"circle",
+				"skipButton":{text: "Finish"}
+			} **/
+		];
+
+		//set script config
+		enjoyhint_instance.set(enjoyhint_script_steps);
+
+		// get page name
+		const currentPageName = location.pathname.split("/").slice(-1)[0].replace(".php","");
+		// parse user tutorials data to JSON
+		var tutorialsJson = JSON.parse(tutorials);
+		// check if tutorial for the current page isn't viewed before
+		if(tutorialsJson[currentPageName] == undefined || tutorialsJson[currentPageName] == 0){
+			
+			//Prep page with sample data for tutorial
+			document.querySelector('.clear_btn').removeAttribute("disabled");
+			document.querySelector('.submit_btn').removeAttribute("disabled");
+
+			const tbl = document.createElement("table");
+			const header = document.createElement("tr");
+			const headerD1 = document.createElement("th"); // file number
+			const headerD2 = document.createElement("th"); // file name
+			const headerD3 = document.createElement("th"); // file size
+			const headerD4 = document.createElement("th"); // file duration
+			const headerD6 = document.createElement("th"); // status
+
+			headerD1.innerHTML = '#';
+			headerD2.innerHTML = 'File Name';
+			headerD3.innerHTML = 'Size';
+			headerD4.innerHTML = 'Duration';
+			headerD6.innerHTML = 'Status';
+			header.append(headerD1);
+			header.append(headerD2);
+			header.append(headerD3);
+			header.append(headerD4);
+			header.append(headerD6);
+
+			tbl.setAttribute("class", "que-files");
+			tbl.appendChild(header);
+			tbl.appendChild(generateTblFileEntry(0, "PSP0876.DS2", "1346", 0));
+			preview.appendChild(tbl);
+
+			//Start Tutorial
+			enjoyhint_instance.run();
+		}
+
+		function tutorialViewed() {
+			resetFiles();
+			var formData = new FormData();
+			formData.append("page", currentPageName);
+			$.ajax({
+				type: 'POST',
+				url: "../api/v1/users/tutorial-viewed/",
+				processData: false,
+				data: convertToSearchParam(formData)
+			});
+		}
 }
 
 /////////////////////////////////////////
@@ -715,3 +810,11 @@ document.addEventListener('beforeunload', function(event) {
 		console.log("Upload Cancelled (2)");
 	}
 });
+
+function convertToSearchParam(params) {
+const searchParams = new URLSearchParams();
+for (const [key, value] of params) {
+    searchParams.set(key, value);
+}
+return searchParams;
+}
