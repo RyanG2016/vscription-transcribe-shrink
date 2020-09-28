@@ -83,7 +83,7 @@ $(document).ready(function () {
         {
             "next .navbar-text": "Here you will find your login name, current account and role within that account"
         },
-        {
+        { 
             "next #adminCard": "Here you can create and manage your client administrator account",
             shape:"circle"
         },
