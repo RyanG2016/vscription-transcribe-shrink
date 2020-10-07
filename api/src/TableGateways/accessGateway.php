@@ -80,6 +80,7 @@ class accessGateway
             INNER JOIN roles r on access.acc_role = r.role_id
             INNER JOIN users u on access.uid = u.id
             where access.uid = ? and access.acc_role in (1,2,3)
+            and a.enabled = 1
             " . $filter . ";";
 
 
