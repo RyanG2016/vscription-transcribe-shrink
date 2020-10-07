@@ -376,11 +376,11 @@ $(document).ready(function () {
 										success: function (response) {
 											accountsDTRef.ajax.reload(); // refresh accounts table
 											$.confirm({
-												title: 'Success',
+												title: response["error"]?"Error":"Success",
 												content: response["msg"],
 												buttons: {
 													confirm: {
-														btnClass: 'btn-green',
+														btnClass: response["error"]?"btn-red":"btn-green",
 														action: function () {
 															return true;
 														}
