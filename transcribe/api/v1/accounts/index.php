@@ -10,12 +10,6 @@ if(isset($_SESSION['counter']))
 {
     unset($_SESSION['counter']);
 }
-//if ((!isset($_SESSION['role']) || $_SESSION['role'] != "1") && !isset($_REQUEST["out"]) ) {
-if (!isset($_SESSION['role'])) {
-//User is a System Administrator ONLY
-    header("HTTP/1.1 401 ACCESS DENIED");
-    exit();
-}
 
 use Src\Controller\AccountController;
 
