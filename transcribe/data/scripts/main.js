@@ -12,6 +12,7 @@ var totalTrDur = 0;
 $(document).ready(function () {
 
 	const maximum_rows_per_page_jobs_list = 10;
+	var calculatedIds = [];
 
 	// $('.tooltip').tooltipster();
 
@@ -107,11 +108,15 @@ $(document).ready(function () {
 			{ "data": "job_upload_date" },
 			{ "data": "audio_length",
 				render: function (data,type,row) {
-					totalDur += parseInt(data);
-
-					if(row["file_status"] == 1 || row["file_status"] == 2 || row["file_status"] == 0)
+					if(row["file_id"] != 0 && !calculatedIds.includes(row["file_id"]))
 					{
-						totalTrDur += parseInt(data);
+						totalDur += parseInt(data);
+
+						if(row["file_status"] == 1 || row["file_status"] == 2 || row["file_status"] == 0)
+						{
+							totalTrDur += parseInt(data);
+						}
+						calculatedIds.push(row["file_id"]);
 					}
 
 					return new Date(data * 1000).toISOString().substr(11, 8);
@@ -132,7 +137,7 @@ $(document).ready(function () {
 		],
 
 		initComplete: function () {
-
+			calculatedIds = []; // freeing resources
 			this.api().columns([0,3,4,5,7,8]).every( function () {
 				var that = this;
 
