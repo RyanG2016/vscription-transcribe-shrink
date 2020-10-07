@@ -239,7 +239,7 @@ isset($_SESSION['uEmail'])?$uEmail = $_SESSION['uEmail']:$uEmail = "";
 	<script src="data/login/vendor/bootstrap/js/popper.js"></script>
 	<script src="data/login/vendor/bootstrap/js/bootstrap.min.js"></script>
 	<script src="data/login/vendor/select2/select2.min.js"></script>
-	<script src="data/scripts/login.min.js"></script>
+	<script src="data/scripts/login.min.js?v=2"></script>
 
 
 
