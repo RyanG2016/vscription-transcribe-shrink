@@ -80,13 +80,15 @@ $(document).ready(function () {
     //Only one step - highlighting(with description) "New" button
     //hide EnjoyHint after a click on the button.
     var enjoyhint_script_steps = [
+        { 
+            "next #adminCard": "Start here by setting up your account. This needs to done before you can upload jobs",
+            shape:"circle"
+        }
+        ,
         {
             "next .navbar-text": "Here you will find your login name, current account and role within that account"
-        },
-        { 
-            "next #adminCard": "Here you can create and manage your client administrator account",
-            shape:"circle"
-        },
+        }
+        ,
         {
             "next #typistCard>div":'Here you can find information about your current access permissions',
             // shape:"circle",
