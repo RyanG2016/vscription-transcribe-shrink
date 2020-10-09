@@ -172,12 +172,12 @@ class AccountController
         if (!$result) {
             return $this->notFoundResponse();
         }
-        $this->accountGateway->delete($id);
-        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response = $this->accountGateway->delete($id);
+        /*$response['status_code_header'] = 'HTTP/1.1 200 OK';
         $response['body'] = json_encode([
             'error' => false,
             'msg' => 'Account Deleted.'
-        ]);
+        ]);*/
         return $response;
     }
 
