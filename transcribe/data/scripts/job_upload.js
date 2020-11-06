@@ -637,7 +637,7 @@ function documentReady() {
     ];
 
 	function validFileType(file) {
-		console.log(file.type);
+		//console.log(file.type);
 		return fileTypes.includes(file.type);
 	}
 
