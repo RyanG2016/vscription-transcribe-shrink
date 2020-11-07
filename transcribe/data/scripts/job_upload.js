@@ -630,11 +630,14 @@ function documentReady() {
         'audio/ds2',
         'audio/vnd.wave',
         'audio/wave',
-        'audio/x-wav'
+        'audio/x-wav',
+		'audio/aac',
+		'audio/alac',
+		'audio/x-m4a'
     ];
 
 	function validFileType(file) {
-		// console.log();
+		//console.log(file.type);
 		return fileTypes.includes(file.type);
 	}
 
