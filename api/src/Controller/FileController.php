@@ -139,7 +139,11 @@ class FileController
                 "audio/mpeg",       // .mp3
                 "audio/x-wav",      // .wav
                 "audio/ogg",        // .ogg
-                "application/octet-stream" // .ds2
+                "application/octet-stream", // .ds2
+				"audio/aac", // .m4a
+				"audio/alac", // .m4a
+				"audio/x-m4a", //.m4a
+				"video/mp4"
 
             );
 
