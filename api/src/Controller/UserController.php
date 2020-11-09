@@ -51,6 +51,9 @@ class UserController
                 }else if ($this->userId == "set-available") {
                     $response = $this->setAvailableForWork();
                 }
+                else if ($this->userId == "tutorial-viewed") {
+                    $response = $this->tutorialViewed();
+                }
                 else if($this->userId == null) {
                     $response = $this->createUserFromRequest();
                 }else{
@@ -82,7 +85,8 @@ class UserController
                 }
                 else if ($this->userId == "available") {
                     $response = $this->getAvailableForWork();
-                } else {
+                }
+                else {
 //                    $response = $this->getAllUsers();
                     $response = $this->notFoundResponse();
                 }
@@ -96,6 +100,9 @@ class UserController
                 }
                 else if ($this->userId == "set-available") {
                     $response = $this->setAvailableForWork();
+                }
+                else if ($this->userId == "tutorial-viewed") {
+                    $response = $this->tutorialViewed();
                 }
                 else if ($this->userId == "invite"){
                     $response = $this->inviteTypistToCurrentAccount();
@@ -152,6 +159,24 @@ class UserController
             return  false;
         }
         $result = $this->userGateway->setAvailableForWorkAsTypist($_POST["av"]);
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = $result;
+        return $response;
+    }
+
+    /**
+     * Updates tutorials field in DB to 1 for a page for the current user
+     * Updates tutorials session variable
+     * @param string POST tutorial page name
+     * @return mixed response with header and body
+     */
+    private function tutorialViewed()
+    {
+        if(!isset($_POST["page"]) || empty($_POST["page"]))
+        {
+            return false;
+        }
+        $result = $this->userGateway->setTutorialViewedForPage($_POST["page"]);
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
         $response['body'] = $result;
         return $response;
@@ -224,7 +249,11 @@ class UserController
                 return generateApiHeaderResponse("User is not accepting invites at the moment.", true);
             }
         }else{
-            return generateApiHeaderResponse("User not found.", true);
+            // send signup and accept invite email to user email address
+            // 1. send signup_typist_invitation email
+            $this->mailer->sendEmail(7, $_POST["email"], $_SESSION["acc_name"], $_SESSION["accID"]);
+            return generateApiHeaderResponse("Signup invitation sent, user will be granted permission once signed up.", false);
+//            return generateApiHeaderResponse("User not found.", true);
         }
 
         $accessID = $this->accessGateway->internalManualInsertAccessRecord($_SESSION["accID"], $user["id"], $_POST["email"], 6);
