@@ -58,7 +58,10 @@ if (isset($_SESSION['counter'])) {
 <!--    <script src="data/thirdparty/enjoyhint/enjoyhint.min.js"></script>-->
     <script src="data/thirdparty/enjoyhint/enjoyhint.min.js"></script>
 
-
+    <?php $tuts=(isset($_SESSION['tutorials']))?$_SESSION['tutorials']:'{}'; ?>
+    <script type="text/javascript">
+        var tutorials='<?php echo $tuts;?>';
+    </script>
     <link href="data/css/landing.css?v=2" rel="stylesheet">
     <script src="data/scripts/landing.min.js" type="text/javascript"></script>
 
@@ -147,6 +150,13 @@ if (isset($_SESSION['counter'])) {
                                     <div class=\"mdc-button__ripple\"></div>
                                     <i class=\"fas fa-angle-double-right\"></i>
                                         Go To Job Lister
+                                    </span>
+                                </button>
+                                
+                                <button class=\"mdc-button mdc-button--outlined tools-button\" onclick=\"location.href='manage_typists.php'\">
+                                    <div class=\"mdc-button__ripple\"></div>
+                                    <i class=\"fas fa-keyboard\"></i>
+                                        Manage Typists
                                     </span>
                                 </button>
                             </div>";

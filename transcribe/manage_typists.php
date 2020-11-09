@@ -220,9 +220,7 @@ $uid = $_POST["uid-access"];*/
                         <label>Typist Email</label>
 <!--                        <select id="accountBox" name="acc_id" class="account_select" data-width="250px">-->
 <!--                        </select>-->
-                        <select class="form-control show-tick" id="accountBox" data-container="body" data-dropup-auto="false" name="email">
-                            <option selected>Loading...</option>
-                        </select>
+                        <input type="email" class="form-control show-tick" id="accountBox" name="email" required autofocus>
                         <div class="valid-feedback">
                             Looks good!
                         </div>

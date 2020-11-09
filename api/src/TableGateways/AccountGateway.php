@@ -552,7 +552,30 @@ class AccountGateway
             $statement = $this->db->prepare($statement);
             $statement->execute(array('id' => $id));
             $this->logger->insertAuditLogEntry($this->API_NAME, "Account Deleted: " . $id);
-            return $statement->rowCount();
+            if($statement->rowCount())
+            {
+                $response['status_code_header'] = 'HTTP/1.1 200 OK';
+                $response['body'] = json_encode([
+                    'error' => false,
+                    'msg' => 'Account Deleted.'
+                ]);
+            }else{
+                if($statement->errorInfo())
+                {
+                    $response['status_code_header'] = 'HTTP/1.1 200 OK';
+                    $response['body'] = json_encode([
+                        'error' => true,
+                        'msg' => 'Couldn\'t delete account - '. $statement->errorInfo()[2]
+                    ]);
+                }else{
+                    $response['status_code_header'] = 'HTTP/1.1 200 OK';
+                    $response['body'] = json_encode([
+                        'error' => true,
+                        'msg' => 'Couldn\'t delete account, unknown error occurred'
+                    ]);
+                }
+            }
+            return $response;
         } catch (\PDOException $e) {
             exit($e->getMessage());
         }

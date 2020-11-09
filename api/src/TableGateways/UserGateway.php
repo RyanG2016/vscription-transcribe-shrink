@@ -284,6 +284,42 @@ class UserGateway
     }
 
     /**
+     * Updates tutorials field in DB to 1 for a page for the current user
+     * Updates tutorials session variable
+     * @param $page string page name
+     * @return boolean success
+     */
+    public function setTutorialViewedForPage($page)
+    {
+        $tutorialsStr = isset($_SESSION["tutorials"])?$_SESSION["tutorials"]:"{}";
+        $tutorialsJson = json_decode($tutorialsStr, true);
+        $tutorialsJson[$page] = 1; // set as viewed
+        $updatedJsonStr = json_encode($tutorialsJson);
+
+        $statement = "
+            UPDATE
+                users
+                   SET       
+                tutorials = ?
+            WHERE
+                users.id = ?";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($updatedJsonStr, $_SESSION["uid"]));
+            if($statement->rowCount())
+            {
+                $_SESSION["tutorials"] = $updatedJsonStr; // update/refresh session variable with new data
+                return true;
+            }
+        } catch (\PDOException $e) {
+            return false;
+//            exit($e->getMessage());
+        }
+        return false;
+    }
+
+    /**
      * retrieves user data
      * @param $email string user email address
      * @return string JSON of user object
@@ -334,7 +370,7 @@ class UserGateway
 //            exit($e->getMessage());
         }
     }
-    
+
     public function insertNewUser()
     {
         // Required Fields

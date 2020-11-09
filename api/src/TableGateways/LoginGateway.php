@@ -25,7 +25,7 @@ class LoginGateway
 
         $statement = "
             SELECT
-                id,first_name, last_name, email, password, plan_id, account_status, last_login, trials, unlock_time,
+                id,first_name, last_name, email, password, plan_id, account_status, last_login, trials, unlock_time,tutorials,
                 account, def_access_id, users.enabled, a.acc_role, a.acc_id, r.role_desc, a2.acc_name,
                 IF(account != 0 , (select accounts.acc_name from accounts where accounts.acc_id = account), false) 
                     as 'admin_acc_name'                
@@ -135,6 +135,7 @@ class LoginGateway
         $_SESSION["adminAccount"] = $row["account"];
         $_SESSION["adminAccountName"] = $row["admin_acc_name"];
         $_SESSION['loggedIn'] = true;
+        $_SESSION['tutorials'] = $row["tutorials"];
         $_SESSION['lastPing'] = date("Y-m-d H:i:s");
         isset($_REQUEST['rememberme']) ? $_SESSION['remember'] = true : $_SESSION['remember'] = false;
         $this->insertAuditLogEntry(isset($row["acc_id"])?$row["acc_id"]:0, "Login");

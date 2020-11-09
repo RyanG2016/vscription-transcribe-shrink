@@ -51,6 +51,9 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
         <meta http-equiv="refresh" content="0;url=noscript.php">
     </noscript>
 
+    <script type="text/javascript">
+        var ref = <?php echo ( isset($_GET['ref']) && !empty($_GET['ref']) )? "'".$_GET['ref']."'" :0 ?>;
+    </script>
 
 <!--    <link rel="stylesheet" type="text/css" href="data/login/vendor/bootstrap/css/bootstrap.min.css">-->
 

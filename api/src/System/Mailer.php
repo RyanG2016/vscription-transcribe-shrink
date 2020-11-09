@@ -29,7 +29,10 @@ class Mailer
      * Token is internally generated and inserted to tokens table
      * @param $mailType int  >0: reset-password <br>&nbsp; 5: verify email
      * <br> &nbsp; 6: typist-invitation
-     * <br>10: document-complete <br>15: job added
+     * <br>7: signup with typist invitation -> (adds a token to token table and signup link will have ref param with token in it)
+     * <br>10: document-complete
+     * <br>15: job added
+     * <br>16: user-added-via-sys-admin
      * <br>16: user-added-via-sys-admin
      * @param $user_email string user email address
      * @param string $account_name client admin account name for email type 6
@@ -78,6 +81,16 @@ class Mailer
                     $link = "$cbaselink/secret.php?s=$token";
                     include(__DIR__ . '/../../../mail/templates/typist_invitation.php');
                     $sbj = "vScription Transcribe Pro - New Typist Account Access Granted";
+                    $mail->addBCC("sales@vtexvsi.com");
+                    break;
+
+                case 7:
+                    $mailingListSize = 1;
+                    $token = $this->generateToken($user_email, $mailType, $extra1);
+                    if(!$token) return false;
+                    $link = "$cbaselink/signup.php?ref=$token";
+                    include(__DIR__ . '/../../../mail/templates/signup_with_typist_invitation.php');
+                    $sbj = "Typist Invitation";
                     $mail->addBCC("sales@vtexvsi.com");
                     break;
 
@@ -167,7 +180,7 @@ class Mailer
 
     /**
      * Generates a random 78 length token, inserts it to tokens table
-     * @param $reasonCode 5 -> email verification |
+     * @param $reasonCode 5 -> email verification | 6 -> signup with typist invite
      * @return string token or (false) if failed
      */
     public function generateToken($email ,$reasonCode, $extra1 = 0, $extra2 = 0)
