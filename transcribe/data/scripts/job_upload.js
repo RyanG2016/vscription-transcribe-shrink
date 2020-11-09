@@ -779,7 +779,7 @@ function documentReady() {
 				data: convertToSearchParam(formData)
 			});
 		}
-}
+} 
 
 /////////////////////////////////////////
 /*function validateFields() {
