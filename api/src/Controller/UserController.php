@@ -102,7 +102,7 @@ class UserController
                     $response = $this->setAvailableForWork();
                 }
                 else if ($this->userId == "tutorial-viewed") {
-
+                    $response = $this->tutorialViewed();
                 }
                 else if ($this->userId == "invite"){
                     $response = $this->inviteTypistToCurrentAccount();
