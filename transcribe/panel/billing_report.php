@@ -111,6 +111,15 @@ $vtex_page = 8;
         </table>
 
         <div class="grid-wrapper">
+            <div class="account">
+                <label for="accountID">Account ID
+                    <span class="find-acc-icon" id="findAccBtn">
+                        <i class="material-icons mdc-button__icon" aria-hidden="true">person_search</i>
+                    </span>
+                </label>
+                <input id="accountID" type="text" contenteditable="true"/>
+
+            </div>
             <div class="start-date-item">
                 <label for="startDate">Start Date</label><input id="startDate" type="text" contenteditable="false"/>
             </div>
@@ -120,7 +129,7 @@ $vtex_page = 8;
             <div class="retrieve-item">
                 <button class="mdc-button mdc-button--unelevated tools-button" id="getReport">
                     <div class="mdc-button__ripple"></div>
-                    <i class="material-icons mdc-button__icon" aria-hidden="true">text_fields</i>
+
                     <span class="mdc-button__label">Retrieve Report</span>
                 </button>
             </div>
