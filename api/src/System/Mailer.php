@@ -27,7 +27,7 @@ class Mailer
 
     /**
      * Token is internally generated and inserted to tokens table
-     * @param $mailType int  >0: reset-password <br>&nbsp; 5: verify email
+     * @param $mailType int  >4: reset-password <br>&nbsp; 5: verify email
      * <br> &nbsp; 6: typist-invitation
      * <br>7: signup with typist invitation -> (adds a token to token table and signup link will have ref param with token in it)
      * <br>10: document-complete
@@ -55,7 +55,7 @@ class Mailer
 //        $link = "$cbaselink/verify.php?token=$token";
         try {
             switch ($mailType) {
-                case 0:
+                case 4:
                     $mailingListSize = 1;
                     $token = $this->generateToken($user_email, $mailType);
                     if(!$token) return false;
