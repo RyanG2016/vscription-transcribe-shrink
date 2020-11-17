@@ -548,7 +548,7 @@ if(isset($_REQUEST["reqcode"])){
 				'actPage' => 'index.php',
 				//'actPage' => header('Location: '.$_SERVER['REQUEST_URI']),   //This isn't working. For now am going to hardcode the page into the function call
 				'actIP' => $ip,
-				'acc_id' => $_SESSION['accID']
+				'acc_id' => 0
 			);
 			$b = json_encode($a);
 			insertAuditLogEntry($con, $b);
