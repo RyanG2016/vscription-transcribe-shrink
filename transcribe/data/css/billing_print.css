@@ -1,7 +1,7 @@
 /*-----------------------*/
 /* billing table styling */
 /*-----------------------*/
-
+@import "parts/vars.css";
 .report .header .head-right img {
     width: 350px;
     height: auto;
@@ -129,6 +129,7 @@ input, label{
 /* Grid */
 
 .start-date-item { grid-area: start; }
+.account { grid-area: acc; }
 .end-date-item { grid-area: end; }
 .retrieve-item { grid-area: get; }
 .pdf-item { grid-area: pdf; }
@@ -138,8 +139,8 @@ input, label{
     display: inline-grid;
     /*display: grid;*/
     grid-template-areas:
-    '. start end get pdf printJS'
-    'report report report report report report';
+    '. acc start end get pdf printJS'
+    'report report report report report report report';
     /*background-color: #2196F3;*/
     padding: 20px;
     grid-gap: 10px;
@@ -160,4 +161,15 @@ input, label{
 .tools-button{
     position: relative;
     top: calc(100% - 36px);
+}
+
+.find-acc-icon{
+    vertical-align: bottom;
+    color: var(--vtex-blue);
+    float: right;
+}
+
+.find-acc-icon:hover{
+    cursor: pointer;
+    color: var(--vtex-orange);
 }
