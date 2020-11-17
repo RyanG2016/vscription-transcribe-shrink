@@ -136,7 +136,7 @@ class LoginController {
             return $this->unprocessableEntityResponse();
         }
 
-        if($this->mailer->sendEmail(0, $_POST["email"]))
+        if($this->mailer->sendEmail(4, $_POST["email"]))
         {
             return generateApiHeaderResponse("Reset password email sent, please check your inbox", false);
         }else{
