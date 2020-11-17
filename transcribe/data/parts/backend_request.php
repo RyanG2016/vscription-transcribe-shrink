@@ -610,7 +610,7 @@ if(isset($_REQUEST["reqcode"])){
 		file_status  = '3' AND 
 		isBillable = '1' AND
 		billed = '0' AND 
-        acc_id = '1' AND
+        acc_id = ? AND
 		file_transcribed_date BETWEEN ? AND ?";
 
 			//Hardcoded for now. Need to add selector to client billing page screen if role_type=3 or use logged in user if role_type=2
@@ -622,7 +622,7 @@ if(isset($_REQUEST["reqcode"])){
 		$bill_rate1_type = $billRates['bill_rate1_type'];
             if($stmt = mysqli_prepare($con, $sql))
             {
-                mysqli_stmt_bind_param($stmt, "ss", $a['startDate'], $a['endDate']);
+                mysqli_stmt_bind_param($stmt, "iss", $a["accID"],$a['startDate'], $a['endDate']);
                 if(mysqli_stmt_execute($stmt)){
                     $result = mysqli_stmt_get_result($stmt);
 					$secsTotal = 0;

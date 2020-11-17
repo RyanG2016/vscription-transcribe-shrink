@@ -1,4 +1,5 @@
-
+var findAccWindow;
+var accountID;
 $(document).ready(function () {
 
     new mdc.ripple.MDCRipple(document.querySelector('#getPrint'));
@@ -15,6 +16,7 @@ $(document).ready(function () {
     let getPDF = $ ( "#getPDF" );
     let getPrintJS = $ ( "#getPrint" );
     let htmlTable = $('.billing-report-container');
+    accountID = $("#accountID");
     startDate.datepicker({dateFormat: "yy-mm-dd"});
     endDate.datepicker({dateFormat: "yy-mm-dd"});
     
@@ -51,7 +53,8 @@ $(document).ready(function () {
     getReport.on("click", function() {
         let arg = {
             startDate: startDate.val(),
-            endDate: endDate.val()
+            endDate: endDate.val(),
+            accID: accountID.val()
         };
         document.title = "Bill_report_"+startDate.val()+"_to_" + endDate.val();
         getData(arg);
@@ -111,6 +114,19 @@ $(document).ready(function () {
         });
     }
 
-
+    $("#findAccBtn").on("click", function () {
+        findAccWindow = findAccWindow || window.open("/acc_finder.php", "modalPicker", "toolbar=yes,scrollbars=yes," +
+            "resizable=yes,top=500,left=500,width=650,height=500");
+        findAccWindow.focus();
+        findAccWindow.onbeforeunload = function () {
+            findAccWindow = null;
+        };
+    });
 
 });
+
+function setAccID(accID)
+{
+    accountID[0].value = accID;
+    findAccWindow = null;
+}
