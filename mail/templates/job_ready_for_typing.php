@@ -9,7 +9,7 @@ $emHTML= "vScription Transcribe Pro<br/></br>Hi,
 There are one or more new jobs available for typing for an account you are assigned to.
 <br/><br/>
    
-   Thanks.
+   Thank you for using VTEX
    ";
 
 $emPlain = "
@@ -20,6 +20,6 @@ Hi,
 
 There are one or more new jobs available for typing for an account you are assigned to.
 
-Thanks.";
+Thank you for using VTEX";
 
 ?>
