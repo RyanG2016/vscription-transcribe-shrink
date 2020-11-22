@@ -132,9 +132,11 @@ class Mailer
 
                 case 16:
                     $mailingListSize = 1;
-//                    $token = $this->generateToken($user_email, $mailType, $extra1);
-//                    if(!$token) return false;
-                    $link = "$cbaselink/index.php";
+                    $token = $this->generateToken($user_email, 5); // verify email token
+                    if(!$token) return false;
+                    $link = "$cbaselink/verify.php?token=$token";
+
+//                    $link = "$cbaselink/index.php";
                     global $pass;
                     $pass = $extra1;
                     include(__DIR__ . '/../../../mail/templates/user_added.php');
