@@ -192,9 +192,8 @@ $emHTML= "<!DOCTYPE html>
                          Username: $email <br>
                          Password: $pass<br><br>
                           
-                        <i>
-                        If you would like to reset your password, press the login button below, enter your email address and click the Forgot Password link. That will send you an email with a link allowing you to reset your password.
-                        </i> 
+                         Please click on the verify button below to verify your account and login.
+                         <br> 
                         </div>
                     </td>
                 </tr>
@@ -210,7 +209,7 @@ $emHTML= "<!DOCTYPE html>
                                         <tr>
                                             <td align=\"center\" bgcolor=\"#1a82e2\" style=\"border-radius: 6px;\">
                                                 <a href=\"$link\" target=\"_blank\" style=\"display: inline-block; padding: 16px 36px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; border-radius: 6px;\">
-                                                    Login
+                                                    Verify
                                                 </a>
                                             </td>
                                         </tr>
@@ -226,15 +225,26 @@ $emHTML= "<!DOCTYPE html>
                 <tr>
                     <td align=\"left\" bgcolor=\"#ffffff\" style=\"padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;\">
                         <p style=\"margin: 0;\">If that doesn't work, copy and paste the following link in your browser:</p>
-                        <p style=\"margin: 0;\"><a href=\"$cbaselink\" target=\"_blank\">$cbaselink</a></p>
+                        <p style=\"margin: 0;\"><a href=\"$link\" target=\"_blank\">$link</a></p>
                     </td>
                 </tr>
                 <!-- end copy -->
 
+                <tr>
+                    
+                    <td align=\"left\" bgcolor=\"#ffffff\" style=\"padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px; border-bottom: 3px solid #d4dadf\">
+                        <p style=\"margin: 0;\">
+                            <i>
+                                Psst, If you would like to reset your password, You can use the reset password link on the login page.
+                            </i>
+                        </p>
+                    </td>
+                </tr>
+
                 <!-- start copy -->
                 <tr>
                     <td align=\"left\" bgcolor=\"#ffffff\" style=\"padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px; border-bottom: 3px solid #d4dadf\">
-                        <p style=\"margin: 0;\">Cheers,<br></p>
+                        <p style=\"margin: 0;\">Thank you for using VTEX<br></p>
                     </td>
                 </tr>
                 <!-- end copy -->
@@ -299,12 +309,13 @@ Your login details are:
 Login Server: $cbaselink
 Username: $email 
 Password: $pass
-                          
-                        
-If you would like to reset your password, press the link below, enter your email address and click the Forgot Password link. That will send you an email with a link allowing you to reset your password.
 
-$cbaselink
+Please click on the link below to verify your account and login.
+$link
 
 If it is not clickable, please copy and paste the URL into your browser.
 
-Cheers,";
+- Psst, If you would like to reset your password, You can use the reset password link on the login page.
+$cbaselink
+
+Thank you for using VTEX";
