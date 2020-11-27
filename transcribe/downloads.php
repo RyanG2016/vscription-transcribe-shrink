@@ -97,7 +97,7 @@ if(isset($_SESSION['counter']))
             <div class="item2-header grid-headers"><h3>Description</h3></div>
             <div class="item2">
                 <p>
-                    Here you will find the vScription Apps used to connect local hardware devices (foot control, digital recorders, microphones etc) to various vScription modules as well as a compatibility matrix.
+                    Here you will find the vScription Apps used to connect local hardware devices (foot control, digital recorders, microphones etc) to various vScription modules as well as a compatibility matrix. If you don't see your digital recorder in the list you can still upload your files through the Job Upload page.
                 </p>
             </div>
             <div class="item3">
