@@ -196,7 +196,7 @@ $(document).ready(function () {
 
                 $("#downloadController").on("click", function (e) {
                     window.open(
-                        'controller.php',
+                        'downloads.php',
                         '_blank'
                     );
                 });
@@ -910,7 +910,7 @@ $(document).ready(function () {
 
         if (updateAvailable) {
             $("#updated_version_bar span").html(v);
-            $('#updated_version_bar a').attr('href', 'controller.php');
+            $('#updated_version_bar a').attr('href', 'downloads.php');
             $("#updated_version_bar").slideDown("normal", "easeInOutBack");
         } else {
             $("#updated_version_bar").slideUp();
