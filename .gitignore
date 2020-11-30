@@ -11,6 +11,7 @@ data/parts/error_log
 main_scratch.php
 test*
 workingTemp/
+/deletedUploads/*
 
 /transcribe/data/parts/config.php
 /transcribe/data/scripts/parts/constants.js
@@ -19,6 +20,8 @@ workingTemp/
 /transcribe/data/libs/node_modules/.bin/
 /transcribe/data/libs/node_modules/commander/
 /transcribe/data/libs/closure-compiler-v20200614.jar
+/jobs/check_exceeded_retention/csv/*
+/jobs/check_exceeded_retention/logs/*
 #/transcribe/data/scripts/admin_tools.js
 #/transcribe/data/scripts/access.js
 #/transcribe/data/scripts/accounts.js
