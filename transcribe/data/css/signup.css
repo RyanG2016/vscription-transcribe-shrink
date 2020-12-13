@@ -276,3 +276,7 @@ input:-webkit-autofill:active {
 .valid-feedback{
     color: #4fff78;
 }
+
+.country-box, .state-box{
+    display: none;
+}

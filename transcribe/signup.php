@@ -55,7 +55,7 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
         var ref = <?php echo ( isset($_GET['ref']) && !empty($_GET['ref']) )? "'".$_GET['ref']."'" :0 ?>;
     </script>
 
-<!--    <link rel="stylesheet" type="text/css" href="data/login/vendor/bootstrap/css/bootstrap.min.css">-->
+    <!--    <link rel="stylesheet" type="text/css" href="data/login/vendor/bootstrap/css/bootstrap.min.css">-->
 
     <script src="data/login/vendor/jquery/jquery-3.2.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
@@ -67,7 +67,7 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
     <link rel="stylesheet" type="text/css" href="data/login/vendor/animate/animate.css">
 
     <!--  todo delete select 2  folder -->
-<!--    <link rel="stylesheet" type="text/css" href="data/login/vendor/select2/select2.min.css">-->
+    <!--    <link rel="stylesheet" type="text/css" href="data/login/vendor/select2/select2.min.css">-->
 
     <link rel="stylesheet" type="text/css" href="data/login/css/util.css?v=<?php echo $version_control ?>">
     <link rel="stylesheet" type="text/css" href="data/css/signup.css?v=<?php echo $version_control ?>">
@@ -93,7 +93,7 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
 
     <script src="https://kit.fontawesome.com/00895b9561.js" crossorigin="anonymous"></script>
 
-<!--    <link rel="stylesheet" href="data/css/parts/bootstrap-override.css" />-->
+    <!--    <link rel="stylesheet" href="data/css/parts/bootstrap-override.css" />-->
 
     <script src="data/scripts/signup.min.js"></script>
 
@@ -180,7 +180,12 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
             <!----------------------Country--------------->
             <div class="form-group">
                 <label for="countryBox">Country</label>
-                <select class="form-control show-tick" id="countryBox" data-container="body" data-dropup-auto="false" name="countryID">
+                <div class="spinner" id="countrySpin">
+                    <div class="bounce1"></div>
+                    <div class="bounce2"></div>
+                    <div class="bounce3"></div>
+                </div>
+                <select class="form-control show-tick country-box" id="countryBox" data-container="body" data-dropup-auto="false" name="countryID">
                     <option selected>Loading...</option>
                 </select>
             </div>
@@ -189,7 +194,12 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
 
             <div class="form-group" id="stateGroup">
                 <label for="countryBox">Province/State</label>
-                <select class="form-control show-tick" id="stateBox" data-container="body" data-dropup-auto="false" name="stateID">
+                <div class="spinner" id="stateSpin">
+                    <div class="bounce1"></div>
+                    <div class="bounce2"></div>
+                    <div class="bounce3"></div>
+                </div>
+                <select class="form-control show-tick state-box" id="stateBox" data-container="body" data-dropup-auto="false" name="stateID">
                     <option selected>Loading...</option>
                 </select>
             </div>
@@ -231,14 +241,14 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
     </div>
 </div>
 
-<div class="overlay" id="overlay">
-    <div class="loading-overlay-text" id="loadingText">Please wait..</div>
-    <div class="spinner">
-        <div class="bounce1"></div>
-        <div class="bounce2"></div>
-        <div class="bounce3"></div>
-    </div>
-</div>
+<!--<div class="overlay" id="overlay">-->
+<!--    <div class="loading-overlay-text" id="loadingText">Please wait..</div>-->
+<!--    <div class="spinner">-->
+<!--        <div class="bounce1"></div>-->
+<!--        <div class="bounce2"></div>-->
+<!--        <div class="bounce3"></div>-->
+<!--    </div>-->
+<!--</div>-->
 </body>
 <noscript>
     For full functionality of this site, it is necessary to enable JavaScript.

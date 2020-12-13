@@ -2,8 +2,6 @@
     "use strict";
 })(jQuery);
 
-var loadingOverlay;
-var loadingText;
 var stateRequest;
 
 var stateGroup;
@@ -29,11 +27,9 @@ var firstLaunch = true;
 $(document).ready(function () {
 
     signupBtn = $("#signupBtn");
-    loadingText = $("#loadingText");
     stateGroup = $("#stateGroup");
     countryBox = $("#countryBox");
     stateBox = $("#stateBox");
-    loadingOverlay = $("#overlay");
     pwd = $("#inputPassword");
     confirmPwd = $("#inputConfirmPassword");
     form = document.getElementById('signupForm');
@@ -207,7 +203,7 @@ $(document).ready(function () {
         // console.log(countryBox.selectpicker('val')); // selected value
         var state = countryBox.selectpicker('val');
         if (state === "203" || state === "204") {
-            loadingOverlay[0].style.display = "block";
+            $("#stateSpin")[0].style.display = "block";
             stateGroup[0].style.display = "block";
             loadState(countryBox.selectpicker('val'));
         } else {
@@ -216,7 +212,6 @@ $(document).ready(function () {
 
     });
 
-    loadingText.html("Loading countries..");
     loadCountries();
 
 });
@@ -231,7 +226,6 @@ function loadState(id) {
     // stateInputLbl.css("display","none");
     // stateBoxLbl.css("display","none");
     // cityContainer.css("display","none");
-    loadingText.html("Loading states..");
 
 
     // removeLoadingSpinner(); // if any left over
@@ -266,8 +260,8 @@ function loadState(id) {
                 liveSearchPlaceholder: "Search"
             });
             stateBox.selectpicker('refresh');
-
-            loadingOverlay[0].style.display = "none";
+            $("#stateSpin")[0].style.display = "none";
+            stateBox.display = "block";
 
             /*if(!roleIsset){
                 checkForSingleRoleToSet();
@@ -324,6 +318,7 @@ function loadCountries() {
                 mousescrollstep: 20,
                 cursoropacitymax: 0.7
             });*/
+            $("#countrySpin")[0].style.display = "none";
 
             loadState(203);
             /*if(!roleIsset){
