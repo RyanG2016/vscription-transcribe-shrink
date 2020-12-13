@@ -440,6 +440,7 @@ class UserGateway
 
         // todo remove below
         // plan_id hardcode default to typist
+        // deprecated - using access.role_id now instead
         $fields .= ", " . "`plan_id`";
         $valsQMarks .= ", ?";
         array_push($valsArray, 3);
