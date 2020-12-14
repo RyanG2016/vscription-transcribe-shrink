@@ -217,7 +217,6 @@ $(document).ready(function () {
         checkEmail();
     });
 
-
     zipCode.keyup(function () {
         // check for matching regex
         var CA_REGEX = /^[a-zA-Z0-9]{3}$|^[a-zA-Z0-9]{6}$|^[a-zA-Z0-9]{3} [a-zA-Z0-9]{3}$/;
@@ -549,7 +548,8 @@ $(document).ready(function () {
     // DEBUG testing verification pages here--
     // signedUp = true;
     // loginUser();
-    // carousel.carousel(1);
+    // carousel.carousel(3);
+    // setUIforVerification();
 
     function loginUser(){
         carousel.carousel(4);
@@ -617,6 +617,7 @@ $(document).ready(function () {
     function setUIforVerification()
     {
         carousel.carousel(3);
+        $("#title").html("Verify Your Account");
         signupBtn.off("click");
         signupBtn.html("Verify");
         prevDiv.hide();

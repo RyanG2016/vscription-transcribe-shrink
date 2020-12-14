@@ -367,3 +367,12 @@ input:-webkit-autofill:active {
 h5{
     font-family: 'oxygen-l', sans-serif;
 }
+
+#code::placeholder,
+#code{
+    text-align: center;
+}
+#code:focus {
+    box-shadow: none;
+    outline: none !important;
+}

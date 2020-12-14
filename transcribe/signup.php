@@ -95,7 +95,7 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
 
     <!--    <link rel="stylesheet" href="data/css/parts/bootstrap-override.css" />-->
 
-    <script src="data/scripts/signup.min.js"></script>
+        <script src="data/scripts/signup.min.js"></script>
 
 </head>
 
@@ -247,9 +247,6 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
                         <div class="form-group">
                             <label for="inputCity">City</label>
                             <input type="text" class="form-control" id="inputCity" placeholder="" name="city">
-                            <small id="cityHelpInline" class="text-muted">
-                                (optional)
-                            </small>
                         </div>
 
 
@@ -288,17 +285,19 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
 
                     <div class="carousel-item">
 
-                        <div class="row justify-content-center carousel-page-title mb-3">
+                        <!--<div class="row justify-content-center carousel-page-title mb-3">
                             <span class="align-text-bottom"> <i class="fas fa-user-check fa-lg"></i> </span>
                             <h5 class="fs-22 align-top">&nbsp;Verification</h5>
-                        </div>
+                        </div>-->
 
                         <!-------------ACCOUNT-NAME----------------->
 
                         <div class="form-row">
-                            <div class="form-group col">
-                                <label for="inputCode">Verification Code</label>
-                                <input type="text" class="form-control" id="code" maxlength="6" placeholder="Code">
+                            <div class="form-group col justify-content-center text-center">
+                                <label for="inputCode" class="justify-content-center text-center">
+                                    Enter the verification code sent to your email
+                                </label>
+                                <input type="text" class="form-control text-lg-center fs-25 col-sm-5 ml-auto mr-auto" id="code" maxlength="6" placeholder="Code">
                                 <div class="valid-feedback">
                                     Looks good!
                                 </div>
@@ -307,12 +306,6 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
                                 </div>
                             </div>
                         </div>
-
-                        <h6 class="text-white text-center">Enter the code sent to your email<br>
-                            <h6 class="text-sm-center font-italic font-weight-light text-muted">
-                                <small>You can verify later by visiting the link sent to your email</small>
-                            </h6>
-                        </h6>
 
                        <!-- <div class="verify-btn-container">
                             <div class=" row w-100">
