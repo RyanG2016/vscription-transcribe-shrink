@@ -253,6 +253,9 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
                                 <label for="inputfName">Account Name</label>
                                 <input type="text" class="form-control" id="inputAccName" placeholder="" name="accname"
                                        required>
+                                <small class="text-muted">
+                                    (optional)
+                                </small>
                                 <div class="valid-feedback">
                                     Looks good!
                                 </div>
@@ -306,6 +309,32 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
 
                     </div>
 
+                    <div class="carousel-item">
+
+                        <div class="row justify-content-center carousel-page-title mb-3">
+                            <span class="align-text-bottom"> <i class="fas fa-sign-in-alt fa-lg"></i> </span>
+                            <h5 class="fs-22 align-top">&nbsp;Logging in</h5>
+                        </div>
+
+                        <!-------------ACCOUNT-NAME----------------->
+
+                        <h6 class="text-white text-center">Setting up your account, please wait..<br>
+                            <!--<h6 class="text-sm-center font-italic font-weight-light text-muted">
+                                <small>You can verify later by visiting the link sent to your email</small>
+                            </h6>-->
+                        </h6>
+
+                       <!-- <div class="verify-btn-container">
+                            <div class=" row w-100">
+                                <div class="col">
+                                    <button type="button" class="btn btn-primary btn-lg w-100" id="verifyBtn">Verify</button>
+                                </div>
+                            </div>
+                        </div>
+-->
+
+                    </div>
+
 
                 </div>
             </div>
@@ -325,9 +354,15 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
                 </div>
             </div>
 
-            <div class="progress">
-                <div class="progress-bar"
+            <div class="progress" id="formProgressDiv">
+                <div class="progress-bar" id="formProgressBar"
                      role="progressbar" style="width: 0;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+
+            <div class="progress" id="loginProgressDiv" style="display: none">
+                <div class="progress-bar progress-bar-striped progress-bar-animated"
+                     id="loginProgressBar"
+                     role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
             </div>
 
             <div class="text-center p-t-15" id="info" hidden>

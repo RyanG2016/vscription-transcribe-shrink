@@ -12,7 +12,7 @@ $(document).ready(function () {
     var stateRequest;
     var stateGroup;
     var signupBtn;
-    var form;
+    var signedUp = false;
     var pwd;
     var confirmPwd;
     var prevDiv = $(".prev-btn-div");
@@ -25,6 +25,8 @@ $(document).ready(function () {
     var countriesURL = "../api/v1/countries/";
     var stateURL = "../api/v1/cities/";
     var signupURL = "../api/v1/signup/";
+    var verifyURL = "verify.php";
+    var loginURL = "../api/v1/login";
 
     const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,. <>\/?]).{8,60}$/;
     const EMAIL_REGEX = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
@@ -51,8 +53,10 @@ $(document).ready(function () {
     lName = $("#inputlName");
     city = $("#inputCity");
     code = $("#code");
-    progressDiv = $(".progress");
-    progress = $(".progress-bar");
+    progressDiv = $("#formProgressDiv");
+    progressBar = $("#formProgressBar");
+    loginProgressDiv = $("#loginProgressDiv");
+    loginProgress = $("#loginProgress");
     stateGroup = $("#stateGroup");
     countryBox = $("#countryBox");
     stateBox = $("#stateBox");
@@ -64,22 +68,6 @@ $(document).ready(function () {
     // carousel settings
     // stop autoplay
     // carousel.
-
-    function setUIforVerification()
-    {
-        signupBtn.html("Verify");
-        prevDiv.hide();
-        nextDiv.hide();
-        signupBtn.removeAttr('disabled');
-        progressDiv.hide();
-
-        signupBtn.off("click");
-        signupBtn.click(function(){
-            alert(
-                "trying to verify account with code: " + code.val() + " for account email: " + email.val()
-            );
-        })
-    }
 
     function changeProgress(itemBoolean, result)
     {
@@ -98,13 +86,19 @@ $(document).ready(function () {
                 // add value
                 correctCount++;
             }
-            progress.width(correctCount * valuePerProgress);
+            progressBar.width(correctCount * valuePerProgress);
 
-            if(correctCount == maxCount && currentPage == 2)
+            if(correctCount == maxCount && currentPage == 2 && !signedUp)
             {
                 // allow signup
                 signupBtn.removeAttr('disabled');
-            }else{
+
+            }
+            else if(signedUp)
+            {
+                signupBtn.removeAttr('disabled');
+            }
+            else{
                 //disable signup
                 signupBtn.attr('disabled','disabled');
             }
@@ -247,13 +241,14 @@ $(document).ready(function () {
 
         currentPage = e.to;
 
-        if(correctCount == maxCount && currentPage == 2)
+        if(correctCount == maxCount && currentPage == 2 && !signedUp)
         {
             // allow signup
             signupBtn.removeAttr('disabled');
         }else{
             //disable signup
             signupBtn.attr('disabled','disabled');
+            // console.log("here2");
         }
         // alert("moving to page " + e.to);
         // var nextH = $(e.relatedTarget).height();
@@ -326,7 +321,7 @@ $(document).ready(function () {
         return pass;
     }
 
-    signupBtn.click(function() {
+    signupBtn.on("click", function() {
 
         if(!checkAll())
         {
@@ -368,7 +363,7 @@ $(document).ready(function () {
                 theme: 'supervan',
                 content: function(){
                     var self = this;
-                    self.setContent('Checking callback flow');
+                    // self.setContent('Checking callback flow');
                     return $.ajax({
                         type: 'POST',
                         method: 'POST',
@@ -380,7 +375,7 @@ $(document).ready(function () {
 
                         // handle responses
                         // -------------
-                        carousel.carousel(3);
+                        signedUp = true;
                         setUIforVerification();
 
                         self.setTitle("Success");
@@ -448,6 +443,139 @@ $(document).ready(function () {
 
         }
     });
+
+    // DEBUG testing verification pages here--
+    // signedUp = true;
+    // loginUser();
+
+    function loginUser(){
+        carousel.carousel(4);
+        signupBtn.hide();
+        prevDiv.hide();
+        nextDiv.hide();
+        progressDiv.hide();
+        loginProgressDiv.show();
+
+        login();
+    }
+
+
+    function login() {
+        var vemail = email.val();
+        var vpassword = pwd.val();
+        var vrememberme = 0;
+        var formData = {};
+
+        /*if(vrememberme === 1){
+            formData = "rememberme";
+        }*/
+
+
+        $.confirm({
+            title: 'Login',
+            theme: 'supervan',
+            content: function(){
+                var self = this;
+                // self.setContent('Checking callback flowChecking callback flow');
+                return $.ajax({
+                    type: 'GET',
+                    method: 'GET',
+                    url: loginURL,
+                    data:formData,
+                    async: false,
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader ("Authorization", "Basic " + btoa(vemail + ":" + vpassword));
+                    },
+                }).done(function (response) {
+                    self.setTitle("Success");
+                    self.setContent("Logged in, redirecting..");
+
+                    self.buttons.ok.hide();
+                    self.buttons.close.hide();
+                    location.href = "index.php";
+                }).fail(function(xhr, status, err){
+
+                    self.setTitle("oops..");
+                    self.setType("red");
+                    self.setContent("Something went wrong, press ok to go to login page");
+                    self.buttons.ok.setText("Ok");
+                    self.buttons.close.hide();
+
+                    self.buttons.ok.action = function(){location.href = "index.php"};
+
+                })
+            }
+        });
+
+
+    } //end login
+
+
+    function setUIforVerification()
+    {
+        carousel.carousel(3);
+        signupBtn.off("click");
+        signupBtn.html("Verify");
+        prevDiv.hide();
+        nextDiv.hide();
+        signupBtn.removeAttr('disabled');
+        progressDiv.hide();
+
+
+        signupBtn.click(function(){
+            /*alert(
+                "trying to verify account with code: " + code.val() + " for account email: " + email.val()
+            );*/
+
+            // verifying account
+            $.confirm({
+                title: 'Signup',
+                theme: 'supervan',
+                content: function(){
+                    var self = this;
+
+                    return $.ajax({
+                        type: 'GET',
+                        method: 'GET',
+                        url: verifyURL,
+                        data: { notify: "1", user: email.val(), token: code.val() } ,
+                    }).done(function (response) {
+                        result = JSON.parse(response);
+                        error = result["error"];
+                        msg = result["msg"];
+                        // handle responses
+                        // -------------
+                        self.setTitle(error?"oops..":"Success");
+                        self.setType(error?"red":"green");
+                        self.setContent(msg);
+
+                        self.buttons.ok.setText("Ok");
+                        self.buttons.ok.addClass("btn-green");
+                        self.buttons.ok.removeClass("btn-default");
+                        self.buttons.close.hide();
+
+                        if(!error)
+                        {
+                            self.close();
+                            loginUser();
+                        }
+
+                    }).fail(function(xhr, status, err){
+
+                        self.setTitle("oops..");
+                        self.setType("red");
+                        self.setContent(xhr.responseJSON["msg"]);
+                        self.buttons.ok.setText("Ok");
+                        self.buttons.close.hide();
+
+                    })
+                }
+            });
+
+        });
+
+    }
+
 
 
     $("body").niceScroll({
