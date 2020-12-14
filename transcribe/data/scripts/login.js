@@ -285,7 +285,7 @@ function login() {
 
                 }else if(err.responseJSON["code"] === 404){
 
-                    // pending email verification //
+                    // Account doesn't exist //
                     $.confirm({
                         title: "Hmm..",
                         type: "red",
@@ -295,13 +295,13 @@ function login() {
                                 btnClass: 'btn-red',
                                 text: 'Ok'
                             },
-                            /*resend: {
+                            signup: {
                                 btnClass: 'btn-green',
                                 text: 'sign up ?',
                                 action: function() {
-                                   // todo redirect to signup
+                                   location.href = "signup.php";
                                 }
-                            }*/
+                            }
                         }
                     });
 
