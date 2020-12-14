@@ -549,7 +549,7 @@ $(document).ready(function () {
     // DEBUG testing verification pages here--
     // signedUp = true;
     // loginUser();
-    carousel.carousel(1);
+    // carousel.carousel(1);
 
     function loginUser(){
         carousel.carousel(4);
