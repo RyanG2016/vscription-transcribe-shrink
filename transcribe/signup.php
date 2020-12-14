@@ -166,9 +166,9 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
                             </div>
                         </div>
 
-
-                    </div>
-                    <div class="carousel-item">
+                        <hr/>
+                    <!--</div>
+                    <div class="carousel-item">-->
 
                         <div class="row justify-content-center carousel-page-title mb-3">
                             <span class="align-text-bottom"> <i class="fas fa-user fa-lg"></i> </span>
@@ -250,9 +250,9 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
                         </div>
 
 
-                    </div>
-
-                    <div class="carousel-item">
+                    <hr/>
+                    <!--</div>
+                    <div class="carousel-item">-->
 
                         <div class="row justify-content-center carousel-page-title mb-3">
                             <span class="align-text-bottom"> <i class="fas fa-user-tie fa-lg"></i> </span>
@@ -348,7 +348,7 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
                 </div>
             </div>
 
-
+<!--            <hr/>-->
             <div class="checkbox justify-content-center" id="tosDiv">
                 <div class="form-inline justify-content-center">
                     <label>
@@ -363,15 +363,15 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
             <!----------------------Signup---------------->
             <div class="container-login100-form-btn pt-0">
                 <div class=" row w-100">
-                    <div class="col-auto arrows prev-btn-div">
+                    <!--<div class="col-auto arrows prev-btn-div">
                         <button type="button" class="btn btn-primary btn-lg" id="prevBtn" ><</button>
-                    </div>
+                    </div>-->
                     <div class="col">
                         <button type="button" class="btn btn-primary btn-lg" id="signupBtn" disabled>Signup</button>
                     </div>
-                    <div class="col-auto arrows next-btn-div">
+                    <!--<div class="col-auto arrows next-btn-div">
                         <button type="button" class="btn btn-primary btn-lg w-auto" id="nextBtn" >></button>
-                    </div>
+                    </div>-->
                 </div>
             </div>
 
@@ -396,7 +396,7 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
                 </a>
             </div>
         </form>
-        <div class="row p-t-10 m-0 " style="width: 100%">
+        <div class="row p-t-20 m-0 " style="width: 100%">
             <div class="col">
                 <div class="text-left">
                     <a class="txt2" href="./index.php" target="_blank">

@@ -15,8 +15,8 @@ $(document).ready(function () {
     var signedUp = false;
     var pwd;
     var confirmPwd;
-    var prevDiv = $(".prev-btn-div");
-    var nextDiv = $(".next-btn-div");
+    // var prevDiv = $(".prev-btn-div");
+    // var nextDiv = $(".next-btn-div");
 
     // zip lookup
     var zip;
@@ -57,8 +57,8 @@ $(document).ready(function () {
     var maxCount = 5;
 
     var currentPage = 0;
-    var nextPageBtn = $("#nextBtn");
-    var prevPageBtn = $("#prevBtn");
+    // var nextPageBtn = $("#nextBtn");
+    // var prevPageBtn = $("#prevBtn");
     var zipCode = $("#inputZip");
     var tosDiv = $("#tosDiv");
     var tos = $("#tos");
@@ -87,6 +87,7 @@ $(document).ready(function () {
 
     function changeProgress(itemBoolean, result)
     {
+        $("body").getNiceScroll().resize();
         // to reduce unnecessary calculations
         if(itemBoolean != result)
         {
@@ -104,7 +105,7 @@ $(document).ready(function () {
             }
             progressBar.width(correctCount * valuePerProgress);
 
-            if(correctCount == maxCount && currentPage == 2 && !signedUp)
+            if(correctCount == maxCount && currentPage == 0 && !signedUp)
             {
                 // allow signup
                 signupBtn.removeAttr('disabled');
@@ -331,7 +332,7 @@ $(document).ready(function () {
 
         currentPage = e.to;
 
-        if(correctCount == maxCount && currentPage == 2 && !signedUp)
+        if(correctCount == maxCount && currentPage == 0 && !signedUp)
         {
             // allow signup
             signupBtn.removeAttr('disabled');
@@ -351,10 +352,7 @@ $(document).ready(function () {
                 email.focus();
                 break;
             case 1:
-                fName.focus();
-                break;
-            case 2:
-                accName.focus();
+                code.focus();
                 break;
         }
         $("body").getNiceScroll().resize();
@@ -362,7 +360,7 @@ $(document).ready(function () {
 
 
 
-    nextPageBtn.click(function() {
+    /*nextPageBtn.click(function() {
         switch (currentPage) {
 
             case 0:
@@ -378,9 +376,9 @@ $(document).ready(function () {
             case 2:
                 break;
         }
-    });
+    });*/
 
-    prevPageBtn.click(function() {
+  /*  prevPageBtn.click(function() {
 
         switch (currentPage) {
 
@@ -396,7 +394,7 @@ $(document).ready(function () {
                 nextDiv.show();
                 break;
         }
-    });
+    });*/
 
     function checkAll(){
         var pass = false;
@@ -552,10 +550,10 @@ $(document).ready(function () {
     // setUIforVerification();
 
     function loginUser(){
-        carousel.carousel(4);
+        carousel.carousel(2);
         signupBtn.hide();
-        prevDiv.hide();
-        nextDiv.hide();
+        // prevDiv.hide();
+        // nextDiv.hide();
         progressDiv.hide();
         loginProgressDiv.show();
 
@@ -616,12 +614,12 @@ $(document).ready(function () {
 
     function setUIforVerification()
     {
-        carousel.carousel(3);
+        carousel.carousel(1);
         $("#title").html("Verify Your Account");
         signupBtn.off("click");
         signupBtn.html("Verify");
-        prevDiv.hide();
-        nextDiv.hide();
+        // prevDiv.hide();
+        // nextDiv.hide();
         signupBtn.removeAttr('disabled');
         progressDiv.hide();
         tosDiv.hide();
@@ -686,7 +684,7 @@ $(document).ready(function () {
     $("body").niceScroll({
         hwacceleration: true,
         smoothscroll: true,
-        cursorcolor: "#f5862c",
+        cursorcolor: "silver",
         cursorborder: 0,
         scrollspeed: 10,
         mousescrollstep: 20,
