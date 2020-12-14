@@ -382,7 +382,7 @@ $(document).ready(function () {
                         self.setType("green");
                         self.setContent(response["msg"]);
 
-                        self.buttons.ok.setText("Yes");
+                        self.buttons.ok.setText("Ok");
                         self.buttons.ok.addClass("btn-green");
                         self.buttons.ok.removeClass("btn-default");
                         self.buttons.close.hide();

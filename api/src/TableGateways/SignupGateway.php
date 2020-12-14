@@ -5,6 +5,7 @@ use Src\TableGateways\CityGateway;
 use Src\TableGateways\CountryGateway;
 use Src\TableGateways\accessGateway;
 use Src\TableGateways\tokenGateway;
+use Src\TableGateways\AccountGateway;
 use Src\System\Mailer;
 include_once "common.php";
 
@@ -16,6 +17,7 @@ class SignupGateway
     private $CountryGateway = null;
     private $accessGateway = null;
     private $tokenGateway = null;
+    private $accountGateway = null;
     private $mailer;
 
     public function __construct($db)
@@ -25,6 +27,7 @@ class SignupGateway
         $this->CountryGateway = new CountryGateway($db);
         $this->accessGateway = new accessGateway($db);
         $this->tokenGateway = new tokenGateway($db);
+        $this->accountGateway = new AccountGateway($db);
         $this->mailer = new Mailer($db);
     }
 
@@ -201,17 +204,19 @@ class SignupGateway
 
                         $this->tokenGateway->expireToken($tokenData["id"]);
 
+                        $this->createClientAdminAccount($accName, $email, $lastInsertedUID);
                         return generateApiHeaderResponse("Signed up successfully, \nTypist invitation accepted, \n\nPlease verify your email address before logging in",
                             false,
                             array("id"=>$lastInsertedUID));
                     }else{
                         // token not found or expired
+                        $this->createClientAdminAccount($accName, $email, $lastInsertedUID);
                         return generateApiHeaderResponse("Signed up successfully, please verify your email address before logging in, couldn't accept typist invitation (Invalid or Expired token)",
                             false,
                             array("id"=>$lastInsertedUID));
                     }
                 }
-
+                $this->createClientAdminAccount($accName, $email, $lastInsertedUID);
                 return generateApiHeaderResponse("Signed up successfully, please verify your email address before logging in",
                     false,
                     array("id"=>$lastInsertedUID));
@@ -223,6 +228,21 @@ class SignupGateway
         }
 
 
+    }
+
+    /**
+     * @internal used by signup function to create and associate Client Admin Account with a newly created user
+     * if the accName is present
+     */
+    private function createClientAdminAccount($accName, $email, $uid){
+        if($accName)
+        {
+            $_SESSION['uid'] = $uid;
+            $_SESSION['uEmail'] = $email;
+            $response = $this->accountGateway->createNewClientAdminAccount($accName);
+            $debugresponse =1;
+            return json_decode($response["body"], true)["error"];
+        }
     }
 
     /**

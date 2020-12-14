@@ -221,7 +221,7 @@ class AccountGateway
                 $lastPrefix = $result["job_prefix"];
                 $regex = "/(.{2})(.*)-/";
                 preg_match($regex, $lastPrefix, $matchGroups);
-                $nextNum = $matchGroups[2] + 1;
+                $nextNum = (int)$matchGroups[2] + 1;
                 return $matchGroups[1] . ($nextNum) . "-";
             }
 

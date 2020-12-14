@@ -95,7 +95,7 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
 
     <!--    <link rel="stylesheet" href="data/css/parts/bootstrap-override.css" />-->
 
-    <script src="data/scripts/signup.js"></script>
+    <script src="data/scripts/signup.min.js"></script>
 
 </head>
 
@@ -104,6 +104,7 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
 <div class="vtex-signup-wrap">
     <div class="vtex-signup-container">
         <form class="vtex-signup-form needs-validation" id="signupForm" autocomplete="off" novalidate>
+
         <span class="login100-form-title p-b-20">
             <img src="data/images/Logo_vScription_Transcribe_Pro_Stacked_White.png" style="height: 110px"/>
         </span>
