@@ -260,7 +260,7 @@ $(document).ready(function () {
         if(lastZipRequested != zip)
         {
             // var jqxhr = $.get( "example.php", function() {
-            console.log("Looking up in " + country + " Zip: " + zip);
+            // console.log("Looking up in " + country + " Zip: " + zip);
             $.get( zippoURL + country + "/"+ zip, function() {
                 // alert( "success" );
             })
@@ -277,11 +277,11 @@ $(document).ready(function () {
                         stateBox.selectpicker('val', caStates[response["places"][0]["state"]]);
                     }
 
-                    console.log(response);
+                    // console.log(response);
                 })
                 .fail(function(error) {
                     // couldn't get address
-                    console.log("couldn't get address");
+                    console.log("Failed to locate address by zip/postal code");
                     // alert( "error" );
                 });
             /*.always(function() {
@@ -416,7 +416,7 @@ $(document).ready(function () {
 
         if(!checkAll())
         {
-            console.log("max " + maxCount + "<br> correct " + correctCount );
+            // console.log("max " + maxCount + "<br> correct " + correctCount );
             $.confirm({
                 title: 'Error',
                 content: 'Please check your information',
@@ -745,7 +745,6 @@ $(document).ready(function () {
         // stateInputLbl.css("display","none");
         // stateBoxLbl.css("display","none");
         // cityContainer.css("display","none");
-        console.log("States loaded, + " + usStates.toString() + " | | | " + caStates.toString());
         currentCountry = id;
 
         // removeLoadingSpinner(); // if any left over
