@@ -123,7 +123,7 @@ class SignupController {
         // check if user already exists
         if($this->signupGateway->userExist($_POST["email"]))
         {
-            return generateApiHeaderResponse("You already have an account, login instead?", true,false,301);
+            return generateApiHeaderResponse("Account already exists, login instead?", true,false,301);
         }
 
         if(!$this->validatePasswordRequirements($_POST["password"])){

@@ -3,6 +3,7 @@ global $emHTML;
 global $emPlain;
 global $email;
 global $link;
+global $token;
 
 $emHTML= "<!DOCTYPE html>
 <html>
@@ -182,7 +183,38 @@ $emHTML= "<!DOCTYPE html>
                 <!-- start copy -->
                 <tr>
                     <td align=\"left\" bgcolor=\"#ffffff\" style=\"padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;\">
-                        <p style=\"margin: 0;\">Thank you for signing up for vScription Pro, Please verify your email address by clicking the button below: </p>
+                        <p style=\"margin: 0;\">Thank you for signing up for vScription Pro,</p> <br>
+                        <p style=\"margin: 0;\"> Please verify your email address by entering the next code: </p>
+                    </td>
+                </tr>
+                <!-- end copy -->
+                
+                <!-- start button -->
+                <tr>
+                    <td align=\"left\" bgcolor=\"#ffffff\">
+                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">
+                            <tr>
+                                <td align=\"center\" bgcolor=\"#ffffff\" style=\"padding: 12px;\">
+                                    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\">
+                                        <tr>
+                                            <td align=\"center\" bgcolor=\"#1e79be\" style=\"border-radius: 6px;\">
+                                                <span style=\"display: inline-block; padding: 16px 36px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; border-radius: 6px;\">
+                                                    $token
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <!-- end button -->
+                
+                <!-- start copy -->
+                <tr>
+                    <td align=\"left\" bgcolor=\"#ffffff\" style=\"padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;\">
+                        <p style=\"margin: 0;\">Or by clicking the button below: </p>
                     </td>
                 </tr>
                 <!-- end copy -->
@@ -195,7 +227,7 @@ $emHTML= "<!DOCTYPE html>
                                 <td align=\"center\" bgcolor=\"#ffffff\" style=\"padding: 12px;\">
                                     <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\">
                                         <tr>
-                                            <td align=\"center\" bgcolor=\"#1a82e2\" style=\"border-radius: 6px;\">
+                                            <td align=\"center\" bgcolor=\"#53a13d\" style=\"border-radius: 6px;\">
                                                 <a href=\"$link\" target=\"_blank\" style=\"display: inline-block; padding: 16px 36px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; border-radius: 6px;\">
                                                     Verify Email
                                                 </a>
@@ -283,7 +315,11 @@ $emHTML= "<!DOCTYPE html>
 $emPlain = "Hi $email,
 		
 
-Thank you for signing up for vScription Pro, Please verify your email address by clicking the button below:
+Thank you for signing up for vScription Pro, 
+
+Please verify your email address by entering this code: $token
+
+or by visiting the link below:
 
 $link
 

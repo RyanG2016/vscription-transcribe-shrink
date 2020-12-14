@@ -82,10 +82,15 @@ class SignupGateway
         $pass = $_POST["password"];
         $fname = $_POST["fname"];
         $lname = $_POST["lname"];
-        $ref = $_POST["ref"];
+        $ref = isset($_POST["ref"])?$_POST["ref"]:false;
         $countryID = $_POST["countryID"];
         $stateID = $_POST["stateID"]?$_POST["stateID"]:null;
         $city = isset($_POST["city"])?$_POST["city"]:null;
+        $accName = isset($_POST["accname"]) ? (empty(trim($_POST["accname"]))? false: $_POST["accname"]) :false;
+
+        // DEBUG simulate error
+//        return generateApiHeaderResponse("You already have an account, login instead?", true,false,301);
+//        return generateApiHeaderResponse("Couldn't sign you up, please contact system admin", true);
 
         // state check
         if($countryID == 204 || $countryID == 203)
@@ -196,18 +201,18 @@ class SignupGateway
 
                         $this->tokenGateway->expireToken($tokenData["id"]);
 
-                        return generateApiHeaderResponse("Signed up successfully, \nTypist invitation accepted, \n\nPlease verify your email address before trying to login",
+                        return generateApiHeaderResponse("Signed up successfully, \nTypist invitation accepted, \n\nPlease verify your email address before logging in",
                             false,
                             array("id"=>$lastInsertedUID));
                     }else{
                         // token not found or expired
-                        return generateApiHeaderResponse("Signed up successfully, please verify your email address before trying to login, couldn't accept typist invitation (Invalid or Expired token)",
+                        return generateApiHeaderResponse("Signed up successfully, please verify your email address before logging in, couldn't accept typist invitation (Invalid or Expired token)",
                             false,
                             array("id"=>$lastInsertedUID));
                     }
                 }
 
-                return generateApiHeaderResponse("Signed up successfully, please verify your email address before trying to login",
+                return generateApiHeaderResponse("Signed up successfully, please verify your email address before logging in",
                     false,
                     array("id"=>$lastInsertedUID));
             }else{

@@ -48,6 +48,7 @@ class Mailer
         global $emPlain;
         global $email;
         global $accName;
+        global $token;
         $email = $user_email;
         $accName = $account_name;
         $mailingListSize = 0;
@@ -191,7 +192,7 @@ class Mailer
 
         while(true)
         {
-            $token = $this->getToken();
+            $token = $this->getToken($reasonCode==5?6:78);
             if($token != 0)
             {
                 break;
@@ -234,13 +235,14 @@ class Mailer
     }
 
     /**
-     * Generates a random token of 78 characters length
+     * Generates a random token
      * used for verification emails
+     * @param int $length token length default is 78
      * @return string generated token
      */
-    function getToken()
+    function getToken($length = 78)
     {
-        $length = 78;
+        $length = (int)floor($length/2);
         try {
             return bin2hex(random_bytes($length));
         } catch (\Exception $e) {
