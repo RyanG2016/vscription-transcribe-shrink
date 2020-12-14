@@ -46,6 +46,8 @@ $(document).ready(function () {
     var currentPage = 0;
     var nextPageBtn = $("#nextBtn");
     var prevPageBtn = $("#prevBtn");
+    var tosDiv = $("#tosDiv");
+    var tos = $("#tos");
     signupBtn = $("#signupBtn");
     email = $("#inputEmail");
     fName = $("#inputfName");
@@ -340,6 +342,17 @@ $(document).ready(function () {
                 }
             });
         }else{
+            if(tos.prop('checked') !== true)
+            {
+                // tos must be checked
+                $.alert({
+                    title: 'TOS',
+                    type: 'orange',
+                    content: 'You must agree to the Terms of Service',
+                    theme: 'supervan'
+                });
+                return;
+            }
             // information are correct proceed with signup process
             var countryTxt = $('#countryBox option:selected').text();
 
@@ -520,6 +533,7 @@ $(document).ready(function () {
         nextDiv.hide();
         signupBtn.removeAttr('disabled');
         progressDiv.hide();
+        tosDiv.hide();
 
 
         signupBtn.click(function(){
