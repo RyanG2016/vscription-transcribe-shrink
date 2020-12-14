@@ -199,18 +199,33 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
                             </div>
                         </div>
 
-                        <!----------------------Country--------------->
-                        <div class="form-group">
-                            <label for="countryBox">Country</label>
-                            <div class="spinner" id="countrySpin">
-                                <div class="bounce1"></div>
-                                <div class="bounce2"></div>
-                                <div class="bounce3"></div>
+                        <!----------------------Country & zip code--------------->
+                        <div class="form-row">
+
+                            <div class="col">
+                                <label for="countryBox">Country</label>
+                                <div class="spinner" id="countrySpin">
+                                    <div class="bounce1"></div>
+                                    <div class="bounce2"></div>
+                                    <div class="bounce3"></div>
+                                </div>
+                                <select class="form-control show-tick country-box" id="countryBox" data-container="body"
+                                        data-dropup-auto="false" name="countryID">
+                                    <option selected>Loading...</option>
+                                </select>
                             </div>
-                            <select class="form-control show-tick country-box" id="countryBox" data-container="body"
-                                    data-dropup-auto="false" name="countryID">
-                                <option selected>Loading...</option>
-                            </select>
+
+                            <div class="form-group col">
+                                <label for="inputfName">Address lookup <small class="text-muted">US/CA only</small></label>
+                                <input type="text" class="form-control" id="inputZip" placeholder="Zip/Postal Code">
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Please enter your name.
+                                </div>
+                            </div>
+
                         </div>
 
                         <!----------------------State----------------->

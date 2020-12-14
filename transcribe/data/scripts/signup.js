@@ -18,15 +18,25 @@ $(document).ready(function () {
     var prevDiv = $(".prev-btn-div");
     var nextDiv = $(".next-btn-div");
 
+    // zip lookup
+    var zip;
+    var currentCountry = 203;
+    var lastZipRequested = "";
+
     // boxes
-    var countryBox;
-    var stateBox;
+    /*var countryBox;*/
+    var caStates = {};
+    var usStates = {};
 
     var countriesURL = "../api/v1/countries/";
     var stateURL = "../api/v1/cities/";
     var signupURL = "../api/v1/signup/";
     var verifyURL = "verify.php";
     var loginURL = "../api/v1/login";
+    var zippoURL = "https://api.zippopotam.us/";
+
+    var statesJson = false;
+    var countriesJson = false;
 
     const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,. <>\/?]).{8,60}$/;
 
@@ -49,6 +59,7 @@ $(document).ready(function () {
     var currentPage = 0;
     var nextPageBtn = $("#nextBtn");
     var prevPageBtn = $("#prevBtn");
+    var zipCode = $("#inputZip");
     var tosDiv = $("#tosDiv");
     var tos = $("#tos");
     signupBtn = $("#signupBtn");
@@ -205,6 +216,81 @@ $(document).ready(function () {
     email.keyup(function() {
         checkEmail();
     });
+
+
+    zipCode.keyup(function () {
+        // check for matching regex
+        var CA_REGEX = /^[a-zA-Z0-9]{3}$|^[a-zA-Z0-9]{6}$|^[a-zA-Z0-9]{3} [a-zA-Z0-9]{3}$/;
+        var US_REGEX = /^[0-9]{5}$/;
+        zip = zipCode.val();
+
+        switch (zip.length) {
+
+            // CA
+            case 3:
+            case 6:
+                if(CA_REGEX.test(zip))
+                {
+                    // lookup CA address
+                    if(currentCountry != 203)
+                    {
+                        $("#countryBox").selectpicker('val', 203);
+                    }
+                    lookupZip(zip.slice(0,3), "ca");
+                }
+                break;
+
+            // US
+            case 5:
+                if(US_REGEX.test(zip))
+                {
+                    // lookup US address
+                    if (currentCountry != 204) {
+                        $("#countryBox").selectpicker('val', 204);
+                    }
+                    lookupZip(zip, "us");
+                }
+                break;
+        }
+
+    });
+
+    function lookupZip(zip, country)
+    {
+        if(lastZipRequested != zip)
+        {
+            // var jqxhr = $.get( "example.php", function() {
+            console.log("Looking up in " + country + " Zip: " + zip);
+            $.get( zippoURL + country + "/"+ zip, function() {
+                // alert( "success" );
+            })
+                .done(function(response) {
+                    // var location = JSON.parse(response);
+                    city.val(response["places"][0]["place name"]);
+
+                    if(country == "us")
+                    {
+                        stateBox.selectpicker('val', usStates[response["places"][0]["state"]])
+                    }
+                    else if(country == "ca")
+                    {
+                        stateBox.selectpicker('val', caStates[response["places"][0]["state"]]);
+                    }
+
+                    console.log(response);
+                })
+                .fail(function(error) {
+                    // couldn't get address
+                    console.log("couldn't get address");
+                    // alert( "error" );
+                });
+            /*.always(function() {
+                alert( "finished" );
+            });*/
+        }
+
+        lastZipRequested = zip;
+    }
 
     accName.keyup(function() {
         checkAccName();
@@ -463,6 +549,7 @@ $(document).ready(function () {
     // DEBUG testing verification pages here--
     // signedUp = true;
     // loginUser();
+    carousel.carousel(1);
 
     function loginUser(){
         carousel.carousel(4);
@@ -605,11 +692,14 @@ $(document).ready(function () {
         cursoropacitymax: 0.7
     });
 
+    cacheAllStates();
+
     countryBox.on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
         // do something...
         // console.log("selection changed to: " + clickedIndex + " and prev was: " + previousValue+ "and e is ");
         // console.log(e);
         // console.log(countryBox.selectpicker('val')); // selected value
+        currentCountry = countryBox.selectpicker('val');
         var state = countryBox.selectpicker('val');
         if (state === "203" || state === "204") {
             $("#stateSpin")[0].style.display = "block";
@@ -628,12 +718,35 @@ $(document).ready(function () {
 //*----------------------- JS Functions ------------------*\\
 //*-------------------------------------------------------*\\
 
+    function cacheAllStates(){
+        stateRequest = $.ajax({
+            url: stateURL,
+            method: "GET",
+            success: function (states) {
+
+                for (const state of states) {
+                    // console.log(country.id);
+                    if(state.country == "203")
+                    {
+                        caStates[state.city] = state.id;
+                    }
+                    else if(state.country == "204")
+                    {
+                        usStates[state.city] = state.id;
+                    }
+                }
+                loadState(203);
+            }
+        });
+
+    }
 
     function loadState(id) {
         // stateInputLbl.css("display","none");
         // stateBoxLbl.css("display","none");
         // cityContainer.css("display","none");
-
+        console.log("States loaded, + " + usStates.toString() + " | | | " + caStates.toString());
+        currentCountry = id;
 
         // removeLoadingSpinner(); // if any left over
         // stateContainer.append(generateLoadingSpinner());
@@ -644,40 +757,50 @@ $(document).ready(function () {
             stateRequest.abort();
         }
 
-        stateRequest = $.ajax({
-            url: stateURL + id,
-            method: "GET",
-            success: function (states) {
-                // rolesGlobal = roles;
-                // updateRoleModalBtn.removeAttr("disabled");
-                // const tybox = document.getElementById("roleBox");
-                // console.log(countries);
+        if(currentCountry == 203 && Object.keys(caStates).length != 0)
+        {
+            // load cached
 
-                stateBox.html(""); // clear old values
-                for (const state of states) {
-                    // console.log(country.id);
-                    stateBox.html(stateBox.html() +
-                        "<option value='" + state.id + "'>" +
-                        state.city +
-                        "</option>");
-                }
+            stateBox.html(""); // clear old values
+            for (var key in caStates) {
 
-                stateBox.selectpicker({
-                    liveSearch: true,
-                    liveSearchPlaceholder: "Search"
-                });
-                stateBox.selectpicker('refresh');
-                $("#stateSpin")[0].style.display = "none";
-                stateBox.display = "block";
-
-                /*if(!roleIsset){
-                    checkForSingleRoleToSet();
-                }else{
-                    loading.style.display = "none";
-                }*/
-                // removeLoadingSpinner();
+                stateBox.html(stateBox.html() +
+                    "<option value='" + caStates[key] + "'>" +
+                    key +
+                    "</option>");
             }
-        });
+
+
+            stateBox.selectpicker({
+                liveSearch: true,
+                liveSearchPlaceholder: "Search"
+            });
+            stateBox.selectpicker('refresh');
+            $("#stateSpin")[0].style.display = "none";
+            stateBox.display = "block";
+
+        }
+        else if(currentCountry == 204 && Object.keys(usStates).length != 0) {
+            // load cached
+
+            stateBox.html(""); // clear old values
+            for (var key in usStates) {
+
+                stateBox.html(stateBox.html() +
+                    "<option value='" + usStates[key] + "'>" +
+                    key +
+                    "</option>");
+            }
+
+            stateBox.selectpicker({
+                liveSearch: true,
+                liveSearchPlaceholder: "Search"
+            });
+            stateBox.selectpicker('refresh');
+            $("#stateSpin")[0].style.display = "none";
+            stateBox.display = "block";
+
+        }
 
     }
 
@@ -727,7 +850,7 @@ $(document).ready(function () {
                 });*/
                 $("#countrySpin")[0].style.display = "none";
 
-                loadState(203);
+                // loadState(203);
                 /*if(!roleIsset){
                     checkForSingleRoleToSet();
                 }else{
