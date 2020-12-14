@@ -45,16 +45,18 @@ $(document).ready(function () {
     // const EMAIL_REGEX = /^[a-z0-9_]+(?:\.[a-z0-9_]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
     const NAME_REGEX = /^[^0-9\.\,\'\"\?\!\;\:\#\$\%\&\(\)\*\+\-\/\<\>\=\@\[\]\\\^\_\{\}\|\~]+$/;
     const ACC_REGEX = /^$|^[^0-9\.\,\'\"\?\!\;\:\#\$\%\&\(\)\*\+\-\/\<\>\=\@\[\]\\\^\_\{\}\|\~]+$/;
-    const percentagePerProgress = 0.2; // in percentage eg. 0.2 = 20%
+    const CITY_REGEX = /^[^0-9\.\,\'\"\?\!\;\:\#\$\%\&\(\)\*\+\-\/\<\>\=\@\[\]\\\^\_\{\}\|\~\s]{2,}$/;
+    const percentagePerProgress = 0.17; // in percentage eg. 0.2 = 20%
 
     // progress variables
     var em = false;
     var pw = false;
     var cp = false;
     var fn = false;
+    var ci = false;
     var ln = false;
     var correctCount = 0;
-    var maxCount = 5;
+    var maxCount = 6;
 
     var currentPage = 0;
     // var nextPageBtn = $("#nextBtn");
@@ -127,6 +129,13 @@ $(document).ready(function () {
     function checkAccName()
     {
         return regexCheck(accName,ACC_REGEX);
+    }
+
+    function checkCity()
+    {
+        var res = regexCheck(city,CITY_REGEX);
+        changeProgress(ci, res);
+        ci = res;
     }
 
     function checkName(nameIndex) {
@@ -296,6 +305,10 @@ $(document).ready(function () {
         checkAccName();
     });
 
+    city.keyup(function() {
+        checkCity();
+    });
+
     pwd.keyup(function(){
         checkPassword();
     });
@@ -402,6 +415,7 @@ $(document).ready(function () {
             checkPassword() &&
             checkConfirmPassword() &&
             checkAccName() &&
+            checkCity() &&
             checkName(1) &&
             checkName(2)) {
             pass = true;
