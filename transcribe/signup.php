@@ -116,169 +116,81 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
                 <div class="carousel-inner">
                     <div class="carousel-item active">
 
-                        <div class="row justify-content-center carousel-page-title">
+                        <!--<div class="row justify-content-center carousel-page-title">
                             <span class="align-text-bottom"> <i class="fas fa-info-circle fa-lg"></i> </span>
                             <h5 class="fs-22 align-top">&nbsp;Basic</h5>
-                        </div>
-
-                        <!----------------------EMAIL----------------->
-                        <div class="form-group">
-                            <label for="inputEmail">Email</label>
-                            <input type="email" class="form-control" id="inputEmail" placeholder="Email" name="email"
-                                   required autofocus>
-                            <div class="valid-feedback">
-                                Looks good!
-                            </div>
-                            <div class="invalid-feedback">
-                                Please enter a valid email
-                            </div>
-                        </div>
-
-                        <!----------------------PASSWORD-------------->
-                        <div class="form-group">
-                            <label for="inputPassword">Password</label>
-                            <input type="password" class="form-control" id="inputPassword" placeholder="Password"
-                                   name="password"
-                                   title="Password Requirements"
-                                   data-trigger="focus"
-                                   required>
-                            <div class="valid-feedback">
-                                Looks good!
-                            </div>
-                            <div class="invalid-feedback">
-                                Please enter a valid password
-                            </div>
-                        </div>
-
-                        <!----------------------Confirm Password-------------->
-                        <div class="form-group">
-                            <label for="inputConfirmPassword">Confirm Password</label>
-                            <input type="password" class="form-control" id="inputConfirmPassword"
-                                   placeholder="Confirm Password"
-                                   title="Confirm Password"
-                                   data-trigger="focus"
-                                   required>
-                            <div class="valid-feedback">
-                                Looks good!
-                            </div>
-                            <div class="invalid-feedback">
-                                Passwords doesn't match.
-                            </div>
-                        </div>
-
-                        <hr/>
-                    <!--</div>
-                    <div class="carousel-item">-->
-
-                        <div class="row justify-content-center carousel-page-title mb-3">
-                            <span class="align-text-bottom"> <i class="fas fa-user fa-lg"></i> </span>
-                            <h5 class="fs-22 align-top">&nbsp;Personal</h5>
-                        </div>
-
-                        <!----------------------NAME----------------->
+                        </div>-->
 
                         <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="inputfName">First Name</label>
-                                <input type="text" class="form-control" id="inputfName" placeholder="" name="fname"
+                            <!----------------- 1st column ---------------->
+                            <div class="col-4">
+                                <!----------------------EMAIL----------------->
+                                <label for="inputEmail"><i class="fas fa-envelope"></i> Email</label>
+                                <input type="email" class="form-control" id="inputEmail" placeholder="Email" name="email"
                                        required autofocus>
-                                <div class="valid-feedback">
-                                    Looks good!
-                                </div>
+                                <!--                                <div class="valid-feedback">-->
+                                <!--                                    Looks good!-->
+                                <!--                                </div>-->
                                 <div class="invalid-feedback">
-                                    Please enter your name.
+                                    Please enter a valid email
                                 </div>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="inputlName">Last Name</label>
-                                <input type="text" class="form-control" id="inputlName" placeholder="" name="lname"
+
+                                <!----------------------Line Break----------------->
+                                <div class="w-100 m-t-16"></div>
+
+
+                                <!----------------------PASSWORD-------------->
+                                <label for="inputPassword"><i class="fas fa-key"></i> Password</label>
+                                <input type="password" class="form-control" id="inputPassword" placeholder="Password"
+                                       name="password"
+                                       title="Password Requirements"
+                                       data-trigger="focus"
                                        required>
-                                <div class="valid-feedback">
+                                <!--<div class="valid-feedback">
                                     Looks good!
-                                </div>
-                            </div>
-                        </div>
-
-                        <!----------------------Country & zip code--------------->
-                        <div class="form-row">
-
-                            <div class="col">
-                                <label for="countryBox">Country</label>
-                                <div class="spinner" id="countrySpin">
-                                    <div class="bounce1"></div>
-                                    <div class="bounce2"></div>
-                                    <div class="bounce3"></div>
-                                </div>
-                                <select class="form-control show-tick country-box" id="countryBox" data-container="body"
-                                        data-dropup-auto="false" name="countryID">
-                                    <option selected>Loading...</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group col">
-                                <label for="inputfName">Address lookup <small class="text-muted">US/CA only</small></label>
-                                <input type="text" class="form-control" id="inputZip" placeholder="Zip/Postal Code">
-                                <div class="valid-feedback">
-                                    Looks good!
-                                </div>
+                                </div>-->
                                 <div class="invalid-feedback">
-                                    Please enter your name.
+                                    Please enter a valid password
                                 </div>
-                            </div>
 
-                        </div>
+                                <!----------------------Line Break----------------->
+                                <div class="w-100 m-t-16"></div>
 
-                        <!----------------------State----------------->
-
-                        <div class="form-group" id="stateGroup">
-                            <label for="countryBox">Province/State</label>
-                            <div class="spinner" id="stateSpin">
-                                <div class="bounce1"></div>
-                                <div class="bounce2"></div>
-                                <div class="bounce3"></div>
-                            </div>
-                            <select class="form-control show-tick state-box" id="stateBox" data-container="body"
-                                    data-dropup-auto="false" name="stateID">
-                                <option selected>Loading...</option>
-                            </select>
-                        </div>
-
-                        <!----------------------CITY----------------->
-                        <div class="form-group">
-                            <label for="inputCity">City</label>
-                            <input type="text" class="form-control" id="inputCity" placeholder="" name="city">
-                        </div>
+                                <!----------------------Confirm Password-------------->
+                                <label for="inputConfirmPassword"><i class="fas fa-key"></i> Confirm Password</label>
+                                <input type="password" class="form-control" id="inputConfirmPassword"
+                                       placeholder="Confirm Password"
+                                       title="Confirm Password"
+                                       data-trigger="focus"
+                                       required>
+                                <!--<div class="valid-feedback">
+                                    Looks good!
+                                </div>-->
+                                <div class="invalid-feedback">
+                                    Passwords doesn't match.
+                                </div>
 
 
-                    <hr/>
-                    <!--</div>
-                    <div class="carousel-item">-->
+                                <!----------------------Line Break----------------->
+                                <div class="w-100 m-t-16"></div>
 
-                        <div class="row justify-content-center carousel-page-title mb-3">
-                            <span class="align-text-bottom"> <i class="fas fa-user-tie fa-lg"></i> </span>
-                            <h5 class="fs-22 align-top">&nbsp;Administration</h5>
-                        </div>
 
-                        <!-------------ACCOUNT-NAME----------------->
-
-                        <div class="form-row">
-                            <div class="form-group col">
-                                <label for="inputfName">Account Name</label>
+                                <label for="inputAccName"><i class="fas fa-sitemap"></i> Organization Name</label>
                                 <input type="text" class="form-control" id="inputAccName" placeholder="" name="accname"
                                        required>
 
                                 <div class="form-row">
-                                    <div class="col">
+                                    <!--<div class="col">
                                         <small class="text-muted">
                                             (optional)
                                         </small>
-                                    </div>
+                                    </div>-->
                                     <div class="col">
-                                        <div class="checkbox justify-content-end" id="haveAccDiv">
-                                            <div class="form-inline justify-content-end">
+                                        <div class="checkbox justify-content-start" id="haveAccDiv">
+                                            <div class="form-inline justify-content-start">
                                                 <label>
-                                                    <small class="text-muted">I already have an account &nbsp;</small>
-                                                    <input type="checkbox" id="haveAccCB"/>
+                                                    <input type="checkbox" id="haveAccCB"/>&nbsp;
+                                                    <small class="text-muted">Don't create</small>
                                                 </label>
 
                                             </div>
@@ -286,19 +198,127 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
                                     </div>
                                 </div>
 
-
-                                <div class="valid-feedback">
-                                    Looks good!
-                                </div>
-                                <div class="invalid-feedback">
-                                    Please enter a valid account name
-                                </div>
                             </div>
+                            <!----------------- 2nd column ---------------->
+                            <div class="col vtex-left-divider">
+
+                                <div class="form-row m-0">
+                                    <!----------------------NAME----------------->
+                                    <div class="col">
+                                        <label for="inputfName"><i class="fas fa-font"></i> First Name</label>
+                                        <input type="text" class="form-control" id="inputfName" placeholder="" name="fname"
+                                               required autofocus>
+                                        <!--<div class="valid-feedback">
+                                            Looks good!
+                                        </div>-->
+                                        <div class="invalid-feedback">
+                                            Please enter your name.
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <label for="inputlName"><i class="fas fa-bold"></i> Last Name</label>
+                                        <input type="text" class="form-control" id="inputlName" placeholder="" name="lname"
+                                               required>
+                                        <!--<div class="valid-feedback">
+                                            Looks good!
+                                        </div>-->
+                                    </div>
+                                </div>
+
+                                <div class="w-100 m-t-16"></div>
+
+                                <div class="form-row m-0">
+                                    <!----------------------Postal Code----------------->
+
+                                    <div class="col">
+                                        <label for="inputZip"><i class="fas fa-atlas"></i> Address lookup <small class="text-muted">US/CA only</small></label>
+                                        <input type="text" class="form-control" id="inputZip" placeholder="Zip/Postal Code">
+                                    </div>
+
+                                    <!----------------------Country----------------->
+                                    <div class="col">
+                                        <label for="countryBox"><i class="fas fa-globe-americas"></i> Country</label>
+                                        <div class="spinner" id="countrySpin">
+                                            <div class="bounce1"></div>
+                                            <div class="bounce2"></div>
+                                            <div class="bounce3"></div>
+                                        </div>
+                                        <select class="form-control show-tick country-box" id="countryBox" data-container="body"
+                                                data-dropup-auto="false" name="countryID">
+                                            <option selected>Loading...</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="w-100 m-t-16"></div>
+
+                                <div class="form-row m-0">
+                                    <!----------------------Address Line-------------->
+                                    <div class="col">
+                                        <label for="inputAddress"><i class="fas fa-map-marker-alt"></i> Address Line</label>
+                                        <input type="text" class="form-control" id="inputAddress" placeholder="100 characters max" name="address">
+                                    </div>
+
+                                </div>
+
+                                <!----------------------Line Break----------------->
+                                <div class="w-100 m-t-16"></div>
+
+
+                               <div class="form-row m-0">
+                                   <!----------------------City----------------->
+                                   <div class="col">
+                                       <label for="inputCity"><i class="fas fa-city"></i> City</label>
+                                       <input type="text" class="form-control" id="inputCity" placeholder="" name="city">
+                                   </div>
+
+                                   <!----------------------Province----------------->
+                                   <div class="col">
+                                       <label for="countryBox"><i class="fas fa-flag"></i> Province/State</label>
+                                       <div class="spinner" id="stateSpin">
+                                           <div class="bounce1"></div>
+                                           <div class="bounce2"></div>
+                                           <div class="bounce3"></div>
+                                       </div>
+                                       <select class="form-control show-tick state-box" id="stateBox" data-container="body"
+                                               data-dropup-auto="false" name="stateID">
+                                           <option selected>Loading...</option>
+                                       </select>
+                                   </div>
+                               </div>
+
+
+                            </div>
+                            <!--  column end ↑   -->
                         </div>
 
-                        <h6 class="text-white text-center">Administration account allows you to upload and manage your work<br><br>
-<!--                            <small><i class="text-center">This step is optional leave blank to skip</i></small>-->
-                        </h6>
+                        <!----------------------Row 1----------------->
+
+                        <div class="form-row">
+                            <div class="col-5">
+
+                            </div>
+
+
+
+
+
+
+
+
+
+
+                            <!----------------------Line Break----------------->
+                            <div class="w-100 m-t-16"></div>
+
+                            <!----------------------Row 4----------------->
+
+
+
+
+
+                        </div>
+
                     </div>
 
                     <div class="carousel-item">
@@ -316,9 +336,9 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
                                     Enter the verification code sent to your email
                                 </label>
                                 <input type="text" class="form-control text-lg-center fs-25 col-sm-5 ml-auto mr-auto" id="code" maxlength="6" placeholder="Code">
-                                <div class="valid-feedback">
+                                <!--<div class="valid-feedback">
                                     Looks good!
-                                </div>
+                                </div>-->
                                 <div class="invalid-feedback">
                                     Please check your entry
                                 </div>
@@ -380,11 +400,11 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
 
             <!----------------------Signup---------------->
             <div class="container-login100-form-btn pt-0">
-                <div class=" row w-100">
+                <div class="row w-100 justify-content-center">
                     <!--<div class="col-auto arrows prev-btn-div">
                         <button type="button" class="btn btn-primary btn-lg" id="prevBtn" ><</button>
                     </div>-->
-                    <div class="col">
+                    <div class="col-6">
                         <button type="button" class="btn btn-primary btn-lg" id="signupBtn" disabled>Signup</button>
                     </div>
                     <!--<div class="col-auto arrows next-btn-div">
@@ -393,27 +413,32 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
                 </div>
             </div>
 
-            <div class="progress" id="formProgressDiv">
-                <div class="progress-bar" id="formProgressBar"
-                     role="progressbar" style="width: 0;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            <div class="row w-100 m-0 justify-content-center">
+
+                <div class="col-6">
+                    <div class="progress" id="formProgressDiv">
+                        <div class="progress-bar" id="formProgressBar"
+                             role="progressbar" style="width: 0;" aria-valuenow="0" aria-valuemin="0"
+                             aria-valuemax="100"></div>
+                    </div>
+                </div>
+
+                <div class="w-100"></div>
+
+                <div class="col-6">
+                    <div class="progress" id="loginProgressDiv" style="display: none">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated"
+                             id="loginProgressBar"
+                             role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
+                             style="width: 100%"></div>
+                    </div>
+                </div>
+                
             </div>
 
-            <div class="progress" id="loginProgressDiv" style="display: none">
-                <div class="progress-bar progress-bar-striped progress-bar-animated"
-                     id="loginProgressBar"
-                     role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
-            </div>
-
-            <div class="text-center p-t-15" id="info" hidden>
-						<span class="txt1" id="btmtxt1">
-							Don’t have an account?
-						</span>
-
-                <a class="txt2" href="#" id="btmtxt2" hidden>
-                    Sign Up
-                </a>
-            </div>
         </form>
+
+
         <div class="row p-t-20 m-0 " style="width: 100%">
             <div class="col">
                 <div class="text-left">

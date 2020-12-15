@@ -44,8 +44,10 @@ $(document).ready(function () {
     const EMAIL_REGEX = /^[a-z0-9_]+(?:\.[a-z0-9_]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
     const NAME_REGEX = /^[^0-9\.\,\'\"\?\!\;\:\#\$\%\&\(\)\*\+\-\/\<\>\=\@\[\]\\\^\_\{\}\|\~]+$/;
     const ACC_REGEX = /^$|^[^0-9\.\,\'\"\?\!\;\:\#\$\%\&\(\)\*\+\-\/\<\>\=\@\[\]\\\^\_\{\}\|\~]+$/;
-    const CITY_REGEX = /^[^0-9\,\'\"\?\!\;\:\#\$\%\&\*\+\-\/\<\>\=\@\[\]\\\^\_\{\}\|\~]{2,}$/;
-    const percentagePerProgress = 0.17; // in percentage eg. 0.2 = 20%
+    const CITY_REGEX = /^[^\,\'\"\?\!\;\:\#\$\%\&\*\+\-\/\<\>\=\@\[\]\\\^\_\{\}\(\)\|\~]{2,}$/;
+    const CITY_FILTER_REGEX = /[^a-zA-Z0-9. ]/gi;
+    const ADDRESS_REGEX = /^[^\,\'\"\?\!\;\:\#\$\%\&\*\+\-\/\<\>\=\@\[\]\\\^\_\\(\){\}\|\~]{5,}$/;
+    const percentagePerProgress = 0.145; // in percentage eg. 0.2 = 20%
 
     // progress variables
     var em = false;
@@ -54,13 +56,15 @@ $(document).ready(function () {
     var fn = false;
     var ci = false;
     var ln = false;
+    var ad = false;
     var correctCount = 0;
-    var maxCount = 6;
+    var maxCount = 7;
 
     var currentPage = 0;
     // var nextPageBtn = $("#nextBtn");
     // var prevPageBtn = $("#prevBtn");
     var zipCode = $("#inputZip");
+    var address = $("#inputAddress");
     var tosDiv = $("#tosDiv");
     var tos = $("#tos");
     var haveAccCheckbox = $("#haveAccCB");
@@ -140,6 +144,14 @@ $(document).ready(function () {
         return res;
     }
 
+    function checkAddress()
+    {
+        var res = regexCheck(address,ADDRESS_REGEX);
+        changeProgress(ad, res);
+        ad = res;
+        return res;
+    }
+
     function checkName(nameIndex) {
         switch (nameIndex) {
             case 1:
@@ -174,17 +186,25 @@ $(document).ready(function () {
 
     function checkConfirmPassword() {
 
-        if(pwd.val() === confirmPwd.val())
+        if(confirmPwd.val() == "")
         {
-            setValidation(confirmPwd,true);
-            changeProgress(cp, true);
-            cp = true;
-            return true;
-        }else{
             setValidation(confirmPwd, false);
             changeProgress(cp , false);
             cp = false;
             return false;
+        }else{
+            if(pwd.val() === confirmPwd.val())
+            {
+                setValidation(confirmPwd,true);
+                changeProgress(cp, true);
+                cp = true;
+                return true;
+            }else{
+                setValidation(confirmPwd, false);
+                changeProgress(cp , false);
+                cp = false;
+                return false;
+            }
         }
     }
 
@@ -277,7 +297,8 @@ $(document).ready(function () {
             })
                 .done(function(response) {
                     // var location = JSON.parse(response);
-                    city.val(response["places"][0]["place name"]);
+                    "Winnipeg (St. Boniface NE)"
+                    city.val(response["places"][0]["place name"].replace(CITY_FILTER_REGEX,""));
                     checkCity();
 
                     if(country == "us")
@@ -310,6 +331,10 @@ $(document).ready(function () {
 
     city.keyup(function() {
         checkCity();
+    });
+
+    address.keyup(function() {
+        checkAddress();
     });
 
     pwd.keyup(function(){
@@ -432,6 +457,7 @@ $(document).ready(function () {
             checkPassword() &&
             checkConfirmPassword() &&
             checkAccName() &&
+            checkAddress() &&
             checkCity() &&
             checkName(1) &&
             checkName(2)) {

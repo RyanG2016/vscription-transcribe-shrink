@@ -1,6 +1,7 @@
 @import "parts/vars.css";
 @import "parts/spinner.css";
 @import "parts/modal_overlay.css";
+@import "parts/vtex-custom-styles.css";
 /*@import "parts/bootstrap-override.css";*/
 
 /*//////////////////////////////////////////////////////////////////
@@ -143,7 +144,7 @@ iframe {
 }
 
 .vtex-signup-container {
-    width: 600px;
+    width: 900px;
     background: rgba(255, 255, 255, 0);
     border-radius: 10px;
     /*border: 3px groove rgba(30, 121, 190, 0.37);*/
