@@ -266,9 +266,27 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
                                 <label for="inputfName">Account Name</label>
                                 <input type="text" class="form-control" id="inputAccName" placeholder="" name="accname"
                                        required>
-                                <small class="text-muted">
-                                    (optional)
-                                </small>
+
+                                <div class="form-row">
+                                    <div class="col">
+                                        <small class="text-muted">
+                                            (optional)
+                                        </small>
+                                    </div>
+                                    <div class="col">
+                                        <div class="checkbox justify-content-end" id="haveAccDiv">
+                                            <div class="form-inline justify-content-end">
+                                                <label>
+                                                    <small class="text-muted">I already have an account &nbsp;</small>
+                                                    <input type="checkbox" id="haveAccCB"/>
+                                                </label>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
                                 <div class="valid-feedback">
                                     Looks good!
                                 </div>
@@ -279,7 +297,7 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
                         </div>
 
                         <h6 class="text-white text-center">Administration account allows you to upload and manage your work<br><br>
-                            <small><i class="text-center">This step is optional leave blank to skip</i></small>
+<!--                            <small><i class="text-center">This step is optional leave blank to skip</i></small>-->
                         </h6>
                     </div>
 

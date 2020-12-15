@@ -64,6 +64,8 @@ $(document).ready(function () {
     var zipCode = $("#inputZip");
     var tosDiv = $("#tosDiv");
     var tos = $("#tos");
+    var haveAccCheckbox = $("#haveAccCB");
+    var haveAccDiv = $("#haveAccDiv");
     signupBtn = $("#signupBtn");
     email = $("#inputEmail");
     fName = $("#inputfName");
@@ -323,6 +325,20 @@ $(document).ready(function () {
 
     lName.keyup(function(){
         checkName(2);
+    });
+
+    haveAccCheckbox.change(function(){
+
+        if(haveAccCheckbox.prop("checked"))
+        {
+            accName.val("");
+            accName.attr("disabled","disabled")
+            checkAccName();
+        }else{
+            accName.removeAttr('disabled');
+            checkAccName();
+        }
+
     });
 
     carousel.on('slide.bs.carousel', function(e){
