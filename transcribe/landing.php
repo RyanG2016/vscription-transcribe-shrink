@@ -236,12 +236,12 @@ if (isset($_SESSION['counter'])) {
                 <div class="row">
 
                     <div id="adminCard" class="col border-right">
-                        <h3 class="col text-center">Admin</h3>
+                        <h3 class="col text-center">Organization</h3>
 
                         <?php
                         if(!$_SESSION["adminAccountName"] && !$_SESSION["adminAccount"]){
                             echo "<div class=\"alert alert-info\" role=\"alert\">
-                                <em>You don't have a client administrator account, <u class=\"vtex-cursor-pointer\" data-toggle=\"modal\" data-target=\"#createAccModal\" >create one?</u></em>
+                                <em>You didn't create an organization profile, <u class=\"vtex-cursor-pointer\" data-toggle=\"modal\" data-target=\"#createAccModal\" >create one?</u></em>
                             </div>";
                         }else{
                             echo "<div class=\"alert alert-success\" role=\"alert\">
@@ -249,8 +249,8 @@ if (isset($_SESSION['counter'])) {
                             </div>";
                         }
                         ?>
-                        <div class="text-muted text-justify">A client administrator account allows you to manage your jobs,
-                            invite typists, download completed jobs</div>
+                        <div class="text-muted text-justify">Organization allows you to manage your jobs,
+                            invite typists, download completed jobs.</div>
                     </div>
 
                     <div id="typistCard" class="col">
