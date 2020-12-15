@@ -273,7 +273,7 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
                                    </div>
 
                                    <!----------------------Province----------------->
-                                   <div class="col">
+                                   <div class="col" id="stateGroup">
                                        <label for="countryBox"><i class="fas fa-flag"></i> Province/State</label>
                                        <div class="spinner" id="stateSpin">
                                            <div class="bounce1"></div>

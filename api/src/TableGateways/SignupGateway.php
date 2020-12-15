@@ -89,6 +89,7 @@ class SignupGateway
         $countryID = $_POST["countryID"];
         $stateID = $_POST["stateID"]?$_POST["stateID"]:null;
         $city = isset($_POST["city"])?$_POST["city"]:null;
+        $address = $_POST["address"];
         $accName = isset($_POST["accname"]) ? (empty(trim($_POST["accname"]))? false: $_POST["accname"]) :false;
 
         // DEBUG simulate error
@@ -136,7 +137,8 @@ class SignupGateway
                   trials,
                   newsletter,
                   last_ip_address,
-                  plan_id
+                  plan_id,
+                  address
                   ) 
                 values (
                     :first_name,
@@ -154,7 +156,8 @@ class SignupGateway
                     :trials,
                     :newsletter,
                     :last_ip_address,
-                    :plan_id
+                    :plan_id,
+                    :address
                   )
                   
                   ;";
@@ -178,7 +181,8 @@ class SignupGateway
                 "trials" => 0,
                 "newsletter" => 1,
                 "last_ip_address" => getIP(),
-                "plan_id" => 2
+                "plan_id" => 2,
+                "address" => $address
             ));
             $lastInsertedUID = $this->db->lastInsertId();
             $count =  $statement->rowCount();

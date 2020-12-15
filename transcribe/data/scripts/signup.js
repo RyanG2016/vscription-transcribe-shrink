@@ -314,7 +314,7 @@ $(document).ready(function () {
                 })
                 .fail(function(error) {
                     // couldn't get address
-                    console.log("Failed to locate address by zip/postal code");
+                    // console.log("Failed to locate address by zip/postal code");
                     // alert( "error" );
                 });
             /*.always(function() {
