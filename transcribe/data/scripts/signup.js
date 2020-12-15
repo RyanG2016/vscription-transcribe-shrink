@@ -45,7 +45,7 @@ $(document).ready(function () {
     // const EMAIL_REGEX = /^[a-z0-9_]+(?:\.[a-z0-9_]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
     const NAME_REGEX = /^[^0-9\.\,\'\"\?\!\;\:\#\$\%\&\(\)\*\+\-\/\<\>\=\@\[\]\\\^\_\{\}\|\~]+$/;
     const ACC_REGEX = /^$|^[^0-9\.\,\'\"\?\!\;\:\#\$\%\&\(\)\*\+\-\/\<\>\=\@\[\]\\\^\_\{\}\|\~]+$/;
-    const CITY_REGEX = /^[^0-9\.\,\'\"\?\!\;\:\#\$\%\&\(\)\*\+\-\/\<\>\=\@\[\]\\\^\_\{\}\|\~\s]{2,}$/;
+    const CITY_REGEX = /^[^0-9\,\'\"\?\!\;\:\#\$\%\&\*\+\-\/\<\>\=\@\[\]\\\^\_\{\}\|\~]{2,}$/;
     const percentagePerProgress = 0.17; // in percentage eg. 0.2 = 20%
 
     // progress variables
@@ -138,6 +138,7 @@ $(document).ready(function () {
         var res = regexCheck(city,CITY_REGEX);
         changeProgress(ci, res);
         ci = res;
+        return res;
     }
 
     function checkName(nameIndex) {
@@ -278,6 +279,7 @@ $(document).ready(function () {
                 .done(function(response) {
                     // var location = JSON.parse(response);
                     city.val(response["places"][0]["place name"]);
+                    checkCity();
 
                     if(country == "us")
                     {
