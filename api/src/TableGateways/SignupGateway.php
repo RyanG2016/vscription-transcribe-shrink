@@ -89,7 +89,8 @@ class SignupGateway
         $countryID = $_POST["countryID"];
         $stateID = $_POST["stateID"]?$_POST["stateID"]:null;
         $city = isset($_POST["city"])?$_POST["city"]:null;
-        $address = $_POST["address"];
+//        $address = $_POST["address"];
+        $address = isset($_POST["address"]) ? (empty(trim($_POST["address"]))? "": $_POST["address"]) :'';
         $accName = isset($_POST["accname"]) ? (empty(trim($_POST["accname"]))? false: $_POST["accname"]) :false;
 
         // DEBUG simulate error
