@@ -284,6 +284,13 @@ input:-webkit-autofill:active {
     display: none;
 }
 
+.progress-bar{
+    /*-webkit-transition: none !important;*/
+    /*transition: none !important;*/
+    transition-duration:1s;
+}
+
+
 .btn-primary,
 .btn-primary:focus
 {
@@ -291,11 +298,6 @@ input:-webkit-autofill:active {
     border-color: var(--vtex-blue);
     border-radius: 0;
     transition: width 2s;
-}
-.progress-bar{
-    /*-webkit-transition: none !important;*/
-    /*transition: none !important;*/
-    transition-duration:1s;
 }
 
 .btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {

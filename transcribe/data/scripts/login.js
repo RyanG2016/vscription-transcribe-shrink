@@ -18,7 +18,7 @@ var srcIsLogin = true;
 
 $(document).ready(function () {
 
-    loginBtn = $(".login100-form-btn");
+    loginBtn = $("#loginBtn");
     email = $('input[name="email"]');
     pwdInput = $('input[name="password"]');
     pwdDiv = $('#passwordDiv');

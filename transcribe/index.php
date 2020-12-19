@@ -95,9 +95,9 @@ isset($_SESSION['uEmail'])?$uEmail = $_SESSION['uEmail']:$uEmail = "";
 						<img src="data/images/Logo_vScription_Transcribe_Pro_Stacked.png" style="height: 110px" />
 					</span>
 
-					<span id="title" class="login100-form-title p-b-26">
+					<!--<span id="title" class="login100-form-title p-b-26">
 						Welcome
-					</span>
+					</span>-->
 
 					<!----------------------NAME----------------->
 					<table>
@@ -205,20 +205,18 @@ isset($_SESSION['uEmail'])?$uEmail = $_SESSION['uEmail']:$uEmail = "";
 
 					</div>
 
-					<div class="container-login100-form-btn">
-						<div class="wrap-login100-form-btn">
-							<div class="login100-form-bgbtn"></div>
-							<button class="login100-form-btn">
-								Login
-							</button>
-						</div>
-					</div>
+                    <button type="submit" class="btn btn-primary btn-lg mt-4" id="loginBtn">Login</button>
+                    <!--<button class="login-btn">
+                        Login
+                    </button>-->
+<!--					<div class="container-login100-form-btn">-->
+<!--						<div class="wrap-login100-form-btn">-->
+<!--							<div class="login100-form-bgbtn"></div>-->
+<!---->
+<!--						</div>-->
+<!--					</div>-->
 
-					<div class="text-center p-t-15" id="info">
-						<span class="txt1" id="btmtxt1">
-							Don’t have an account?
-						</span>
-
+					<div class="text-center p-t-3" id="info">
 						<a class="txt2" href="signup.php" id="btmtxt2">
 							Sign Up
 						</a>

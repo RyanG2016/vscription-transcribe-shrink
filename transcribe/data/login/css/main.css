@@ -1,3 +1,5 @@
+@import "../../css/parts/vars.css";
+
 @font-face {
   font-family: oxygen;
   src: url("../../Fonts/Oxygen-Regular.ttf");
@@ -524,6 +526,43 @@ input:-webkit-autofill:active  {
   left: 0;
 }
 
+
+.btn-primary,
+.btn-primary:focus
+{
+    background-color: var(--vtex-blue);
+    border-color: var(--vtex-blue);
+    /*border-radius: 0;*/
+    transition: width 2s;
+}
+
+.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
+    color: #fff;
+    background-color: var(--vtex-blue-hover);
+    border-color: var(--vtex-blue-hover);
+}
+
+.btn-primary.disabled, .btn-primary:disabled {
+    color: #fff;
+    background-color: grey;
+    border-color: grey;
+}
+
+.btn-primary:hover:not(:disabled)
+{
+    color: #fff;
+    background-color: var(--vtex-blue-hover);
+    border-color: var(--vtex-blue-hover);
+}
+
+#loginBtn, .progress{
+    /*border-radius: 4;*/
+}
+
+#loginBtn{
+    width: 100%;
+    font-family: 'oxygen-l', sans-serif;
+}
 
 /*------------------------------------------------------------------
 [ Responsive ]*/
