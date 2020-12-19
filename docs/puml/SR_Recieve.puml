@@ -1,0 +1,80 @@
+@startuml
+title Speech Recognition API Webhook endpoint
+
+skinparam backgroundColor #EEEBDC
+'skinparam handwritten true
+
+skinparam activity {
+  StartColor #1e79be
+  ArrowColor #1e79be
+  EndColor #1e79be
+  BackgroundColor white
+  SequenceTitleFontColor white
+  BorderColor #1e79be
+  FontName Tahoma
+}
+
+|Success|
+start
+
+:notification recieved from rev.ai<
+-> json job object;
+:job}
+
+if(job.status) is (transcribed) then
+    :get data from rev.ai
+    ""using job.id"";
+    :""GET Caption VTT file""
+    ""//accept text/vtt//"">
+
+    if (response code) is (200) then
+        split
+            :**process** vtt to html > **files.job_document_html**/
+        split again
+            :generate save **.vtt** file in uploads folder/
+            -> saved;
+            :**set** files.hasSRT = 1/
+        end split
+        #32CD32:(A)
+'        detach
+
+    else (no captions)
+        :add to sr_queue_notes response.status + ": " + response.details/
+        :get transcript (rev.ai api)
+        ""//accept: text/plain//"">
+
+        if (response) is (200) then
+            :**process** text > **files.job_document_html**/
+            #32CD32:(A)
+'            detach
+        else (response error)
+            :Failed to retrieve transcript nor captions;
+            :""sr_queue_status = 5 (manual revision required)""/
+            :inform/mail website admin to take proper action
+
+            //""pass job.id & file_id somewhere""// <
+            #red:(X)
+            detach
+        endif
+    endif
+
+else (failed)
+    |Failed|
+    :""select file_id from sr_queue where job_id =  job.id""|
+    :job.failure_detail > sr_queue_notes
+    sr_queue_status > failed (3)
+    file_status > awaiting transcription (0)
+    /
+    end
+endif
+
+|Success|
+#32CD32:(A)
+:deduce account SR minutes by
+""//job.duration_seconds//""
+ceil to the nearest 15 secs/
+:""//files.status > awaiting correction (7)//""/
+:""//sr_queue_status > complete (2)//""/
+end
+
+@enduml

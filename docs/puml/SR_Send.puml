@@ -1,0 +1,66 @@
+@startuml
+
+title Speech Recognition Sending Queue
+
+skinparam backgroundColor #EEEBDC
+'skinparam handwritten true
+
+skinparam activity {
+  StartColor #1e79be
+  ArrowColor #1e79be
+  EndColor #1e79be
+  BackgroundColor white
+  SequenceTitleFontColor white
+  BorderColor #1e79be
+  FontName Tahoma
+}
+
+
+|run|
+start
+
+partition startup {
+:**Set Vars**\nstartTimestamp = CURRENT_TIMESTAMP\nrequestsCount = 0\nretries = 0;
+}
+#b19cd9:(B)
+:Get file from queue table
+
+<i>- SORT BY id ASC (FIFO) -</i>
+<i>where status = 0</i>;
+:Copy to temp directory;
+:Generate DDL URL;
+
+label rev;
+#32CD32:(A)
+if (requestsCount) is (less than 10k) then
+    : To rev.ai;
+    :<img:https://www.rev.ai/content/curve/img/revai/favicon.png>;
+    floating note left: requestsCount++
+    if(request) is (success 200) then
+        : **set** file_status > rec in progress **(6)**
+        **set** file_queue_status > Processing **(1)**
+        **save** srq_revai_id from response to **sr_queue_tbl**|
+
+    else (failed)
+        :**set** file_status > awaiting trans. **(0)**
+        **set** file_queue_status > failed **(3)**
+        //add fail note to sr_queue_tbl//|
+    endif
+    #b19cd9:(B)
+    detach
+
+else (more than 10k)
+    |wait|
+':wait chain;
+while (currentTimestamp - startTimestamp < 10 m)
+    :wait 1 minute;
+end while
+: startTimestamp = currentTimestamp
+ requestsCount = 0|
+:back to request count/
+#32CD32:(A)
+detach
+endif
+
+
+@enduml
