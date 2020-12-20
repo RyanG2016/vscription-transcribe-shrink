@@ -22,6 +22,7 @@ workingTemp/
 /transcribe/data/libs/closure-compiler-v20200614.jar
 /jobs/check_exceeded_retention/csv/*
 /jobs/check_exceeded_retention/logs/*
+/api/src/Controller/conversionCron.php
 #/transcribe/data/scripts/admin_tools.js
 #/transcribe/data/scripts/access.js
 #/transcribe/data/scripts/accounts.js
