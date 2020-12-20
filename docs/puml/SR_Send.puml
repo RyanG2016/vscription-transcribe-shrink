@@ -53,8 +53,10 @@ else (more than 10k)
     |wait|
 ':wait chain;
 while (currentTimestamp - startTimestamp < 10 m)
+    -> yes;
     :wait 1 minute;
 end while
+-> no (10 minutes passed);
 : startTimestamp = currentTimestamp
  requestsCount = 0|
 :back to request count/
