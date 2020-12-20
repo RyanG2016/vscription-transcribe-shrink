@@ -41,3 +41,4 @@ workingTemp/
 /api/.env
 /uploads/
 /convert.log
+/api/src/Controller/conversionCron.php
