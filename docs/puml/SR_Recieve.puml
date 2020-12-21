@@ -63,6 +63,10 @@ if(job.status) is (transcribed) then
 else (failed)
     |Fail|
     :""select file_id from sr_queue where job_id =  job.id""|
+
+    :restore srq_revai_minutes to account_minutes/
+    note left: restore minutes to user\n as it is a rev.ai error
+
     :job.failure_detail > sr_queue_notes
     sr_queue_status > failed (3)
     file_status > awaiting transcription (0)

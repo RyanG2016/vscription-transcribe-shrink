@@ -37,9 +37,21 @@ if (requestsCount) is (less than 10k) then
     :<img:https://www.rev.ai/content/curve/img/revai/favicon.png>;
     floating note left: requestsCount++
     if(request) is (success 200) then
+        :get ""//**response.duration_seconds**//"" > ceil to the nearest 15 seconds/
+        note left: save to sr_queue_tbl \nas **srq_revai_minutes**
+
+        :deduct account_minutes/
+        note left
+         to prevent user from adding
+         more files to SR without balance
+
+         //could happen if the file isn't yet processed//
+         //by rev.ai and the user uploaded more files//
+        endnote
+
         : **set** file_status > rec in progress **(6)**
         **set** file_queue_status > Processing **(1)**
-        **save** srq_revai_id from response to **sr_queue_tbl**|
+        **save** srq_revai_id & duration_seconds from response to **sr_queue_tbl**|
 
     else (failed)
         :**set** file_status > awaiting trans. **(0)**
