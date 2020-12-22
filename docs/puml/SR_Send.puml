@@ -13,6 +13,9 @@ skinparam activity {
   SequenceTitleFontColor white
   BorderColor #1e79be
   FontName Tahoma
+  FontSize 23
+  DiamondFontSize 23
+  ArrowFontSize 22
 }
 
 
@@ -23,10 +26,13 @@ partition startup {
 :**Set Vars**\nstartTimestamp = CURRENT_TIMESTAMP\nrequestsCount = 0\nretries = 0;
 }
 #b19cd9:(B)
-:Get file from queue table
+while (Get Queued File)
+-> No Files;
+:wait 10 seconds;
+end while
+-> File present;
 
-<i>- SORT BY id ASC (FIFO) -</i>
-<i>where status = 0</i>;
+
 :Copy to temp directory;
 :Generate DDL URL;
 
