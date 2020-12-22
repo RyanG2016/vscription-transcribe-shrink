@@ -4,6 +4,7 @@
 namespace Src\TableGateways;
 
 
+use Src\Enums\SRQ_STATUS;
 use Src\Helpers\common;
 use Src\Models\BaseModel;
 use Src\Models\SRQueue;
@@ -142,6 +143,38 @@ class SRQueueGateway implements GatewayInterface
             );
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             return $result;
+        } catch (\PDOException) {
+            return null;
+        }
+    }
+
+
+    public function getFirst(): array|null
+    {
+        $statement = "
+            SELECT 
+                *
+            FROM
+                sr_queue
+            WHERE 
+                srq_status = :status
+            ORDER BY srq_id
+            LIMIT 1
+        ;";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(
+                array(
+                    'status' => SRQ_STATUS::QUEUED
+                )
+            );
+            if ($statement->rowCount()) {
+                return $statement->fetch(\PDO::FETCH_ASSOC);
+            } else {
+                return null;
+            }
+
         } catch (\PDOException) {
             return null;
         }

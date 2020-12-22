@@ -42,10 +42,15 @@ class SR extends BaseModel implements BaseModelInterface
         return $instance;
     }
 
-    public static function withRow( array $row, $db = null ) {
-        $instance = new self(db: $db);
-        $instance->fill( $row );
-        return $instance;
+    public static function withRow( ?array $row, $db = null ) {
+        if($row)
+        {
+            $instance = new self(db: $db);
+            $instance->fill( $row );
+            return $instance;
+        }else{
+            return null;
+        }
     }
 
 
