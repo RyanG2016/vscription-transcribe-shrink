@@ -13,6 +13,7 @@ return array(
     'Src\\' => array($baseDir . '/src'),
     'Psr\\Log\\' => array($vendorDir . '/psr/log/Psr/Log'),
     'PHPMailer\\PHPMailer\\' => array($vendorDir . '/phpmailer/phpmailer/src'),
-    'Mnvx\\Lowrapper\\' => array($vendorDir . '/mnvx/lowrapper/src'),
+    'MyCLabs\\Enum\\' => array($vendorDir . '/myclabs/php-enum/src'),
+    'Mnvx\\Lowrapper\\' => array($vendorDir . '/iceman2894/lowrapper/src'),
     'Dotenv\\' => array($vendorDir . '/vlucas/phpdotenv/src'),
 );

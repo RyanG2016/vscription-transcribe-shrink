@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "94ec2aaeb1ecc9a34bc23a02fe204d89",
+    "content-hash": "803a091d3be673aab77ee44e300a5dbd",
     "packages": [
         {
             "name": "authorizenet/authorizenet",
@@ -106,6 +106,54 @@
             "time": "2017-10-13T19:09:01+00:00"
         },
         {
+            "name": "iceman2894/lowrapper",
+            "version": "1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/iceman2894/lowrapper.git",
+                "reference": "8e3fbf75fb2deaa3d23093f302cd852fd0609386"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/iceman2894/lowrapper/zipball/8e3fbf75fb2deaa3d23093f302cd852fd0609386",
+                "reference": "8e3fbf75fb2deaa3d23093f302cd852fd0609386",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5",
+                "psr/log": "^1.0",
+                "symfony/process": "^3.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Mnvx\\Lowrapper\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "PHP wrapper over LibreOffice converter",
+            "homepage": "https://github.com/mnvx/lowrapper",
+            "keywords": [
+                "converter",
+                "docx",
+                "excel",
+                "libreoffice",
+                "pdf",
+                "word",
+                "xls",
+                "xlsx"
+            ],
+            "support": {
+                "source": "https://github.com/iceman2894/lowrapper/tree/1.0.3"
+            },
+            "time": "2018-08-22T15:04:03+00:00"
+        },
+        {
             "name": "malkusch/lock",
             "version": "v1.4",
             "source": {
@@ -184,63 +232,73 @@
             "time": "2018-07-07T18:43:25+00:00"
         },
         {
-            "name": "mnvx/lowrapper",
-            "version": "1.0.5",
+            "name": "myclabs/php-enum",
+            "version": "1.7.7",
             "source": {
                 "type": "git",
-                "url": "https://github.com/mnvx/lowrapper.git",
-                "reference": "fc4c1a60c3369cdf49a284e78539ebad8e9a2c8d"
+                "url": "https://github.com/myclabs/php-enum.git",
+                "reference": "d178027d1e679832db9f38248fcc7200647dc2b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mnvx/lowrapper/zipball/fc4c1a60c3369cdf49a284e78539ebad8e9a2c8d",
-                "reference": "fc4c1a60c3369cdf49a284e78539ebad8e9a2c8d",
+                "url": "https://api.github.com/repos/myclabs/php-enum/zipball/d178027d1e679832db9f38248fcc7200647dc2b7",
+                "reference": "d178027d1e679832db9f38248fcc7200647dc2b7",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.2",
-                "psr/log": "^1.0",
-                "symfony/process": "^3.1|^4.1"
+                "ext-json": "*",
+                "php": ">=7.1"
             },
             "require-dev": {
-                "phpunit/phpunit": "^8.0"
+                "phpunit/phpunit": "^7",
+                "squizlabs/php_codesniffer": "1.*",
+                "vimeo/psalm": "^3.8"
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Mnvx\\Lowrapper\\": "src/"
+                    "MyCLabs\\Enum\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
-            "description": "PHP wrapper over LibreOffice converter",
-            "homepage": "https://github.com/mnvx/lowrapper",
-            "keywords": [
-                "LibreOffice",
-                "converter",
-                "docx",
-                "excel",
-                "pdf",
-                "word",
-                "xls",
-                "xlsx"
+            "authors": [
+                {
+                    "name": "PHP Enum contributors",
+                    "homepage": "https://github.com/myclabs/php-enum/graphs/contributors"
+                }
             ],
-            "time": "2020-06-04T11:59:24+00:00"
+            "description": "PHP Enum implementation",
+            "homepage": "http://github.com/myclabs/php-enum",
+            "keywords": [
+                "enum"
+            ],
+            "funding": [
+                {
+                    "url": "https://github.com/mnapoli",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/myclabs/php-enum",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-11-14T18:14:52+00:00"
         },
         {
             "name": "paragonie/random_compat",
-            "version": "v2.0.18",
+            "version": "v2.0.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/random_compat.git",
-                "reference": "0a58ef6e3146256cc3dc7cc393927bcc7d1b72db"
+                "reference": "446fc9faa5c2a9ddf65eb7121c0af7e857295241"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/0a58ef6e3146256cc3dc7cc393927bcc7d1b72db",
-                "reference": "0a58ef6e3146256cc3dc7cc393927bcc7d1b72db",
+                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/446fc9faa5c2a9ddf65eb7121c0af7e857295241",
+                "reference": "446fc9faa5c2a9ddf65eb7121c0af7e857295241",
                 "shasum": ""
             },
             "require": {
@@ -276,7 +334,7 @@
                 "pseudorandom",
                 "random"
             ],
-            "time": "2019-01-03T20:59:08+00:00"
+            "time": "2020-10-15T10:06:57+00:00"
         },
         {
             "name": "phpmailer/phpmailer",
@@ -395,20 +453,20 @@
         },
         {
             "name": "symfony/polyfill-ctype",
-            "version": "v1.18.1",
+            "version": "v1.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-ctype.git",
-                "reference": "1c302646f6efc070cd46856e600e5e0684d6b454"
+                "reference": "f4ba089a5b6366e453971d3aad5fe8e897b37f41"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/1c302646f6efc070cd46856e600e5e0684d6b454",
-                "reference": "1c302646f6efc070cd46856e600e5e0684d6b454",
+                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/f4ba089a5b6366e453971d3aad5fe8e897b37f41",
+                "reference": "f4ba089a5b6366e453971d3aad5fe8e897b37f41",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3"
+                "php": ">=7.1"
             },
             "suggest": {
                 "ext-ctype": "For best performance"
@@ -416,7 +474,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.18-dev"
+                    "dev-main": "1.20-dev"
                 },
                 "thanks": {
                     "name": "symfony/polyfill",
@@ -467,31 +525,26 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-07-14T12:35:20+00:00"
+            "time": "2020-10-23T14:02:19+00:00"
         },
         {
             "name": "symfony/process",
-            "version": "v4.4.11",
+            "version": "v3.4.47",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "65e70bab62f3da7089a8d4591fb23fbacacb3479"
+                "reference": "b8648cf1d5af12a44a51d07ef9bf980921f15fca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/65e70bab62f3da7089a8d4591fb23fbacacb3479",
-                "reference": "65e70bab62f3da7089a8d4591fb23fbacacb3479",
+                "url": "https://api.github.com/repos/symfony/process/zipball/b8648cf1d5af12a44a51d07ef9bf980921f15fca",
+                "reference": "b8648cf1d5af12a44a51d07ef9bf980921f15fca",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.1.3"
+                "php": "^5.5.9|>=7.0.8"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "4.4-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "Symfony\\Component\\Process\\": ""
@@ -530,7 +583,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-07-23T08:31:43+00:00"
+            "time": "2020-10-24T10:57:07+00:00"
         },
         {
             "name": "vlucas/phpdotenv",

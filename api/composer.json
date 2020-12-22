@@ -9,6 +9,12 @@
       "email": "hossamt7552@gmail.com"
     }
   ],
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/iceman2894/lowrapper"
+    }
+  ],
   "require": {
     "vlucas/phpdotenv": "^2.4",
     "ext-json": "*",
@@ -16,9 +22,10 @@
     "ext-fileinfo": "*",
     "ext-curl": "*",
     "bandwidth-throttle/token-bucket": "^2.0",
-    "phpmailer/phpmailer": "~6.1",
-    "mnvx/lowrapper": "^1.0",
-    "authorizenet/authorizenet": "2.0.0"
+    "phpmailer/phpmailer": "6.1.7",
+    "iceman2894/lowrapper": "*",
+    "authorizenet/authorizenet": "2.0.0",
+    "myclabs/php-enum": "^1.7"
   },
   "autoload": {
     "psr-4": {

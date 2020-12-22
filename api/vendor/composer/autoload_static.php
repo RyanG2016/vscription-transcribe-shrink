@@ -33,6 +33,7 @@ class ComposerStaticInit6adee100c1c1d6b46b6a0aa11003ed2a
         ),
         'M' => 
         array (
+            'MyCLabs\\Enum\\' => 13,
             'Mnvx\\Lowrapper\\' => 15,
         ),
         'D' => 
@@ -70,9 +71,13 @@ class ComposerStaticInit6adee100c1c1d6b46b6a0aa11003ed2a
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
+        'MyCLabs\\Enum\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/myclabs/php-enum/src',
+        ),
         'Mnvx\\Lowrapper\\' => 
         array (
-            0 => __DIR__ . '/..' . '/mnvx/lowrapper/src',
+            0 => __DIR__ . '/..' . '/iceman2894/lowrapper/src',
         ),
         'Dotenv\\' => 
         array (
