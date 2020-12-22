@@ -4,6 +4,7 @@ namespace Src\TableGateways;
 
 use PDO;
 use PDOException;
+use Src\Models\BaseModel;
 use Src\TableGateways\conversionGateway;
 use Src\TableGateways\accessGateway;
 use Src\TableGateways\logger;
@@ -81,6 +82,10 @@ class FileGateway
     }
 
     /* add ?tr to the request to move audio file to tmp directory for transcribe.php usage */
+    /**
+     * @param $id
+     * @return false|string
+     */
     public function find($id)
     {
 
@@ -115,6 +120,41 @@ class FileGateway
 
         } catch (PDOException $e) {
             exit($e->getMessage());
+        }
+    }
+
+    /**
+     * Get File by ID with minimal data
+     * * used by revai cron job
+     * @param $id int fileID
+     * @return array|null
+     */
+    public function findAlt($id)
+    {
+
+        $statement = "
+            SELECT 
+                file_id, job_id, acc_id, file_type, org_ext, filename, tmp_name, orig_filename, file_author, file_work_type,file_comment,
+                   file_speaker_type, file_date_dict, file_status, audio_length,
+                  
+                   isBillable, billed
+            
+            FROM
+                files
+            WHERE file_id = ?;
+        ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($id));
+            if($statement->rowCount())
+            {
+                return $statement->fetch(PDO::FETCH_ASSOC);
+            }else{
+                return null;
+            }
+        } catch (PDOException $e) {
+            return null;
         }
     }
 
@@ -734,7 +774,7 @@ class FileGateway
 //        }
 //    }
 
-    public function delete($id)
+    public function delete($id): int
     {
         $statement = "
             DELETE FROM files
@@ -745,8 +785,9 @@ class FileGateway
             $statement = $this->db->prepare($statement);
             $statement->execute(array('id' => $id));
             return $statement->rowCount();
-        } catch (PDOException $e) {
-            exit($e->getMessage());
+        } catch (PDOException) {
+            return 0;
         }
     }
+
 }
