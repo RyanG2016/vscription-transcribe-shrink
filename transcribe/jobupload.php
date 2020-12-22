@@ -136,19 +136,24 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                             <ul class="ulInstructions">
                                 <li>1. &nbsp;Click Choose File</li>
                                 <li>2. Choose the file(s) to upload</li>
-                                <li>3. Enter the file information under the Upload Demographics section. <strong>Note:</strong> If uploading multiple files at once, all files will have the same demographics entered on the right.</li>
-                                <p class="upload_limits"><strong><i>(Maximum 10 files at once total files size must be less than 128MB)</i></strong></p>
+                                <li>3. Enter the file information under the Upload Demographics section.</li>
+
+                                <small class="text-muted ">
+                                    &emsp;<strong>Note:</strong> If uploading multiple files at once, all files will have the same demographics entered on the right.
+                                </small>
+
+                                <br>
+                                <small class="upload_limits"><strong><i>&emsp;(Maximum 10 files at once total files size must be less than 128MB)</i></strong></small>
                             </ul>
                         </div>
                         <div class="box box5">
 
                                 <label class="mdc-button mdc-button--unelevated upload_btn_lbl" for="upload_btn">
                                     <div class="mdc-button__ripple"></div>
-                                    <i class="material-icons mdc-button__icon" aria-hidden="true"
-                                    >insert_drive_file</i
-                                    >
-                                    <span class="mdc-button__label">Choose Files to Upload (wav, mp3, m4a, ds2, ogg)</span>
-                                </label>
+                                    <i class="fas fa-cloud-upload-alt"></i>
+<!--                                    <span class="mdc-button__label">Choose Files to Upload (wav, mp3, m4a, ds2, ogg)</span>-->
+                                    <span class="mdc-button__label">Upload</span>
+                                </label><small class="text-muted">Allowed: (wav, mp3, m4a, ds2, ogg)</small>
 
                                 <button class="mdc-button mdc-button--unelevated foo-button clear_btn" disabled>
                                     <div class="mdc-button__ripple"></div>
