@@ -4,6 +4,7 @@
 namespace Src\Models;
 use Src\Enums\SRQ_STATUS;
 use Src\TableGateways\SRQueueGateway;
+use Src\Traits\modelToString;
 
 /**
  * Class SRQueue
@@ -12,16 +13,17 @@ use Src\TableGateways\SRQueueGateway;
  */
 class SRQueue extends BaseModel implements BaseModelInterface
 {
+    use modelToString;
 
     private SRQueueGateway $srqGateway;
 
     public function __construct(
-        public int $file_id,
-        public int $srq_status = SRQ_STATUS::QUEUED,
-        public ?string $srq_revai_id = null,
-        public float $srq_revai_minutes = 0.00,
-        public ?string $notes = null,
-        public int $srq_id = 0,
+        private int $file_id,
+        private int $srq_status = SRQ_STATUS::QUEUED,
+        private ?string $srq_revai_id = null,
+        private float $srq_revai_minutes = 0.00,
+        private ?string $notes = null,
+        private int $srq_id = 0,
         private $db = null
     )
     {
@@ -31,7 +33,6 @@ class SRQueue extends BaseModel implements BaseModelInterface
             parent::__construct($this->srqGateway);
         }
     }
-
 
     // Custom Constructors //
 

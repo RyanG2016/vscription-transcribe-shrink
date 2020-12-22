@@ -3,6 +3,7 @@
 
 namespace Src\Models;
 use Src\TableGateways\SRGateway;
+use Src\Traits\modelToString;
 
 /**
  * Class SR
@@ -12,7 +13,7 @@ use Src\TableGateways\SRGateway;
 class SR extends BaseModel implements BaseModelInterface
 {
 
-
+    use modelToString;
     private SRGateway $srGateway;
 
 

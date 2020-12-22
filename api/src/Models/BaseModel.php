@@ -13,27 +13,12 @@ class BaseModel
         $this->gateway = $defaultGateway;
     }
 
-    public function __toString(): string
-    {
-        return $this->toString();
-    }
-
-    public function toString(): string
-    {
-        $class_vars = get_object_vars($this);
-
-        foreach ($class_vars as $name => $value) {
-            if(!is_object($value))
-            {
-                $arr[$name] = $value;
-            }
-        }
-
-        return json_encode($arr, JSON_PRETTY_PRINT);
-    }
-
     protected function getRecord(int $id) {
         return $this->gateway->find($id);
+    }
+
+    protected function getRecordAlt(int $id) {
+    return $this->gateway->findAlt($id);
     }
 
     protected function insertRecord() {
