@@ -382,8 +382,7 @@ class FileGateway
                 );
                 return json_encode($numbers);
             }
-        } catch (PDOException $e) {
-//            exit($e->getMessage());
+        } catch (PDOException) {
             return false;
         }
 
