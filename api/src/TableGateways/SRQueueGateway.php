@@ -143,6 +143,26 @@ class SRQueueGateway implements GatewayInterface
         }
     }
 
+    public function findByRevAiID(string $id): array|null
+    {
+        $statement = "
+            SELECT 
+                *            
+            FROM
+                sr_queue
+            WHERE srq_revai_id = ?;
+        ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($id));
+            $result = $statement->fetch(\PDO::FETCH_ASSOC);
+            return $result;
+        } catch (\PDOException) {
+            return null;
+        }
+    }
+
     public function findAll($page = 1): array|null
     {
         $offset = $this->common->getOffsetByPageNumber($page, $this->limit);
