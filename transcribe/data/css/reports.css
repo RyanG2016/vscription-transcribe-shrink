@@ -12,12 +12,12 @@ body {
 }
 
 .header .head-left h2 {
-    font-family: 'oxygen', serif;
+    font-family: 'OpenSans', serif;
 }
 
 .report {
     border: 1px solid;
-    font-family: 'oxygen', serif;
+    font-family: 'OpenSans', serif;
     font-size: 14px;
     padding: 5px;
 }
@@ -61,7 +61,7 @@ tbody {
 }
 
 p {
-    font-family: 'oxygen', serif;
+    font-family: 'OpenSans', serif;
     font-size: 14px;
     text-align: right;
     margin-right: 15%;

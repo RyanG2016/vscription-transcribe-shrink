@@ -15,7 +15,7 @@
 
 body, html {
     height: 100%;
-    font-family: oxygen, sans-serif;
+    font-family: opensans, sans-serif;
 }
 
 .login100-form-btn{
@@ -59,7 +59,7 @@ label {
 
 /*---------------------------------------------*/
 a {
-    font-family: oxygen, sans-serif;
+    font-family: opensans, sans-serif;
     font-size: 14px;
     line-height: 1.7;
     /*color: #666666;*/
@@ -87,7 +87,7 @@ a:hover {
 /*---------------------------------------------*/
 
 p {
-    font-family: oxygen, sans-serif;
+    font-family: opensans, sans-serif;
     font-size: 14px;
     line-height: 1.7;
     color: #666666;
@@ -180,7 +180,7 @@ iframe {
 .login100-form-title {
     display: block;
     /*  font-family: Poppins-Bold;*/
-    font-family: oxygen-l, sans-serif;
+    font-family: opensans-l, sans-serif;
     font-size: 30px;
     color: white;
     line-height: 1.2;
@@ -249,7 +249,7 @@ input:-webkit-autofill:active {
 }*/
 
 .login100-form-btn {
-    font-family: oxygen, sans-serif;
+    font-family: opensans, sans-serif;
     font-size: 15px;
     color: #fff;
     line-height: 1.2;
@@ -331,7 +331,7 @@ input:-webkit-autofill:active {
 
 #signupBtn{
     width: 100%;
-    font-family: 'oxygen-l', sans-serif;
+    font-family: 'OpenSans-l', sans-serif;
 }
 
 .progress-bar{
@@ -369,7 +369,7 @@ input:-webkit-autofill:active {
 }
 
 h5{
-    font-family: 'oxygen-l', sans-serif;
+    font-family: 'OpenSans-l', sans-serif;
 }
 
 #code::placeholder,

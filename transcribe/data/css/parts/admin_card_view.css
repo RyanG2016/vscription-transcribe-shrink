@@ -25,7 +25,7 @@ body{
     margin: 10px auto;
     padding: 12px 20px 15px 20px;
     border-radius: 8px;
-    font-family: 'oxygen', serif  !important;
+    font-family: 'OpenSans', serif  !important;
     -webkit-transition: width 1s;
     transition: width 1s;
 }
@@ -46,7 +46,7 @@ body{
 }
 
 #logbar{
-    font-family: 'oxygen' , serif  !important;
+    font-family: 'OpenSans' , serif  !important;
     font-size: 12px;
 }
 
@@ -68,7 +68,7 @@ img:not(#norm){
 #tip{
     font-size: 0.9em;
 
-    font-family: 'oxygen', sans-serif !important;
+    font-family: 'OpenSans', sans-serif !important;
     display: inline;
     /*white-space: nowrap;*/
 }
@@ -122,7 +122,7 @@ img:not(#norm){
 
 
 .title{
-    font-family: 'oxygen', serif !important;
+    font-family: 'OpenSans', serif !important;
     font-size: 20px;
     font-weight: bold;
     color: #1e79be;
@@ -211,7 +211,7 @@ img:not(#norm){
 
 #help{
     color: #2dace1;
-    font-family: oxygen-l ,serif;
+    font-family: opensans-l ,serif;
 }
 
 .top-links a:link {
@@ -221,7 +221,7 @@ img:not(#norm){
 /* visited link */
 .top-links a:visited {
     color: #2dace1;
-    font-family: oxygen-l, serif;
+    font-family: opensans-l, serif;
 }
 
 /* mouse over link */
@@ -259,7 +259,7 @@ table, th, td {
 
 #logbar{
     color: whitesmoke;
-    font-family: 'oxygen' , serif  !important;
+    font-family: 'OpenSans' , serif  !important;
     font-size: 12px;
 }
 #logbar a,

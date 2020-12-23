@@ -1,14 +1,14 @@
 @font-face {
-  font-family: oxygen;
-  src: url("../Fonts/Oxygen-Regular.ttf");
+  font-family: opensans;
+  src: url("../Fonts/OpenSans-Regular.ttf");
 }
 /*@font-face {
-  font-family: oxygen-b;
-  src: url("../Fonts/Oxygen-Bold.ttf");
+  font-family: opensans-b;
+  src: url("../Fonts/OpenSans-Bold.ttf");
 }*/
 @font-face {
-  font-family: oxygen-l;
-  src: url("../Fonts/Oxygen-Light.ttf");
+  font-family: opensans-l;
+  src: url("../Fonts/OpenSans-Light.ttf");
 }
 
 #report{
@@ -44,7 +44,7 @@ background: linear-gradient(to right, #3498db, #2c3e50); /* W3C, IE 10+/ Edge, F
     margin: 10px auto;
     padding: 12px 20px 15px 20px;
     border-radius: 8px;
-    font-family: 'Oxygen', serif  !important;
+    font-family: 'OpenSans', serif  !important;
 	-webkit-transition: width 1s;
   	transition: width 1s;
 }
@@ -72,7 +72,7 @@ background: linear-gradient(to right, #3498db, #2c3e50); /* W3C, IE 10+/ Edge, F
 .form-style-5 input[type="time"],
 .form-style-5 input[type="url"],
 .form-style-5 select {
-    font-family: 'Oxygen' , serif  !important;
+    font-family: 'OpenSans' , serif  !important;
     background: rgba(255,255,255,.1);
     border: none;
     border-radius: 4px;
@@ -92,7 +92,7 @@ background: linear-gradient(to right, #3498db, #2c3e50); /* W3C, IE 10+/ Edge, F
 }*/
 
 #logbar{
-    font-family: 'Oxygen' , serif  !important;
+    font-family: 'OpenSans' , serif  !important;
     font-size: 12px;
 }
 
@@ -227,7 +227,7 @@ img:not(#norm){
 #tip{
     font-size: 0.9em;
 
-    font-family: 'Oxygen', sans-serif !important;
+    font-family: 'OpenSans', sans-serif !important;
     display: inline;
     /*white-space: nowrap;*/
 }
@@ -287,15 +287,15 @@ img:not(#norm){
 	width: 150px !important;
 	padding: 6px !important;
 	font-size: 15px !important;
-	font-family: 'Oxygen' !important;
+	font-family: 'OpenSans' !important;
 }
 
 legend, h3,button{
-	font-family: 'Oxygen' !important;
+	font-family: 'OpenSans' !important;
 }
 
 .title{
-    font-family: 'Oxygen' !important;
+    font-family: 'OpenSans' !important;
     font-size: 20px;
     font-weight: bold;
     color: #1e79be;
@@ -384,7 +384,7 @@ legend, h3,button{
 
 #help{
 	color: #2dace1;
-	font-family: oxygen-l;
+	font-family: opensans-l;
 }
 
 .top-links a:link {
@@ -394,7 +394,7 @@ legend, h3,button{
 /* visited link */
 .top-links a:visited {
  	 color: #2dace1;
-	font-family: oxygen-l;
+	font-family: opensans-l;
 }
 
 /* mouse over link */
@@ -430,7 +430,7 @@ table, th, td {
 
 #logbar{
     color: whitesmoke;
-    font-family: 'Oxygen' , serif  !important;
+    font-family: 'OpenSans' , serif  !important;
     font-size: 12px;
 }
 #logbar a,

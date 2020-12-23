@@ -1,16 +1,16 @@
 @font-face {
-    font-family: oxygen;
-    src: url("../../Fonts/Oxygen-Regular.ttf");
+    font-family: opensans;
+    src: url("../../Fonts/OpenSans-Regular.ttf");
 }
 
 /*@font-face {
-  font-family: oxygen-b;
-  src: url("../../Fonts/Oxygen-Bold.ttf");
+  font-family: opensans-b;
+  src: url("../../Fonts/OpenSans-Bold.ttf");
 }*/
 
 @font-face {
-    font-family: oxygen-l;
-    src: url("../../Fonts/Oxygen-Light.ttf");
+    font-family: opensans-l;
+    src: url("../../Fonts/OpenSans-Light.ttf");
 }
 
 :root{

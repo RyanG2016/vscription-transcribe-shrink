@@ -35,7 +35,7 @@
     min-width: 100px;
     -webkit-box-sizing: content-box;
     height: 40px;
-    font: normal normal normal 17px/40px oxygen-l, sans-serif, Helvetica;
+    font: normal normal normal 17px/40px OpenSans-l, sans-serif, Helvetica;
     cursor: pointer;
     margin: 0 auto;
     letter-spacing: 1px;
@@ -274,7 +274,7 @@
     color: #fff;
     z-index: 107;
     font-size: 22px;
-    font-family: oxygen-l, sans-serif;
+    font-family: opensans-l, sans-serif;
     -webkit-transition: opacity .4s cubic-bezier(.42, 0, .58, 1);
     -moz-transition: opacity .4s cubic-bezier(.42, 0, .58, 1);
     transition: opacity .4s cubic-bezier(.42, 0, .58, 1)

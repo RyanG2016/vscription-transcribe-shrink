@@ -22,7 +22,7 @@
     border: 1px solid #cccccc;
     border-radius: 4px;
     color: #202020;
-    font-family: 'Oxygen' , serif  !important;
+    font-family: 'OpenSans' , serif  !important;
     width: 100%;
     margin: 7px 0 20px;
 }
@@ -36,7 +36,7 @@
     border: 1px solid rgba(255, 255, 255, 0);
     border-radius: 4px;
     /*color: #202020;*/
-    font-family: 'Oxygen' , serif  !important;
+    font-family: 'OpenSans' , serif  !important;
     width: 80%;
     /*margin: 7px 0 20px;*/
 }

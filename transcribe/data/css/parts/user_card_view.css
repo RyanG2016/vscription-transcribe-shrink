@@ -1,14 +1,14 @@
 @font-face {
-    font-family: oxygen;
-    src: url("../../Fonts/Oxygen-Regular.ttf");
+    font-family: opensans;
+    src: url("../../Fonts/OpenSans-Regular.ttf");
 }
 /*@font-face {
-  font-family: oxygen-b;
-  src: url("../Fonts/Oxygen-Bold.ttf");
+  font-family: opensans-b;
+  src: url("../Fonts/OpenSans-Bold.ttf");
 }*/
 @font-face {
-    font-family: oxygen-l;
-    src: url("../../Fonts/Oxygen-Light.ttf");
+    font-family: opensans-l;
+    src: url("../../Fonts/OpenSans-Light.ttf");
 }
 
 #report{
@@ -41,7 +41,7 @@ body{
     margin: 10px auto;
     padding: 12px 20px 15px 20px;
     border-radius: 8px;
-    font-family: 'Oxygen', serif  !important;
+    font-family: 'OpenSans', serif  !important;
     -webkit-transition: width 1s;
     transition: width 1s;
 }
@@ -62,7 +62,7 @@ body{
 }
 
 #logbar{
-    font-family: 'Oxygen' , serif  !important;
+    font-family: 'OpenSans' , serif  !important;
     font-size: 12px;
 }
 
@@ -84,7 +84,7 @@ img:not(#norm, vtex-skip){
 #tip{
     font-size: 0.9em;
 
-    font-family: 'Oxygen', sans-serif !important;
+    font-family: 'OpenSans', sans-serif !important;
     display: inline;
     /*white-space: nowrap;*/
 }
@@ -138,7 +138,7 @@ img:not(#norm, vtex-skip){
 
 
 .title{
-    font-family: 'oxygen', serif !important;
+    font-family: 'OpenSans', serif !important;
     font-size: 20px;
     font-weight: bold;
     color: #1e79be;
@@ -227,7 +227,7 @@ img:not(#norm, vtex-skip){
 
 #help{
     color: #2dace1;
-    font-family: oxygen-l ,serif;
+    font-family: opensans-l ,serif;
 }
 
 .top-links a:link {
@@ -237,7 +237,7 @@ img:not(#norm, vtex-skip){
 /* visited link */
 .top-links a:visited {
     color: #2dace1;
-    font-family: oxygen-l, serif;
+    font-family: opensans-l, serif;
 }
 
 /* mouse over link */
@@ -275,7 +275,7 @@ table, th, td {
 
 #logbar{
     color: whitesmoke;
-    font-family: 'Oxygen' , serif  !important;
+    font-family: 'OpenSans' , serif  !important;
     font-size: 12px;
 }
 #logbar a,

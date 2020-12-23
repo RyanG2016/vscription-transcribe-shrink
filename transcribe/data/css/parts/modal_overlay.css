@@ -32,7 +32,7 @@
     position: relative;
     top: 40%;
     color: #444444;
-    font-family: oxygen, sans-serif;
+    font-family: opensans, sans-serif;
     font-size: 40px;
     -webkit-animation: bounce 2.5s infinite ease-in-out both;
     animation: bounce 2.5s infinite ease-in-out both;
