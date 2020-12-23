@@ -1,15 +1,17 @@
 <?php
 namespace Src\Controller;
 
+use Src\Enums\HTTP_CONTENT_TYPE;
+use Src\Enums\HTTP_RESPONSE;
 use Src\TableGateways\SRQueueGateway;
+use Src\Traits\httpResponse;
 
 class SRQueueController {
 
-    private $citiesId;
-
     private $SRQueueGateway;
+    use httpResponse;
 
-    public function __construct(private $db,private $requestMethod)
+    public function __construct(private $db, private $requestMethod, private $page = null)
     {
         $this->SRQueueGateway = new SRQueueGateway($db);
     }
@@ -21,22 +23,10 @@ class SRQueueController {
 
 //                break;
             case 'POST':
-                if ($this->citiesId) {
-                    if(isset($_GET["box_model"]))
-                    {
-                        $response = $this->getCity($this->citiesId, true);
-                    }
-                    else{
-                        $response = $this->getCity($this->citiesId, false);
-                    }
+                if ($this->page == "incoming") {
+                    $response = $this->processRevaiNotification();
                 } else {
-                    if(isset($_GET["box_model"]))
-                    {
-                        $response = $this->getAllCities(true);
-                    }
-                    else{
-                        $response = $this->getAllCities();
-                    }
+                    $response = $this->$this->respond(HTTP_RESPONSE::HTTP_NOT_FOUND);
                 }
                 break;
 //            case 'PUT':
@@ -46,21 +36,26 @@ class SRQueueController {
 //                $response = $this->deleteCities($this->citiesId);
 //                break;
             default:
-                $response = $this->notFoundResponse();
+                $response = $this->$this->respond(HTTP_RESPONSE::HTTP_NOT_FOUND);
                 break;
         }
         header($response['status_code_header']);
+        header("Content-type:". $response['content_type']);
         if ($response['body']) {
             echo $response['body'];
         }
     }
 
-    private function getAllCities($forComboBox = false)
+    private function processRevaiNotification()
     {
-        $result = $this->SRQueueGateway->findAll($forComboBox);
-        $response['status_code_header'] = 'HTTP/1.1 200 OK';
-        $response['body'] = json_encode($result);
-        return $response;
+        $revai = $this->readPost()["job"];
+        $test = 2;
+        return $this->respond(HTTP_RESPONSE::HTTP_OK);
+    }
+
+    private function readPost()
+    {
+        return json_decode(file_get_contents('php://input'), true);
     }
 
     private function getCity($id, $combobox)
