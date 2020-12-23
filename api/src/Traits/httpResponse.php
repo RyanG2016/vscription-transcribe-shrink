@@ -10,7 +10,7 @@ use Src\Enums\HTTP_RESPONSE;
 trait httpResponse
 {
     public function respond(string $HTTP_RESPONSE, $body = '',
-                            string $CONTENT_TYPE = HTTP_CONTENT_TYPE::TEXT): array
+                            string $CONTENT_TYPE = HTTP_CONTENT_TYPE::TEXT_PLAIN): array
     {
         $response['status_code_header'] = $HTTP_RESPONSE;
         $response['body'] = $body;
