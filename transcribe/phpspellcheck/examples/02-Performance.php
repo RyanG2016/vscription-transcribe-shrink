@@ -5,7 +5,7 @@
 <title>PHPSpellCheck Example - Spelling Large Documents </title>
 <style>
 textarea{
-font-family:verdana; font-size:15px;
+font-family:OpenSans; font-size:15px;
 }
 </style>
 </head>
