@@ -43,7 +43,7 @@ class SRGateway implements GatewayInterface
         }
     }
 
-    public function findAll($page = 1): array|null
+    public function findAllModel($page = 1): array|null
     {
 
         $offset = $this->common->getOffsetByPageNumber($page, $this->limit);
@@ -73,7 +73,7 @@ class SRGateway implements GatewayInterface
         }
     }
 
-    public function find($id): array|null
+    public function findModel($id): array|null
     {
 //        $filter = parseParams();
 
@@ -96,7 +96,7 @@ class SRGateway implements GatewayInterface
         }
     }
 
-    public function insert(BaseModel|SR $model):int
+    public function insertModel(BaseModel|SR $model):int
     {
 
         $statement = "
@@ -130,7 +130,7 @@ class SRGateway implements GatewayInterface
 // sr_flat_rate  = COALESCE(:sr_flat_rate, @sr_flat_rate),
 // sr_vocab = COALESCE(:sr_vocab, @sr_vocab),
 // sr_minutes_remaining = COALESCE(:sr_minutes_remaining, @sr_minutes_remaining)
-    public function update($model): int
+    public function updateModel($model): int
     {
         $statement = "
             UPDATE speech_recognition
@@ -159,7 +159,7 @@ class SRGateway implements GatewayInterface
         }
     }
 
-    public function delete(int $id):int
+    public function deleteModel(int $id):int
     {
         $statement = "
             DELETE FROM speech_recognition
@@ -181,7 +181,7 @@ class SRGateway implements GatewayInterface
      * @param $id int account_id
      * @return array|null
      */
-    public function findAlt($id): array|null
+    public function findAltModel($id): array|null
     {
         $statement = "
             SELECT 

@@ -20,7 +20,7 @@ interface GatewayInterface
      * 0 -> false <br>
      * 1 -> true
      */
-    public function insert(BaseModel $model):int;
+    public function insertModel(BaseModel $model):int;
 
     /**
      * update record using $model default ID
@@ -29,14 +29,14 @@ interface GatewayInterface
      * 0 -> false <br>
      * 1 -> true
      */
-    public function update(BaseModel $model):int;
+    public function updateModel(BaseModel $model):int;
 
     /**
      * deletes a record from db using $id
      * @param int $id
      * @return int
      */
-    public function delete(int $id):int;
+    public function deleteModel(int $id):int;
 
     /**
      * get record by ID
@@ -45,7 +45,7 @@ interface GatewayInterface
      * array of $row <br>
      * null if nothing found
      */
-    public function find($id): array|null;
+    public function findModel($id): array|null;
 
     /**
      * get record by foreign key ID
@@ -54,7 +54,7 @@ interface GatewayInterface
      * array of $row <br>
      * null if nothing found
      */
-    public function findAlt($id): array|null;
+    public function findAltModel($id): array|null;
 
     /**
      * get all records limited by $limit
@@ -63,5 +63,5 @@ interface GatewayInterface
      * array of $row <br>
      * null if nothing found
      */
-    public function findAll($page = 1): array|null;
+    public function findAllModel($page = 1): array|null;
 }

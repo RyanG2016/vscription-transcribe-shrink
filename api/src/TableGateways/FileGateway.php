@@ -5,6 +5,7 @@ namespace Src\TableGateways;
 use PDO;
 use PDOException;
 use Src\Models\BaseModel;
+use Src\Models\File;
 use Src\TableGateways\conversionGateway;
 use Src\TableGateways\accessGateway;
 use Src\TableGateways\logger;
@@ -13,7 +14,7 @@ use Src\System\Mailer;
 require "filesFilter.php";
 require_once "common.php";
 
-class FileGateway
+class FileGateway implements GatewayInterface
 {
 
     private $db;
@@ -120,41 +121,6 @@ class FileGateway
 
         } catch (PDOException $e) {
             exit($e->getMessage());
-        }
-    }
-
-    /**
-     * Get File by ID with minimal data
-     * * used by revai cron job
-     * @param $id int fileID
-     * @return array|null
-     */
-    public function findAlt($id)
-    {
-
-        $statement = "
-            SELECT 
-                file_id, job_id, acc_id, file_type, org_ext, filename, tmp_name, orig_filename, file_author, file_work_type,file_comment,
-                   file_speaker_type, file_date_dict, file_status, audio_length,
-                  
-                   isBillable, billed
-            
-            FROM
-                files
-            WHERE file_id = ?;
-        ";
-
-        try {
-            $statement = $this->db->prepare($statement);
-            $statement->execute(array($id));
-            if($statement->rowCount())
-            {
-                return $statement->fetch(PDO::FETCH_ASSOC);
-            }else{
-                return null;
-            }
-        } catch (PDOException $e) {
-            return null;
         }
     }
 
@@ -788,5 +754,192 @@ class FileGateway
             return 0;
         }
     }
+
+    public function insertModel(BaseModel $model): int
+    {
+        // TODO: Implement insertModel() method.
+    }
+
+    public function updateModel(BaseModel|File $model): int
+    {
+        $statement = "
+            UPDATE files
+            SET
+                job_id = :job_id,
+                acc_id = :acc_id,
+                file_type = :file_type,
+                org_ext = :org_ext,
+                filename = :filename,
+                tmp_name = :tmp_name,
+                orig_filename = :orig_filename,
+                job_document_html = :job_document_html,
+                job_document_rtf = :job_document_rtf,
+                file_tag = :file_tag,
+                file_author = :file_author,
+                file_work_type = :file_work_type,
+                file_comment = :file_comment,
+                file_speaker_type = :file_speaker_type,
+                file_date_dict = :file_date_dict,
+                file_status = :file_status,
+                audio_length = :audio_length,
+                last_audio_position = :last_audio_position,
+                job_upload_date = :job_upload_date,
+                job_uploaded_by = :job_uploaded_by,
+                text_downloaded_date = :text_downloaded_date,
+                times_text_downloaded_date = :times_text_downloaded_date,
+                job_transcribed_by = :job_transcribed_by,
+                file_transcribed_date = :file_transcribed_date,
+                elapsed_time = :elapsed_time,
+                typist_comments = :typist_comments,
+                isBillable = :isBillable,
+                billed = :billed,
+                typ_billed = :typ_billed,
+                user_field_1 = :user_field_1,
+                user_field_2 = :user_field_2,
+                user_field_3 = :user_field_3,
+                deleted = :deleted
+            WHERE
+                file_id = :file_id;
+        ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array(
+                'file_id' => $model->getFileId() ,
+                'job_id' => $model->getJobId()  ,
+                'acc_id' => $model->getAccId()  ,
+                'file_type' => $model->getFileType()  ,
+                'org_ext' => $model->getOrgExt()  ,
+                'has_caption' => $model->getHasCaption()  ,
+                'filename' => $model->getFilename()  ,
+                'tmp_name' => $model->getTmpName()  ,
+                'orig_filename' => $model->getOrigFilename()  ,
+                'job_document_html' => $model->getJobDocumentHtml()  ,
+                'job_document_rtf' => $model->getJobDocumentRtf()  ,
+                'file_tag' => $model->getFileTag() ,
+                'file_author' => $model->getFileAuthor()  ,
+                'file_work_type' => $model->getFileWorkType()  ,
+                'file_comment' => $model->getFileComment()  ,
+                'file_speaker_type' => $model->getFileSpeakerType()  ,
+                'file_date_dict' => $model->getFileDateDict()  ,
+                'file_status' => $model->getFileStatus()  ,
+                'audio_length' => $model->getAudioLength()  ,
+                'last_audio_position' => $model->getLastAudioPosition()  ,
+                'job_upload_date' => $model->getJobUploadDate()  ,
+                'job_uploaded_by' => $model->getJobUploadedBy()  ,
+                'text_downloaded_date' => $model->getTextDownloadedDate()  ,
+                'times_text_downloaded_date' => $model->getTimesTextDownloadedDate()  ,
+                'job_transcribed_by' => $model->getJobTranscribedBy()  ,
+                'file_transcribed_date' => $model->getFileTranscribedDate()  ,
+                'elapsed_time' => $model-> getElapsedTime() ,
+                'typist_comments' => $model->getTypistComments()  ,
+                'isBillable' => $model->getIsBillable()  ,
+                'billed' => $model->getBilled()  ,
+                'typ_billed' => $model->getTypBilled()  ,
+                'user_field_1' => $model->getUserField1()  ,
+                'user_field_2' => $model->getUserField2()  ,
+                'user_field_3' => $model->getUserField3()  ,
+                'deleted' => $model->getDeleted()
+            ));
+            return $statement->rowCount();
+        } catch (\PDOException) {
+            return 0;
+        }
+    }
+
+    public function updateFileHTML(BaseModel|File $model, ?int $optional_has_caption = null): int
+    {
+        $statement = "
+            UPDATE files
+            SET
+                job_document_html = :job_document_html
+            WHERE
+                file_id = :file_id;
+        ";
+
+        if($optional_has_caption != null)
+        {
+            $statement = "
+            UPDATE files
+            SET
+                job_document_html = :job_document_html,
+                has_caption = :has_caption
+            WHERE
+                file_id = :file_id;
+        ";
+        }
+
+        try {
+            $statement = $this->db->prepare($statement);
+            if($optional_has_caption == null)
+            {
+                $statement->execute(array(
+                    'job_document_html' => $model->getJobDocumentHtml()
+                ));
+            }else{
+                $statement->execute(array(
+                    'job_document_html' => $model->getJobDocumentHtml()  ,
+                    'has_caption' => $model->getHasCaption()
+                ));
+            }
+            return $statement->rowCount();
+        } catch (\PDOException) {
+            return 0;
+        }
+    }
+
+    public function deleteModel(int $id): int
+    {
+        return $this->delete($id);
+    }
+
+    public function findModel($id): array|null
+    {
+        // TODO: Implement findModel() method.
+    }
+
+
+    /**
+     * Get File by ID with minimal data
+     * * used by revai cron job
+     * @param $id int fileID
+     * @return array|null
+     */
+    public function findAltModel($id): array|null
+    {
+
+        $statement = "
+            SELECT 
+                file_id, job_id, acc_id, file_type, org_ext, filename, tmp_name, orig_filename, file_author, file_work_type,file_comment,
+                   file_speaker_type, file_date_dict, file_status, audio_length,
+                  
+                   isBillable, billed
+            
+            FROM
+                files
+            WHERE file_id = ?;
+        ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($id));
+            if($statement->rowCount())
+            {
+                return $statement->fetch(PDO::FETCH_ASSOC);
+            }else{
+                return null;
+            }
+        } catch (PDOException $e) {
+            return null;
+        }
+    }
+
+
+
+    public function findAllModel($page = 1): array|null
+    {
+        // TODO: Implement findAllModel() method.
+    }
+
 
 }
