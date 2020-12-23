@@ -1,19 +1,36 @@
 <?php
 namespace Src\Controller;
 
+use Src\Enums\FILE_STATUS;
 use Src\Enums\HTTP_CONTENT_TYPE;
 use Src\Enums\HTTP_RESPONSE;
+use Src\Enums\SRLOG_ACTIVITY;
+use Src\Enums\SRQ_STATUS;
+use Src\Helpers\common;
+use Src\Models\SR;
+use Src\Models\SRQueue;
+use Src\TableGateways\SRGateway;
 use Src\TableGateways\SRQueueGateway;
+use Src\TableGateways\FileGateway;
+use Src\Models\File;
 use Src\Traits\httpResponse;
+use Src\Helpers\SRLogger;
 
 class SRQueueController {
 
-    private $SRQueueGateway;
+    private $srQueueGateway;
+    private $filesGateway;
+    private $file;
+    private $srLogger;
+    private $common;
     use httpResponse;
 
     public function __construct(private $db, private $requestMethod, private $page = null)
     {
-        $this->SRQueueGateway = new SRQueueGateway($db);
+        $this->srQueueGateway = new SRQueueGateway($db);
+        $this->filesGateway = new FileGateway($db);
+        $this->srLogger = new SRLogger($db);
+        $this->common = new common();
     }
 
     public function processRequest()
@@ -48,19 +65,72 @@ class SRQueueController {
 
     private function processRevaiNotification()
     {
-        $revai = $this->readPost()["job"];
-        $test = 2;
+        $postBody = $this->readPost();
+        $revaiResponse = $postBody["job"];
+
+        if($revaiResponse["status"] == "transcribed")
+        {
+            $row = $this->srQueueGateway->findByRevAiID($revaiResponse["id"]);
+            if($row)
+            {
+                $srq = SRQueue::withRow($row, $this->db);
+                $srq->setSrqStatus(SRQ_STATUS::INTERNAL_PROCESSING);
+                $srq->setSrqInternalId($this->srQueueGateway->getNextInternalID());
+                $srq->save();
+
+                // rest is handled by internal queue process
+            }
+            else{
+                // No entry found for ID
+                $this->srLogger->log(0,null, SRLOG_ACTIVITY::REVAI_ID_NOT_FOUND,
+                    $revaiResponse["id"]);
+            }
+        }
+        else if($revaiResponse["status"] == "failed"){
+            $row = $this->srQueueGateway->findByRevAiID($revaiResponse["id"]);
+            $srq = SRQueue::withRow($row, $this->db);
+            $minutes = $srq->getSrqRevaiMinutes();
+
+            // get file
+            $file = File::withID($srq->getFileId(), $this->db);
+            $sr = SR::withAccID($file->getAccId(), $this->db);
+
+            // refund minutes back to user
+            $sr->addToMinutesRemaining($minutes);
+            $sr->save();
+
+            // set SRQ status to failed
+            $srq->setSrqStatus(SRQ_STATUS::FAILED);
+            $srq->setNotes($revaiResponse["failure"] .": " . $revaiResponse["failure_details"]);
+            $srq->save();
+
+            // set file_status to awaiting transcription
+            $file->setFileStatus(FILE_STATUS::AWAITING_TRANSCRIPTION);
+            $file->save();
+
+            // log failed
+            $this->srLogger->log(0,null, SRLOG_ACTIVITY::FAILED,
+                "rev.ai failed to process file minutes refunded to user | " .
+                $revaiResponse["failure"] .": " . $revaiResponse["failure_details"]);
+
+        }
+        else{
+            $this->srLogger->log(0,null, SRLOG_ACTIVITY::UNKNOWN_WEBHOOK_BODY,
+                "unknown request body received at rev.ai webhook | " .
+                $postBody);
+        }
+
         return $this->respond(HTTP_RESPONSE::HTTP_OK);
     }
 
-    private function readPost()
+    private function readPost():array
     {
         return json_decode(file_get_contents('php://input'), true);
     }
 
     private function getCity($id, $combobox)
     {
-        $result = $this->SRQueueGateway->find($id, $combobox);
+        $result = $this->srQueueGateway->find($id, $combobox);
         /*if (! $result) {
 //            return $this->notFoundResponse();
         }*/
@@ -75,7 +145,7 @@ class SRQueueController {
         if (! $this->validateCities($input)) {
             return $this->unprocessableEntityResponse();
         }
-        $this->SRQueueGateway->insert($input);
+        $this->srQueueGateway->insert($input);
         $response['status_code_header'] = 'HTTP/1.1 201 Created';
         $response['body'] = null;
         return $response;
@@ -83,7 +153,7 @@ class SRQueueController {
 
     private function updateCityFromRequest($id)
     {
-        $result = $this->SRQueueGateway->find($id);
+        $result = $this->srQueueGateway->find($id);
         if (! $result) {
             return $this->notFoundResponse();
         }
@@ -91,7 +161,7 @@ class SRQueueController {
         if (! $this->validateCities($input)) {
             return $this->unprocessableEntityResponse();
         }
-        $this->SRQueueGateway->update($id, $input);
+        $this->srQueueGateway->update($id, $input);
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
         $response['body'] = null;
         return $response;
@@ -99,11 +169,11 @@ class SRQueueController {
 
     private function deleteCity($id)
     {
-        $result = $this->SRQueueGateway->find($id);
+        $result = $this->srQueueGateway->find($id);
         if (! $result) {
             return $this->notFoundResponse();
         }
-        $this->SRQueueGateway->delete($id);
+        $this->srQueueGateway->delete($id);
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
         $response['body'] = null;
         return $response;
