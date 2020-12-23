@@ -14,24 +14,24 @@ class BaseModel
     }
 
     protected function getRecord(int $id) {
-        return $this->gateway->find($id);
+        return $this->gateway->findModel($id);
     }
 
     protected function getRecordAlt(int $id) {
-    return $this->gateway->findAlt($id);
+    return $this->gateway->findAltModel($id);
     }
 
     protected function insertRecord() {
-        return $this->gateway->insert($this);
+        return $this->gateway->insertModel($this);
     }
 
     protected function updateRecord() {
-        return $this->gateway->update($this);
+        return $this->gateway->updateModel($this);
     }
 
     public function deleteRecord($id)
     {
-        return $this->gateway->delete($id);
+        return $this->gateway->deleteModel($id);
     }
 
 }
