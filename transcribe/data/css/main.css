@@ -61,7 +61,7 @@ code .params {
 body{
     /*    background-color: #193f54;*/
     /*    background-color: #1d7ec1;*/
-    font-family: 'oxygen', serif;
+    font-family: 'OpenSans', serif;
     /*	Between Night And Sky   */
     background: var(--dark-bg-color);  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, var(--light-bg-color), var(--dark-bg-color) );  /* Chrome 10-25, Safari 5.1-6 */
@@ -106,11 +106,11 @@ body {
     color: white !important;
     font-weight: bold;
     /*font-size: 0.9rem;*/
-    font-family: oxygen, serif !important;
+    font-family: opensans, serif !important;
     padding-left: 10px !important;
 }
 .mdc-data-table__cell{
-    font-family: oxygen, serif !important;
+    font-family: opensans, serif !important;
 }
 
 .logout{
@@ -242,7 +242,7 @@ textarea {
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
-    font-family: oxygen, sans-serif;
+    font-family: opensans, sans-serif;
 }
 
 select,.dt-search {
@@ -253,7 +253,7 @@ select,.dt-search {
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
-    font-family: oxygen, sans-serif;
+    font-family: opensans, sans-serif;
 }
 
 input[type=date] {
@@ -264,7 +264,7 @@ input[type=date] {
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 18px;
-    font-family: oxygen, sans-serif;
+    font-family: opensans, sans-serif;
 }
 
 
@@ -314,7 +314,7 @@ table{
     outline: none;
     resize: none;
     border-color: Transparent !important;
-    font-family: 'oxygen', serif !important;
+    font-family: 'OpenSans', serif !important;
     font-size: 0.875rem;
     vertical-align: center;
 }
@@ -338,7 +338,7 @@ table{
 td .times-downloaded{
     /*text-align: center;*/
     vertical-align: bottom !important;
-    font-family: 'oxygen', serif !important;
+    font-family: 'OpenSans', serif !important;
 }
 
 .times-downloaded-header{

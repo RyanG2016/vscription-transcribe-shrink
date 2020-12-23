@@ -23,16 +23,16 @@
 }
 
 @font-face {
-    font-family: oxygen;
-    src: url("../Fonts/Oxygen-Regular.ttf");
+    font-family: opensans;
+    src: url("../Fonts/OpenSans-Regular.ttf");
 }
 /*@font-face {
-  font-family: oxygen-b;
-  src: url("../Fonts/Oxygen-Bold.ttf");
+  font-family: opensans-b;
+  src: url("../Fonts/OpenSans-Bold.ttf");
 }*/
 @font-face {
-    font-family: oxygen-l;
-    src: url("../Fonts/Oxygen-Light.ttf");
+    font-family: opensans-l;
+    src: url("../Fonts/OpenSans-Light.ttf");
 }
 
 #report{
@@ -127,7 +127,7 @@ img:not(#norm){
 #tip{
     font-size: 0.9em;
 
-    font-family: 'Oxygen', sans-serif !important;
+    font-family: 'OpenSans', sans-serif !important;
     display: inline;
     /*white-space: nowrap;*/
 }
@@ -188,11 +188,11 @@ img:not(#norm){
     width: 150px !important;
     padding: 6px !important;
     font-size: 15px !important;
-    font-family: oxygen, sans-serif !important;
+    font-family: opensans, sans-serif !important;
 }
 
 legend, h3,button{
-    font-family: oxygen, sans-serif !important;
+    font-family: opensans, sans-serif !important;
 }
 
 .noHover{
@@ -273,7 +273,7 @@ legend, h3,button{
 
 #help{
     color: #2dace1;
-    font-family: oxygen-l, sans-serif;
+    font-family: opensans-l, sans-serif;
 }
 
 .top-links a:link {
@@ -283,7 +283,7 @@ legend, h3,button{
 /* visited link */
 .top-links a:visited {
     color: #2dace1;
-    font-family: oxygen-l, sans-serif;
+    font-family: opensans-l, sans-serif;
 }
 
 /* mouse over link */
@@ -314,7 +314,7 @@ table, th, td {
     background: #f5862c;
     text-align: center;
     vertical-align: center;
-    font-family: "oxygen", serif;
+    font-family: "OpenSans", serif;
     color: white;
 }
 
@@ -366,6 +366,8 @@ table, th, td {
 
 .mdc-data-table{
     width: 100%;
+    font-size: 0.9rem;
+    font-family: opensans;
     --mdc-theme-primary: #1e79be;
     --mdc-theme-on-primary: #1e79be ;
     --mdc-theme-secondary: #1e79be;
@@ -388,7 +390,7 @@ table, th, td {
     color: white !important;
     font-weight: bold;
     /*font-size: 0.9rem;*/
-    /*font-family: oxygen;*/
+    /*font-family: opensans;*/
     padding-left: 10px !important;
 }
 
@@ -454,7 +456,7 @@ table, th, td {
     outline: none;
     resize: none;
     border-color: Transparent !important;
-    font-family: 'oxygen', serif !important;
+    font-family: 'OpenSans', serif !important;
     font-size: 0.875rem;
     vertical-align: center;
 }
@@ -468,7 +470,7 @@ table, th, td {
 }
 
 .controller-status{
-    font-family: 'oxygen', serif;
+    font-family: 'OpenSans', serif;
     margin-right: 15px;
     vertical-align: bottom;
     color: #f78d2d;
@@ -506,7 +508,7 @@ select, .dt-search {
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
-    font-family: oxygen, sans-serif;
+    font-family: opensans, sans-serif;
 }
 
 /* Table Search Input position fix for bootstrap */
@@ -537,7 +539,7 @@ select, .dt-search {
     margin: 10px auto;
     padding: 12px 20px 15px 20px;
     border-radius: 8px;
-    font-family: 'Oxygen', serif  !important;
+    font-family: 'OpenSans', serif  !important;
     -webkit-transition: width 1s;
     transition: width 1s;
 }
@@ -558,7 +560,7 @@ select, .dt-search {
 }
 
 .vtex-card legend {
-    font-size: 1.4em;
+    font-size: 1.2em;
     /*    margin-bottom: 10px;*/
     width: 100%;
 }

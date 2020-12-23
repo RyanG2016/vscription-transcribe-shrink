@@ -1,16 +1,16 @@
 @font-face {
-  font-family: oxygen;
-  src: url("../Fonts/Oxygen-Regular.ttf");
+  font-family: opensans;
+  src: url("../Fonts/OpenSans-Regular.ttf");
 }
 
 /*@font-face {
-  font-family: oxygen-b;
-  src: url("../../Fonts/Oxygen-Bold.ttf");
+  font-family: opensans-b;
+  src: url("../../Fonts/OpenSans-Bold.ttf");
 }*/
 
 @font-face {
-  font-family: oxygen-l;
-  src: url("../Fonts/Oxygen-Light.ttf");
+  font-family: opensans-l;
+  src: url("../Fonts/OpenSans-Light.ttf");
 }
 
 
@@ -26,12 +26,12 @@
 
 body, html {
 	height: 100%;
-	font-family: oxygen, sans-serif;
+	font-family: opensans, sans-serif;
 }
 
 /*---------------------------------------------*/
 a {
-	font-family: oxygen;
+	font-family: opensans;
 	font-size: 14px;
 	line-height: 1.7;
 	color: #ec922f;
@@ -62,7 +62,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 p {
-	font-family: oxygen;
+	font-family: opensans;
 	font-size: 14px;
 	line-height: 1.7;
 /*	color: #666666;*/
@@ -138,7 +138,7 @@ background: linear-gradient(to right, #3498db, #2c3e50); /* W3C, IE 10+/ Edge, F
 
 .login100-form-title {
   display: block;
-  font-family: oxygen-l;
+  font-family: opensans-l;
   font-size: 30px;
   color: #545454;
   line-height: 1.2;

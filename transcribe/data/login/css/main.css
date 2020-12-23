@@ -1,18 +1,18 @@
 @import "../../css/parts/vars.css";
 
 @font-face {
-  font-family: oxygen;
-  src: url("../../Fonts/Oxygen-Regular.ttf");
+  font-family: opensans;
+  src: url("../../Fonts/OpenSans-Regular.ttf");
 }
 
 /*@font-face {
-  font-family: oxygen-b;
-  src: url("../../Fonts/Oxygen-Bold.ttf");
+  font-family: opensans-b;
+  src: url("../../Fonts/OpenSans-Bold.ttf");
 }*/
 
 @font-face {
-  font-family: oxygen-l;
-  src: url("../../Fonts/Oxygen-Light.ttf");
+  font-family: opensans-l;
+  src: url("../../Fonts/OpenSans-Light.ttf");
 }
 
 
@@ -55,12 +55,12 @@
 
 body, html {
 	height: 100%;
-	font-family: oxygen, sans-serif;
+	font-family: opensans, sans-serif;
 }
 
 /*---------------------------------------------*/
 a {
-	font-family: oxygen;
+	font-family: opensans;
 	font-size: 14px;
 	line-height: 1.7;
 	color: #666666;
@@ -90,7 +90,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 p {
-	font-family: oxygen;
+	font-family: opensans;
 	font-size: 14px;
 	line-height: 1.7;
 	color: #666666;
@@ -161,28 +161,28 @@ iframe {
 /*//////////////////////////////////////////////////////////////////
 [ Utility ]*/
 .txt1 {
-  font-family: oxygen, serif;
+  font-family: opensans, serif;
   font-size: 13px;
   color: #666666;
   line-height: 1.5;
 }
 
 .txt2 {
-  font-family: oxygen, serif;
+  font-family: opensans, serif;
   font-size: 13px;
   color: #333333;
   line-height: 1.5;
 }
 
 .txt3 {
-  font-family: oxygen, serif;
+  font-family: opensans, serif;
   font-size: 13px;
   line-height: 1.5;
   color: blue;
 }
 
 .txt4 {
-  font-family: oxygen, serif;
+  font-family: opensans, serif;
   font-size: 10px;
   line-height: 1.5;
   color: #4c4c4c;
@@ -272,7 +272,7 @@ background: linear-gradient(to right, #3498db, #2c3e50); /* W3C, IE 10+/ Edge, F
 .denied100-form-title {
   display: block;
 /*  font-family: Poppins-Bold;*/
-  font-family: oxygen-l;
+  font-family: opensans-l;
   font-size: 20px;
   color: #545454;
   line-height: 1.3;
@@ -291,7 +291,7 @@ background: linear-gradient(to right, #3498db, #2c3e50); /* W3C, IE 10+/ Edge, F
 .login100-form-title {
   display: block;
 /*  font-family: Poppins-Bold;*/
-  font-family: oxygen-l;
+  font-family: opensans-l;
   font-size: 30px;
   color: #545454;
   line-height: 1.2;
@@ -312,7 +312,7 @@ background: linear-gradient(to right, #3498db, #2c3e50); /* W3C, IE 10+/ Edge, F
 }
 
 .input100 {
-  font-family: oxygen;
+  font-family: opensans;
   font-size: 15px;
   color: #555555;
   line-height: 1.2;
@@ -381,7 +381,7 @@ input:-webkit-autofill:active  {
 }
 
 .focus-input100::after {
-  font-family: oxygen;
+  font-family: opensans;
   font-size: 15px;
   color: #999999;
   line-height: 1.2;
@@ -504,7 +504,7 @@ input:-webkit-autofill:active  {
 }
 
 .login100-form-btn {
-  font-family: oxygen;
+  font-family: opensans;
   font-size: 15px;
   color: #fff;
   line-height: 1.2;
@@ -561,7 +561,7 @@ input:-webkit-autofill:active  {
 
 #loginBtn{
     width: 100%;
-    font-family: 'oxygen-l', sans-serif;
+    font-family: 'OpenSans-l', sans-serif;
 }
 
 /*------------------------------------------------------------------
@@ -599,7 +599,7 @@ input:-webkit-autofill:active  {
   right: 0px;
   pointer-events: none;
 
-  font-family: oxygen;
+  font-family: opensans;
   color: #c80000;
   font-size: 13px;
   line-height: 1.4;

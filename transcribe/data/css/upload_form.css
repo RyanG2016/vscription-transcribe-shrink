@@ -271,7 +271,7 @@ input[type=date] {
     /*border: 1px solid #ccc;*/
     /*border-radius: 4px;*/
     font-size: 1rem;
-    font-family: 'Oxygen' , serif  !important;
+    font-family: 'OpenSans' , serif  !important;
 
     height: 56px;
     width: 94%;
@@ -326,7 +326,7 @@ select {
     border-radius: 4px;
     font-size: 1rem;
     color: #202020;
-    font-family: 'Oxygen' , serif  !important;
+    font-family: 'OpenSans' , serif  !important;
 
 
     /*font-family: Lato;*/
@@ -363,7 +363,7 @@ input[type=text],
     /*border: 1px solid #97999a;*/
     border-radius: 4px;
     color: #202020;
-    font-family: 'Oxygen' , serif  !important;
+    font-family: 'OpenSans' , serif  !important;
 }
 #demo_comments{
     /*width: 96%;*/
@@ -373,7 +373,7 @@ input[type=text],
     /*border: 1px solid #97999a;*/
     /*border-radius: 4px;*/
     color: #202020;
-    font-family: 'Oxygen' , serif  !important;
+    font-family: 'OpenSans' , serif  !important;
 }
 
 input[type=date]:focus,

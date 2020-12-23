@@ -8,12 +8,12 @@
 }
 
 .report .header .head-left h2 {
-    font-family: 'oxygen', serif;
+    font-family: 'OpenSans', serif;
 }
 
 .report {
     /*border: 1px solid;*/
-    font-family: 'oxygen', serif;
+    font-family: 'OpenSans', serif;
     font-size: 12px;
     border-collapse: collapse;
     /*padding: 5px;*/
@@ -99,12 +99,12 @@
 }
 
 p {
-    font-family: 'oxygen', serif;
+    font-family: 'OpenSans', serif;
     font-size: 12px;
 }
 
 h3 {
-    font-family: 'oxygen', serif;
+    font-family: 'OpenSans', serif;
     font-size: 14px;
 }
 
@@ -117,7 +117,7 @@ h3 {
 }
 
 input, label{
-    font-family: 'oxygen', serif;
+    font-family: 'OpenSans', serif;
 }
 
 

@@ -4,7 +4,7 @@
 
 /* BODY */
 body{
-    font-family: 'oxygen', serif;
+    font-family: 'OpenSans', serif;
 }
 
 .mdc-data-table{
@@ -31,7 +31,7 @@ body{
     color: white !important;
     font-weight: bold;
     /*font-size: 0.9rem;*/
-    /*font-family: oxygen;*/
+    /*font-family: opensans;*/
     padding-left: 10px !important;
 }
 
@@ -74,7 +74,7 @@ select,.dt-search {
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
-    font-family: oxygen, sans-serif;
+    font-family: opensans, sans-serif;
 }
 #jobs-tbl > tfoot > tr > th{
     padding: 0 10px 0 5px;

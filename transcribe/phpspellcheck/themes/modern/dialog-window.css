@@ -36,7 +36,7 @@ height:45px;
 position:absolute;
 top:5px;
 left:5px;
-/*font-family:Verdana, Arial, Helvetica, sans-serif;*/
+/*font-family:OpenSans, Arial, Helvetica, sans-serif;*/
 
 
 font-size:12px;
@@ -63,7 +63,7 @@ left:15px;
 
 #fldLanguageMultiple{
 width:438px;
-/*font-family:Verdana, Arial, Helvetica, sans-serif;*/
+/*font-family:OpenSans, Arial, Helvetica, sans-serif;*/
 font-size:11px;
 	}
 	
@@ -81,7 +81,7 @@ font-size:11px;
 	position:absolute;
 	top:117px;
 	left:5px;
-	/*font-family:Verdana, Arial, Helvetica, sans-serif;*/
+	/*font-family:OpenSans, Arial, Helvetica, sans-serif;*/
 	font-size:11px;
 }
 
@@ -90,7 +90,7 @@ font-size:11px;
 	position:absolute;
 	top:215px;
 	left:6px;
-	/*font-family:Verdana, Arial, Helvetica, sans-serif;*/
+	/*font-family:OpenSans, Arial, Helvetica, sans-serif;*/
 	font-size:11px;
 
 }
@@ -364,7 +364,7 @@ height:82px;
 position:absolute;
 top:170px;
 left:95px;
-/*font-family:Verdana, Arial, Helvetica, sans-serif;*/
+/*font-family:OpenSans, Arial, Helvetica, sans-serif;*/
 font-size:11px;
 }
 #tSum{

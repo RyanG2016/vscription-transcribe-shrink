@@ -1,0 +1,13 @@
+/* Style overrides for bootstrap.css */
+
+.ui-accordion {
+    font-size: .9rem !IMPORTANT;
+}
+    
+.input-group-text {
+    font-size: .8rem !IMPORTANT;
+}
+    
+.form-control {
+    font-size: .8rem !IMPORTANT;
+}
