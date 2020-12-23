@@ -233,6 +233,35 @@
         ]
     },
     {
+        "name": "mantas-done/subtitles",
+        "version": "v0.3.9",
+        "version_normalized": "0.3.9.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/mantas-done/subtitles.git",
+            "reference": "45c8c5b0df26c7da38c93cff70d0c10df08cb975"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/mantas-done/subtitles/zipball/45c8c5b0df26c7da38c93cff70d0c10df08cb975",
+            "reference": "45c8c5b0df26c7da38c93cff70d0c10df08cb975",
+            "shasum": ""
+        },
+        "require-dev": {
+            "phpunit/phpunit": "^6.0"
+        },
+        "time": "2020-02-22T11:26:57+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                "src"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "description": "Subtitle converter and generator for PHP"
+    },
+    {
         "name": "myclabs/php-enum",
         "version": "1.7.7",
         "version_normalized": "1.7.7.0",

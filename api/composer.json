@@ -25,7 +25,8 @@
     "phpmailer/phpmailer": "6.1.7",
     "iceman2894/lowrapper": "*",
     "authorizenet/authorizenet": "2.0.0",
-    "myclabs/php-enum": "^1.7"
+    "myclabs/php-enum": "^1.7",
+    "mantas-done/subtitles": "^0.3.9"
   },
   "autoload": {
     "psr-4": {

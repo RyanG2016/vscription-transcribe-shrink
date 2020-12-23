@@ -86,6 +86,19 @@ class ComposerStaticInit6adee100c1c1d6b46b6a0aa11003ed2a
     );
 
     public static $classMap = array (
+        'Done\\Subtitles\\AssConverter' => __DIR__ . '/..' . '/mantas-done/subtitles/src/code/Converters/AssConverter.php',
+        'Done\\Subtitles\\ConverterContract' => __DIR__ . '/..' . '/mantas-done/subtitles/src/code/Converters/ConverterContract.php',
+        'Done\\Subtitles\\DfxpConverter' => __DIR__ . '/..' . '/mantas-done/subtitles/src/code/Converters/DfxpConverter.php',
+        'Done\\Subtitles\\Helpers' => __DIR__ . '/..' . '/mantas-done/subtitles/src/code/Helpers.php',
+        'Done\\Subtitles\\SbvConverter' => __DIR__ . '/..' . '/mantas-done/subtitles/src/code/Converters/SbvConverter.php',
+        'Done\\Subtitles\\SrtConverter' => __DIR__ . '/..' . '/mantas-done/subtitles/src/code/Converters/SrtConverter.php',
+        'Done\\Subtitles\\StlConverter' => __DIR__ . '/..' . '/mantas-done/subtitles/src/code/Converters/StlConverter.php',
+        'Done\\Subtitles\\SubConverter' => __DIR__ . '/..' . '/mantas-done/subtitles/src/code/Converters/SubConverter.php',
+        'Done\\Subtitles\\SubtitleContract' => __DIR__ . '/..' . '/mantas-done/subtitles/src/Subtitles.php',
+        'Done\\Subtitles\\Subtitles' => __DIR__ . '/..' . '/mantas-done/subtitles/src/Subtitles.php',
+        'Done\\Subtitles\\TtmlConverter' => __DIR__ . '/..' . '/mantas-done/subtitles/src/code/Converters/TtmlConverter.php',
+        'Done\\Subtitles\\TxtConverter' => __DIR__ . '/..' . '/mantas-done/subtitles/src/code/Converters/TxtConverter.php',
+        'Done\\Subtitles\\VttConverter' => __DIR__ . '/..' . '/mantas-done/subtitles/src/code/Converters/VttConverter.php',
         'net\\authorize\\api\\constants\\ANetEnvironment' => __DIR__ . '/..' . '/authorizenet/authorizenet/lib/net/authorize/api/constants/ANetEnvironment.php',
         'net\\authorize\\api\\contract\\v1\\ANetApiRequestType' => __DIR__ . '/..' . '/authorizenet/authorizenet/lib/net/authorize/api/contract/v1/ANetApiRequestType.php',
         'net\\authorize\\api\\contract\\v1\\ANetApiResponseType' => __DIR__ . '/..' . '/authorizenet/authorizenet/lib/net/authorize/api/contract/v1/ANetApiResponseType.php',

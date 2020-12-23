@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "803a091d3be673aab77ee44e300a5dbd",
+    "content-hash": "30aa24474621d7a11b8556f17034c4b5",
     "packages": [
         {
             "name": "authorizenet/authorizenet",
@@ -230,6 +230,33 @@
                 "semaphore"
             ],
             "time": "2018-07-07T18:43:25+00:00"
+        },
+        {
+            "name": "mantas-done/subtitles",
+            "version": "v0.3.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mantas-done/subtitles.git",
+                "reference": "45c8c5b0df26c7da38c93cff70d0c10df08cb975"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mantas-done/subtitles/zipball/45c8c5b0df26c7da38c93cff70d0c10df08cb975",
+                "reference": "45c8c5b0df26c7da38c93cff70d0c10df08cb975",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Subtitle converter and generator for PHP",
+            "time": "2020-02-22T11:26:57+00:00"
         },
         {
             "name": "myclabs/php-enum",
