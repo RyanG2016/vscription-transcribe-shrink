@@ -131,6 +131,11 @@ class File extends BaseModel implements BaseModelInterface
         }
     }
 
+    public function saveNewStatus():bool
+    {
+        return $this->fileGateway->directUpdateFileStatus($this->file_id, $this->file_status, $this->filename);
+    }
+
     public function save(): int
     {
         if($this->file_id != 0)
