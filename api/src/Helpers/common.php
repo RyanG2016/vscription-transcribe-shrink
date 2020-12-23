@@ -180,21 +180,26 @@ class common{
 //    print_r($jsonArrayResponse);
     }
 
-    function random_filename($extension = '')
+    function generateRandomFileName($prefix = '',
+                             $extension = '')
     {
-        // default to this files directory if empty...
-//    $dir = !empty($directory) && is_dir($directory) ? $directory : dirname(__FILE__);
+        $filename = uniqid(time() . "_" . $prefix, true) . $extension;
 
-        $dir = __DIR__ . "/../../../transcribe/workingTemp/";
-
-        $filename = uniqid(time() . "_", true) . $extension;
-
-        while (file_exists($dir . $filename)) {
-            $filename = uniqid(time() . "_", true) . $extension;
-        }
         return $filename;
     }
 
+    /**
+     * @param $file string filename/path
+     * @return string extension
+     */
+    function getFileExtension($file)
+    {
+        return pathinfo($file, PATHINFO_EXTENSION);
+    }
 
+    function secToMin($seconds):float
+    {
+        return $seconds/60;
+    }
 
 }
