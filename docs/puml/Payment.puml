@@ -1,7 +1,7 @@
 @startuml
 title Payment
 
-skinparam backgroundColor #EEEBDC
+skinparam backgroundColor white
 
 skinparam activity {
   StartColor #1e79be

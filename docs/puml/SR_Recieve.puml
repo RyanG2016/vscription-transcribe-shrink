@@ -1,7 +1,7 @@
 @startuml
 title Speech Recognition API Webhook endpoint
 
-skinparam backgroundColor #EEEBDC
+skinparam backgroundColor white
 'skinparam handwritten true
 
 skinparam activity {

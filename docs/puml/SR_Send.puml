@@ -2,7 +2,7 @@
 
 title Speech Recognition Sending Queue
 
-skinparam backgroundColor #EEEBDC
+skinparam backgroundColor white
 skinparam noteFontSize 23
 'skinparam handwritten true
 
