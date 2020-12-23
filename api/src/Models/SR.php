@@ -161,6 +161,16 @@ class SR extends BaseModel implements BaseModelInterface
         $this->sr_minutes_remaining = $sr_minutes_remaining;
     }
 
+    public function addToMinutesRemaining(?float $sr_minutes_remaining): void
+    {
+        $this->sr_minutes_remaining += $sr_minutes_remaining;
+    }
+
+    public function deductFromMinutesRemaining(?float $sr_minutes_remaining): void
+    {
+        $this->sr_minutes_remaining -= $sr_minutes_remaining;
+    }
+
     // Interface Functions ---------------------
 
     public function save():int{
