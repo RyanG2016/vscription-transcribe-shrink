@@ -12,4 +12,5 @@ class SRQ_STATUS extends Enum
     const FAILED = 3;
     const MANUAL_REVISION_REQ = 5;
     const INSUFFICIENT_BALANCE = 6;
+    const REVAI_FAILED_TO_RESPOND_WITH_SUCCESS = 7;
 }
