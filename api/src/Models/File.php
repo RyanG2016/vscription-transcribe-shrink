@@ -47,6 +47,7 @@ class File extends BaseModel implements BaseModelInterface
         private ?string $tmp_name = null,
         private ?string $orig_filename = null,
         private ?string $job_document_html = null,
+        private int $has_caption = 0,
         private ?string $filename = null,
         private ?String $file_tag = null,
         private ?string $file_author = null,
@@ -100,10 +101,9 @@ class File extends BaseModel implements BaseModelInterface
             if(isset($row['filename'])) $this->filename = $row['filename'];
             if(isset($row['tmp_name'])) $this->tmp_name = $row['tmp_name'];
             if(isset($row['orig_filename'])) $this->orig_filename = $row['orig_filename'];
-            if(isset($row['fileAudioBlob'])) $this->fileAudioBlob = $row['fileAudioBlob'];
-            if(isset($row['fileTextBlob'])) $this->fileTextBlob = $row['fileTextBlob'];
             if(isset($row['job_document_html'])) $this->job_document_html = $row['job_document_html'];
             if(isset($row['job_document_rtf'])) $this->job_document_rtf = $row['job_document_rtf'];
+            if(isset($row['has_caption'])) $this->has_caption = $row['has_caption'];
             if(isset($row['file_tag'])) $this->file_tag = $row['file_tag'];
             if(isset($row['file_author'])) $this->file_author = $row['file_author'];
             if(isset($row['file_work_type'])) $this->file_work_type = $row['file_work_type'];
@@ -134,6 +134,11 @@ class File extends BaseModel implements BaseModelInterface
     public function saveNewStatus():bool
     {
         return $this->fileGateway->directUpdateFileStatus($this->file_id, $this->file_status, $this->filename);
+    }
+
+    public function saveHTML($optional_has_caption = null):int
+    {
+        return $this->fileGateway->updateFileHTML($this, $optional_has_caption);
     }
 
     public function save(): int
@@ -700,6 +705,22 @@ class File extends BaseModel implements BaseModelInterface
     public function setJobDocumentRtf(?string $job_document_rtf): void
     {
         $this->job_document_rtf = $job_document_rtf;
+    }
+
+    /**
+     * @return int
+     */
+    public function getHasCaption(): int
+    {
+        return $this->has_caption;
+    }
+
+    /**
+     * @param int $has_caption
+     */
+    public function setHasCaption(int $has_caption): void
+    {
+        $this->has_caption = $has_caption;
     }
 
 
