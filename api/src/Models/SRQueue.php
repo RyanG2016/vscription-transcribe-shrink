@@ -24,6 +24,7 @@ class SRQueue extends BaseModel implements BaseModelInterface
         private float $srq_revai_minutes = 0.00,
         private ?string $notes = null,
         private int $srq_id = 0,
+        private ?int $srq_internal_id = null,
         private ?string $srq_tmp_filename = null,
         private $db = null
     )
@@ -33,6 +34,22 @@ class SRQueue extends BaseModel implements BaseModelInterface
             $this->srqGateway = new SRQueueGateway($db);
             parent::__construct($this->srqGateway);
         }
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getSrqInternalId(): ?int
+    {
+        return $this->srq_internal_id;
+    }
+
+    /**
+     * @param int|null $srq_internal_id
+     */
+    public function setSrqInternalId(?int $srq_internal_id): void
+    {
+        $this->srq_internal_id = $srq_internal_id;
     }
 
     // Custom Constructors //
