@@ -82,8 +82,8 @@ class speechRecognitionCron{
 
         if($srqRow)
         {
-            $this->srqE = SRQueue::withRow($srqRow);
-            $this->fileE = File::withRow($this->fileGateway->findAlt($this->srqE->getFileId()));
+            $this->srqE = SRQueue::withRow($srqRow, $this->db);
+            $this->fileE = File::withRow($this->fileGateway->findAlt($this->srqE->getFileId()), $this->db);
             $this->srE = SR::withAccID($this->fileE->getAccId(), $this->db);
 
             $this->tmpFileName = $this->common->generateRandomFileName("REVAI_", $this->common->getFileExtension($this->fileE->getFilename()));;
@@ -237,7 +237,7 @@ class speechRecognitionCron{
         else{
             // curl post failed
             $this->log($this->srqE->getSrqId(),$this->fileE->getFileId(),
-                SRLOG_ACTIVITY::REVAI_RESPONSE_ERROR, $response['title']);
+                SRLOG_ACTIVITY::REVAI_SEND_ERROR, $response['title']);
 
             if($this->retries < self::MAX_RETRIES)
             {
