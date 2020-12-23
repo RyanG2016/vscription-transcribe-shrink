@@ -35,7 +35,8 @@ class conversionGateway
                    orig_filename,
                    tmp_name,
                    status,
-                   file_status
+                   file_status,
+                   acc_id
             FROM
                 conversion
             

@@ -5,8 +5,6 @@ namespace Src\TableGateways;
 
 
 use Src\Models\BaseModel;
-//use Src\Models\SR;
-use Src\Models\SRQueue;
 
 /**
  * Interface for default gateway functions
@@ -48,6 +46,15 @@ interface GatewayInterface
      * null if nothing found
      */
     public function find($id): array|null;
+
+    /**
+     * get record by foreign key ID
+     * @param $id
+     * @return array|null
+     * array of $row <br>
+     * null if nothing found
+     */
+    public function findAlt($id): array|null;
 
     /**
      * get all records limited by $limit

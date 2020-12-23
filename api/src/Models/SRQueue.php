@@ -44,6 +44,13 @@ class SRQueue extends BaseModel implements BaseModelInterface
         return $instance;
     }
 
+    public static function withFileID($file_id, $db) {
+        $instance = new self(file_id: $file_id, db: $db);
+        $row = $instance->getRecordAlt($file_id);
+        $instance->fill( $row );
+        return $instance;
+    }
+
     public static function withRow(?array $row, $db = null )
     {
         if($row)

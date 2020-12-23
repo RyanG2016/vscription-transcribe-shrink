@@ -176,4 +176,28 @@ class SRGateway implements GatewayInterface
         }
     }
 
+    /**
+     * get speech_recognition record by account_id
+     * @param $id int account_id
+     * @return array|null
+     */
+    public function findAlt($id): array|null
+    {
+        $statement = "
+            SELECT 
+                *            
+            FROM
+                speech_recognition
+            WHERE account_id = ?;
+        ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($id));
+            $result = $statement->fetch(\PDO::FETCH_ASSOC);
+            return $result;
+        } catch (\PDOException) {
+            return null;
+        }
+    }
 }
