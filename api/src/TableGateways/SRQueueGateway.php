@@ -29,9 +29,9 @@ class SRQueueGateway implements GatewayInterface
 
         $statement = "
             INSERT INTO sr_queue 
-                (file_id, srq_status, srq_revai_id, srq_revai_minutes, notes)
+                (file_id, srq_status, srq_revai_id, srq_revai_minutes, notes, srq_tmp_filename)
             VALUES
-                (:file_id, :srq_status, :srq_revai_id, :srq_revai_minutes, :notes)
+                (:file_id, :srq_status, :srq_revai_id, :srq_revai_minutes, :notes, :srq_tmp_filename)
         ;";
 
         try {
@@ -41,6 +41,7 @@ class SRQueueGateway implements GatewayInterface
                 'srq_status' => $model->getSrqStatus()  ,
                 'srq_revai_id' => $model->getSrqRevaiId()  ,
                 'srq_revai_minutes' => $model->getSrqRevaiMinutes()  ,
+                'srq_tmp_filename' => $model->getSrqTmpFilename()  ,
                 'notes' => $model->getNotes()
             ));
             if($statement->rowCount())
@@ -63,6 +64,7 @@ class SRQueueGateway implements GatewayInterface
                 srq_status = :srq_status,
                 srq_revai_id = :srq_revai_id,
                 srq_revai_minutes = :srq_revai_minutes,
+                srq_tmp_filename = :srq_tmp_filename,
                 notes = :notes     
             WHERE
                 srq_id = :srq_id
@@ -76,6 +78,7 @@ class SRQueueGateway implements GatewayInterface
                 'srq_revai_id' => $model->getSrqRevaiId()  ,
                 'srq_revai_minutes' => $model->getSrqRevaiMinutes()  ,
                 'notes' => $model->getNotes(),
+                'srq_tmp_filename' => $model->getSrqTmpFilename(),
                 'srq_id' => $model->getSrqId()
             ));
             return $statement->rowCount();

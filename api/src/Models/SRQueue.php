@@ -24,6 +24,7 @@ class SRQueue extends BaseModel implements BaseModelInterface
         private float $srq_revai_minutes = 0.00,
         private ?string $notes = null,
         private int $srq_id = 0,
+        private ?string $srq_tmp_filename = null,
         private $db = null
     )
     {
@@ -43,7 +44,8 @@ class SRQueue extends BaseModel implements BaseModelInterface
         return $instance;
     }
 
-    public static function withRow(?array $row, $db = null ) {
+    public static function withRow(?array $row, $db = null )
+    {
         if($row)
         {
             $instance = new self(file_id: $row["file_id"], db: $db);
@@ -66,6 +68,7 @@ class SRQueue extends BaseModel implements BaseModelInterface
             $this->srq_revai_id = $row['srq_revai_id'];
             $this->srq_status = $row['srq_status'];
             $this->srq_id = $row['srq_id'];
+            $this->srq_tmp_filename = $row['srq_tmp_filename'];
         }
     }
 
@@ -186,4 +189,22 @@ class SRQueue extends BaseModel implements BaseModelInterface
     {
         $this->srq_id = $srq_id;
     }
+
+    /**
+     * @return string|null
+     */
+    public function getSrqTmpFilename(): ?string
+    {
+        return $this->srq_tmp_filename;
+    }
+
+    /**
+     * @param string|null $srq_tmp_filename
+     */
+    public function setSrqTmpFilename(?string $srq_tmp_filename): void
+    {
+        $this->srq_tmp_filename = $srq_tmp_filename;
+    }
+
+
 }
