@@ -287,7 +287,7 @@ class SRProcessingCron{
             foreach ($block['lines'] as $line) {
                 $currentLine .= $line . " ";
             }
-            $html .= $stSpan . wordwrap($currentLine, 70, "<br>") . "</span><br>";
+            $html .= $stSpan . wordwrap($currentLine, 70, "<br>") . "</div>";
 
         }
 
