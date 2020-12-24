@@ -284,7 +284,7 @@ if (isset($_SESSION['counter'])) {
                                                     </div>
                                                     </div>
                                                     <div class="form-row m-t-25">
-                                                        <div class="col"><em>SR Balance (min) <i class="fas fa-plus-circle top-up" onclick="location.href=\'/payment.php\'"></i></em> </div> 
+                                                        <div class="col"><em>SR Balance (min) <i class="fas fa-plus-circle top-up" onclick="window.open(\'/payment.php\', \'_blank\')"></i></em> </div> 
                                                         <div class="col text-right"><span id="srMinutes"></span></div> 
                                                     </div>
                                                 </div>';

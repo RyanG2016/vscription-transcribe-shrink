@@ -274,13 +274,14 @@ class UserController
             $minutes = $sr->getSrMinutesRemaining();
 
             $result = $minutes;
-            if($minutes == null || $minutes == 0)
+            if($minutes == null)
             {
-                $result = "N/A";
+                $result = "0.00";
             }
 
         }else{
-            $result = "Permission denied";
+//            $result = "Permission denied";
+            $result = "00.00";
         }
 
         $response['status_code_header'] = 'HTTP/1.1 200 OK';

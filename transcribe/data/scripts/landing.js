@@ -367,11 +367,10 @@ $(document).ready(function () {
             method: "GET",
             dataType: "text",
             success: function (data) {
-                console.log("minutes: " + data);
                 srMinutes.html(data);
             },
             error: function(jqxhr) {
-                $("#register_area").text(jqxhr.responseText); // @text = response error, it is will be errors: 324, 500, 404 or anythings else
+                // $("#register_area").text(jqxhr.responseText); // @text = response error, it is will be errors: 324, 500, 404 or anythings else
             }
         });
     }

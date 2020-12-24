@@ -85,7 +85,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 
 </head>
 
-<body>
+<body class="overflow-auto">
 <?php include_once "data/parts/nav.php" ?>
 <div id="container" style="width: 100%">
     <div class="form-style-5">
@@ -148,12 +148,23 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                         </div>
                         <div class="box box5">
 
-                                <label class="mdc-button mdc-button--unelevated upload_btn_lbl" for="upload_btn">
-                                    <div class="mdc-button__ripple"></div>
-                                    <i class="fas fa-cloud-upload-alt"></i>
-<!--                                    <span class="mdc-button__label">Choose Files to Upload (wav, mp3, m4a, ds2, ogg)</span>-->
-                                    <span class="mdc-button__label">Upload</span>
-                                </label><small class="text-muted">Allowed: (wav, mp3, m4a, ds2, ogg)</small>
+                            <div class="row">
+                                <div class="col">
+                                    <label class="mdc-button mdc-button--unelevated upload_btn_lbl" for="upload_btn">
+                                        <div class="mdc-button__ripple"></div>
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                        <!--                                    <span class="mdc-button__label">Choose Files to Upload (wav, mp3, m4a, ds2, ogg)</span>-->
+                                        <span class="mdc-button__label">Upload</span>
+                                    </label>
+                                </div>
+                                <div class="col p-0">
+                                    <small class="text-muted">Allowed: (wav, mp3, m4a, ds2, ogg)</small>
+                                </div>
+                            </div>
+
+
+
+
 
                                 <button class="mdc-button mdc-button--unelevated foo-button clear_btn" disabled>
                                     <div class="mdc-button__ripple"></div>
@@ -178,7 +189,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                 <input type="hidden" name="<?php echo ini_get("session.upload_progress.name"); ?>" value="job_upload"/>
 
                         </div>
-                        <div class="box box6">
+                        <div class="box box6 mt-3">
                             <h3>Selected Files:</h3>
                             <div class="preview">
                                 <p>No files currently selected for upload</p>
@@ -255,6 +266,17 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                 <div class="form-group">
                                     <label for="demo_comments">Comments</label>
                                     <textarea name="demo_comments" class="form-control" id="demo_comments" rows="4" placeholder="(optional)"></textarea>
+                                </div>
+                                <div class="row" id="srBalance" style="display:none;">
+                                    <div class="col text-right">
+<!--                                        <em>SR Balance: </em>-->
+                                        <i class="fas fa-plus-circle top-up" onclick="window.open('/payment.php', '_blank')"></i>
+                                        <em>
+                                            SR Balance:
+                                            <span id="srMinutes"></span> min
+                                        </em>
+                                    </div>
+<!--                                    <div class="col text-right"></div>-->
                                 </div>
 
 

@@ -1,7 +1,8 @@
 /* --------------------------------*/
 /* vScription Transcribe Modal Box */
 /* --------------------------------*/
-
+@import "parts/vars.css";
+@import "parts/vtex-custom-styles.css";
 @import "parts/modal_popup.css";
 /* Additional Specific Styling to modal */
 .modal{

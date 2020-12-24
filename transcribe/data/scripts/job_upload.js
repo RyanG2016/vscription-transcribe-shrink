@@ -41,6 +41,11 @@ function documentReady() {
 	let maxFileSize  = 134217728;
 	const MAX_FILES_COUNT = 10;
 
+	var srEnabled = false;
+	getSRenabled();
+	var srMinutesRemaining = 0;
+	var srMinutes = $("#srMinutes");
+	// getSRMinutes();
 
 	// const modalProgress = new mdc.linearProgress.MDCLinearProgress(document.querySelector('#modalProgress'));
 	// const modalProgressLay = $('#modalProgress');
@@ -138,7 +143,8 @@ function documentReady() {
 
 
 
-			formData.append("authorName", $('.demo_author').val());
+			formData.append("sr_enabled", srEnabled);
+			formData.append("jobType", $("#demo_job_type option:selected").html());
 			formData.append("jobType", $("#demo_job_type option:selected").html());
 			formData.append("dictDate", $('#dictdatetime').datetimepicker('viewDate').format("YYYY-MM-DD HH:mm:ss"));
 			// formData.append("dictDate", $('.demo_dictdate').val());
@@ -223,6 +229,22 @@ function documentReady() {
 		}
 	});
 
+	function getSRMinutes()
+	{
+		$.ajax({
+			url: "../api/v1/users/sr-mins/",
+			method: "GET",
+			dataType: "text",
+			success: function (data) {
+				srMinutesRemaining = data;
+				srMinutes.html(data);
+				$("#srBalance")[0].style.display = "block";
+			},
+			error: function(jqxhr) {
+				// $("#register_area").text(jqxhr.responseText); // @text = response error, it is will be errors: 324, 500, 404 or anythings else
+			}
+		});
+	}
 
 
 	function enableProgressWatcher(progressSuffix) {
@@ -330,12 +352,52 @@ function documentReady() {
 		{
 			if(filesArr.length > 0)
 			{
+				// check for SR
+				if(srEnabled)
+				{
+					// check for total minutes length and sufficient balance
+					var totalMinutes = secsToMin(filesDur.reduce(function(a, b){
+						return a + b;
+					}, 0));
+					totalMinutes = 60;
+					let balanceAfterUpload = srMinutesRemaining - totalMinutes;
+					if(balanceAfterUpload < 0)
+					{
+						// show error msg
+						submitUploadBtn.setAttribute("disabled", "true");
+						let subPar = document.createElement('p');
+						subPar.innerHTML = "INSUFFICIENT BALANCE | Total upload mins: " + totalMinutes +
+						" | SR Balance: " + srMinutesRemaining + "<br>"
+						+ "<div><i><u id='skipSR' style='color: #404040; cursor: pointer'>Click here to skip SR this time</u></i></div>";
+
+						subPar.setAttribute("style", "color: darkred");
+						subPar.setAttribute("id", "subBar");
+						preview.appendChild(subPar);
+
+						$("#skipSR").on("click",function(){
+							srEnabled = false;
+							$("#subBar")[0].innerHTML = "Speech recognition is off for this upload";
+							submitUploadBtn.removeAttribute("disabled");
+						});
+						return;
+					}
+
+					let subPar = document.createElement('p');
+					subPar.innerHTML = "Total upload mins: " + totalMinutes + " | SR minutes remaining: " + balanceAfterUpload;
+					preview.appendChild(subPar);
+				}
+
 				submitUploadBtn.removeAttribute("disabled");
 			}
 		}
 		else{
 			submitUploadBtn.setAttribute("disabled", "true");
 		}
+	}
+
+	function secsToMin($seconds)
+	{
+		return ($seconds/60);
 	}
 
 	function computeDuration(id, file, status, dssType = 0) {
@@ -614,12 +676,14 @@ function documentReady() {
 				}
 
 				preview.appendChild(par);
+
+
 				i++;
 
 				// console.log("current files: " + filesArr.toString());
 			}
 		}
-		console.log("current files: " + filesArr.toString());
+		// console.log("current files: " + filesArr.toString());
 	}
 
 	//https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Audio_codecs
@@ -768,6 +832,25 @@ function documentReady() {
 			enjoyhint_instance.run();
 		}
 
+		function getSRenabled()
+		{
+			$.ajax({
+				url: "../api/v1/users/sr-enabled/",
+				method: "GET",
+				dataType: "text",
+				success: function (data) {
+					if(data == 1)
+					{
+						srEnabled = true;
+						getSRMinutes();
+					}
+					else{
+						srEnabled = false;
+					}
+				}
+			});
+		}
+
 		function tutorialViewed() {
 			resetFiles();
 			var formData = new FormData();
@@ -779,7 +862,7 @@ function documentReady() {
 				data: convertToSearchParam(formData)
 			});
 		}
-} 
+}
 
 /////////////////////////////////////////
 /*function validateFields() {

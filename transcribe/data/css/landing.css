@@ -3,6 +3,7 @@
 @import "parts/card.css";
 @import "parts/modal_overlay.css";
 @import "parts/data-tbl.css";
+@import "parts/vtex-custom-styles.css";
 @import "parts/spinner.css";
 @import "parts/bootstrap-override.css";
 @import "parts/material-override.css";
@@ -157,23 +158,4 @@ a:hover {
 .welcome-icon{
     font-size: 5rem !important;
     color: #1e79be;
-}
-
-.vtex-help-icon{
-    color: var(--vtex-blue);
-    cursor: pointer;
-    opacity: 80%;
-}
-
-.top-up:hover
-{
-    opacity: 0.9;
-    transform: scale(1.2);
-
-}
-
-.top-up{
-    color: var(--vtex-green);
-    cursor: pointer;
-    transition: transform .2s; /* Animation */
 }

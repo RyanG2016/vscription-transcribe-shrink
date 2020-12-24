@@ -1,9 +1,27 @@
-
-
 .vtex-left-divider{
     border-left: 1px groove whitesmoke;
 }
 
 .vtex-right-divider{
     border-right: 1px groove whitesmoke;
+}
+
+
+.vtex-help-icon{
+    color: var(--vtex-blue);
+    cursor: pointer;
+    opacity: 80%;
+}
+
+.top-up:hover
+{
+    opacity: 0.9;
+    transform: scale(1.2);
+
+}
+
+.top-up{
+    color: var(--vtex-green);
+    cursor: pointer;
+    transition: transform .2s; /* Animation */
 }
