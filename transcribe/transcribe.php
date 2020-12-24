@@ -467,16 +467,21 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                         </td>
                     </tr>
                 </table>
-                <div id="accord">
-                    <h3>Shortcuts</h3>
-                    <div style="overflow: visible;">
-                        <!--					 <img id="norm" src="data/images/f248.png" /> <&lt;DRSPELLING>>&nbsp;&nbsp; <img id="norm" src="data/images/f348.png" /> <&lt;PATSPELLING>>&nbsp;&nbsp; -->
-                        <!--					&nbsp;&nbsp; <img id="norm" src="data/images/at.png" /> <php //echo $atShortcut ?>-->
+                <div class="row">
+                    <div id="accord" class="col-10">
+                        <h3>Shortcuts</h3>
+                        <div style="overflow: visible;">
+                            <!--					 <img id="norm" src="data/images/f248.png" /> <&lt;DRSPELLING>>&nbsp;&nbsp; <img id="norm" src="data/images/f348.png" /> <&lt;PATSPELLING>>&nbsp;&nbsp; -->
+                            <!--					&nbsp;&nbsp; <img id="norm" src="data/images/at.png" /> <php //echo $atShortcut ?>-->
 
-                        <legend id="tip"><img id="norm" src="data/images/f248.png"/>
-                            <&lt;INAUDIBLE>> &nbsp;&nbsp; <img id="norm"
-                                                               src="data/images/slash.png"/> <?php echo $slashShortcut ?>
-                        </legend>
+                            <legend id="tip"><img id="norm" src="data/images/f248.png"/>
+                                <&lt;INAUDIBLE>> &nbsp;&nbsp; <img id="norm"
+                                                                   src="data/images/slash.png"/> <?php echo $slashShortcut ?>
+                            </legend>
+                        </div>
+                    </div>
+                    <div class="col-2 align-text-bottom">
+                        Search WIP
                     </div>
                 </div>
 
