@@ -22,4 +22,10 @@ class SRLOG_ACTIVITY extends Enum
     const ADDED_MINUTES_TO_ACC = self::REFUND_DIFF_MINUTES;
     const REVAI_ID_NOT_FOUND = "rev.ai returned ID not found in db";
     const UNKNOWN_WEBHOOK_BODY = "unknown webhook request body";
+    const DELETE_TMP_DDL_FILE = "Delete temp DDL file";
+    const COULDNT_FETCH_CAPTIONS = "Could not fetch captions";
+    const COULDNT_FETCH_TRANSCRIPT_NOR_CAPTIONS = "Could not fetch transcript NOR captions";
+    const VTT_FILE_SAVED_IN_UP_DIR = "vtt file saved to upload dir";
+    const VTT_PROCESSED_TO_HTML = "vtt data processed and saved as html";
+    const TEXT_PROCESSED_TO_HTML = "text/transcript processed and saved as html";
 }

@@ -68,51 +68,63 @@ class SRQueueController {
         $postBody = $this->readPost();
         $revaiResponse = $postBody["job"];
 
-        if($revaiResponse["status"] == "transcribed")
+        if($revaiResponse)
         {
             $row = $this->srQueueGateway->findByRevAiID($revaiResponse["id"]);
             if($row)
             {
+                $row = $this->srQueueGateway->findByRevAiID($revaiResponse["id"]);
                 $srq = SRQueue::withRow($row, $this->db);
-                $srq->setSrqStatus(SRQ_STATUS::INTERNAL_PROCESSING);
-                $srq->setSrqInternalId($this->srQueueGateway->getNextInternalID());
-                $srq->save();
 
-                // rest is handled by internal queue process
-            }
-            else{
+                // delete temp DDL file
+                unlink(__DIR__ . "../../../transcribe/sr/".getenv("REVAI_TMP_DIR_NAME")."/"
+                . $srq->getSrqTmpFilename());
+
+                $this->srLogger->log(0,null, SRLOG_ACTIVITY::DELETE_TMP_DDL_FILE,
+                    "srq_id: " . $srq->getSrqId());
+
+                if($revaiResponse["status"] == "transcribed")
+                {
+                    $srq->setSrqStatus(SRQ_STATUS::INTERNAL_PROCESSING);
+                    $srq->setSrqInternalId($this->srQueueGateway->getNextInternalID());
+                    $srq->save();
+
+                        // rest is handled by internal queue process
+
+                }
+                else if($revaiResponse["status"] == "failed"){
+
+                    $minutes = $srq->getSrqRevaiMinutes();
+
+                    // get file
+                    $file = File::withID($srq->getFileId(), $this->db);
+                    $sr = SR::withAccID($file->getAccId(), $this->db);
+
+                    // refund minutes back to user
+                    $sr->addToMinutesRemaining($minutes);
+                    $sr->save();
+
+                    // set SRQ status to failed
+                    $srq->setSrqStatus(SRQ_STATUS::FAILED);
+                    $srq->setNotes($revaiResponse["failure"] .": " . $revaiResponse["failure_details"]);
+                    $srq->save();
+
+                    // set file_status to awaiting transcription
+                    $file->setFileStatus(FILE_STATUS::AWAITING_TRANSCRIPTION);
+                    $file->save();
+
+                    // log failed
+                    $this->srLogger->log(0,null, SRLOG_ACTIVITY::FAILED,
+                        "rev.ai failed to process file minutes refunded to user | " .
+                        $revaiResponse["failure"] .": " . $revaiResponse["failure_details"]);
+
+                }
+
+            }else{
                 // No entry found for ID
                 $this->srLogger->log(0,null, SRLOG_ACTIVITY::REVAI_ID_NOT_FOUND,
                     $revaiResponse["id"]);
             }
-        }
-        else if($revaiResponse["status"] == "failed"){
-            $row = $this->srQueueGateway->findByRevAiID($revaiResponse["id"]);
-            $srq = SRQueue::withRow($row, $this->db);
-            $minutes = $srq->getSrqRevaiMinutes();
-
-            // get file
-            $file = File::withID($srq->getFileId(), $this->db);
-            $sr = SR::withAccID($file->getAccId(), $this->db);
-
-            // refund minutes back to user
-            $sr->addToMinutesRemaining($minutes);
-            $sr->save();
-
-            // set SRQ status to failed
-            $srq->setSrqStatus(SRQ_STATUS::FAILED);
-            $srq->setNotes($revaiResponse["failure"] .": " . $revaiResponse["failure_details"]);
-            $srq->save();
-
-            // set file_status to awaiting transcription
-            $file->setFileStatus(FILE_STATUS::AWAITING_TRANSCRIPTION);
-            $file->save();
-
-            // log failed
-            $this->srLogger->log(0,null, SRLOG_ACTIVITY::FAILED,
-                "rev.ai failed to process file minutes refunded to user | " .
-                $revaiResponse["failure"] .": " . $revaiResponse["failure_details"]);
-
         }
         else{
             $this->srLogger->log(0,null, SRLOG_ACTIVITY::UNKNOWN_WEBHOOK_BODY,

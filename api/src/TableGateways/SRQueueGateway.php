@@ -292,4 +292,39 @@ class SRQueueGateway implements GatewayInterface
             return null;
         }
     }
+
+    /**
+     * get next file queued for internal processing
+     * @return array|null
+     */
+    public function getNextQFIProcessing(): array|null
+    {
+        $statement = "
+            SELECT 
+                *
+            FROM
+                sr_queue
+            WHERE 
+                srq_status = :status
+            ORDER BY srq_internal_id
+            LIMIT 1
+        ;";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(
+                array(
+                    'status' => SRQ_STATUS::INTERNAL_PROCESSING
+                )
+            );
+            if ($statement->rowCount()) {
+                return $statement->fetch(\PDO::FETCH_ASSOC);
+            } else {
+                return null;
+            }
+
+        } catch (\PDOException) {
+            return null;
+        }
+    }
 }

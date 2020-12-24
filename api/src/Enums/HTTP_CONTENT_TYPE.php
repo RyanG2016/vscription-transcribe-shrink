@@ -10,4 +10,5 @@ class HTTP_CONTENT_TYPE extends Enum
     CONST TEXT_PLAIN = "text/plain";
     CONST MULTIPART = "multipart/form-data";
     CONST TEXT_VTT = "text/vtt";
+    CONST APP_SUBRIP_SRT = "application/x-subrip";
 }
