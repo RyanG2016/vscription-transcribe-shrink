@@ -747,7 +747,8 @@ function documentReady() {
 		$("#demo_job_type option:selected").html();
 		$('#dictdatetime').datetimepicker('clear');
 		$("#demo_speaker_type").val(0);
-		$('#demo_comments').val("");		
+		$('#demo_comments').val("");
+		getSRMinutes();
 	}
 		// Tutorial area
 	
