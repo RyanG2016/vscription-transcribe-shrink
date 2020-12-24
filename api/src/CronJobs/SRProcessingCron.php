@@ -16,7 +16,7 @@ use Src\Models\SR;
 use Src\Enums\SRLOG_ACTIVITY;
 use Src\Enums\SRQ_STATUS;
 
-require __DIR__ . "../../bootstrap.php";
+require __DIR__ . "/../../bootstrap.php";
 
 
 class SRProcessingCron{
@@ -62,8 +62,8 @@ class SRProcessingCron{
         $this->srlogger = new SRLogger($db);
         $this->common = new common();
 
-        $this->uploadDir = __DIR__ . "../../../uploads/";
-        $this->revAItmpDir = __DIR__ . "../../../transcribe/sr/".getenv("REVAI_TMP_DIR_NAME")."/";
+        $this->uploadDir = __DIR__ . "/../../../uploads/";
+        $this->revAItmpDir = __DIR__ . "/../../../transcribe/sr/".getenv("REVAI_TMP_DIR_NAME")."/";
         $this->startTimeStamp = time();
         $this->requestCount = 0;
         $this->retries = 0;
@@ -144,7 +144,7 @@ class SRProcessingCron{
             if(file_put_contents($this->uploadDir. pathinfo($this->fileE->getFilename(), PATHINFO_FILENAME) . ".vtt",
                 $resp))
             {
-                $this->srlogger->log(0,null, SRLOG_ACTIVITY::VTT_FILE_SAVED_IN_UP_DIR,
+                $this->srlogger->log(null,null, SRLOG_ACTIVITY::VTT_FILE_SAVED_IN_UP_DIR,
                     "filename: " . pathinfo($this->fileE->getFilename(), PATHINFO_FILENAME)
                     . " | srq_id: " . $this->srqE->getSrqId());
             }
@@ -154,14 +154,14 @@ class SRProcessingCron{
             $html = $this->processVttToHtml($subtitles->getInternalFormat()); // process to html with timestamps
             $this->fileE->setJobDocumentHtml($html);
             $this->fileE->saveHTML(1);
-            $this->srlogger->log(0,null, SRLOG_ACTIVITY::VTT_PROCESSED_TO_HTML,
+            $this->srlogger->log(null,null, SRLOG_ACTIVITY::VTT_PROCESSED_TO_HTML,
                 "file_id: " . $this->fileE->getFileId()
                 . " | srq_id: " . $this->srqE->getSrqId());
 
             $this->complete();
 
         }else{
-            $this->srlogger->log(0,null, SRLOG_ACTIVITY::COULDNT_FETCH_CAPTIONS,
+            $this->srlogger->log(null,null, SRLOG_ACTIVITY::COULDNT_FETCH_CAPTIONS,
                 "revai_id: " . $this->srqE->getSrqRevaiId(). " | srq_id: " . $this->srqE->getSrqId());
 
 
@@ -184,7 +184,7 @@ class SRProcessingCron{
         $this->fileE->setFileStatus(FILE_STATUS::AWAITING_CORRECTION);
         $this->fileE->save();
 
-        $this->srlogger->log(0,null, SRLOG_ACTIVITY::COMPLETE,
+        $this->srlogger->log(null,null, SRLOG_ACTIVITY::COMPLETE,
             "file_id: " . $this->fileE->getFileId()
             . " | srq_id: " . $this->srqE->getSrqId());
 
@@ -219,14 +219,14 @@ class SRProcessingCron{
 
             $this->fileE->setJobDocumentHtml($html);
             $this->fileE->saveHTML(1);
-            $this->srlogger->log(0, null, SRLOG_ACTIVITY::TEXT_PROCESSED_TO_HTML,
+            $this->srlogger->log(null, null, SRLOG_ACTIVITY::TEXT_PROCESSED_TO_HTML,
                 "file_id: " . $this->fileE->getFileId()
                 . " | srq_id: " . $this->srqE->getSrqId());
 
             $this->complete();
         }
         else {
-            $this->srlogger->log(0, null, SRLOG_ACTIVITY::COULDNT_FETCH_TRANSCRIPT_NOR_CAPTIONS,
+            $this->srlogger->log(null, null, SRLOG_ACTIVITY::COULDNT_FETCH_TRANSCRIPT_NOR_CAPTIONS,
                 "revai_id: " . $this->srqE->getSrqRevaiId() . " | srq_id: " . $this->srqE->getSrqId());
 
             // todo IMP!
@@ -331,8 +331,8 @@ class SRProcessingCron{
 
     function output($msg)
     {
-        $mainLog = __DIR__ . "../../../revai.log";
-        $oldLog = __DIR__ . "../../../revai.old.log";
+        $mainLog = __DIR__ . "/../../../revai.log";
+        $oldLog = __DIR__ . "/../../../revai.old.log";
 
         $date = new DateTime();
         $date = $date->format("y:m:d h:i:s");

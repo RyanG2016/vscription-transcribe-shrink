@@ -29,9 +29,9 @@ class SRQueueGateway implements GatewayInterface
 
         $statement = "
             INSERT INTO sr_queue 
-                (file_id, srq_status, srq_revai_id, srq_revai_minutes, notes, srq_tmp_filename, srq_internal_id)
+                (file_id, srq_status, srq_revai_id, srq_revai_minutes, notes, srq_tmp_filename, srq_internal_id, refunded)
             VALUES
-                (:file_id, :srq_status, :srq_revai_id, :srq_revai_minutes, :notes, :srq_tmp_filename, :srq_internal_id)
+                (:file_id, :srq_status, :srq_revai_id, :srq_revai_minutes, :notes, :srq_tmp_filename, :srq_internal_id, :refunded)
         ;";
 
         try {
@@ -43,6 +43,7 @@ class SRQueueGateway implements GatewayInterface
                 'srq_revai_minutes' => $model->getSrqRevaiMinutes()  ,
                 'srq_tmp_filename' => $model->getSrqTmpFilename()  ,
                 'srq_internal_id' => $model->getSrqInternalId()  ,
+                'refunded' => $model->getRefunded()  ,
                 'notes' => $model->getNotes()
             ));
             if($statement->rowCount())
@@ -65,6 +66,7 @@ class SRQueueGateway implements GatewayInterface
                 srq_status = :srq_status,
                 srq_revai_id = :srq_revai_id,
                 srq_revai_minutes = :srq_revai_minutes,
+                refunded = :refunded,
                 srq_tmp_filename = :srq_tmp_filename,
                 srq_internal_id = :srq_internal_id,
                 notes = :notes     
@@ -81,6 +83,7 @@ class SRQueueGateway implements GatewayInterface
                 'srq_revai_minutes' => $model->getSrqRevaiMinutes()  ,
                 'srq_internal_id' => $model->getSrqInternalId()  ,
                 'notes' => $model->getNotes(),
+                'refunded' => $model->getRefunded(),
                 'srq_tmp_filename' => $model->getSrqTmpFilename(),
                 'srq_id' => $model->getSrqId()
             ));
@@ -119,7 +122,12 @@ class SRQueueGateway implements GatewayInterface
         try {
             $statement = $this->db->prepare($statement);
             $statement->execute(array($id));
-            $result = $statement->fetch(\PDO::FETCH_ASSOC);
+            $result = null;
+            if($statement->rowCount())
+            {
+                $result = $statement->fetch(\PDO::FETCH_ASSOC);
+            }
+
             return $result;
         } catch (\PDOException) {
             return null;
@@ -226,7 +234,12 @@ class SRQueueGateway implements GatewayInterface
         try {
             $statement = $this->db->prepare($statement);
             $statement->execute(array($id));
-            $result = $statement->fetch(\PDO::FETCH_ASSOC);
+
+            $result = null;
+            if($statement->rowCount())
+            {
+                $result = $statement->fetch(\PDO::FETCH_ASSOC);
+            }
             return $result;
         } catch (\PDOException) {
             return null;

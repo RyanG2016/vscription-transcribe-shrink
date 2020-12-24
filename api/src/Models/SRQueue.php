@@ -20,6 +20,7 @@ class SRQueue extends BaseModel implements BaseModelInterface
     public function __construct(
         private int $file_id,
         private int $srq_status = SRQ_STATUS::QUEUED,
+        private int $refunded = 0,
         private ?string $srq_revai_id = null,
         private float $srq_revai_minutes = 0.00,
         private ?string $notes = null,
@@ -34,6 +35,22 @@ class SRQueue extends BaseModel implements BaseModelInterface
             $this->srqGateway = new SRQueueGateway($db);
             parent::__construct($this->srqGateway);
         }
+    }
+
+    /**
+     * @return int
+     */
+    public function getRefunded(): int
+    {
+        return $this->refunded;
+    }
+
+    /**
+     * @param int $refunded
+     */
+    public function setRefunded(int $refunded): void
+    {
+        $this->refunded = $refunded;
     }
 
     /**
@@ -82,7 +99,7 @@ class SRQueue extends BaseModel implements BaseModelInterface
 
     // Implemented functions
 
-    public function fill(bool|array $row)
+    public function fill(bool|array|null $row)
     {
         if($row)
         {
@@ -90,6 +107,7 @@ class SRQueue extends BaseModel implements BaseModelInterface
             $this->file_id = $row['file_id'];
             $this->srq_revai_minutes = $row['srq_revai_minutes'];
             $this->srq_revai_id = $row['srq_revai_id'];
+            $this->refunded = $row['refunded'];
             $this->srq_status = $row['srq_status'];
             $this->srq_id = $row['srq_id'];
             $this->srq_tmp_filename = $row['srq_tmp_filename'];

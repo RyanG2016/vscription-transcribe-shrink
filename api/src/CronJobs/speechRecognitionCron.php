@@ -17,7 +17,7 @@ use getID3;
 //$rootDir = "C:\\xampp\htdocs\\vscription";
 //require "$rootDir\api\bootstrap.php";
 //$rootDir = __DIR__;
-require __DIR__ . "../../bootstrap.php";
+require __DIR__ . "/../../bootstrap.php";
 
 
 class speechRecognitionCron{
@@ -60,8 +60,8 @@ class speechRecognitionCron{
         $this->common = new common();
         $this->id3 = new getID3();
 
-        $this->uploadDir = __DIR__ . "../../../uploads/";
-        $this->revAItmpDir = __DIR__ . "../../../transcribe/sr/".getenv("REVAI_TMP_DIR_NAME")."/";
+        $this->uploadDir = __DIR__ . "/../../../uploads/";
+        $this->revAItmpDir = __DIR__ . "/../../../transcribe/sr/".getenv("REVAI_TMP_DIR_NAME")."/";
         $this->REVAI_CALLBACK_URL = getenv("BASE_LINK") . "/api/webhooks/" . getenv('REVAI_CALLBACK_URL_DIR_NAME');
         $this->startTimeStamp = time();
         $this->requestCount = 0;
@@ -155,6 +155,7 @@ class speechRecognitionCron{
                         // set insuff balance status & update with real duration
                         $this->srqE->setSrqRevaiMinutes($realDurationInMins);
                         $this->srqE->setSrqStatus(SRQ_STATUS::INSUFFICIENT_BALANCE);
+                        $this->srqE->setRefunded(1);
                         $this->srqE->save();
 
                         // set file status to awaiting transcription
@@ -249,6 +250,7 @@ class speechRecognitionCron{
                 // set as failed
                 $this->srqE->setSrqStatus(SRQ_STATUS::REVAI_FAILED_TO_RESPOND_WITH_SUCCESS);
                 $this->srqE->setNotes($response['title']);
+                $this->srqE->setRefunded(1);
                 $this->srqE->save();
 
                 $this->fileE->setFileStatus(FILE_STATUS::AWAITING_TRANSCRIPTION);
@@ -361,8 +363,8 @@ class speechRecognitionCron{
 
     function output($msg)
     {
-        $mainLog = __DIR__ . "../../../revai.log";
-        $oldLog = __DIR__ . "../../../revai.old.log";
+        $mainLog = __DIR__ . "/../../../revai.log";
+        $oldLog = __DIR__ . "/../../../revai.old.log";
 
         $date = new DateTime();
         $date = $date->format("y:m:d h:i:s");

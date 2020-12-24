@@ -7,6 +7,7 @@ use MyCLabs\Enum\Enum;
 class SRLOG_ACTIVITY extends Enum
 {
     const QUEUED = "Queued";
+    const INTERNAL_QUEUED = "Queued for internal processing";
     const PROCESSING = "rev.ai processing file";
     const COMPLETE = "Complete";
     const FAILED = "Failed";
@@ -20,7 +21,7 @@ class SRLOG_ACTIVITY extends Enum
     const REFUND_DIFF_MINUTES = "Refund minutes";
     const DEDUCT_DIFF_MINUTES = "Deduct minutes";
     const ADDED_MINUTES_TO_ACC = self::REFUND_DIFF_MINUTES;
-    const REVAI_ID_NOT_FOUND = "rev.ai returned ID not found in db";
+    const REVAI_ID_NOT_FOUND = "rev.ai webhook id is not found in db";
     const UNKNOWN_WEBHOOK_BODY = "unknown webhook request body";
     const DELETE_TMP_DDL_FILE = "Delete temp DDL file";
     const COULDNT_FETCH_CAPTIONS = "Could not fetch captions";

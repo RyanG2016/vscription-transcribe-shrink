@@ -20,14 +20,14 @@ class SRLogger
 
     /**
      * @param int $srq_id SR Queue ID
-     * @param int $file_id File ID
+     * @param ?int $file_id File ID
      * @param String $srlog_activity @SRLOG_ACTIVITY enum
      * @param String|null $msg optional msg string
      * @return int
      */
     public function log(
-        int $srq_id,
-        int $file_id,
+        ?int $srq_id,
+        ?int $file_id,
         String $srlog_activity,
         String $msg = null
     )
