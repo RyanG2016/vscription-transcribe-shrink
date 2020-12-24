@@ -39,12 +39,10 @@ class SRProcessingCron{
     private int $startTimeStamp;
     private int $requestCount;
     private int $retries;
-    const MAX_RETRIES = 3;
     const REVAI_API_REQUEST_LIMIT = 10000;
     const REVAI_API_TIME_LIMIT = 600; // 10 minutes
     const REVAI_TRANSCRIPT_URL = "https://api.rev.ai/speechtotext/v1/jobs/{id}/transcript";
     const REVAI_CAPTIONS_URL = "https://api.rev.ai/speechtotext/v1/jobs/{id}/captions";
-    private string $REVAI_CALLBACK_URL;
 
 
     // Runtime vars for each file //
@@ -100,15 +98,16 @@ class SRProcessingCron{
         }else{
             // No Files in Queue
             sleep(10);
+            $this->prepareNextFile();
         }
     }
 
 
-    function getCaptionsUrl($job_id)
+    function getCaptionsUrl($job_id): string
     {
-        return str_replace("{id}", $job_id, REVAI_CAPTIONS_URL);
+        return str_replace("{id}", $job_id, self::REVAI_CAPTIONS_URL);
     }
-    function getTranscriptUrl($job_id)
+    function getTranscriptUrl($job_id): string
     {
         return str_replace("{id}", $job_id, self::REVAI_TRANSCRIPT_URL);
     }
@@ -144,7 +143,7 @@ class SRProcessingCron{
             if(file_put_contents($this->uploadDir. pathinfo($this->fileE->getFilename(), PATHINFO_FILENAME) . ".vtt",
                 $resp))
             {
-                $this->srlogger->log(null,null, SRLOG_ACTIVITY::VTT_FILE_SAVED_IN_UP_DIR,
+                $this->srlogger->log($this->srqE->getSrqId(),$this->fileE->getFileId(), SRLOG_ACTIVITY::VTT_FILE_SAVED_IN_UP_DIR,
                     "filename: " . pathinfo($this->fileE->getFilename(), PATHINFO_FILENAME)
                     . " | srq_id: " . $this->srqE->getSrqId());
             }
@@ -154,14 +153,14 @@ class SRProcessingCron{
             $html = $this->processVttToHtml($subtitles->getInternalFormat()); // process to html with timestamps
             $this->fileE->setJobDocumentHtml($html);
             $this->fileE->saveHTML(1);
-            $this->srlogger->log(null,null, SRLOG_ACTIVITY::VTT_PROCESSED_TO_HTML,
+            $this->srlogger->log($this->srqE->getSrqId(),$this->fileE->getFileId(), SRLOG_ACTIVITY::VTT_PROCESSED_TO_HTML,
                 "file_id: " . $this->fileE->getFileId()
                 . " | srq_id: " . $this->srqE->getSrqId());
 
             $this->complete();
 
         }else{
-            $this->srlogger->log(null,null, SRLOG_ACTIVITY::COULDNT_FETCH_CAPTIONS,
+            $this->srlogger->log($this->srqE->getSrqId(),$this->fileE->getFileId(), SRLOG_ACTIVITY::COULDNT_FETCH_CAPTIONS,
                 "revai_id: " . $this->srqE->getSrqRevaiId(). " | srq_id: " . $this->srqE->getSrqId());
 
 
@@ -182,11 +181,10 @@ class SRProcessingCron{
         $this->srqE->save();
 
         $this->fileE->setFileStatus(FILE_STATUS::AWAITING_CORRECTION);
-        $this->fileE->save();
+        $this->fileE->saveNewStatus();
 
-        $this->srlogger->log(null,null, SRLOG_ACTIVITY::COMPLETE,
-            "file_id: " . $this->fileE->getFileId()
-            . " | srq_id: " . $this->srqE->getSrqId());
+        $this->srlogger->log($this->srqE->getSrqId(),$this->fileE->getFileId(), SRLOG_ACTIVITY::COMPLETE,
+            "file_id: " . $this->fileE->getFileId());
 
         $this->prepareNextFile();
     }
@@ -219,14 +217,14 @@ class SRProcessingCron{
 
             $this->fileE->setJobDocumentHtml($html);
             $this->fileE->saveHTML(1);
-            $this->srlogger->log(null, null, SRLOG_ACTIVITY::TEXT_PROCESSED_TO_HTML,
+            $this->srlogger->log($this->srqE->getSrqId(), $this->fileE->getFileId(), SRLOG_ACTIVITY::TEXT_PROCESSED_TO_HTML,
                 "file_id: " . $this->fileE->getFileId()
                 . " | srq_id: " . $this->srqE->getSrqId());
 
             $this->complete();
         }
         else {
-            $this->srlogger->log(null, null, SRLOG_ACTIVITY::COULDNT_FETCH_TRANSCRIPT_NOR_CAPTIONS,
+            $this->srlogger->log($this->srqE->getSrqId(), $this->fileE->getFileId(), SRLOG_ACTIVITY::COULDNT_FETCH_TRANSCRIPT_NOR_CAPTIONS,
                 "revai_id: " . $this->srqE->getSrqRevaiId() . " | srq_id: " . $this->srqE->getSrqId());
 
             // todo IMP!
@@ -283,7 +281,7 @@ class SRProcessingCron{
 //        echo $block['end'];
 
             $currentLine = "";
-            $id = generateDivIDFromVTTStart($block['start']);
+            $id = $this->generateDivIDFromVTTStart($block['start']);
             $stSpan =  "<div id='$id'>";
 
             foreach ($block['lines'] as $line) {
@@ -295,6 +293,13 @@ class SRProcessingCron{
 
 //    echo $html;
         return $html;
+    }
+
+    function generateDivIDFromVTTStart(float $start): string
+    {
+        //    $str = str_replace(".","T",$str);
+
+        return "ST" . number_format($start,2,'T','');
     }
 
     function thresholdWait($reason_code)

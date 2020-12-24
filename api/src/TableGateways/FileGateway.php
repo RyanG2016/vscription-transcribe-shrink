@@ -874,12 +874,14 @@ class FileGateway implements GatewayInterface
             if($optional_has_caption == null)
             {
                 $statement->execute(array(
-                    'job_document_html' => $model->getJobDocumentHtml()
+                    'job_document_html' => $model->getJobDocumentHtml(),
+                    'file_id' => $model->getFileId()
                 ));
             }else{
                 $statement->execute(array(
                     'job_document_html' => $model->getJobDocumentHtml()  ,
-                    'has_caption' => $model->getHasCaption()
+                    'file_id' => $model->getFileId()  ,
+                    'has_caption' => $optional_has_caption
                 ));
             }
             return $statement->rowCount();
