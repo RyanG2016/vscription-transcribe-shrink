@@ -33,22 +33,39 @@ var setDefaultModal;
 var typistAvSwitch;
 var typistAvSwitchMDC;
 
+var srMinutes;
+var srSwitch;
+var srSwitchMDC;
+
 var accountsArray = [];
 var loading;
 var loadingText;
 var roleIsset; //-> from PHP (landing.php)
+var redirectID; //-> from PHP (landing.php) this is current role ID but named redirect for reasons
 
 $(document).ready(function () {
     // loading = document.getElementById("overlay");
+    // console.log(redirectID);
     loading = $("#overlay");
     changeLoading(true);
 
-    $(".vtex-help-icon").popover({
+    $("#typistWorkHelp").popover({
         html: true,
         trigger: 'hover',
         content: "<div>" +
             "<b>This allows administrators to be able to invite you as a typist for their jobs.</b>" +
             "<br><br>" +
+            "<i>This doesn't affect your current jobs</i>" +
+            "</div>"
+    });
+
+    $("#srSwitchHelp").popover({
+        html: true,
+        trigger: 'hover',
+        content: "<div>" +
+            "<b>This will enable automated speech recognition to all of your next job uploads<br><br></b>" +
+            // "<br><br>" +
+            "" +
             "<i>This doesn't affect your current jobs</i>" +
             "</div>"
     });
@@ -135,6 +152,8 @@ $(document).ready(function () {
 
     loadingText = $("#loadingText");
     typistAvSwitch = $("#typist_av_switch");
+    srMinutes = $("#srMinutes");
+    srSwitch = $("#srSwitch");
     accNameInput = $("#accNameTxt");
     currentRole = $("#currentRole");
     currentAccName = $("#currentAccountName");
@@ -153,6 +172,7 @@ $(document).ready(function () {
 
     typistAvSwitchMDC = new mdc.switchControl.MDCSwitch(document.querySelector('#typist_av_switch'));
 
+
     typistAvSwitch.on('change', function (e) {
         typistAvSwitchMDC.disabled = true;
         if(typistAvSwitchMDC.checked)
@@ -162,6 +182,25 @@ $(document).ready(function () {
             setAvailabilityAsTypist(2);
         }
     });
+
+    if(roleIsset && (redirectID == 1 || redirectID == 2))
+    {
+        srSwitchMDC = new mdc.switchControl.MDCSwitch(document.querySelector('#srSwitch'));
+
+        srSwitch.on('change', function (e) {
+            srSwitchMDC.disabled = true;
+            if(srSwitchMDC.checked)
+            {
+                setSRenabled(1);
+            }else{
+                setSRenabled(0);
+            }
+        });
+        getSRenabled();
+
+        // get remaining minutes balance
+        getSRMinutes();
+    }
 
     closeModalBtn.on("click", function (e) {
         chooseJobModal.modal('hide');
@@ -304,6 +343,39 @@ $(document).ready(function () {
         });
     }
 
+
+    function getSRenabled()
+    {
+        $.ajax({
+            url: "../api/v1/users/sr-enabled/",
+            method: "GET",
+            success: function (available) {
+                if(available == 1)
+                {
+                    srSwitchMDC.checked = true;
+                }else{
+                    srSwitchMDC.checked = false;
+                }
+                srSwitchMDC.disabled = false;
+            }
+        });
+    }
+    function getSRMinutes()
+    {
+        $.ajax({
+            url: "../api/v1/users/sr-mins/",
+            method: "GET",
+            dataType: "text",
+            success: function (data) {
+                console.log("minutes: " + data);
+                srMinutes.html(data);
+            },
+            error: function(jqxhr) {
+                $("#register_area").text(jqxhr.responseText); // @text = response error, it is will be errors: 324, 500, 404 or anythings else
+            }
+        });
+    }
+
     function setAvailabilityAsTypist(availability)
     {
         typistAvSwitchMDC.disabled = true;
@@ -327,6 +399,33 @@ $(document).ready(function () {
             },
             error: function (err) {
                 getAvailabilityAsTypist();
+            }
+        });
+    }
+
+    function setSRenabled(enabled)
+    {
+        srSwitchMDC.disabled = true;
+        var formData = new FormData();
+        formData.append('sr', enabled);
+
+        $.ajax({
+            type: 'POST',
+            url: "../api/v1/users/sr-enabled/",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (success) {
+                if(success)
+                {
+                    srSwitchMDC.checked = enabled === 1;
+                    srSwitchMDC.disabled = false;
+                }else{
+                    getSRenabled();
+                }
+            },
+            error: function (err) {
+                getSRenabled();
             }
         });
     }

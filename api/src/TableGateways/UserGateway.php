@@ -258,6 +258,37 @@ class UserGateway
     }
 
     /**
+     * Retrieves if the current user -> account is sr enabled
+     * @return int
+     * 5 if disabled <br>
+     * 1 if enabled
+     */
+    public function getSRenabled()
+    {
+
+        $statement = "
+            SELECT 
+                   sr_enabled       
+            FROM
+                accounts
+            WHERE
+                acc_id = ?";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($_SESSION['accID']));
+            $result = $statement->fetch();
+            if($statement->rowCount() > 0)
+            {
+                return $result["sr_enabled"]==0?5:$result["sr_enabled"];
+            }
+            return false;
+        } catch (\PDOException) {
+            return false;
+        }
+    }
+
+    /**
      * SETs available to work as typist for current logged in user
      * @param $availability (0,1,2)
      * @return boolean success
@@ -280,6 +311,31 @@ class UserGateway
         } catch (\PDOException $e) {
             return false;
 //            exit($e->getMessage());
+        }
+    }
+
+    /**
+     * SET sr_enabled for current user logged in account
+     * @param $sr_enabled (0,1)
+     * @return boolean success
+     */
+    public function setSRforCurrUser($sr_enabled)
+    {
+
+        $statement = "
+            UPDATE
+                accounts
+                   SET       
+                sr_enabled = ?
+            WHERE
+                acc_id = ?";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($sr_enabled, $_SESSION['accID']));
+            return $statement->rowCount();
+        } catch (\PDOException) {
+            return false;
         }
     }
 

@@ -331,6 +331,7 @@ class accessGateway
             $result = $statement->fetch();
             if($statement->rowCount() > 0) {  // user access exists check to prevent js altering
                 // access exists
+                unset($_SESSION["sr_minutes"]);
                 $_SESSION['accID'] = $result["acc_id"];
                 $_SESSION['role'] = $result["acc_role"];
                 $_SESSION['acc_name'] = $result["acc_name"];

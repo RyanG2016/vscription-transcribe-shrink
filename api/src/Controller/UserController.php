@@ -3,6 +3,7 @@
 namespace Src\Controller;
 
 //use PHPMailer\PHPMailer\Exception;
+use Src\Models\SR;
 use Src\TableGateways\UserGateway;
 use Src\TableGateways\accessGateway;
 use Src\System\Mailer;
@@ -36,6 +37,11 @@ class UserController
                 if ($this->userId == "available") {
                     $response = $this->getAvailableForWork();
                 }
+                else if ($this->userId == "sr-enabled") {
+                    $response = $this->getSRenabled();
+                }else if ($this->userId == "sr-mins") {
+                    $response = $this->getSRmins();
+                }
                 else if ($this->userId) {
                     $response = $this->getUser($this->userId);
                 } else {
@@ -50,6 +56,9 @@ class UserController
                     $response = $this->updateUserDefaultAccess();
                 }else if ($this->userId == "set-available") {
                     $response = $this->setAvailableForWork();
+                }
+                else if ($this->userId == "sr-enabled") {
+                    $response = $this->setSRenabled();
                 }
                 else if ($this->userId == "tutorial-viewed") {
                     $response = $this->tutorialViewed();
@@ -86,6 +95,12 @@ class UserController
                 else if ($this->userId == "available") {
                     $response = $this->getAvailableForWork();
                 }
+                else if ($this->userId == "sr-enabled") {
+                    $response = $this->getSRenabled();
+                }
+                else if ($this->userId == "sr-mins") {
+                    $response = $this->getSRmins();
+                }
                 else {
 //                    $response = $this->getAllUsers();
                     $response = $this->notFoundResponse();
@@ -100,6 +115,9 @@ class UserController
                 }
                 else if ($this->userId == "set-available") {
                     $response = $this->setAvailableForWork();
+                }
+                else if ($this->userId == "sr-enabled") {
+                    $response = $this->setSRenabled();
                 }
                 else if ($this->userId == "tutorial-viewed") {
                     $response = $this->tutorialViewed();
@@ -165,6 +183,26 @@ class UserController
     }
 
     /**
+     * SET sr_enabled for current user admin account
+     * @param int POST sr enabled (0,1)
+     */
+    private function setSRenabled()
+    {
+        if(!isset($_POST["sr"]) || !is_numeric($_POST["sr"]))
+        {
+            return  false;
+        }
+        if($_SESSION["role"] != 1 && $_SESSION["role"] != 2)
+        {
+            return false;
+        }
+        $result = $this->userGateway->setSRforCurrUser($_POST["sr"]);
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = $result;
+        return $response;
+    }
+
+    /**
      * Updates tutorials field in DB to 1 for a page for the current user
      * Updates tutorials session variable
      * @param string POST tutorial page name
@@ -184,11 +222,67 @@ class UserController
 
     /**
      * Retrieves available to work as typist for current logged in user
-     * @return boolean [body] available
+     * @return array [body] available
      */
     private function getAvailableForWork()
     {
         $result = $this->userGateway->getAvailableForWorkAsTypist();
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = $result;
+        return $response;
+    }
+
+    /**
+     * Retrieves if the current user -> account is sr enabled
+     * @return array response [body] sr_enabled <br>
+     * int
+     * 5 if disabled <br>
+     * 1 if enabled
+     */
+    private function getSRenabled()
+    {
+        if(!isset($_SESSION['accID']))
+        {
+            $response['status_code_header'] = 'HTTP/1.1 200 OK';
+            $response['body'] = 0;
+            return $response;
+        }
+
+        $result = $this->userGateway->getSRenabled();
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = $result;
+        return $response;
+    }
+
+
+    /**
+     * Retrieves current user -> account remaining sr minutes
+     * @return array response [body] <br> minutes:float
+     */
+    private function getSRmins()
+    {
+        if(!isset($_SESSION['accID']))
+        {
+            $response['status_code_header'] = 'HTTP/1.1 200 OK';
+            $response['body'] = 0;
+            return $response;
+        }
+
+        if($_SESSION["role"] == 1 || $_SESSION["role"] == 2)
+        {
+            $sr = SR::withAccID($_SESSION["accID"], $this->db);
+            $minutes = $sr->getSrMinutesRemaining();
+
+            $result = $minutes;
+            if($minutes == null || $minutes == 0)
+            {
+                $result = "N/A";
+            }
+
+        }else{
+            $result = "Permission denied";
+        }
+
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
         $response['body'] = $result;
         return $response;

@@ -145,3 +145,10 @@ td{
 .mdc-button{
     white-space: nowrap;
 }
+
+.list-group-item.active {
+    z-index: 2;
+    color: #fff;
+    background-color: var(--vtex-blue);
+    border-color: var(--vtex-blue);
+}

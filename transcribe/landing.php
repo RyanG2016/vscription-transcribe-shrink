@@ -49,7 +49,11 @@ if (isset($_SESSION['counter'])) {
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
     <script type="text/javascript">
-        var roleIsset = <?php echo (!isset($_SESSION['role']) && !isset($_SESSION['accID']))?0:true ?>;
+        <?php
+            $roleIsSet = (!isset($_SESSION['role']) && !isset($_SESSION['accID']))?0:true;
+        ?>
+        var roleIsset = <?php echo $roleIsSet ?>;
+        var redirectID = <?php echo $_SESSION['role'] ?>;
     </script>
 
     <!-- Enjoyhint library -->
@@ -63,7 +67,7 @@ if (isset($_SESSION['counter'])) {
         var tutorials='<?php echo $tuts;?>';
     </script>
     <link href="data/css/landing.css?v=2" rel="stylesheet">
-    <script src="data/scripts/landing.min.js" type="text/javascript"></script>
+    <script src="data/scripts/landing.min.js?v=2" type="text/javascript"></script>
 
 </head>
 
@@ -203,6 +207,7 @@ if (isset($_SESSION['counter'])) {
                     <button class="mdc-button mdc-button--outlined tools-button" id="setDefaultRoleBtn">
                         <div class="mdc-button__ripple"></div>
                         <i class="fas fa-wrench"></i>
+                        <span class="mdc-button__label">
                         Set Default
                         </span>
                     </button>
@@ -234,55 +239,136 @@ if (isset($_SESSION['counter'])) {
                 <hr>
 
                 <div class="row">
-
-                    <div id="adminCard" class="col border-right">
-                        <h3 class="col text-center">Organization</h3>
-
-                        <?php
-                        if(!$_SESSION["adminAccountName"] && !$_SESSION["adminAccount"]){
-                            echo "<div class=\"alert alert-info\" role=\"alert\">
-                                <em>You didn't create an organization profile, <u class=\"vtex-cursor-pointer\" data-toggle=\"modal\" data-target=\"#createAccModal\" >create one?</u></em>
-                            </div>";
-                        }else{
-                            echo "<div class=\"alert alert-success\" role=\"alert\">
-                                You are admin of <b>".$_SESSION["adminAccountName"]."</b>.
-                            </div>";
-                        }
-                        ?>
-                        <div class="text-muted text-justify">Organization allows you to manage your jobs,
-                            invite typists, download completed jobs.</div>
+                    <div class="col-3">
+                        <div class="list-group" id="list-tab" role="tablist">
+                            <a class="list-group-item list-group-item-action active" id="list-current-list" data-toggle="list" href="#list-curr" role="tab" aria-controls="home"><i class="fas fa-building"></i> Current Organization</a>
+                            <a class="list-group-item list-group-item-action" id="list-my-org-list" data-toggle="list" href="#list-my-org" role="tab" aria-controls="profile"><i class="fas fa-house-user"></i> My Organization</a>
+                            <a class="list-group-item list-group-item-action" id="list-typist-list" data-toggle="list" href="#list-typist" role="tab" aria-controls="messages"><i class="fas fa-keyboard"></i> My Typist Profile</a>
+<!--                            <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Settings</a>-->
+                        </div>
                     </div>
+                    <div class="col-9">
+                        <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="list-curr" role="tabpanel" aria-labelledby="list-current-list">
 
-                    <div id="typistCard" class="col">
-                        <h3 class="text-center" id="typistCardHead">Typist</h3>
 
-                        <div class="alert alert-info" role="alert" id="alertT0">
-                            <em>No access found.</em>
-                        </div>
-                        <div class="alert alert-success" role="alert" id="alertT1">
-                            <em>You have access as a typist for
-                                <b id="typistCount">0</b>
-                                accounts.
-                                <br>
-                                </em>
-                        </div>
-                        <div id="typist1" class="text-muted text-justify">Switch your current role to typist from the side menu to start working.</div>
-                        <div id="typist0" class="text-muted">Please wait for a job invitation from an admin.</div>
+                                <div id="adminCard" class="col">
 
-                        <div class="alert alert-light" role="alert" id="alertT2">
-                            <div class="form-row">
-                                <em>Open for work invitations  <span class="vtex-help-icon">(?)</span></em>
+                                    <?php
+                                    if(!isset($_SESSION["accID"]) || $_SESSION["accID"] == 0)
+                                    {
+                                        echo '<i class="justify-content-center">Please switch role first</i>';
+                                    }
+                                    else {
+                                        echo '<h3 class="col text-center">'.$_SESSION["acc_name"].'</h3>';
+                                        echo "<div class=\"alert alert-info\" role=\"alert\">
+                                            Role: <b>" . $_SESSION["role_desc"]. "</b>
+                                        </div>";
+                                        if($_SESSION["role"] == 1 || $_SESSION["role"] == 2 )
+                                        {
+                                            echo '<div class="alert alert-light" role="alert" ';
 
-                                <div class="mdc-switch mdc-switch--disabled ml-auto mt-auto mb-auto" id="typist_av_switch">
-                                    <div class="mdc-switch__track"></div>
-                                    <div class="mdc-switch__thumb-underlay">
-                                        <div class="mdc-switch__thumb"></div>
-                                        <input type="checkbox" id="basic-switch" class="mdc-switch__native-control" role="switch" aria-checked="false" disabled>
+                                            echo'>
+                                                    <div class="form-row">
+                                                        <div class="col">
+                                                            <em>Enable SR  <span id="srSwitchHelp" class="vtex-help-icon">(?)</span></em>
+                                                        </div>
+                                                        <div class="col text-right">
+                                                        <div class="mdc-switch mdc-switch--disabled ml-auto mt-auto mb-auto" id="srSwitch">
+                                                            <div class="mdc-switch__track"></div>
+                                                            <div class="mdc-switch__thumb-underlay">
+                                                                <div class="mdc-switch__thumb"></div>
+                                                                <input type="checkbox" id="srSwitchCheckbox" class="mdc-switch__native-control" role="switch" aria-checked="false" disabled>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                    <div class="form-row m-t-25">
+                                                        <div class="col"><em>SR Balance (min) <i class="fas fa-plus-circle top-up" onclick="location.href=\'/payment.php\'"></i></em> </div> 
+                                                        <div class="col text-right"><span id="srMinutes"></span></div> 
+                                                    </div>
+                                                </div>';
+                                        }
+                                        echo '<div class="text-muted text-justify">Organization allows you to manage your jobs,
+                                                    invite typists, download completed jobs.
+                                                </div>';
+
+                                    }
+                                    ?>
+
+                                </div>
+
+                            </div>
+
+
+
+                                <!--                            ================= my org ===============-->
+                            <div class="tab-pane fade" id="list-my-org" role="tabpanel"aria-labelledby="list-my-org-list">
+
+                                <div id="adminCard" class="col">
+
+                                    <?php
+                                    if (!$_SESSION["adminAccountName"] && !$_SESSION["adminAccount"]) {
+                                        echo '<h3 class="col text-center">Organization</h3>';
+                                        echo "<div class=\"alert alert-info\" role=\"alert\">
+                                            <em>You didn't create an organization profile, <u class=\"vtex-cursor-pointer\" data-toggle=\"modal\" data-target=\"#createAccModal\" >create one?</u></em>
+                                        </div>";
+                                    }
+
+                                    else {
+                                        echo '<h3 class="col text-center">'.$_SESSION["adminAccountName"].'</h3>';
+                                        echo "<div class=\"alert alert-success\" role=\"alert\">
+                                            You are admin of <b>" . $_SESSION["adminAccountName"] . "</b>.
+                                        </div>";
+
+                                    }
+                                    ?>
+                                    <div class="text-muted text-justify">Organization allows you to manage your jobs,
+                                        invite typists, download completed jobs.
+                                    </div>
+                                </div>
+
+                            </div>
+                                <!--                            // Typist-->
+                            <div class="tab-pane fade" id="list-typist" role="tabpanel" aria-labelledby="list-typist-list">
+
+                                <div class="row">
+                                    <div id="typistCard" class="col">
+                                        <h3 class="text-center" id="typistCardHead">Typist Profile</h3>
+
+                                        <div class="alert alert-info" role="alert" id="alertT0">
+                                            <em>No access found.</em>
+                                        </div>
+                                        <div class="alert alert-success" role="alert" id="alertT1">
+                                            <em>You have access as a typist for
+                                                <b id="typistCount">0</b>
+                                                accounts.
+                                                <br>
+                                            </em>
+                                        </div>
+
+                                        <div class="alert alert-light" role="alert" id="alertT2">
+                                            <div class="form-row">
+                                                <em>Open for work invitations  <span id="typistWorkHelp" class="vtex-help-icon">(?)</span></em>
+
+                                                <div class="mdc-switch mdc-switch--disabled ml-auto mt-auto mb-auto" id="typist_av_switch">
+                                                    <div class="mdc-switch__track"></div>
+                                                    <div class="mdc-switch__thumb-underlay">
+                                                        <div class="mdc-switch__thumb"></div>
+                                                        <input type="checkbox" id="basic-switch" class="mdc-switch__native-control" role="switch" aria-checked="false" disabled>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div id="typist1" class="text-muted text-justify">Switch your current role to typist from the side menu to start working.</div>
+                                        <div id="typist0" class="text-muted">Please wait for a job invitation from an admin.</div>
+
                                     </div>
                                 </div>
                             </div>
+<!--                            <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">...</div>-->
                         </div>
-
                     </div>
                 </div>
 
