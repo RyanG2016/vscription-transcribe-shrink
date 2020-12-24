@@ -332,40 +332,43 @@ if (isset($_SESSION['counter'])) {
                                 <!--                            // Typist-->
                             <div class="tab-pane fade" id="list-typist" role="tabpanel" aria-labelledby="list-typist-list">
 
-                                <div class="row">
-                                    <div id="typistCard" class="col">
-                                        <h3 class="text-center" id="typistCardHead">Typist Profile</h3>
+                                <div class="col">
+                                    <div class="row">
+                                        <div id="typistCard" class="col">
+                                            <h3 class="text-center" id="typistCardHead">Typist Profile</h3>
 
-                                        <div class="alert alert-info" role="alert" id="alertT0">
-                                            <em>No access found.</em>
-                                        </div>
-                                        <div class="alert alert-success" role="alert" id="alertT1">
-                                            <em>You have access as a typist for
-                                                <b id="typistCount">0</b>
-                                                accounts.
-                                                <br>
-                                            </em>
-                                        </div>
+                                            <div class="alert alert-info" role="alert" id="alertT0">
+                                                <em>No access found.</em>
+                                            </div>
+                                            <div class="alert alert-success" role="alert" id="alertT1">
+                                                <em>You have access as a typist for
+                                                    <b id="typistCount">0</b>
+                                                    accounts.
+                                                    <br>
+                                                </em>
+                                            </div>
 
-                                        <div class="alert alert-light" role="alert" id="alertT2">
-                                            <div class="form-row">
-                                                <em>Open for work invitations  <span id="typistWorkHelp" class="vtex-help-icon">(?)</span></em>
+                                            <div class="alert alert-light" role="alert" id="alertT2">
+                                                <div class="form-row">
+                                                    <em>Open for work invitations  <span id="typistWorkHelp" class="vtex-help-icon">(?)</span></em>
 
-                                                <div class="mdc-switch mdc-switch--disabled ml-auto mt-auto mb-auto" id="typist_av_switch">
-                                                    <div class="mdc-switch__track"></div>
-                                                    <div class="mdc-switch__thumb-underlay">
-                                                        <div class="mdc-switch__thumb"></div>
-                                                        <input type="checkbox" id="basic-switch" class="mdc-switch__native-control" role="switch" aria-checked="false" disabled>
+                                                    <div class="mdc-switch mdc-switch--disabled ml-auto mt-auto mb-auto" id="typist_av_switch">
+                                                        <div class="mdc-switch__track"></div>
+                                                        <div class="mdc-switch__thumb-underlay">
+                                                            <div class="mdc-switch__thumb"></div>
+                                                            <input type="checkbox" id="basic-switch" class="mdc-switch__native-control" role="switch" aria-checked="false" disabled>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            <div id="typist1" class="text-muted text-justify">Switch your current role to typist from the side menu to start working.</div>
+                                            <div id="typist0" class="text-muted">Please wait for a job invitation from an admin.</div>
+
                                         </div>
-
-                                        <div id="typist1" class="text-muted text-justify">Switch your current role to typist from the side menu to start working.</div>
-                                        <div id="typist0" class="text-muted">Please wait for a job invitation from an admin.</div>
-
                                     </div>
                                 </div>
+
                             </div>
 <!--                            <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">...</div>-->
                         </div>
