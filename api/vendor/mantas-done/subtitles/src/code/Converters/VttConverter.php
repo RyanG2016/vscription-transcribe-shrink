@@ -91,7 +91,9 @@ class VttConverter implements ConverterContract {
         return function($line) {
             if (substr($line, 0, 3) == '<v ') {
                 $line = substr($line, 3);
-                $line = str_replace('>', ' ', $line);
+                $line = str_replace('</v>', '', $line);
+                $line = str_replace('>', ': ', $line);
+                $line = "<br>>> Speaker " . $line;
             }
 
             return $line;
