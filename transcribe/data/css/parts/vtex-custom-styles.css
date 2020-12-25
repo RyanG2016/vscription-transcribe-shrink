@@ -12,16 +12,75 @@
     cursor: pointer;
     opacity: 80%;
 }
+.vtex-help-icon:hover{
+    text-decoration: underline;
+}
 
 .top-up:hover
 {
     opacity: 0.9;
     transform: scale(1.2);
-
 }
 
 .top-up{
     color: var(--vtex-green);
     cursor: pointer;
     transition: transform .2s; /* Animation */
+}
+
+.vtex-editable-span{
+    margin-bottom: 3px;
+    padding: 3px !important;
+    text-align: left;
+}
+.vtex-editable-span[contenteditable]{
+    border: 1px solid grey;
+    border-radius: 3px;
+}
+.vtex-editable-span:empty::before {
+    content: attr(aria-placeholder);
+    display: inline-block;
+    color: grey;
+    font-style: italic;
+}
+.vtex-editable-span:empty:focus::before {
+    content: attr(aria-placeholder);
+    color: grey;
+    font-style: italic;
+}
+
+
+.btn-primary,
+.btn-primary:focus
+{
+    background-color: var(--vtex-blue);
+    border-color: var(--vtex-blue);
+    /*border-radius: 0;*/
+    transition: transform .2s;
+}
+
+.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
+    color: #fff;
+    background-color: var(--vtex-blue-hover);
+    border-color: var(--vtex-blue-hover);
+}
+
+.btn-primary.disabled, .btn-primary:disabled {
+    color: #fff;
+    background-color: grey;
+    border-color: grey;
+}
+
+.btn-primary:hover:not(:disabled)
+{
+    /*transform: scale(1.02);*/
+    color: #fff;
+    background-color: var(--vtex-blue-hover);
+    border-color: var(--vtex-blue-hover);
+}
+.btn-primary:hover:disabled
+{
+    color: #fff;
+    background-color: grey;
+    border-color: grey;
 }

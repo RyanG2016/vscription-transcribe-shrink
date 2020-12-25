@@ -53,7 +53,7 @@ if (isset($_SESSION['counter'])) {
             $roleIsSet = (!isset($_SESSION['role']) && !isset($_SESSION['accID']))?0:true;
         ?>
         var roleIsset = <?php echo $roleIsSet ?>;
-        var redirectID = <?php echo $_SESSION['role'] ?>;
+        var redirectID = <?php echo $roleIsSet? $_SESSION['role']:0 ?>;
     </script>
 
     <!-- Enjoyhint library -->
