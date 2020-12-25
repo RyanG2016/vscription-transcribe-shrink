@@ -2,6 +2,8 @@
 
 namespace Src\Controller;
 
+use Src\Helpers\common;
+use Src\Models\SR;
 use Src\TableGateways\FileGateway;
 use Src\System\Mailer;
 use Src\TableGateways\accessGateway;
@@ -15,6 +17,7 @@ class FileController
     private $requestMethod;
     private $fileId;
     private $mailer;
+    private $common;
 
     private $fileGateway;
     private $accessGateway;
@@ -25,6 +28,7 @@ class FileController
         $this->requestMethod = $requestMethod;
         $this->fileId = $fileId;
         $this->mailer = new Mailer($db);
+        $this->common = new common();
 
         $this->fileGateway = new FileGateway($db);
         $this->accessGateway = new accessGateway($db);
@@ -268,6 +272,36 @@ class FileController
                 {
                     $file_duration = $dur_received;
                 }
+
+                $fileRoundedDuration = 0;
+
+                // SR Check
+                if(isset($_POST["sr_enabled"]) && $_POST["sr_enabled"] == true)
+                {
+                    // round minutes and deduct from user
+                    $fileRoundedDuration = $this->common->roundUpToAnyIncludeCurrent($file_duration);
+                    $sr = SR::withAccID($_SESSION["accID"], $this->db);
+                    $remMin = $sr->getSrMinutesRemaining();
+
+                    if(($remMin - $fileRoundedDuration) < 0)
+                    {
+                        $uploadMsg[] = $this->formatFileResult($orig_filename, "upload failed insufficient SR balance", true);
+                        $nextFileID++;
+                        $nextJobNum++;
+
+                        continue; // skip current file
+                    }
+
+                    // balance OK deduct minutes from user
+                    $sr->deductFromMinutesRemaining($fileRoundedDuration);
+                    $sr->save();
+
+
+                    // set correct statuses for files @see insertUploadedFileToDB()
+
+
+                }
+
                 //Building demographic array for DB insert function call
                 $fileDemos = array(
                     $nextFileID,
@@ -284,17 +318,23 @@ class FileController
                     $uf2,
                     $uf3,
                     $acc_id,
-                    $org_ext
+                    $org_ext,
+                    $fileRoundedDuration
                 );
 
                 $uplSuccess = move_uploaded_file($file_tmp, $file);
                 if ($uplSuccess) {
                     $result = $this->fileGateway->insertUploadedFileToDB($fileDemos);
-                    if ($result) {
+                    if ($result === true) {
 //                        $uploadMsg[] = "<li>File: $orig_filename - <span style='color:green;'>UPLOAD SUCCESSFUL</span></li>";
                         $uploadMsg[] = $this->formatFileResult($orig_filename, "upload successful", false, $jobGeneratedNumberForResponse);
                         $newFilesAvailable = true;
-                    } else {
+                    }
+/*                    else if ($result === 405)
+                    {
+                        $uploadMsg[] = $this->formatFileResult($orig_filename, "upload failed insufficient SR balance", true);
+                    }*/
+                    else {
 //                        $uploadMsg[] = "<li>'File: ' $orig_filename . ' - FAILED (File uploaded but error writing to database)'<li>";
                         $uploadMsg[] = $this->formatFileResult($orig_filename, "upload failed please contact website administrator (2)", true);
                     }
@@ -335,53 +375,6 @@ class FileController
 //        $response['status_code_header'] = 'HTTP/1.1 201 Created';
 //        $response['body'] = null;
 //        return $response;
-    }
-
-    private function checkForInsertPermission($accID)
-    {
-        $strCookie = 'pvs=' . $_COOKIE['pvs'] . '; path=/';
-        session_write_close();
-
-        /*function _isCurl(){
-            return function_exists('curl_version');
-        }
-
-        if(_isCurl())
-        {
-            print_r(curl_version());
-        }
-        else{
-            echo "curl not installed";
-        }*/
-
-        $curl = curl_init();
-        // Set some options - we are passing in a useragent too here
-        curl_setopt_array($curl, [
-            CURLOPT_RETURNTRANSFER => 1,
-            CURLOPT_URL => getenv("BASE_LINK").'/api/v1/access?out&account_id='.$accID,
-            CURLOPT_USERAGENT => 'Files API',
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_MAXREDIRS => 2,
-        //    CURLOPT_COOKIESESSION => false
-            CURLOPT_COOKIE => $strCookie,
-            CURLOPT_HTTPHEADER => array(
-                'Content-Type: application/json'
-            )
-        ]);
-
-        // todo disable for production the 2 lines below
-        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-
-
-        // Send the request & save response to $resp
-        $resp = curl_exec($curl);
-        // Close request to clear up some resources
-        curl_close($curl);
-
-        $jsonArrayResponse = json_decode($resp, true);
-
-        return !$jsonArrayResponse["error"];
     }
 
     private function formatFileResult($fileName, $status, $error, $jobNo = 0)

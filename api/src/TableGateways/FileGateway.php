@@ -4,8 +4,11 @@ namespace Src\TableGateways;
 
 use PDO;
 use PDOException;
+use Src\Enums\FILE_STATUS;
+use Src\Enums\SRQ_STATUS;
 use Src\Models\BaseModel;
 use Src\Models\File;
+use Src\Models\SRQueue;
 use Src\TableGateways\conversionGateway;
 use Src\TableGateways\accessGateway;
 use Src\TableGateways\logger;
@@ -22,6 +25,7 @@ class FileGateway implements GatewayInterface
     private $accessGateway;
     private $logger;
     private $mailer;
+    private $API_NAME;
 
     public function __construct($db)
     {
@@ -391,12 +395,24 @@ class FileGateway implements GatewayInterface
         $user_field_3 = $input[12];
         $acc_id = $input[13];
         $org_ext = $input[14];
+        $fileRoundedDuration = $input[15];
         $uploadedBy = $_SESSION['uEmail'];
 
         $file_status = 0;
         if($org_ext == "ds2")
         {
             $file_status = 8; // Queued for conversion
+        }
+
+        if(isset($_POST["sr_enabled"]) && $_POST["sr_enabled"] == true)
+        {
+            if($file_status == 8)
+            {
+                $file_status = FILE_STATUS::QUEUED_FOR_SR_CONVERSION;
+            }
+            else{
+                $file_status = FILE_STATUS::QUEUED_FOR_RECOGNITION;
+            }
         }
 
         $jobPrefix = $this->getAccountPrefix($acc_id);
@@ -457,11 +473,32 @@ class FileGateway implements GatewayInterface
 
             if($statement->rowCount()){
                 $file_id = $this->db->lastInsertId();
-                if($file_status == 8){
+
+                // Add to conversion queue
+                if($file_status == FILE_STATUS::QUEUED_FOR_CONVERSION || $file_status == FILE_STATUS::QUEUED_FOR_SR_CONVERSION){
                     // Queued for conversion - insert queue entry using curl
 //                     vtexCurlPost(getenv("BASE_LINK").'/api/v1/conversions/'.$file_id); // should be sufficient
                     $this->conversionsGateway->insertNewConversion($file_id);
                 }
+
+
+                // Add to recognition queue
+                if($file_status == FILE_STATUS::QUEUED_FOR_SR_CONVERSION || $file_status == FILE_STATUS::QUEUED_FOR_RECOGNITION)
+                {
+                    $srq = new SRQueue($file_id,
+                    $file_status == FILE_STATUS::QUEUED_FOR_SR_CONVERSION ? SRQ_STATUS::WAITING_SWITCH_CONVERT : SRQ_STATUS::QUEUED,
+                    0,
+                    null,
+                    $fileRoundedDuration,
+                    null,
+                    0,
+                    null,
+                    null,
+                    $this->db);
+
+                    $srq->save();
+                }
+
 
                 $statement = "UPDATE accounts SET next_job_tally=next_job_tally+1 where acc_id = ".$acc_id;
 

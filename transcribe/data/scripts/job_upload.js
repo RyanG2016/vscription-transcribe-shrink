@@ -144,7 +144,7 @@ function documentReady() {
 
 
 			formData.append("sr_enabled", srEnabled);
-			formData.append("jobType", $("#demo_job_type option:selected").html());
+			formData.append("authorName", $("#demo_author").val());
 			formData.append("jobType", $("#demo_job_type option:selected").html());
 			formData.append("dictDate", $('#dictdatetime').datetimepicker('viewDate').format("YYYY-MM-DD HH:mm:ss"));
 			// formData.append("dictDate", $('.demo_dictdate').val());
@@ -347,6 +347,29 @@ function documentReady() {
 		return spinnerDiv;
 	}
 
+	function roundUpToAnyIncludeCurrent(number) {
+		let roundTo = 15;
+		// return (Math.round(number)%roundTo === 0) ? Math.round(number) : Math.round((number+roundTo/2)/roundTo)*roundTo;
+		if(number%roundTo === 0)
+		{
+			return  Math.round(number);
+		}else{
+			return (Math.round((number+roundTo/2)/roundTo)*roundTo);
+		}
+	}
+
+	function calculateTotalSRminutes()
+	{
+		let totalSRseconds = 0.0;
+
+		for (let i = 0; i < filesDur.length; i++) {
+			var sec = roundUpToAnyIncludeCurrent(filesDur[i]);
+			totalSRseconds += sec;
+		}
+
+		return secsToMin(totalSRseconds);
+	}
+
 	function unlockUploadUI(unlock) {
 		if(unlock)
 		{
@@ -356,10 +379,8 @@ function documentReady() {
 				if(srEnabled)
 				{
 					// check for total minutes length and sufficient balance
-					var totalMinutes = secsToMin(filesDur.reduce(function(a, b){
-						return a + b;
-					}, 0));
-					totalMinutes = 60;
+					var totalMinutes = calculateTotalSRminutes();
+					// totalMinutes = 60;
 					let balanceAfterUpload = srMinutesRemaining - totalMinutes;
 					if(balanceAfterUpload < 0)
 					{
@@ -383,8 +404,16 @@ function documentReady() {
 					}
 
 					let subPar = document.createElement('p');
-					subPar.innerHTML = "Total upload mins: " + totalMinutes + " | SR minutes remaining: " + balanceAfterUpload;
+					subPar.setAttribute("id", "subBar");
+					subPar.innerHTML = "Total upload mins: " + totalMinutes + " | SR minutes remaining: " + balanceAfterUpload
+						+ "<div><i><u id='skipSR' style='color: #404040; cursor: pointer'>Click here to skip SR this time</u></i></div>";
 					preview.appendChild(subPar);
+
+					$("#skipSR").on("click",function(){
+						srEnabled = false;
+						$("#subBar")[0].innerHTML = "Speech recognition is off for this upload";
+						submitUploadBtn.removeAttribute("disabled");
+					});
 				}
 
 				submitUploadBtn.removeAttribute("disabled");

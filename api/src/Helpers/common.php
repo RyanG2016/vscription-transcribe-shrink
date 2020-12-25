@@ -189,6 +189,17 @@ class common{
     }
 
     /**
+     * @param $n float file duration in seconds
+     * @param int $x round to nearest $x seconds
+     * @return float rounded duration in minutes
+     */
+    function roundUpToAnyIncludeCurrent($n, $x=15): float
+    {
+        $seconds = ($n%$x === 0) ? round($n) : round(($n+$x/2)/$x)*$x;
+        return $seconds/60;
+    }
+
+    /**
      * @param $file string filename/path
      * @return string extension
      */

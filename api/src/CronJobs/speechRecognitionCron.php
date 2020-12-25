@@ -325,23 +325,13 @@ class speechRecognitionCron{
     {
         $fileInfo = $this->id3->analyze($tmpFilePath, filesize($tmpFilePath), $originalName);
         $file_duration = (int)ceil(@$fileInfo['playtime_seconds']);
-        return $this->roundUpToAnyIncludeCurrent($file_duration);
+        return $this->common->roundUpToAnyIncludeCurrent($file_duration);
     }
 
     function roundUpToAny($n,$x=15) {
         return round(($n+$x/2)/$x)*$x;
     }
 
-    /**
-     * @param $n float file duration in seconds
-     * @param int $x round to nearest $x seconds
-     * @return float rounded duration in minutes
-     */
-    function roundUpToAnyIncludeCurrent($n, $x=15): float
-    {
-        $seconds = (round($n)%$x === 0) ? round($n) : round(($n+$x/2)/$x)*$x;
-        return $seconds/60;
-    }
 
     // Helping Functions //
 
