@@ -3,10 +3,10 @@
     src: url("../../Fonts/OpenSans-Regular.ttf");
 }
 
-/*@font-face {
+@font-face {
   font-family: opensans-b;
   src: url("../../Fonts/OpenSans-Bold.ttf");
-}*/
+}
 
 @font-face {
     font-family: opensans-l;
