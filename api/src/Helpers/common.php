@@ -183,7 +183,7 @@ class common{
     function generateRandomFileName($prefix = '',
                              $extension = '')
     {
-        $filename = uniqid(time() . "_" . $prefix, true) . $extension;
+        $filename = uniqid(time() . "_" . $prefix, true) . "." . $extension;
 
         return $filename;
     }

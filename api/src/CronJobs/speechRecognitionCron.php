@@ -13,11 +13,12 @@ use Src\Models\SRQueue;
 use Src\Models\SR;
 use Src\Enums\SRLOG_ACTIVITY;
 use Src\Enums\SRQ_STATUS;
-use getID3;
+//use \getID3;
 //$rootDir = "C:\\xampp\htdocs\\vscription";
 //require "$rootDir\api\bootstrap.php";
 //$rootDir = __DIR__;
 require __DIR__ . "/../../bootstrap.php";
+require_once( __DIR__ . '/../../../audioParser/getid3/getid3.php');
 
 
 class speechRecognitionCron{
@@ -27,7 +28,7 @@ class speechRecognitionCron{
     private FileGateway $fileGateway;
     private SRLogger $srlogger;
     private common $common;
-    private getID3 $id3;
+    private \getID3 $id3;
 
     private string $uploadDir;
     private string $revAItmpDir;
@@ -58,7 +59,7 @@ class speechRecognitionCron{
         $this->fileGateway = new FileGateway($db);
         $this->srlogger = new SRLogger($db);
         $this->common = new common();
-        $this->id3 = new getID3();
+        $this->id3 = new \getID3();
 
         $this->uploadDir = __DIR__ . "/../../../uploads/";
         $this->revAItmpDir = __DIR__ . "/../../../transcribe/sr/".getenv("REVAI_TMP_DIR_NAME")."/";
@@ -190,6 +191,7 @@ class speechRecognitionCron{
         }else{
             // No Files in Queue
             sleep(10);
+            $this->prepareNextFile();
         }
     }
 
@@ -276,7 +278,7 @@ class speechRecognitionCron{
         $data = array("media_url" => $ddlLink,
 //            "metadata" => "SAMPLE",
             "callback_url" => $this->REVAI_CALLBACK_URL,
-            "skip_diarization"=> true,
+            "skip_diarization"=> false,
             "skip_punctuation" => false,
             "language" => "en"
             );
@@ -288,12 +290,7 @@ class speechRecognitionCron{
             CURLOPT_RETURNTRANSFER => 1,
             CURLOPT_URL => self::REVAI_POST_URL,
             CURLOPT_POSTFIELDS => json_encode($data),
-            CURLOPT_CAINFO => "serverpem.pem",
-            // getenv("BASE_LINK").'/api/v1/conversions'
-            // CURLOPT_URL => 'https://pro.vtex/api/v1/conversions',
-            // CURLOPT_USERAGENT => 'Files API',
-            // CURLOPT_COOKIESESSION => false
-            // CURLOPT_COOKIE => $strCookie,
+
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_MAXREDIRS => 2,
             CURLOPT_HTTPHEADER => array(
@@ -302,7 +299,6 @@ class speechRecognitionCron{
             )
         ]);
 
-//        // todo disable for production the 2 lines below
 //        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
 //        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 

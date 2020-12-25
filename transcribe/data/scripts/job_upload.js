@@ -444,7 +444,8 @@ function documentReady() {
 			// add duration to upload Que in (secs) for Queued files
 			if(status === 0) // status OK
 			{
-				filesDur[filesIds.indexOf(id)] = Math.round(duration);// adding duration in the same arrangement as filesArr
+				// filesDur[filesIds.indexOf(id)] = Math.round(duration);// adding duration in the same arrangement as filesArr
+				filesDur[filesIds.indexOf(id)] = duration;// adding duration in the same arrangement as filesArr
 			}
 
 			// check if all files are durated
@@ -487,7 +488,8 @@ function documentReady() {
 			// add duration to upload Que in (secs) for Queued files
 			if(status === 0) // status OK
 			{
-				filesDur[filesIds.indexOf(id)] = Math.round(duration);// adding duration in the same arrangement as filesArr
+				filesDur[filesIds.indexOf(id)] = duration;// adding duration in the same arrangement as filesArr
+				// filesDur[filesIds.indexOf(id)] = Math.round(duration);// adding duration in the same arrangement as filesArr
 			}
 
 			// check if all files are durated
