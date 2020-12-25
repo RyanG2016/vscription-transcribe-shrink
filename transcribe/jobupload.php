@@ -270,7 +270,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                 <div class="row" id="srBalance" style="display:none;">
                                     <div class="col text-right">
 <!--                                        <em>SR Balance: </em>-->
-                                        <i class="fas fa-plus-circle top-up" onclick="window.open('/payment.php', '_blank')"></i>
+                                        <i class="fas fa-plus-circle top-up" onclick="window.open('/packages.php', '_blank')"></i>
                                         <em>
                                             SR Balance:
                                             <span id="srMinutes"></span> min
