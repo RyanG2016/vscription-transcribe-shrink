@@ -69,11 +69,11 @@ $(document).ready(function () {
         for (let i = 0; i < result.length; i++) {
             // result[i].start
             // result[i].end
-            let start = 'ST'+result[i].start.toString().replace(".","T");
-            if(result[i].start == 0)
+            let start = 'ST'+result[i].start.toFixed(2).replace(".","T");
+            /*if(result[i].start == 0)
             {
                 start = "ST0T00";
-            }
+            }*/
             arr[i] = {"start":  start,"line": result[i].lines[0]}
         }
         // return {"data": arr};
@@ -104,7 +104,7 @@ $(document).ready(function () {
 
 
     $('#captionsTbl tbody').on('click', 'tr', function () {
-        console.log("click " + dt.row(this).id());
+        // console.log("click " + dt.row(this).id());
         modalCapSearch.style.display = "none";
         tinymce.activeEditor.selection.select( tinymce.activeEditor.dom.select('#' + dt.row(this).id())[0] );
         tinymce.activeEditor.selection.getNode().scrollIntoView(true);
@@ -1058,7 +1058,7 @@ $(document).ready(function () {
                     tinymce.activeEditor.dom.select('#' + currentHighlightedID)[0].removeAttribute("style");
                 }
                 let id = startTimeToID(start);
-                console.log("id to highlight: " + id);
+                // console.log("id to highlight: " + id);
                 tinymce.activeEditor.dom.select('#' + id)[0].setAttribute("style", "background-color:#1e79be;color:white");
                 currentHighlightedID = id;
                 startLimit = start;
@@ -1071,11 +1071,7 @@ $(document).ready(function () {
 
     function startTimeToID(start)
     {
-        if(start == 0)
-        {
-            start = "0.00";
-        }
-        return 'ST'+start.toString().replace(".","T");
+        return 'ST'+start.toFixed(2).replace(".","T");
     }
 
     function idToTime(id)
