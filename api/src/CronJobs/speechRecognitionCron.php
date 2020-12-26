@@ -238,6 +238,11 @@ class speechRecognitionCron{
 
         }
         else{
+
+//            if (curl_errno($ch)) {
+//                print curl_error($ch);
+//            }
+
             // curl post failed
             $this->log($this->srqE->getSrqId(),$this->fileE->getFileId(),
                 SRLOG_ACTIVITY::REVAI_SEND_ERROR, $response['title']);
@@ -251,7 +256,7 @@ class speechRecognitionCron{
             }else{
                 //reset retries
                 $this->retries = 0;
-                
+
                 // set as failed
                 $this->srqE->setSrqStatus(SRQ_STATUS::REVAI_FAILED_TO_RESPOND_WITH_SUCCESS);
                 $this->srqE->setNotes($response['title']);
@@ -261,11 +266,14 @@ class speechRecognitionCron{
                 $this->fileE->setFileStatus(FILE_STATUS::AWAITING_TRANSCRIPTION);
                 $this->fileE->saveNewStatus();
 
-                // add minutes back to user account
-                $this->log($this->srqE->getSrqId(),$this->fileE->getFileId(),
-                    SRLOG_ACTIVITY::ADDED_MINUTES_TO_ACC, $this->srqE->getSrqRevaiMinutes());
-                $this->srE->setSrMinutesRemaining($this->srE->getSrMinutesRemaining() + $this->srqE->getSrqRevaiMinutes());
-                $this->srE->save();
+                if($this->srqE->getRefunded() != 1)
+                {
+                    // add minutes back to user account
+                    $this->log($this->srqE->getSrqId(),$this->fileE->getFileId(),
+                        SRLOG_ACTIVITY::ADDED_MINUTES_TO_ACC, $this->srqE->getSrqRevaiMinutes());
+                    $this->srE->setSrMinutesRemaining($this->srE->getSrMinutesRemaining() + $this->srqE->getSrqRevaiMinutes());
+                    $this->srE->save();
+                }
 
             }
 
