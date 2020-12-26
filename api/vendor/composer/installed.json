@@ -1,37 +1,41 @@
 [
     {
         "name": "authorizenet/authorizenet",
-        "version": "2.0.0",
-        "version_normalized": "2.0.0.0",
+        "version": "dev-bugfix-remove-parent-call-when-class-does-not-have-parent",
+        "version_normalized": "dev-bugfix-remove-parent-call-when-class-does-not-have-parent",
         "source": {
             "type": "git",
-            "url": "https://github.com/AuthorizeNet/sdk-php.git",
-            "reference": "7fa78e6397d363296e462c3b348573c17175b7a8"
+            "url": "git@github.com:vkhramtsov/sdk-php.git",
+            "reference": "d26e0102d2fcba9dd6779efada17658acfe7737d"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/AuthorizeNet/sdk-php/zipball/7fa78e6397d363296e462c3b348573c17175b7a8",
-            "reference": "7fa78e6397d363296e462c3b348573c17175b7a8",
+            "url": "https://api.github.com/repos/vkhramtsov/sdk-php/zipball/d26e0102d2fcba9dd6779efada17658acfe7737d",
+            "reference": "d26e0102d2fcba9dd6779efada17658acfe7737d",
             "shasum": ""
         },
         "require": {
             "ext-curl": "*",
             "ext-json": "*",
-            "php": ">=5.6"
+            "php": ">=7.2"
         },
         "require-dev": {
             "phpmd/phpmd": "~2.0",
             "phpunit/phpunit": "~4.0"
         },
-        "time": "2019-01-14T13:32:41+00:00",
+        "time": "2019-12-07T15:52:29+00:00",
         "type": "library",
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "classmap": [
                 "lib"
             ]
         },
-        "notification-url": "https://packagist.org/downloads/",
+        "autoload-dev": {
+            "classmap": [
+                "tests"
+            ]
+        },
         "license": [
             "proprietary"
         ],
