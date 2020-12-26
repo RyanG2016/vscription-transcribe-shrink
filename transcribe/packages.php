@@ -148,7 +148,7 @@ $pkgGateway = new PackageGateway($dbConnection);
                                 <div class="row w-auto no-gutters justify-content-center package-mins m-b-10">'.$package->getSrpMins().' minutes</div>
                                 <div class="row w-auto no-gutters justify-content-center package-name m-b-10">'.$package->getSrpName().'</div>
                                 <div class="row w-auto no-gutters justify-content-center">
-                                    <small class="text-muted">'.$package->getSrpPrice().'$</small>
+                                    <small class="text-muted">'.$package->getSrpPrice().' $CAD</small>
                                 </div>
                             </div>
                         </div>

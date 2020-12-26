@@ -13,7 +13,10 @@ if (!isset($_SESSION['loggedIn'])) {
 if (isset($_SESSION['counter'])) {
     unset($_SESSION['counter']);
 }
-
+header("Cache-Control: no-cache, must-revalidate"); //HTTP 1.1
+header("Pragma: no-cache"); //HTTP 1.0
+//header("Expires: Sat, 26 Jul 1993 05:00:00 GMT"); // Date in the past
+header("Expires: 0"); // Now
 if(!isset($_POST) || !isset($_POST["package"]))
 {
     ob_start();
@@ -32,7 +35,7 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
 <html lang="en">
 
 <head>
-    <title>vScription</title>
+    <title>vScription Checkout</title>
     <link rel="shortcut icon" type="image/png" href="data/images/favicon.png"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="data/libs/node_modules/material-components-web/dist/material-components-web.css" rel="stylesheet">
@@ -223,7 +226,8 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
                 <h3>Details for your order</h3>
 
                 <hr>
-                <form id="paymentForm" method="post" enctype="multipart/form-data" novalidate>
+                <form id="paymentForm" method="post" action="processing.php" enctype="multipart/form-data" novalidate>
+                    <input type="hidden" name="package" value="<?php echo $pkg->getSrpId()?>" />
                     <div class="row">
                         <div class="col-lg-3 col-md-4 col-sm-3 border-right">
                             <h5>You have ordered</h5>
@@ -242,7 +246,7 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
                         </div>
                         <div class="row">
                             <div class="col-auto">Price</div>
-                            <div class="col text-right">' . $pkg->getSrpPrice() . ' $</div>
+                            <div class="col text-right">' . $pkg->getSrpPrice() . ' $CAD</div>
                         </div>
                         <hr>
                         
@@ -254,7 +258,6 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
                             ?>
 
                         </div>
-
 
 
                             <div class="col-lg-6 col-md-4 col-sm-5 border-right">
@@ -393,7 +396,7 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
                                     <div class="col pl-3 border-left form-container">
                                         <div class="field-container">
                                             <label for="name">Name on card</label>
-                                            <input id="name" name="name_on_card" maxlength="20" type="text" value="<?php echo $_SESSION["fname"] . " " . $_SESSION["lname"]?>">
+                                            <input id="name" name="name_on_card" maxlength="20" type="text" value="<?php echo $_SESSION["fname"] . " " . $_SESSION["lname"]?>" autofocus>
                                         </div>
                                         <div class="field-container">
                                             <label for="cardnumber">Card Number</label>
@@ -431,7 +434,7 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
 
                                 <div class="row">
                                     <div class="col-auto">Total amount</div>
-                                    <div class="col text-right"><?php echo $pkg->getSrpPrice()?> $ </div>
+                                    <div class="col text-right"><?php echo $pkg->getSrpPrice()?> $CAD </div>
                                 </div>
 
                                 <div class="form-row mt-3 justify-content-end">
@@ -450,14 +453,15 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
     </div>
 </div>
 
-<!--<div class="overlay" id="overlay">
-    <div class="loading-overlay-text" id="loadingText">Please wait..</div>
+<div class="overlay" id="overlay" style="display: none">
+    <div class="loading-overlay-text" id="loadingText">Processing payment..</div>
     <div class="spinner">
         <div class="bounce1"></div>
         <div class="bounce2"></div>
         <div class="bounce3"></div>
     </div>
-</div>-->
+    <div class="text-muted">please don't refresh or click back button</div>
+</div>
 
 
 </body>

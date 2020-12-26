@@ -9,6 +9,7 @@ $(document).ready(function () {
     var country = $("#country");
     var paymentForm = $("#paymentForm");
     var payBtn = $("#payBtn");
+    var overlay = $("#overlay");
 
 
     // validation
@@ -21,9 +22,23 @@ $(document).ready(function () {
     var cardNumberMasked = $("#cardNumberMasked");
     var cardType = $("#cardType");
 
+    function validatePaymentFields()
+    {
+        if(expCheck && nameCheck && cvvCheck && cardCheck)
+        {
+            // enable
+            payBtn.removeAttr("disabled");
+            return true;
+        }
+        else{
+            // disable
+            payBtn.attr("disabled", "disabled");
+            return false;
+        }
+    }
+
 
     paymentForm.on('submit', function (event) {
-
         if(validatePaymentFields())
         {
             $("<input />").attr("type", "hidden")
@@ -54,9 +69,9 @@ $(document).ready(function () {
                 .attr("name", "address")
                 .attr("value", address.html())
                 .appendTo(paymentForm);
+            overlay.css("display", "block");
             return true;
         }else{
-
             // console.log(paymentForm.serializeArray());
             return false;
         }
@@ -380,8 +395,10 @@ $(document).ready(function () {
     function maskCardNumber(number)
     {
         // console.log(number);
-        let masklen = number.replaceAll(" ", "").length-4;
-        let unmasked = number.substr(number.length-4, 4);
+        let realNumber = number.replaceAll(" ", "");
+
+        let masklen = realNumber.length-4;
+        let unmasked = realNumber.substr(realNumber.length-4, 4);
 
         let mask = "";
         for (let i = 0; i < masklen; i++) {
@@ -412,18 +429,6 @@ $(document).ready(function () {
         validatePaymentFields();
     });
 
-    function validatePaymentFields()
-    {
-        if(expCheck && nameCheck && cvvCheck && cardCheck)
-        {
-            // enable
-            payBtn.removeAttr("disabled");
-        }
-        else{
-            // disable
-            payBtn.attr("disabled", "disabled");
-        }
-    }
 
     securitycode_mask.on('accept', function () {
         if (securitycode_mask.value.length == 0) {
