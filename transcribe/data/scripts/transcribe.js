@@ -31,6 +31,7 @@ var jobsDTRef;
 var demoExpandArrow;
 var demoFields;
 var loadingOv;
+var has_captions = false;
 
 $(document).ready(function () {
     var loadingText = $("#loadingText");
@@ -41,9 +42,14 @@ $(document).ready(function () {
 
     var captions = '';
 
+    // highlighting variables
+    var currentHighlightedID = null;
+    var endLimit = 0;       // current highlighted text end time
+    var startLimit = 0;     // current highlighted text start time
+
     var jobTypeDropDown = $('#jobType');
     var captionsSearch = $('#captionsSearch');
-    var captionResult = $('#captionResult');
+    // var captionResult = $('#captionResult');
 
     let modalCapSearch = document.getElementById("modalSearchCaptions");
 
@@ -124,7 +130,7 @@ $(document).ready(function () {
                 JSON.stringify(dtData, null, 2)
             );*/
 
-            console.log(  JSON.stringify(dtData, null, 2) );
+            // console.log(  JSON.stringify(dtData, null, 2) );
             return false;
         }
     });
@@ -909,6 +915,7 @@ $(document).ready(function () {
 
         if(jobDetails.has_caption == true)
         {
+            has_captions = true;
             searchEngine.removeAttr("hidden");
         }
 
@@ -998,18 +1005,84 @@ $(document).ready(function () {
         AblePlayerInstances[0].media.load();
 
 
-        AblePlayerInstances[0].onMediaPause = function () {
-            if (AblePlayerInstances[0].seekBar.position - rewindAmountOnPause > 0) {
-                AblePlayerInstances[0].seekTo(AblePlayerInstances[0].seekBar.position - rewindAmountOnPause);
-            } else {
-                AblePlayerInstances[0].seekTo(0);
-            }
+        // AblePlayerInstances[0].onMediaPause = function () {
+        //
+        // }
+
+        if(has_captions)
+        {
+            /*AblePlayerInstances[0].onMediaUpdateTime = function () {
+                var elapsed = AblePlayerInstances[0].media.currentTime;
+
+                handleHighlights(elapsed);
+            }*/
         }
 
 
         modal.style.display = "none"; //hide modal popup
         changeLoading(false, "Loading transcribe..");
     }
+
+    window.handleMediaPause = function()
+    {
+        if (AblePlayerInstances[0].seekBar.position - rewindAmountOnPause > 0) {
+            AblePlayerInstances[0].seekTo(AblePlayerInstances[0].seekBar.position - rewindAmountOnPause);
+        } else {
+            AblePlayerInstances[0].seekTo(0);
+        }
+    }
+
+    window.handleAbleMediaUpdate = function()
+    {
+        var elapsed = AblePlayerInstances[0].media.currentTime;
+
+        handleHighlights(elapsed);
+    }
+
+    window.handleHighlights = function(elapsedTime)
+    {
+        if(elapsedTime >= startLimit && elapsedTime <= endLimit)
+        {
+            return;
+        }
+
+        for (let i = 0; i < captions.length; i++) {
+            let start = captions[i].start;
+            let end = captions[i].end;
+
+            if(elapsedTime >= start && elapsedTime <= end)
+            {
+                if(currentHighlightedID)
+                {
+                    // de-highlight prev
+                    tinymce.activeEditor.dom.select('#' + currentHighlightedID)[0].removeAttribute("style");
+                }
+                let id = startTimeToID(start);
+                console.log("id to highlight: " + id);
+                tinymce.activeEditor.dom.select('#' + id)[0].setAttribute("style", "background-color:#1e79be;color:white");
+                currentHighlightedID = id;
+                startLimit = start;
+                endLimit = end;
+                break;
+            }
+
+        }
+    }
+
+    function startTimeToID(start)
+    {
+        if(start == 0)
+        {
+            start = "0.00";
+        }
+        return 'ST'+start.toString().replace(".","T");
+    }
+
+    function idToTime(id)
+    {
+        return id.replace("ST", "").replace("T",".");
+    }
+
 
     /*----END LOAD FROM SERVER -----*/
 

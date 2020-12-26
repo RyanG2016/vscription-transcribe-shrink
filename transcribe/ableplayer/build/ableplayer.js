@@ -11455,6 +11455,11 @@ if (thisObj.useTtml && (trackSrc.endsWith('.xml') || trackText.startsWith('<?xml
 				thisObj.refreshControls('timeline', thisObj.duration, thisObj.elapsed);
 			}
 		});
+
+		if(window.has_captions)
+		{
+			window.handleAbleMediaUpdate();
+		}
 	};
 
 	AblePlayer.prototype.onMediaPause = function () {
@@ -11469,6 +11474,7 @@ if (thisObj.useTtml && (trackSrc.endsWith('.xml') || trackText.startsWith('<?xml
 
 		}
 		this.refreshControls('playpause');
+		window.handleMediaPause();
 	};
 
 	AblePlayer.prototype.onMediaComplete = function () {
