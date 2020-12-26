@@ -10,7 +10,10 @@ data/parts/error_log
 ../uploads
 main_scratch.php
 test*
+*.log
 workingTemp/
+transcribe/sr/*
+*.pem
 /deletedUploads/*
 
 /transcribe/data/parts/config.php
