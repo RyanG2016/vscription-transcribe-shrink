@@ -143,7 +143,7 @@ class SRProcessingCron{
             if(file_put_contents($this->uploadDir. pathinfo($this->fileE->getFilename(), PATHINFO_FILENAME) . ".vtt",
                 $resp))
             {
-                $this->srlogger->log($this->srqE->getSrqId(),$this->fileE->getFileId(), SRLOG_ACTIVITY::VTT_FILE_SAVED_IN_UP_DIR,
+                $this->log($this->srqE->getSrqId(),$this->fileE->getFileId(), SRLOG_ACTIVITY::VTT_FILE_SAVED_IN_UP_DIR,
                     "filename: " . pathinfo($this->fileE->getFilename(), PATHINFO_FILENAME)
                     . " | srq_id: " . $this->srqE->getSrqId());
             }
@@ -152,15 +152,15 @@ class SRProcessingCron{
             // save html data
             $html = $this->processVttToHtml($subtitles->getInternalFormat()); // process to html with timestamps
             $this->fileE->setJobDocumentHtml($html);
-            $this->fileE->saveHTML(1);
-            $this->srlogger->log($this->srqE->getSrqId(),$this->fileE->getFileId(), SRLOG_ACTIVITY::VTT_PROCESSED_TO_HTML,
+            $this->fileE->saveHTML(1, json_encode($subtitles->getInternalFormat()));
+            $this->log($this->srqE->getSrqId(),$this->fileE->getFileId(), SRLOG_ACTIVITY::VTT_PROCESSED_TO_HTML,
                 "file_id: " . $this->fileE->getFileId()
                 . " | srq_id: " . $this->srqE->getSrqId());
 
             $this->complete();
 
         }else{
-            $this->srlogger->log($this->srqE->getSrqId(),$this->fileE->getFileId(), SRLOG_ACTIVITY::COULDNT_FETCH_CAPTIONS,
+            $this->log($this->srqE->getSrqId(),$this->fileE->getFileId(), SRLOG_ACTIVITY::COULDNT_FETCH_CAPTIONS,
                 "revai_id: " . $this->srqE->getSrqRevaiId(). " | srq_id: " . $this->srqE->getSrqId());
 
 
@@ -183,7 +183,7 @@ class SRProcessingCron{
         $this->fileE->setFileStatus(FILE_STATUS::AWAITING_CORRECTION);
         $this->fileE->saveNewStatus();
 
-        $this->srlogger->log($this->srqE->getSrqId(),$this->fileE->getFileId(), SRLOG_ACTIVITY::COMPLETE,
+        $this->log($this->srqE->getSrqId(),$this->fileE->getFileId(), SRLOG_ACTIVITY::COMPLETE,
             "file_id: " . $this->fileE->getFileId());
 
         $this->prepareNextFile();
@@ -217,14 +217,14 @@ class SRProcessingCron{
 
             $this->fileE->setJobDocumentHtml($html);
             $this->fileE->saveHTML(1);
-            $this->srlogger->log($this->srqE->getSrqId(), $this->fileE->getFileId(), SRLOG_ACTIVITY::TEXT_PROCESSED_TO_HTML,
+            $this->log($this->srqE->getSrqId(), $this->fileE->getFileId(), SRLOG_ACTIVITY::TEXT_PROCESSED_TO_HTML,
                 "file_id: " . $this->fileE->getFileId()
                 . " | srq_id: " . $this->srqE->getSrqId());
 
             $this->complete();
         }
         else {
-            $this->srlogger->log($this->srqE->getSrqId(), $this->fileE->getFileId(), SRLOG_ACTIVITY::COULDNT_FETCH_TRANSCRIPT_NOR_CAPTIONS,
+            $this->log($this->srqE->getSrqId(), $this->fileE->getFileId(), SRLOG_ACTIVITY::COULDNT_FETCH_TRANSCRIPT_NOR_CAPTIONS,
                 "revai_id: " . $this->srqE->getSrqRevaiId() . " | srq_id: " . $this->srqE->getSrqId());
 
             // todo IMP!
@@ -294,6 +294,39 @@ class SRProcessingCron{
 //    echo $html;
         return $html;
     }
+/*
+    function processVttToHtmlAble(array $subtitleInternalArray):string
+    {
+        //to select a certain div in tinymce
+        //    tinymce.activeEditor.selection.select(tinymce.activeEditor.dom.select('strong')[0]);
+        //    tinymce.activeEditor.selection.select(tinymce.activeEditor.dom.select('#findme')[0])
+        //editor.selection.getNode().scrollIntoView(false)
+        //
+        //tinymce.activeEditor.selection.getNode().scrollIntoView(true)
+
+        $html = "";
+//        $html .= '<div id="transcript" class="able-transcript-area">';
+//        $html .= '<div class="able-window-toolbar"></div>';
+//        $html .= '<div class="able-transcript">';
+
+        foreach ($subtitleInternalArray as $block) {
+//        echo $block['start'];
+//        echo $block['end'];
+            $currentLine = "";
+            $id = $this->generateDivIDFromVTTStart($block['start']);
+            $stSpan =  "<span id='$id' class='able-transcript-seekpoint able-transcript-caption' data-start='".$block['start']."' data-end='".$block['end']."' >";
+
+            foreach ($block['lines'] as $line) {
+                $currentLine .= $line . " ";
+            }
+            $html .= $stSpan . wordwrap($currentLine, 70, "<br>") . "<br></span>";
+
+        }
+
+        $html .= "</div>";
+        $html .= "</div>";
+        return $html;
+    }*/
 
     function generateDivIDFromVTTStart(float $start): string
     {
@@ -336,13 +369,13 @@ class SRProcessingCron{
 
     function output($msg)
     {
-        $mainLog = __DIR__ . "/../../../revai.log";
-        $oldLog = __DIR__ . "/../../../revai.old.log";
+        $mainLog = __DIR__ . "/../../../revai-receive.log";
+        $oldLog = __DIR__ . "/../../../revai-receive.old.log";
 
         $date = new DateTime();
         $date = $date->format("y:m:d h:i:s");
         $str = "[$date]: $msg";
-        echo $str;
+        echo $str . "\n";
 
         if(file_exists($mainLog))
         {

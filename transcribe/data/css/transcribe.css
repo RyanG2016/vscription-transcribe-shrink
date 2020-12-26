@@ -7,6 +7,7 @@
 @import "parts/spinner.css";
 @import "parts/card.css";
 @import "parts/vars.css";
+@import "parts/vtex-custom-styles.css";
 
 /* Modal loading edits */
 #modalLoading .modal-content h2{
@@ -574,4 +575,8 @@ select, .dt-search {
 .vtex-glow:hover{
     color: var(--vtex-green);
     cursor: pointer;
+}
+
+.mdc-layout-grid .dt-table{
+    width: 100%;
 }

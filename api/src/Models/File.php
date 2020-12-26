@@ -53,7 +53,8 @@ class File extends BaseModel implements BaseModelInterface
         private ?string $file_author = null,
         private ?string $file_work_type = null,
         private ?string $file_comment = null,
-        private ?string $job_document_rtf = null
+        private ?string $job_document_rtf = null,
+        private ?string $captions = null
     )
     {
         if(is_null($this->job_upload_date))
@@ -64,6 +65,22 @@ class File extends BaseModel implements BaseModelInterface
         $this->fileGateway = new FileGateway($db);
         parent::__construct($this->fileGateway);
 
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCaptions(): ?string
+    {
+        return $this->captions;
+    }
+
+    /**
+     * @param string|null $captions
+     */
+    public function setCaptions(?string $captions): void
+    {
+        $this->captions = $captions;
     }
 
 
@@ -104,6 +121,7 @@ class File extends BaseModel implements BaseModelInterface
             if(isset($row['job_document_html'])) $this->job_document_html = $row['job_document_html'];
             if(isset($row['job_document_rtf'])) $this->job_document_rtf = $row['job_document_rtf'];
             if(isset($row['has_caption'])) $this->has_caption = $row['has_caption'];
+            if(isset($row['captions'])) $this->captions = $row['captions'];
             if(isset($row['file_tag'])) $this->file_tag = $row['file_tag'];
             if(isset($row['file_author'])) $this->file_author = $row['file_author'];
             if(isset($row['file_work_type'])) $this->file_work_type = $row['file_work_type'];
@@ -136,9 +154,9 @@ class File extends BaseModel implements BaseModelInterface
         return $this->fileGateway->directUpdateFileStatus($this->file_id, $this->file_status, $this->filename);
     }
 
-    public function saveHTML($optional_has_caption = null):int
+    public function saveHTML($optional_has_caption = null, $captions = null):int
     {
-        return $this->fileGateway->updateFileHTML($this, $optional_has_caption);
+        return $this->fileGateway->updateFileHTML($this, $optional_has_caption, $captions);
     }
 
     public function save(): int

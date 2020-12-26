@@ -33,13 +33,103 @@ var demoFields;
 var loadingOv;
 
 $(document).ready(function () {
-    var loadingText = $("#loadingText");;
+    var loadingText = $("#loadingText");
     const backend_url = "data/parts/backend_request.php";
     const files_api = "../api/v1/files/";
     const form = document.querySelector("form");
     loadingOv = $("#overlay");
 
+    var captions = '';
+
     var jobTypeDropDown = $('#jobType');
+    var captionsSearch = $('#captionsSearch');
+    var captionResult = $('#captionResult');
+
+    let modalCapSearch = document.getElementById("modalSearchCaptions");
+
+    var searchEngine =   $("#searchEngine");
+
+    $("#capSrcClose").on('click', function(){
+        modalCapSearch.style.display = "none";
+    });
+
+    searchEngine.on('click', function(){
+        modalCapSearch.style.display = "block";
+    });
+
+    function parseCapResultForDT(result)
+    {
+        let arr = [];
+        for (let i = 0; i < result.length; i++) {
+            // result[i].start
+            // result[i].end
+            let start = 'ST'+result[i].start.toString().replace(".","T");
+            if(result[i].start == 0)
+            {
+                start = "ST0T00";
+            }
+            arr[i] = {"start":  start,"line": result[i].lines[0]}
+        }
+        // return {"data": arr};
+        return arr;
+    }
+    var dtData = {};
+
+    let dt = $('#captionsTbl').DataTable( {
+        data: dtData,
+        rowId: 'start',
+        autoWidth: false,
+        "lengthChange": false,
+        // "paging":   false,
+        "searching": false,
+        columns: [
+            {
+                title: "line",
+                data: "line"
+            }
+            // { }
+        ]
+    } );
+
+    function seekFromID(id)
+    {
+        AblePlayerInstances[0].seekTo(id.replace("ST","").replace("T", "."));
+    }
+
+
+    $('#captionsTbl tbody').on('click', 'tr', function () {
+        console.log("click " + dt.row(this).id());
+        modalCapSearch.style.display = "none";
+        tinymce.activeEditor.selection.select( tinymce.activeEditor.dom.select('#' + dt.row(this).id())[0] );
+        tinymce.activeEditor.selection.getNode().scrollIntoView(true);
+        seekFromID(dt.row(this).id());
+        // changeLoading(true, "Loading "+ jobsDTRef.row(this).data()["job_id"]);
+        // jobLoadLookup(fileID);
+    });
+
+
+    captionsSearch.on("keyup", function(event) {
+        // Number 13 is the "Enter" key on the keyboard
+        let keycode = event.which || event.keyCode;
+        if (keycode === 13) {
+            // Cancel the default action, if needed
+            event.preventDefault();
+            // Trigger the button element with a click
+            let result = filterValuePart(captions, captionsSearch.val());
+            dtData = parseCapResultForDT(result);
+
+            dt.clear().rows.add(dtData).draw();
+
+            /*captionResult.html(
+                JSON.stringify(dtData, null, 2)
+            );*/
+
+            console.log(  JSON.stringify(dtData, null, 2) );
+            return false;
+        }
+    });
+
+
 
     //***************** Websocket Connect on page load *****************//
     window.addEventListener("load", connect, false);
@@ -225,6 +315,7 @@ $(document).ready(function () {
     let modal = document.getElementById("modal");
     let loading = document.getElementById("modalLoading");
 
+
     // buttons styling init
     new mdc.ripple.MDCRipple(document.querySelector("#saveBtn"));
     new mdc.ripple.MDCRipple(document.querySelector("#suspendBtn"));
@@ -389,6 +480,10 @@ $(document).ready(function () {
 
 
     form.addEventListener("submit", e => {
+        if (e.which == 13 || e.keyCode == 13) {
+            e.preventDefault();
+            return false;
+        }
 
         e.preventDefault();
         let action = e.submitter.id;
@@ -727,6 +822,7 @@ $(document).ready(function () {
     function completePlayer() {
         var loadBtn = $('#loadBtn');
         var completeBtn = $('#completeBtn');
+        searchEngine.attr("hidden", "hidden");
         //Delete Temp Audio File
         var fullAudioSrc = AblePlayerInstances[0].media.src;
         var tempAudioFileName = fullAudioSrc.split("/").pop();
@@ -780,13 +876,25 @@ $(document).ready(function () {
     }
 
     /*-----LOAD FROM SERVER VERSUS LOCAL----*/
+    function filterValuePart(arr, part) {
+        part = part.toLowerCase();
+
+        return arr.filter(function (obj) {
+            return Object.keys(obj)
+                .some(function (k) {
+                    // return obj[k].toLowerCase().indexOf(part) !== -1;
+                    return obj.lines[0].toLowerCase().indexOf(part) !== -1;
+                });
+        });
+    }
 
 // Loading Audio File and details
     function loadIntoPlayer(data) {
         var jobDetails = JSON.parse(data);
 
+        captions = JSON.parse(jobDetails.captions);
         currentFileData = jobDetails;
-        currentFileID = jobDetails.file_id; // globaly set current fileID
+        currentFileID = jobDetails.file_id; // globally set current fileID
 
         // load previous suspended text into tinyMCE if suspended
         if (jobDetails.suspendedText !== null && jobDetails.job_status !== 0) {
@@ -794,6 +902,13 @@ $(document).ready(function () {
             tinyMCE.activeEditor.selection.select(tinyMCE.activeEditor.getBody(), true);
             tinyMCE.activeEditor.selection.collapse(false);
         }
+
+        if(jobDetails.has_caption == true)
+        {
+            searchEngine.removeAttr("hidden");
+        }
+
+        // $("#tryme").html(decodeHtml(jobDetails.suspendedText));
 
         $('#jobNo').val(jobDetails.job_id);
         $('#authorName').val(jobDetails.file_author);
@@ -826,9 +941,18 @@ $(document).ready(function () {
         var $completeBtn = $('#completeBtn');
 
 
-        // audioTempFolder is a constant inside constants.js
+        //tinymce.activeEditor.selection.select(tinymce.activeEditor.dom.select('#transcript'))
+        //tinymce.activeEditor.selection.select(tinymce.activeEditor.dom.select('.able-window-toolbar'))
+        //
+
         AblePlayerInstances[0].media.src = audioTempFolder + jobDetails.tmp_name;
-        // AblePlayerInstances[0].media.src = jobDetails.base64;
+        // AblePlayerInstances[0].transcriptType = "manual";
+        // AblePlayerInstances[0].$transcriptArea = $("#transcript");
+        // AblePlayerInstances[0].$transcriptToolbar = $(".able-window-toolbar");
+        // AblePlayerInstances[0].$autoScrollTranscriptCheckbox = $("#autoscroll-transcript-checkbox");
+        // AblePlayerInstances[0].setupTranscript();
+        // AblePlayerInstances[0].updateTranscript();
+
 
         $loadBtn.addClass('noHover');
         $loadBtn.text(jobDetails.job_id + ' Loaded');

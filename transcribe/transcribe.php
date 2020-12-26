@@ -202,7 +202,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 <?php include_once "data/parts/nav.php" ?>
 
 <script src="data/scripts/parts/constants.js" type="text/javascript"></script>
-<script src="data/scripts/transcribe.min.js?v=5"></script>
+<script src="data/scripts/transcribe.min.js?v=7"></script>
 
 <div id="updated_version_bar">There is a newer version (v<span></span>) of the vScription Transcribe Controller
     available -> <a href="" target="_blank">download</a></div>
@@ -241,7 +241,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                 <tr>
                     <td id="audio-td" align="right" width="450px" colspan="2">
 
-                        <audio id="audio1" width="450" data-able-player preload="auto" data-seek-interval="2">
+                        <audio id="audio1" width="450" data-able-player preload="auto" data-seek-interval="2" data-transcript-src="transcript">
                             <!--			  <source type="audio/ogg" id="audsrc2" src="ableplayer/media/Test_D7813875.ogg"/>-->
                             <!--			  <source type="audio/mpeg" id="audsrc" src="ableplayer/media/Test_D7813875.mp3"/>-->
                         </audio>
@@ -468,7 +468,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                     </tr>
                 </table>
                 <div class="row">
-                    <div id="accord" class="col-10">
+                    <div id="accord" class="col">
                         <h3>Shortcuts</h3>
                         <div style="overflow: visible;">
                             <!--					 <img id="norm" src="data/images/f248.png" /> <&lt;DRSPELLING>>&nbsp;&nbsp; <img id="norm" src="data/images/f348.png" /> <&lt;PATSPELLING>>&nbsp;&nbsp; -->
@@ -480,18 +480,22 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                             </legend>
                         </div>
                     </div>
-                    <div class="col-2 align-text-bottom">
-                        Search WIP
+                    <div class="col-auto mt-auto mb-auto mr-auto pr-4 pl-1" id="searchEngine" hidden>
+                        <i class="hover-expand fab fa-searchengin" style="font-size: x-large; color: var(--vtex-blue)"></i>
                     </div>
                 </div>
-
-                <div id="divv">
-                    <textarea id="report" name="report" placeholder="" rows="25" class="area"></textarea>
+            </fieldset>
+        </form>
+                <div id="divv" class="form-row">
+                    <div class="col">
+                        <textarea id="report" name="report" placeholder="" rows="25" class="area"></textarea>
+                    </div>
+<!--                    <div class="col-auto justify-content-end align-items-end"><input type="text" id="captionsSearch"/></div>-->
                 </div>
 
-            </fieldset>
 
-        </form>
+
+
 
 
     </div>
@@ -549,6 +553,33 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                 <i class="material-icons mdc-button__icon" aria-hidden="true">done_all</i>
                 <span class="mdc-button__label">OK</span>
             </button>
+        </div>
+    </div>
+
+</div>
+
+<div id="modalSearchCaptions" class="vtex-modal" >
+
+    <!-- Modal content -->
+    <div class="vtex-modal-content" id="loadingContent" style="width: fit-content!important;">
+
+        <div class="row">
+            <div class="col"><h2>Captions Search</h2></div>
+            <div class="col-auto justify-content-end align-items-end"><input type="text" id="captionsSearch"/></div>
+        </div>
+
+<!--        <div id="captionResult">-->
+            <table id="captionsTbl" class="display" style="width: 100% !important"></table>
+<!--        </div>-->
+
+        <div class="row">
+            <div style="text-align: right" class="mt-5 col justify-content-end align-items-end">
+                <button class="mdc-button mdc-button--unelevated confirm-button" id="capSrcClose">
+                    <div class="mdc-button__ripple"></div>
+                    <!--                <i class="material-icons mdc-button__icon" aria-hidden="true">done_all</i>-->
+                    <span class="mdc-button__label">close</span>
+                </button>
+            </div>
         </div>
     </div>
 

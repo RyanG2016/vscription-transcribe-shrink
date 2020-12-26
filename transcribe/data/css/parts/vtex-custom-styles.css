@@ -28,6 +28,16 @@
     transition: transform .2s; /* Animation */
 }
 
+.hover-expand:hover
+{
+    transform: scale(1.1);
+}
+
+.hover-expand{
+    cursor: pointer;
+    transition: transform .2s; /* Animation */
+}
+
 .vtex-editable-span{
     margin-bottom: 3px;
     padding: 3px !important;

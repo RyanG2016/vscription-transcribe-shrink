@@ -45,6 +45,8 @@ class FileGateway implements GatewayInterface
 
     public function findAll()
     {
+        if(!isset($_SESSION['accID']))
+        {return array("error"=> true, "msg" => "please set an account first");}
         $filter = parseFilesParams();
 
         $statement = "
@@ -101,7 +103,7 @@ class FileGateway implements GatewayInterface
                    job_document_html, job_document_rtf,                  
                    times_text_downloaded_date, job_transcribed_by, file_transcribed_date, typist_comments,isBillable,
                    user_field_1, user_field_2, user_field_3, 
-                   billed
+                   billed, has_caption, captions
             
             FROM
                 files
@@ -233,6 +235,8 @@ class FileGateway implements GatewayInterface
                     "file_comment" => $row['file_comment'],
                     "user_field_1" => $row['user_field_1'],
                     "user_field_2" => $row['user_field_2'],
+                    "has_caption" => $row['has_caption'],
+                    "captions" => $row['captions'],
                     "user_field_3" => $row['user_field_3']
                 );
 
@@ -262,6 +266,13 @@ class FileGateway implements GatewayInterface
 
             // -> file is copied successfully to tmp -> set tmp value to db
 
+            // check if it has caption file and copy it too under the same rand name
+//            if($row["has_caption"])
+//            {
+//                copy(__DIR__ . '/../../../uploads/' . pathinfo($row['filename'], PATHINFO_FILENAME) . ".vtt",
+//                    __DIR__.'/../../../transcribe/workingTemp/' .  pathinfo($randFileName, PATHINFO_FILENAME) . ".vtt");
+//            }
+
             $jobDetails = array(
                 "file_id" => $row['file_id'],
                 "job_id" => $row['job_id'],
@@ -278,6 +289,8 @@ class FileGateway implements GatewayInterface
                 "file_comment" => $row['file_comment'],
                 "user_field_1" => $row['user_field_1'],
                 "user_field_2" => $row['user_field_2'],
+                "has_caption" => $row['has_caption'],
+                "captions" => $row['captions'],
                 "user_field_3" => $row['user_field_3']
             );
 
@@ -675,14 +688,19 @@ class FileGateway implements GatewayInterface
 
             $dir = realpath(__DIR__ . "/../../../transcribe/workingTemp/"); // working tmp directory
             $file = $dir . "\\" . $tmpName;
+            $vttFile = $dir . "\\" . pathinfo($tmpName, PATHINFO_FILENAME) . ".vtt";
             if(file_exists($file)){
                 sleep(0.4);
                 unlink($file);
             }
+            if(file_exists($vttFile))
+            {
+                unlink($vttFile);
+            }
 
             return $statement->rowCount();
         } catch (PDOException $e) {
-            exit($e->getMessage());
+            return 0;
         }
     }
 
@@ -884,7 +902,7 @@ class FileGateway implements GatewayInterface
         }
     }
 
-    public function updateFileHTML(BaseModel|File $model, ?int $optional_has_caption = null): int
+    public function updateFileHTML(BaseModel|File $model, ?int $optional_has_caption = null, ?string $captions = null): int
     {
         $statement = "
             UPDATE files
@@ -900,7 +918,8 @@ class FileGateway implements GatewayInterface
             UPDATE files
             SET
                 job_document_html = :job_document_html,
-                has_caption = :has_caption
+                has_caption = :has_caption,
+                captions = :captions
             WHERE
                 file_id = :file_id;
         ";
@@ -918,6 +937,7 @@ class FileGateway implements GatewayInterface
                 $statement->execute(array(
                     'job_document_html' => $model->getJobDocumentHtml()  ,
                     'file_id' => $model->getFileId()  ,
+                    'captions' => $captions  ,
                     'has_caption' => $optional_has_caption
                 ));
             }
