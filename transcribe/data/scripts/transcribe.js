@@ -717,6 +717,10 @@ $(document).ready(function () {
         if (currentFileData.job_status === 0) {
             new_status = 0;
         }
+        else if(currentFileData.job_status === 7)
+        {
+            new_status = 7;
+        }
 
 
         let a1 = {
