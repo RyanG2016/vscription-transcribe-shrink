@@ -257,6 +257,9 @@ class speechRecognitionCron{
                 //reset retries
                 $this->retries = 0;
 
+                // delete temp file
+                unlink($this->revAItmpDir . $this->srqE->getSrqTmpFilename());
+
                 // set as failed
                 $this->srqE->setSrqStatus(SRQ_STATUS::REVAI_FAILED_TO_RESPOND_WITH_SUCCESS);
                 $this->srqE->setNotes($response['title']);
