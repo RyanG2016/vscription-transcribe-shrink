@@ -249,6 +249,9 @@ class speechRecognitionCron{
                 $this->revAi();
                 return;
             }else{
+                //reset retries
+                $this->retries = 0;
+                
                 // set as failed
                 $this->srqE->setSrqStatus(SRQ_STATUS::REVAI_FAILED_TO_RESPOND_WITH_SUCCESS);
                 $this->srqE->setNotes($response['title']);
