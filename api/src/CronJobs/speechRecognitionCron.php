@@ -355,7 +355,7 @@ class speechRecognitionCron{
         $date = new DateTime();
         $date = $date->format("y:m:d h:i:s");
         $str = "[$date]: $msg";
-        echo $str;
+        echo $str . "\n";
 
         if(file_exists($mainLog))
         {
