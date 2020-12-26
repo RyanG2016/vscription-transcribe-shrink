@@ -221,7 +221,7 @@ class speechRecognitionCron{
 
         $response = $this->curlPostRevAi($this->ddlLink);
 
-        if($response["status"] == "in_progress")
+        if($response != null && $response["status"] == "in_progress")
         {
             // success
             $this->retries = 0;
