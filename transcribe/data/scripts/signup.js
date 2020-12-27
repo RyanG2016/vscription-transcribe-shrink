@@ -646,7 +646,7 @@ $(document).ready(function () {
                     },
                 }).done(function (response) {
                     self.setTitle("Success");
-                    self.setContent("Logged in, redirecting..");
+                    self.setContent("Logging in, redirecting..");
 
                     self.buttons.ok.hide();
                     self.buttons.close.hide();
