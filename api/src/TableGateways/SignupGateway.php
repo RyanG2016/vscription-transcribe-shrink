@@ -210,19 +210,24 @@ class SignupGateway
                         $this->tokenGateway->expireToken($tokenData["id"]);
 
                         $this->createClientAdminAccount($accName, $email, $lastInsertedUID);
-                        return generateApiHeaderResponse("Signup Successful, Last step is to verify your account, \nTypist invitation accepted.",
+                        return generateApiHeaderResponse("Signup Successful."
+                            ." We have sent an email to ".$email.", please click the link provided to verify your email address.".
+                              " \nTypist invitation accepted.",
                             false,
                             array("id"=>$lastInsertedUID));
                     }else{
                         // token not found or expired
                         $this->createClientAdminAccount($accName, $email, $lastInsertedUID);
-                        return generateApiHeaderResponse("Signup Successful, Last step is to verify your account, couldn't accept typist invitation (Invalid or Expired token)",
+                        return generateApiHeaderResponse("Signup Successful."
+                        ." We have sent an email to ".$email.", please click the link provided to verify your email address.".
+                        "\n\ncouldn't accept typist invitation (Invalid or Expired token)",
                             false,
                             array("id"=>$lastInsertedUID));
                     }
                 }
                 $this->createClientAdminAccount($accName, $email, $lastInsertedUID);
-                return generateApiHeaderResponse("Signup Successful, Last step is to verify your account.",
+                return generateApiHeaderResponse("Signup Successful."
+                    ." We have sent an email to ".$email.", please click the link provided to verify your email address.",
                     false,
                     array("id"=>$lastInsertedUID));
             }else{

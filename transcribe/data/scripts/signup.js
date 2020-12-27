@@ -534,7 +534,7 @@ $(document).ready(function () {
                         signedUp = true;
                         setUIforVerification();
 
-                        self.setTitle("Success");
+                        self.setTitle("Thanks for Signing Up!");
                         self.setType("green");
                         self.setContent(response["msg"]);
 
