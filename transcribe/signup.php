@@ -442,7 +442,7 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
         <div class="row p-t-20 m-0 " style="width: 100%">
             <div class="col">
                 <div class="text-left">
-                    <a class="txt2" href="./index.php" target="_blank">
+                    <a class="txt2" href="./index.php" target="_blank" id="loginHyperLink">
                         Login
                     </a>
                 </div>

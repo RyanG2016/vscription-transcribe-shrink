@@ -671,6 +671,7 @@ $(document).ready(function () {
 
     function setUIforVerification()
     {
+        $("#loginHyperLink").hide();
         carousel.carousel(1);
         $("#title").html("Verify Your Account");
         signupBtn.off("click");
