@@ -183,8 +183,8 @@ $emHTML= "<!DOCTYPE html>
                 <!-- start copy -->
                 <tr>
                     <td align=\"left\" bgcolor=\"#ffffff\" style=\"padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;\">
-                        <p style=\"margin: 0;\">Thank you for signing up for vScription Pro,</p> <br>
-                        <p style=\"margin: 0;\"> Please verify your email address by entering the next code: </p>
+                        <p style=\"margin: 0;\">Thank you for signing up for vScription Pro.</p> <br>
+                        <p style=\"margin: 0;\">Please verify your email address by entering the code shown below: </p>
                     </td>
                 </tr>
                 <!-- end copy -->
@@ -315,7 +315,7 @@ $emHTML= "<!DOCTYPE html>
 $emPlain = "Hi $email,
 		
 
-Thank you for signing up for vScription Pro, 
+Thank you for signing up for vScription Pro.
 
 Please verify your email address by entering this code: $token
 
