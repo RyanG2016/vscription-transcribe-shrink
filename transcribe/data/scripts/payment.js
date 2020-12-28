@@ -1,5 +1,15 @@
 $(document).ready(function () {
 
+    var zippoURL = "https://api.zippopotam.us/";
+
+    const EMAIL_REGEX = /^[a-z0-9_]+(?:\.[a-z0-9_]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
+    const NAME_REGEX = /^[^0-9\.\,\'\"\?\!\;\:\#\$\%\&\(\)\*\+\-\/\<\>\=\@\[\]\\\^\_\{\}\|\~]+$/;
+    const ACC_REGEX = /^$|^[^0-9\.\,\'\"\?\!\;\:\#\$\%\&\(\)\*\+\-\/\<\>\=\@\[\]\\\^\_\{\}\|\~]+$/;
+    const CITY_REGEX = /^[^\,\'\"\?\!\;\:\#\$\%\&\*\+\-\/\<\>\=\@\[\]\\\^\_\{\}\(\)\|\~]{2,}$/;
+    const CITY_FILTER_REGEX = /[^a-zA-Z0-9. ]/gi;
+    const ADDRESS_REGEX = /^[^\,\'\"\?\!\;\:\#\$\%\&\*\+\-\/\<\>\=\@\[\]\\\^\_\\(\){\}\|\~]{5,100}$/;
+    const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,. <>\/?]).{8,60}$/;
+
     var editing = true;
     var fname = $("#fname");
     var lname = $("#lname");
@@ -11,6 +21,91 @@ $(document).ready(function () {
     var payBtn = $("#payBtn");
     var overlay = $("#overlay");
     var zip = $("#zip");
+    var lastZipRequested = "";
+
+    zip.keyup(function () {
+        // check for matching regex
+        var CA_REGEX = /^[a-zA-Z0-9]{3}$|^[a-zA-Z0-9]{6}$|^[a-zA-Z0-9]{3} [a-zA-Z0-9]{3}$/;
+        var US_REGEX = /^[0-9]{5}$/;
+        zipValue = zip.val();
+
+        switch (zipValue.length) {
+
+            // CA
+            case 3:
+            case 6:
+                if(CA_REGEX.test(zipValue))
+                {
+                    // lookup CA address
+                    /*if(currentCountry != "Canada")
+                    {
+
+                        $("#countryBox").selectpicker('val', 203);
+                    }*/
+
+                    lookupZip(zipValue.slice(0,3), "ca");
+                }
+                break;
+
+            // US
+            case 5:
+                if(US_REGEX.test(zipValue))
+                {
+                    // lookup US address
+                    /*if (currentCountry != 204) {
+                        $("#countryBox").selectpicker('val', 204);
+                    }*/
+                    lookupZip(zipValue, "us");
+                }
+                break;
+        }
+
+    });
+
+
+    function lookupZip(zip, countryLookup)
+    {
+        if(lastZipRequested != zip)
+        {
+            // var jqxhr = $.get( "example.php", function() {
+            // console.log("Looking up in " + country + " Zip: " + zip);
+            $.get( zippoURL + countryLookup + "/"+ zip, function() {
+                // alert( "success" );
+            })
+                .done(function(response) {
+                    // var location = JSON.parse(response);
+                    // "Winnipeg (St. Boniface NE)"
+                    city.val(response["places"][0]["place name"].replace(CITY_FILTER_REGEX,""));
+                    // checkCity();
+
+                    state.val(response["places"][0]["state"]);
+
+                    if(countryLookup ===  "ca")
+                    {
+
+                        country.typeahead('val', "Canada");
+                    }else if(countryLookup === "us")
+                    {
+                        country.typeahead('val',"United States");
+                    }
+
+
+
+                    // console.log(response);
+                })
+                .fail(function(error) {
+                    // couldn't get address
+                    // console.log("Failed to locate address by zip/postal code");
+                    // alert( "error" );
+                });
+            /*.always(function() {
+                alert( "finished" );
+            });*/
+        }
+
+        lastZipRequested = zip;
+    }
+
 
     var countries = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.whitespace,
