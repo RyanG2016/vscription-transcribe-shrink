@@ -85,6 +85,8 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
 
 <!--    <script src="https://unpkg.com/imask"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/imask/3.4.0/imask.min.js"></script>
+    <link href="data/thirdparty/typeahead/typehead.css" rel="stylesheet">
+    <script src="data/thirdparty/typeahead/typeahead.bundle.min.js" type="text/javascript"></script>
     <link href="data/css/payment.css?v=2" rel="stylesheet">
     <script src="data/scripts/payment.min.js?v=2" type="text/javascript"></script>
 
@@ -223,72 +225,48 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
                 <!--        CONTENTS GOES HERE        -->
 
 <!--                <span class="payment-title">Details for your order</span>-->
-                <h3>Details for your order</h3>
+                <h3>Order Details</h3>
 
                 <hr>
                 <form id="paymentForm" method="post" action="processing.php" enctype="multipart/form-data" novalidate>
                     <input type="hidden" name="package" value="<?php echo $pkg->getSrpId()?>" />
                     <div class="row">
-                        <div class="col-lg-3 col-md-4 col-sm-3 border-right">
-                            <h5>You have ordered</h5>
-                            <hr>
 
-                            <?php
-
-                            echo '
-                        <div class="row">
-                            <div class="col-auto">Package</div>
-                            <div class="col text-right"> ' . $pkg->getSrpName() . '</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-auto">Minutes</div>
-                            <div class="col text-right">' . $pkg->getSrpMins() . '</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-auto">Price</div>
-                            <div class="col text-right">' . $pkg->getSrpPrice() . ' $CAD</div>
-                        </div>
-                        <hr>
-                        
-                        
-                        <div class="row">
-                            <div class="col-auto">Account</div>
-                            <div class="col text-right">' . $_SESSION['acc_name'] . '</div>
-                        </div>';
-                            ?>
-
-                        </div>
-
-
-                            <div class="col-lg-6 col-md-4 col-sm-5 border-right">
-                                <h5>Your Details</h5>
+                            <div class="col-lg-9 col-md-8 col-sm-8 border-right">
+                                <h5>Payment Details</h5>
                                 <hr>
-                                <div class="row no-gutters m-b-7"><b>Billing Info</b> &ensp; <small class="mt-auto vtex-help-icon" id="edit">Edit</small></div>
+                                <div class="row no-gutters m-b-7"><b>Billing Address</b> &ensp; <small class="mt-auto vtex-help-icon" id="edit">Save</small></div>
                                 <?php
                                 echo '<div class="row no-gutters">
-                                    <span id="fname" class="col-auto vtex-editable-span" aria-placeholder="<first name>">'.$_SESSION["fname"] ."</span>&nbsp;
-                                    <span id='lname' class='col vtex-editable-span' aria-placeholder='<last name>'>".$_SESSION["lname"].'</span>
+                                    <input id="fname" name="fname" type="text" class="col-auto vtex-editable-input typeahead" placeholder="<first name>" value="'.$_SESSION["fname"] ."\" />&nbsp;
+                                    
+                                    <input id='lname' name='lname' type='text' class='col vtex-editable-input typeahead' placeholder='<last name>' value=\"".$_SESSION["lname"].'" />
                                     </div>';
-                                echo '<div class="row no-gutters">
-                                    <span id="city" class="col vtex-editable-span" aria-placeholder="<City>">';
-                                echo isset($_SESSION['userData']['city']) && !empty($_SESSION['userData']['city'])?$_SESSION['userData']['city']:'';
-                                echo '</span></div>';
 
                                 echo '<div class="row no-gutters">
-                                    <span id="state" class="col vtex-editable-span" aria-placeholder="<State>">';
-                                echo isset($_SESSION['userData']['state']) && !empty($_SESSION['userData']['state'])?$_SESSION['userData']['state']:'';
-                                echo '</span></div>';
-
-                                echo '<div class="row no-gutters">
-                                    <span id="address" class="col vtex-editable-span" aria-placeholder="<Address>">';
+                                    <input id="address" name="address" type="text" class="col vtex-editable-input typeahead" placeholder="<Address>" value="';
                                 echo isset($_SESSION['userData']['address']) && !empty($_SESSION['userData']['address'])?$_SESSION['userData']['address']:'';
-                                echo '</span></div>';
+                                echo '"  /></div>';
 
                                 echo '<div class="row no-gutters">
-                                    <span id="country" class="col vtex-editable-span" aria-placeholder="Country">';
-                                echo isset($_SESSION['userData']['country']) && !empty($_SESSION['userData']['country'])?$_SESSION['userData']['country']:'';
-                                echo '</span></div>';
+                                    <input id="city" name="city" type="text" class="col vtex-editable-input typeahead" placeholder="<City>" value="';
+                                echo isset($_SESSION['userData']['city']) && !empty($_SESSION['userData']['city'])?$_SESSION['userData']['city']:'';
+                                echo '"  /></div>';
 
+                                echo '<div class="row no-gutters">
+                                    <input id="state" name="state" type="text" class="col vtex-editable-input typeahead" placeholder="<State>" value = "';
+                                echo isset($_SESSION['userData']['state']) && !empty($_SESSION['userData']['state'])?$_SESSION['userData']['state']:'';
+                                echo '" /></div>';
+
+
+                                echo '<div class="row no-gutters">
+                                    <input id="country" type="text" name="country" class="vtex-editable-input typeahead" placeholder="<Country>" value="';
+                                    echo isset($_SESSION['userData']['country']) && !empty($_SESSION['userData']['country'])?$_SESSION['userData']['country']:'';
+                                    echo '" />
+                                    <input id="zip" name="zipcode" type="text" class="ml-2 col-6 vtex-editable-input typeahead" placeholder="<Zip/Postal Code>" value="';
+                                echo isset($_SESSION['userData']['zipcode']) && !empty($_SESSION['userData']['zipcode'])?$_SESSION['userData']['zipcode']:'';
+                                    echo '" />
+                                </div>';
                                 ?>
 
                                 <hr>
@@ -418,27 +396,38 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
                                     </div>
                                 </div>
 
-                                <div class="row no-gutters m-t-10"><small><em class="text-muted">We don't save your billing info or your credit card data.</em></small></div>
+                                <div class="row no-gutters m-t-10"><small><em class="text-muted">We will save your billing info for the next time but not your credit card data.</em></small></div>
                             </div>
 
                             <div class="col-lg-3 col-md-4 col-sm-4 ">
                                 <h5>Order Summary</h5>
                                 <hr>
 
-                                <div class="row">
-                                    <div class="col-auto" id="cardType"></div>
-                                    <div class="col text-right" id="cardNumberMasked"></div>
-                                </div>
+                                <?php
 
-                                <hr>
-
-                                <div class="row">
-                                    <div class="col-auto">Total amount</div>
-                                    <div class="col text-right"><?php echo $pkg->getSrpPrice()?> $CAD </div>
-                                </div>
+                                echo '
+                                    <div class="row">
+                                        <div class="col-auto">Package</div>
+                                        <div class="col text-right"> ' . $pkg->getSrpName() . '</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-auto">Minutes</div>
+                                        <div class="col text-right">' . $pkg->getSrpMins() . '</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-auto">Price</div>
+                                        <div class="col text-right">$' . $pkg->getSrpPrice() . ' CAD</div>
+                                    </div>
+                                    <hr>
+                                    
+                                    <div class="row">
+                                        <div class="col-auto">Organization</div>
+                                        <div class="col text-right">' . $_SESSION['acc_name'] . '</div>
+                                    </div>';
+                                ?>
 
                                 <div class="form-row mt-3 justify-content-end">
-                                    <button type="submit" id="payBtn" class="btn btn-primary" disabled>Pay now</button>
+                                    <button type="submit" id="payBtn" class="btn btn-primary" disabled>Complete Payment</button>
                                 </div>
                             </div>
 

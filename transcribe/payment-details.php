@@ -265,7 +265,7 @@ if($lastPayment != null)
                                     </div>
                                     <div class="row">
                                         <div class="col-auto">Price</div>
-                                        <div class="col text-right">' . $pkg->getSrpPrice() . ' $CAD</div>
+                                        <div class="col text-right">$' . $pkg->getSrpPrice() . ' CAD</div>
                                     </div>
                                     <hr>
                                     <div class="row">
@@ -282,11 +282,11 @@ if($lastPayment != null)
                                     <hr>
                                     
                                     <div class="row">
-                                        <div class="col"><b>Account Details</b></div>
+                                        <div class="col"><b>Organization Details</b></div>
                                     </div>
                                     
                                     <div class="row">
-                                        <div class="col-auto">Account</div>
+                                        <div class="col-auto">Organization</div>
                                         <div class="col text-right">' . $_SESSION['acc_name'] . '</div>
                                     </div>
                                     

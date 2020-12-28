@@ -141,19 +141,22 @@ $pkgGateway = new PackageGateway($dbConnection);
                 foreach ($rows as $row)
                 {
                     $package = Package::withRow($row);
-
+//                                <div class="row w-auto no-gutters justify-content-center package-name m-b-10">'..'</div>
                     echo '<div class="col-sm-3 mb-4">
+                        <div class="package-card-top row no no-gutters align-items-center justify-content-center">
+                            '.$package->getSrpName().'
+                        </div>
                         <div>
-                            <div class="package-card">
+                            <div class="package-card-top-bottom">
+
                                 <div class="row w-auto no-gutters justify-content-center package-mins m-b-10">'.$package->getSrpMins().' minutes</div>
-                                <div class="row w-auto no-gutters justify-content-center package-name m-b-10">'.$package->getSrpName().'</div>
                                 <div class="row w-auto no-gutters justify-content-center">
-                                    <small class="text-muted">'.$package->getSrpPrice().' $CAD</small>
+                                    <small class="text-muted">$'.$package->getSrpPrice().' CAD</small>
                                 </div>
                             </div>
                         </div>
                         <div class="package-card-bottom row no no-gutters align-items-center justify-content-center" id="'.$package->getSrpId().'">
-                            Purchase
+                            Buy Now
                         </div>
                     </div>';
                 }

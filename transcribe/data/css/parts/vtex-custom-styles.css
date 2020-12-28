@@ -60,6 +60,32 @@
 }
 
 
+.vtex-editable-input{
+    margin-bottom: 3px;
+    padding: 3px !important;
+    text-align: left;
+}
+.vtex-editable-input:focus {
+    border: 2px solid #0097cf;
+}
+
+.vtex-editable-input[readonly]{
+    border: 0;
+    /*border-radius: 3px;*/
+}
+.vtex-editable-input:empty::before {
+    /*content: attr(aria-placeholder);*/
+    /*display: inline-block;*/
+    /*color: grey;*/
+    /*font-style: italic;*/
+}
+.vtex-editable-input:empty:focus::before {
+    /*content: attr(aria-placeholder);*/
+    /*color: grey;*/
+    /*font-style: italic;*/
+}
+
+
 .btn-primary,
 .btn-primary:focus
 {

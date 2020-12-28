@@ -384,3 +384,7 @@ h5{
 hr{
     background-color: silver;
 }
+
+a.terms{
+    font-size: 15px !important;
+}

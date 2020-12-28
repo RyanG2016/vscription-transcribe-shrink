@@ -81,6 +81,7 @@ use Src\Payment\PaymentProcessor;
                     $_POST['city'],
                     $_POST['state'],
                     $_POST['country'],
+                    $_POST['zipcode'],
                     $_POST['name_on_card'],
                     $_POST['card_number'],
                     $_POST['cvv'],
@@ -89,6 +90,7 @@ use Src\Payment\PaymentProcessor;
                     $pkg,
                     $dbConnection
             );
+            $processor->saveUserAddress();
             $error = $processor->chargeCreditCardNow();
                 if(!$error)
                 {

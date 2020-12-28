@@ -271,7 +271,7 @@ if (isset($_SESSION['counter'])) {
                                             echo'>
                                                     <div class="form-row">
                                                         <div class="col">
-                                                            <em>Enable SR  <span id="srSwitchHelp" class="vtex-help-icon">(?)</span></em>
+                                                            <em>Enable Speech To Text  <span id="srSwitchHelp" class="vtex-help-icon">(?)</span></em>
                                                         </div>
                                                         <div class="col text-right">
                                                         <div class="mdc-switch mdc-switch--disabled ml-auto mt-auto mb-auto" id="srSwitch">
@@ -284,8 +284,8 @@ if (isset($_SESSION['counter'])) {
                                                     </div>
                                                     </div>
                                                     <div class="form-row m-t-25">
-                                                        <div class="col"><em>SR Balance (min) <i class="fas fa-plus-circle top-up" onclick="window.open(\'/packages.php\', \'_blank\')"></i></em> </div> 
-                                                        <div class="col text-right"><span id="srMinutes"></span></div> 
+                                                        <div class="col"><em>Speech-to-text minutes remaining: <span class="col p-0 text-left"><span id="srMinutes"></span></span> &nbsp; <i class="fas fa-plus-circle top-up" onclick="window.open(\'/packages.php\', \'_blank\')"></i></em> </div> 
+                                                        
                                                     </div>
                                                 </div>';
                                         }

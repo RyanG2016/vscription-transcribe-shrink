@@ -11,6 +11,7 @@ use net\authorize\api\contract\v1 as AnetAPI;
 use net\authorize\api\controller as AnetController;
 use Src\Enums\PAYMENT_STATUS;
 use Src\Models\Package;
+use Src\Models\User;
 use Src\TableGateways\paymentGateway;
 use Src\Models\Payment;
 use Src\Helpers\common;
@@ -31,6 +32,7 @@ class PaymentProcessor
         private $city,
         private $state,
         private $country,
+        private $zip,
 
         private $nameOnCard,
         private $cardNumber,
@@ -61,6 +63,23 @@ class PaymentProcessor
     {
         $arr = explode("/", $MMSlYY);
         return "20" . $arr[1] . "-" . $arr[0];
+    }
+
+    public function saveUserAddress()
+    {
+        $user = User::withID($_SESSION["uid"], $this->db);
+        $user->setAddress($this->address);
+//        $user->setFirstName($this->fname);
+//        $user->setLastName($this->lname);
+        $user->setAddress($this->address);
+        $user->setCity($this->city);
+        $user->setState($this->state);
+        $user->setZipcode($this->zip);
+        $user->setCountry($this->country);
+
+        $user->save();
+
+
     }
 
     public function chargeCreditCardNow():bool
@@ -99,7 +118,7 @@ class PaymentProcessor
         $customerAddress->setAddress($this->address);
         $customerAddress->setCity($this->city);
         $customerAddress->setState($this->state);
-//        $customerAddress->setZip("46282");
+        $customerAddress->setZip($this->zip);
         $customerAddress->setCountry($this->country);
 
         // Set the customer's identifying information

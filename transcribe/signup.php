@@ -391,7 +391,7 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
                 <div class="form-inline justify-content-center">
                     <label>
                         <input type="checkbox" id="tos"/>
-                        <small class="text-sm-right font-italic"> &nbsp; I have read and agreed to the Terms and Services</small>
+                        <small class="text-sm-right font-italic"> &nbsp; I have read and agreed to the <span ><a class="terms" href="">Terms and Services</a </span></small>
                     </label>
 
                 </div>

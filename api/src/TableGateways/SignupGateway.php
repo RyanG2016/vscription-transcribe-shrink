@@ -138,7 +138,6 @@ class SignupGateway
                   trials,
                   newsletter,
                   last_ip_address,
-                  plan_id,
                   address
                   ) 
                 values (
@@ -157,7 +156,6 @@ class SignupGateway
                     :trials,
                     :newsletter,
                     :last_ip_address,
-                    :plan_id,
                     :address
                   )
                   
@@ -182,7 +180,6 @@ class SignupGateway
                 "trials" => 0,
                 "newsletter" => 1,
                 "last_ip_address" => getIP(),
-                "plan_id" => 2,
                 "address" => $address
             ));
             $lastInsertedUID = $this->db->lastInsertId();

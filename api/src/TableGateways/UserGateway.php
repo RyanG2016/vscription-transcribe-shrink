@@ -3,13 +3,15 @@
 namespace Src\TableGateways;
 
 use PDOException;
+use Src\Models\BaseModel;
+use Src\Models\User;
 use Src\TableGateways\logger;
 use Src\System\Mailer;
 
 require "filters/usersFilter.php";
 include_once "common.php";
 
-class UserGateway
+class UserGateway implements GatewayInterface
 {
 
     private $db;
@@ -42,7 +44,6 @@ class UserGateway
                     users.state,
                     users.registeration_date,
                     users.last_ip_address,
-                    users.plan_id,
                     users.account_status,
                     users.last_login,
                     users.newsletter,
@@ -197,7 +198,6 @@ class UserGateway
                     users.state,
                     users.registeration_date,
                     users.last_ip_address,
-                    users.plan_id,
                     users.account_status,
                     users.last_login,
                     users.newsletter,
@@ -396,7 +396,6 @@ class UserGateway
                     users.state,
                     users.registeration_date,
                     users.last_ip_address,
-                    users.plan_id,
                     users.account_status,
                     users.last_login,
                     users.newsletter,
@@ -492,14 +491,6 @@ class UserGateway
         $fields .= ", " . "`last_ip_address`";
         $valsQMarks .= ", ?";
         array_push($valsArray, getIP());
-
-
-        // todo remove below
-        // plan_id hardcode default to typist
-        // deprecated - using access.role_id now instead
-        $fields .= ", " . "`plan_id`";
-        $valsQMarks .= ", ?";
-        array_push($valsArray, 3);
 
 
 
@@ -853,5 +844,121 @@ class UserGateway
     function generateRandomPassword($length = 12){
         $chars = "0123456789bcdfghjkmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ";
         return substr(str_shuffle($chars),0,$length);
+    }
+
+    public function insertModel(BaseModel $model): int
+    {
+        // TODO: Implement insertModel() method.
+    }
+
+    public function updateModel(BaseModel|User $model): int
+    {
+        $statement = "
+            UPDATE users
+            SET
+                first_name = :first_name,
+                last_name = :last_name,
+                email = :email,
+                password = :password,
+                city = :city,
+                country = :country,
+                zipcode = :zipcode,
+                state = :state,
+                address = :address
+            WHERE
+            id = :id;
+        ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array(
+                'id' => $model ->getId()  ,
+                'first_name' => $model ->getFirstName()  ,
+                'last_name' => $model ->getLastName()  ,
+                'email' => $model ->getEmail()  ,
+                'password' => $model ->getPassword()  ,
+                'city' => $model ->getCity()  ,
+                'country' => $model ->getCountry()  ,
+                'zipcode' => $model ->getZipcode()  ,
+                'state' => $model ->getState()  ,
+                'address' => $model ->getAddress()
+            ));
+            // setting session variables
+            $_SESSION['userData']['address'] = $model->getAddress();
+            $_SESSION['userData']['city'] = $model->getCity();
+            $_SESSION['userData']['state'] = $model->getState();
+            $_SESSION['userData']['country'] = $model->getCountry();
+            $_SESSION['userData']['zipcode'] = $model->getZipcode();
+
+            return $statement->rowCount();
+        } catch (\PDOException) {
+            return 0;
+        }
+    }
+
+    public function deleteModel(int $id): int
+    {
+        $statement = "
+            DELETE FROM users
+            WHERE id = :id;
+        ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array('id' => $id));
+            return $statement->rowCount();
+        } catch (\PDOException $e) {
+            return 0;
+//            exit($e->getMessage());
+        }
+    }
+
+    public function findModel($id): array|null
+    {
+
+        $statement = "
+            SELECT 
+                    id,
+                    first_name,
+                    last_name,
+                    email,
+                    password,
+                    city,
+                   country,
+                   zipcode,
+
+                    state,
+                   address
+                    
+                                      
+            FROM
+                users
+            WHERE
+                users.id = ?";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($id));
+            $result = $statement->fetch(\PDO::FETCH_ASSOC);
+            if($statement->rowCount() > 0)
+            {
+                return $result;
+            }else{
+                return null;
+            }
+        } catch (\PDOException $e) {
+            return null;
+//            exit($e->getMessage());
+        }
+    }
+
+    public function findAltModel($id): array|null
+    {
+        // TODO: Implement findAltModel() method.
+    }
+
+    public function findAllModel($page = 1): array|null
+    {
+        // TODO: Implement findAllModel() method.
     }
 }

@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    var editing = false;
+    var editing = true;
     var fname = $("#fname");
     var lname = $("#lname");
     var city = $("#city");
@@ -10,7 +10,27 @@ $(document).ready(function () {
     var paymentForm = $("#paymentForm");
     var payBtn = $("#payBtn");
     var overlay = $("#overlay");
+    var zip = $("#zip");
 
+    var countries = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.whitespace,
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        // url points to a json file that contains an array of country names, see
+        // https://github.com/twitter/typeahead.js/blob/gh-pages/data/countries.json
+        prefetch: '/data/thirdparty/typeahead/countries.json'
+    });
+
+// passing in `null` for the `options` arguments will result in the default
+// options being used
+    country.typeahead(null, {
+        name: 'countries',
+        source: countries
+    });
+
+    $.each( $( ".twitter-typeahead" ), function() {
+        // Do something
+        $(this).addClass("col");
+    });
 
     // validation
     var expCheck = false;
@@ -19,11 +39,12 @@ $(document).ready(function () {
     var cardCheck = false;
 
     // checkout
-    var cardNumberMasked = $("#cardNumberMasked");
-    var cardType = $("#cardType");
+    // var cardNumberMasked = $("#cardNumberMasked");
+    // var cardType = $("#cardType");
 
     function validatePaymentFields()
     {
+        console.log(expCheck + "\n" + nameCheck + "\n" +cvvCheck + "\n" +cardCheck);
         if(expCheck && nameCheck && cvvCheck && cardCheck)
         {
             // enable
@@ -39,42 +60,7 @@ $(document).ready(function () {
 
 
     paymentForm.on('submit', function (event) {
-        if(validatePaymentFields())
-        {
-            $("<input />").attr("type", "hidden")
-                .attr("name", "fname")
-                .attr("value", fname.html())
-                .appendTo(paymentForm);
-            $("<input />").attr("type", "hidden")
-                .attr("name", "lname")
-                .attr("value", lname.html())
-                .appendTo(paymentForm);
-
-            $("<input />").attr("type", "hidden")
-                .attr("name", "city")
-                .attr("value", city.html())
-                .appendTo(paymentForm);
-
-            $("<input />").attr("type", "hidden")
-                .attr("name", "state")
-                .attr("value", state.html())
-                .appendTo(paymentForm);
-
-            $("<input />").attr("type", "hidden")
-                .attr("name", "country")
-                .attr("value", country.html())
-                .appendTo(paymentForm);
-
-            $("<input />").attr("type", "hidden")
-                .attr("name", "address")
-                .attr("value", address.html())
-                .appendTo(paymentForm);
-            overlay.css("display", "block");
-            return true;
-        }else{
-            // console.log(paymentForm.serializeArray());
-            return false;
-        }
+        return validatePaymentFields();
     });
 
     $("#edit").on("click", function() {
@@ -94,19 +80,22 @@ $(document).ready(function () {
     {
         if(editing)
         {
-            fname.attr("contentEditable", true).focus();
-            lname.attr("contentEditable", true);
-            city.attr("contentEditable", true);
-            state.attr("contentEditable", true);
-            address.attr("contentEditable", true);
-            country.attr("contentEditable", true);
+            fname.removeAttr("readonly").focus();
+            lname.removeAttr("readonly");
+            city.removeAttr("readonly");
+            state.removeAttr("readonly");
+            address.removeAttr("readonly");
+            country.removeAttr("readonly");
+            zip.removeAttr("readonly");
         }else{
-            fname.removeAttr("contentEditable");
-            lname.removeAttr("contentEditable");
-            city.removeAttr("contentEditable");
-            state.removeAttr("contentEditable");
-            address.removeAttr("contentEditable");
-            country.removeAttr("contentEditable");
+            fname.attr("readonly", "readonly");
+            lname.attr("readonly", "readonly");
+            city.attr("readonly", "readonly");
+            state.attr("readonly", "readonly");
+            address.attr("readonly", "readonly");
+            country.attr("readonly", "readonly");
+            zip.attr("readonly", "readonly");
+
         }
     }
 
@@ -381,12 +370,12 @@ $(document).ready(function () {
         if(cardnumber_mask.value.length > 12 && cardnumber_mask.masked.currentMask.cardtype != "Unknown")
         {
             cardCheck = true;
-            cardType.html(cardnumber_mask.masked.currentMask.cardtype);
-            cardNumberMasked.html(maskCardNumber(cardnumber_mask.value));
+            // cardType.html(cardnumber_mask.masked.currentMask.cardtype);
+            // cardNumberMasked.html(maskCardNumber(cardnumber_mask.value));
         }
         else{
-            cardType.html("");
-            cardNumberMasked.html("");
+            // cardType.html("");
+            // cardNumberMasked.html("");
             cardCheck = false;
         }
         validatePaymentFields();

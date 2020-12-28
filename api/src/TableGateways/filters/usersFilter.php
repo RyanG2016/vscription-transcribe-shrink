@@ -23,7 +23,6 @@ function parseUserParams($addWhereClause = false){
                 case "state":
                 case "registeration_date":
                 case "last_ip_address":
-                case "plan_id":
                 case "account_status":
                 case "last_login":
                 case "newsletter":
@@ -111,7 +110,6 @@ function sqlInjectionUserCheckPassed($array){
             case "city":
             case "state":
             case "last_ip_address":
-            case "plan_id":
             case "account_status":
             case "last_login":
             case "trials":
