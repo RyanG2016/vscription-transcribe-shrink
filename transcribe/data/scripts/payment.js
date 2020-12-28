@@ -142,9 +142,11 @@ $(document).ready(function () {
                     {
 
                         country.typeahead('val', "Canada");
+                        enableCaEngine();
                     }else if(countryLookup === "us")
                     {
                         country.typeahead('val',"United States");
+                        enableUsEngine();
                     }
 
 
@@ -181,23 +183,147 @@ $(document).ready(function () {
     }).blur(function(){
         let match = false;
         for (var i = 0; i < Object.keys(countriesEngine.index.datums).length; i++) {
-            if($(this).val() == Object.keys(countriesEngine.index.datums)[i]){
+            let currentCountry = $(this).val();
+            if(currentCountry == Object.keys(countriesEngine.index.datums)[i]){
                 match = true;
-                countryCheck = true;
+                // countryCheck = true;
                 country.removeClass("vtex-err-border");
+
+                if(currentCountry === "United States")
+                {
+                    enableUsEngine();
+                    state.blur();
+                }else if(currentCountry === "Canada"){
+                    enableCaEngine();
+                    state.blur();
+                }else{
+                    disableEngines();
+                }
             }
         }
         if(!match){
             // console.log("Invalid Selection");
             country.addClass("vtex-err-border");
-            countryCheck = false;
+            // countryCheck = false;
         }
     });
+    fixTypeAheadCols();
 
-    $.each( $( ".twitter-typeahead" ), function() {
-        // Do something
-        $(this).addClass("col");
+
+    var usStates = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
+        'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii',
+        'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana',
+        'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota',
+        'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire',
+        'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota',
+        'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island',
+        'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
+        'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
+    ];
+
+    var caStates = [
+        "Alberta",
+        "British Columbia",
+        "Manitoba",
+        "New Brunswick",
+        "Newfoundland and Labrador",
+        "Nova Scotia",
+        "Northwest Territories",
+        "Nunavut",
+        "Ontario",
+        "Prince Edward Island",
+        "Québec",
+        "Saskatchewan",
+        "Yukon"
+    ];
+
+    // constructs the suggestion engine
+    var usStatesEngine = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.whitespace,
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        // `states` is an array of state names defined in "The Basics"
+        local: usStates
     });
+
+    var caStatesEngine = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.whitespace,
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        // `states` is an array of state names defined in "The Basics"
+        local: caStates
+    });
+
+    function disableEngines()
+    {
+        state.typeahead('destroy');
+        state.removeClass("vtex-err-border");
+    }
+
+    function fixTypeAheadCols()
+    {
+        $.each( $( ".twitter-typeahead" ), function() {
+            // Do something
+            $(this).addClass("col");
+        });
+    }
+
+
+    function enableCaEngine(){
+        disableEngines();
+        state.typeahead({
+                hint: true,
+                highlight: true,
+                minLength: 1
+            },
+            {
+                name: 'states',
+                source: caStatesEngine
+            }).blur(function () {
+            let match2 = false;
+            for (var i = 0; i < Object.keys(caStatesEngine.index.datums).length; i++) {
+                if ($(this).val() == Object.keys(caStatesEngine.index.datums)[i]) {
+                    match2 = true;
+                    state.removeClass("vtex-err-border");
+                }
+            }
+            if (!match2) {
+                // console.log("Invalid Selection");
+                state.addClass("vtex-err-border");
+            }
+        });
+        fixTypeAheadCols();
+    }
+
+
+    function enableUsEngine()
+    {
+        disableEngines();
+        state.typeahead({
+                hint: true,
+                highlight: true,
+                minLength: 1
+            },
+            {
+                name: 'states',
+                source: usStatesEngine
+            }).blur(function(){
+            let match2 = false;
+            for (var i = 0; i < Object.keys(usStatesEngine.index.datums).length; i++) {
+                if($(this).val() == Object.keys(usStatesEngine.index.datums)[i]){
+                    match2 = true;
+                    state.removeClass("vtex-err-border");
+                }
+            }
+            if(!match2){
+                // console.log("Invalid Selection");
+                state.addClass("vtex-err-border");
+            }
+        });
+        fixTypeAheadCols();
+    }
+
+
+    // enableCaEngine();
+
 
     // checkout
     // var cardNumberMasked = $("#cardNumberMasked");
