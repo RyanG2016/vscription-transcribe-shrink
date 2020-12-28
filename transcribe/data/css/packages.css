@@ -184,7 +184,8 @@ a:hover {
     border-bottom-width: 0;
     border-radius: 0 0 0 0;
     padding: 40px 40px 10px !important;
-    height: 111px;
+    height: fit-content;
+    white-space: nowrap;
 
     /*font-family: opensans-l,  serif;*/
     /*max-width: 200px;*/
