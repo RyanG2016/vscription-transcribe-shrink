@@ -127,7 +127,7 @@ $(document).ready(function () {
 			{ "data": "text_downloaded_date" },
 			{ "data": "times_text_downloaded_date",
 				render: function ( data, type, row ) {
-					if(row["file_status"] == 3){
+					if(row["file_status"] == 3 || row["file_status"] == 7){
 						return "<a id='view-icon' class=\"material-icons view-icon\">visibility</a> <a class=\"material-icons download-icon\">cloud_download</a> <span class='times-downloaded'>+"+data+"</span>";
 					}else{
 						return "";
