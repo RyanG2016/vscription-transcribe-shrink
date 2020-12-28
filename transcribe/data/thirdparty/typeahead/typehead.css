@@ -85,7 +85,12 @@ p + p {
 }
 
 .tt-hint {
-    color: #999;
+    /*color: #999;*/
+    /**/
+    visibility:hidden !important;
+    opacity: 0 !important;
+    /*color: white !important;*/
+
 }
 
 .tt-menu {

@@ -6,7 +6,8 @@ $(document).ready(function () {
     const NAME_REGEX = /^[^0-9\.\,\'\"\?\!\;\:\#\$\%\&\(\)\*\+\-\/\<\>\=\@\[\]\\\^\_\{\}\|\~]+$/;
     const ACC_REGEX = /^$|^[^0-9\.\,\'\"\?\!\;\:\#\$\%\&\(\)\*\+\-\/\<\>\=\@\[\]\\\^\_\{\}\|\~]+$/;
     const CITY_REGEX = /^[^\,\'\"\?\!\;\:\#\$\%\&\*\+\-\/\<\>\=\@\[\]\\\^\_\{\}\(\)\|\~]{2,}$/;
-    const CITY_FILTER_REGEX = /[^a-zA-Z0-9. ]/gi;
+    // const CITY_FILTER_REGEX = /[^a-zA-Z0-9. ]/gi;
+    const CITY_FILTER_REGEX = /\(.*| st.*|[^a-zA-Z0-9. ]/gi;
     const ADDRESS_REGEX = /^[^\,\'\"\?\!\;\:\#\$\%\&\*\+\-\/\<\>\=\@\[\]\\\^\_\\(\){\}\|\~]{5,100}$/;
     const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,. <>\/?]).{8,60}$/;
 
@@ -22,6 +23,63 @@ $(document).ready(function () {
     var overlay = $("#overlay");
     var zip = $("#zip");
     var lastZipRequested = "";
+
+
+    //  validation //
+    // > billing addres
+    // var fnameCheck = false;
+    // var lnameCheck = false;
+    // var cityCheck = false;
+    // var stateCheck = false;
+    // var addressCheck = false;
+    // var countryCheck = false;
+    // var zipCheck = false;
+
+    // > payment
+    var expCheck = false;
+    var nameCheck = true;
+    var cvvCheck = false;
+    var cardCheck = false;
+
+
+    fname.keyup(function () {
+        regexCheck($(this), NAME_REGEX);
+    });
+    lname.keyup(function () {
+        regexCheck($(this), NAME_REGEX);
+    });
+
+    city.keyup(function () {
+        regexCheck($(this), CITY_REGEX);
+    });
+
+    address.keyup(function () {
+        regexCheck($(this), ADDRESS_REGEX);
+    });
+
+    function regexCheck(item, regx){
+        if(regx.test(item.val()))
+        {
+            setValidation(item, true);
+            return true;
+        }else{
+            setValidation(item, false);
+            return false;
+        }
+    }
+
+    function setValidation(item, bool)
+    {
+        if(bool)
+        {
+            item.removeClass("vtex-err-border");
+        }
+        else{
+            item.addClass("vtex-err-border");
+        }
+
+        validatePaymentFields();
+    }
 
     zip.keyup(function () {
         // check for matching regex
@@ -75,7 +133,7 @@ $(document).ready(function () {
                 .done(function(response) {
                     // var location = JSON.parse(response);
                     // "Winnipeg (St. Boniface NE)"
-                    city.val(response["places"][0]["place name"].replace(CITY_FILTER_REGEX,""));
+                    city.val(response["places"][0]["place name"].replace(CITY_FILTER_REGEX,"").trim());
                     // checkCity();
 
                     state.val(response["places"][0]["state"]);
@@ -107,7 +165,7 @@ $(document).ready(function () {
     }
 
 
-    var countries = new Bloodhound({
+    var countriesEngine = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.whitespace,
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         // url points to a json file that contains an array of country names, see
@@ -119,7 +177,21 @@ $(document).ready(function () {
 // options being used
     country.typeahead(null, {
         name: 'countries',
-        source: countries
+        source: countriesEngine
+    }).blur(function(){
+        let match = false;
+        for (var i = 0; i < Object.keys(countriesEngine.index.datums).length; i++) {
+            if($(this).val() == Object.keys(countriesEngine.index.datums)[i]){
+                match = true;
+                countryCheck = true;
+                country.removeClass("vtex-err-border");
+            }
+        }
+        if(!match){
+            // console.log("Invalid Selection");
+            country.addClass("vtex-err-border");
+            countryCheck = false;
+        }
     });
 
     $.each( $( ".twitter-typeahead" ), function() {
@@ -127,20 +199,16 @@ $(document).ready(function () {
         $(this).addClass("col");
     });
 
-    // validation
-    var expCheck = false;
-    var nameCheck = true;
-    var cvvCheck = false;
-    var cardCheck = false;
-
     // checkout
     // var cardNumberMasked = $("#cardNumberMasked");
     // var cardType = $("#cardType");
 
     function validatePaymentFields()
     {
-        console.log(expCheck + "\n" + nameCheck + "\n" +cvvCheck + "\n" +cardCheck);
-        if(expCheck && nameCheck && cvvCheck && cardCheck)
+        // console.log(expCheck + "\n" + nameCheck + "\n" +cvvCheck + "\n" +cardCheck);
+        if(expCheck && nameCheck && cvvCheck && cardCheck &&
+            $(".vtex-err-border").length === 0
+            )
         {
             // enable
             payBtn.removeAttr("disabled");

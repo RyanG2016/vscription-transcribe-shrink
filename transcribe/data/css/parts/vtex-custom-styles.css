@@ -65,6 +65,13 @@
     padding: 3px !important;
     text-align: left;
 }
+
+.vtex-editable-input.vtex-err-border{
+    margin-bottom: 3px;
+    padding: 3px !important;
+    text-align: left;
+    border: 2px solid darkred;
+}
 .vtex-editable-input:focus {
     border: 2px solid #0097cf;
 }
