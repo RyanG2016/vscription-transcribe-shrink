@@ -21,6 +21,7 @@ class Package extends BaseModel implements BaseModelInterface
                                 public string $srp_name = '',
                                 public float $srp_minutes = 0.00,
                                 public ?float $srp_price = 0.00,
+                                public string $srp_desc = '',
                                 private $db = null
     )
     {
@@ -81,17 +82,43 @@ class Package extends BaseModel implements BaseModelInterface
             $this->srp_name = $row['srp_name'];
             $this->srp_minutes = $row['srp_minutes'];
             $this->srp_price = $row['srp_price'];
+            $this->srp_desc = $row['srp_desc'];
 
         }
     }
 
-
-    // Custom DB queries -------------------
-
-    protected function loadFromDBwithAccID($account_id) {
-        $row = $this->pkgGateway->findByAccID($account_id);
-        $this->fill( $row );
+    /**
+     * @return float
+     */
+    public function getSrpMinutes(): float
+    {
+        return $this->srp_minutes;
     }
+
+    /**
+     * @param float $srp_minutes
+     */
+    public function setSrpMinutes(float $srp_minutes): void
+    {
+        $this->srp_minutes = $srp_minutes;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSrpDesc(): string
+    {
+        return $this->srp_desc;
+    }
+
+    /**
+     * @param string $srp_desc
+     */
+    public function setSrpDesc(string $srp_desc): void
+    {
+        $this->srp_desc = $srp_desc;
+    }
+
 
 
     // getters and setters //////
