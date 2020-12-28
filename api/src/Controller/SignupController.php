@@ -99,17 +99,15 @@ class SignupController {
             !isset($_POST["password"]) ||
             !isset($_POST["fname"]) ||
             !isset($_POST["lname"]) ||
-            !isset($_POST["countryID"]) ||
+            !isset($_POST["country"]) ||
 
-            ( isset($_POST["stateID"]) && !is_numeric($_POST["stateID"]) )
-            ||
+//            ( isset($_POST["stateID"]) && !is_numeric($_POST["stateID"]) )
+//            ||
             empty($_POST["email"]) ||
             empty($_POST["password"]) ||
             empty($_POST["fname"]) ||
             empty($_POST["lname"]) ||
-            empty($_POST["countryID"]) ||
-//            empty($_POST["stateID"]) ||
-            !is_numeric($_POST["countryID"])
+            empty($_POST["country"])
         ){
             return $this->unprocessableEntityResponse();
         }

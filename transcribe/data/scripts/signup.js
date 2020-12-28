@@ -9,8 +9,8 @@
 
 $(document).ready(function () {
 
-    var stateRequest;
-    var stateGroup;
+    // var stateRequest;
+    // var stateGroup;
     var signupBtn;
     var signedUp = false;
     var pwd;
@@ -18,24 +18,19 @@ $(document).ready(function () {
     // var prevDiv = $(".prev-btn-div");
     // var nextDiv = $(".next-btn-div");
 
-    // zip lookup
-    var zip;
     var currentCountry = 203;
-    var lastZipRequested = "";
 
     // boxes
     /*var countryBox;*/
-    var caStates = {};
-    var usStates = {};
+    // var caStates = {};
+    // var usStates = {};
 
     var countriesURL = "../api/v1/countries/";
-    var stateURL = "../api/v1/cities/";
     var signupURL = "../api/v1/signup/";
     var verifyURL = "verify.php";
     var loginURL = "../api/v1/login";
-    var zippoURL = "https://api.zippopotam.us/";
 
-    var statesJson = false;
+    // var statesJson = false;
     var countriesJson = false;
 
     const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,. <>\/?]).{8,60}$/;
@@ -44,27 +39,25 @@ $(document).ready(function () {
     const EMAIL_REGEX = /^[a-z0-9_]+(?:\.[a-z0-9_]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
     const NAME_REGEX = /^[^0-9\.\,\'\"\?\!\;\:\#\$\%\&\(\)\*\+\-\/\<\>\=\@\[\]\\\^\_\{\}\|\~]+$/;
     const ACC_REGEX = /^$|^[^0-9\.\,\'\"\?\!\;\:\#\$\%\&\(\)\*\+\-\/\<\>\=\@\[\]\\\^\_\{\}\|\~]+$/;
-    const CITY_REGEX = /^[^\,\'\"\?\!\;\:\#\$\%\&\*\+\-\/\<\>\=\@\[\]\\\^\_\{\}\(\)\|\~]{2,}$/;
-    const CITY_FILTER_REGEX = /[^a-zA-Z0-9. ]/gi;
-    const ADDRESS_REGEX = /^[^\,\'\"\?\!\;\:\#\$\%\&\*\+\-\/\<\>\=\@\[\]\\\^\_\\(\){\}\|\~]{5,100}$/;
-    const percentagePerProgress = 0.145; // in percentage eg. 0.2 = 20%
+    // const CITY_REGEX = /^[^\,\'\"\?\!\;\:\#\$\%\&\*\+\-\/\<\>\=\@\[\]\\\^\_\{\}\(\)\|\~]{2,}$/;
+    // const CITY_FILTER_REGEX = /[^a-zA-Z0-9. ]/gi;
+    // const ADDRESS_REGEX = /^[^\,\'\"\?\!\;\:\#\$\%\&\*\+\-\/\<\>\=\@\[\]\\\^\_\\(\){\}\|\~]{5,100}$/;
+    const percentagePerProgress = 0.20; // in percentage eg. 0.2 = 20%
 
     // progress variables
     var em = false;
     var pw = false;
     var cp = false;
     var fn = false;
-    var ci = false;
     var ln = false;
-    var ad = false;
     var correctCount = 0;
-    var maxCount = 7;
+    var maxCount = 5;
 
     var currentPage = 0;
     // var nextPageBtn = $("#nextBtn");
     // var prevPageBtn = $("#prevBtn");
-    var zipCode = $("#inputZip");
-    var address = $("#inputAddress");
+    // var zipCode = $("#inputZip");
+    // var address = $("#inputAddress");
     var tosDiv = $("#tosDiv");
     var tos = $("#tos");
     var haveAccCheckbox = $("#haveAccCB");
@@ -74,15 +67,15 @@ $(document).ready(function () {
     fName = $("#inputfName");
     accName = $("#inputAccName");
     lName = $("#inputlName");
-    city = $("#inputCity");
-    code = $("#code");
+    // city = $("#inputCity");
+    // code = $("#code");
     progressDiv = $("#formProgressDiv");
     progressBar = $("#formProgressBar");
     loginProgressDiv = $("#loginProgressDiv");
     loginProgress = $("#loginProgress");
-    stateGroup = $("#stateGroup");
+    // stateGroup = $("#stateGroup");
     countryBox = $("#countryBox");
-    stateBox = $("#stateBox");
+    // stateBox = $("#stateBox");
     carousel = $("#signupCarousel");
     pwd = $("#inputPassword");
     confirmPwd = $("#inputConfirmPassword");
@@ -136,21 +129,6 @@ $(document).ready(function () {
         return regexCheck(accName,ACC_REGEX);
     }
 
-    function checkCity()
-    {
-        var res = regexCheck(city,CITY_REGEX);
-        changeProgress(ci, res);
-        ci = res;
-        return res;
-    }
-
-    function checkAddress()
-    {
-        var res = regexCheck(address,ADDRESS_REGEX);
-        changeProgress(ad, res);
-        ad = res;
-        return res;
-    }
 
     function checkName(nameIndex) {
         switch (nameIndex) {
@@ -249,92 +227,9 @@ $(document).ready(function () {
         checkEmail();
     });
 
-    zipCode.keyup(function () {
-        // check for matching regex
-        var CA_REGEX = /^[a-zA-Z0-9]{3}$|^[a-zA-Z0-9]{6}$|^[a-zA-Z0-9]{3} [a-zA-Z0-9]{3}$/;
-        var US_REGEX = /^[0-9]{5}$/;
-        zip = zipCode.val();
-
-        switch (zip.length) {
-
-            // CA
-            case 3:
-            case 6:
-                if(CA_REGEX.test(zip))
-                {
-                    // lookup CA address
-                    if(currentCountry != 203)
-                    {
-                        $("#countryBox").selectpicker('val', 203);
-                    }
-                    lookupZip(zip.slice(0,3), "ca");
-                }
-                break;
-
-            // US
-            case 5:
-                if(US_REGEX.test(zip))
-                {
-                    // lookup US address
-                    if (currentCountry != 204) {
-                        $("#countryBox").selectpicker('val', 204);
-                    }
-                    lookupZip(zip, "us");
-                }
-                break;
-        }
-
-    });
-
-    function lookupZip(zip, country)
-    {
-        if(lastZipRequested != zip)
-        {
-            // var jqxhr = $.get( "example.php", function() {
-            // console.log("Looking up in " + country + " Zip: " + zip);
-            $.get( zippoURL + country + "/"+ zip, function() {
-                // alert( "success" );
-            })
-                .done(function(response) {
-                    // var location = JSON.parse(response);
-                    "Winnipeg (St. Boniface NE)"
-                    city.val(response["places"][0]["place name"].replace(CITY_FILTER_REGEX,""));
-                    checkCity();
-
-                    if(country == "us")
-                    {
-                        stateBox.selectpicker('val', usStates[response["places"][0]["state"]])
-                    }
-                    else if(country == "ca")
-                    {
-                        stateBox.selectpicker('val', caStates[response["places"][0]["state"]]);
-                    }
-
-                    // console.log(response);
-                })
-                .fail(function(error) {
-                    // couldn't get address
-                    // console.log("Failed to locate address by zip/postal code");
-                    // alert( "error" );
-                });
-            /*.always(function() {
-                alert( "finished" );
-            });*/
-        }
-
-        lastZipRequested = zip;
-    }
 
     accName.keyup(function() {
         checkAccName();
-    });
-
-    city.keyup(function() {
-        checkCity();
-    });
-
-    address.keyup(function() {
-        checkAddress();
     });
 
     pwd.keyup(function(){
@@ -457,8 +352,6 @@ $(document).ready(function () {
             checkPassword() &&
             checkConfirmPassword() &&
             checkAccName() &&
-            checkAddress() &&
-            checkCity() &&
             checkName(1) &&
             checkName(2)) {
             pass = true;
@@ -492,7 +385,8 @@ $(document).ready(function () {
                     title: 'TOS',
                     type: 'orange',
                     content: 'You must agree to the Terms of Service',
-                    theme: 'supervan'
+                    theme: 'supervan',
+                    columnClass: 'col-8'
                 });
                 return;
             }
@@ -517,6 +411,7 @@ $(document).ready(function () {
             $.confirm({
                 title: 'Signup',
                 theme: 'supervan',
+                columnClass: 'col-8',
                 content: function(){
                     var self = this;
                     // self.setContent('Checking callback flow');
@@ -632,6 +527,7 @@ $(document).ready(function () {
         $.confirm({
             title: 'Login',
             theme: 'supervan',
+            columnClass: 'col-8',
             content: function(){
                 var self = this;
                 // self.setContent('Checking callback flowChecking callback flow');
@@ -692,6 +588,7 @@ $(document).ready(function () {
             $.confirm({
                 title: 'Signup',
                 theme: 'supervan',
+                columnClass: 'col-8',
                 content: function(){
                     var self = this;
 
@@ -749,7 +646,7 @@ $(document).ready(function () {
         cursoropacitymax: 0.7
     });
 
-    cacheAllStates();
+
 
     countryBox.on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
         // do something...
@@ -757,14 +654,14 @@ $(document).ready(function () {
         // console.log(e);
         // console.log(countryBox.selectpicker('val')); // selected value
         currentCountry = countryBox.selectpicker('val');
-        var state = countryBox.selectpicker('val');
-        if (state === "203" || state === "204") {
-            $("#stateSpin")[0].style.display = "block";
-            stateGroup[0].style.display = "block";
-            loadState(countryBox.selectpicker('val'));
-        } else {
-            stateGroup[0].style.display = "none";
-        }
+        // var state = countryBox.selectpicker('val');
+        // if (state === "203" || state === "204") {
+        //     $("#stateSpin")[0].style.display = "block";
+        //     stateGroup[0].style.display = "block";
+        //     // loadState(countryBox.selectpicker('val'));
+        // } else {
+        //     stateGroup[0].style.display = "none";
+        // }
 
     });
 
@@ -774,91 +671,6 @@ $(document).ready(function () {
     //*-------------------------------------------------------*\\
 //*----------------------- JS Functions ------------------*\\
 //*-------------------------------------------------------*\\
-
-    function cacheAllStates(){
-        stateRequest = $.ajax({
-            url: stateURL,
-            method: "GET",
-            success: function (states) {
-
-                for (const state of states) {
-                    // console.log(country.id);
-                    if(state.country == "203")
-                    {
-                        caStates[state.city] = state.id;
-                    }
-                    else if(state.country == "204")
-                    {
-                        usStates[state.city] = state.id;
-                    }
-                }
-                loadState(203);
-            }
-        });
-
-    }
-
-    function loadState(id) {
-        // stateInputLbl.css("display","none");
-        // stateBoxLbl.css("display","none");
-        // cityContainer.css("display","none");
-        currentCountry = id;
-
-        // removeLoadingSpinner(); // if any left over
-        // stateContainer.append(generateLoadingSpinner());
-        // countryBox.selectpicker('destroy');
-        stateBox.selectpicker('destroy');
-
-        if (stateRequest != null) {
-            stateRequest.abort();
-        }
-
-        if(currentCountry == 203 && Object.keys(caStates).length != 0)
-        {
-            // load cached
-
-            stateBox.html(""); // clear old values
-            for (var key in caStates) {
-
-                stateBox.html(stateBox.html() +
-                    "<option value='" + caStates[key] + "'>" +
-                    key +
-                    "</option>");
-            }
-
-
-            stateBox.selectpicker({
-                liveSearch: true,
-                liveSearchPlaceholder: "Search"
-            });
-            stateBox.selectpicker('refresh');
-            $("#stateSpin")[0].style.display = "none";
-            stateBox.display = "block";
-
-        }
-        else if(currentCountry == 204 && Object.keys(usStates).length != 0) {
-            // load cached
-
-            stateBox.html(""); // clear old values
-            for (var key in usStates) {
-
-                stateBox.html(stateBox.html() +
-                    "<option value='" + usStates[key] + "'>" +
-                    key +
-                    "</option>");
-            }
-
-            stateBox.selectpicker({
-                liveSearch: true,
-                liveSearchPlaceholder: "Search"
-            });
-            stateBox.selectpicker('refresh');
-            $("#stateSpin")[0].style.display = "none";
-            stateBox.display = "block";
-
-        }
-
-    }
 
 /////////////////////////////////////////
 
@@ -885,7 +697,7 @@ $(document).ready(function () {
                 for (const country of countries) {
                     // console.log(country.id);
                     countryBox.html(countryBox.html() +
-                        "<option value='" + country.id + "'>" +
+                        "<option value='" + country.country + "'>" +
                         country.country +
                         "</option>");
                 }

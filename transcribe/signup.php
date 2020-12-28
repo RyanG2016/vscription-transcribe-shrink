@@ -139,41 +139,8 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
                                 <div class="w-100 m-t-16"></div>
 
 
-                                <!----------------------PASSWORD-------------->
-                                <label for="inputPassword"><i class="fas fa-key"></i> Password</label>
-                                <input type="password" class="form-control" id="inputPassword" placeholder="Password"
-                                       name="password"
-                                       title="Password Requirements"
-                                       data-trigger="focus"
-                                       required>
-                                <!--<div class="valid-feedback">
-                                    Looks good!
-                                </div>-->
-                                <div class="invalid-feedback">
-                                    Please enter a valid password
-                                </div>
 
-                                <!----------------------Line Break----------------->
-                                <div class="w-100 m-t-16"></div>
-
-                                <!----------------------Confirm Password-------------->
-                                <label for="inputConfirmPassword"><i class="fas fa-key"></i> Confirm Password</label>
-                                <input type="password" class="form-control" id="inputConfirmPassword"
-                                       placeholder="Confirm Password"
-                                       title="Confirm Password"
-                                       data-trigger="focus"
-                                       required>
-                                <!--<div class="valid-feedback">
-                                    Looks good!
-                                </div>-->
-                                <div class="invalid-feedback">
-                                    Passwords doesn't match.
-                                </div>
-
-
-                                <!----------------------Line Break----------------->
-                                <div class="w-100 m-t-16"></div>
-
+                                <!----------------------Organization----------------->
 
                                 <label for="inputAccName"><i class="fas fa-sitemap"></i> Organization Name</label>
                                 <input type="text" class="form-control" id="inputAccName" placeholder="" name="accname"
@@ -198,11 +165,58 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
                                     </div>
                                 </div>
 
+
+
+                                <!----------------------Line Break----------------->
+                                <div class="w-100 m-t-16"></div>
+
                             </div>
                             <!----------------- 2nd column ---------------->
                             <div class="col vtex-left-divider">
 
                                 <div class="form-row m-0">
+
+                                    <div class="col">
+                                        <!----------------------PASSWORD-------------->
+                                        <label for="inputPassword"><i class="fas fa-key"></i> Password</label>
+                                        <input type="password" class="form-control" id="inputPassword" placeholder="Password"
+                                               name="password"
+                                               title="Password Requirements"
+                                               data-trigger="focus"
+                                               required>
+                                        <!--<div class="valid-feedback">
+                                            Looks good!
+                                        </div>-->
+                                        <div class="invalid-feedback">
+                                            Please enter a valid password
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <!----------------------Confirm Password-------------->
+                                        <label for="inputConfirmPassword"><i class="fas fa-key"></i> Confirm Password</label>
+                                        <input type="password" class="form-control" id="inputConfirmPassword"
+                                               placeholder="Confirm Password"
+                                               title="Confirm Password"
+                                               data-trigger="focus"
+                                               required>
+                                        <!--<div class="valid-feedback">
+                                            Looks good!
+                                        </div>-->
+                                        <div class="invalid-feedback">
+                                            Passwords doesn't match.
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+
+
+
+                                <div class="w-100 m-t-16"></div>
+
+                                <div class="form-row m-0">
+
                                     <!----------------------NAME----------------->
                                     <div class="col">
                                         <label for="inputfName"><i class="fas fa-font"></i> First Name</label>
@@ -223,19 +237,15 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
                                             Looks good!
                                         </div>-->
                                     </div>
+
+
                                 </div>
 
                                 <div class="w-100 m-t-16"></div>
 
+                                <!----------------------Country----------------->
                                 <div class="form-row m-0">
-                                    <!----------------------Postal Code----------------->
 
-                                    <div class="col">
-                                        <label for="inputZip"><i class="fas fa-atlas"></i> Address lookup <small class="text-muted">US/CA only</small></label>
-                                        <input type="text" class="form-control" id="inputZip" placeholder="Zip/Postal Code">
-                                    </div>
-
-                                    <!----------------------Country----------------->
                                     <div class="col">
                                         <label for="countryBox"><i class="fas fa-globe-americas"></i> Country</label>
                                         <div class="spinner" id="countrySpin">
@@ -244,48 +254,17 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
                                             <div class="bounce3"></div>
                                         </div>
                                         <select class="form-control show-tick country-box" id="countryBox" data-container="body"
-                                                data-dropup-auto="false" name="countryID">
+                                                data-dropup-auto="false" name="country">
                                             <option selected>Loading...</option>
                                         </select>
                                     </div>
-                                </div>
-
-                                <div class="w-100 m-t-16"></div>
-
-                                <div class="form-row m-0">
-                                    <!----------------------Address Line-------------->
-                                    <div class="col">
-                                        <label for="inputAddress"><i class="fas fa-map-marker-alt"></i> Address Line</label>
-                                        <input type="text" class="form-control" id="inputAddress" placeholder="100 characters max" name="address">
-                                    </div>
 
                                 </div>
+
 
                                 <!----------------------Line Break----------------->
                                 <div class="w-100 m-t-16"></div>
 
-
-                               <div class="form-row m-0">
-                                   <!----------------------City----------------->
-                                   <div class="col">
-                                       <label for="inputCity"><i class="fas fa-city"></i> City</label>
-                                       <input type="text" class="form-control" id="inputCity" placeholder="" name="city">
-                                   </div>
-
-                                   <!----------------------Province----------------->
-                                   <div class="col" id="stateGroup">
-                                       <label for="countryBox"><i class="fas fa-flag"></i> Province/State</label>
-                                       <div class="spinner" id="stateSpin">
-                                           <div class="bounce1"></div>
-                                           <div class="bounce2"></div>
-                                           <div class="bounce3"></div>
-                                       </div>
-                                       <select class="form-control show-tick state-box" id="stateBox" data-container="body"
-                                               data-dropup-auto="false" name="stateID">
-                                           <option selected>Loading...</option>
-                                       </select>
-                                   </div>
-                               </div>
 
 
                             </div>

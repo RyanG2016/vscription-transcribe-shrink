@@ -86,11 +86,11 @@ class SignupGateway
         $fname = $_POST["fname"];
         $lname = $_POST["lname"];
         $ref = isset($_POST["ref"])?$_POST["ref"]:false;
-        $countryID = $_POST["countryID"];
-        $stateID = $_POST["stateID"]?$_POST["stateID"]:null;
-        $city = isset($_POST["city"])?$_POST["city"]:null;
+        $country = $_POST["country"];
+//        $stateID = $_POST["stateID"]?$_POST["stateID"]:null;
+//        $city = isset($_POST["city"])?$_POST["city"]:null;
 //        $address = $_POST["address"];
-        $address = isset($_POST["address"]) ? (empty(trim($_POST["address"]))? "": $_POST["address"]) :'';
+//        $address = isset($_POST["address"]) ? (empty(trim($_POST["address"]))? "": $_POST["address"]) :'';
         $accName = isset($_POST["accname"]) ? (empty(trim($_POST["accname"]))? false: $_POST["accname"]) :false;
 
         // DEBUG simulate error
@@ -98,7 +98,7 @@ class SignupGateway
 //        return generateApiHeaderResponse("Couldn't sign you up, please contact system admin", true);
 
         // state check
-        if($countryID == 204 || $countryID == 203)
+        /*if($countryID == 204 || $countryID == 203)
         {
             if($stateID == null) return generateApiHeaderResponse("Incorrect state input", true);
             $stateArr = $this->cityGateway->getCity($stateID);
@@ -119,7 +119,7 @@ class SignupGateway
             }
             $stateID = null;
             $stateName = null;
-        }
+        }*/
 
         $statement = "INSERT INTO 
                 users(
@@ -129,7 +129,6 @@ class SignupGateway
                   password,
                   city,
                   state_id,
-                  country_id,
                   state,
                   registeration_date,
                   email_notification,
@@ -147,7 +146,6 @@ class SignupGateway
                     :password,
                     :city,
                     :state_id,
-                    :country_id,
                     :state,
                     :registeration_date,
                     :email_notification,
@@ -169,10 +167,9 @@ class SignupGateway
                 'last_name' => $lname,
                 'email' => $email,
                 'password' => password_hash($pass,PASSWORD_BCRYPT),
-                'city' => $city,
-                'state_id' => $stateID,
-                'country_id' => $countryID,
-                'state' => $stateName,
+                'city' => null,
+                'state_id' => null,
+                'state' => null,
                 'registeration_date' => date("Y-m-d H:i:s"),
                 'email_notification' => 1,
                 "enabled" => 1,
@@ -180,7 +177,7 @@ class SignupGateway
                 "trials" => 0,
                 "newsletter" => 1,
                 "last_ip_address" => getIP(),
-                "address" => $address
+                "address" => ""
             ));
             $lastInsertedUID = $this->db->lastInsertId();
             $count =  $statement->rowCount();
