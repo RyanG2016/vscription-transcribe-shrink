@@ -366,12 +366,12 @@ INSERT INTO `srq_status_ref` (`srq_status_ref_id`, `srq_status`, `srq_status_des
 	(9, 9, 'Internal Processing');
 /*!40000 ALTER TABLE `srq_status_ref` ENABLE KEYS */;
 
--- Dumping data for table vtexvsi_transcribe.sr_packages: ~3 rows (approximately)
+-- Dumping data for table vtexvsi_transcribe.sr_packages: ~2 rows (approximately)
 /*!40000 ALTER TABLE `sr_packages` DISABLE KEYS */;
-INSERT INTO `sr_packages` (`srp_id`, `srp_name`, `srp_minutes`, `srp_price`) VALUES
-	(1, 'Casual', 200.00, 24.00),
-	(2, 'Business', 500.00, 55.00),
-	(3, 'Enterprise', 1000.00, 100.00);
+INSERT INTO `sr_packages` (`srp_id`, `srp_name`, `srp_minutes`, `srp_price`, `srp_desc`) VALUES
+	(1, 'Casual', 200.00, 24.00, ''),
+	(2, 'Business', 500.00, 55.00, ''),
+	(3, 'Enterprise', 1000.00, 100.00, '');
 /*!40000 ALTER TABLE `sr_packages` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
