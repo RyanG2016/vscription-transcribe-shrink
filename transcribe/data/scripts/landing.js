@@ -531,7 +531,14 @@ $(document).ready(function () {
                 // accessDTRef.ajax.reload(); // refresh access table
                 // chooseJobModal.style.display = "none";
                 chooseJobModal.modal('hide');
-                location.reload();
+                // location.reload();
+                if(accRole == 2)
+                {
+                    location.href = 'main.php';
+                }else{
+                    location.reload();
+                }
+
             },
             error: function (err) {
                 /*$.confirm({

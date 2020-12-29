@@ -67,7 +67,7 @@ if (isset($_SESSION['counter'])) {
         var tutorials='<?php echo $tuts;?>';
     </script>
     <link href="data/css/landing.css?v=2" rel="stylesheet">
-    <script src="data/scripts/landing.min.js?v=2" type="text/javascript"></script>
+    <script src="data/scripts/landing.min.js?v=3" type="text/javascript"></script>
 
 </head>
 
