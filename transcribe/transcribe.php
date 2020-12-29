@@ -467,8 +467,8 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                         </td>
                     </tr>
                 </table>
-                <div class="row">
-                    <div id="accord" class="col">
+                <div class="row no-gutters" style="padding-bottom: 10px">
+                    <div id="accord" class="col pb-0">
                         <h3>Shortcuts</h3>
                         <div style="overflow: visible;">
                             <!--					 <img id="norm" src="data/images/f248.png" /> <&lt;DRSPELLING>>&nbsp;&nbsp; <img id="norm" src="data/images/f348.png" /> <&lt;PATSPELLING>>&nbsp;&nbsp; -->
@@ -480,9 +480,12 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                             </legend>
                         </div>
                     </div>
-                    <div class="col-auto mt-auto mb-auto mr-auto pr-4 pl-1" id="searchEngine" hidden>
-                        <i class="hover-expand fab fa-searchengin" style="font-size: x-large; color: var(--vtex-blue)"></i>
+                    <div class="col-auto">
+                        <button type="button" id="searchEngine" class="btn btn-primary btn-sm h-auto" style="margin-top: 2px;" hidden>TEXT SEARCH <i class="fas fa-search-plus" style="font-size: large"></i></button>
                     </div>
+                    <!--<div class="col-auto mt-auto mb-auto mr-auto pr-4 pl-1" id="searchEngine" hidden>
+                        <i class="hover-expand fab fa-searchengin" style="font-size: x-large; color: var(--vtex-blue)"></i>
+                    </div>-->
                 </div>
             </fieldset>
         </form>
