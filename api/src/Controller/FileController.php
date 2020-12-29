@@ -276,7 +276,7 @@ class FileController
                 $fileRoundedDuration = 0;
 
                 // SR Check
-                if(isset($_POST["sr_enabled"]) && $_POST["sr_enabled"] == true)
+                if(isset($_POST["sr_enabled"]) && $_POST["sr_enabled"] === "true")
                 {
                     // round minutes and deduct from user
                     $fileRoundedDuration = $this->common->roundUpToAnyIncludeCurrent($file_duration);
