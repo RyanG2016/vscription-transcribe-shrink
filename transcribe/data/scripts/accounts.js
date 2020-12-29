@@ -341,7 +341,8 @@ $(document).ready(function () {
 						return "<i class=\"fas fa-times-circle vtex-status-icon\"></i>";
 					}
 				}
-			}
+			},
+			{"data": "sr_minutes_remaining" }
 		]
 	} );
 
@@ -425,11 +426,16 @@ $(document).ready(function () {
 				case "edit":
 					preFillForm(data);
 					break;
+
+					case "add":
+						addMinutesToAcc(data);
+					break;
 			}
 
 		},
 		items: {
 			"edit": {name: "Edit", icon: "fas fa-user-edit"},
+			"add": {name: "Add minutes", icon: "fas fa-plus-circle"},
 			"sep1": "---------",
 			"delete": {name: "Delete", icon: "fas fa-user-minus"},
 			// "quit2": {name: "Quit2", icon: "quit"},
@@ -439,6 +445,88 @@ $(document).ready(function () {
 			// 	}}
 		}
 	});
+
+	function addMinutesToAcc(data)
+	{
+		$.confirm({
+			title: 'Add STT minutes',
+			content: '' +
+				'<form action="" class="formName">' +
+				'<div class="form-group">' +
+				'<label>Acc: '+data["acc_name"]+'</label>' +
+				'<input type="text" placeholder="minutes to add" class="name form-control" required />' +
+				'</div>' +
+				'</form>',
+			buttons: {
+				formSubmit: {
+					text: 'Submit',
+					btnClass: 'btn-blue',
+					action: function () {
+						var name = this.$content.find('.name').val();
+						if(!name){
+							$.alert('provide a valid minutes value');
+							return false;
+						}
+						// ajax update
+						var formData = new FormData();
+						formData.append("update-sr-min", true);
+						formData.append("min", name);
+						$.ajax({
+							type: 'PUT',
+							url: API_INSERT_URL+data["acc_id"]+"/",
+							processData: false,
+							data: convertToSearchParam(formData),
+
+							success: function (response) {
+								accountsDTRef.ajax.reload(); // refresh accounts table
+
+								$.confirm({
+									title: 'Success',
+									content: response["msg"],
+									buttons: {
+										confirm: {
+											btnClass: 'btn-green',
+											action: function () {
+												return true;
+											}
+										}
+									}
+								});
+
+
+							},
+							error: function (err) {
+								$.confirm({
+									title: 'Error',
+									content: err.responseJSON["msg"],
+									buttons: {
+										confirm: {
+											btnClass: 'btn-green',
+											action: function () {
+												return true;
+											}
+										}
+									}
+								});
+							}
+						});
+					}
+				},
+				cancel: function () {
+					//close
+				},
+			},
+			onContentReady: function () {
+				// bind to events
+				var jc = this;
+				this.$content.find('form').on('submit', function (e) {
+					// if the user submits the form by pressing enter in the field.
+					e.preventDefault();
+					jc.$$formSubmit.trigger('click'); // reference the button and click it
+				});
+			}
+		});
+	}
 
 	refreshBtn.addEventListener('click', e => {
 		accountsDTRef.ajax.reload();

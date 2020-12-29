@@ -3,6 +3,7 @@
 namespace Src\TableGateways;
 
 use PDOException;
+use Src\Models\SR;
 use Src\TableGateways\logger;
 use Src\TableGateways\accessGateway;
 use Src\TableGateways\UserGateway;
@@ -79,10 +80,13 @@ class AccountGateway
                 work_types,
                 next_job_tally,
                 act_log_retention_time,
-                job_prefix
+                job_prefix,
+                sr.sr_minutes_remaining
             FROM
                 accounts
-        " . $filter . ";";
+            LEFT JOIN speech_recognition sr on accounts.acc_id = sr.account_id                    
+        " . $filter . "
+        ;";
         }
 
 
@@ -147,11 +151,13 @@ class AccountGateway
                 work_types,
                 next_job_tally,
                 act_log_retention_time,
-                job_prefix
+                job_prefix,
+                sr_minutes_remaining
             FROM
                 accounts
-            WHERE acc_id = ?;
-        ";
+            LEFT JOIN speech_recognition sr on accounts.acc_id = sr.account_id
+            WHERE acc_id = ?
+        ;";
 
         try {
             $statement = $this->db->prepare($statement);
@@ -448,6 +454,10 @@ class AccountGateway
     public function updateAccount($id)
     {
         parse_str(file_get_contents('php://input'), $put);
+        if(isset($put["update-sr-min"]))
+        {
+            return $this->addSRminutesToAcc($id, $put["min"]);
+        }
 
         if (
             !isset($put["enabled"]) ||
@@ -516,6 +526,31 @@ class AccountGateway
 //            die($e->getMessage());
             return false;
         }
+    }
+
+    public function addSRminutesToAcc($id, $minutes)
+    {
+        // update DB //
+        $sr = SR::withAccID($id, $this->db);
+        $sr->addToMinutesRemaining(floatval($minutes));
+        $sr->save();
+        return $this->oKResponse($id, "Minutes Updated");
+
+        /*try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute($valsArray);
+
+            if ($statement->rowCount() > 0) {
+                $this->logger->insertAuditLogEntry($this->API_NAME, "Account Updated: " . $id);
+                return $this->oKResponse($id, "Account Updated");
+            } else {
+                return $this->errorOccurredResponse("Couldn't update account or no changes were found to update");
+            }
+
+        } catch (PDOException $e) {
+//            die($e->getMessage());
+            return false;
+        }*/
     }
 
     public function oKResponse($id, $msg2 = "")

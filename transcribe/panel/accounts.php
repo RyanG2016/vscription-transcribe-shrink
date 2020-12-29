@@ -26,7 +26,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
 $vtex_page = 6;
 ?>
 
-<html>
+<html lang="en">
 
 <head>
     <title>vScription Manage Accounts</title>
@@ -87,7 +87,7 @@ $vtex_page = 6;
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css"
           crossorigin="anonymous">
 
-    <script src="../data/scripts/accounts.min.js"></script>
+    <script src="../data/scripts/accounts.min.js?v=2"></script>
     <link href="../data/css/manage_accounts.css" rel="stylesheet">
 </head>
 
@@ -187,6 +187,7 @@ $vtex_page = 6;
                         <th>Prefix</th>
                         <th>Enabled</th>
                         <th>Billable</th>
+                        <th>STT minutes</th>
                     </tr>
                     </thead>
                 </table>
