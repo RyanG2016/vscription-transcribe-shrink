@@ -153,6 +153,9 @@ $pkgGateway = new PackageGateway($dbConnection);
                                 <div class="row w-auto no-gutters justify-content-center">
                                     <small class="text-muted">$'.$package->getSrpPrice().' CAD</small>
                                 </div>
+                                <div class="row w-auto no-gutters justify-content-center">
+                                    <small class="text-muted">$'.$package->getSrpDesc().' CAD</small>
+                                </div>
                             </div>
                         </div>
                         <div class="package-card-bottom row no no-gutters align-items-center justify-content-center" id="'.$package->getSrpId().'">
