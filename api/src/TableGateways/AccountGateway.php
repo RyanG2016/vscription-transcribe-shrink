@@ -7,6 +7,7 @@ use Src\Models\SR;
 use Src\TableGateways\logger;
 use Src\TableGateways\accessGateway;
 use Src\TableGateways\UserGateway;
+use Src\Constants\Constants;
 
 require "accountsFilter.php";
 
@@ -330,6 +331,14 @@ class AccountGateway
 
             if ($statement->rowCount() > 0) {
                 $this->logger->insertAuditLogEntry($this->API_NAME, "Account Created: " . $_POST["acc_name"]);
+
+                $accountID = $this->db->lastInsertId();
+
+                $sr = SR::withAccID($accountID, $this->db);
+                $sr->addToMinutesRemaining(Constants::COMPLEMENTARY_NEW_ACCOUNT_FREE_STT_MINUTES);
+                $sr->save();
+                $this->logger->insertAuditLogEntry($this->API_NAME, "Added complementary " . Constants::COMPLEMENTARY_NEW_ACCOUNT_FREE_STT_MINUTES . " minutes to new account: " . $accountID);
+
                 return $this->oKResponse($this->db->lastInsertId(), "Account Created");
             } else {
                 return $this->errorOccurredResponse("Couldn't Create Account");
@@ -432,6 +441,12 @@ class AccountGateway
             if ($statement->rowCount() > 0) {
                 $accountID = $this->db->lastInsertId();
                 $this->logger->insertAuditLogEntry($this->API_NAME, "Account Created: " . $accName);
+
+                // add Complementary 30 minutes STT
+                $sr = SR::withAccID($accountID, $this->db);
+                $sr->addToMinutesRemaining(Constants::COMPLEMENTARY_NEW_ACCOUNT_FREE_STT_MINUTES);
+                $sr->save();
+                $this->logger->insertAuditLogEntry($this->API_NAME, "Added complementary " . Constants::COMPLEMENTARY_NEW_ACCOUNT_FREE_STT_MINUTES . " minutes to new account: " . $accountID);
 
                 // update account field in user entry and give client admin permission
                 if($this->userGateway->internalUpdateUserClientAdminAccount($accountID, $accName)){
