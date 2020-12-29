@@ -314,6 +314,7 @@ class accessGateway
                 a.acc_name,
                 r.role_name,
                 r.role_desc,
+                a.sr_enabled as sr_enabled,
                 u.email
             FROM
                 access
@@ -334,6 +335,7 @@ class accessGateway
                 unset($_SESSION["sr_minutes"]);
                 $_SESSION['accID'] = $result["acc_id"];
                 $_SESSION['role'] = $result["acc_role"];
+                $_SESSION['sr_enabled'] = $result["sr_enabled"];
                 $_SESSION['acc_name'] = $result["acc_name"];
                 $_SESSION['role_desc'] = $result["role_desc"];
                 $_SESSION['landed'] = true;

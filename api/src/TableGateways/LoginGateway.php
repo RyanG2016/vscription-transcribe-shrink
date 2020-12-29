@@ -26,7 +26,7 @@ class LoginGateway
         $statement = "
             SELECT
                 users.id,first_name, last_name, email, password, address,city, country_id, state, account_status, last_login, trials, unlock_time,tutorials,
-                account, def_access_id, users.enabled, a.acc_role, a.acc_id, r.role_desc, a2.acc_name, country, zipcode,
+                account, def_access_id, users.enabled, a.acc_role, a.acc_id, r.role_desc, a2.acc_name, country, zipcode, a2.sr_enabled as sr_enabled,
                 IF(account != 0 , (select accounts.acc_name from accounts where accounts.acc_id = account), false) 
                     as 'admin_acc_name'                
             FROM
@@ -130,6 +130,7 @@ class LoginGateway
         if ($row["def_access_id"] != null) {
             $_SESSION['accID'] = $row["acc_id"];
             $_SESSION['role'] = $row["acc_role"];
+            $_SESSION['sr_enabled'] = $row["sr_enabled"];
             $_SESSION['acc_name'] = $row["acc_name"];
             $_SESSION['role_desc'] = $row["role_desc"];
             $_SESSION['landed'] = true;
