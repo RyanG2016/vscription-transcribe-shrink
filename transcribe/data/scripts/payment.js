@@ -425,7 +425,7 @@ $(document).ready(function () {
         </div>*/
 
         let row   = createRowDiv();
-        let left  = createDiv("col-auto", "Taxes (" + code + "-" + perc + "%)");
+        let left  = createDiv("col-auto", "Taxes (" + code + "-" + (perc*100).toFixed(0) + "%)");
         let right = createDiv("col text-right", formatPrice(pkgPrice * perc));
         row.appendChild(left);
         row.appendChild(right);

@@ -272,7 +272,7 @@ if($lastPayment != null)
 
                         foreach ($paymentJson["taxes"] as $tax) {
                             echo '<div class="row">
-                                        <div class="col-auto">Taxes ('.$tax["code"].'-' .$tax["tax"] .'%)</div>
+                                        <div class="col-auto">Taxes ('.$tax["code"].'-' . floatval($tax["tax"] )*100 .'%)</div>
                                         <div class="col text-right">$' . number_format(( $pkg->getSrpPrice() * $tax["tax"] ),2) . ' CAD</div>
                                 </div>';
                         }
