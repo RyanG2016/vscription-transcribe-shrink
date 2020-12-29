@@ -36,7 +36,7 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
 
 
 <!DOCTYPE html>
-<html <?php echo $chtml ?>>
+<html lang="en">
 
 <head>
 
@@ -52,7 +52,7 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
     </noscript>
 
     <script type="text/javascript">
-        var ref = <?php echo ( isset($_GET['ref']) && !empty($_GET['ref']) )? "'".$_GET['ref']."'" :0 ?>;
+        let ref = <?php echo ( isset($_GET['ref']) && !empty($_GET['ref']) )? "'".$_GET['ref']."'" :0 ?>;
     </script>
 
     <!--    <link rel="stylesheet" type="text/css" href="data/login/vendor/bootstrap/css/bootstrap.min.css">-->
@@ -106,7 +106,7 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
         <form class="vtex-signup-form needs-validation" id="signupForm" autocomplete="off" novalidate>
 
         <span class="login100-form-title p-b-20">
-            <img src="data/images/Logo_vScription_Transcribe_Pro_Stacked_White.png" style="height: 110px"/>
+            <img src="data/images/Logo_vScription_Transcribe_Pro_Stacked_White.png" style="height: 110px" alt="vScription"/>
         </span>
             <span id="title" class="login100-form-title p-b-26">
             Signup
@@ -121,10 +121,11 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
                             <h5 class="fs-22 align-top">&nbsp;Basic</h5>
                         </div>-->
 
+                        <!----------------------Row 1----------------->
+
                         <div class="form-row">
-                            <!----------------- 1st column ---------------->
-                            <div class="col-4">
-                                <!----------------------EMAIL----------------->
+                            <!----------------------EMAIL----------------->
+                            <div class="col-12">
                                 <label for="inputEmail"><i class="fas fa-envelope"></i> Email</label>
                                 <input type="email" class="form-control" id="inputEmail" placeholder="Email" name="email"
                                        required autofocus>
@@ -134,184 +135,125 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
                                 <div class="invalid-feedback">
                                     Please enter a valid email
                                 </div>
-
-                                <!----------------------Line Break----------------->
-                                <div class="w-100 m-t-16"></div>
-
+                            </div>
+                        </div>
 
 
-                                <!----------------------Organization----------------->
+                        <div class="form-row m-t-16">
 
+                            <div class="col">
+                                <!----------------------PASSWORD-------------->
+                                <label for="inputPassword"><i class="fas fa-key"></i> Password</label>
+                                <input type="password" class="form-control" id="inputPassword" placeholder="Password"
+                                       name="password"
+                                       title="Password Requirements"
+                                       data-trigger="focus"
+                                       required>
+                                <!--<div class="valid-feedback">
+                                    Looks good!
+                                </div>-->
+                                <div class="invalid-feedback">
+                                    Please enter a valid password
+                                </div>
+                            </div>
+                            <div class="col">
+                                <!----------------------Confirm Password-------------->
+                                <label for="inputConfirmPassword"><i class="fas fa-key"></i> Confirm Password</label>
+                                <input type="password" class="form-control" id="inputConfirmPassword"
+                                       placeholder="Confirm Password"
+                                       title="Confirm Password"
+                                       data-trigger="focus"
+                                       required>
+                                <!--<div class="valid-feedback">
+                                    Looks good!
+                                </div>-->
+                                <div class="invalid-feedback">
+                                    Passwords doesn't match.
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <!----------------------Organization----------------->
+
+                        <div class="form-row m-t-16">
+                            <div class="col-12">
                                 <label for="inputAccName"><i class="fas fa-sitemap"></i> Organization Name</label>
                                 <input type="text" class="form-control" id="inputAccName" placeholder="" name="accname"
                                        required>
-
-                                <div class="form-row">
-                                    <!--<div class="col">
-                                        <small class="text-muted">
-                                            (optional)
-                                        </small>
-                                    </div>-->
-                                    <div class="col">
-                                        <div class="checkbox justify-content-start" id="haveAccDiv">
-                                            <div class="form-inline justify-content-start">
-                                                <label>
-                                                    <input type="checkbox" id="haveAccCB"/>&nbsp;
-                                                    <small class="text-muted">Don't create</small>
-                                                </label>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-
-                                <!----------------------Line Break----------------->
-                                <div class="w-100 m-t-16"></div>
-
                             </div>
-                            <!----------------- 2nd column ---------------->
-                            <div class="col vtex-left-divider">
-
-                                <div class="form-row m-0">
-
-                                    <div class="col">
-                                        <!----------------------PASSWORD-------------->
-                                        <label for="inputPassword"><i class="fas fa-key"></i> Password</label>
-                                        <input type="password" class="form-control" id="inputPassword" placeholder="Password"
-                                               name="password"
-                                               title="Password Requirements"
-                                               data-trigger="focus"
-                                               required>
-                                        <!--<div class="valid-feedback">
-                                            Looks good!
-                                        </div>-->
-                                        <div class="invalid-feedback">
-                                            Please enter a valid password
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <!----------------------Confirm Password-------------->
-                                        <label for="inputConfirmPassword"><i class="fas fa-key"></i> Confirm Password</label>
-                                        <input type="password" class="form-control" id="inputConfirmPassword"
-                                               placeholder="Confirm Password"
-                                               title="Confirm Password"
-                                               data-trigger="focus"
-                                               required>
-                                        <!--<div class="valid-feedback">
-                                            Looks good!
-                                        </div>-->
-                                        <div class="invalid-feedback">
-                                            Passwords doesn't match.
-                                        </div>
-                                    </div>
-
-
-
-                                </div>
-
-
-
-                                <div class="w-100 m-t-16"></div>
-
-                                <div class="form-row m-0">
-
-                                    <!----------------------NAME----------------->
-                                    <div class="col">
-                                        <label for="inputfName"><i class="fas fa-font"></i> First Name</label>
-                                        <input type="text" class="form-control" id="inputfName" placeholder="" name="fname"
-                                               required autofocus>
-                                        <!--<div class="valid-feedback">
-                                            Looks good!
-                                        </div>-->
-                                        <div class="invalid-feedback">
-                                            Please enter your name.
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <label for="inputlName"><i class="fas fa-bold"></i> Last Name</label>
-                                        <input type="text" class="form-control" id="inputlName" placeholder="" name="lname"
-                                               required>
-                                        <!--<div class="valid-feedback">
-                                            Looks good!
-                                        </div>-->
-                                    </div>
-
-
-                                </div>
-
-                                <div class="w-100 m-t-16"></div>
-
-                                <!----------------------Country----------------->
-                                <div class="form-row m-0">
-
-                                    <div class="col">
-                                        <label for="countryBox"><i class="fas fa-globe-americas"></i> Country</label>
-                                        <div class="spinner" id="countrySpin">
-                                            <div class="bounce1"></div>
-                                            <div class="bounce2"></div>
-                                            <div class="bounce3"></div>
-                                        </div>
-                                        <select class="form-control show-tick country-box" id="countryBox" data-container="body"
-                                                data-dropup-auto="false" name="country">
-                                            <option selected>Loading...</option>
-                                        </select>
-                                    </div>
-
-                                </div>
-
-
-                                <!----------------------Line Break----------------->
-                                <div class="w-100 m-t-16"></div>
-
-
-
-                            </div>
-                            <!--  column end ↑   -->
-                        </div>
-
-                        <!----------------------Row 1----------------->
-
-                        <div class="form-row">
-                            <div class="col-5">
-
-                            </div>
-
-
-
-
-
-
-
-
-
 
                             <!----------------------Line Break----------------->
-                            <div class="w-100 m-t-16"></div>
+                            <div class="w-100 m-t-2"></div>
 
-                            <!----------------------Row 4----------------->
+                            <div class="col">
+                                <div class="checkbox justify-content-start" id="haveAccDiv" style="visibility: hidden; height: 0">
+                                    <div class="form-inline justify-content-start">
+                                        <label>
+                                            <input type="checkbox" id="haveAccCB"/>&nbsp;
+                                            <small class="text-muted">Don't create</small>
+                                        </label>
 
-
-
-
+                                    </div>
+                                </div>
+                            </div>
 
                         </div>
 
-                    </div>
+                        <!----------------------NAME----------------->
+                        <div class="form-row m-t-16">
+                            <div class="col">
+                                <label for="inputfName"><i class="fas fa-font"></i> First Name</label>
+                                <input type="text" class="form-control" id="inputfName" placeholder="" name="fname"
+                                       required autofocus>
+                                <!--<div class="valid-feedback">
+                                    Looks good!
+                                </div>-->
+                                <div class="invalid-feedback">
+                                    Please enter your name.
+                                </div>
+                            </div>
+                            <div class="col">
+                                <label for="inputlName"><i class="fas fa-bold"></i> Last Name</label>
+                                <input type="text" class="form-control" id="inputlName" placeholder="" name="lname"
+                                       required>
+                                <!--<div class="valid-feedback">
+                                    Looks good!
+                                </div>-->
+                            </div>
+                        </div>
 
-                    <div class="carousel-item">
+                        <div class="form-row m-t-16">
+
+                            <div class="col">
+                                <label for="countryBox"><i class="fas fa-globe-americas"></i> Country</label>
+                                <div class="spinner" id="countrySpin">
+                                    <div class="bounce1"></div>
+                                    <div class="bounce2"></div>
+                                    <div class="bounce3"></div>
+                                </div>
+                                <select class="form-control show-tick country-box" id="countryBox" data-container="body"
+                                        data-dropup-auto="false" name="country">
+                                    <option selected>Loading...</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+
+                    </div> <div class="carousel-item">
 
                         <!--<div class="row justify-content-center carousel-page-title mb-3">
                             <span class="align-text-bottom"> <i class="fas fa-user-check fa-lg"></i> </span>
                             <h5 class="fs-22 align-top">&nbsp;Verification</h5>
                         </div>-->
 
-                        <!-------------ACCOUNT-NAME----------------->
+                        <!-------------Verification Page----------------->
 
                         <div class="form-row">
                             <div class="form-group col justify-content-center text-center">
-                                <label for="inputCode" class="justify-content-center text-center">
+                                <label for="code" class="justify-content-center text-center">
                                     Enter the verification code sent to your email
                                 </label>
                                 <input type="text" class="form-control text-lg-center fs-25 col-sm-5 ml-auto mr-auto" id="code" maxlength="6" placeholder="Code">
@@ -366,11 +308,11 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
             </div>
 
 <!--            <hr/>-->
-            <div class="checkbox justify-content-center" id="tosDiv">
+            <div class="checkbox justify-content-center m-t-10" id="tosDiv">
                 <div class="form-inline justify-content-center">
                     <label>
                         <input type="checkbox" id="tos"/>
-                        <small class="text-sm-right font-italic"> &nbsp; I have read and agreed to the <span ><a class="terms" href="">Terms and Services</a </span></small>
+                        <small class="text-sm-right font-italic fs-17"> &nbsp; I have read and agreed to the <span ><a class="fs-17" href="">Terms and Services</a </span></small>
                     </label>
 
                 </div>
@@ -383,7 +325,7 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
                     <!--<div class="col-auto arrows prev-btn-div">
                         <button type="button" class="btn btn-primary btn-lg" id="prevBtn" ><</button>
                     </div>-->
-                    <div class="col-6">
+                    <div class="col-8">
                         <button type="button" class="btn btn-primary btn-lg" id="signupBtn" disabled>Signup</button>
                     </div>
                     <!--<div class="col-auto arrows next-btn-div">
@@ -394,7 +336,7 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
 
             <div class="row w-100 m-0 justify-content-center">
 
-                <div class="col-6">
+                <div class="col-8">
                     <div class="progress" id="formProgressDiv">
                         <div class="progress-bar" id="formProgressBar"
                              role="progressbar" style="width: 0;" aria-valuenow="0" aria-valuemin="0"
@@ -404,7 +346,7 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
 
                 <div class="w-100"></div>
 
-                <div class="col-6">
+                <div class="col-8">
                     <div class="progress" id="loginProgressDiv" style="display: none">
                         <div class="progress-bar progress-bar-striped progress-bar-animated"
                              id="loginProgressBar"
