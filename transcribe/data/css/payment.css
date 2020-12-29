@@ -259,6 +259,10 @@ body {
     grid-area: security;
 }
 
+.form-container .field-container:nth-of-type(5) {
+    grid-area: subline;
+}
+
 .field-container input {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -273,7 +277,7 @@ body {
     grid-column-gap: 10px;
     grid-template-columns: auto auto;
     grid-template-rows: 90px 90px 90px;
-    grid-template-areas: "name name""number number""expiration security";
+    grid-template-areas: "name name""number number""expiration security""subline subline";
     max-width: 400px;
     padding: 20px;
     color: #707070;

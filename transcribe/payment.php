@@ -395,6 +395,9 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
                                             <label for="securitycode">Security Code</label>
                                             <input id="securitycode" name="cvv" type="text" pattern="[0-9]*" inputmode="numeric">
                                         </div>
+                                        <div class="field-container" style="text-align: right; vertical-align: text-bottom;">
+                                            <small><em>We currently accept Visa and MasterCard &ensp; <img src="data/images/visa_master.png" alt="visa-master-card"></em></small>
+                                        </div>
                                     </div>
                                 </div>
 
