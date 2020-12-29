@@ -534,6 +534,7 @@ class AccountGateway
         $sr = SR::withAccID($id, $this->db);
         $sr->addToMinutesRemaining(floatval($minutes));
         $sr->save();
+        $this->logger->insertAuditLogEntry($this->API_NAME, "Added STT mins to account: " . $id . " | minutes: " . $minutes);
         return $this->oKResponse($id, "Minutes Updated");
 
         /*try {
