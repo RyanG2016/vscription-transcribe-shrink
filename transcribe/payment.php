@@ -373,7 +373,7 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col pl-3 border-left form-container">
+                                    <div class="col pl-3 pb-0 border-left form-container">
                                         <div class="field-container">
                                             <label for="name">Name on card</label>
                                             <input id="name" name="name_on_card" maxlength="20" type="text" value="<?php echo $_SESSION["fname"] . " " . $_SESSION["lname"]?>" autofocus>
@@ -395,9 +395,20 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
                                             <label for="securitycode">Security Code</label>
                                             <input id="securitycode" name="cvv" type="text" pattern="[0-9]*" inputmode="numeric">
                                         </div>
-                                        <div class="field-container" style="text-align: right; vertical-align: text-bottom;">
-                                            <small><em>We currently accept Visa and MasterCard &ensp; <img src="data/images/visa_master.png" alt="visa-master-card"></em></small>
+                                        <div class="field-container" style="text-align: end; vertical-align: text-bottom;">
+                                            <small class="w-100"><em>We currently accept Visa and MasterCard &ensp; <img src="data/images/visa_master.png" alt="visa-master-card"></em></small>
+                                            <!-- (c) 2005, 2020. Authorize.Net is a registered trademark of CyberSource Corporation -->
                                         </div>
+                                        <div class="field-container">
+                                            <!-- (c) 2005, 2020. Authorize.Net is a registered trademark of CyberSource Corporation -->
+                                            <div class="AuthorizeNetSeal ml-auto mt-3">
+                                                <script type="text/javascript"
+                                                        language="javascript">var ANS_customer_id = "5b6ecdfe-d529-460d-8145-acc3ade87a4c";</script>
+                                                <script type="text/javascript" language="javascript"
+                                                        src="//verify.authorize.net:443/anetseal/seal.js"></script>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
 
