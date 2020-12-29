@@ -330,9 +330,9 @@ class AccountGateway
             $statement->execute($valsArray);
 
             if ($statement->rowCount() > 0) {
+                $accountID = $this->db->lastInsertId();
                 $this->logger->insertAuditLogEntry($this->API_NAME, "Account Created: " . $_POST["acc_name"]);
 
-                $accountID = $this->db->lastInsertId();
 
                 $sr = SR::withAccID($accountID, $this->db);
                 $sr->addToMinutesRemaining(Constants::COMPLEMENTARY_NEW_ACCOUNT_FREE_STT_MINUTES);
