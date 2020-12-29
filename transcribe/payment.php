@@ -69,6 +69,7 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
             $roleIsSet = (!isset($_SESSION['role']) && !isset($_SESSION['accID']))?0:true;
         ?>
         var roleIsset = <?php echo $roleIsSet ?>;
+        var pkgPrice = <?php echo $pkg->getSrpPrice() ?>;
         var redirectID = <?php echo $_SESSION['role'] ?>;
     </script>
 
@@ -88,7 +89,8 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
     <link href="data/thirdparty/typeahead/typehead.css" rel="stylesheet">
     <script src="data/thirdparty/typeahead/typeahead.bundle.min.js" type="text/javascript"></script>
     <link href="data/css/payment.css?v=2" rel="stylesheet">
-    <script src="data/scripts/payment.min.js?v=2" type="text/javascript"></script>
+<!--    <script src="data/scripts/payment.min.js?v=2" type="text/javascript"></script>-->
+    <script src="data/scripts/payment.js?v=2" type="text/javascript"></script>
 
 </head>
 
@@ -416,9 +418,22 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
                                     </div>
                                     <div class="row">
                                         <div class="col-auto">Price</div>
-                                        <div class="col text-right">$' . $pkg->getSrpPrice() . ' CAD</div>
+                                        <div class="col text-right">$' . number_format($pkg->getSrpPrice(), 2) . ' CAD</div>
                                     </div>
                                     <hr>
+                                    
+                                    <span id="taxesList">
+                                        <!--<div class="row">
+                                            <div class="col-auto">Taxes</div>
+                                            <div class="col text-right"><span id="tax">0.00</span>%</div>
+                                        </div>-->
+                                    </span>
+                                    <div class="row mt-3">
+                                        <div class="col-auto">Total (incl tax.)</div>
+                                        <div class="col text-right" id="total">$' . number_format($pkg->getSrpPrice(), 2) . ' CAD</div>
+                                    </div>
+                                    <hr>
+                                    
                                     
                                     <div class="row">
                                         <div class="col-auto">Organization</div>

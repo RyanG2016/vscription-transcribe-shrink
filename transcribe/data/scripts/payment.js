@@ -22,6 +22,9 @@ $(document).ready(function () {
     var payBtn = $("#payBtn");
     var overlay = $("#overlay");
     var zip = $("#zip");
+    var tax = $("#tax");
+    var taxesListDom = $("#taxesList");
+    var totalPrice = $("#total");
     var lastZipRequested = "";
 
 
@@ -40,7 +43,24 @@ $(document).ready(function () {
     var nameCheck = true;
     var cvvCheck = false;
     var cardCheck = false;
+    var caTaxes = null;
+    var totalTaxesPercent = 0;
 
+    // load CA taxes
+    $.getJSON( "/data/json/canada_taxes.json", function(data) {
+
+    })
+        .done(function(data) {
+            caTaxes = data;
+            calculateTaxes();
+            // console.log(data);
+        })
+        .fail(function() {
+            caTaxes = false;
+        })
+        .always(function() {
+            // console.log( "complete" );
+        });
 
     fname.keyup(function () {
         regexCheck($(this), NAME_REGEX);
@@ -140,9 +160,9 @@ $(document).ready(function () {
 
                     if(countryLookup ===  "ca")
                     {
-
                         country.typeahead('val', "Canada");
                         enableCaEngine();
+                        calculateTaxes();
                     }else if(countryLookup === "us")
                     {
                         country.typeahead('val',"United States");
@@ -199,6 +219,7 @@ $(document).ready(function () {
                 }else{
                     disableEngines();
                 }
+                break;
             }
         }
         if(!match){
@@ -206,7 +227,11 @@ $(document).ready(function () {
             country.addClass("vtex-err-border");
             // countryCheck = false;
         }
-    });
+        validatePaymentFields();
+        // state.keyup();
+        calculateTaxes();
+    })
+    ;
     fixTypeAheadCols();
 
 
@@ -252,11 +277,14 @@ $(document).ready(function () {
         local: caStates
     });
 
+
     function disableEngines()
     {
         state.typeahead('destroy');
         state.removeClass("vtex-err-border");
+        state.off('blur');
     }
+
 
     function fixTypeAheadCols()
     {
@@ -283,14 +311,20 @@ $(document).ready(function () {
                 if ($(this).val() == Object.keys(caStatesEngine.index.datums)[i]) {
                     match2 = true;
                     state.removeClass("vtex-err-border");
+                    // calculateTaxes();
                 }
             }
             if (!match2) {
                 // console.log("Invalid Selection");
                 state.addClass("vtex-err-border");
             }
+            validatePaymentFields();
+            calculateTaxes();
+        }).keyup(function(){
+            calculateTaxes();
         });
         fixTypeAheadCols();
+        state.blur();
     }
 
 
@@ -317,10 +351,10 @@ $(document).ready(function () {
                 // console.log("Invalid Selection");
                 state.addClass("vtex-err-border");
             }
+            validatePaymentFields();
         });
         fixTypeAheadCols();
     }
-
 
     // enableCaEngine();
 
@@ -328,6 +362,90 @@ $(document).ready(function () {
     // checkout
     // var cardNumberMasked = $("#cardNumberMasked");
     // var cardType = $("#cardType");
+
+    function formatPrice(price)
+    {
+        return "$" + price.toFixed(2) + " CAD";
+    }
+
+    if(country.val() === "Canada")
+    {
+        enableCaEngine();
+    }else if(country.val() === "United States")
+    {
+        enableUsEngine();
+    }
+
+    function calculateTaxes()
+    {
+        taxesListDom.empty();
+        if(country.typeahead('val') === "Canada" || country.typeahead('val') === "Canada")
+        {
+            totalTaxesPercent = 0;
+            let match = false;
+            let taxID = false;
+            for (const key in caTaxes) {
+                if(caTaxes[key].name.toLowerCase() === state.val().toLowerCase().trim()) {
+                    // console.log("Match found for: " + caTaxes[key].name + " | indx: " + key);
+                    taxID = key;
+                    match = true;
+                    break;
+                }
+            }
+
+            if(match)
+            {
+                for (const caProvinceTaxesKey in caTaxes[taxID].taxes) {
+                    let taxEntry = caTaxes[taxID].taxes[caProvinceTaxesKey];
+                    // if(taxEntry.code !== "PST")
+                    // {
+                        totalTaxesPercent += taxEntry.tax;
+                        addTaxEntry(taxEntry.code, taxEntry.tax);
+                    // }
+                }
+                // tax.html(totalTaxesPercent.toFixed(2));
+                totalPrice.html(formatPrice((pkgPrice * totalTaxesPercent + pkgPrice)));
+
+                return true;
+            }
+        }
+        // show that couldn't calculate taxes and exact charged price may change due to taxes
+        // addTaxEntry()
+        // tax.html("0.00");
+        totalPrice.html(formatPrice(pkgPrice));
+        return false;
+
+    }
+
+    function addTaxEntry(code, perc)
+    {
+        /*<div class="row">
+            <div class="col-auto">Taxes</div>
+            <div class="col text-right"><span id="tax">0.00</span>%</div>
+        </div>*/
+
+        let row   = createRowDiv();
+        let left  = createDiv("col-auto", "Taxes (" + code + "-" + perc + "%)");
+        let right = createDiv("col text-right", formatPrice(pkgPrice * perc));
+        row.appendChild(left);
+        row.appendChild(right);
+        taxesListDom.append(row);
+    }
+
+    function createRowDiv()
+    {
+        let row = document.createElement('div');
+        row.setAttribute("class", "row");
+        return row;
+    }
+
+    function createDiv(className, htmlVal)
+    {
+        let entry = document.createElement('div');
+        entry.setAttribute("class", className);
+        entry.innerHTML = htmlVal;
+        return entry;
+    }
 
     function validatePaymentFields()
     {
@@ -337,6 +455,10 @@ $(document).ready(function () {
             )
         {
             // enable
+            if(country.val().toLowerCase().trim() === "canada")
+            {
+                let wait = calculateTaxes();
+            }
             payBtn.removeAttr("disabled");
             return true;
         }
@@ -715,13 +837,7 @@ $(document).ready(function () {
             document.getElementById('svgsecurity').innerHTML = securitycode_mask.value;
         }
 
-        if(securitycode_mask.value.length < 3)
-        {
-            cvvCheck = false;
-        }
-        else{
-            cvvCheck = true;
-        }
+        cvvCheck = securitycode_mask.value.length >= 3;
         validatePaymentFields();
     });
 

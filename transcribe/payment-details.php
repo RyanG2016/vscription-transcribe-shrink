@@ -265,7 +265,23 @@ if($lastPayment != null)
                                     </div>
                                     <div class="row">
                                         <div class="col-auto">Price</div>
-                                        <div class="col text-right">$' . $pkg->getSrpPrice() . ' CAD</div>
+                                        <div class="col text-right">$' . number_format($pkg->getSrpPrice(), 2) . ' CAD</div>
+                                    </div>
+                                    <hr>
+                                    ';
+
+                        foreach ($paymentJson["taxes"] as $tax) {
+                            echo '<div class="row">
+                                        <div class="col-auto">Taxes ('.$tax["code"].'-' .$tax["tax"] .'%)</div>
+                                        <div class="col text-right">$' . number_format(( $pkg->getSrpPrice() * $tax["tax"] ),2) . ' CAD</div>
+                                </div>';
+                        }
+                        
+                        
+                        echo '
+                                    <div class="row mt-3">
+                                        <div class="col-auto">Total (incl tax.)</div>
+                                        <div class="col text-right">$' . $payment->getAmount() . ' CAD</div>
                                     </div>
                                     <hr>
                                     <div class="row">

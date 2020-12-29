@@ -24,6 +24,8 @@ class PaymentProcessor
     private $paymentGateway;
     private $internalRefID;
     private $common;
+    private $totalPrice;
+    private $taxesArr = array();
 
     public function __construct(
         private $fname,
@@ -48,6 +50,7 @@ class PaymentProcessor
         $this->cardNumber = str_replace(" ", "", $this->cardNumber);
         $this->paymentGateway = new paymentGateway($db);
         $this->common = new common();
+        $this->totalPrice = $this->amount;
         $this->internalRefID = $this->common->generateUniqueRefID($_SESSION["uid"] . "_");
     }
 
@@ -84,6 +87,8 @@ class PaymentProcessor
 
     public function chargeCreditCardNow():bool
     {
+        $this->calculateTotalPrice();
+
         /* Create a merchantAuthenticationType object with authentication details
            retrieved from the constants file */
 
@@ -145,7 +150,7 @@ class PaymentProcessor
         // Create a TransactionRequestType object and add the previous objects to it
         $transactionRequestType = new AnetAPI\TransactionRequestType();
         $transactionRequestType->setTransactionType("authCaptureTransaction");
-        $transactionRequestType->setAmount($this->amount);
+        $transactionRequestType->setAmount($this->totalPrice);
         $transactionRequestType->setCurrencyCode("CAD");
         $transactionRequestType->setOrder($order);
         $transactionRequestType->setPayment($paymentOne);
@@ -240,6 +245,7 @@ class PaymentProcessor
         $json = json_encode(array(
             "trans_id" => $transID,
             "ref_id" => $this->internalRefID,
+            "taxes" => $this->taxesArr,
             "error" => $error,
             "card" => $this->ccMasking($this->cardNumber, "x"),
             "msg" => $msg
@@ -248,7 +254,7 @@ class PaymentProcessor
         $payment = new Payment(
             0,
             $_SESSION["uid"],
-            $this->amount,
+            $this->totalPrice,
             $this->internalRefID,
             $transID,
             $json,
@@ -264,6 +270,38 @@ class PaymentProcessor
     function ccMasking($number, $maskingCharacter = 'X') {
         return str_repeat($maskingCharacter, strlen($number) - 4) . substr($number, -4);
 //        return substr($number, 0, 4) . str_repeat($maskingCharacter, strlen($number) - 8) . substr($number, -4);
+    }
+
+    function calculateTotalPrice()
+    {
+        $this->totalPrice = $this->amount;
+        if(strtolower($this->country) == "canada")
+        {
+            $contents = file_get_contents(__DIR__."/../../../transcribe/data/json/canada_taxes.json");
+            $json = json_decode($contents, true);
+
+            $totalTaxePercentage = 0;
+
+            foreach ($json as $caStateEntry) {
+                if(strtolower($caStateEntry["name"]) === strtolower($this->state))
+                {
+                    $stateTaxProfile = $caStateEntry;
+
+                    foreach ($stateTaxProfile["taxes"] as $tax) {
+//                        if($tax["code"] !== "PST")
+//                        {
+                            $totalTaxePercentage += $tax["tax"];
+                            array_push($this->taxesArr, $tax);
+//                        }
+                    }
+                    $this->totalPrice = ($this->amount * $totalTaxePercentage) + $this->amount;
+
+                    break;
+                }
+            }
+        }
+
+        return $this->totalPrice;
     }
 
 }
