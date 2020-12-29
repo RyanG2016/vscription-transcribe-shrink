@@ -68,7 +68,7 @@ $(document).ready(function () {
     accName = $("#inputAccName");
     lName = $("#inputlName");
     // city = $("#inputCity");
-    // code = $("#code");
+    code = $("#code");
     progressDiv = $("#formProgressDiv");
     progressBar = $("#formProgressBar");
     loginProgressDiv = $("#loginProgressDiv");
