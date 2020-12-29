@@ -364,7 +364,7 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
             <div class="col">
                 <div class="text-left">
                     <a class="txt2" href="./index.php" target="_blank" id="loginHyperLink">
-                        Login
+                        Back to Login
                     </a>
                 </div>
             </div>
