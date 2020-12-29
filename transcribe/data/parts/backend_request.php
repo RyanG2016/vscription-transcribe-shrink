@@ -83,7 +83,7 @@ if(isset($_REQUEST["reqcode"])){
                                             "file_date_dict" => $row['file_date_dict'],
                                             "file_work_type" => $row['file_work_type'],
                                             "last_audio_position" => $row['last_audio_position'],
-                                            "job_status" => $row['file_status'],
+                                            "file_status" => $row['file_status'],
                                             "file_speaker_type" => $row['file_speaker_type'],
                                             "file_comment" => $row['file_comment']
                                         );
@@ -125,7 +125,7 @@ if(isset($_REQUEST["reqcode"])){
                                         "file_date_dict" => $row['file_date_dict'],
                                         "file_work_type" => $row['file_work_type'],
                                         "last_audio_position" => $row['last_audio_position'],
-                                        "job_status" => $row['file_status'],
+                                        "file_status" => $row['file_status'],
                                         "file_speaker_type" => $row['file_speaker_type'],
                                         "file_comment" => $row['file_comment']
                                     );

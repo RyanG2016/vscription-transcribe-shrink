@@ -229,7 +229,7 @@ class FileGateway implements GatewayInterface
                     "file_date_dict" => $row['file_date_dict'],
                     "file_work_type" => $row['file_work_type'],
                     "last_audio_position" => $row['last_audio_position'],
-                    "job_status" => $row['file_status'],
+                    "file_status" => $row['file_status'],
                     "file_speaker_type" => $row['file_speaker_type'],
                     "typist_comments" => $row['typist_comments'],
                     "file_comment" => $row['file_comment'],
@@ -283,7 +283,7 @@ class FileGateway implements GatewayInterface
                 "file_date_dict" => $row['file_date_dict'],
                 "file_work_type" => $row['file_work_type'],
                 "last_audio_position" => $row['last_audio_position'],
-                "job_status" => $row['file_status'],
+                "file_status" => $row['file_status'],
                 "file_speaker_type" => $row['file_speaker_type'],
                 "typist_comments" => $row['typist_comments'],
                 "file_comment" => $row['file_comment'],
@@ -652,13 +652,13 @@ class FileGateway implements GatewayInterface
                 if(isset($_POST["file_status"]))
                 {
                     $file_status = $_POST["file_status"];
-                    if ($file_status == 5 || $file_status == 3) {
+                    if ($file_status == 5 || $file_status == 3|| $file_status == 11) {
                         $this->mailer->sendEmail(10, false);
                         $this->deleteTmpFile($id, $currentFile["tmp_name"]);
                     }
 
                     // update elapsed time
-                    if($file_status == 2 || $file_status == 3 || $file_status == 4 || $file_status == 5 ){
+                    if($file_status == 2 || $file_status == 3 || $file_status == 4 || $file_status == 5 || $file_status == 11){
                         $this->updateElapsed($id);
                     }
                 }

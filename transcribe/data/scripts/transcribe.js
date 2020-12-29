@@ -378,7 +378,7 @@ $(document).ready(function () {
 
     jobsDTRef = jobsDT.DataTable({
         rowId: 'file_id',
-        "ajax": 'api/v1/files?dt&file_status[mul]=0,1,2,7',
+        "ajax": 'api/v1/files?dt&file_status[mul]=0,1,2,7,11',
         "processing": true,
         lengthChange: false,
         pageLength: maximum_rows_per_page_jobs_list,
@@ -541,7 +541,14 @@ $(document).ready(function () {
 
         formData.append("audio_length", jobLengthSecsRaw);
         formData.append("last_audio_position", jobElapsedTimeSecs);  //If user suspends job, we can use this to resume where they left ;
-        formData.append("file_status", jobStatus);
+
+        if(currentFileData.file_status == 7 || currentFileData.file_status == 11)
+        {
+            formData.append("file_status", 11);
+        }else{
+            formData.append("file_status", jobStatus);
+        }
+
         formData.append("job_document_html", tinymceContent);
         formData.append("file_work_type", $("#jobType").val());
         formData.append("typist_comments", $("#comments").val());
@@ -720,12 +727,16 @@ $(document).ready(function () {
 
     function suspendAndClearForDiscard() {
         var new_status = 2;
-        if (currentFileData.job_status === 0) {
+        // console.log(currentFileData.file_status);
+        if (currentFileData.file_status == 0) {
             new_status = 0;
         }
-        else if(currentFileData.job_status === 7)
+        else if(currentFileData.file_status == 7)
         {
             new_status = 7;
+        }else if(currentFileData.file_status == 11)
+        {
+            new_status == 11;
         }
 
 
@@ -905,9 +916,11 @@ $(document).ready(function () {
         captions = JSON.parse(jobDetails.captions);
         currentFileData = jobDetails;
         currentFileID = jobDetails.file_id; // globally set current fileID
+        console.log(jobDetails.file_id);
+        console.log(currentFileID);
 
         // load previous suspended text into tinyMCE if suspended
-        if (jobDetails.suspendedText !== null && jobDetails.job_status !== 0) {
+        if (jobDetails.suspendedText !== null && jobDetails.file_status !== 0) {
             tinymce.get('report').setContent(decodeHtml(jobDetails.suspendedText));
             tinyMCE.activeEditor.selection.select(tinyMCE.activeEditor.getBody(), true);
             tinyMCE.activeEditor.selection.collapse(false);

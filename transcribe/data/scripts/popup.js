@@ -226,7 +226,15 @@ $(document).ready(function () {
 
             formData.append("audio_length", jobLengthSecsRaw);
             formData.append("last_audio_position", jobElapsedTimeSecs);  //If user suspends job, we can use this to resume where they left ;
-            formData.append("file_status", jobStatus);
+
+
+            if(currentFileData.file_status == 7 || currentFileData.file_status == 11)
+            {
+                formData.append("file_status", 11);
+            }else{
+                formData.append("file_status", jobStatus);
+            }
+
             formData.append("set_role", 3);
 
 
@@ -308,8 +316,15 @@ $(document).ready(function () {
     function suspendAndClearForDiscard()
     {
         var new_status = 2;
-        if(currentFileData.job_status === 0){
+        if(currentFileData.file_status == 0){
             new_status = 0;
+        }
+        else if(currentFileData.file_status == 7)
+        {
+            new_status = 7;
+        }else if(currentFileData.file_status == 11)
+        {
+            new_status == 11;
         }
 
 
@@ -581,7 +596,7 @@ function loadIntoPlayer(data) {
         switchUI(true);
     }*/
 
-    if (jobDetails.job_status == 2 || jobDetails.job_status == 1) // suspend or being typed
+    if (jobDetails.file_status == 2 || jobDetails.file_status == 1) // suspend or being typed
     {
         // seek to last position
         $("#audio1").attr("data-start-time",jobDetails.last_audio_position - rewindAmountOnPause);
