@@ -29,7 +29,7 @@ $vtex_page = 6;
 <html lang="en">
 
 <head>
-    <title>vScription Manage Accounts</title>
+    <title>vScription Manage Organizations</title>
     <link rel="shortcut icon" type="image/png" href="../data/images/favicon.png"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="../data/libs/node_modules/material-components-web/dist/material-components-web.css" rel="stylesheet">
@@ -119,7 +119,7 @@ $vtex_page = 6;
 
                     <legend class="page-title">
                         <i class="material-icons mdc-button__icon" aria-hidden="true">admin_panel_settings</i>
-                        Accounts Management
+                        Organization Management
                     </legend>
                 </td>
                 <!--<td align="right" rowspan="2" id="fix-td">
@@ -164,7 +164,7 @@ $vtex_page = 6;
             <div class="vtex-card contents first">
 
                 <div class="vtex-top-bar">
-                    <h2 class="accounts-tbl-title">Accounts List</h2>
+                    <h2 class="accounts-tbl-title">Org List</h2>
                     <button class="mdc-button mdc-button--unelevated refresh-button" id="refresh_btn">
                         <div class="mdc-button__ripple"></div>
                         <i class="material-icons mdc-button__icon" aria-hidden="true">refresh</i>
