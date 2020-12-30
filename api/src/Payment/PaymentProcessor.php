@@ -12,6 +12,7 @@ use net\authorize\api\controller as AnetController;
 use Src\Enums\PAYMENT_STATUS;
 use Src\Models\Package;
 use Src\Models\User;
+use Src\System\Mailer;
 use Src\TableGateways\paymentGateway;
 use Src\Models\Payment;
 use Src\Helpers\common;
@@ -26,6 +27,8 @@ class PaymentProcessor
     private $common;
     private $totalPrice;
     private $taxesArr = array();
+    private User $userModel;
+    private $mailer;
 
     public function __construct(
         private $fname,
@@ -52,6 +55,7 @@ class PaymentProcessor
         $this->common = new common();
         $this->totalPrice = $this->amount;
         $this->internalRefID = $this->common->generateUniqueRefID($_SESSION["uid"] . "_");
+        $this->mailer = new Mailer($this->db);
     }
 
 
@@ -71,6 +75,7 @@ class PaymentProcessor
     public function saveUserAddress()
     {
         $user = User::withID($_SESSION["uid"], $this->db);
+        $this->userModel = $user;
         $user->setAddress($this->address);
 //        $user->setFirstName($this->fname);
 //        $user->setLastName($this->lname);
@@ -248,6 +253,12 @@ class PaymentProcessor
             "taxes" => $this->taxesArr,
             "error" => $error,
             "card" => $this->ccMasking($this->cardNumber, "x"),
+            "name" => $this->fname . " " . $this->lname,
+            "email" => $this->userModel->getEmail(),
+            "total_price" => $this->totalPrice,
+            "pkg_name" => $this->package->getSrpName(),
+            "pkg_price" => $this->package->getSrpPrice(),
+            "pkg_minutes" => $this->package->getSrpMinutes(),
             "msg" => $msg
         ));
 
@@ -262,7 +273,9 @@ class PaymentProcessor
             $error?PAYMENT_STATUS::FAILED:PAYMENT_STATUS::PAID,
             $this->db
         );
-        $payment->save();
+        $pid = $payment->save();
+
+        $this->mailer->sendEmail(17 , $this->userModel->getEmail(), "", $pid);
 
         return $error;
     }

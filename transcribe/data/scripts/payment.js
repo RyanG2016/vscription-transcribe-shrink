@@ -471,7 +471,12 @@ $(document).ready(function () {
 
 
     paymentForm.on('submit', function (event) {
-        return validatePaymentFields();
+        if (validatePaymentFields()) {
+            overlay.show();
+            return true;
+        }else{
+            return false;
+        }
     });
 
     $("#edit").on("click", function() {

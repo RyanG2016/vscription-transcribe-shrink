@@ -2,6 +2,9 @@
 
 namespace Src\System;
 
+use Src\Models\Package;
+use Src\Models\Payment;
+use Src\Models\User;
 use Src\TableGateways\logger;
 use Src\TableGateways\MailingGateway;
 
@@ -33,7 +36,7 @@ class Mailer
      * <br>10: document-complete
      * <br>15: job added
      * <br>16: user-added-via-sys-admin
-     * <br>16: user-added-via-sys-admin
+     * <br>17: SR-package-receipt
      * @param $user_email string user email address
      * @param string $account_name client admin account name for email type 6
      * @param int $extra1 extra field to insert to tokens table
@@ -144,6 +147,40 @@ class Mailer
                     $mail->addBCC("sales@vtexvsi.com");
                     break;
 
+                case 17:
+                    /** $extra1 : payment ID */
+
+                    $mailingListSize = 1;
+//                    global $pass;
+//                    $pass = $extra1;
+
+                    // get models
+                    $payment = Payment::withID($extra1, $this->db);
+                    $user = User::withID($payment->getUserId(), $this->db);
+
+                    $emHTML = file_get_contents(__DIR__ . '/../../../mail/templates/sr_package_receipt.html');
+                    $paymentJson = json_decode($payment->getPaymentJson(), true);
+                    $replace_pairs = array(
+                        '{{date}}'    => date("d-m-yy h:m:sa"),
+                        '{{name}}'    => $user->getFirstName() . " " . $user->getLastName(),
+                        '{{email}}'  => $user->getEmail(),
+                        '{{address}}'=> $user->getAddress() . ", " . $user->getCountry(),
+                        '{{pkgname}}'  => $paymentJson["pkg_name"],
+                        '{{pkgmin}}'   => $paymentJson["pkg_minutes"],
+                        '{{taxes}}'   => $this->generateTaxes($paymentJson["taxes"],$paymentJson["pkg_price"] ),
+                        '{{totalprice}}'   => $this->formatPrice($paymentJson["total_price"]),
+                        '{{ref}}'   => $payment->getRefId(),
+                        '{{card}}'   => $paymentJson["card"],
+                    );
+
+
+                    $emHTML = strtr($emHTML, $replace_pairs);
+                    $emPlain = $emHTML;
+
+                    $sbj = "vScription Transcribe Pro Purchase Receipt";
+//                    $mail->addBCC("sales@vtexvsi.com");
+                    break;
+
                 default:
                     $sbj = "vScription Transcribe Pro";
                     break;
@@ -179,6 +216,25 @@ class Mailer
             return false;
         }
     } // send Email end
+
+    function generateTaxes($taxes, $pkgPrice)
+    {
+        $taxesHTML = "";
+
+        foreach ($taxes as $tax) {
+            $taxesHTML .= '<tr><td>Taxes ('.$tax["code"].'- '.number_format(floatval($tax["tax"]) * 100, 0).'%)</td><td style="text-align: right">
+                    '.
+                    $this->formatPrice(number_format((floatval($pkgPrice) * floatval($tax["tax"])), 2))
+                .'
+                </td></tr>';
+        }
+
+        return$taxesHTML;
+    }
+    function formatPrice($price)
+    {
+        return "$" . number_format(floatval($price), 2) . " CAD";
+    }
 
     /**
      * Generates a random 78 length token, inserts it to tokens table
