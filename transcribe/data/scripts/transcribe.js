@@ -57,6 +57,13 @@ $(document).ready(function () {
 
     $("#capSrcClose").on('click', function(){
         modalCapSearch.style.display = "none";
+        captionsSearch.val("");
+        dt.clear().draw();
+    });
+
+    $("#capSrcClear").on('click', function(){
+        captionsSearch.val("");
+        dt.clear().draw();
     });
 
     searchEngine.on('click', function(){
@@ -85,12 +92,16 @@ $(document).ready(function () {
         data: dtData,
         rowId: 'start',
         autoWidth: false,
+        "language": {
+            "emptyTable": "No matching text found"
+            // "zeroRecords": "No matching text found"
+        },
         "lengthChange": false,
         // "paging":   false,
         "searching": false,
         columns: [
             {
-                title: "line",
+                title: "Search Results",
                 data: "line"
             }
             // { }
@@ -113,6 +124,12 @@ $(document).ready(function () {
         // jobLoadLookup(fileID);
     });
 
+    $("#searchBtn").on("click", function()
+    {
+        let result = filterValuePart(captions, captionsSearch.val());
+        dtData = parseCapResultForDT(result);
+        dt.clear().rows.add(dtData).draw();
+    });
 
     captionsSearch.on("keyup", function(event) {
         // Number 13 is the "Enter" key on the keyboard

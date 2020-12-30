@@ -481,7 +481,11 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                         </div>
                     </div>
                     <div class="col-auto">
-                        <button type="button" id="searchEngine" class="btn btn-primary btn-sm h-auto" style="margin-top: 2px;" hidden>TEXT SEARCH <i class="fas fa-search-plus" style="font-size: large"></i></button>
+                        <button type="button" id="searchEngine" class="btn btn-primary btn-sm h-auto"
+                                style="margin-top: 2px;" hidden>TEXT SEARCH
+                            <i class="fas fa-search-plus"
+                                                                               style="font-size: large"></i>
+                        </button>
                     </div>
                     <!--<div class="col-auto mt-auto mb-auto mr-auto pr-4 pl-1" id="searchEngine" hidden>
                         <i class="hover-expand fab fa-searchengin" style="font-size: x-large; color: var(--vtex-blue)"></i>
@@ -567,8 +571,13 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
     <div class="vtex-modal-content" id="loadingContent" style="width: fit-content!important;">
 
         <div class="row">
-            <div class="col"><h2>Captions Search</h2></div>
-            <div class="col-auto justify-content-end align-items-end"><input type="text" id="captionsSearch"/></div>
+            <div class="col"><h2>Text Search</h2></div>
+            <div class="col-auto justify-content-end align-items-end pr-0 pb-0 mt-auto">
+                <input type="text" id="captionsSearch"/>
+            </div>
+            <div class="col-auto vtex-help-icon hover-expand pb-0 mt-auto pl-2 mr-1" id="searchBtn">
+                <i class="fas fa-search" style="font-size: x-large"></i>
+            </div>
         </div>
 
 <!--        <div id="captionResult">-->
@@ -576,7 +585,14 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 <!--        </div>-->
 
         <div class="row">
-            <div style="text-align: right" class="mt-5 col justify-content-end align-items-end">
+            <div style="text-align: right" class="mt-2 col justify-content-end align-items-end pr-0">
+                <button class="mdc-button mdc-button--unelevated suspend-button" id="capSrcClear">
+                    <div class="mdc-button__ripple"></div>
+                    <!--                <i class="material-icons mdc-button__icon" aria-hidden="true">done_all</i>-->
+                    <span class="mdc-button__label">clear</span>
+                </button>
+            </div>
+            <div style="text-align: right" class="mt-2 col-auto justify-content-end align-items-end">
                 <button class="mdc-button mdc-button--unelevated confirm-button" id="capSrcClose">
                     <div class="mdc-button__ripple"></div>
                     <!--                <i class="material-icons mdc-button__icon" aria-hidden="true">done_all</i>-->
