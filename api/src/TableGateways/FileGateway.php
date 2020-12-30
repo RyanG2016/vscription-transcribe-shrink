@@ -417,7 +417,7 @@ class FileGateway implements GatewayInterface
             $file_status = 8; // Queued for conversion
         }
 
-        if(isset($_POST["sr_enabled"]) && $_POST["sr_enabled"] == true)
+        if(isset($_POST["sr_enabled"]) && $_POST["sr_enabled"] === "true")
         {
             if($file_status == 8)
             {
