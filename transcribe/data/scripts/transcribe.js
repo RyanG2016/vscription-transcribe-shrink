@@ -54,6 +54,7 @@ $(document).ready(function () {
     let modalCapSearch = document.getElementById("modalSearchCaptions");
 
     var searchEngine =   $("#searchEngine");
+    var compactView =   $("#pop");
 
     $("#capSrcClose").on('click', function(){
         modalCapSearch.style.display = "none";
@@ -648,7 +649,7 @@ $(document).ready(function () {
 
     window.hidetxt = true;
 
-    $("#pop").click(function () {
+    compactView.click(function () {
         // let currentMediaSrc = AblePlayerInstances[0].media.src;
         // let seek = AblePlayerInstances[0].seekBar.position;
         let tinymceContent = tinymce.get('report').getContent().toString();
@@ -658,10 +659,6 @@ $(document).ready(function () {
         } else {
             prepareAndOpenPopup();
         }
-
-
-        // openWindowWithPost(currentMediaSrc, seek);
-        // document.getElementById('modalPlayerForm').submit();
     });
 
     $("#logoutBtn").click(function () {
@@ -844,6 +841,7 @@ $(document).ready(function () {
         $('#suspendBtn').attr("disabled", "disabled");
         $('#discardBtn').attr("disabled", "disabled");
         tinyMCE.activeEditor.setMode("readonly");
+        compactView.show();
 
         return completePlayer();
     }
@@ -933,8 +931,8 @@ $(document).ready(function () {
         captions = JSON.parse(jobDetails.captions);
         currentFileData = jobDetails;
         currentFileID = jobDetails.file_id; // globally set current fileID
-        console.log(jobDetails.file_id);
-        console.log(currentFileID);
+        // console.log(jobDetails.file_id);
+        // console.log(currentFileID);
 
         // load previous suspended text into tinyMCE if suspended
         if (jobDetails.suspendedText !== null && jobDetails.file_status !== 0) {
@@ -947,6 +945,7 @@ $(document).ready(function () {
         {
             has_captions = true;
             searchEngine.removeAttr("hidden");
+            compactView.hide();
         }
 
         // $("#tryme").html(decodeHtml(jobDetails.suspendedText));
