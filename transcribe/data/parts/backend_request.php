@@ -565,9 +565,11 @@ if(isset($_REQUEST["reqcode"])){
 
 			$suffix = $_REQUEST['suffix'];
 			$key = ini_get("session.upload_progress.prefix") . $suffix;
-			echo json_encode($_SESSION[$key]);
+            if(isset($_SESSION[$key])){
+                echo json_encode($_SESSION[$key]);
+            }
 
-			break;
+            break;
 
 			/** Password hashing **/
 		case 66:
