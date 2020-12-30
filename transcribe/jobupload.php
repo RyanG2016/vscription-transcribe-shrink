@@ -77,7 +77,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
         var tutorials='<?php echo $tuts;?>';
     </script>
 	
-	 <script src="data/scripts/job_upload.js"></script>
+	 <script src="data/scripts/job_upload.min.js?v=1"></script>
     <link rel="stylesheet" href="data/css/upload_form.css">
     <link rel="stylesheet" href="data/css/job_upload.css">
 	
@@ -150,12 +150,19 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 
                             <div class="row">
                                 <div class="col">
-                                    <label class="mdc-button mdc-button--unelevated upload_btn_lbl" for="upload_btn">
+                                    <!--<button class="mdc-button mdc-button--unelevated compact-view-btn"  name="compact-view"
+                                            type="button">
                                         <div class="mdc-button__ripple"></div>
-                                        <i class="fas fa-cloud-upload-alt"></i>
+                                        <i class="fas fa-external-link-alt"></i>
+                                        <span class="mdc-button__label">&nbsp;Compact View</span>
+                                    </button>
+-->
+                                    <button type="button" class="mdc-button mdc-button--unelevated upload_btn_lbl mb-2 w-100" for="upload_btn" id="mainUploadBtn">
+                                        <div class="mdc-button__ripple"></div>
+                                        <i class="fas fa-file-upload"></i>&nbsp;
                                         <!--                                    <span class="mdc-button__label">Choose Files to Upload (wav, mp3, m4a, ds2, ogg)</span>-->
-                                        <span class="mdc-button__label">Upload</span>
-                                    </label>
+                                        <span class="mdc-button__label">Choose files</span>
+                                    </button>
                                 </div>
                                 <div class="col p-0">
                                     <small class="text-muted">Allowed: (wav, mp3, m4a, ds2, ogg)</small>

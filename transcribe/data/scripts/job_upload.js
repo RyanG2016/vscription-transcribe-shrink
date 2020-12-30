@@ -7,7 +7,6 @@ var uploadAjax;
 function documentReady() {
 
 	const input = document.getElementById('upload_btn');
-	const chooseBtn = document.getElementById('upload_btn_lbl');
 	const reset = document.getElementById('clear_btn');
 	const submitUploadBtn = document.querySelector('.submit_btn');
 	const cancel_popup_btn = document.getElementById('cancelUpload');
@@ -21,12 +20,14 @@ function documentReady() {
 	$('#dictdatetime').datetimepicker({format: "DD-MMM-YYYY hh:mm:ss A"});
 
 	new mdc.ripple.MDCRipple(document.querySelector('.clear_btn'));
-	new mdc.ripple.MDCRipple(document.querySelector('.upload_btn_lbl'));
+	var mdcMainUploadBtn = new mdc.ripple.MDCRipple(document.querySelector('.upload_btn_lbl'));
 	new mdc.ripple.MDCRipple(document.querySelector('.submit_btn'));
 	new mdc.ripple.MDCRipple(document.querySelector('#cancelUpload'));
 	new mdc.ripple.MDCRipple(document.querySelector('#confirmUpload'));
 	// new mdc.textfield.MDCTextField(document.querySelector('.mdc-text-field'));
 	let modal = document.getElementById("modal");
+
+	const mainUploadBtn = $("#mainUploadBtn");
 
 	// allowed files for upload queue variables
 	var filesArr = [];
@@ -58,6 +59,10 @@ function documentReady() {
 
 
 	input.style.display = "none";
+
+	mainUploadBtn.on('click', function (){
+		input.click();
+	});
 
 	input.addEventListener('click', function(){
 		resetFiles();
@@ -643,6 +648,8 @@ function documentReady() {
 			preview.appendChild(par);
 		} else {
 
+			mainUploadBtn.attr("disabled", "disabled");
+
 			filesCount = curFiles.length;
 
 			// document.querySelector('.submit_btn').removeAttribute("disabled");
@@ -766,6 +773,8 @@ function documentReady() {
 		preview.appendChild(par);
 		document.querySelector('.submit_btn').setAttribute("disabled", "true");
 		document.querySelector('.clear_btn').setAttribute("disabled", "true");
+
+		mainUploadBtn.removeAttr("disabled");
 	}
 	
 	function resetAfterUpload() {
@@ -780,6 +789,7 @@ function documentReady() {
 		$("#demo_speaker_type").val(0);
 		$('#demo_comments').val("");
 		getSRMinutes();
+		mainUploadBtn.removeAttr("disabled");
 	}
 		// Tutorial area
 	
