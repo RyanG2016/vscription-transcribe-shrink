@@ -48,12 +48,12 @@ $uid = $_POST["uid-access"];
     <!--	///// End of scrollbar   /////-->
 
     <!--  Data table Jquery helping libs  -->
-    <link rel="stylesheet" type="text/css" href="../data/libs/DataTables/datatables.css"/>
+<!--    <link rel="stylesheet" type="text/css" href="../data/libs/DataTables/datatables.css"/>-->
     <link rel="stylesheet" type="text/css"
           href="https://cdnjs.cloudflare.com/ajax/libs/material-components-web/4.0.0/material-components-web.min.css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/dataTables.material.min.css"/>
-    <script type="text/javascript" src="../data/libs/DataTables/datatables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/dataTables.material.min.js"></script>
+<!--    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/dataTables.material.min.css"/>-->
+<!--    <script type="text/javascript" src="../data/libs/DataTables/datatables.min.js"></script>-->
+<!--    <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/dataTables.material.min.js"></script>-->
 
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -67,14 +67,27 @@ $uid = $_POST["uid-access"];
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.ui.position.js"></script>
 
     <!-- BOOTSTRAP -->
-    <link rel="stylesheet" href="../data/custom-bootstrap-select/css/bootstrap.css">
-    <script src="../data/custom-bootstrap-select/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
             integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
             crossorigin="anonymous"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+    <!--    <script src="../data/custom-bootstrap-select/js/bootstrap.min.js"></script>-->
+
+    <!-- BOOTSTRAP SELECT -->
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
+    <!--  Datatables  -->
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+
+
+    <!--  css  -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" crossorigin="anonymous">
 
 
     <script src="../data/scripts/access.min.js"></script>
@@ -82,7 +95,7 @@ $uid = $_POST["uid-access"];
 </head>
 
 <body>
-
+<?php include_once "../data/parts/nav.php"?>
 
 <div id="container" style="width: 100%">
     <div class="form-style-5">
@@ -164,7 +177,7 @@ $uid = $_POST["uid-access"];
 
 
                 <!--        CONTENTS GOES HERE        -->
-                <table id="access-tbl" class="access-tbl" style="width:100%">
+                    <table id="access-tbl" class="access-tbl table row-border hover compact" style="width:100%">
                     <thead>
                     <tr>
                         <th>ID</th>
@@ -190,7 +203,7 @@ $uid = $_POST["uid-access"];
 
     <!-- Modal content -->
     <div class="modal-content">
-        <h2 style="color: #1e79be" id="modalHeaderTitle">
+        <h2 style="color: #1e79be" id="modalHeaderTitle" class="mt-3">
             <i class="fas fa-key"></i>&nbsp;Add Permission
         </h2>
 

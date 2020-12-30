@@ -181,12 +181,12 @@ $(document).ready(function () {
         lengthChange: false,
         pageLength: maximum_rows_per_page_jobs_list,
         autoWidth: false,
-        columnDefs: [
-            {
-                targets: ['_all'],
-                className: 'mdc-data-table__cell'
-            }
-        ],
+        // columnDefs: [
+        //     {
+        //         targets: ['_all'],
+        //         className: 'mdc-data-table__cell'
+        //     }
+        // ],
         /*
         * 				<th>ID</th>
                         <th>Acc ID</th>
@@ -239,7 +239,7 @@ $(document).ready(function () {
     });
 
     $.contextMenu({
-        selector: '.access-tbl tbody tr',
+        selector: '#access-tbl tbody tr',
         callback: function (key, options) {
             // var m = "clicked: " + key + "  ";
             // window.console && console.log(m) ;//|| alert(m);
