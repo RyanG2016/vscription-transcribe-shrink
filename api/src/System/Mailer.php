@@ -178,7 +178,7 @@ class Mailer
                     $emPlain = $emHTML;
 
                     $sbj = "vScription Transcribe Pro Purchase Receipt";
-//                    $mail->addBCC("sales@vtexvsi.com");
+                    $mail->addBCC("sales@vtexvsi.com");
                     break;
 
                 default:
