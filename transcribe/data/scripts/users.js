@@ -12,7 +12,7 @@ var updateAccBtn;
 var modalHeaderTitle;
 var countriesGlobal;
 const COUNTRIES_URL = "../api/v1/countries/?box_model";
-const CITIES_URL = "../api/v1/cities/"; // + id + "?box_model"
+// const CITIES_URL = "../api/v1/cities/"; // + id + "?box_model"
 const API_INSERT_URL = '../api/v1/users/';
 
 const CREATE_ACC_HEADER = "<i class=\"fas fa-user-plus\"></i>&nbsp;Create New User";
@@ -31,8 +31,8 @@ var countryBox;
 
 // state
 var stateContainer;
-var stateBoxLbl; // for combo box
-var stateBox;
+// var stateBoxLbl; // for combo box
+// var stateBox;
 
 var stateInputLbl; // for input
 var stateInput;
@@ -69,10 +69,11 @@ $(document).ready(function () {
 
 	// state
 	stateContainer = $("#stateContainer");
-	stateBoxLbl = $("#stateBoxLbl");
-	stateBox = $("#stateBox");
+	// stateBoxLbl = $("#stateBoxLbl");
+	// stateBox = $("#stateBox");
 	stateInputLbl = $("#stateInputLbl");
 	stateInput = $("#stateInput");
+
 
 	// city
 	cityContainer = $("#cityContainer");
@@ -235,16 +236,7 @@ $(document).ready(function () {
 			{ "data": "email" },
 			{ "data": "country" },
 			{ "data": "city" },
-			{ "data": "state",
-				render: function (data, type, row) {
-					if(data)
-					{
-						return data;
-					}else{
-						return row["state_ref"];
-					}
-				}
-			},
+			{ "data": "state"},
 			{ "data": "account_status" },
 			{ "data": "acc_name",
 				render: function (data, type, row) {
@@ -407,98 +399,24 @@ $(document).ready(function () {
 			// setupComboBox(countries, "country");
 			const cbox = document.getElementById("country");
 			for (const country of countries) {
-				cbox.innerHTML += "<option value='"+country.value+"'>"+country.label+"</option>";
+				cbox.innerHTML += "<option value='"+country.label+"'>"+country.label+"</option>";
 			}
 			countryBox.selectpicker({
 				liveSearch: true,
 				liveSearchPlaceholder: "Choose Country"
 			});
 
-			loadCityAndState(countryBox.selectpicker('val')); // first time
+			// loadCityAndState(countryBox.selectpicker('val')); // first time
 
 			countryBox.on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
 				// do something...
 				// console.log("selection changed to: " + clickedIndex + " and prev was: " + previousValue+ "and e is ");
 				// console.log(e);
 				// console.log(countryBox.selectpicker('val')); // selected value
-				loadCityAndState(countryBox.selectpicker('val'));
+				// loadCityAndState(countryBox.selectpicker('val'));
 			});
 		}
 	});
-
-	function loadCityAndState(cID) {
-		stateInputLbl.css("display","none");
-		stateBoxLbl.css("display","none");
-
-		cityContainer.css("display","none");
-
-		createAccBtn.attr("disabled","disabled");
-		updateAccBtn.attr("disabled","disabled");
-		removeLoadingSpinner(); // if any left over
-		stateContainer.append(generateLoadingSpinner());
-		stateBox.selectpicker('destroy');
-
-		if(cID == 204 || cID == 203)
-		{
-			setStateForm(true);
-			if(cityRequest != null)
-			{
-				cityRequest.abort();
-			}
-
-			cityRequest = $.ajax({
-				url: CITIES_URL + cID + "?box_model",
-				method: "GET",
-				success: function (cities) {
-					// console.log(cities);
-
-					const tybox = document.getElementById("stateBox");
-					tybox.innerHTML = ""; // clear old values
-					for (const city of cities) {
-						tybox.innerHTML += "<option value='"+city.value+"'>"+city.label+"</option>"
-					}
-					stateBox.selectpicker({
-						liveSearch: true,
-						liveSearchPlaceholder: "Choose City"
-					});
-					stateBox.selectpicker('refresh');
-
-					removeLoadingSpinner();
-
-					cityContainer.css("display","inline");
-
-					if(update){
-						updateAccBtn.removeAttr("disabled");
-						// update city with city ID
-						if(updateData["state_id"] != null && updateData["state_id"] != 0 ){
-							// update city
-							stateBox.selectpicker('val',updateData["state_id"]);
-							stateBoxLbl.css("display","inline");
-						}else{
-							stateBoxLbl.css("display","inline");
-						}
-					} else{
-						stateBoxLbl.css("display","inline");
-						createAccBtn.removeAttr("disabled");
-					}
-					// city_input_lbl.css("display","inline");
-				}
-			});
-		}else{
-			setStateForm(false);
-			removeLoadingSpinner();
-			stateInputLbl.css("display","inline");
-			cityContainer.css("display","inline");
-
-			if(update){
-				stateInput.val(updateData["state"]);
-				updateAccBtn.removeAttr("disabled");
-			} else{
-				createAccBtn.removeAttr("disabled");
-			}
-		}
-	}
-
 
 });
 
@@ -513,7 +431,7 @@ function htmlEncodeStr(s)
 
 function resetForm(){
 	modalHeaderTitle.html(CREATE_ACC_HEADER);
-	setStateForm(true);
+	// setStateForm(true);
 	updateAccBtn.css("display","none");
 	createAccBtn.css("display","inline");
 	createAccForm.find("input:not(input[type=radio])").val("");
@@ -523,16 +441,6 @@ function resetForm(){
 	updateAccBtn.removeAttr("disabled");
 }
 
-function setStateForm(comboBoxID){
-	if(comboBoxID)
-	{
-		stateInput.removeAttr("name");
-		stateBox.attr("name", "state_id");
-	}else{
-		stateBox.removeAttr("name");
-		stateInput.attr("name", "state");
-	}
-}
 
 function preFillForm(data)
 {
@@ -571,10 +479,17 @@ function preFillForm(data)
 	}
 
 	// Setting address --
-	if(data["country_id"] != 0)
+	if(data["country"] != null)
 	{
-		countryBox.selectpicker('val',data["country_id"]);
+		countryBox.selectpicker('val',data["country"]);
 	}
+	if(data["state"] != null)
+	{
+		stateInput.val(updateData["state"]);
+	}else{
+		stateInput.val("");
+	}
+
 	// cityInput
 	if(data["city"] != null)
 	{
@@ -582,7 +497,7 @@ function preFillForm(data)
 	}else{
 		cityInput.val("");
 	}
-
+	updateAccBtn.removeAttr("disabled");
 
 	// show form
 	createAccModal.style.display = "block";

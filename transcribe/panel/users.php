@@ -238,16 +238,16 @@ $vtex_page = 5;
 
             <div class="country">
                 <label>Country</label><br>
-                <select id="country" name="country_id" class="country_select" data-width="250px">
+                <select id="country" name="country" class="country_select" data-width="250px">
                 </select>
             </div>
             <br>
             <!--===================================================-->
             <div class="state" id="stateContainer">
-                <label id="stateBoxLbl" class="stateLbl">State<br>
+                <!--<label id="stateBoxLbl" class="stateLbl">State<br>
                     <select id="stateBox" name="state_id" class="state_select" data-width="250px">
                     </select>
-                </label>
+                </label>-->
                 <!------------------------------------------------------>
                 <label class="vtex-form_lbl state_input_lbl" id="stateInputLbl">
                     State

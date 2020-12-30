@@ -264,11 +264,11 @@ class User extends BaseModel implements BaseModelInterface
             $this->last_name = $row['last_name'];
             $this->email = $row['email'];
             $this->password = $row['password'];
-//            $this->country_id = $row['country_id'];
+
             $this->city = $row['city'];
             $this->country = $row['country'];
             $this->zipcode = $row['zipcode'];
-//            $this->state_id = $row['state_id'];
+
             $this->state = $row['state'];
             $this->address = $row['address'];
 //            $this->registeration_date = $row['registeration_date'];

@@ -108,6 +108,7 @@ function sqlInjectionUserCheckPassed($array){
             case "last_name":
             case "email":
             case "city":
+            case "country":
             case "state":
             case "last_ip_address":
             case "account_status":
@@ -119,7 +120,6 @@ function sqlInjectionUserCheckPassed($array){
             case "email_notification":
             case "account":
                 if (
-                    empty(trim($value)) ||
                     strpos($value, '%') !== FALSE
 //                    ||strpos($value, '_')
                 ) {
@@ -127,8 +127,6 @@ function sqlInjectionUserCheckPassed($array){
                 }
 
                 break;
-            case "country_id":
-            case "state_id":
             case "enabled":
             case "newsletter":
                 if (
@@ -188,8 +186,8 @@ function sqlInjectionCreateCheckPassed($array){
 
                 break;
 
-            case "country_id":
-            case "state_id":
+//            case "country_id":
+//            case "state_id":
             case "enabled":
             case "newsletter":
                 if (

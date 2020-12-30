@@ -713,7 +713,7 @@ class FileGateway implements GatewayInterface
 //            !isset($put["first_name"]) ||
 //            !isset($put["last_name"]) ||
 //            !isset($put["email"]) ||
-//            !isset($put["country_id"]) ||
+
 //            !isset($put["newsletter"]) ||
 //            !isset($put["enabled"])
 //        ) {

@@ -18,7 +18,7 @@ $(document).ready(function () {
     // var prevDiv = $(".prev-btn-div");
     // var nextDiv = $(".next-btn-div");
 
-    var currentCountry = 203;
+    var currentCountry = "Canada";
 
     // boxes
     /*var countryBox;*/

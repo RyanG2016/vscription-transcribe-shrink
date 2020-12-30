@@ -220,7 +220,7 @@ $(document).ready(function () {
                 {
                     return data;
                 }else{
-                    return row["state_ref"];
+
                 }
             }
         },

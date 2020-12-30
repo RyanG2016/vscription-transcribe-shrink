@@ -37,10 +37,9 @@ class UserGateway implements GatewayInterface
                     users.first_name,
                     users.last_name,
                     users.email,
-                    users.country_id,
-                    countries.country,
+                    
+                    users.country,
                     users.city,
-                    users.state_id,
                     users.state,
                     users.registeration_date,
                     users.last_ip_address,
@@ -54,13 +53,10 @@ class UserGateway implements GatewayInterface
                     users.enabled,
                     users.def_access_id,
                     accounts.acc_name,
-                    access.acc_role,
-                    cities.city as `state_ref`
+                    access.acc_role
                                       
             FROM
-                users
-            INNER JOIN countries ON users.country_id = countries.id 
-            LEFT JOIN cities ON users.state_id = cities.id
+                users 
             LEFT JOIN access ON users.def_access_id = access.access_id
             LEFT JOIN accounts ON access.acc_id = accounts.acc_id
         " . $filter . ";";
@@ -81,7 +77,7 @@ class UserGateway implements GatewayInterface
             }
             return $result;
         } catch (\PDOException $e) {
-            exit($e->getMessage());
+            return false;
         }
     }
 
@@ -191,10 +187,8 @@ class UserGateway implements GatewayInterface
                     users.first_name,
                     users.last_name,
                     users.email,
-                    users.country_id,
-                    countries.country,
+                    users.country,
                     users.city,
-                    users.state_id,
                     users.state,
                     users.registeration_date,
                     users.last_ip_address,
@@ -206,13 +200,11 @@ class UserGateway implements GatewayInterface
                     users.email_notification,
                     users.account,
                     users.enabled,
-                    users.def_access_id,
-                   cities.city as `state_ref`
+                    users.def_access_id
+                   
                                       
             FROM
                 users
-            INNER JOIN countries ON users.country_id = countries.id
-            LEFT JOIN cities ON users.state_id = cities.id
             WHERE
                 users.id = ?";
 
@@ -389,10 +381,8 @@ class UserGateway implements GatewayInterface
                     users.first_name,
                     users.last_name,
                     users.email,
-                    users.country_id,
-                    countries.country,
+                    users.country,
                     users.city,
-                    users.state_id,
                     users.state,
                     users.registeration_date,
                     users.last_ip_address,
@@ -404,13 +394,9 @@ class UserGateway implements GatewayInterface
                     users.email_notification,
                     users.account,
                     users.enabled,
-                    users.typist,
-                   cities.city as `state_ref`
-                                      
+                    users.typist                                      
             FROM
                 users
-            INNER JOIN countries ON users.country_id = countries.id
-            LEFT JOIN cities ON users.state_id = cities.id
             WHERE
                 users.email = ?";
 
@@ -433,7 +419,7 @@ class UserGateway implements GatewayInterface
             !isset($_POST["first_name"]) ||
             !isset($_POST["last_name"]) ||
             !isset($_POST["email"]) ||
-            !isset($_POST["country_id"]) ||
+            !isset($_POST["country"]) ||
             !isset($_POST["newsletter"]) ||
             !isset($_POST["enabled"])
         ) {
@@ -750,17 +736,17 @@ class UserGateway implements GatewayInterface
             $i++;
         }
 
-        if(isset($put['state'])){
+//        if(isset($put['state'])){
 
-            $valPairs .= ", `state_id` = ";
-            array_push($valsArray, null);
-            $valPairs .= "?";
-        }
-        else if(isset($put['state_id'])){
-            $valPairs .= ", `state` = ";
-            array_push($valsArray, null);
-            $valPairs .= "?";
-        }
+//            $valPairs .= ", `state_id` = ";
+//            array_push($valsArray, null);
+//            $valPairs .= "?";
+//        }
+//        else if(isset($put['state_id'])){
+//            $valPairs .= ", `state` = ";
+//            array_push($valsArray, null);
+//            $valPairs .= "?";
+//        }
 
         array_push($valsArray, $id);
 

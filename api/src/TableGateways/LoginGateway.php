@@ -25,7 +25,7 @@ class LoginGateway
 
         $statement = "
             SELECT
-                users.id,first_name, last_name, email, password, address,city, country_id, state, account_status, last_login, trials, unlock_time,tutorials,
+                users.id,first_name, last_name, email, password, address,city, state, account_status, last_login, trials, unlock_time,tutorials,
                 account, def_access_id, users.enabled, a.acc_role, a.acc_id, r.role_desc, a2.acc_name, country, zipcode, a2.sr_enabled as sr_enabled,
                 IF(account != 0 , (select accounts.acc_name from accounts where accounts.acc_id = account), false) 
                     as 'admin_acc_name'                
