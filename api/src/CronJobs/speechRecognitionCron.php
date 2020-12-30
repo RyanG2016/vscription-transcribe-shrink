@@ -334,7 +334,7 @@ class speechRecognitionCron{
     function getFileBillableDuration($tmpFilePath, $originalName): float
     {
         $fileInfo = $this->id3->analyze($tmpFilePath, filesize($tmpFilePath), $originalName);
-        $file_duration = (int)ceil(@$fileInfo['playtime_seconds']);
+        $file_duration = (float)ceil(@$fileInfo['playtime_seconds']);
         return $this->common->roundUpToAnyIncludeCurrent($file_duration);
     }
 

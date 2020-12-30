@@ -37,7 +37,7 @@ class File extends BaseModel implements BaseModelInterface
         private int $times_text_downloaded_date = 0,
         private ?string $text_downloaded_date = null,
         private ?string $file_date_dict = null,
-        private ?int $audio_length = null,
+        private ?float $audio_length = null,
         private ?string $job_uploaded_by = null,
         private int $file_status = 0,
         private ?int $last_audio_position = 0,
@@ -470,7 +470,7 @@ class File extends BaseModel implements BaseModelInterface
     }
 
     /**
-     * @return int|null
+     * @return float|null
      */
     public function getAudioLength(): ?int
     {
@@ -478,9 +478,9 @@ class File extends BaseModel implements BaseModelInterface
     }
 
     /**
-     * @param int|null $audio_length
+     * @param float|null $audio_length
      */
-    public function setAudioLength(?int $audio_length): void
+    public function setAudioLength(?float $audio_length): void
     {
         $this->audio_length = $audio_length;
     }
