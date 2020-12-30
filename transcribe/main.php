@@ -141,7 +141,7 @@ else {
                         <span class="mdc-button__label">Upload Jobs</span>
                     </button>
 
-                    <button class="mdc-button mdc-button--unelevated vtex-mtb" id="manage_typists_btn">
+                    <button class="mdc-button mdc-button--unelevated vtex-mtb" id="manage_typists_btn" hidden>
                         <div class="mdc-button__ripple"></div>
                         <i class="fas fa-keyboard"></i>&nbsp;
                         <span class="mdc-button__label">Manage Typists</span>
