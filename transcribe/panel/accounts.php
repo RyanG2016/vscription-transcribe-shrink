@@ -144,7 +144,7 @@ $vtex_page = 6;
                     <button class="mdc-button mdc-button--outlined tools-button" id="createAcc">
                         <div class="mdc-button__ripple"></div>
                         <i class="fas fa-user-plus"></i>
-                        <span class="mdc-button__label">&nbsp;Create Account</span>
+                        <span class="mdc-button__label">&nbsp;Create Org</span>
                     </button>
 
                     <!--<div class="vtex-card nav-header">
@@ -164,7 +164,7 @@ $vtex_page = 6;
             <div class="vtex-card contents first">
 
                 <div class="vtex-top-bar">
-                    <h2 class="accounts-tbl-title">Org List</h2>
+                    <h2 class="accounts-tbl-title">Organization List</h2>
                     <button class="mdc-button mdc-button--unelevated refresh-button" id="refresh_btn">
                         <div class="mdc-button__ripple"></div>
                         <i class="material-icons mdc-button__icon" aria-hidden="true">refresh</i>
@@ -207,7 +207,7 @@ $vtex_page = 6;
             <div class="modal-header">
                 <div>
                     <h3 style="color: #1e79be" id="modalHeaderTitle"><i class="fas fa-user-plus"></i>&nbsp;Create New
-                        Account</h3>
+                        Org</h3>
                 </div>
                 <div style="text-align: right">
                     <fieldset class="vtex-fieldset enabled-radios" style="display: inline;text-align: center;">
@@ -243,7 +243,7 @@ $vtex_page = 6;
                 <div class="form-row">
                     <div class="input-group col w-100 mb-3">
                         <div class="input-group-prepend">
-                            <span class="input-group-text">Account Name</span>
+                            <span class="input-group-text">Org Name</span>
                         </div>
                         <input type="text" class="form-control" id="accName" placeholder="" name="acc_name">
                     </div>
@@ -253,7 +253,7 @@ $vtex_page = 6;
                 <div class="form-row mb-2">
                     <div class="input-group col">
                         <div class="input-group-prepend">
-                            <span class="input-group-text">Account Retention Time</span>
+                            <span class="input-group-text">Org Retention Time</span>
                         </div>
                         <input type="number" class="form-control" id="acc_retention_time" placeholder=""
                                name="acc_retention_time" min="0"
