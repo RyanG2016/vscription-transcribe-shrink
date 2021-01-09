@@ -1,6 +1,9 @@
 <?php
 //include('../data/parts/head.php');
-$vtex_page = 0;
+require '../api/vendor/autoload.php';
+use Src\Enums\INTERNAL_PAGES;
+
+$vtex_page = INTERNAL_PAGES::LANDING;
 include('data/parts/session_settings.php');
 
 require('data/parts/ping.php');
@@ -73,149 +76,56 @@ if (isset($_SESSION['counter'])) {
 
 <body>
 
-<?php include_once "data/parts/nav.php" ?>
+<div class="container-fluid d-flex h-auto vspt-container-fluid">
+    <div class="row w-100 h-100 vspt-container-fluid-row no-gutters" style="white-space: nowrap">
 
-<div id="container" style="width: 100%">
-    <div class="form-style-5">
+        <?php include_once "data/parts/nav.php"?>
 
-        <table id="header-tbl">
-            <tr>
-                <td id="navbtn" align="left" colspan="1">
+        <div class="vspt-page-container vspt-col-auto-fix">
+
+            <div class="row">
+                <div class="col">
                     <?php
                     if (isset($_SESSION['role'])) {
                         switch ($_SESSION['role']) {
                             case 1:
-                                echo "<a class=\"logout\" href=\"panel/\"><i class=\"fas fa-arrow-left\"></i> Go to admin panel</a>";
+                                echo "<a class=\"logbar\" href=\"panel/\"><i class=\"fas fa-arrow-left\"></i> Go to admin panel</a>";
                                 break;
 
                             case 2:
-                                echo "<a class=\"logout\" href=\"main.php\"><i class=\"fas fa-arrow-left\"></i> Go to job list</a>";
+                                echo "<a class=\"logbar\" href=\"main.php\"><i class=\"fas fa-arrow-left\"></i> Go to job list</a>";
                                 break;
 
                             case 3:
-                                echo "<a class=\"logout\" href=\"transcribe.php\"><i class=\"fas fa-arrow-left\"></i> Go to transcribe</a>";
+                                echo "<a class=\"logbar\" href=\"transcribe.php\"><i class=\"fas fa-arrow-left\"></i> Go to transcribe</a>";
                                 break;
                         }
                     }
                     ?>
-                </td>
+                </div>
 
-                <td id="logbar" align="right" colspan="1">
+                <div class="col-auto logbar">
                     Logged in as: <?php echo $_SESSION['uEmail'] ?> |
                     <!--                    </div>-->
                     <a class="logout" href="logout.php">
                         <i class="fas fa-sign-out-alt"></i>
                         Logout
                     </a>
-                </td>
-
-            </tr>
-            <tr class="spacer"></tr>
-            <tr style="margin-top: 50px">
-                <td class="title" align="left" width="450px">
-                    <legend class="page-title"><i class="fas fa-home"></i> Home</legend>
-                </td>
-                <!--<td align="right" rowspan="2" id="fix-td">
-
-                    </td>-->
-
-                <td width="300px" style="text-align: right">
-                    <img src="data/images/Logo_vScription_Transcribe_Pro_White.png" width="300px"/>
-                </td>
-            </tr>
-
-
-        </table>
-
-        <div class="root">
-            <div class="nav-bar">
-
-                <?php
-                if (isset($_SESSION["role"])) {
-                    $rl = $_SESSION["role"];
-                    if ($rl == 3) {
-                        echo "<div class=\"vtex-card nav-header first\">
-                                Navigation
-                            </div>
-                            <div class=\"nav-btns-div\">
-                                <button class=\"mdc-button mdc-button--outlined tools-button\" onclick=\"location.href='transcribe.php'\">
-                                    <div class=\"mdc-button__ripple\"></div>
-                                    <i class=\"fas fa-angle-double-right\"></i>
-                                        Go To Transcribe
-                                    </span>
-                                </button>
-                            </div>";
-                    } else if ($rl == 2) {
-                        echo "<div class=\"vtex-card nav-header first\">
-                                Navigation
-                            </div>
-                            <div class=\"nav-btns-div\">
-                                <button class=\"mdc-button mdc-button--outlined tools-button\" onclick=\"location.href='main.php'\">
-                                    <div class=\"mdc-button__ripple\"></div>
-                                    <i class=\"fas fa-angle-double-right\"></i>
-                                        Go To Job Lister
-                                    </span>
-                                </button>
-                                
-                                <button class=\"mdc-button mdc-button--outlined tools-button\" onclick=\"location.href='manage_typists.php'\">
-                                    <div class=\"mdc-button__ripple\"></div>
-                                    <i class=\"fas fa-keyboard\"></i>
-                                        Manage Typists
-                                    </span>
-                                </button>
-                            </div>";
-                    } else if ($rl == 1) {
-                        echo "<div class=\"vtex-card nav-header first\">
-                                Navigation
-                            </div>
-                            <div class=\"nav-btns-div\">
-                                <button class=\"mdc-button mdc-button--outlined tools-button\" onclick=\"location.href='panel/'\">
-                                    <div class=\"mdc-button__ripple\"></div>
-                                    <i class=\"fas fa-angle-double-right\"></i>
-                                        Go To Admin Panel
-                                    </span>
-                                </button>
-                                
-                                <button class=\"mdc-button mdc-button--outlined tools-button\" onclick=\"location.href='main.php'\">
-                                    <div class=\"mdc-button__ripple\"></div>
-                                    <i class=\"fas fa-angle-double-right\"></i>
-                                        Go To Job Lister
-                                    </span>
-                                </button>
-                                
-                                <button class=\"mdc-button mdc-button--outlined tools-button\" onclick=\"location.href='transcribe.php'\">
-                                    <div class=\"mdc-button__ripple\"></div>
-                                    <i class=\"fas fa-angle-double-right\"></i>
-                                        Go To Transcribe
-                                    </span>
-                                </button>
-                                
-                                
-                            </div>";
-                    }
-                }
-                ?>
-
-                <div class="vtex-card nav-header first">Role Settings</div>
-                <div class="nav-btns-div">
-                    <button class="mdc-button mdc-button--outlined tools-button" id="changeRoleBtn">
-                        <div class="mdc-button__ripple"></div>
-                        <i class="fas fa-wrench"></i>
-                        <span class="mdc-button__label">SWITCH ACCOUNT/ROLE</span>
-                    </button>
-
-                    <button class="mdc-button mdc-button--outlined tools-button" id="setDefaultRoleBtn">
-                        <div class="mdc-button__ripple"></div>
-                        <i class="fas fa-wrench"></i>
-                        <span class="mdc-button__label">
-                        Set Default
-                        </span>
-                    </button>
-
                 </div>
-
             </div>
-            <div class="vtex-card contents first">
+
+            <div class="row vspt-title-row no-gutters">
+                <div class="col align-items-end d-flex">
+                    <legend class="page-title mt-auto">
+                        <i class="fas fa-home"></i> Home
+                    </legend>
+                </div>
+                <div class="col-auto">
+                    <img src="data/images/Logo_vScription_Transcribe_Pro_White.png" width="300px"/>
+                </div>
+            </div>
+
+            <div class="vtex-card contents">
 
                 <!--        CONTENTS GOES HERE        -->
 
@@ -244,7 +154,7 @@ if (isset($_SESSION['counter'])) {
                             <a class="list-group-item list-group-item-action active" id="list-current-list" data-toggle="list" href="#list-curr" role="tab" aria-controls="home"><i class="fas fa-building"></i> Current Organization</a>
                             <a class="list-group-item list-group-item-action" id="list-my-org-list" data-toggle="list" href="#list-my-org" role="tab" aria-controls="profile"><i class="fas fa-house-user"></i> My Organization</a>
                             <a class="list-group-item list-group-item-action" id="list-typist-list" data-toggle="list" href="#list-typist" role="tab" aria-controls="messages"><i class="fas fa-keyboard"></i> My Typist Profile</a>
-<!--                            <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Settings</a>-->
+                            <!--                            <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Settings</a>-->
                         </div>
                     </div>
                     <div class="col-9">
@@ -302,7 +212,7 @@ if (isset($_SESSION['counter'])) {
 
 
 
-                                <!--                            ================= my org ===============-->
+                            <!--                            ================= my org ===============-->
                             <div class="tab-pane fade" id="list-my-org" role="tabpanel"aria-labelledby="list-my-org-list">
 
                                 <div id="adminCard" class="col">
@@ -329,7 +239,7 @@ if (isset($_SESSION['counter'])) {
                                 </div>
 
                             </div>
-                                <!--                            // Typist-->
+                            <!--                            // Typist-->
                             <div class="tab-pane fade" id="list-typist" role="tabpanel" aria-labelledby="list-typist-list">
 
                                 <div class="col">
@@ -370,15 +280,14 @@ if (isset($_SESSION['counter'])) {
                                 </div>
 
                             </div>
-<!--                            <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">...</div>-->
+                            <!--                            <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">...</div>-->
                         </div>
                     </div>
                 </div>
 
             </div>
+
         </div>
-
-
     </div>
 </div>
 
@@ -487,6 +396,7 @@ if (isset($_SESSION['counter'])) {
     </div>
 </div>
 
+<?php include_once "data/parts/footer.php"?>
 </body>
 
 </html>

@@ -17,8 +17,8 @@ $(document).ready(function () {
     let getPrintJS = $ ( "#getPrint" );
     let htmlTable = $('.billing-report-container');
     accountID = $("#accountID");
-    startDate.datepicker({dateFormat: "yy-mm-dd"});
-    endDate.datepicker({dateFormat: "yy-mm-dd"});
+    $('#startDatePicker').datetimepicker({format: "YYYY-MM-DD"});
+    $('#endDatePicker').datetimepicker({format: "YYYY-MM-DD"});
     
     startDate.val(today);
     endDate.val(tomorrow);

@@ -2,7 +2,10 @@
 <html lang="en">
 
 <?php
-$vtex_page = 1;
+require '../api/vendor/autoload.php';
+use Src\Enums\INTERNAL_PAGES;
+
+$vtex_page = INTERNAL_PAGES::TRANSCRIBE;
 //require_once ('rtf3/src/HtmlToRtf.php');
 require '../api/bootstrap.php';
 
@@ -45,12 +48,10 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
     <title>vScription</title>
     <link rel="shortcut icon" type="image/png" href="data/images/favicon.png"/>
 
-    <link href='data/css/transcribe.css?v=2' type='text/css' rel='stylesheet'/>
+
 
     <script src="https://kit.fontawesome.com/00895b9561.js" crossorigin="anonymous"></script>
     <link href='ableplayer/styles/ableplayer.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet'/>
-
-    <link href='data/css/parts/vspt_global.css?v=2' type='text/css' rel='stylesheet'/>
 
     <?php
 
@@ -194,12 +195,11 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
           href="data/tooltipster/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-punk.min.css"/>
     <script type="text/javascript" src="data/tooltipster/js/tooltipster.bundle.min.js"></script>
 
-    <link href='data/css/parts/bootstrap-override.css' type='text/css' rel='stylesheet'/>
+    <link href='data/css/transcribe.css?v=2' type='text/css' rel='stylesheet'/>
 
 </head>
 
 <body>
-<?php include_once "data/parts/nav.php" ?>
 
 <script src="data/scripts/parts/constants.js" type="text/javascript"></script>
 <!--<script src="data/scripts/transcribe.min.js?v=11"></script>-->
@@ -207,108 +207,116 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 
 <div id="updated_version_bar">There is a newer version (v<span></span>) of the vScription Transcribe Controller
     available -> <a href="" target="_blank">download</a></div>
-<div id="container" class="container-fluid" style="width: 100%">
-    <div class="vtex-card">
-        <form class="validate-form" method="post" name="form" data-persist="garlic" id="form" enctype="multipart/form-data">
 
-            <table id="header-tbl">
-                <tr>
-                    <td id="mainlogo-td" rowspan="2">
-                        <img id="mainlogo" src="data/images/Logo_vScription_Transcribe_Pro_Stacked.png"/>
+<div class="container-fluid d-flex h-auto vspt-container-fluid">
+    <div class="row w-100 h-100 vspt-container-fluid-row no-gutters" style="white-space: nowrap">
 
-                    </td>
-                    <td align="right" rowspan="2" id="fix-td">
+        <?php include_once "data/parts/nav.php"?>
 
-                    </td>
-                    <td width="225px">
-                        <button class="mdc-button mdc-button--unelevated compact-view-btn" id="pop" name="compact-view"
-                                type="button">
-                            <div class="mdc-button__ripple"></div>
-                            <i class="fas fa-external-link-alt"></i>
-                            <span class="mdc-button__label">&nbsp;Compact View</span>
-                        </button>
+        <div class="vspt-page-container vspt-col-auto-fix">
 
-                    </td>
-                    <td id="help-td" align="right" width="225px">
-                        <button class="mdc-button mdc-button--unelevated logout-btn" id="logoutBtn" name="logout-btn"
-                                type="button">
-                            <div class="mdc-button__ripple"></div>
-                            <i class="fas fa-sign-out-alt"></i>
-                            <span class="mdc-button__label">&nbsp;Logout</span>
-                        </button>
-                    </td>
+            <div class="vtex-card contents m-0">
 
-                </tr>
-                <tr>
-                    <td id="audio-td" align="right" width="450px" colspan="2">
+                <form class="validate-form" method="post" name="form" data-persist="garlic" id="form" enctype="multipart/form-data">
 
-                        <audio id="audio1" width="450" data-able-player preload="auto" data-seek-interval="2" data-transcript-src="transcript">
-                            <!--			  <source type="audio/ogg" id="audsrc2" src="ableplayer/media/Test_D7813875.ogg"/>-->
-                            <!--			  <source type="audio/mpeg" id="audsrc" src="ableplayer/media/Test_D7813875.mp3"/>-->
-                        </audio>
+                    <table id="header-tbl">
+                        <tr>
+                            <td id="mainlogo-td" rowspan="2">
+                                <img id="mainlogo" src="data/images/Logo_vScription_Transcribe_Pro_Stacked.png"/>
 
+                            </td>
+                            <td align="right" rowspan="2" id="fix-td">
 
-                    </td>
-                </tr>
+                            </td>
+                            <td width="225px">
+                                <button class="mdc-button mdc-button--unelevated compact-view-btn" id="pop" name="compact-view"
+                                        type="button">
+                                    <div class="mdc-button__ripple"></div>
+                                    <i class="fas fa-external-link-alt"></i>
+                                    <span class="mdc-button__label">&nbsp;Compact View</span>
+                                </button>
 
-            </table>
+                            </td>
+                            <td id="help-td" align="right" width="225px">
+                                <button class="mdc-button mdc-button--unelevated logout-btn" id="logoutBtn" name="logout-btn"
+                                        type="button">
+                                    <div class="mdc-button__ripple"></div>
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    <span class="mdc-button__label">&nbsp;Logout</span>
+                                </button>
+                            </td>
 
-            <table width="100%" style="padding-bottom: 5px" id="demo-tbl">
-                <tr>
-                    <td id="demo-td">
-                        <legend><span class="number">1</span> Demographics &nbsp;<i class="fas fa-chevron-down vtex-glow" id="demoExpand"></i></legend>
-                    </td>
+                        </tr>
+                        <tr>
+                            <td id="audio-td" align="right" width="450px" colspan="2">
+
+                                <audio id="audio1" width="450" data-able-player preload="auto" data-seek-interval="2" data-transcript-src="transcript">
+                                    <!--			  <source type="audio/ogg" id="audsrc2" src="ableplayer/media/Test_D7813875.ogg"/>-->
+                                    <!--			  <source type="audio/mpeg" id="audsrc" src="ableplayer/media/Test_D7813875.mp3"/>-->
+                                </audio>
 
 
-                    <td align="right">
+                            </td>
+                        </tr>
+
+                    </table>
+
+                    <table width="100%" style="padding-bottom: 5px" id="demo-tbl">
+                        <tr>
+                            <td id="demo-td">
+                                <legend><span class="number">1</span> Demographics &nbsp;<i class="fas fa-chevron-down vtex-glow" id="demoExpand"></i></legend>
+                            </td>
+
+
+                            <td align="right">
 
 							<span class="controller-status" id="statusTxt">
                                 <i>connecting to controller please wait...</i>
                             </span>
 
-                        <button class="mdc-button mdc-button--unelevated load-button" id="loadBtn" name="loadBtn"
-                                type="button">
-                            <div class="mdc-button__ripple"></div>
-                            <i class="material-icons mdc-button__icon" aria-hidden="true">backup</i>
-                            <span class="mdc-button__label">Load</span>
-                        </button>
-                        <!--<input type="file" id="fileLoadDiag" style="display: none" accept="audio/vnd.wave, audio/wav, audio/wave, audio/mpeg,audio/ogg,audio/x-wav" />-->
-                    </td>
+                                <button class="mdc-button mdc-button--unelevated load-button" id="loadBtn" name="loadBtn"
+                                        type="button">
+                                    <div class="mdc-button__ripple"></div>
+                                    <i class="material-icons mdc-button__icon" aria-hidden="true">backup</i>
+                                    <span class="mdc-button__label">Load</span>
+                                </button>
+                                <!--<input type="file" id="fileLoadDiag" style="display: none" accept="audio/vnd.wave, audio/wav, audio/wave, audio/mpeg,audio/ogg,audio/x-wav" />-->
+                            </td>
 
-                    <!--<td align="right" width="114px" style="width:1%; white-space:nowrap;">
-                        <a class="button noHover disabled" id="completeBtn">
-                            <i class="fas fa-check-circle"></i>
+                            <!--<td align="right" width="114px" style="width:1%; white-space:nowrap;">
+                                <a class="button noHover disabled" id="completeBtn">
+                                    <i class="fas fa-check-circle"></i>
 
-                            Complete
-                        </a>
-                    </td>-->
-                </tr>
-            </table>
+                                    Complete
+                                </a>
+                            </td>-->
+                        </tr>
+                    </table>
 
-            <div id="demoItems">
-                <div class="form-row mt-2">
+                    <div id="demoItems">
+                        <div class="form-row mt-2">
 
-                    <div class="input-group col-md-2 mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="jobNo-addon1">#</span>
-                        </div>
-                        <input type="text" class="form-control" id="jobNo" placeholder="Job/File ID"
-                               name="jobNo" <?php if ($set == 1 && !empty($n1)) {
-                            echo 'value="' . $n1 . "\"";
-                        } ?> readonly>
-                    </div>
+                            <div class="input-group col-md-2 mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="jobNo-addon1">#</span>
+                                </div>
+                                <input type="text" class="form-control" id="jobNo" placeholder="Job/File ID"
+                                       name="jobNo" <?php if ($set == 1 && !empty($n1)) {
+                                    echo 'value="' . $n1 . "\"";
+                                } ?> readonly>
+                            </div>
 
-                    <div class="input-group col mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="authorName-addon1">Author</span>
-                        </div>
-                        <input type="text" id="authorName" class="form-control" name="authorName"
-                               title="Author Name" <?php if ($set == 1 && !empty($n2)) {
-                            echo 'value="' . $n2 . "\"";
-                        } ?> readonly>
-                    </div>
+                            <div class="input-group col mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="authorName-addon1">Author</span>
+                                </div>
+                                <input type="text" id="authorName" class="form-control" name="authorName"
+                                       title="Author Name" <?php if ($set == 1 && !empty($n2)) {
+                                    echo 'value="' . $n2 . "\"";
+                                } ?> readonly>
+                            </div>
 
-                    <!--<div class="input-group col mb-3">
+                            <!--<div class="input-group col mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="TypistName-addon1">Typist</span>
                     </div>
@@ -319,195 +327,192 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                     </div>
                 </div>-->
 
-                    <div class="input-group mb-3 col-md-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="date-addon1"><i class="fas fa-calendar-alt"></i> &nbsp;Dictated</span>
+                            <div class="input-group mb-3 col-md-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="date-addon1"><i class="fas fa-calendar-alt"></i> &nbsp;Dictated</span>
+                                </div>
+                                <input type="text" name="DateDic" class="form-control" id="date"
+                                       title="Date Dictated" <?php if ($set == 1 && !empty($dateD)) {
+                                    echo 'value="' . $dateD . "\"";
+                                } ?> readonly>
+                            </div>
+
                         </div>
-                        <input type="text" name="DateDic" class="form-control" id="date"
-                               title="Date Dictated" <?php if ($set == 1 && !empty($dateD)) {
-                            echo 'value="' . $dateD . "\"";
-                        } ?> readonly>
+
+                        <div class="form-row mb-3">
+                            <div class="input-group col">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="jobType-addon1">Job Type</span>
+                                </div>
+
+
+                                <select class="form-control mt-0" id="jobType" name="jobType" disabled>
+                                    <?php
+                                    foreach ($workTypes as $type)
+                                    {
+                                        $type = trim($type);
+                                        echo '<option value="'.strtolower($type).'">'.$type.'</option>';
+                                    }
+                                    ?>
+
+                                    <!--                            <option value="Focus Group">Focus Group</option>-->
+                                    <!--                            <option value="Notes">Notes</option>-->
+                                    <!--                            <option value="Letter">Letter</option>-->
+                                    <!--                            <option value="Other">Other</option>-->
+                                </select>
+
+                            </div>
+
+                            <div class="input-group col">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="user_field_1-addon1">User Field 1</span>
+                                </div>
+                                <input type="text" id="user_field_1" name="user_field_1" class="form-control"
+                                       title="User Field 1" <?php if ($set == 1 && !empty($uf1)) {
+                                    echo 'value="' . $uf1 . "\"";
+                                } ?> readonly>
+                            </div>
+
+
+                            <div class="input-group col">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="user_field_2-addon1">User Field 2</span>
+                                </div>
+                                <input type="text" id="user_field_2" name="user_field_2" class="form-control"
+                                       title="User Field 2" <?php if ($set == 1 && !empty($uf2)) {
+                                    echo 'value="' . $uf2 . "\"";
+                                } ?> readonly>
+                            </div>
+
+                            <div class="input-group col">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="user_field_3-addon1">User Field 3</span>
+                                </div>
+                                <input type="text" id="user_field_3" name="user_field_3" class="form-control"
+                                       title="User Field 3" <?php if ($set == 1 && !empty($uf3)) {
+                                    echo 'value="' . $uf3 . "\"";
+                                } ?> readonly>
+                            </div>
+
+                            <div class="input-group col">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="dateT-addon1"><i class="fas fa-calendar-alt"></i> &nbsp;Transcribed</span>
+                                </div>
+                                <input type="text" name="DateTra" id="dateT" class="form-control"
+                                       title="Date Transcribed" <?php if ($set == 1 && !empty($dateT)) {
+                                    echo 'value="' . $dateT . "\"";
+                                } else {
+                                    echo date("d-M-yy");
+                                } ?> readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-row mb-3">
+                            <div class="input-group col">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="comments-addon1"><i class="fas fa-comment-dots"></i> &nbsp;Typist</span>
+                                </div>
+                                <input type="text" id="comments" name="comments" class="form-control"
+                                       title="Typist Comments" <?php if ($set == 1 && !empty($ph)) {
+                                    echo 'value="' . $ph . "\"";
+                                } ?> disabled>
+                            </div>
+                            <div class="input-group col">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="file_comment-addon1"><i class="fas fa-comment-dots"></i> &nbsp;Job</span>
+                                </div>
+                                <input type="text" id="file_comment" name="file_comment" class="form-control"
+                                       title="File Comments" <?php if ($set == 1 && !empty($ph)) {
+                                    echo 'value="' . $ph . "\"";
+                                } ?> readonly>
+                            </div>
+                        </div>
                     </div>
 
-                </div>
+                    <fieldset>
+                        <table id="rep-tbl">
+                            <tr>
+                                <td>
+                                    <legend id="leg"><span class="number">2</span> Report Body</legend>
+                                </td>
 
-                <div class="form-row mb-3">
-                    <div class="input-group col-md-2">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="jobType-addon1">Job Type</span>
-                        </div>
-                        <!--     TODO switch to spinner -->
-                        <!--<input type="text" id="jobType" class="form-control" name="jobType" placeholder="Job Type"
-                               title="Job Type" --><?php /*if ($set == 1 && !empty($jt)) {
-                        echo 'value="' . $jt . "\"";
-                    } */?>
-
-                        <select class="form-control" id="jobType" name="jobType" disabled>
-                            <?php
-                             foreach ($workTypes as $type)
-                             {
-                                 $type = trim($type);
-                                 echo '<option value="'.strtolower($type).'">'.$type.'</option>';
-                             }
-                            ?>
-
-<!--                            <option value="Focus Group">Focus Group</option>-->
-<!--                            <option value="Notes">Notes</option>-->
-<!--                            <option value="Letter">Letter</option>-->
-<!--                            <option value="Other">Other</option>-->
-                        </select>
-
-                    </div>
-
-                    <div class="input-group col">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="user_field_1-addon1">User Field 1</span>
-                        </div>
-                        <input type="text" id="user_field_1" name="user_field_1" class="form-control"
-                               title="User Field 1" <?php if ($set == 1 && !empty($uf1)) {
-                            echo 'value="' . $uf1 . "\"";
-                        } ?> readonly>
-                    </div>
-
-                    <div class="input-group col">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="user_field_2-addon1">User Field 2</span>
-                        </div>
-                        <input type="text" id="user_field_2" name="user_field_2" class="form-control"
-                               title="User Field 2" <?php if ($set == 1 && !empty($uf2)) {
-                            echo 'value="' . $uf2 . "\"";
-                        } ?> readonly>
-                    </div>
-
-                    <div class="input-group col">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="user_field_3-addon1">User Field 3</span>
-                        </div>
-                        <input type="text" id="user_field_3" name="user_field_3" class="form-control"
-                               title="User Field 3" <?php if ($set == 1 && !empty($uf3)) {
-                            echo 'value="' . $uf3 . "\"";
-                        } ?> readonly>
-                    </div>
-
-                    <div class="input-group col-md-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="dateT-addon1"><i class="fas fa-calendar-alt"></i> &nbsp;Transcribed</span>
-                        </div>
-                        <input type="text" name="DateTra" id="dateT" class="form-control"
-                               title="Date Transcribed" <?php if ($set == 1 && !empty($dateT)) {
-                            echo 'value="' . $dateT . "\"";
-                        } else {
-                            echo date("d-M-yy");
-                        } ?> readonly>
-                    </div>
-                </div>
-
-                <div class="form-row mb-3">
-                    <div class="input-group col">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="comments-addon1"><i class="fas fa-comment-dots"></i> &nbsp;Typist</span>
-                        </div>
-                        <input type="text" id="comments" name="comments" class="form-control"
-                               title="Typist Comments" <?php if ($set == 1 && !empty($ph)) {
-                            echo 'value="' . $ph . "\"";
-                        } ?> disabled>
-                    </div>
-                    <div class="input-group col">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="file_comment-addon1"><i class="fas fa-comment-dots"></i> &nbsp;Job</span>
-                        </div>
-                        <input type="text" id="file_comment" name="file_comment" class="form-control"
-                               title="File Comments" <?php if ($set == 1 && !empty($ph)) {
-                            echo 'value="' . $ph . "\"";
-                        } ?> readonly>
-                    </div>
-                </div>
-            </div>
-
-            <fieldset>
-                <table id="rep-tbl">
-                    <tr>
-                        <td>
-                            <legend id="leg"><span class="number">2</span> Report Body</legend>
-                        </td>
-
-                        <td id="nr">
+                                <td id="nr">
 								<span class="top-links" id="help">
 									<a href="https://vscriptionpro.helpdocsonline.com/" target="_blank" title="">Need help <i
                                                 class="far fa-question-circle"></i></a>
 								</span>
-                        </td>
+                                </td>
 
-                        <td id="nr">
-                            <button class="mdc-button mdc-button--unelevated save-button" id="saveBtn" type="submit"
-                                    name="saveBtn" disabled>
-                                <div class="mdc-button__ripple"></div>
-                                <i class="material-icons mdc-button__icon" aria-hidden="true"
-                                >save</i
-                                >
-                                <span class="mdc-button__label">Save and Complete</span>
-                            </button>
+                                <td id="nr">
+                                    <button class="mdc-button mdc-button--unelevated save-button" id="saveBtn" type="submit"
+                                            name="saveBtn" disabled>
+                                        <div class="mdc-button__ripple"></div>
+                                        <i class="material-icons mdc-button__icon" aria-hidden="true"
+                                        >save</i
+                                        >
+                                        <span class="mdc-button__label">Save and Complete</span>
+                                    </button>
 
-                        </td>
-                        <td id="nr">
-                            <button class="mdc-button mdc-button--unelevated suspend-button" id="suspendBtn"
-                                    type="submit" name="suspendBtn" disabled>
-                                <div class="mdc-button__ripple"></div>
-                                <i class="material-icons mdc-button__icon" aria-hidden="true">pause_circle_outline</i>
-                                <span class="mdc-button__label">Suspend</span>
-                            </button>
-                        </td>
-                        <td id="nr">
-                            <button class="mdc-button mdc-button--unelevated discard-button" id="discardBtn"
-                                    name="discardBtn" type="button" disabled>
-                                <div class="mdc-button__ripple"></div>
-                                <i class="material-icons mdc-button__icon" aria-hidden="true">clear</i>
-                                <span class="mdc-button__label">Discard</span>
-                            </button>
+                                </td>
+                                <td id="nr">
+                                    <button class="mdc-button mdc-button--unelevated suspend-button" id="suspendBtn"
+                                            type="submit" name="suspendBtn" disabled>
+                                        <div class="mdc-button__ripple"></div>
+                                        <i class="material-icons mdc-button__icon" aria-hidden="true">pause_circle_outline</i>
+                                        <span class="mdc-button__label">Suspend</span>
+                                    </button>
+                                </td>
+                                <td id="nr">
+                                    <button class="mdc-button mdc-button--unelevated discard-button" id="discardBtn"
+                                            name="discardBtn" type="button" disabled>
+                                        <div class="mdc-button__ripple"></div>
+                                        <i class="material-icons mdc-button__icon" aria-hidden="true">clear</i>
+                                        <span class="mdc-button__label">Discard</span>
+                                    </button>
 
-                        </td>
-                    </tr>
-                </table>
-                <div class="row no-gutters" style="padding-bottom: 10px">
-                    <div id="accord" class="col pb-0">
-                        <h3>Shortcuts</h3>
-                        <div style="overflow: visible;">
-                            <!--					 <img id="norm" src="data/images/f248.png" /> <&lt;DRSPELLING>>&nbsp;&nbsp; <img id="norm" src="data/images/f348.png" /> <&lt;PATSPELLING>>&nbsp;&nbsp; -->
-                            <!--					&nbsp;&nbsp; <img id="norm" src="data/images/at.png" /> <php //echo $atShortcut ?>-->
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="row no-gutters" style="padding-bottom: 10px">
+                            <div id="accord" class="col pb-0">
+                                <h3>Shortcuts</h3>
+                                <div style="overflow: visible;">
+                                    <!--					 <img id="norm" src="data/images/f248.png" /> <&lt;DRSPELLING>>&nbsp;&nbsp; <img id="norm" src="data/images/f348.png" /> <&lt;PATSPELLING>>&nbsp;&nbsp; -->
+                                    <!--					&nbsp;&nbsp; <img id="norm" src="data/images/at.png" /> <php //echo $atShortcut ?>-->
 
-                            <legend id="tip"><img id="norm" src="data/images/f248.png"/>
-                                <&lt;INAUDIBLE>> &nbsp;&nbsp; <img id="norm"
-                                                                   src="data/images/slash.png"/> <?php echo $slashShortcut ?>
-                            </legend>
+                                    <legend id="tip"><img id="norm" src="data/images/f248.png"/>
+                                        <&lt;INAUDIBLE>> &nbsp;&nbsp; <img id="norm"
+                                                                           src="data/images/slash.png"/> <?php echo $slashShortcut ?>
+                                    </legend>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <button type="button" id="searchEngine" class="btn btn-primary btn-sm h-auto"
+                                        style="margin-top: 2px;" hidden>TEXT SEARCH
+                                    <i class="fas fa-search-plus"
+                                       style="font-size: large"></i>
+                                </button>
+                            </div>
+                            <!--<div class="col-auto mt-auto mb-auto mr-auto pr-4 pl-1" id="searchEngine" hidden>
+                                <i class="hover-expand fab fa-searchengin" style="font-size: x-large; color: var(--vtex-blue)"></i>
+                            </div>-->
                         </div>
-                    </div>
-                    <div class="col-auto">
-                        <button type="button" id="searchEngine" class="btn btn-primary btn-sm h-auto"
-                                style="margin-top: 2px;" hidden>TEXT SEARCH
-                            <i class="fas fa-search-plus"
-                                                                               style="font-size: large"></i>
-                        </button>
-                    </div>
-                    <!--<div class="col-auto mt-auto mb-auto mr-auto pr-4 pl-1" id="searchEngine" hidden>
-                        <i class="hover-expand fab fa-searchengin" style="font-size: x-large; color: var(--vtex-blue)"></i>
-                    </div>-->
-                </div>
-            </fieldset>
-        </form>
+                    </fieldset>
+                </form>
                 <div id="divv" class="form-row">
                     <div class="col">
                         <textarea id="report" name="report" placeholder="" rows="25" class="area"></textarea>
                     </div>
-<!--                    <div class="col-auto justify-content-end align-items-end"><input type="text" id="captionsSearch"/></div>-->
+                    <!--                    <div class="col-auto justify-content-end align-items-end"><input type="text" id="captionsSearch"/></div>-->
                 </div>
 
 
+            </div>
 
-
-
-
+        </div>
     </div>
 </div>
+
 
 <!-- The Modal -->
 <div id="modal" class="vtex-modal">
@@ -614,6 +619,8 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
         <div class="bounce3"></div>
     </div>
 </div>
+
+<?php include_once "data/parts/footer.php"?>
 </body>
 
 </html>

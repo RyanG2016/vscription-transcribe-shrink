@@ -1,174 +1,263 @@
-<nav class="navbar navbar-dark bg-dark shadow-lg">
+<!-- Sidebar -->
+<div id="sidebar-container" class="sidebar-collapsed vspt-sidebar-container col">
+    <!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
+    <!-- Bootstrap List Group -->
+    <ul class="list-group">
 
-    <a class="navbar-brand" href="#">
-        <img src="/data/images/Logo_only.png" width="30" height="30" class="vtex-skip d-inline-flex align-top" alt="">
-    </a>
+        <a href="#top" data-toggle="sidebar-colapse"
+           class="bg-dark list-group-item list-group-item-action d-flex align-items-center">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+                <span id="collapse-icon" class="fa fa-2x mr-3"></span>
+                <span id="collapse-text" class="menu-collapsed d-none">Collapse</span>
+            </div>
+        </a>
 
-    <span class="navbar-text">
-    <?php echo strtolower($_SESSION['uEmail']);
-    echo isset($_SESSION["acc_name"]) ?  " - " .  $_SESSION["acc_name"] : "";
-    echo isset($_SESSION["role_desc"]) ? " - " . $_SESSION["role_desc"] : "";
-
-
-    ?>
-  </span>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample01" aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarsExample01">
-        <ul class="navbar-nav mr-auto">
-
-            <li class="nav-item <?php if($vtex_page == 0) echo 'active' ?>">
-                <a class="nav-link" href="/landing.php">Home</a>
-            </li>
-
-            <!--<li class="nav-item <?php /*if($vtex_page == 1) echo 'active' */?>">
-                <a class="nav-link" href="/transcribe.php">
-                    <i class="fas fa-angle-double-right"></i>
-                    Transcribe
-                </a>
-            </li>
-
-            <li class="nav-item <?php /*if($vtex_page == 2) echo 'active' */?>">
-                <a class="nav-link" href="/main.php">
-                    <i class="fas fa-angle-double-right"></i>
-                    Job Lister
-                </a>
-            </li>
+        <!-- Separator with title -->
+        <li class="list-group-item sidebar-separator-title text-muted align-items-center menu-collapsed d-none">
+            <small>MAIN</small>
+        </li>
+        <!-- /END Separator -->
+        <!-- Menu with submenu -->
+        <a href="/landing.php" class="bg-dark list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+                <span class="fas fa-home fa-fw mr-3"></span>
+                <span class="menu-collapsed d-none">Home</span>
+            </div>
+        </a>
 
 
-            <li class="nav-item <?php /*if($vtex_page == 3) echo 'active' */?>">
-                <a class="nav-link" href="/panel/">
-                    <i class="fas fa-angle-double-right"></i>
-                    Admin Panel
-                </a>
-            </li>-->
+       <?php
 
-            <?php
-            if (isset($_SESSION["role"])) {
-                $rl = $_SESSION["role"];
-                // todo recopy this
-                if ($rl == 3) {
-                    echo "<li class=\"nav-item ";
-                    if ($vtex_page == 1) echo 'active';
-                    echo " \">
-                            <a class=\"nav-link\" href=\"/transcribe.php\">
-                                <i class=\"fas fa-angle-double-right\"></i>
-                                Transcribe
+       use Src\Enums\INTERNAL_PAGES;
+
+       switch(isset($_SESSION["role"])? $_SESSION["role"] :0)
+       {
+           case 1:
+               echo ' <a href="#adminmenu" data-toggle="collapse" aria-expanded="false"
+                           class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <span class="fas fa-user-shield fa-fw mr-3"></span>
+                                <span class="menu-collapsed d-none">Admin Panel</span>
+                                <span class="submenu-icon d-none ml-auto"></span>
+                            </div>
+                        </a>
+                        <!-- Submenu content -->
+                        <div id="adminmenu" class="collapse sidebar-submenu d-none">
+                            <a href="/panel/" class="list-group-item list-group-item-action bg-dark text-white">
+                                <span class="fas fa-user-shield fa-fw mr-3"></span>
+                                <span class="menu-collapsed d-none">Panel</span>
+                            </a><a href="/panel/users.php" class="list-group-item list-group-item-action bg-dark text-white">
+                                <span class="fas fa-users fa-fw mr-3"></span>
+                                <span class="menu-collapsed d-none">Users</span>
                             </a>
-                        </li>";
-                }
-
-                else if ($rl == 2) {
-                    echo "<div class=\"form-row\">&nbsp;<li class=\"nav-item ";
-                    if ($vtex_page == 2) echo 'active';
-                    echo " \">
-                            <a class=\"nav-link col\" href=\"/main.php\">
-                                <i class=\"fas fa-angle-double-right\"></i>
-                                Job Lister
+                            <a href="/panel/accounts.php" class="list-group-item list-group-item-action bg-dark text-white">
+                                <span class="fas fa-id-card fa-fw mr-3"></span>
+                                <span class="menu-collapsed d-none">Accounts</span>
                             </a>
-                        </li>
+                
+                            <a href="/panel/admin_tools.php" class="list-group-item list-group-item-action bg-dark text-white">
+                                <span class="fas fa-toolbox fa-fw mr-3"></span>
+                                <span class="menu-collapsed d-none">Admin Tools</span>
+                            </a>
+                            <a href="/panel/billing_report.php" class="list-group-item list-group-item-action bg-dark text-white">
+                                <span class="fas fa-dollar-sign fa-fw mr-3"></span>
+                                <span class="menu-collapsed d-none">Billing Reports</span>
+                            </a>
+                
+                            <a href="/panel/typist_report.php" class="list-group-item list-group-item-action bg-dark text-white">
+                                <span class="fas fa-keyboard fa-fw mr-3"></span>
+                                <span class="menu-collapsed d-none">Typist Reports</span>
+                            </a>
+                        </div>
                         
-                        <li class=\"nav-item ";echo ($vtex_page == 4)?"active ":""; echo" col\">
-                            <a class=\"nav-link\" href=\"/manage_typists.php\">
-                                &nbsp;<i class=\"fas fa-caret-right\"></i>
-                                Manage Typists
-                            </a>
-                        </li>
+                        <a href="/main.php" class="bg-dark list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <span class="fas fa-list-alt fa-fw mr-3"></span>
+                                <span class="menu-collapsed d-none">Job Lister</span>
+                            </div>
+                        </a>
                         
-                        </div>";
-
-                }
-
-                else if ($rl == 1) {
-                    echo "<li class=\"nav-item ";
-                    if ($vtex_page == 1) echo 'active';
-                    echo " \">
-                            <a class=\"nav-link\" href=\"/transcribe.php\">
-                                <i class=\"fas fa-angle-double-right\"></i>
-                                Transcribe
-                            </a>
-                        </li>";
-
-                    echo "<li class=\"nav-item ";
-                    if ($vtex_page == 2) echo 'active';
-                    echo " \">
-                            <a class=\"nav-link\" href=\"/main.php\">
-                                <i class=\"fas fa-angle-double-right\"></i>
-                                Job Lister
-                            </a>
-                        </li>";
-
-                    echo "<div class=\"form-row\">&nbsp;<li class=\"nav-item ";
-                    if ($vtex_page == 3) echo 'active';
-                    echo " \">
-                            <a class=\"nav-link\" href=\"/panel/\">
-                                <i class=\"fas fa-angle-double-right\"></i>
-                                Admin Panel
-                            </a>
-                        </li>
-                        <li class=\"nav-item col-sm-auto ";echo ($vtex_page == 5)?"active ":""; echo" col\">
-                            <a class=\"nav-link\" href=\"/panel/users.php\">
-                                &nbsp;<i class=\"fas fa-users\"></i>
-                                Users
-                            </a>
-                        </li>
-                        <li class=\"nav-item col-sm-auto ";echo ($vtex_page == 6)?"active ":""; echo" col\">
-                            <a class=\"nav-link\" href=\"/panel/accounts.php\">
-                                &nbsp;<i class=\"fas fa-id-card\"></i>
-                                Accounts
-                            </a>
-                        </li>
-                        <li class=\"nav-item col-sm-auto ";echo ($vtex_page == 7)?"active ":""; echo" col\">
-                            <a class=\"nav-link\" href=\"/panel/admin_tools.php\">
-                                &nbsp;<i class=\"fas fa-toolbox\"></i>
-                                Admin Tools
-                            </a>
-                        </li>
                         
-                        <li class=\"nav-item col-sm-auto ";echo ($vtex_page == 8)?"active ":""; echo" col\">
-                            <a class=\"nav-link\" href=\"/panel/billing_report.php\">
-                                &nbsp;<i class=\"fas fa-dollar-sign\"></i>
-                                Billing Reports
-                            </a>
-                        </li>
                         
-                        <li class=\"nav-item col-sm-auto ";echo ($vtex_page == 9)?"active ":""; echo" col\">
-                            <a class=\"nav-link\" href=\"/panel/typist_report.php\">
-                                &nbsp;<i class=\"fas fa-keyboard\"></i>
-                                Typist Reports
-                            </a>
-                        </li>
+                        <a href="/jobupload.php" class="bg-dark list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <span class="fas fa-cloud-upload-alt fa-fw mr-3"></span>
+                                <span class="menu-collapsed d-none">Upload Jobs</span>
+                            </div>
+                        </a>
                         
-                        </div>";
-                }
-            }
-            ?>
+                        <a href="/transcribe.php" class="bg-dark list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <span class="fas fa-keyboard fa-fw mr-3"></span>
+                                <span class="menu-collapsed d-none">Transcribe</span>
+                            </div>
+                        </a>
+';
+               break;
+           case 2:
+               echo '
+                        <a href="/main.php" class="bg-dark list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <span class="fas fa-list-alt fa-fw mr-3"></span>
+                                <span class="menu-collapsed d-none">Job Lister</span>
+                            </div>
+                        </a>
+                        
+                        <a href="/manage_typists.php" class="bg-dark list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <span class="fas fa-keyboard fa-fw mr-3"></span>
+                                <span class="menu-collapsed d-none">Manage Typists</span>
+                            </div>
+                        </a>
+                        
+                        <a href="/jobupload.php" class="bg-dark list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <span class="fas fa-cloud-upload-alt fa-fw mr-3"></span>
+                                <span class="menu-collapsed d-none">Upload Jobs</span>
+                            </div>
+                        </a>';
+               break;
+
+           case 3:
+               echo '<a href="/transcribe.php" class="bg-dark list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <span class="fas fa-keyboard fa-fw mr-3"></span>
+                                <span class="menu-collapsed d-none">Transcribe</span>
+                            </div>
+                        </a>
+                       ';
+               break;
+       }
+
+       switch($vtex_page)
+       {
+           case INTERNAL_PAGES::USERS:
+               echo ' <li class="list-group-item sidebar-separator-title text-muted align-items-center menu-collapsed d-none">
+                            <small>Actions</small>
+                        </li>
+                        <!-- /END Separator -->
+                        
+                           <a href="#" id="createAcc" class="bg-dark list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <span class="fas fa-user-plus fa-fw mr-3"></span>
+                                <span class="menu-collapsed d-none">Add User</span>
+                            </div>
+                        </a>';
+               break;
+
+           case INTERNAL_PAGES::ACCOUNTS:
+               echo ' <li class="list-group-item sidebar-separator-title text-muted align-items-center menu-collapsed d-none">
+                            <small>Actions</small>
+                    </li>
+                    <!-- /END Separator -->
+                    
+                       <a href="#" id="createAcc" class="bg-dark list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-start align-items-center">
+                            <span class="fas fa-user-plus fa-fw mr-3"></span>
+                            <span class="menu-collapsed d-none">Create Org</span>
+                        </div>
+                    </a>';
+               break;
+
+           case INTERNAL_PAGES::MANAGE_USER_ACCESS:
+               echo ' <li class="list-group-item sidebar-separator-title text-muted align-items-center menu-collapsed d-none">
+                            <small>Actions</small>
+                    </li>
+                    <!-- /END Separator -->
+                    
+                       <a href="#" id="createAcc" class="bg-dark list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-start align-items-center">
+                            <span class="fas fa-key fa-fw mr-3"></span>
+                            <span class="menu-collapsed d-none">Add Permission</span>
+                        </div>
+                    </a>';
+
+               break;
 
 
-            <li class="nav-item">
-                <a class="nav-link" href="/logout.php">
-                    <i class="fas fa-sign-out-alt"></i>
-                    Logout
-                </a>
-            </li>
+           case INTERNAL_PAGES::MANAGE_TYPISTS:
+               echo ' <li class="list-group-item sidebar-separator-title text-muted align-items-center menu-collapsed d-none">
+                            <small>Actions</small>
+                    </li>
+                    <!-- /END Separator -->
+                    
+                       <a href="#" id="createAcc" class="bg-dark list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-start align-items-center">
+                            <span class="fas fa-envelope fa-fw mr-3"></span>
+                            <span class="menu-collapsed d-none">Invite Typist</span>
+                        </div>
+                    </a>';
+
+               break;
 
 
-            <!--<li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-            </li>-->
-            <!--<li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                <div class="dropdown-menu" aria-labelledby="dropdown01">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-            </li>-->
-        </ul>
-        <!--<form class="form-inline my-2 my-md-0">
-            <input class="form-control" type="text" placeholder="Search" aria-label="Search">
-        </form>-->
-    </div>
-</nav>
+           case INTERNAL_PAGES::LANDING:
+               echo ' <li class="list-group-item sidebar-separator-title text-muted align-items-center menu-collapsed d-none">
+                            <small>Actions</small>
+                    </li>
+                    <!-- /END Separator -->
+                    
+                       <a href="#" id="changeRoleBtn" class="bg-dark list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-start align-items-center">
+                            <span class="fas fa-wrench fa-fw mr-3"></span>
+                            <span class="menu-collapsed d-none">Switch Org/Role</span>
+                        </div>
+                    </a>
+                       <a href="#" id="setDefaultRoleBtn" class="bg-dark list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-start align-items-center">
+                            <span class="fas fa-wrench fa-fw mr-3"></span>
+                            <span class="menu-collapsed d-none">Set Default</span>
+                        </div>
+                    </a>
+                    ';
+               break;
+
+       }
+
+       ?>
+
+        <!-- Separator without title -->
+        <li class="list-group-item sidebar-separator menu-collapsed d-none"></li>
+        <!-- /END Separator -->
+        <a href="/logout.php" class="bg-dark list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+                <span class="fa fa-sign-out fa-fw mr-3"></span>
+                <span class="menu-collapsed d-none">Logout</span>
+            </div>
+        </a>
+
+    </ul><!-- List Group END-->
+</div><!-- sidebar-container END -->
+
+<script type="text/javascript">
+    // Hide submenus
+    $('#body-row .collapse').collapse('hide');
+
+    // Collapse/Expand icon
+    $('#collapse-icon').addClass('fa-angle-double-right');
+
+    // Collapse click
+    $('[data-toggle=sidebar-colapse]').click(function() {
+        SidebarCollapse();
+    });
+
+    function SidebarCollapse () {
+        $('.menu-collapsed').toggleClass('d-none');
+        $('.sidebar-submenu').toggleClass('d-none');
+        $('.submenu-icon').toggleClass('d-none');
+        $('#sidebar-container').toggleClass('sidebar-expanded sidebar-collapsed col-2 col');
+        // $('#sidebar-container').toggleClass('sidebar-expanded sidebar-collapsed col-2 col-auto');
+        $(".vspt-page-container").toggleClass("col-10 vspt-col-auto-fix");
+
+        // Treating d-flex/d-none on separators with title
+        var SeparatorTitle = $('.sidebar-separator-title');
+        if ( SeparatorTitle.hasClass('d-flex') ) {
+            SeparatorTitle.removeClass('d-flex');
+        } else {
+            SeparatorTitle.addClass('d-flex');
+        }
+
+        // Collapse/Expand icon
+        $('#collapse-icon').toggleClass('fa-angle-double-left fa-angle-double-right');
+    }
+</script>

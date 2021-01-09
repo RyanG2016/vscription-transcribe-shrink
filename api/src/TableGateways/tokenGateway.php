@@ -6,7 +6,7 @@ use Src\TableGateways\accessGateway;
 
 include_once "common.php";
 
-/** @internal */
+
 class tokenGateway
 {
 

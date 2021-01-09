@@ -1,13 +1,10 @@
-@import "parts/vars.css";
-@import "parts/user_card_view.css";
-@import "parts/card.css";
+/*@import "parts/user_card_view.css";*/
 @import "parts/modal_overlay.css";
 @import "parts/data-tbl.css";
 @import "parts/vtex-custom-styles.css";
-@import "parts/spinner.css";
-@import "parts/bootstrap-override.css";
 @import "parts/material-override.css";
 @import "parts/util.css";
+@import "parts/global.css";
 
 /* -----------------*/
 /* --BUTTON STYLING --*/
@@ -16,6 +13,7 @@
 .joblist {
     margin-left: 20px;
 }
+/*
 
 a {
     text-decoration    : none;
@@ -26,10 +24,11 @@ a {
     -o-transition      : color 0.2s;
     transition         : color 0.2s;
 }
+*/
 
-a:hover {
+/*a:hover {
     color: rgb(83, 192, 235);
-}
+}*/
 
 .cancel-acc-button {
     --mdc-theme-primary: var(--vspt-red);
@@ -122,29 +121,7 @@ a:hover {
 .item5 { grid-area: compatOS; }
 .item6 { grid-area: compatHardware; }
 .item4-5-header { grid-area: compatHeader; }*/
-.root {
-    display: inline-grid;
-    /*display: grid;*/
-    grid-template-areas:
-    'nav content';
 
-    /*'nav content';*/
-    /*'main main main main compatBrowsers compatOS compatHardware';*/
-    /*'menu footer footer footer footer footer';*/
-
-    /*background-color: #2196F3;*/
-
-    /*grid-template-columns: auto;*/
-    /*grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr ;*/
-
-    grid-gap: 20px;
-    /*padding: 20px;*/
-    width: 100%;
-    /*grid-template-columns: 1fr 1fr 1fr 1fr fit-content(100%) fit-content(100%);*/
-    /*grid-template-columns: min-content 1fr 1fr 1fr fit-content(100%) fit-content(100%);*/
-    grid-template-columns: auto 1fr;
-    /*grid-template-columns: fit-content(100%) 1fr;*/
-}
 
 
 /* Contents Styling */

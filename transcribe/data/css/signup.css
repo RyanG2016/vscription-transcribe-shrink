@@ -1,9 +1,6 @@
-@import "parts/vars.css";
-@import "parts/spinner.css";
 @import "parts/modal_overlay.css";
 @import "parts/vtex-custom-styles.css";
-/*@import "parts/bootstrap-override.css";*/
-
+@import "parts/global.css";
 /*//////////////////////////////////////////////////////////////////
 [ RESTYLE TAG ]*/
 
@@ -25,7 +22,7 @@ body, html {
 body {
     width: 100%;
     margin-bottom: 100px;
-    background-color: #2c3e50;
+    /*background-color: #2c3e50;*/
     overflow: hidden !important;
 }
 
@@ -179,12 +176,12 @@ iframe {
 
 .login100-form-title {
     display: block;
-    /*  font-family: Poppins-Bold;*/
-    font-family: opensans-l, sans-serif;
+    /*font-family: opensans-l, sans-serif;*/
     font-size: 30px;
     color: white;
     line-height: 1.2;
     text-align: center;
+    font-family: main-l, sans-serif;
 }
 
 .login100-form-title i {

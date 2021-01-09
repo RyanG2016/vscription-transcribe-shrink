@@ -18,8 +18,10 @@ $(document).ready(function () {
     let typistEl = $ ( "#demo_job_type");
     //let accountEl = $ ("#account");
     let htmlTable = $('.billing-report-container');
-    startDate.datepicker({dateFormat: "yy-mm-dd"});
-    endDate.datepicker({dateFormat: "yy-mm-dd"});
+    $('#startDatePicker').datetimepicker({format: "YYYY-MM-DD"});
+    $('#endDatePicker').datetimepicker({format: "YYYY-MM-DD"});
+    // startDate.datepicker({dateFormat: "yy-mm-dd"});
+    // endDate.datepicker({dateFormat: "yy-mm-dd"});
 
     typistContainer.html();
     typistContainer.append(generateLoadingSpinner());

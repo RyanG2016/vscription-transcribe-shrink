@@ -2,10 +2,9 @@
 /* --- TABLE STYLING  --*/
 /* ---------------------*/
 
+@import "parts/global.css";
+
 /* BODY */
-body{
-    font-family: 'OpenSans', serif;
-}
 
 .mdc-data-table{
     width: 100%;

@@ -142,12 +142,12 @@ $(document).ready(function () {
         lengthChange: false,
         pageLength: maximum_rows_per_page_jobs_list,
         autoWidth: false,
-        columnDefs: [
+ /*       columnDefs: [
             {
                 targets: ['_all'],
                 className: 'mdc-data-table__cell'
             }
-        ],
+        ],*/
 
         /*
         * 				<th>ID</th>
@@ -163,9 +163,11 @@ $(document).ready(function () {
             // {"data": "acc_id"},
             // {"data": "acc_name"},
             // {"data": "username"},
-            {"data": "email"},
+            {"title": "Email",
+            "data": "email"},
             // {"data": "acc_role"},
-            {"data": "role_desc"},
+            {"title": "Role",
+            "data": "role_desc"},
             // {"data": "access_id"}
             /*,
             render: function (data, type, row) {

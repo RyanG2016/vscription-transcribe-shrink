@@ -1,6 +1,11 @@
 <?php
 //include('../data/parts/head.php');
-$vtex_page = 11;
+
+require '../api/vendor/autoload.php';
+use Src\Enums\INTERNAL_PAGES;
+
+$vtex_page = INTERNAL_PAGES::PAYMENT;
+
 require '../api/bootstrap.php';
 include('data/parts/session_settings.php');
 
@@ -95,137 +100,45 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
 
 <body>
 
-<?php include_once "data/parts/nav.php" ?>
+<div class="container-fluid d-flex h-auto vspt-container-fluid">
+    <div class="row w-100 h-100 vspt-container-fluid-row no-gutters" style="white-space: nowrap">
 
-<div id="container" style="width: 100%">
-    <div class="form-style-5">
+        <?php include_once "data/parts/nav.php"?>
 
-        <table id="header-tbl">
-            <tr>
-                <td id="navbtn" align="left" colspan="1">
-<!--                    <a class=\"logout\" href="landing.php"><i class="fas fa-arrow-left"></i> Go to landing page</a>-->
-                </td>
+        <div class="vspt-page-container vspt-col-auto-fix">
 
-                <td id="logbar" align="right" colspan="1">
+            <div class="row">
+                <div class="col">
+<!--                    <a class="logbar" href="index.php"><i class="fas fa-arrow-left"></i> Go back </a>-->
+                </div>
+
+                <div class="col-auto logbar">
                     Logged in as: <?php echo $_SESSION['uEmail'] ?> |
                     <!--                    </div>-->
                     <a class="logout" href="logout.php">
                         <i class="fas fa-sign-out-alt"></i>
                         Logout
                     </a>
-                </td>
+                </div>
+            </div>
 
-            </tr>
-            <tr class="spacer"></tr>
-            <tr style="margin-top: 50px">
-                <td class="title" align="left" width="450px">
-                    <legend class="page-title"><i class="fas fa-dollar-sign"></i> Checkout</legend>
-                </td>
-                <!--<td align="right" rowspan="2" id="fix-td">
-
-                    </td>-->
-
-                <td width="300px" style="text-align: right">
+            <div class="row vspt-title-row no-gutters">
+                <div class="col align-items-end d-flex">
+                    <legend class="page-title mt-auto">
+                        <i class="fas fa-dollar-sign"></i> Checkout
+                    </legend>
+                </div>
+                <div class="col-auto">
                     <img src="data/images/Logo_vScription_Transcribe_Pro_White.png" width="300px"/>
-                </td>
-            </tr>
+                </div>
+            </div>
 
+            <div class="vtex-card contents">
 
-        </table>
-
-        <div class="root">
-<!--            <div class="nav-bar">-->
-<!---->
-<!--                --><?php
-//                if (isset($_SESSION["role"])) {
-//                    $rl = $_SESSION["role"];
-//                    if ($rl == 3) {
-//                        echo "<div class=\"vtex-card nav-header first\">
-//                                Navigation
-//                            </div>
-//                            <div class=\"nav-btns-div\">
-//                                <button class=\"mdc-button mdc-button--outlined tools-button\" onclick=\"location.href='transcribe.php'\">
-//                                    <div class=\"mdc-button__ripple\"></div>
-//                                    <i class=\"fas fa-angle-double-right\"></i>
-//                                        Go To Transcribe
-//                                    </span>
-//                                </button>
-//                            </div>";
-//                    } else if ($rl == 2) {
-//                        echo "<div class=\"vtex-card nav-header first\">
-//                                Navigation
-//                            </div>
-//                            <div class=\"nav-btns-div\">
-//                                <button class=\"mdc-button mdc-button--outlined tools-button\" onclick=\"location.href='main.php'\">
-//                                    <div class=\"mdc-button__ripple\"></div>
-//                                    <i class=\"fas fa-angle-double-right\"></i>
-//                                        Go To Job Lister
-//                                    </span>
-//                                </button>
-//
-//                                <button class=\"mdc-button mdc-button--outlined tools-button\" onclick=\"location.href='manage_typists.php'\">
-//                                    <div class=\"mdc-button__ripple\"></div>
-//                                    <i class=\"fas fa-keyboard\"></i>
-//                                        Manage Typists
-//                                    </span>
-//                                </button>
-//                            </div>";
-//                    } else if ($rl == 1) {
-//                        echo "<div class=\"vtex-card nav-header first\">
-//                                Navigation
-//                            </div>
-//                            <div class=\"nav-btns-div\">
-//                                <button class=\"mdc-button mdc-button--outlined tools-button\" onclick=\"location.href='panel/'\">
-//                                    <div class=\"mdc-button__ripple\"></div>
-//                                    <i class=\"fas fa-angle-double-right\"></i>
-//                                        Go To Admin Panel
-//                                    </span>
-//                                </button>
-//
-//                                <button class=\"mdc-button mdc-button--outlined tools-button\" onclick=\"location.href='main.php'\">
-//                                    <div class=\"mdc-button__ripple\"></div>
-//                                    <i class=\"fas fa-angle-double-right\"></i>
-//                                        Go To Job Lister
-//                                    </span>
-//                                </button>
-//
-//                                <button class=\"mdc-button mdc-button--outlined tools-button\" onclick=\"location.href='transcribe.php'\">
-//                                    <div class=\"mdc-button__ripple\"></div>
-//                                    <i class=\"fas fa-angle-double-right\"></i>
-//                                        Go To Transcribe
-//                                    </span>
-//                                </button>
-//
-//
-//                            </div>";
-//                    }
-//                }
-//                ?>
-<!---->
-<!--                <div class="vtex-card nav-header first">Role Settings</div>-->
-<!--                <div class="nav-btns-div">-->
-<!--                    <button class="mdc-button mdc-button--outlined tools-button" id="changeRoleBtn">-->
-<!--                        <div class="mdc-button__ripple"></div>-->
-<!--                        <i class="fas fa-wrench"></i>-->
-<!--                        <span class="mdc-button__label">SWITCH ACCOUNT/ROLE</span>-->
-<!--                    </button>-->
-<!---->
-<!--                    <button class="mdc-button mdc-button--outlined tools-button" id="setDefaultRoleBtn">-->
-<!--                        <div class="mdc-button__ripple"></div>-->
-<!--                        <i class="fas fa-wrench"></i>-->
-<!--                        <span class="mdc-button__label">-->
-<!--                        Set Default-->
-<!--                        </span>-->
-<!--                    </button>-->
-<!---->
-<!--                </div>-->
-<!---->
-<!--            </div>-->
-            <div class="vtex-card contents first">
 
                 <!--        CONTENTS GOES HERE        -->
 
-<!--                <span class="payment-title">Details for your order</span>-->
+                <!--                <span class="payment-title">Details for your order</span>-->
                 <h3>Order Details</h3>
 
                 <hr>
@@ -233,53 +146,53 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
                     <input type="hidden" name="package" value="<?php echo $pkg->getSrpId()?>" />
                     <div class="row">
 
-                            <div class="col-lg-9 col-md-8 col-sm-8 border-right">
-                                <h5>Payment Details</h5>
-                                <hr>
-                                <div class="row no-gutters m-b-7"><b>Billing Address</b> &ensp; <small class="mt-auto vtex-help-icon" id="edit">Save</small></div>
-                                <?php
-                                echo '<div class="row no-gutters">
+                        <div class="col-lg-9 col-md-8 col-sm-8 border-right">
+                            <h5>Payment Details</h5>
+                            <hr>
+                            <div class="row no-gutters m-b-7"><b>Billing Address</b> &ensp; <small class="mt-auto vtex-help-icon" id="edit">Save</small></div>
+                            <?php
+                            echo '<div class="row no-gutters">
                                     <input id="fname" name="fname" type="text" class="col-auto vtex-editable-input typeahead" placeholder="<first name>" value="'.$_SESSION["fname"] ."\" />&nbsp;
                                     
                                     <input id='lname' name='lname' type='text' class='col vtex-editable-input typeahead' placeholder='<last name>' value=\"".$_SESSION["lname"].'" />
                                     </div>';
 
-                                echo '<div class="row no-gutters">
+                            echo '<div class="row no-gutters">
                                     <input id="address" name="address" type="text" class="col vtex-editable-input typeahead" placeholder="<Address>" value="';
-                                echo isset($_SESSION['userData']['address']) && !empty($_SESSION['userData']['address'])?$_SESSION['userData']['address']:'';
-                                echo '"  /></div>';
+                            echo isset($_SESSION['userData']['address']) && !empty($_SESSION['userData']['address'])?$_SESSION['userData']['address']:'';
+                            echo '"  /></div>';
 
-                                echo '<div class="row no-gutters">
+                            echo '<div class="row no-gutters">
                                     <input id="city" name="city" type="text" class="col vtex-editable-input typeahead" placeholder="<City>" value="';
-                                echo isset($_SESSION['userData']['city']) && !empty($_SESSION['userData']['city'])?$_SESSION['userData']['city']:'';
-                                echo '"  /></div>';
+                            echo isset($_SESSION['userData']['city']) && !empty($_SESSION['userData']['city'])?$_SESSION['userData']['city']:'';
+                            echo '"  /></div>';
 
-                                echo '<div class="row no-gutters">
+                            echo '<div class="row no-gutters">
                                     <input id="state" name="state" type="text" class="col vtex-editable-input typeahead" placeholder="<State>" value = "';
-                                echo isset($_SESSION['userData']['state']) && !empty($_SESSION['userData']['state'])?$_SESSION['userData']['state']:'';
-                                echo '" /></div>';
+                            echo isset($_SESSION['userData']['state']) && !empty($_SESSION['userData']['state'])?$_SESSION['userData']['state']:'';
+                            echo '" /></div>';
 
 
-                                echo '<div class="row no-gutters">
-                                    <input id="country" type="text" name="country" class="vtex-editable-input typeahead" placeholder="<Country>" value="';
-                                    echo isset($_SESSION['userData']['country']) && !empty($_SESSION['userData']['country'])?$_SESSION['userData']['country']:'';
-                                    echo '" />
+                            echo '<div class="row no-gutters">
+                                    <input id="country" type="text" name="country" class="vtex-editable-input typeahead col w-100" placeholder="<Country>" value="';
+                            echo isset($_SESSION['userData']['country']) && !empty($_SESSION['userData']['country'])?$_SESSION['userData']['country']:'';
+                            echo '" />
                                     <input id="zip" name="zipcode" type="text" class="ml-2 col-6 vtex-editable-input typeahead" placeholder="<Zip/Postal Code>" value="';
-                                echo isset($_SESSION['userData']['zipcode']) && !empty($_SESSION['userData']['zipcode'])?$_SESSION['userData']['zipcode']:'';
-                                    echo '" />
+                            echo isset($_SESSION['userData']['zipcode']) && !empty($_SESSION['userData']['zipcode'])?$_SESSION['userData']['zipcode']:'';
+                            echo '" />
                                 </div>';
-                                ?>
+                            ?>
 
-                                <hr>
-                                <div class="row no-gutters m-b-7"><b>Payment Details</b></div>
-                                <div class="row no-gutters">
+                            <hr>
+                            <div class="row no-gutters m-b-7"><b>Payment Details</b></div>
+                            <div class="row no-gutters">
 
-                                    <div class="col  pr-3 container preload">
-                                        <div class="creditcard">
-                                            <div class="front">
-                                                <div id="ccsingle"></div>
-                                                <svg version="1.1" id="cardfront" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                     x="0px" y="0px" viewBox="0 0 750 471" style="enable-background:new 0 0 750 471;" xml:space="preserve">
+                                <div class="col pr-3 m-0 container preload">
+                                    <div class="creditcard">
+                                        <div class="front">
+                                            <div id="ccsingle"></div>
+                                            <svg version="1.1" id="cardfront" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                 x="0px" y="0px" viewBox="0 0 750 471" style="enable-background:new 0 0 750 471;" xml:space="preserve">
                         <g id="Front">
                             <g id="CardBackground">
                                 <g id="Page-1_1_">
@@ -335,92 +248,110 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
                                 </g>
                             </g>
                         </g>
-                                                    <g id="Back">
-                                                    </g>
+                                                <g id="Back">
+                                                </g>
                     </svg>
-                                            </div>
-                                            <div class="back">
-                                                <svg version="1.1" id="cardback" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                     x="0px" y="0px" viewBox="0 0 750 471" style="enable-background:new 0 0 750 471;" xml:space="preserve">
+                                        </div>
+                                        <div class="back">
+                                            <svg version="1.1" id="cardback" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                 x="0px" y="0px" viewBox="0 0 750 471" style="enable-background:new 0 0 750 471;" xml:space="preserve">
                         <g id="Front">
                             <line class="st0" x1="35.3" y1="10.4" x2="36.7" y2="11" />
                         </g>
-                                                    <g id="Back">
-                                                        <g id="Page-1_2_">
-                                                            <g id="amex_2_">
-                                                                <path id="Rectangle-1_2_" class="darkcolor greydark" d="M40,0h670c22.1,0,40,17.9,40,40v391c0,22.1-17.9,40-40,40H40c-22.1,0-40-17.9-40-40V40
+                                                <g id="Back">
+                                                    <g id="Page-1_2_">
+                                                        <g id="amex_2_">
+                                                            <path id="Rectangle-1_2_" class="darkcolor greydark" d="M40,0h670c22.1,0,40,17.9,40,40v391c0,22.1-17.9,40-40,40H40c-22.1,0-40-17.9-40-40V40
                             C0,17.9,17.9,0,40,0z" />
-                                                            </g>
                                                         </g>
-                                                        <rect y="61.6" class="st2" width="750" height="78" />
-                                                        <g>
-                                                            <path class="st3" d="M701.1,249.1H48.9c-3.3,0-6-2.7-6-6v-52.5c0-3.3,2.7-6,6-6h652.1c3.3,0,6,2.7,6,6v52.5
-                        C707.1,246.4,704.4,249.1,701.1,249.1z" />
-                                                            <rect x="42.9" y="198.6" class="st4" width="664.1" height="10.5" />
-                                                            <rect x="42.9" y="224.5" class="st4" width="664.1" height="10.5" />
-                                                            <path class="st5" d="M701.1,184.6H618h-8h-10v64.5h10h8h83.1c3.3,0,6-2.7,6-6v-52.5C707.1,187.3,704.4,184.6,701.1,184.6z" />
-                                                        </g>
-                                                        <text transform="matrix(1 0 0 1 621.999 227.2734)" id="svgsecurity" class="st6 st7">985</text>
-                                                        <g class="st8">
-                                                            <text transform="matrix(1 0 0 1 518.083 280.0879)" class="st9 st6 st10">security code</text>
-                                                        </g>
-                                                        <rect x="58.1" y="378.6" class="st11" width="375.5" height="13.5" />
-                                                        <rect x="58.1" y="405.6" class="st11" width="421.7" height="13.5" />
-                                                        <text transform="matrix(1 0 0 1 59.5073 228.6099)" id="svgnameback" class="st12 st13"><?php echo $_SESSION["fname"] . " " . $_SESSION["lname"]?></text>
                                                     </g>
+                                                    <rect y="61.6" class="st2" width="750" height="78" />
+                                                    <g>
+                                                        <path class="st3" d="M701.1,249.1H48.9c-3.3,0-6-2.7-6-6v-52.5c0-3.3,2.7-6,6-6h652.1c3.3,0,6,2.7,6,6v52.5
+                        C707.1,246.4,704.4,249.1,701.1,249.1z" />
+                                                        <rect x="42.9" y="198.6" class="st4" width="664.1" height="10.5" />
+                                                        <rect x="42.9" y="224.5" class="st4" width="664.1" height="10.5" />
+                                                        <path class="st5" d="M701.1,184.6H618h-8h-10v64.5h10h8h83.1c3.3,0,6-2.7,6-6v-52.5C707.1,187.3,704.4,184.6,701.1,184.6z" />
+                                                    </g>
+                                                    <text transform="matrix(1 0 0 1 621.999 227.2734)" id="svgsecurity" class="st6 st7">985</text>
+                                                    <g class="st8">
+                                                        <text transform="matrix(1 0 0 1 518.083 280.0879)" class="st9 st6 st10">security code</text>
+                                                    </g>
+                                                    <rect x="58.1" y="378.6" class="st11" width="375.5" height="13.5" />
+                                                    <rect x="58.1" y="405.6" class="st11" width="421.7" height="13.5" />
+                                                    <text transform="matrix(1 0 0 1 59.5073 228.6099)" id="svgnameback" class="st12 st13"><?php echo $_SESSION["fname"] . " " . $_SESSION["lname"]?></text>
+                                                </g>
                     </svg>
-                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col pl-3 pb-0 border-left form-container">
-                                        <div class="field-container">
-                                            <label for="name">Name on card</label>
-                                            <input id="name" name="name_on_card" maxlength="20" type="text" value="<?php echo $_SESSION["fname"] . " " . $_SESSION["lname"]?>" autofocus>
-                                        </div>
-                                        <div class="field-container">
-                                            <label for="cardnumber">Card Number</label>
-                                            <!--                                    <span id="generatecard">generate random</span>-->
-                                            <input id="cardnumber" name="card_number" type="text" pattern="[0-9]*" inputmode="numeric">
-                                            <svg id="ccicon" class="ccicon" width="750" height="471" viewBox="0 0 750 471" version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                                 xmlns:xlink="http://www.w3.org/1999/xlink">
-
-                                            </svg>
-                                        </div>
-                                        <div class="field-container">
-                                            <label for="expirationdate">Expiration (mm/yy)</label>
-                                            <input id="expirationdate" name="expiry_date" type="text" pattern="[0-9]*" inputmode="numeric">
-                                        </div>
-                                        <div class="field-container">
-                                            <label for="securitycode">Security Code</label>
-                                            <input id="securitycode" name="cvv" type="text" pattern="[0-9]*" inputmode="numeric">
-                                        </div>
-                                        <div class="field-container" style="text-align: end; vertical-align: text-bottom;">
-                                            <small class="w-100"><em>We currently accept Visa and MasterCard &ensp; <img src="data/images/visa_master.png" alt="visa-master-card"></em></small>
-                                            <!-- (c) 2005, 2020. Authorize.Net is a registered trademark of CyberSource Corporation -->
-                                        </div>
-                                        <div class="field-container">
-                                            <!-- (c) 2005, 2020. Authorize.Net is a registered trademark of CyberSource Corporation -->
-                                            <div class="AuthorizeNetSeal ml-auto mt-3">
-                                                <script type="text/javascript"
-                                                        language="javascript">var ANS_customer_id = "5b6ecdfe-d529-460d-8145-acc3ade87a4c";</script>
-                                                <script type="text/javascript" language="javascript"
-                                                        src="//verify.authorize.net:443/anetseal/seal.js"></script>
-                                            </div>
-                                        </div>
-
                                     </div>
                                 </div>
+                                <div class="col pl-3 pr-3 pb-0 border-left form-container">
+                                    <div class="field-container first">
+                                        <label for="name">Name on card</label>
+                                        <br>
+                                        <input id="name" class="w-100" name="name_on_card" maxlength="20" type="text"
+                                               value="<?php echo $_SESSION["fname"] . " " . $_SESSION["lname"] ?>"
+                                               autofocus>
+                                    </div>
 
-                                <div class="row no-gutters m-t-10"><small><em class="text-muted">We will save your billing info for the next time but not your credit card data.</em></small></div>
+                                    <div class="field-container">
+                                        <label for="cardnumber">Card Number</label>
+                                        <br>
+                                        <input id="cardnumber" name="card_number" type="text" pattern="[0-9]*" inputmode="numeric">
+                                        <svg id="ccicon" class="ccicon" width="750" height="471" viewBox="0 0 750 471" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                             xmlns:xlink="http://www.w3.org/1999/xlink">
+
+                                        </svg>
+                                    </div>
+                                    <div class="field-container">
+
+                                        <div class="row">
+                                            <div class="col">
+                                                <label for="expirationdate">Expiration (mm/yy)</label> <br>
+                                                <input id="expirationdate" name="expiry_date" type="text" pattern="[0-9]*" inputmode="numeric">
+                                            </div>
+
+                                            <div class="col">
+                                                <label for="securitycode">Security Code</label> <br>
+                                                <input id="securitycode" name="cvv" type="text" pattern="[0-9]*" inputmode="numeric">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="field-container" style="text-align: end; vertical-align: text-bottom;">
+
+                                        <div class="row">
+                                            <div class="col-auto">
+                                                <div class="AuthorizeNetSeal mt-0">
+                                                    <script type="text/javascript"
+                                                            language="javascript">var ANS_customer_id = "5b6ecdfe-d529-460d-8145-acc3ade87a4c";</script>
+                                                    <script type="text/javascript" language="javascript"
+                                                            src="//verify.authorize.net:443/anetseal/seal.js"></script>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <small class="w-100"><em>We currently accept Visa and MasterCard &ensp; <img src="data/images/visa_master.png" alt="visa-master-card"></em></small>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="field-container">
+
+                                    </div>
+
+                                </div>
                             </div>
 
-                            <div class="col-lg-3 col-md-4 col-sm-4 ">
-                                <h5>Order Summary</h5>
-                                <hr>
+                            <div class="row no-gutters m-t-10"><small><em class="text-muted">We will save your billing info for the next time but not your credit card data.</em></small></div>
+                        </div>
 
-                                <?php
+                        <div class="col-lg-3 col-md-4 col-sm-4 ">
+                            <h5>Order Summary</h5>
+                            <hr>
 
-                                echo '
+                            <?php
+
+                            echo '
                                     <div class="row">
                                         <div class="col-auto">Package</div>
                                         <div class="col text-right"> ' . $pkg->getSrpName() . '</div>
@@ -452,23 +383,24 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
                                         <div class="col-auto">Organization</div>
                                         <div class="col text-right">' . $_SESSION['acc_name'] . '</div>
                                     </div>';
-                                ?>
+                            ?>
 
-                                <div class="form-row mt-3 justify-content-end">
-                                    <button type="submit" id="payBtn" class="btn btn-primary" disabled>Complete Payment</button>
-                                </div>
+                            <div class="form-row mt-3 justify-content-end">
+                                <button type="submit" id="payBtn" class="btn btn-primary" disabled>Complete Payment</button>
                             </div>
+                        </div>
 
                     </div>
                 </form>
 
 
             </div>
+
         </div>
-
-
     </div>
 </div>
+
+
 
 <div class="overlay" id="overlay" style="display: none">
     <div class="loading-overlay-text" id="loadingText">Processing payment..</div>
@@ -480,7 +412,7 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
     <div class="text-muted">please don't refresh or click back button</div>
 </div>
 
-
+<?php include_once "data/parts/footer.php"?>
 </body>
 
 </html>

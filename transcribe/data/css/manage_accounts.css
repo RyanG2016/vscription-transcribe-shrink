@@ -1,23 +1,10 @@
 @import "parts/modal_popup.css";
 @import "parts/admin_card_view.css";
 @import "parts/card.css";
-@import "parts/vars.css";
 @import "parts/data-tbl.css";
 @import "parts/bootstrap-override.css";
+@import "parts/global.css";
 
-/* ---------------- */
-/* JQUERY OVERRIDE  */
-/* ---------------- */
-.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover {
-    border: 1px solid #1e79be;
-    background: #1e79be;
-    font-weight: normal;
-    color: #ffffff;
-}
-
-.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active {
-    background: white;
-}
 
 /* ---------------- */
 /* CREATE ACC MODAL */

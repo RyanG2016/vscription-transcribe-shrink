@@ -86,65 +86,42 @@ $vtex_page = INTERNAL_PAGES::USERS;
 </head>
 
 <body>
-<?php include_once "../data/parts/nav.php"?>
 
-<div id="container" style="width: 100%">
-    <div class="form-style-5">
+<div class="container-fluid d-flex h-auto vspt-container-fluid">
+    <div class="row w-100 h-100 vspt-container-fluid-row no-gutters" style="white-space: nowrap">
 
-        <table id="header-tbl">
-            <tr>
-                <td id="navbtn" align="left" colspan="1">
-                    <a class="logout" href="index.php"><i class="fas fa-arrow-left"></i> Go back to Admin Panel</a>
-                </td>
+        <?php include_once "../data/parts/nav.php"?>
 
-                <td id="logbar" align="right" colspan="1">
+        <div class="vspt-page-container vspt-col-auto-fix">
+
+            <div class="row">
+                <div class="col">
+                    <a class="logbar" href="index.php"><i class="fas fa-arrow-left"></i> Go back to Admin Panel</a>
+                </div>
+
+                <div class="col-auto logbar">
                     Logged in as: <?php echo $_SESSION['uEmail'] ?> |
                     <!--                    </div>-->
                     <a class="logout" href="../logout.php">
                         <i class="fas fa-sign-out-alt"></i>
                         Logout
                     </a>
-                </td>
+                </div>
+            </div>
 
-            </tr>
-            <tr class="spacer"></tr>
-            <tr style="margin-top: 50px">
-                <td class="title" align="left" width="450px">
-
-                    <legend class="page-title">
+            <div class="row vspt-title-row no-gutters">
+                <div class="col align-items-end d-flex">
+                    <legend class="page-title mt-auto">
                         <i class="material-icons mdc-button__icon" aria-hidden="true">account_circle</i>
                         Users Management
                     </legend>
-                </td>
-                <!--<td align="right" rowspan="2" id="fix-td">
-
-                    </td>-->
-
-                <td width="300px">
+                </div>
+                <div class="col">
                     <img src="../data/images/Logo_vScription_Transcribe_Pro_White.png" width="300px"/>
-                </td>
-            </tr>
-
-
-        </table>
-
-        <div class="root">
-            <div class="nav-bar">
-
-                <div class="vtex-card nav-header first">
-                    ACTIONS
                 </div>
-                <div class="nav-btns-div actions-btns">
-                    <button class="mdc-button mdc-button--outlined tools-button" id="createAcc">
-                        <div class="mdc-button__ripple"></div>
-                        <i class="fas fa-user-plus"></i>
-                        <span class="mdc-button__label">&nbsp;Add User</span>
-                    </button>
-
-                </div>
-
             </div>
-            <div class="vtex-card contents first">
+
+            <div class="vtex-card contents">
 
                 <div class="vtex-top-bar">
                     <h2 class="users-tbl-title">Users List</h2>
@@ -155,12 +132,15 @@ $vtex_page = INTERNAL_PAGES::USERS;
                     </button>
                 </div>
 
-<!--                <table id="users-tbl" class="users-tbl vspt-table table row-border hover compact"></table>-->
-                <table id="users-tbl" class="users-tbl table vspt-table hover compact"></table>
+                <div style="overflow-x: hidden" class="vspt-table-div">
+                    <table id="users-tbl" class="users-tbl table vspt-table hover compact"></table>
+                </div>
             </div>
+
         </div>
     </div>
 </div>
+
 
 <!-- The Modal -->
 <div id="modal" class="modal">
@@ -256,6 +236,8 @@ $vtex_page = INTERNAL_PAGES::USERS;
 
     </div>
 </div>
+
+<?php include_once "../data/parts/footer.php"?>
 </body>
 
 </html>

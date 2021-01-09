@@ -26,7 +26,7 @@ if(isset($_SESSION['counter']))
 }*/
 ?>
 
-<html>
+<html lang="en">
 
 <head>
     <title>vScription Pro Transcribe Downloads</title>

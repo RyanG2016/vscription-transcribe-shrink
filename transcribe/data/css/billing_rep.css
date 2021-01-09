@@ -5,6 +5,7 @@
 /*-----------------------*/
 
 @import "billing_print.css";
+@import "parts/global.css";
 
 /* -----------------*/
 /* --BUTTON STYLING --*/
@@ -49,4 +50,14 @@
 h3{
     font-size: 14px !important;
     font-weight: bold !important;
+}
+
+div.row.typ-billing-container > div
+{
+    padding-right: 6px;
+    padding-left: 6px;
+}
+
+div.row.typ-billing-container label {
+    margin-right: 6px;
 }

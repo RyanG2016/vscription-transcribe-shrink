@@ -1,13 +1,10 @@
-@import "parts/vars.css";
 @import "parts/user_card_view.css";
-@import "parts/card.css";
 @import "parts/modal_overlay.css";
 @import "parts/data-tbl.css";
 @import "parts/vtex-custom-styles.css";
-@import "parts/spinner.css";
-@import "parts/bootstrap-override.css";
 @import "parts/material-override.css";
 @import "parts/util.css";
+@import "parts/global.css";
 
 /* -----------------*/
 /* --BUTTON STYLING --*/
@@ -117,36 +114,6 @@ a:hover {
 }
 .contents {grid-area: content;}
 
-/*.item2 { grid-area: menu; }
-.item3 { grid-area: main; }
-.item4 { grid-area: compatBrowsers; }
-.item5 { grid-area: compatOS; }
-.item6 { grid-area: compatHardware; }
-.item4-5-header { grid-area: compatHeader; }*/
-.root {
-    display: inline-grid;
-    /*display: grid;*/
-    grid-template-areas:
-    'nav content';
-
-    /*'nav content';*/
-    /*'main main main main compatBrowsers compatOS compatHardware';*/
-    /*'menu footer footer footer footer footer';*/
-
-    /*background-color: #2196F3;*/
-
-    /*grid-template-columns: auto;*/
-    /*grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr ;*/
-
-    grid-gap: 20px;
-    /*padding: 20px;*/
-    width: 100%;
-    /*grid-template-columns: 1fr 1fr 1fr 1fr fit-content(100%) fit-content(100%);*/
-    /*grid-template-columns: min-content 1fr 1fr 1fr fit-content(100%) fit-content(100%);*/
-    grid-template-columns: auto 1fr;
-    /*grid-template-columns: fit-content(100%) 1fr;*/
-}
-
 
 /* Contents Styling */
 .welcome{
@@ -216,27 +183,6 @@ a:hover {
 
 
 /* CUSTOM PAYMENT CARD STYLING */
-/*
-body {
-    margin: 0;
-    padding: 0;
-    background-color: #f9f9f9;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-line-pack: center;
-    align-content: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    min-height: 100vh;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    font-family: 'Raleway';
-}*/
 
 .payment-title {
     width: 100%;
@@ -274,6 +220,7 @@ body {
 .field-container {
     position: relative;
 }
+/*
 
 .form-container {
     display: grid;
@@ -285,11 +232,16 @@ body {
     padding: 20px;
     color: #707070;
 }
+*/
 
 label {
     /*padding-bottom: 5px;*/
     margin-bottom: 0 !important;
     font-size: 13px;
+}
+
+.field-container:not(:first-child){
+    margin-top: 16px;
 }
 
 input {
@@ -305,7 +257,7 @@ input {
     height: 38px;
     position: absolute;
     right: 6px;
-    top: calc(50% - 14px);
+    top: calc(50% - 8px);
     /*top: calc(50% + 0px);*/
     width: 60px;
 }

@@ -93,7 +93,10 @@ svg{
 
 
 /* Bootstrap4 Data tables search bar not on the right */
-#users-tbl_wrapper > div.row,
+
+
+
+/*#users-tbl_wrapper > div.row,
 #accounts-tbl_wrapper > div.row
 {
     justify-content: space-between !important;
@@ -113,7 +116,7 @@ thead{
     color: white;
 }
 
-/* Active page button */
+!* Active page button *!
 .page-item.active .page-link {
     z-index: 3;
     color: #fff;
@@ -130,19 +133,33 @@ body{
 
 tr{
     font-size: .875rem;
-}
+}*/
 
-td{
+/*td{
     padding: 6px 12px !important;
-}
-
+}*/
+/*
 .mdc-button{
     white-space: nowrap;
-}
+}*/
+
+
 
 .list-group-item.active {
     z-index: 2;
     color: #fff;
     background-color: var(--vspt-blue);
     border-color: var(--vspt-blue);
+}
+
+.ui-accordion {
+    font-size: .9rem !IMPORTANT;
+}
+
+.input-group-text {
+    font-size: .8rem !IMPORTANT;
+}
+
+.form-control {
+    font-size: .8rem !IMPORTANT;
 }

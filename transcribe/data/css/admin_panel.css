@@ -1,6 +1,5 @@
-@import "parts/vars.css";
 @import "parts/admin_card_view.css";
-@import "parts/card.css";
+@import "parts/global.css";
 
 /* -----------------*/
 /* --BUTTON STYLING --*/

@@ -1,6 +1,9 @@
 <?php
 //include('../data/parts/head.php');
-$vtex_page = 3;
+require '../../api/vendor/autoload.php';
+use Src\Enums\INTERNAL_PAGES;
+
+$vtex_page = INTERNAL_PAGES::ADMIN_PANEL_INDEX;
 
 include('../data/parts/session_settings.php');
 
@@ -48,98 +51,42 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
 </head>
 
 <body>
-<?php include_once "../data/parts/nav.php" ?>
 
-<div id="container" style="width: 100%">
-    <div class="form-style-5">
+<div class="container-fluid d-flex h-auto vspt-container-fluid">
+    <div class="row w-100 h-100 vspt-container-fluid-row no-gutters" style="white-space: nowrap">
 
-        <table id="header-tbl">
-            <tr>
-                <td id="navbtn" align="left" colspan="1">
+        <?php include_once "../data/parts/nav.php"?>
 
-                    <a class="logout" href="../landing.php"><i class="fas fa-arrow-left"></i> Go back to landing page</a>
-                </td>
+        <div class="vspt-page-container vspt-col-auto-fix">
 
-                <td id="logbar" align="right" colspan="1">
+            <div class="row">
+                <div class="col">
+                    <a class="logbar" href="../landing.php"><i class="fas fa-arrow-left"></i> Go back to landing page</a>
+                </div>
+
+                <div class="col-auto logbar">
                     Logged in as: <?php echo $_SESSION['uEmail'] ?> |
                     <!--                    </div>-->
                     <a class="logout" href="../logout.php">
                         <i class="fas fa-sign-out-alt"></i>
                         Logout
                     </a>
-                </td>
-
-            </tr>
-            <tr class="spacer"></tr>
-            <tr style="margin-top: 50px">
-                <td class="title" align="left" width="450px">
-                    <legend class="page-title">Admin Panel</legend>
-                </td>
-                <!--<td align="right" rowspan="2" id="fix-td">
-
-                    </td>-->
-
-                <td width="300px">
-                    <img src="../data/images/Logo_vScription_Transcribe_Pro_White.png" width="300px"/>
-                </td>
-            </tr>
-
-
-        </table>
-
-        <div class="root">
-            <div class="nav-bar">
-
-                <div class="vtex-card nav-header first">
-                    QUICK TOOLS
                 </div>
-                <div class="nav-btns-div">
-                    <button class="mdc-button mdc-button--outlined tools-button" onclick="location.href='admin_tools.php'">
-                        <div class="mdc-button__ripple"></div>
-                        <i class="material-icons mdc-button__icon" aria-hidden="true">vpn_key</i>
-                        <span class="mdc-button__label">Admin Tools</span>
-                    </button>
-
-                    <button class="mdc-button mdc-button--outlined tools-button" onclick="location.href='links.php'" disabled>
-                        <div class="mdc-button__ripple"></div>
-                        <i class="fas fa-link"></i>
-                        <span class="mdc-button__label">Useful Links</span>
-                    </button>
-
-                    <div class="vtex-card nav-header">
-                        REPORTS
-                    </div>
-
-                    <button class="mdc-button mdc-button--outlined tools-button" onclick="location.href='billing_report.php'">
-                        <div class="mdc-button__ripple"></div>
-                        <i class="material-icons mdc-button__icon" aria-hidden="true">attach_money</i>
-                        <span class="mdc-button__label">Billing Reports</span>
-                    </button>
-                    <button class="mdc-button mdc-button--outlined tools-button" onclick="location.href='typist_report.php'">
-                        <div class="mdc-button__ripple"></div>
-                        <i class="material-icons mdc-button__icon" aria-hidden="true">text_fields</i>
-                        <span class="mdc-button__label">Typist Reports</span>
-                    </button>
-
-                    <div class="vtex-card nav-header">
-                        MANAGEMENT
-                    </div>
-                    <button class="mdc-button mdc-button--outlined tools-button" onclick="location.href='accounts.php'">
-                        <div class="mdc-button__ripple"></div>
-                        <i class="material-icons mdc-button__icon" aria-hidden="true">admin_panel_settings</i>
-                        <span class="mdc-button__label">Manage Orgs</span>
-                    </button>
-                    <button class="mdc-button mdc-button--outlined tools-button" onclick="location.href='users.php'">
-                        <div class="mdc-button__ripple"></div>
-                        <i class="material-icons mdc-button__icon" aria-hidden="true">account_circle</i>
-                        <span class="mdc-button__label">Manage Users</span>
-                    </button>
-                </div>
-
             </div>
-            <div class="vtex-card contents first">
 
-                <!--        CONTENTS GOES HERE        -->
+            <div class="row vspt-title-row no-gutters">
+                <div class="col align-items-end d-flex">
+                    <legend class="page-title mt-auto">
+                        <span class="fas fa-user-shield fa-fw mr-3"></span>
+                        Admin Panel
+                    </legend>
+                </div>
+                <div class="col">
+                    <img src="../data/images/Logo_vScription_Transcribe_Pro_White.png" width="300px"/>
+                </div>
+            </div>
+
+            <div class="vtex-card contents">
 
                 <table class="welcome">
                     <tr>
@@ -157,13 +104,15 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
                     </tr>
                 </table>
 
+
             </div>
+
         </div>
-
-
     </div>
 </div>
 
+
+<?php include_once "../data/parts/footer.php"?>
 </body>
 
 </html>

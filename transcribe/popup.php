@@ -14,7 +14,7 @@
 include('data/parts/head.php');
 include ('data/parts/constants.php');
 
-// TODO RE ENABLE
+
 /*if(!isset($_POST) || !isset($_POST['src']))
 {
     header("location: index.php");

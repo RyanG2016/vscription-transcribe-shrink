@@ -1,6 +1,9 @@
 <?php
 //include('../data/parts/head.php');
-$vtex_page = 10;
+require '../api/vendor/autoload.php';
+use Src\Enums\INTERNAL_PAGES;
+
+$vtex_page = INTERNAL_PAGES::PACKAGES;
 require '../api/bootstrap.php';
 include('data/parts/session_settings.php');
 
@@ -71,47 +74,40 @@ $pkgGateway = new PackageGateway($dbConnection);
 
 <body>
 
-<?php include_once "data/parts/nav.php" ?>
+<div class="container-fluid d-flex h-auto vspt-container-fluid">
+    <div class="row w-100 h-100 vspt-container-fluid-row no-gutters" style="white-space: nowrap">
 
-<div id="container" style="width: 100%">
-    <div class="form-style-5">
+        <?php include_once "data/parts/nav.php"?>
 
-        <table id="header-tbl">
-            <tr>
-                <td id="navbtn" align="left" colspan="1">
-                    <a class=\"logout\" href="landing.php"><i class="fas fa-arrow-left"></i> Go to landing page</a>
-                </td>
+        <div class="vspt-page-container vspt-col-auto-fix">
 
-                <td id="logbar" align="right" colspan="1">
+            <div class="row">
+                <div class="col">
+                    <a class="logbar" href="landing.php"><i class="fas fa-arrow-left"></i> go to home page</a>
+                </div>
+
+                <div class="col-auto logbar">
                     Logged in as: <?php echo $_SESSION['uEmail'] ?> |
                     <!--                    </div>-->
                     <a class="logout" href="logout.php">
                         <i class="fas fa-sign-out-alt"></i>
                         Logout
                     </a>
-                </td>
+                </div>
+            </div>
 
-            </tr>
-            <tr class="spacer"></tr>
-            <tr style="margin-top: 50px">
-                <td class="title" align="left" width="450px">
-                    <legend class="page-title"><i class="fas fa-cubes"></i> Packages</legend>
-                </td>
-                <!--<td align="right" rowspan="2" id="fix-td">
-
-                    </td>-->
-
-                <td width="300px" style="text-align: right">
+            <div class="row vspt-title-row no-gutters">
+                <div class="col align-items-end d-flex">
+                    <legend class="page-title mt-auto">
+                        <i class="fas fa-cubes"></i> Packages
+                    </legend>
+                </div>
+                <div class="col-auto">
                     <img src="data/images/Logo_vScription_Transcribe_Pro_White.png" width="300px"/>
-                </td>
-            </tr>
+                </div>
+            </div>
 
-
-        </table>
-
-        <div class="root">
-
-            <div class="vtex-card contents first">
+            <div class="vtex-card contents">
 
                 <!--        CONTENTS GOES HERE        -->
 
@@ -126,7 +122,7 @@ $pkgGateway = new PackageGateway($dbConnection);
                     </tr>
                     <tr>
                         <td style="font-size: 1rem; font-style: italic; color: dimgrey">
-<!--                            <span style="vertical-align: bottom">Here you can choose your next job start by clicking <b>switch account/role</b> from the sidebar.</span>-->
+                            <!--                            <span style="vertical-align: bottom">Here you can choose your next job start by clicking <b>switch account/role</b> from the sidebar.</span>-->
                             <!--                            <span style="vertical-align: bottom">Here you can find all your assigned work and data.</span>-->
                         </td>
                     </tr>
@@ -137,12 +133,12 @@ $pkgGateway = new PackageGateway($dbConnection);
 
                     <?php
 
-                $rows = $pkgGateway->findAllModel();
-                foreach ($rows as $row)
-                {
-                    $package = Package::withRow($row);
+                    $rows = $pkgGateway->findAllModel();
+                    foreach ($rows as $row)
+                    {
+                        $package = Package::withRow($row);
 //                                <div class="row w-auto no-gutters justify-content-center package-name m-b-10">'..'</div>
-                    echo '<div class="col-sm-3 mb-4">
+                        echo '<div class="col-sm-3 mb-4">
                         <div class="package-card-top row no no-gutters align-items-center justify-content-center">
                             '.$package->getSrpName().'
                         </div>
@@ -162,9 +158,9 @@ $pkgGateway = new PackageGateway($dbConnection);
                             Buy Now
                         </div>
                     </div>';
-                }
+                    }
 
-                ?>
+                    ?>
 
 
                     <!--<div class="col-sm-3">
@@ -183,12 +179,14 @@ $pkgGateway = new PackageGateway($dbConnection);
                     </div>-->
 
                 </div>
-
             </div>
+
         </div>
-
-
     </div>
+</div>
+
+<div id="container" style="width: 100%">
+
 
     <form id="purchase" action="payment.php" method="post">
         <input type="number" id="package" name="package" hidden>
@@ -196,7 +194,7 @@ $pkgGateway = new PackageGateway($dbConnection);
 
 </div>
 
-
+<?php include_once "data/parts/footer.php"?>
 </body>
 
 </html>

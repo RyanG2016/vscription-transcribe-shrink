@@ -1,10 +1,8 @@
 @import "parts/modal_popup.css";
 @import "parts/admin_card_view.css";
-@import "parts/card.css";
 @import "parts/data-tbl.css";
-@import "parts/vars.css";
-@import "parts/spinner.css";
-@import "parts/bootstrap-override.css";
+@import "parts/global.css";
+
 
 /* ---------------- */
 /* JQUERY OVERRIDE  */

@@ -1,5 +1,5 @@
 @import "parts/admin_card_view.css";
-@import "parts/spinner.css";
+@import "parts/global.css";
 
 /*-----------------------*/
 /* billing table styling */
@@ -58,4 +58,14 @@
 h3{
     font-size: 14px !important;
     font-weight: bold !important;
+}
+
+div.row.typ-billing-container > div
+{
+    padding-right: 6px;
+    padding-left: 6px;
+}
+
+div.row.typ-billing-container label {
+    margin-right: 6px;
 }

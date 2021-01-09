@@ -1,5 +1,5 @@
-@import "parts/user_card_view.css";
-@import "parts/card.css";
+/*@import "parts/user_card_view.css";*/
+@import "parts/global.css";
 
 /* ---------------------*/
 /* ---BODY STYLING  --*/
@@ -58,16 +58,16 @@ code .params {
 }
 
 
-body{
-    /*    background-color: #193f54;*/
-    /*    background-color: #1d7ec1;*/
+/*body{
+    !*    background-color: #193f54;*!
+    !*    background-color: #1d7ec1;*!
     font-family: 'OpenSans', serif;
-    /*	Between Night And Sky   */
-    background: var(--dark-bg-color);  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, var(--light-bg-color), var(--dark-bg-color) );  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right,  var(--light-bg-color), var(--dark-bg-color) ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    !*	Between Night And Sky   *!
+    background: var(--dark-bg-color);  !* fallback for old browsers *!
+    background: -webkit-linear-gradient(to right, var(--light-bg-color), var(--dark-bg-color) );  !* Chrome 10-25, Safari 5.1-6 *!
+    background: linear-gradient(to right,  var(--light-bg-color), var(--dark-bg-color) ); !* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ *!
 
-}
+}*/
 
 /*
 

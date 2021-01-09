@@ -1,6 +1,9 @@
 <?php
 //include('../data/parts/head.php');
-$vtex_page = 11;
+require '../api/vendor/autoload.php';
+use Src\Enums\INTERNAL_PAGES;
+
+$vtex_page = INTERNAL_PAGES::PAYMENT_DETAILS;
 require '../api/bootstrap.php';
 include('data/parts/session_settings.php');
 
@@ -95,137 +98,45 @@ if($lastPayment != null)
 
 <body>
 
-<?php include_once "data/parts/nav.php" ?>
 
-<div id="container" style="width: 100%">
-    <div class="form-style-5">
+<div class="container-fluid d-flex h-auto vspt-container-fluid">
+    <div class="row w-100 h-100 vspt-container-fluid-row no-gutters" style="white-space: nowrap">
 
-        <table id="header-tbl">
-            <tr>
-                <td id="navbtn" align="left" colspan="1">
-                    <a class=\"logout\" href="landing.php"><i class="fas fa-arrow-left"></i> Go to landing page</a>
-                </td>
+        <?php include_once "data/parts/nav.php"?>
 
-                <td id="logbar" align="right" colspan="1">
+        <div class="vspt-page-container vspt-col-auto-fix">
+
+            <div class="row">
+                <div class="col">
+                    <a class="logbar" href="landing.php"><i class="fas fa-arrow-left"></i> Go to home page</a>
+                </div>
+
+                <div class="col-auto logbar">
                     Logged in as: <?php echo $_SESSION['uEmail'] ?> |
                     <!--                    </div>-->
                     <a class="logout" href="logout.php">
                         <i class="fas fa-sign-out-alt"></i>
                         Logout
                     </a>
-                </td>
+                </div>
+            </div>
 
-            </tr>
-            <tr class="spacer"></tr>
-            <tr style="margin-top: 50px">
-                <td class="title" align="left" width="450px">
-                    <legend class="page-title"><i class="fas fa-dollar-sign"></i> Receipt</legend>
-                </td>
-                <!--<td align="right" rowspan="2" id="fix-td">
-
-                    </td>-->
-
-                <td width="300px" style="text-align: right">
+            <div class="row vspt-title-row no-gutters">
+                <div class="col align-items-end d-flex">
+                    <legend class="page-title mt-auto">
+                        <i class="fas fa-dollar-sign"></i> Receipt
+                    </legend>
+                </div>
+                <div class="col-auto">
                     <img src="data/images/Logo_vScription_Transcribe_Pro_White.png" width="300px"/>
-                </td>
-            </tr>
+                </div>
+            </div>
 
-
-        </table>
-
-        <div class="root">
-<!--            <div class="nav-bar">-->
-<!---->
-<!--                --><?php
-//                if (isset($_SESSION["role"])) {
-//                    $rl = $_SESSION["role"];
-//                    if ($rl == 3) {
-//                        echo "<div class=\"vtex-card nav-header first\">
-//                                Navigation
-//                            </div>
-//                            <div class=\"nav-btns-div\">
-//                                <button class=\"mdc-button mdc-button--outlined tools-button\" onclick=\"location.href='transcribe.php'\">
-//                                    <div class=\"mdc-button__ripple\"></div>
-//                                    <i class=\"fas fa-angle-double-right\"></i>
-//                                        Go To Transcribe
-//                                    </span>
-//                                </button>
-//                            </div>";
-//                    } else if ($rl == 2) {
-//                        echo "<div class=\"vtex-card nav-header first\">
-//                                Navigation
-//                            </div>
-//                            <div class=\"nav-btns-div\">
-//                                <button class=\"mdc-button mdc-button--outlined tools-button\" onclick=\"location.href='main.php'\">
-//                                    <div class=\"mdc-button__ripple\"></div>
-//                                    <i class=\"fas fa-angle-double-right\"></i>
-//                                        Go To Job Lister
-//                                    </span>
-//                                </button>
-//
-//                                <button class=\"mdc-button mdc-button--outlined tools-button\" onclick=\"location.href='manage_typists.php'\">
-//                                    <div class=\"mdc-button__ripple\"></div>
-//                                    <i class=\"fas fa-keyboard\"></i>
-//                                        Manage Typists
-//                                    </span>
-//                                </button>
-//                            </div>";
-//                    } else if ($rl == 1) {
-//                        echo "<div class=\"vtex-card nav-header first\">
-//                                Navigation
-//                            </div>
-//                            <div class=\"nav-btns-div\">
-//                                <button class=\"mdc-button mdc-button--outlined tools-button\" onclick=\"location.href='panel/'\">
-//                                    <div class=\"mdc-button__ripple\"></div>
-//                                    <i class=\"fas fa-angle-double-right\"></i>
-//                                        Go To Admin Panel
-//                                    </span>
-//                                </button>
-//
-//                                <button class=\"mdc-button mdc-button--outlined tools-button\" onclick=\"location.href='main.php'\">
-//                                    <div class=\"mdc-button__ripple\"></div>
-//                                    <i class=\"fas fa-angle-double-right\"></i>
-//                                        Go To Job Lister
-//                                    </span>
-//                                </button>
-//
-//                                <button class=\"mdc-button mdc-button--outlined tools-button\" onclick=\"location.href='transcribe.php'\">
-//                                    <div class=\"mdc-button__ripple\"></div>
-//                                    <i class=\"fas fa-angle-double-right\"></i>
-//                                        Go To Transcribe
-//                                    </span>
-//                                </button>
-//
-//
-//                            </div>";
-//                    }
-//                }
-//                ?>
-<!---->
-<!--                <div class="vtex-card nav-header first">Role Settings</div>-->
-<!--                <div class="nav-btns-div">-->
-<!--                    <button class="mdc-button mdc-button--outlined tools-button" id="changeRoleBtn">-->
-<!--                        <div class="mdc-button__ripple"></div>-->
-<!--                        <i class="fas fa-wrench"></i>-->
-<!--                        <span class="mdc-button__label">SWITCH ACCOUNT/ROLE</span>-->
-<!--                    </button>-->
-<!---->
-<!--                    <button class="mdc-button mdc-button--outlined tools-button" id="setDefaultRoleBtn">-->
-<!--                        <div class="mdc-button__ripple"></div>-->
-<!--                        <i class="fas fa-wrench"></i>-->
-<!--                        <span class="mdc-button__label">-->
-<!--                        Set Default-->
-<!--                        </span>-->
-<!--                    </button>-->
-<!---->
-<!--                </div>-->
-<!---->
-<!--            </div>-->
-            <div class="vtex-card contents first">
+            <div class="vtex-card contents">
 
                 <!--        CONTENTS GOES HERE        -->
 
-<!--                <span class="payment-title">Details for your order</span>-->
+                <!--                <span class="payment-title">Details for your order</span>-->
 
                 <?php
                 if($lastPayment==null)
@@ -235,23 +146,23 @@ if($lastPayment != null)
                 else{
                     echo "<h3>Payment Transaction Result</h3><hr>";
 
-                ?>
-                <input type="hidden" name="package" value="<?php echo $pkg->getSrpId()?>" />
-                <div class="row">
+                    ?>
+                    <input type="hidden" name="package" value="<?php echo $pkg->getSrpId()?>" />
+                    <div class="row">
 
-                    <div class="col-lg-8 col-md-9 col-sm-9 border-right">
-                        <div class="alert <?php  echo $paymentSucceed ?'alert-success':'alert-danger'?>" role="alert">
-                            <?php echo $paymentJson["msg"] ?>
+                        <div class="col-lg-8 col-md-9 col-sm-9 border-right">
+                            <div class="alert <?php  echo $paymentSucceed ?'alert-success':'alert-danger'?>" role="alert">
+                                <?php echo $paymentJson["msg"] ?>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="col-lg-4 col-md-3 col-sm-3 ">
-                        <h5>Order Summary</h5>
-                        <hr>
+                        <div class="col-lg-4 col-md-3 col-sm-3 ">
+                            <h5>Order Summary</h5>
+                            <hr>
 
-                        <?php
+                            <?php
 
-                        echo '
+                            echo '
                                     <div class="row">
                                         <div class="col"><b>Package Details</b></div>
                                     </div>
@@ -270,15 +181,15 @@ if($lastPayment != null)
                                     <hr>
                                     ';
 
-                        foreach ($paymentJson["taxes"] as $tax) {
-                            echo '<div class="row">
+                            foreach ($paymentJson["taxes"] as $tax) {
+                                echo '<div class="row">
                                         <div class="col-auto">Taxes ('.$tax["code"].'-' . floatval($tax["tax"] )*100 .'%)</div>
                                         <div class="col text-right">$' . number_format(( $pkg->getSrpPrice() * $tax["tax"] ),2) . ' CAD</div>
                                 </div>';
-                        }
-                        
-                        
-                        echo '
+                            }
+
+
+                            echo '
                                     <div class="row mt-3">
                                         <div class="col-auto">Total (incl tax.)</div>
                                         <div class="col text-right">$' . $payment->getAmount() . ' CAD</div>
@@ -311,32 +222,24 @@ if($lastPayment != null)
                                         <div class="col text-right">' . $sr->getSrMinutesRemaining() . ' min</div>
                                     </div>
                                     '
-                        ;
-                        ?>
+                            ;
+                            ?>
+                        </div>
+
                     </div>
 
-                </div>
-
-                <?php
+                    <?php
                 }
                 ?>
 
             </div>
+
         </div>
-
-
     </div>
 </div>
 
-<!--<div class="overlay" id="overlay">
-    <div class="loading-overlay-text" id="loadingText">Please wait..</div>
-    <div class="spinner">
-        <div class="bounce1"></div>
-        <div class="bounce2"></div>
-        <div class="bounce3"></div>
-    </div>
-</div>-->
 
+<?php include_once "data/parts/footer.php"?>
 
 </body>
 

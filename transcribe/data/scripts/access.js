@@ -181,35 +181,43 @@ $(document).ready(function () {
         lengthChange: false,
         pageLength: maximum_rows_per_page_jobs_list,
         autoWidth: false,
-        // columnDefs: [
-        //     {
-        //         targets: ['_all'],
-        //         className: 'mdc-data-table__cell'
-        //     }
-        // ],
-        /*
-        * 				<th>ID</th>
-                        <th>Acc ID</th>
-                        <th>Account</th>
-                        <th>accessname</th>
-                        <th>Role ID</th>
-                        <th>Role</th>
 
-        * */
         "columns": [
-            {"data": "access_id"},
-            {"data": "acc_id"},
-            {"data": "acc_name"},
-            {"data": "username"},
-            {"data": "email"},
-            {"data": "acc_role"},
-            {"data": "role_desc"},
             {
+                "title": "ID",
+                "data": "access_id"
+            },
+            {
+                "title": "Acc ID",
+                "data": "acc_id"
+            },
+            {
+                "title": "Account",
+                "data": "acc_name"
+            },
+            {
+                "title": "Username",
+                "data": "username"
+            },
+            {
+                "title": "Email",
+                "data": "email"
+            },
+            {
+                "title": "Role ID",
+                "data": "acc_role"
+            },
+            {
+                "title": "Role",
+                "data": "role_desc"
+            },
+            {
+                "title": "Def",
                 "data": "access_id",
                 render: function (data, type, row) {
-                    if(data == row["def_access_id"]) {
+                    if (data == row["def_access_id"]) {
                         return "<i class=\"fas fa-check-circle vtex-status-icon\"></i>";
-                    }else{
+                    } else {
                         return "";
                     }
                 }
@@ -224,8 +232,10 @@ $(document).ready(function () {
                 }
             }
         },
-        { "data": "account_status" },
-        { "data": "enabled",
+        { "title": "account_status",
+ "data": "account_status" },
+        { "title": "enabled",
+ "data": "enabled",
             render: function (data) {
                 if(data == true)
                 {

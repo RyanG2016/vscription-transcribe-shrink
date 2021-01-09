@@ -43,11 +43,10 @@ $(document).ready(function () {
 	// Activate ripples effect for material buttons
 	new mdc.ripple.MDCRipple(document.querySelector('#newupload_btn'));
 	new mdc.ripple.MDCRipple(document.querySelector('#refresh_btn'));
-	new mdc.ripple.MDCRipple(document.querySelector('#manage_typists_btn'));
 
-	manage_typists_btn.addEventListener('click', e => {
+/*	manage_typists_btn.addEventListener('click', e => {
 		document.location.href = 'manage_typists.php';
-	});
+	});*/
 
 	goToUploader.addEventListener('click', e => {
 		// console.log("We should be going to the uploader page");
@@ -83,37 +82,45 @@ $(document).ready(function () {
 		lengthChange: false,
 		pageLength: maximum_rows_per_page_jobs_list,
 		autoWidth: false,
-		columnDefs: [
-			{
-				targets: ['_all'],
-				className: 'mdc-data-table__cell'
-			}
-		],
+
 		"columns": [
-			{ "data": "job_id",
-				render: function ( data, type, row ) {
-					if(row["file_comment"] != null)
-					{
+			{
+				"title": "Job #",
+				"data": "job_id",
+				render: function (data, type, row) {
+					if (row["file_comment"] != null) {
 						return data + " <i class=\"material-icons mdc-button__icon job-comment cTooltip\" aria-hidden=\"true\" title='"
-							+htmlEncodeStr(row["file_comment"])
-							+"'>speaker_notes</i>";
-					}else{
+							+ htmlEncodeStr(row["file_comment"])
+							+ "'>speaker_notes</i>";
+					} else {
 						return data;
 					}
 				}
 			},
-			{ "data": "file_author" },
-			{ "data": "file_work_type" },
-			{ "data": "file_date_dict" },
-			{ "data": "job_upload_date" },
-			{ "data": "audio_length",
-				render: function (data,type,row) {
-					if(row["file_id"] != 0 && !calculatedIds.includes(row["file_id"]))
-					{
+			{
+				"title": "Author",
+				"data": "file_author"
+			},
+			{
+				"title": "Job Type",
+				"data": "file_work_type"
+			},
+			{
+				"title": "Date Dictated",
+				"data": "file_date_dict"
+			},
+			{
+				"title": "Date Uploaded",
+				"data": "job_upload_date"
+			},
+			{
+				"title": "Job Length",
+				"data": "audio_length",
+				render: function (data, type, row) {
+					if (row["file_id"] != 0 && !calculatedIds.includes(row["file_id"])) {
 						totalDur += parseInt(data);
 
-						if(row["file_status"] == 1 || row["file_status"] == 2 || row["file_status"] == 0)
-						{
+						if (row["file_status"] == 1 || row["file_status"] == 2 || row["file_status"] == 0) {
 							totalTrDur += parseInt(data);
 						}
 						calculatedIds.push(row["file_id"]);
@@ -122,12 +129,23 @@ $(document).ready(function () {
 					return new Date(data * 1000).toISOString().substr(11, 8);
 				}
 			},
-			{ "data": "file_status_ref" },
-			{ "data": "file_transcribed_date" },
-			{ "data": "text_downloaded_date" },
-			{ "data": "times_text_downloaded_date",
-				render: function ( data, type, row ) {
-					if(row["file_status"] == 3 || row["file_status"] == 7){
+			{
+				"title": "Job Status",
+				"data": "file_status_ref"
+			},
+			{
+				"title": "Job Transcribed",
+				"data": "file_transcribed_date"
+			},
+			{
+				"title": "Initial Download",
+				"data": "text_downloaded_date"
+			},
+			{
+				"title": "Actions",
+				"data": "times_text_downloaded_date",
+				render: function (data, type, row) {
+					if (row["file_status"] == 3 || row["file_status"] == 7) {
 						return "<a id='view-icon' class=\"material-icons view-icon\">visibility</a> <a class=\"material-icons download-icon\">cloud_download</a> <span class='times-downloaded'>+"+data+"</span>";
 					}else{
 						return "";

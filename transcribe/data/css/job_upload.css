@@ -1,9 +1,9 @@
 /* --------------------------------*/
 /* vScription Transcribe Modal Box */
 /* --------------------------------*/
-@import "parts/vars.css";
 @import "parts/vtex-custom-styles.css";
 @import "parts/modal_popup.css";
+@import "parts/global.css";
 /* Additional Specific Styling to modal */
 .modal{
     background-color: rgb(30, 121, 190); /* Fallback color */

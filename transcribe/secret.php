@@ -46,7 +46,7 @@ else{ //token isn't set
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <link rel="stylesheet" href="data/css/parts/modal_overlay.css">
-    <link rel="stylesheet" href="data/css/parts/spinner.css">
+    <link rel="stylesheet" href="data/css/parts/global.css">
 
 <!--	show dialog   -->
 <script type="text/javascript">

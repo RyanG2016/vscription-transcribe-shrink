@@ -298,53 +298,65 @@ $(document).ready(function () {
 		lengthChange: false,
 		pageLength: maximum_rows_per_page_jobs_list,
 		autoWidth: false,
-		// columnDefs: [
-		// 	{
-		// 		targets: ['_all'],
-		// 		className: 'mdc-data-table__cell'
-		// 	}
-		// ],
-		/*
-		* 				<th>ID</th>
-                        <th>Name</th>
-                        <th>Prefix</th>
-                        <th>Date Created</th>
-                        <th>Retention</th>
-                        <th>Log Retention</th>
-                        <th>Enabled</th>
-                        <th>Billable</th>
-		* */
+
 		"columns": [
-			{ "data": "acc_id"},
-			{ "data": "acc_name" },
-			{ "data": "job_prefix" },
-			{ "data": "acc_creation_date" },
-			{ "data": "acc_retention_time" },
-			{ "data": "act_log_retention_time" },
-			{ "data": "job_prefix" },
-			{ "data": "enabled",
+
+			{
+				"title": "ID",
+				"data": "acc_id"
+			},
+			{
+				"title": "Name",
+				"data": "acc_name"
+			},
+			{
+				"title": "Prefix",
+				"data": "job_prefix"
+			},
+			{
+				"title": "Date Created",
+				"data": "acc_creation_date"
+			},
+			{
+				"title": "Ret.",
+				"data": "acc_retention_time"
+			},
+			{
+				"title": "Log Ret.",
+				"data": "act_log_retention_time"
+			},
+			{
+				"title": "Prefix",
+				"data": "job_prefix"
+			},
+			{
+				"title": "Enabled",
+				"data": "enabled",
 				render: function (data) {
-					if(data == true)
-					{
+					if (data == true) {
 						return "<i class=\"fas fa-check-circle vtex-status-icon\"></i>";
-					}else{
+					} else {
 						return "<i class=\"fas fa-times-circle vtex-status-icon\"></i>";
 					}
 				}
 			},
-			{ "data": "billable",
+			{
+				"title": "Billable",
+				"data": "billable",
 				render: function (data) {
-					if(data == true)
-					{
+					if (data == true) {
 						return "<i class=\"fas fa-check-circle vtex-status-icon\"></i>";
-					}else{
+					} else {
 						return "<i class=\"fas fa-times-circle vtex-status-icon\"></i>";
 					}
 				}
 			},
-			{"data": "sr_minutes_remaining" }
+			{
+				"title": "STT minutes",
+				"data": "sr_minutes_remaining"
+			}
 		]
-	} );
+	});
 
 	$.contextMenu({
 		selector: '.accounts-tbl tbody tr',

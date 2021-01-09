@@ -99,12 +99,12 @@
 }
 
 p {
-    font-family: 'OpenSans', serif;
+    /*font-family: 'OpenSans', serif;*/
     font-size: 12px;
 }
 
 h3 {
-    font-family: 'OpenSans', serif;
+/*    font-family: 'OpenSans', serif;*/
     font-size: 14px;
 }
 
@@ -117,7 +117,7 @@ h3 {
 }
 
 input, label{
-    font-family: 'OpenSans', serif;
+    /*font-family: 'OpenSans', serif;*/
 }
 
 
