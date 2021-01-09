@@ -134,7 +134,7 @@ $uid = $_POST["uid-access"];*/
                         Manage Typists
                     </legend>
                 </div>
-                <div class="col">
+                <div class="col-auto">
                     <img src="data/images/Logo_vScription_Transcribe_Pro_White.png" width="300px"/>
                 </div>
             </div>

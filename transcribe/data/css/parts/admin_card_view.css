@@ -12,9 +12,6 @@
 }
 
 
-img:not(#norm){
-    float: right;
-}
 
 #tip{
     font-size: 0.9em;

@@ -61,7 +61,7 @@
 
 
 img:not(#norm){
-    float: right;
+    /*float: right;*/
 }
 
 .form-style-5 input[type="submit"],

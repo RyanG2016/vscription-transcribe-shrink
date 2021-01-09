@@ -122,7 +122,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                         vScription Transcribe Pro Dictation Upload
                     </legend>
                 </div>
-                <div class="col">
+                <div class="col-auto">
                     <img src="data/images/Logo_vScription_Transcribe_Pro_White.png" width="300px"/>
                 </div>
             </div>

@@ -124,9 +124,6 @@
     border-radius: 15px 15px 15px 0px;
 }
 
-img:not(#norm){
-    float: right;
-}
 /*,*/
 /*.form-style-5 input[type="button"]*/
 /*.form-style-5 input[type="submit"]*/

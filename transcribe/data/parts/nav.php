@@ -1,6 +1,12 @@
 <!-- Sidebar -->
 <div id="sidebar-container" class="sidebar-collapsed vspt-sidebar-container col">
     <!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
+
+    <div class="branding ml-auto mr-auto">
+        <a class="navbar-brand  w-100 m-0 text-center" href="/">
+            <img src="/data/images/Logo_only.png" width="40" height="40" class="vtex-skip d-inline-flex align-top ml-auto mr-auto"
+                 alt="">
+        </a></div>
     <!-- Bootstrap List Group -->
     <ul class="list-group">
 
