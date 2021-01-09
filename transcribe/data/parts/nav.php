@@ -199,7 +199,7 @@
                     
                        <a href="#" id="changeRoleBtn" class="bg-dark list-group-item list-group-item-action">
                         <div class="d-flex w-100 justify-content-start align-items-center">
-                            <span class="fas fa-wrench fa-fw mr-3"></span>
+                            <span class="fas fa-exchange-alt fa-fw mr-3"></span>
                             <span class="menu-collapsed d-none">Switch Org/Role</span>
                         </div>
                     </a>
