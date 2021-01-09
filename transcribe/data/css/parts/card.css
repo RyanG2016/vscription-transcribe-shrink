@@ -85,7 +85,7 @@ legend{
 }
 
 .vtex-validate-error{
-    border: medium dashed var(--vtex-red);
+    border: medium dashed var(--vspt-red);
 }
 
 .vtex-cursor-pointer{

@@ -165,11 +165,11 @@ input, label{
 
 .find-acc-icon{
     vertical-align: bottom;
-    color: var(--vtex-blue);
+    color: var(--vspt-blue);
     float: right;
 }
 
 .find-acc-icon:hover{
     cursor: pointer;
-    color: var(--vtex-orange);
+    color: var(--vspt-orange);
 }

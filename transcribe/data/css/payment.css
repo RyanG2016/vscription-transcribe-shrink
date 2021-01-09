@@ -33,7 +33,7 @@ a:hover {
 }
 
 .cancel-acc-button {
-    --mdc-theme-primary: var(--vtex-red);
+    --mdc-theme-primary: var(--vspt-red);
 }
 
 .tools-button{
@@ -192,7 +192,7 @@ a:hover {
 }
 
 .package-card-bottom {
-    background-color: var(--vtex-blue);
+    background-color: var(--vspt-blue);
     cursor: pointer;
     transition: transform .2s; /* Animation */
 

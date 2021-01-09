@@ -210,49 +210,56 @@ $(document).ready(function () {
 		lengthChange: false,
 		pageLength: maximum_rows_per_page_jobs_list,
 		autoWidth: false,
-		// columnDefs: [
-		// 	{
-		// 		targets: ['_all'],
-		// 		className: 'mdc-data-table__cell'
-		// 	}
-		// ],
-		/*
-		* 				<th>ID</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Country</th>
-                        <th>City</th>
-                        <th>State</th>
-                        <th>Status</th>
-                        <th>Enabled</th>
-		* */
 		"columns": [
-			{ "data": "id"},
-			{ "data": "first_name",
-				render: function ( data, type, row ) {
+			{
+				"title": "ID",
+				"data": "id"
+			},
+			{
+				"title": "Name",
+				"data": "first_name",
+				render: function (data, type, row) {
 					return data + " " + row["last_name"];
 				}
 			},
-			{ "data": "email" },
-			{ "data": "country" },
-			{ "data": "city" },
-			{ "data": "state"},
-			{ "data": "account_status" },
-			{ "data": "acc_name",
+			{
+				"title": "Email",
+				"data": "email"
+			},
+			{
+				"title": "Country",
+				"data": "country"
+			},
+			{
+				"title": "City",
+				"data": "city"
+			},
+			{
+				"title": "State",
+				"data": "state"
+			},
+			{
+				"title": "Status",
+				"data": "account_status"
+			},
+			{
+				"title": "Def Access",
+				"data": "acc_name",
 				render: function (data, type, row) {
-					if(data == null)
-					{
+					if (data == null) {
 						return "—";
-					}else{
+					} else {
 						return data + " - " + row["acc_role"];
 					}
-				} },
-			{ "data": "enabled",
+				}
+			},
+			{
+				"title": "Enabled",
+				"data": "enabled",
 				render: function (data) {
-					if(data == true)
-					{
+					if (data == true) {
 						return "<i class=\"fas fa-check-circle vtex-status-icon\"></i>";
-					}else{
+					} else {
 						return "<i class=\"fas fa-times-circle vtex-status-icon\"></i>";
 					}
 				}

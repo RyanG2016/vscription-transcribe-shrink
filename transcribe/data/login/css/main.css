@@ -530,16 +530,16 @@ input:-webkit-autofill:active  {
 .btn-primary,
 .btn-primary:focus
 {
-    background-color: var(--vtex-blue);
-    border-color: var(--vtex-blue);
+    background-color: var(--vspt-blue);
+    border-color: var(--vspt-blue);
     /*border-radius: 0;*/
     transition: width 2s;
 }
 
 .btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
     color: #fff;
-    background-color: var(--vtex-blue-hover);
-    border-color: var(--vtex-blue-hover);
+    background-color: var(--vspt-blue-hover);
+    border-color: var(--vspt-blue-hover);
 }
 
 .btn-primary.disabled, .btn-primary:disabled {
@@ -551,8 +551,8 @@ input:-webkit-autofill:active  {
 .btn-primary:hover:not(:disabled)
 {
     color: #fff;
-    background-color: var(--vtex-blue-hover);
-    border-color: var(--vtex-blue-hover);
+    background-color: var(--vspt-blue-hover);
+    border-color: var(--vspt-blue-hover);
 }
 
 #loginBtn, .progress{

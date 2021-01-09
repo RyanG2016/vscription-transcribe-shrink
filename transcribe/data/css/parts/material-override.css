@@ -7,6 +7,6 @@
 .mdc-switch.mdc-switch--checked .mdc-switch__thumb,
 .mdc-switch__thumb-underlay::before, .mdc-switch__thumb-underlay::after
 {
-    background-color: var(--vtex-green);
-    border-color: var(--vtex-green);
+    background-color: var(--vspt-green);
+    border-color: var(--vspt-green);
 }

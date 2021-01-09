@@ -1,6 +1,9 @@
 <?php
 //include('../data/parts/head.php');
 
+require '../../api/vendor/autoload.php';
+use Src\Enums\INTERNAL_PAGES;
+
 include('../data/parts/session_settings.php');
 
 require('../data/parts/ping.php');
@@ -21,7 +24,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
     ob_end_flush();
     die();
 }
-$vtex_page = 5;
+$vtex_page = INTERNAL_PAGES::USERS;
 ?>
 
 <html lang="en">
@@ -138,17 +141,6 @@ $vtex_page = 5;
                         <span class="mdc-button__label">&nbsp;Add User</span>
                     </button>
 
-                    <!--<div class="vtex-card nav-header">
-                        Header 2
-                    </div>
-
-                    <button class="mdc-button mdc-button--outlined tools-button" >
-                        <div class="mdc-button__ripple"></div>
-                        <i class="material-icons mdc-button__icon" aria-hidden="true">attach_money</i>
-                        <span class="mdc-button__label">Button 2</span>
-                    </button>-->
-
-
                 </div>
 
             </div>
@@ -163,27 +155,10 @@ $vtex_page = 5;
                     </button>
                 </div>
 
-
-                <!--        CONTENTS GOES HERE        -->
-                <table id="users-tbl" class="users-tbl table row-border hover compact" style="width:100%">
-                    <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Country</th>
-                        <th>City</th>
-                        <th>State</th>
-                        <th>Status</th>
-                        <th>Def Access</th>
-                        <th>Enabled</th>
-                    </tr>
-                    </thead>
-                </table>
+<!--                <table id="users-tbl" class="users-tbl vspt-table table row-border hover compact"></table>-->
+                <table id="users-tbl" class="users-tbl table vspt-table hover compact"></table>
             </div>
         </div>
-
-
     </div>
 </div>
 
@@ -195,8 +170,6 @@ $vtex_page = 5;
         <h3 style="color: #1e79be" id="modalHeaderTitle"><i class="fas fa-user-plus"></i>&nbsp;Create New User</h3>
 
         <form method="post" id="createAccForm" class="createAccForm" target="_self">
-            <!--            <label for="enabled" class="vtex-form_lbl">Enabled</label>-->
-            <!--            <input class="enabled vtex-input" type="text">-->
             <div style="text-align: right">
                 <fieldset class="vtex-fieldset enabled-radios" style="display: inline;text-align: center;">
                     <legend style="font-size: 18px">Enabled</legend>
@@ -217,7 +190,6 @@ $vtex_page = 5;
             </div>
 
             <fieldset class="vtex-fieldset">
-                <!--                <legend>&nbsp;Retention&nbsp;</legend>-->
                 <div class="retention-grid">
                     <label for="fname" class="vtex-form_lbl">
                         First Name
@@ -244,10 +216,6 @@ $vtex_page = 5;
             <br>
             <!--===================================================-->
             <div class="state" id="stateContainer">
-                <!--<label id="stateBoxLbl" class="stateLbl">State<br>
-                    <select id="stateBox" name="state_id" class="state_select" data-width="250px">
-                    </select>
-                </label>-->
                 <!------------------------------------------------------>
                 <label class="vtex-form_lbl state_input_lbl" id="stateInputLbl">
                     State
@@ -285,7 +253,6 @@ $vtex_page = 5;
             </div>
 
         </form>
-
 
     </div>
 </div>

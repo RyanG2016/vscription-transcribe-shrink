@@ -1,18 +1,7 @@
-.dropdown-item.active, .dropdown-item:active{
-    background-color: var(--vtex-blue);
-}
 
-/* =============================
- BOOTSTRAP BODY CUSTOMIZATION
+/*
  ===============================
- */
-
-body{
-    font-family: opensans, sans-serif;
-}
-
-/* =============================
- BOOTSTRAP SELECT CUSTOMIZATION
+ BOOTSTRAP SELECT/DROP DOWN CUSTOMIZATION
  ===============================
  */
 .dropdown-toggle {
@@ -45,8 +34,13 @@ body{
 
 .dropdown-item:focus,
 .dropdown-item:hover{
-    background-color: var(--vtex-orange-30);
+    background-color: var(--vspt-blue-30);
+
 }
+.dropdown-item.active, .dropdown-item:active{
+    background-color: var(--vspt-blue);
+}
+
 
 /* =============================
  BOOTSTRAP POPOVER CUSTOMIZATION
@@ -57,14 +51,17 @@ body{
     background-color: #1e79be;
     color: white;
 }
+
+
 /* =============================
  BOOTSTRAP BUTTONS CUSTOMIZATION
  ===============================
  */
 .btn-primary{
-    background-color: var(--vtex-blue);
-    border-color: var(--vtex-blue);
+    background-color: var(--vspt-blue);
+    border-color: var(--vspt-blue);
 }
+
 
 /* =============================
   BOOTSTRAP ABLEPLAYER BUTTONS
@@ -94,6 +91,7 @@ svg{
     border-radius: 15px;
 }
 
+
 /* Bootstrap4 Data tables search bar not on the right */
 #users-tbl_wrapper > div.row,
 #accounts-tbl_wrapper > div.row
@@ -111,7 +109,7 @@ svg{
 thead{
     white-space: nowrap;
     border-radius: 16px;
-    background-color: var(--vtex-blue);
+    background-color: var(--vspt-blue);
     color: white;
 }
 
@@ -119,11 +117,11 @@ thead{
 .page-item.active .page-link {
     z-index: 3;
     color: #fff;
-    background-color: var(--vtex-blue);
-    border-color: var(--vtex-blue);
+    background-color: var(--vspt-blue);
+    border-color: var(--vspt-blue);
 }
 .page-link {
-    color: var(--vtex-blue);
+    color: var(--vspt-blue);
 }
 
 body{
@@ -133,10 +131,6 @@ body{
 tr{
     font-size: .875rem;
 }
-
-/*tbody>tr:hover{*/
-/*    background-color: var(--vtex-blue-10);*/
-/*}*/
 
 td{
     padding: 6px 12px !important;
@@ -149,6 +143,6 @@ td{
 .list-group-item.active {
     z-index: 2;
     color: #fff;
-    background-color: var(--vtex-blue);
-    border-color: var(--vtex-blue);
+    background-color: var(--vspt-blue);
+    border-color: var(--vspt-blue);
 }

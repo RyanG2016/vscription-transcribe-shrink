@@ -32,7 +32,7 @@ a:hover {
 }
 
 .cancel-acc-button {
-    --mdc-theme-primary: var(--vtex-red);
+    --mdc-theme-primary: var(--vspt-red);
 }
 
 .tools-button{

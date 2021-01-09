@@ -1,0 +1,149 @@
+/*
+* Unifying website design
+*/
+
+@import "bootstrap-override.css";
+
+/*
+ ===============================
+            Main Font
+ ===============================
+ */
+
+@font-face {
+    font-family: main;
+    src: url("../../Fonts/OpenSans-Regular.ttf");
+}
+
+@font-face {
+    font-family: main-b;
+    src: url("../../Fonts/OpenSans-Bold.ttf");
+}
+
+@font-face {
+    font-family: main-l;
+    src: url("../../Fonts/OpenSans-Light.ttf");
+}
+
+*, body{
+    font-family: main, sans-serif;
+}
+
+/*
+ ===============================
+            Variables
+ ===============================
+ */
+
+:root{
+    --vspt-red: #D32F2F;
+    --vspt-green: #53a13d;
+    --vspt-blue: #1e79be;
+    --vspt-blue-hover: #1b6dab;
+    --vspt-blue-10: rgba(30, 121, 190, 0.1);
+    --vspt-blue-20: rgba(30, 121, 190, 0.2);
+    --vspt-blue-30: rgba(30, 121, 190, 0.3);
+    --vspt-orange: #f5862c;
+    --vspt-orange-30: rgba(245, 134, 44, 0.30);
+    --vspt-hint-border-color: #f5862c;
+    --vspt-hint-text-color: white;
+    --vspt-table-hover: rgb(245, 245, 245);
+}
+
+/*
+ ===============================
+            Table
+ ===============================
+ */
+
+.vspt-table{
+    width: 100% !important;
+    margin: 3px;
+}
+
+.vspt-table>thead>tr>th{
+    font-family: main-b, sans-serif;
+}
+
+.vspt-table tbody tr.even:hover, .vspt-table tbody tr.even td.highlighted {
+    background-color:  var(--vspt-table-hover);;
+}
+.vspt-table tbody tr.odd:hover, .vspt-table tbody tr.odd td.highlighted {
+    background-color:  var(--vspt-table-hover);;
+}
+.vspt-table tr.even:hover {
+    background-color:  var(--vspt-table-hover);;
+}
+.vspt-table tr.even:hover td.sorting_1 {
+    background-color:  var(--vspt-table-hover);;
+}
+.vspt-table tr.even:hover td.sorting_2 {
+    background-color:  var(--vspt-table-hover);;
+}
+.vspt-table tr.even:hover td.sorting_3 {
+    background-color : var(--vspt-table-hover);;
+}
+.vspt-table tr.odd:hover {
+    background-color:  var(--vspt-table-hover);;
+}
+.vspt-table tr.odd:hover td.sorting_1 {
+    background-color:  var(--vspt-table-hover);;
+}
+.vspt-table tr.odd:hover td.sorting_2 {
+    background-color:  var(--vspt-table-hover);;
+}
+.vspt-table tr.odd:hover td.sorting_3 {
+    background-color:  var(--vspt-table-hover);;
+}
+
+
+/*
+ ===============================
+      SPINNER CSS STYLING
+ ===============================
+*/
+
+.spinner {
+    width: 70px;
+    text-align: center;
+}
+
+.spinner > div {
+    width: 12px;
+    height: 12px;
+    border-radius: 100%;
+    display: inline-block;
+    -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+    animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+}
+
+.spinner .bounce1 {
+    -webkit-animation-delay: -0.32s;
+    animation-delay: -0.32s;
+    background-color: #1e79be;
+}
+
+.spinner .bounce2 {
+    background-color: #f5862c;
+    -webkit-animation-delay: -0.16s;
+    animation-delay: -0.16s;
+}
+
+.spinner .bounce3 {
+    background-color: #53a13d;
+}
+
+@-webkit-keyframes sk-bouncedelay {
+    0%, 80%, 100% { -webkit-transform: scale(0) }
+    40% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes sk-bouncedelay {
+    0%, 80%, 100% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+    } 40% {
+          -webkit-transform: scale(1.0);
+          transform: scale(1.0);
+      }
+}

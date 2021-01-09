@@ -26,7 +26,7 @@
 /* ---------------- */
 
 .cancel-acc-button {
-    --mdc-theme-primary: var(--vtex-red);
+    --mdc-theme-primary: var(--vspt-red);
 }
 
 .ui-state-active.vtex-jq-lbl-check,
@@ -39,8 +39,8 @@
 .ui-state-active.vtex-jq-lbl-cross,
 .ui-state-active:hover.vtex-jq-lbl-cross,
 .ui-button:active.vtex-jq-lbl-cross {
-    border: 1px solid var(--vtex-red);
-    background: var(--vtex-red);
+    border: 1px solid var(--vspt-red);
+    background: var(--vspt-red);
 }
 
 .ui-autocomplete {

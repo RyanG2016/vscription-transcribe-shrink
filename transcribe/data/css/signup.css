@@ -77,7 +77,7 @@ a:focus {
 
 a:hover {
     text-decoration: none;
-    color: var(--vtex-orange);
+    color: var(--vspt-orange);
     /*color: -webkit-linear-gradient(left, #21d4fd, #b721ff);
     color: -o-linear-gradient(left, #21d4fd, #b721ff);
     color: -moz-linear-gradient(left, #21d4fd, #b721ff);
@@ -137,8 +137,8 @@ iframe {
 
     /*	Between Night And Sky   */
     background: rgba(255, 255, 255, 0); /* fallback for old browsers */
-    /*background: -webkit-linear-gradient(to right, rgba(52, 152, 219, 0), var(--vtex-blue) );  !* Chrome 10-25, Safari 5.1-6 *!*/
-    /*background: linear-gradient(to right, rgba(52, 152, 219, 0), var(--vtex-blue) ); !* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ *!*/
+    /*background: -webkit-linear-gradient(to right, rgba(52, 152, 219, 0), var(--vspt-blue) );  !* Chrome 10-25, Safari 5.1-6 *!*/
+    /*background: linear-gradient(to right, rgba(52, 152, 219, 0), var(--vspt-blue) ); !* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ *!*/
 
     /*  background: #f2f2f2;  */
 }
@@ -294,16 +294,16 @@ input:-webkit-autofill:active {
 .btn-primary,
 .btn-primary:focus
 {
-    background-color: var(--vtex-blue);
-    border-color: var(--vtex-blue);
+    background-color: var(--vspt-blue);
+    border-color: var(--vspt-blue);
     border-radius: 0;
     transition: width 2s;
 }
 
 .btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
     color: #fff;
-    background-color: var(--vtex-blue-hover);
-    border-color: var(--vtex-blue-hover);
+    background-color: var(--vspt-blue-hover);
+    border-color: var(--vspt-blue-hover);
 }
 
 .btn-primary.disabled, .btn-primary:disabled {
@@ -315,8 +315,8 @@ input:-webkit-autofill:active {
 .btn-primary:hover:not(:disabled)
 {
     color: #fff;
-    background-color: var(--vtex-blue-hover);
-    border-color: var(--vtex-blue-hover);
+    background-color: var(--vspt-blue-hover);
+    border-color: var(--vspt-blue-hover);
 }
 .btn-primary:hover:disabled
 {
@@ -335,7 +335,7 @@ input:-webkit-autofill:active {
 }
 
 .progress-bar{
-    background-color: var(--vtex-blue-hover);
+    background-color: var(--vspt-blue-hover);
 }
 
 .progress{
