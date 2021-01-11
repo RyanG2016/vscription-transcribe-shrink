@@ -20,7 +20,7 @@ if (isset($_SESSION['counter'])) {
 if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
 //User is a System Administrator ONLY
     ob_start();
-    header('Location: ' . "../accessdenied.php");
+    header('Location: ' . "../index.php");
     ob_end_flush();
     die();
 }
