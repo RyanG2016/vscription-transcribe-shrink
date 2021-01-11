@@ -8,7 +8,7 @@ var roleRequest;
 const ROLES_FOR_ACCOUNT_URL = "../api/v1/access?out&acc_id="; // + acc_id
 const ROLES_COUNT_FOR_ACCOUNT_URL = "../api/v1/access?out&count"; // + acc_id
 const ACCESS_URL = "../api/v1/access/?out";
-const SET_DEFAULT_ACCESS_URL = "../api/v1/users/set-default/";
+const SET_DEFAULT_ACCESS_URL_NAV = "../api/v1/users/set-default/";
 
 const CHANGE_ROLE_HEADER = "<i class=\"fas fa-wrench\"></i>&nbsp;Change Role";
 const SET_DEFAULT_ROLE_HEADER = "<i class=\"fas fa-user-edit\"></i>&nbsp;Set Default";
@@ -17,8 +17,8 @@ changeRoleBtn = $("#changeRoleBtn");
 setDefaultRoleBtn = $("#setDefaultRoleBtn");
 updateRoleModalBtn = $("#updateRoleBtn");
 changeRoleModal = $("#changeRole");
-accountBox = $("#accountBox");
-roleBox = $("#roleBox");
+accountBoxNav = $("#accountBoxNav");
+roleBoxNav = $("#roleBoxNav");
 navLoverlay = $("#navOverlay");
 navLoverlayText = $("#navOverlayText");
 modalHeaderTitle = $("#modalHeaderTitle");
@@ -33,13 +33,13 @@ updateRoleModalBtn.on("click", function (e) {
     updateRoleModalBtn.attr("disabled", "disabled");
     changeLoading(true, "Setting role, please wait..");
     var formData = new FormData();
-    formData.append("acc_id", accountBox.selectpicker('val'));
-    formData.append("acc_role", roleBox.selectpicker('val'));
+    formData.append("acc_id", accountBoxNav.selectpicker('val'));
+    formData.append("acc_role", roleBoxNav.selectpicker('val'));
 
 
     $.ajax({
         type: 'POST',
-        url: setDefaultModal?SET_DEFAULT_ACCESS_URL:ACCESS_URL,
+        url: setDefaultModal?SET_DEFAULT_ACCESS_URL_NAV:ACCESS_URL,
         processData: false,
         data: convertToSearchParam(formData),
 
@@ -119,7 +119,7 @@ $.ajax({
     success: function (accesses) {
         accessesGlobal = accesses;
 
-        const cbox = document.getElementById("accountBox");
+        const cbox = document.getElementById("accountBoxNav");
         for (const access of accesses) {
 
             // using an array to prevent multiple select options for the same account
@@ -135,20 +135,20 @@ $.ajax({
                 access.acc_name +
                 "</option>";
         }
-        accountBox.selectpicker({
+        accountBoxNav.selectpicker({
             liveSearch: true,
             liveSearchPlaceholder: "Choose Account"
         });
 
-        loadRolesForAccount(accountBox.selectpicker('val')); // first time
+        loadRolesForAccount(accountBoxNav.selectpicker('val')); // first time
 
-        accountBox.on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+        accountBoxNav.on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
             // do something...
             // console.log("selection changed to: " + clickedIndex + " and prev was: " + previousValue+ "and e is ");
             // console.log(e);
             // console.log(countryBox.selectpicker('val')); // selected value
             changeLoading(true, "Loading roles..");
-            loadRolesForAccount(accountBox.selectpicker('val'));
+            loadRolesForAccount(accountBoxNav.selectpicker('val'));
         });
     }
 });
@@ -235,7 +235,7 @@ function loadRolesForAccount(accID) {
 
     // removeLoadingSpinner(); // if any left over
     // stateContainer.append(generateLoadingSpinner());
-    roleBox.selectpicker('destroy');
+    roleBoxNav.selectpicker('destroy');
 
     if (roleRequest != null) {
         roleRequest.abort();
@@ -247,7 +247,7 @@ function loadRolesForAccount(accID) {
         success: function (roles) {
             rolesGlobal = roles;
             updateRoleModalBtn.removeAttr("disabled");
-            const tybox = document.getElementById("roleBox");
+            const tybox = document.getElementById("roleBoxNav");
             tybox.innerHTML = ""; // clear old values
             for (const role of roles) {
                 tybox.innerHTML += "<option value='" + role.acc_role + "'>" +
@@ -255,11 +255,11 @@ function loadRolesForAccount(accID) {
                     // " - " +
                     role.role_desc + "</option>"
             }
-            roleBox.selectpicker({
+            roleBoxNav.selectpicker({
                 liveSearch: true,
                 liveSearchPlaceholder: "Choose Role"
             });
-            roleBox.selectpicker('refresh');
+            roleBoxNav.selectpicker('refresh');
 
             if(!roleIsset){
                 checkForSingleRoleToSet();

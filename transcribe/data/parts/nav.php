@@ -299,13 +299,13 @@
                 </button>
             </div>
             <div class="modal-body">
-                <input id="uidIn" name="uid" value="<?php echo $_SESSION['uid'] ?>" style="display: none">
+                <input id="uidInNav" name="uid" value="<?php echo $_SESSION['uid'] ?>" style="display: none">
 
                 <form method="post" id="createAccForm" class="createAccForm" target="_self">
 
                     <div class="account text-center w-100">
                         <div><h4 class="font-weight-light">Account</h4></div>
-                        <select id="accountBox" name="acc_id" class="w-100 m-t-7" data-width="250px">
+                        <select id="accountBoxNav" name="acc_id" class="w-100 m-t-7" data-width="250px">
                         </select>
                     </div>
                     <br>
@@ -313,7 +313,7 @@
                     <!--===================================================-->
                     <div class="role text-center w-100">
                         <div><h4 class="font-weight-light">Role</h4></div>
-                        <select id="roleBox" class="w-100" name="acc_role" data-width="250px">
+                        <select id="roleBoxNav" class="w-100" name="acc_role" data-width="250px">
                         </select>
                         </label>
                     </div>
