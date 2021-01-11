@@ -222,7 +222,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 
         <?php include_once "data/parts/nav.php"?>
 
-        <div class="vspt-page-container col">
+        <div class="vspt-page-container vspt-col-auto-fix">
 
             <div class="vtex-card contents m-0">
 

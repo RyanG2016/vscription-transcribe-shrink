@@ -15,7 +15,7 @@
 </script>
 
 <!-- Sidebar -->
-<div id="sidebar-container" class="sidebar-collapsed vspt-sidebar-container col-auto">
+<div id="sidebar-container" class="sidebar-collapsed vspt-sidebar-container col">
     <!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
 
     <div class="branding ml-auto mr-auto">
@@ -269,9 +269,9 @@
         $('.menu-collapsed').toggleClass('d-none');
         $('.sidebar-submenu').toggleClass('d-none');
         $('.submenu-icon').toggleClass('d-none');
-        $('#sidebar-container').toggleClass('sidebar-expanded sidebar-collapsed');
+        $('#sidebar-container').toggleClass('sidebar-expanded sidebar-collapsed col-2 col');
         // $('#sidebar-container').toggleClass('sidebar-expanded sidebar-collapsed col-2 col-auto');
-        // $(".vspt-page-container").toggleClass("col-10 vspt-col-auto-fix");
+        $(".vspt-page-container").toggleClass("col-10 vspt-col-auto-fix");
 
         // Treating d-flex/d-none on separators with title
         var SeparatorTitle = $('.sidebar-separator-title');
