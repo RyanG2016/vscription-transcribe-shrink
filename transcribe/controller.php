@@ -54,20 +54,10 @@ if(isset($_SESSION['counter']))
 
 
                 <td id="navbtn" align="left" colspan="1">
-                    <!--                        Logged in as: --><?php //echo $_SESSION['uEmail']?><!-- |-->
-                    <!--                    </div>-->
-
                     <a href="index.php"><i class="fas fa-arrow-left"></i> Back to Home</a>
                 </td>
 
-                <td id="logbar" align="right" colspan="1">
-                    Logged in as: <?php echo $_SESSION['uEmail'] ?> |
-                    <!--                    </div>-->
-                    <a class="logout" href="logout.php">
-                        <i class="fas fa-sign-out-alt"></i>
-                        Logout
-                    </a>
-                </td>
+
 
             </tr>
             <tr class="spacer"></tr>

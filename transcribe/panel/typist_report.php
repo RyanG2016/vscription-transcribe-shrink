@@ -90,14 +90,7 @@ if ($_SESSION['role'] != "1") {
                     <a class="logbar" href="index.php"><i class="fas fa-arrow-left"></i> Go back to Admin Panel</a>
                 </div>
 
-                <div class="col-auto logbar">
-                    Logged in as: <?php echo $_SESSION['uEmail'] ?> |
-                    <!--                    </div>-->
-                    <a class="logout" href="../logout.php">
-                        <i class="fas fa-sign-out-alt"></i>
-                        Logout
-                    </a>
-                </div>
+
             </div>
 
             <div class="row vspt-title-row no-gutters">

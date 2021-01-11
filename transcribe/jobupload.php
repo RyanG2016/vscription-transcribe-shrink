@@ -106,14 +106,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                     <a class="logbar" href="main.php"><i class="fas fa-arrow-left"></i> Go back to job list</a>
                 </div>
 
-                <div class="col-auto logbar">
-                    Logged in as: <?php echo $_SESSION['uEmail'] ?> |
-                    <!--                    </div>-->
-                    <a class="logout" href="logout.php">
-                        <i class="fas fa-sign-out-alt"></i>
-                        Logout
-                    </a>
-                </div>
+
             </div>
 
             <div class="row vspt-title-row no-gutters">
