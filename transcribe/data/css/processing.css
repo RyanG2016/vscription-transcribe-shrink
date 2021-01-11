@@ -1,13 +1,6 @@
-@import "parts/vars.css";
-/*@import "parts/user_card_view.css";*/
-/*@import "parts/card.css";*/
 @import "parts/modal_overlay.css";
-/*@import "parts/data-tbl.css";*/
-/*@import "parts/vtex-custom-styles.css";*/
-@import "parts/spinner.css";
-/*@import "parts/bootstrap-override.css";*/
-/*@import "parts/material-override.css";*/
-/*@import "parts/util.css";*/
+@import "parts/global.css";
+
 
 
 .text-muted {

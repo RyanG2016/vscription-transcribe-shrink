@@ -1,6 +1,5 @@
 @import "parts/user_card_view.css";
-@import "parts/card.css";
-@import "parts/vars.css";
+@import "parts/global.css";
 
 /* ---------------------*/
 /* ---BODY STYLING  --*/
