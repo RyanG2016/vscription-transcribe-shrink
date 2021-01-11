@@ -53,7 +53,7 @@ else {
 
     <!--	Scroll Bar Dependencies    -->
 
-    <script src="data/scrollbar/jquery.nicescroll.js"></script>
+<!--    <script src="data/scrollbar/jquery.nicescroll.js"></script>-->
 
     <!--  JQUERY  -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
