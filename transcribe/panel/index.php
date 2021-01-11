@@ -31,7 +31,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
 }
 ?>
 
-<html>
+<html lang="en">
 
 <head>
     <title>vScription Admin Panel</title>

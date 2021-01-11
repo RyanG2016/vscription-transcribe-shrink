@@ -19,7 +19,7 @@ $vtex_page = INTERNAL_PAGES::ADMIN_TOOLS;
 
 ?>
 
-<html>
+<html lang="en">
 
 <head>
     <title>vScription Admin Tools</title>
