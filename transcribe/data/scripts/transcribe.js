@@ -400,14 +400,10 @@ $(document).ready(function () {
         lengthChange: false,
         pageLength: maximum_rows_per_page_jobs_list,
         autoWidth: false,
-        columnDefs: [
-            {
-                targets: ['_all'],
-                className: 'mdc-data-table__cell'
-            }
-        ],
+
         "columns": [
             {
+                "title": "Job #",
                 "data": "job_id",
                 render: function (data, type, row) {
                     if (row["file_comment"] != null) {
@@ -419,12 +415,28 @@ $(document).ready(function () {
                     }
                 }
             },
-            {"data": "file_author"},
-            {"data": "file_work_type"},
-            {"data": "file_date_dict"},
-            {"data": "job_upload_date"},
-            {"data": "file_status_ref"},
             {
+                "title": "Author",
+                "data": "file_author"
+            },
+            {
+                "title": "Job Type",
+                "data": "file_work_type"
+            },
+            {
+                "title": "Date Dictated",
+                "data": "file_date_dict"
+            },
+            {
+                "title": "Date Uploaded",
+                "data": "job_upload_date"
+            },
+            {
+                "title": "Job Status",
+                "data": "file_status_ref"
+            },
+            {
+                "title": "Job Length",
                 "data": "audio_length",
                 render: function (data) {
                     return new Date(data * 1000).toISOString().substr(11, 8);

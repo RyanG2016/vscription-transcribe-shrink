@@ -158,12 +158,17 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 
 
     <!--  Data table Jquery helping libs  -->
-    <link rel="stylesheet" type="text/css" href="data/libs/DataTables/datatables.css"/>
     <link rel="stylesheet" type="text/css"
-          href="https://cdnjs.cloudflare.com/ajax/libs/material-components-web/4.0.0/material-components-web.min.css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/dataTables.material.min.css"/>
-    <script type="text/javascript" src="data/libs/DataTables/datatables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/dataTables.material.min.js"></script>
+    href="https://cdnjs.cloudflare.com/ajax/libs/material-components-web/4.0.0/material-components-web.min.css"/>
+
+    <!--  Datatables  -->
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+
+    <!--  css  -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" crossorigin="anonymous">
+
 
     <script src='tinymce/tinymce.min.js?v=<?php echo $version_control ?>'></script>
 
@@ -521,31 +526,9 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
         <h2>Job Picker</h2>
         <!--            <p><i>Filtering Jobs with Status of: Awaiting Transcription, In Progress and Suspended.</i></p>-->
 
-        <table id="jobs-tbl" class="display" style="width:100%">
-            <thead>
-            <tr>
-                <th>Job #</th>
-                <th>Author</th>
-                <th>Job Type</th>
-                <th>Date Dictated</th>
-                <th>Date Uploaded</th>
-                <th>Job Status</th>
-                <th>Job Length</th>
-            </tr>
-            </thead>
-
-            <tfoot>
-            <tr>
-                <th>Job #</th>
-                <th>Author</th>
-                <th>Job Type</th>
-                <th>Date Dictated</th>
-                <th>Date Uploaded</th>
-                <th>Job Status</th>
-                <th>Job Length</th>
-            </tr>
-            </tfoot>
-        </table>
+        <div style="overflow-x: hidden" class="vspt-table-div">
+            <table id="jobs-tbl" class="table vspt-table hover compact"></table>
+        </div>
     </div>
 
 </div>
