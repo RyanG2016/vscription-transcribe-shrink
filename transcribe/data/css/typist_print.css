@@ -8,12 +8,12 @@
 }
 
 .report .header .head-left h2 {
-    font-family: 'OpenSans', serif;
+    font-family: main, sans-serif;
 }
 
 .report {
     /*border: 1px solid;*/
-    font-family: 'OpenSans', serif;
+    font-family: main, sans-serif;
     font-size: 12px;
     border-collapse: collapse;
     /*padding: 5px;*/

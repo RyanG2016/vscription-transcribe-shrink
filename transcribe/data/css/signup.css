@@ -12,7 +12,7 @@
 
 body, html {
     height: 100%;
-    font-family: opensans, sans-serif;
+    font-family: main, sans-serif;
 }
 
 .login100-form-btn{
@@ -56,7 +56,7 @@ label {
 
 /*---------------------------------------------*/
 a {
-    font-family: opensans, sans-serif;
+    font-family: main, sans-serif;
     font-size: 14px;
     line-height: 1.7;
     /*color: #666666;*/
@@ -84,7 +84,7 @@ a:hover {
 /*---------------------------------------------*/
 
 p {
-    font-family: opensans, sans-serif;
+    font-family: main, sans-serif;
     font-size: 14px;
     line-height: 1.7;
     color: #666666;
@@ -246,7 +246,7 @@ input:-webkit-autofill:active {
 }*/
 
 .login100-form-btn {
-    font-family: opensans, sans-serif;
+    font-family: main, sans-serif;
     font-size: 15px;
     color: #fff;
     line-height: 1.2;
@@ -328,7 +328,7 @@ input:-webkit-autofill:active {
 
 #signupBtn{
     width: 100%;
-    font-family: 'OpenSans-l', sans-serif;
+    font-family: 'main-l', sans-serif;
 }
 
 .progress-bar{
@@ -366,7 +366,7 @@ input:-webkit-autofill:active {
 }
 
 h5{
-    font-family: 'OpenSans-l', sans-serif;
+    font-family: main-l, sans-serif;
 }
 
 #code::placeholder,

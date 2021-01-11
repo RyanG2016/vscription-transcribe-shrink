@@ -100,7 +100,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
                         <i class="fas fa-file-invoice-dollar"></i> Client Billing Reports
                     </legend>
                 </div>
-                <div class="col">
+                <div class="col-auto">
                     <img src="../data/images/Logo_vScription_Transcribe_Pro_White.png" width="300px"/>
                 </div>
             </div>

@@ -50,7 +50,6 @@ else {
 
     <title>vScription Job Lister</title>
     <link rel="shortcut icon" type="image/png" href="data/images/favicon.png"/>
-    <link rel="stylesheet" href="data/css/job_lister_form_5.css">
 
     <!--	Scroll Bar Dependencies    -->
 

@@ -1,6 +1,282 @@
 /*@import "parts/user_card_view.css";*/
 @import "parts/global.css";
 
+
+/* From job_lister_form_5.css */
+#report{
+    resize: both;
+    overflow: auto;
+    width: 60%;
+}
+
+
+.form-style-5{
+
+    max-width: 90%;
+    min-width: 860px;
+    width: 90%;
+    /*    padding: 10px 20px;*/
+    /*    background: #f4f7f8;*/
+    margin: 10px auto;
+    padding: 1px 20px 15px 20px;
+    /*background: #f4f7f8;*/
+    border-radius: 8px;
+    font-family: main, sans-serif  !important;
+    /*box-shadow: 0px 0px 16px #262626;*/
+
+    -webkit-transition: width 1s;
+    transition: width 1s;
+}
+
+.form-style-5 fieldset{
+    border: none;
+}
+.form-style-5 legend {
+    font-size: 1.4em;
+    /*    margin-bottom: 10px;*/
+    width: 100%;
+}
+
+
+.form-style-5 label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+
+
+.upload_cell{
+    width: 50%;
+    padding: 10px;
+    vertical-align: top;
+}
+
+.logout{
+    color: #1e79be;
+    text-decoration: underline;
+}
+
+.form-style-5 input[type="text"]:focus,
+.form-style-5 input[type="date"]:focus,
+.form-style-5 input[type="datetime"]:focus,
+.form-style-5 input[type="email"]:focus,
+.form-style-5 input[type="number"]:focus,
+.form-style-5 input[type="search"]:focus,
+.form-style-5 input[type="time"]:focus,
+.form-style-5 input[type="url"]:focus,
+.form-style-5 textarea:focus,
+.form-style-5 select:focus{
+    /*background: #d2d9dd;*/
+}
+/*.form-style-5 select{
+    -webkit-appearance: menulist-button;
+    height:35px;
+}*/
+
+.form-style-5 .number {
+    background: #4892cc;
+    /*background: #eaaa3e;*/
+    color: #fff;
+    height: 30px;
+    width: 30px;
+    display: inline-block;
+    font-size: 0.8em;
+    margin-right: 4px;
+    line-height: 30px;
+    text-align: center;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.2);
+    border-radius: 15px 15px 15px 0px;
+}
+
+#save
+{
+    margin-left: 1%;
+}
+
+{
+    background: #6eb051;
+/*background: #d8a859;*/
+}
+
+#report{
+    resize: both;
+    overflow: auto;
+    width: 100%;
+    /*min-height: 30%;*/
+}
+
+
+#jobNo{
+    width: 20%;
+}
+
+#authorName{
+    width: 40%
+}
+
+#TypistName{
+    width:39%;
+
+}
+#comments{
+    width: 34.5%;
+}
+
+#date,#dateT{
+    width: 20%;
+}
+#comments,#date,#dateT{
+    margin-bottom: 5px;
+}
+#jobType{
+    width: 24%;
+}
+
+#tip{
+    font-size: 0.9em;
+
+    font-family: main, sans-serif !important;
+    display: inline;
+    /*white-space: nowrap;*/
+}
+
+#norm{
+    vertical-align: middle;
+    /*vertical-align: text-top;*/
+    width: 34px;
+    height: auto;
+}
+#accord {
+    padding: 0px 10px 10px 10px;
+    /*width: 440px;*/
+    width: auto;
+    /*height: 220px;*/
+    /*!*float: right;*!border: 1px solid #5f3f3f;*/
+    /*display:inline;*/
+    /*float: right;*/
+}
+
+#leg{
+    /*border: 1px solid #5f3f3f;*/
+    width:auto;
+    display:inline;
+}
+
+#mainlogo{
+    float: none !important;
+
+}
+#header-tbl,#demo-tbl{
+    padding-inline-start: 0.75em;
+    padding-inline-end: 0.75em;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0);
+    box-shadow: 0 0 0 rgba(255, 255, 255, 0);
+}
+
+.data-tbl{
+    box-shadow: 0 0 16px #262626;
+    width: 100%;
+    background: white;
+}
+
+#rep-tbl{
+    width: 100%;
+}
+#nr{
+
+    width: 1%;
+    white-space: nowrap;
+}
+
+#mainlogo-td{
+    /*	 white-space:nowrap;*/
+    width: 1%;
+    vertical-align: top;
+    padding-top: 27px;
+}
+
+#audio-td{
+    align: right;
+}
+
+.audiobtns{
+    width: 150px !important;
+    padding: 6px !important;
+    font-size: 15px !important;
+    font-family: main !important;
+}
+
+legend, h3,button{
+    font-family: main !important;
+}
+
+.title{
+    font-family: main !important;
+    font-size: 20px;
+    /*font-weight: bold;*/
+    /*color: #1e79be;*/
+    color: white;
+}
+#logbar{
+    color: whitesmoke;
+    font-family: main , sans-serif  !important;
+    font-size: 12px;
+}
+#logbar a{
+    color: #6ab8f3;
+}
+
+.spacer{
+    height: 20px;
+}
+
+.noHover{
+    pointer-events: none;
+}
+
+.job_list_tbl_title{
+    font-size: 1.5em;
+}
+
+
+.alert-validate {
+    background-color: #efdfdf !important;
+}
+
+#help{
+    color: #2dace1;
+    font-family: main-l;
+}
+
+.top-links a:link {
+    color: #2dace1;
+}
+
+/* visited link */
+.top-links a:visited {
+    color: #2dace1;
+    font-family: main-l;
+}
+
+/* mouse over link */
+.top-links a:hover {
+    color: #ec9433;
+}
+
+/* selected link */
+.top-links a:active {
+    color: hotpink;
+}
+
+#loadBtn{
+    display: block;
+    max-width: 302px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+
 /* ---------------------*/
 /* ---BODY STYLING  --*/
 /* ---------------------*/
@@ -106,11 +382,11 @@ body {
     color: white !important;
     font-weight: bold;
     /*font-size: 0.9rem;*/
-    font-family: opensans, serif !important;
+    font-family: main, sans-serif !important;
     padding-left: 10px !important;
 }
 .mdc-data-table__cell{
-    font-family: opensans, serif !important;
+    font-family: main, sans-serif !important;
 }
 
 .logout{
@@ -242,7 +518,7 @@ textarea {
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
-    font-family: opensans, sans-serif;
+    font-family: main, sans-serif;
 }
 
 select,.dt-search {
@@ -253,7 +529,7 @@ select,.dt-search {
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
-    font-family: opensans, sans-serif;
+    font-family: main, sans-serif;
 }
 
 input[type=date] {
@@ -264,7 +540,7 @@ input[type=date] {
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 18px;
-    font-family: opensans, sans-serif;
+    font-family: main, sans-serif;
 }
 
 
@@ -314,7 +590,7 @@ table{
     outline: none;
     resize: none;
     border-color: Transparent !important;
-    font-family: 'OpenSans', serif !important;
+    font-family: main, sans-serif !important;
     font-size: 0.875rem;
     vertical-align: center;
 }
@@ -338,7 +614,7 @@ table{
 td .times-downloaded{
     /*text-align: center;*/
     vertical-align: bottom !important;
-    font-family: 'OpenSans', serif !important;
+    font-family: main, sans-serif !important;
 }
 
 .times-downloaded-header{

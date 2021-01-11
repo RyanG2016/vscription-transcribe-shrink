@@ -73,7 +73,7 @@ select,.dt-search {
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
-    font-family: opensans, sans-serif;
+    font-family: main, sans-serif;
 }
 #jobs-tbl > tfoot > tr > th{
     padding: 0 10px 0 5px;

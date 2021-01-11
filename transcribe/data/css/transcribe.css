@@ -21,19 +21,6 @@
     display: none;
 }
 
-@font-face {
-    font-family: opensans;
-    src: url("../Fonts/OpenSans-Regular.ttf");
-}
-/*@font-face {
-  font-family: opensans-b;
-  src: url("../Fonts/OpenSans-Bold.ttf");
-}*/
-@font-face {
-    font-family: opensans-l;
-    src: url("../Fonts/OpenSans-Light.ttf");
-}
-
 #report{
     resize: both;
     overflow: auto;
@@ -126,7 +113,7 @@ img:not(#norm){
 #tip{
     font-size: 0.9em;
 
-    font-family: 'OpenSans', sans-serif !important;
+    font-family: main, sans-serif !important;
     display: inline;
     /*white-space: nowrap;*/
 }
@@ -187,11 +174,11 @@ img:not(#norm){
     width: 150px !important;
     padding: 6px !important;
     font-size: 15px !important;
-    font-family: opensans, sans-serif !important;
+    font-family: main, sans-serif !important;
 }
 
 legend, h3,button{
-    font-family: opensans, sans-serif !important;
+    font-family: main, sans-serif !important;
 }
 
 .noHover{
@@ -272,7 +259,7 @@ legend, h3,button{
 
 #help{
     color: #2dace1;
-    font-family: opensans-l, sans-serif;
+    font-family: main-l, sans-serif;
 }
 
 .top-links a:link {
@@ -282,7 +269,7 @@ legend, h3,button{
 /* visited link */
 .top-links a:visited {
     color: #2dace1;
-    font-family: opensans-l, sans-serif;
+    font-family: main-l, sans-serif;
 }
 
 /* mouse over link */
@@ -313,7 +300,7 @@ table, th, td {
     background: #f5862c;
     text-align: center;
     vertical-align: center;
-    font-family: "OpenSans", serif;
+    font-family: main, sans-serif;
     color: white;
 }
 
@@ -366,7 +353,7 @@ table, th, td {
 .mdc-data-table{
     width: 100%;
     font-size: 0.9rem;
-    font-family: opensans;
+    font-family: main;
     --mdc-theme-primary: #1e79be;
     --mdc-theme-on-primary: #1e79be ;
     --mdc-theme-secondary: #1e79be;
@@ -455,7 +442,7 @@ table, th, td {
     outline: none;
     resize: none;
     border-color: Transparent !important;
-    font-family: 'OpenSans', serif !important;
+    font-family: main, sans-serif !important;
     font-size: 0.875rem;
     vertical-align: center;
 }
@@ -469,7 +456,7 @@ table, th, td {
 }
 
 .controller-status{
-    font-family: 'OpenSans', serif;
+    font-family: main, sans-serif;
     margin-right: 15px;
     vertical-align: bottom;
     color: #f78d2d;
@@ -507,7 +494,7 @@ select, .dt-search {
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
-    font-family: opensans, sans-serif;
+    font-family: main, sans-serif;
 }
 
 /* Table Search Input position fix for bootstrap */

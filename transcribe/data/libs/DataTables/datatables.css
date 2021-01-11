@@ -1007,7 +1007,7 @@ div.dtsp-panesContainer {
 }
 
 div.dtsp-panesContainer {
-  font-family: 'OpenSans', sans-serif;
+  font-family: main, sans-serif;
   padding: 5px;
   border: 1px solid #ccc;
   border-radius: 6px;

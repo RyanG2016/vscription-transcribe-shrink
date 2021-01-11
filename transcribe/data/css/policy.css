@@ -1,18 +1,4 @@
-@font-face {
-  font-family: opensans;
-  src: url("../Fonts/OpenSans-Regular.ttf");
-}
-
-/*@font-face {
-  font-family: opensans-b;
-  src: url("../../Fonts/OpenSans-Bold.ttf");
-}*/
-
-@font-face {
-  font-family: opensans-l;
-  src: url("../Fonts/OpenSans-Light.ttf");
-}
-
+@import "parts/global.css";
 
 
 /*//////////////////////////////////////////////////////////////////
@@ -26,17 +12,17 @@
 
 body, html {
 	height: 100%;
-	font-family: opensans, sans-serif;
+	font-family: main, sans-serif;
 }
 
 /*---------------------------------------------*/
 a {
-	font-family: opensans;
+    font-family: main, sans-serif;
 	font-size: 14px;
 	line-height: 1.7;
 	color: #ec922f;
 /*	color: #666666;*/
-	margin: 0px;
+	margin: 0;
 	transition: all 0.4s;
 	-webkit-transition: all 0.4s;
   -o-transition: all 0.4s;
@@ -50,29 +36,21 @@ a:focus {
 a:hover {
 	text-decoration: none;
   color: #6a7dfe;
-  color: -webkit-linear-gradient(left, #21d4fd, #b721ff);
-  color: -o-linear-gradient(left, #21d4fd, #b721ff);
-  color: -moz-linear-gradient(left, #21d4fd, #b721ff);
-  color: linear-gradient(left, #21d4fd, #b721ff);
 }
 
 /*---------------------------------------------*/
 h1,h2,h3,h4,h5,h6 {
-	margin: 0px;
+	margin: 0;
 }
 
 p {
-	font-family: opensans;
+    font-family: main, sans-serif;
 	font-size: 14px;
 	line-height: 1.7;
 /*	color: #666666;*/
-	margin: 0px;
+	margin: 0;
 }
 
-ul, li {
-/*	margin: 0px;*/
-/*	list-style-type: none;*/
-}
 
 
 /*---------------------------------------------*/
@@ -119,10 +97,10 @@ background: linear-gradient(to right, #3498db, #2c3e50); /* W3C, IE 10+/ Edge, F
   overflow: hidden;
   padding: 77px 55px 33px 55px;
 
-  box-shadow: 0 5px 10px 0px rgba(38,38,38,1);
-  -moz-box-shadow: 0 5px 10px 0px rgba(38,38,38,1);
-  -webkit-box-shadow: 0 5px 10px 0px rgba(38,38,38,1);
-  -o-box-shadow: 0 5px 10px 0px rgba(38,38,38,1);
+  box-shadow: 0 5px 10px 0 rgba(38,38,38,1);
+  -moz-box-shadow: 0 5px 10px 0 rgba(38,38,38,1);
+  -webkit-box-shadow: 0 5px 10px 0 rgba(38,38,38,1);
+  -o-box-shadow: 0 5px 10px 0 rgba(38,38,38,1);
   -ms-box-shadow: 0 5px 10px 0px rgba(38,38,38,1);
 	-webkit-transition: width 1s; /* For Safari 3.1 to 6.0 */
   transition: width 1s;
@@ -138,7 +116,7 @@ background: linear-gradient(to right, #3498db, #2c3e50); /* W3C, IE 10+/ Edge, F
 
 .login100-form-title {
   display: block;
-  font-family: opensans-l;
+    font-family: main-l, sans-serif;
   font-size: 30px;
   color: #545454;
   line-height: 1.2;

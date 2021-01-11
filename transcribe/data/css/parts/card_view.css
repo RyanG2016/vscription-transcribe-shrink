@@ -1,39 +1,8 @@
-@font-face {
-    font-family: opensans;
-    src: url("../../Fonts/OpenSans-Regular.ttf");
-}
-/*@font-face {
-  font-family: opensans-b;
-  src: url("../Fonts/OpenSans-Bold.ttf");
-}*/
-@font-face {
-    font-family: opensans-l;
-    src: url("../../Fonts/OpenSans-Light.ttf");
-}
-
 #report{
     resize: both;
     overflow: auto;
     width: 60%;
 }
-/*
-body{
-    !*    background-color: #193f54;*!
-    !*    background-color: #1d7ec1;*!
-
-    !*	Between Night And Sky   *!
-    background: #2c3e50;  !* fallback for old browsers *!
-    background: -webkit-linear-gradient(to right, #3498db, #2c3e50);  !* Chrome 10-25, Safari 5.1-6 *!
-    background: linear-gradient(to right, #3498db, #2c3e50); !* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ *!
-
-
-    !*background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);*!
-    !*background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);*!
-    !*background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);*!
-    !*background-image: linear-gradient(270deg, #fff1eb 0%, #ace0f9 100%);*!
-    !*background-image: linear-gradient(to bottom, #fff1eb 0%, #ace0f9 100%);*!
-}*/
-
 
 /*form data*/
 .form-style-5{
@@ -44,7 +13,7 @@ body{
     margin: 10px auto;
     padding: 12px 20px 15px 20px;
     border-radius: 8px;
-    font-family: 'OpenSans', serif  !important;
+    font-family: main, sans-serif  !important;
     -webkit-transition: width 1s;
     transition: width 1s;
 }
@@ -65,7 +34,7 @@ body{
 }
 
 #logbar{
-    font-family: 'OpenSans' , serif  !important;
+    font-family: main , sans-serif  !important;
     font-size: 12px;
 }
 
@@ -83,7 +52,7 @@ body{
 #tip{
     font-size: 0.9em;
 
-    font-family: 'OpenSans', sans-serif !important;
+    font-family: main, sans-serif !important;
     display: inline;
     /*white-space: nowrap;*/
 }
@@ -137,7 +106,7 @@ body{
 
 
 .title{
-    font-family: 'OpenSans', serif !important;
+    font-family: main, sans-serif !important;
     font-size: 20px;
     font-weight: bold;
     color: #1e79be;
@@ -152,81 +121,13 @@ body{
     pointer-events: none;
 }
 
-
-/* Validation */
-
-/*
-.validate-input {
-  position: relative;
-}
-
-.alert-validate::before {
-  content: attr(data-validate);
-  position: absolute;
-  max-width: 70%;
-  background-color: #fff;
-  border: 1px solid #c80000;
-  border-radius: 2px;
-  padding: 4px 25px 4px 10px;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  -moz-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  -o-transform: translateY(-50%);
-  transform: translateY(-50%);
-  right: 0px;
-  pointer-events: none;
-
-  font-family: Poppins-Regular;
-  color: #c80000;
-  font-size: 13px;
-  line-height: 1.4;
-  text-align: left;
-
-  visibility: hidden;
-  opacity: 0;
-
-  -webkit-transition: opacity 0.4s;
-  -o-transition: opacity 0.4s;
-  -moz-transition: opacity 0.4s;
-  transition: opacity 0.4s;
-}
-
-.alert-validate::after {
-  content: "\f12a";
-  font-family: FontAwesome;
-  display: block;
-  position: absolute;
-  color: #c80000;
-  font-size: 16px;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  -moz-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  -o-transform: translateY(-50%);
-  transform: translateY(-50%);
-  right: 8px;
-}
-
-.alert-validate:hover:before {
-  visibility: visible;
-  opacity: 1;
-}
-
-@media (max-width: 992px) {
-  .alert-validate::before {
-    visibility: visible;
-    opacity: 1;
-  }
-}*/
-
 .alert-validate {
     background-color: #efdfdf !important;
 }
 
 #help{
     color: #2dace1;
-    font-family: opensans-l ,serif;
+    font-family: main-l ,serif;
 }
 
 .top-links a:link {
@@ -236,7 +137,7 @@ body{
 /* visited link */
 .top-links a:visited {
     color: #2dace1;
-    font-family: opensans-l, serif;
+    font-family: main-l, sans-serif;
 }
 
 /* mouse over link */
@@ -247,10 +148,6 @@ body{
 /* selected link */
 .top-links a:active {
     color: hotpink;
-}
-
-table, th, td {
-    /*  border: 1px solid black;*/
 }
 
 #loadBtn{
@@ -274,7 +171,7 @@ table, th, td {
 
 #logbar{
     color: whitesmoke;
-    font-family: 'OpenSans' , serif  !important;
+    font-family: main , sans-serif  !important;
     font-size: 12px;
 }
 #logbar a,

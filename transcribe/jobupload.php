@@ -58,8 +58,6 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 
     <title>vScription Transcribe Pro Dictation Upload</title>
 
-    <link href='data/css/upload_form2.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet'/>
-
     <!--  MDC Components  -->
     <link href="data/libs/node_modules/material-components-web/dist/material-components-web.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -83,7 +81,6 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
     </script>
 	
 	 <script src="data/scripts/job_upload.min.js?v=1"></script>
-    <link rel="stylesheet" href="data/css/upload_form.css">
     <link rel="stylesheet" href="data/css/job_upload.css">
 	
 	

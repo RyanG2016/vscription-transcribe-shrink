@@ -149,12 +149,12 @@ a:hover {
 }
 
 .package-mins{
-    font-family: opensans, serif;
+    font-family: main, sans-serif;
     font-size: x-large;
 }
 
 .package-name{
-    font-family: opensans, serif;
+    font-family: main, sans-serif;
     font-size: larger;
 }
 
@@ -163,7 +163,7 @@ a:hover {
     cursor: pointer;
     transition: transform .2s; /* Animation */
 
-    font-family: OpenSans-l,  serif;
+    font-family: main-l,  serif;
     color: white;
     height: 45px;
     border-radius: 0 0 40px 0;

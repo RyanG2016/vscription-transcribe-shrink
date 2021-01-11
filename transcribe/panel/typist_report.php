@@ -101,7 +101,7 @@ if ($_SESSION['role'] != "1") {
                         <i class="fas fa-file-invoice"></i> Typist Billing Reports
                     </legend>
                 </div>
-                <div class="col">
+                <div class="col-auto">
                     <img src="../data/images/Logo_vScription_Transcribe_Pro_White.png" width="300px"/>
                 </div>
             </div>

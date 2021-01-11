@@ -1,14 +1,11 @@
+@import "parts/modal_popup.css";
 @import "parts/global.css";
 
 /* --------------------------------*/
 /* vScription Transcribe Modal Box */
 /* --------------------------------*/
 
-@import "parts/modal_popup.css";
-@font-face {
-    font-family: opensans;
-    src: url("../Fonts/OpenSans-Regular.ttf");
-}
+
 /* Modal loading edits */
 #modalLoading .modal-content h2{
     text-align: center;
@@ -25,11 +22,11 @@
 
 body{
     background: #f4f7f8;
-    font-family: 'OpenSans', sans-serif;
+    font-family: main, sans-serif;
     margin-bottom: 0;
 }
 .able-status-bar{
-    font-family: 'OpenSans', sans-serif;
+    font-family: main, sans-serif;
 }
 
 .logo{
@@ -156,5 +153,5 @@ u{
 }
 
 .able-tooltip{
-    font-family: 'OpenSans', sans-serif;
+    font-family: main, sans-serif;
 }
