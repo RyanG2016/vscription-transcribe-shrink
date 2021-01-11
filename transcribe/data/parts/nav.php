@@ -301,7 +301,7 @@
             <div class="modal-body">
                 <input id="uidInNav" name="uid" value="<?php echo $_SESSION['uid'] ?>" style="display: none">
 
-                <form method="post" id="createAccForm" class="createAccForm" target="_self">
+<!--                <form method="post" id="createAccForm" class="createAccForm" target="_self">-->
 
                     <div class="account text-center w-100">
                         <div><h4 class="font-weight-light">Account</h4></div>

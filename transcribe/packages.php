@@ -163,36 +163,18 @@ $pkgGateway = new PackageGateway($dbConnection);
                     ?>
 
 
-                    <!--<div class="col-sm-3">
-                        <div>
-                            <div class="package-card">
-                                <div class="row w-auto no-gutters justify-content-center package-mins m-b-10">200 minutes</div>
-                                <div class="row w-auto no-gutters justify-content-center package-name m-b-10">Starter</div>
-                                <div class="row w-auto no-gutters justify-content-center">
-                                    <small class="text-muted">100$</small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="package-card-bottom row no no-gutters align-items-center justify-content-center">
-                            Purchase
-                        </div>
-                    </div>-->
-
                 </div>
             </div>
 
         </div>
     </div>
-</div>
-
-<div id="container" style="width: 100%">
-
 
     <form id="purchase" action="payment.php" method="post">
         <input type="number" id="package" name="package" hidden>
     </form>
 
 </div>
+
 
 <?php include_once "data/parts/footer.php"?>
 </body>
