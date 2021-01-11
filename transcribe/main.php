@@ -14,11 +14,11 @@ include('data/parts/constants.php');
 
 if (isset($_SESSION['role'])) {
     if ($_SESSION['role'] != "2" && $_SESSION['role'] != "1") {
-        header('location:accessdenied.php');
+        header('location:index.php');
     }
 }
 else {
-        header('location:accessdenied.php');
+        header('location:index.php');
 }
 
 ?>

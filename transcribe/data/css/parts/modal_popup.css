@@ -39,3 +39,7 @@
 .modal-footer {
     text-align: right;
 }
+
+.modal-backdrop {
+    z-index: 9400;
+}

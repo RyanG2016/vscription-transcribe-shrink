@@ -26,7 +26,7 @@ const UPDATE_ACC_HEADER = "<i class=\"fas fa-user-edit\"></i>&nbsp;Update Permis
 var accountBox;
 var roleBox;
 
-var loading;
+var navLoverlay;
 var loadingText;
 
 

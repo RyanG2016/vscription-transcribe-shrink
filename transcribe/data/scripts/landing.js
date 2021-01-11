@@ -1,35 +1,16 @@
 var currentRole;
 var currentAccName;
-var chooseJobModal;
 var updateRoleModalBtn;
-var closeModalBtn;
 var setDefaultRoleBtn;
 var changeRoleBtn;
 var accNameInput;
 
-var accessesGlobal;
-var rolesGlobal;
-var typistAccessCount;
-
-var modalHeaderTitle;
 var accessId;
 
-var roleRequest;
-
-const ACCESS_URL = "../api/v1/access/?out";
-const SET_DEFAULT_ACCESS_URL = "../api/v1/users/set-default/";
-const ROLES_FOR_ACCOUNT_URL = "../api/v1/access?out&acc_id="; // + acc_id
-const ROLES_COUNT_FOR_ACCOUNT_URL = "../api/v1/access?out&count"; // + acc_id
 const CREATE_ACC_URL = "../api/v1/accounts/?out";
 
-const CHANGE_ROLE_HEADER = "<i class=\"fas fa-wrench\"></i>&nbsp;Change Role";
-const SET_DEFAULT_ROLE_HEADER = "<i class=\"fas fa-user-edit\"></i>&nbsp;Set Default";
-
 // -- combobox vars -- //
-var accountBox;
-var roleBox;
 
-var setDefaultModal;
 var typistAvSwitch;
 var typistAvSwitchMDC;
 
@@ -37,9 +18,6 @@ var srMinutes;
 var srSwitch;
 var srSwitchMDC;
 
-var accountsArray = [];
-var loading;
-var loadingText;
 var roleIsset; //-> from PHP (landing.php)
 var redirectID; //-> from PHP (landing.php) this is current role ID but named redirect for reasons
 
@@ -47,7 +25,7 @@ $(document).ready(function () {
     // loading = document.getElementById("overlay");
     // console.log(redirectID);
     loading = $("#overlay");
-    changeLoading(true);
+    // changeLoading(true);
 
     $("#typistWorkHelp").popover({
         html: true,
@@ -157,18 +135,9 @@ $(document).ready(function () {
     accNameInput = $("#accNameTxt");
     currentRole = $("#currentRole");
     currentAccName = $("#currentAccountName");
-    updateRoleModalBtn = $("#updateRoleBtn");
-    closeModalBtn = $("#closeModalBtn");
-    changeRoleBtn = $("#changeRoleBtn");
-    modalHeaderTitle = $("#modalHeaderTitle");
-    setDefaultRoleBtn = $("#setDefaultRoleBtn");
     accessId = $("#accessId");
 
-    // comboBoxes
-    accountBox = $("#accountBox");
-    roleBox = $("#roleBox");
 
-    chooseJobModal = $("#modal");
 
     typistAvSwitchMDC = new mdc.switchControl.MDCSwitch(document.querySelector('#typist_av_switch'));
 
@@ -201,17 +170,6 @@ $(document).ready(function () {
         // get remaining minutes balance
         getSRMinutes();
     }
-
-    closeModalBtn.on("click", function (e) {
-        chooseJobModal.modal('hide');
-    });
-
-
-    changeRoleBtn.on("click", function (e) {
-        setModalUI(false);
-        // chooseJobModal.style.display = "block";
-        chooseJobModal.modal('show');
-    });
 
     accNameInput.keyup(function(){
         validAccName();
@@ -255,74 +213,6 @@ $(document).ready(function () {
                 }
             });
         }
-    });
-
-    setDefaultRoleBtn.on("click", function (e) {
-        setModalUI(true);
-        // chooseJobModal.style.display = "block";
-        chooseJobModal.modal();
-    });
-    getRolesCount(3);
-
-    updateRoleModalBtn.on("click", function (e) {
-
-        updateRoleModalBtn.attr("disabled", "disabled");
-        changeLoading(true, "Setting role, please wait..");
-        var formData = new FormData();
-        formData.append("acc_id", accountBox.selectpicker('val'));
-        formData.append("acc_role", roleBox.selectpicker('val'));
-
-
-        $.ajax({
-            type: 'POST',
-            url: setDefaultModal?SET_DEFAULT_ACCESS_URL:ACCESS_URL,
-            processData: false,
-            // contentType: "application/x-www-form-urlencoded",
-            data: convertToSearchParam(formData),
-            // headers: update?{'Content-Type': 'application/x-www-form-urlencoded'}:{'Content-Type': "multipart/form-data; boundary="+formData.boundary},
-
-            success: function (response) {
-                // resetForm();
-                // accessDTRef.ajax.reload(); // refresh access table
-                // chooseJobModal.style.display = "none";
-                chooseJobModal.modal('hide');
-
-                location.reload();
-                /*$.confirm({
-                    title: 'Success',
-                    content: response["msg"],
-                    buttons: {
-                        confirm: {
-                            btnClass: 'btn-green',
-                            action: function () {
-                                updateRoleModalBtn.removeAttr("disabled");
-                                location.reload();
-                                return true;
-                            }
-                        }
-                    }
-                });*/
-
-
-            },
-            error: function (err) {
-                changeLoading(false);
-                $.confirm({
-                    title: 'Error',
-                    content: err.responseJSON["msg"],
-                    buttons: {
-                        confirm: {
-                            btnClass: 'btn-red',
-                            action: function () {
-                                updateRoleModalBtn.removeAttr("disabled");
-                                return true;
-                            }
-                        }
-                    }
-                });
-            }
-        });
-
     });
 
     getAvailabilityAsTypist();
@@ -429,47 +319,6 @@ $(document).ready(function () {
         });
     }
 
-
-    $.ajax({
-        url: ACCESS_URL,
-        method: "GET",
-        success: function (accesses) {
-            accessesGlobal = accesses;
-
-            const cbox = document.getElementById("accountBox");
-            for (const access of accesses) {
-
-                // using an array to prevent multiple select options for the same account
-                if(accountsArray.indexOf(access.acc_id) != -1)
-                {
-                    continue;
-                }
-                accountsArray.push(access.acc_id);
-
-                cbox.innerHTML += "<option value='" + access.acc_id + "'>" +
-                    // access.acc_id +
-                    // " - " +
-                    access.acc_name +
-                    "</option>";
-            }
-            accountBox.selectpicker({
-                liveSearch: true,
-                liveSearchPlaceholder: "Choose Account"
-            });
-
-            loadRolesForAccount(accountBox.selectpicker('val')); // first time
-
-            accountBox.on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
-                // do something...
-                // console.log("selection changed to: " + clickedIndex + " and prev was: " + previousValue+ "and e is ");
-                // console.log(e);
-                // console.log(countryBox.selectpicker('val')); // selected value
-                changeLoading(true, "Loading roles..");
-                loadRolesForAccount(accountBox.selectpicker('val'));
-            });
-        }
-    });
-
     function validAccName()
     {
         "hel@#l6o".search()
@@ -485,149 +334,6 @@ $(document).ready(function () {
             accNameInput.addClass("is-valid");
             return true;
         }
-    }
-
-
-    function checkForSingleRoleToSet() {
-
-        if(accessesGlobal.length == 1)
-        {
-            if(rolesGlobal.length == 1){
-                // only one access - set it as current
-                setCurrentRole(
-                    rolesGlobal[0]["acc_id"],
-                    rolesGlobal[0]["acc_role"]
-                );
-            }else{
-                // chooseJobModal.style.display = "block";
-                chooseJobModal.modal('show');
-                changeLoading(false);
-            }
-        }else{
-            if(accessesGlobal.length != 0){
-                // chooseJobModal.style.display = "block";
-                chooseJobModal.modal('show');
-            }
-            changeLoading(false);
-        }
-    }
-
-    function setCurrentRole(accID, accRole) {
-        var formData = new FormData();
-        formData.append("acc_id", accID);
-        formData.append("acc_role", accRole);
-
-
-        $.ajax({
-            type: 'POST',
-            url: ACCESS_URL,
-            processData: false,
-            // contentType: "application/x-www-form-urlencoded",
-            data: convertToSearchParam(formData),
-            // headers: update?{'Content-Type': 'application/x-www-form-urlencoded'}:{'Content-Type': "multipart/form-data; boundary="+formData.boundary},
-
-            success: function (response) {
-                // resetForm();
-                // accessDTRef.ajax.reload(); // refresh access table
-                // chooseJobModal.style.display = "none";
-                chooseJobModal.modal('hide');
-                // location.reload();
-                if(accRole == 2)
-                {
-                    location.href = 'main.php';
-                }else{
-                    location.reload();
-                }
-
-            },
-            error: function (err) {
-                /*$.confirm({
-                    title: 'Error',
-                    content: err.responseJSON["msg"],
-                    buttons: {
-                        confirm: {
-                            btnClass: 'btn-red',
-                            action: function () {
-                                updateRoleModalBtn.removeAttr("disabled");
-                                return true;
-                            }
-                        }
-                    }
-                });*/
-            }
-        });
-    }
-
-    function loadRolesForAccount(accID) {
-        // stateInputLbl.css("display","none");
-        // stateBoxLbl.css("display","none");
-        // cityContainer.css("display","none");
-
-
-
-        // removeLoadingSpinner(); // if any left over
-        // stateContainer.append(generateLoadingSpinner());
-        roleBox.selectpicker('destroy');
-
-        if (roleRequest != null) {
-            roleRequest.abort();
-        }
-
-        roleRequest = $.ajax({
-            url: ROLES_FOR_ACCOUNT_URL + accID,
-            method: "GET",
-            success: function (roles) {
-                rolesGlobal = roles;
-                updateRoleModalBtn.removeAttr("disabled");
-                const tybox = document.getElementById("roleBox");
-                tybox.innerHTML = ""; // clear old values
-                for (const role of roles) {
-                    tybox.innerHTML += "<option value='" + role.acc_role + "'>" +
-                        // role.acc_role +
-                        // " - " +
-                        role.role_desc + "</option>"
-                }
-                roleBox.selectpicker({
-                    liveSearch: true,
-                    liveSearchPlaceholder: "Choose Role"
-                });
-                roleBox.selectpicker('refresh');
-
-                if(!roleIsset){
-                    checkForSingleRoleToSet();
-                }else{
-                    changeLoading(false);
-                }
-                // removeLoadingSpinner();
-            }
-        });
-
-    }
-
-    function getRolesCount(type = 0) {
-
-        var param = "";
-        if(type){
-            param = "&type="+type;
-        }
-
-        $.ajax({
-            url: ROLES_COUNT_FOR_ACCOUNT_URL + param,
-            method: "GET",
-            success: function (response) {
-                typistAccessCount = response["count"];
-                $("#typistCount").html( typistAccessCount);
-                if(typistAccessCount > 0)
-                {
-                    $("#typist0").remove();
-                    $("#alertT0").remove();
-                }else{
-                    $("#typist1").remove();
-                    $("#alertT1").remove();
-                }
-            }
-        });
-
     }
 
 });
@@ -661,19 +367,6 @@ function generateLoadingSpinner() {
     return spinnerDiv;
 }
 
-function changeLoading(show, text = false) {
-    if(!show){
-        // loading.style.display = "none";
-        loading.fadeOut();
-        $("body").css("overflow", "auto");
-    }else{
-        $("body").css("overflow", "none");
-        if(text) loadingText.html(text);
-        loading[0].style.display = "block";
-        // loading.fadeIn();
-    }
-}
-
 function convertToSearchParam(params) {
     const searchParams = new URLSearchParams();
     // for (const prop in params) {
@@ -686,14 +379,4 @@ function convertToSearchParam(params) {
     }
 
     return searchParams;
-}
-
-function setModalUI(setDefaultModalBool = false) {
-    setDefaultModal = setDefaultModalBool;
-
-    if(setDefaultModalBool) {
-        modalHeaderTitle.html(SET_DEFAULT_ROLE_HEADER);
-    } else{
-        modalHeaderTitle.html(CHANGE_ROLE_HEADER);
-    }
 }

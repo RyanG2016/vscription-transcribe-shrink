@@ -1,3 +1,19 @@
+<!-- BOOTSTRAP -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"
+        integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg=="
+        crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/data/css/custom-bootstrap-select.css" />
+
+
+<script type="text/javascript">
+    <?php
+    $roleIsSet = (!isset($_SESSION['role']) && !isset($_SESSION['accID']))?0:true;
+    ?>
+    var roleIsset = <?php echo $roleIsSet ?>;
+    var redirectID = <?php echo $roleIsSet? $_SESSION['role']:0 ?>;
+</script>
+
 <!-- Sidebar -->
 <div id="sidebar-container" class="sidebar-collapsed vspt-sidebar-container col">
     <!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
@@ -195,10 +211,15 @@
                     </a>';
 
                break;
-
+/*
 
            case INTERNAL_PAGES::LANDING:
-               echo ' <li class="list-group-item sidebar-separator-title text-muted align-items-center menu-collapsed d-none">
+
+               break;*/
+
+       }
+
+       echo ' <li class="list-group-item sidebar-separator-title text-muted align-items-center menu-collapsed d-none">
                             <small>Actions</small>
                     </li>
                     <!-- /END Separator -->
@@ -216,9 +237,6 @@
                         </div>
                     </a>
                     ';
-               break;
-
-       }
 
        ?>
 
@@ -267,3 +285,56 @@
         $('#collapse-icon').toggleClass('fa-angle-double-left fa-angle-double-right');
     }
 </script>
+
+
+<div class="modal" tabindex="-1" id="changeRole">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 style="color: #1e79be" id="modalHeaderTitle">
+                    <i class="fas fa-wrench"></i>&nbsp;Change Role
+                </h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input id="uidIn" name="uid" value="<?php echo $_SESSION['uid'] ?>" style="display: none">
+
+                <form method="post" id="createAccForm" class="createAccForm" target="_self">
+
+                    <div class="account text-center w-100">
+                        <div><h4 class="font-weight-light">Account</h4></div>
+                        <select id="accountBox" name="acc_id" class="w-100 m-t-7" data-width="250px">
+                        </select>
+                    </div>
+                    <br>
+
+                    <!--===================================================-->
+                    <div class="role text-center w-100">
+                        <div><h4 class="font-weight-light">Role</h4></div>
+                        <select id="roleBox" class="w-100" name="acc_role" data-width="250px">
+                        </select>
+                        </label>
+                    </div>
+                    <!--===================================================-->
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i>&nbsp; Cancel</button>
+                <button type="button" class="btn btn-primary" id="updateRoleBtn"><i class="fas fa-user-edit"></i> &nbsp;Set</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="overlay" id="navOverlay" style="display: none">
+    <div class="loading-overlay-text" id="navOverlayText">Please wait..</div>
+    <div class="spinner">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+    </div>
+</div>
+
+<script type="text/javascript" src="/data/scripts/nav.min.js"></script>
