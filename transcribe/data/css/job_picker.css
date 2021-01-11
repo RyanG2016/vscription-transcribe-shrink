@@ -10,14 +10,10 @@
     --mdc-theme-primary: #1e79be;
     --mdc-theme-on-primary: #1e79be;
     --mdc-theme-secondary: #1e79be;
-    /*--mdc-theme-background:#1e79be;*/
-    /*--mdc-theme-surface:#1e79be;*/
     --mdc-theme-on-secondary: #1e79be;
-    /*--mdc-theme-on-surface:#1e79be;*/
 }
 
 .mdc-data-table__row--selected {
-    /*background: rgba(30, 121, 190, 0.1);*/
     background: rgba(232, 142, 43, 0.1);
 }
 
@@ -29,8 +25,6 @@
 .mdc-data-table__header-cell {
     color: white !important;
     font-weight: bold;
-    /*font-size: 0.9rem;*/
-    /*font-family: opensans;*/
     padding-left: 10px !important;
 }
 
@@ -47,7 +41,7 @@
 }
 
 .job-comment {
-    color: #1e79be;
+    color: var(--vspt-blue);
     font-size: 18px !important;
     vertical-align: text-bottom;
     cursor: pointer;

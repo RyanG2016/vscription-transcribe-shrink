@@ -1,4 +1,3 @@
-/*@import "parts/user_card_view.css";*/
 @import "parts/global.css";
 
 
@@ -52,7 +51,7 @@
 }
 
 .logout {
-    color: #1e79be;
+    color: var(--vspt-blue);
     text-decoration: underline;
 }
 
@@ -74,29 +73,8 @@
     height:35px;
 }*/
 
-.form-style-5 .number {
-    background: #4892cc;
-    /*background: #eaaa3e;*/
-    color: #fff;
-    height: 30px;
-    width: 30px;
-    display: inline-block;
-    font-size: 0.8em;
-    margin-right: 4px;
-    line-height: 30px;
-    text-align: center;
-    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
-    border-radius: 15px 15px 15px 0px;
-}
-
 #save {
     margin-left: 1%;
-}
-
-{
-    background: #6eb051
-;
-/*background: #d8a859;*/
 }
 
 #report {
@@ -152,7 +130,7 @@
 }
 
 #accord {
-    padding: 0px 10px 10px 10px;
+    padding: 0 10px 10px 10px;
     /*width: 440px;*/
     width: auto;
     /*height: 220px;*/
@@ -196,30 +174,13 @@
     white-space: nowrap;
 }
 
-#mainlogo-td {
-    /*	 white-space:nowrap;*/
-    width: 1%;
-    vertical-align: top;
-    padding-top: 27px;
-}
-
-#audio-td {
-    align: right;
-}
-
-.audiobtns {
-    width: 150px !important;
-    padding: 6px !important;
-    font-size: 15px !important;
-    font-family: main !important;
-}
 
 legend, h3, button {
-    font-family: main !important;
+    font-family: main, sans-serif !important;
 }
 
 .title {
-    font-family: main !important;
+    font-family: main, sans-serif !important;
     font-size: 20px;
     /*font-weight: bold;*/
     /*color: #1e79be;*/
@@ -244,10 +205,6 @@ legend, h3, button {
     pointer-events: none;
 }
 
-.job_list_tbl_title {
-    font-size: 1.5em;
-}
-
 
 .alert-validate {
     background-color: #efdfdf !important;
@@ -255,7 +212,7 @@ legend, h3, button {
 
 #help {
     color: #2dace1;
-    font-family: main-l;
+    font-family: main-l, sans-serif;
 }
 
 .top-links a:link {
@@ -265,7 +222,7 @@ legend, h3, button {
 /* visited link */
 .top-links a:visited {
     color: #2dace1;
-    font-family: main-l;
+    font-family: main-l, sans-serif;
 }
 
 /* mouse over link */
@@ -436,12 +393,10 @@ body {
 /* -----------------*/
 
 div form label,
-div form .submit_btn,
-div form .clear_btn,
 div.listControl label,
 .refresh,
 .newupload {
-    background-color: #1e79be;
+    background-color: var(--vspt-blue);
     padding: 5px 10px;
     border-radius: 5px;
     /*border: 1px ridge black;*/
@@ -450,8 +405,6 @@ div.listControl label,
 }
 
 div form label:hover,
-div form .submit_btn:hover,
-div form .clear_btn:hover,
 div.listControl label:hover,
 .refresh:hover,
 .newupload:hover {
@@ -460,8 +413,6 @@ div.listControl label:hover,
 }
 
 div form label:active,
-div form .submit_btn:active,
-div form .clear_btn:active,
 div.listControl label:active,
 .refresh:active,
 .newupload:active {
@@ -635,7 +586,7 @@ td .times-downloaded {
 }
 
 .job-comment {
-    color: #1e79be;
+    color: var(--vspt-blue);
     font-size: 18px;
     vertical-align: text-bottom;
     cursor: pointer;

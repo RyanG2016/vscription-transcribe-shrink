@@ -275,7 +275,7 @@ div.able-now-playing > changed background color
   background-color: #464646; /* same as .able-controller */
   padding: 10px 0;
   position: absolute;
-  right: 0px;
+  right: 0;
   top: -74px;
   display: block;
   z-index: 9100;
@@ -503,9 +503,9 @@ div.able-modal-dialog {
 	max-width: 90%;
 	margin-left: auto;
 	margin-right: auto;
-	left: 0px;
-	right: 0px;
-	outline: 0px none;
+	left: 0;
+	right: 0;
+	outline: 0 none;
 	display: none;
 	color: #000;
 	background-color: #FAFAFA;
@@ -861,11 +861,11 @@ div.able-chapters-div button::-moz-focus-inner {
   -moz-border-radius: 5px;
   border-radius: 5px;
   display: block;
-box-shadow: 0px 0px 4px #262626;
+box-shadow: 0 0 4px #262626;
 }
 .able-alert {
   background-color: #FFFFCC;
-  box-shadow: 0px 0px 16px #262626;
+  box-shadow: 0 0 16px #262626;
   z-index: 9400;
   position: absolute;
   top: 1em;

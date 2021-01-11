@@ -33,5 +33,5 @@
 }
 
 .tooltipster-sidetip.tooltipster-punk.tooltipster-top .tooltipster-arrow-border {
-    border-top-color: #1e79be;
+    border-top-color: var(--vspt-blue);
 }

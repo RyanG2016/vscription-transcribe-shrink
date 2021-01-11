@@ -63,7 +63,7 @@ body{
 }
 
 .logout {
-    color: #1e79be;
+    color: var(--vspt-blue);
     text-decoration: underline;
 }
 
@@ -123,19 +123,12 @@ img:not(#norm, vtex-skip) {
     white-space: nowrap;
 }
 
-#mainlogo-td {
-    /*	 white-space:nowrap;*/
-    width: 1%;
-    vertical-align: top;
-    padding-top: 27px;
-}
-
 
 .title {
     font-family: main, sans-serif !important;
     font-size: 20px;
     font-weight: bold;
-    color: #1e79be;
+    color: var(--vspt-blue);
     /*color: #3d3d3d;*/
 }
 

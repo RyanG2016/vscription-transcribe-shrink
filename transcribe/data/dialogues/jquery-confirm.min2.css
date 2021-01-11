@@ -698,20 +698,20 @@ body[class*=jconfirm-no-scroll-] {
 	transform-origin: center
 }
 .jconfirm .jconfirm-box.jconfirm-animation-top {
-	-webkit-transform: translate(0px, -100px);
-	transform: translate(0px, -100px)
+	-webkit-transform: translate(0, -100px);
+	transform: translate(0, -100px)
 }
 .jconfirm .jconfirm-box.jconfirm-animation-left {
-	-webkit-transform: translate(-100px, 0px);
-	transform: translate(-100px, 0px)
+	-webkit-transform: translate(-100px, 0);
+	transform: translate(-100px, 0)
 }
 .jconfirm .jconfirm-box.jconfirm-animation-right {
-	-webkit-transform: translate(100px, 0px);
-	transform: translate(100px, 0px)
+	-webkit-transform: translate(100px, 0);
+	transform: translate(100px, 0)
 }
 .jconfirm .jconfirm-box.jconfirm-animation-bottom {
-	-webkit-transform: translate(0px, 100px);
-	transform: translate(0px, 100px)
+	-webkit-transform: translate(0, 100px);
+	transform: translate(0, 100px)
 }
 .jconfirm .jconfirm-box.jconfirm-animation-zoom {
 	-webkit-transform: scale(1.2);

@@ -48,7 +48,7 @@
 }
 
 .job-comment {
-    color: #1e79be;
+    color: var(--vspt-blue);
     font-size: 18px !important;
     vertical-align: text-bottom;
     cursor: pointer;

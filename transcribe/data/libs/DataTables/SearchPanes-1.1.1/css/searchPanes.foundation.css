@@ -59,7 +59,7 @@ div.dtsp-columns-1 {
   max-width: 98%;
   padding-left: 1%;
   padding-right: 1%;
-  margin: 0px !important;
+  margin: 0 !important;
 }
 
 div.dtsp-columns-2 {
@@ -67,7 +67,7 @@ div.dtsp-columns-2 {
   max-width: 48%;
   padding-left: 1%;
   padding-right: 1%;
-  margin: 0px !important;
+  margin: 0 !important;
 }
 
 div.dtsp-columns-3 {
@@ -75,7 +75,7 @@ div.dtsp-columns-3 {
   max-width: 30.333%;
   padding-left: 1%;
   padding-right: 1%;
-  margin: 0px !important;
+  margin: 0 !important;
 }
 
 div.dtsp-columns-4 {
@@ -83,7 +83,7 @@ div.dtsp-columns-4 {
   max-width: 23%;
   padding-left: 1%;
   padding-right: 1%;
-  margin: 0px !important;
+  margin: 0 !important;
 }
 
 div.dtsp-columns-5 {
@@ -91,7 +91,7 @@ div.dtsp-columns-5 {
   max-width: 18%;
   padding-left: 1%;
   padding-right: 1%;
-  margin: 0px !important;
+  margin: 0 !important;
 }
 
 div.dtsp-columns-6 {
@@ -99,7 +99,7 @@ div.dtsp-columns-6 {
   max-width: 15.666%;
   padding-left: 0.5%;
   padding-right: 0.5%;
-  margin: 0px !important;
+  margin: 0 !important;
 }
 
 div.dtsp-columns-7 {
@@ -107,7 +107,7 @@ div.dtsp-columns-7 {
   max-width: 13.28%;
   padding-left: 0.5%;
   padding-right: 0.5%;
-  margin: 0px !important;
+  margin: 0 !important;
 }
 
 div.dtsp-columns-8 {
@@ -115,7 +115,7 @@ div.dtsp-columns-8 {
   max-width: 11.5%;
   padding-left: 0.5%;
   padding-right: 0.5%;
-  margin: 0px !important;
+  margin: 0 !important;
 }
 
 div.dtsp-columns-9 {
@@ -123,7 +123,7 @@ div.dtsp-columns-9 {
   max-width: 11.111%;
   padding-left: 0.5%;
   padding-right: 0.5%;
-  margin: 0px !important;
+  margin: 0 !important;
 }
 
 div.dt-button-collection {
@@ -148,11 +148,11 @@ div.dtsp-searchPane {
   align-content: flex-start;
   align-items: stretch;
   padding: 10px;
-  padding-top: 0px;
-  padding-bottom: 0px;
+  padding-top: 0;
+  padding-bottom: 0;
   min-width: 280px;
   margin: 5px;
-  margin-top: 0px;
+  margin-top: 0;
   margin-bottom: 10px;
   font-size: 0.9em;
 }
@@ -222,13 +222,13 @@ div.dtsp-searchPane div.dtsp-searchCont input.search {
 div.dtsp-searchPane .dtsp-searchIcon {
   position: relative;
   display: inline-block;
-  margin: 0px;
+  margin: 0;
   margin-top: 2px;
   display: block;
   top: -2px;
-  right: 0px;
+  right: 0;
   font-size: 16px;
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 div.dtsp-searchPane div.dtsp-narrow {
   flex-direction: column !important;
@@ -333,19 +333,19 @@ div.dtsp-panesContainer .button {
 div.dtsp-panesContainer div.dtsp-title {
   float: left;
   margin: 20px;
-  margin-bottom: 0px;
+  margin-bottom: 0;
   margin-top: 10px;
 }
 div.dtsp-panesContainer button.dtsp-clearAll {
   float: right;
   margin: 20px;
   padding: 10px;
-  margin-bottom: 0px;
+  margin-bottom: 0;
   margin-top: 5px;
 }
 
 div.dtsp-smallGap {
-  padding: 0px;
+  padding: 0;
 }
 
 @media screen and (max-width: 767px) {

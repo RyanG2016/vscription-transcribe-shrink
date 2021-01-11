@@ -29,7 +29,7 @@
 
 .report thead tr {
     margin: 5px;
-    background-color: #1e79be;
+    background-color: var(--vspt-blue);
     color: white;
     border-collapse: collapse;
 }

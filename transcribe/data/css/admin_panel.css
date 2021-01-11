@@ -114,5 +114,5 @@
 
 .welcome-icon {
     font-size: 5rem !important;
-    color: #1e79be;
+    color: var(--vspt-blue);
 }

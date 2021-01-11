@@ -136,7 +136,7 @@ $uid = $_POST["uid-access"];
             <div class="vtex-card contents">
 
                 <div class="vtex-top-bar">
-                    <h2 class="users-tbl-title">Users List</h2>
+                    <h2 class="users-tbl-title">Access Table</h2>
                     <button class="mdc-button mdc-button--unelevated refresh-button" id="refresh_btn">
                         <div class="mdc-button__ripple"></div>
                         <i class="material-icons mdc-button__icon" aria-hidden="true">refresh</i>
@@ -153,68 +153,6 @@ $uid = $_POST["uid-access"];
     </div>
 </div>
 
-
-<div id="container" style="width: 100%">
-    <div class="form-style-5">
-
-        <table id="header-tbl">
-
-            <tr class="spacer"></tr>
-            <tr style="margin-top: 50px">
-                <td class="title" align="left" width="450px">
-
-                    <legend class="page-title">
-                        <i class="fas fa-shield-alt"></i>
-                        Manage Access for UID <?php echo $uid?>
-                    </legend>
-                </td>
-                <!--<td align="right" rowspan="2" id="fix-td">
-
-                    </td>-->
-
-                <td width="300px">
-                    <img src="../data/images/Logo_vScription_Transcribe_Pro_White.png" width="300px"/>
-                </td>
-            </tr>
-
-
-        </table>
-
-        <div class="root">
-
-            <div class="vtex-card contents first">
-
-                <div class="vtex-top-bar">
-                    <h2 class="accesss-tbl-title">Access Table</h2>
-                    <button class="mdc-button mdc-button--unelevated refresh-button" id="refresh_btn">
-                        <div class="mdc-button__ripple"></div>
-                        <i class="material-icons mdc-button__icon" aria-hidden="true">refresh</i>
-                        <span class="mdc-button__label">Refresh</span>
-                    </button>
-                </div>
-
-
-                <!--        CONTENTS GOES HERE        -->
-                    <table id="access-tbl" class="access-tbl table row-border hover compact" style="width:100%">
-                    <!--<thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Acc ID</th>
-                        <th>Account</th>
-                        <th>Username</th>
-                        <th>Email</th>
-                        <th>Role ID</th>
-                        <th>Role</th>
-                        <th>Def</th>
-                    </tr>
-                    </thead>-->
-                </table>
-            </div>
-        </div>
-
-
-    </div>
-</div>
 
 <!-- The Modal -->
 <div id="modal" class="modal">

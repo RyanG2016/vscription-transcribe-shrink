@@ -120,24 +120,12 @@ a {
     grid-area: content;
 }
 
-/*.item2 { grid-area: menu; }
-.item3 { grid-area: main; }
-.item4 { grid-area: compatBrowsers; }
-.item5 { grid-area: compatOS; }
-.item6 { grid-area: compatHardware; }
-.item4-5-header { grid-area: compatHeader; }*/
-
-
 /* Contents Styling */
 .welcome {
-    /*text-align: center;*/
-    /*align-content: center;*/
-    /*margin-left:auto;*/
-    /*margin-right:auto;*/
     margin: auto;
 }
 
 .welcome-icon {
     font-size: 5rem !important;
-    color: #1e79be;
+    color: var(--vspt-blue-dark);
 }

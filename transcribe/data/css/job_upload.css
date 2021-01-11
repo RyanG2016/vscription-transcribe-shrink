@@ -57,25 +57,10 @@
 }
 
 .logout {
-    color: #1e79be;
+    color: var(--vspt-blue);
     text-decoration: underline;
 }
 
-
-.form-style-5 .number {
-    background: #4892cc;
-    /*background: #eaaa3e;*/
-    color: #fff;
-    height: 30px;
-    width: 30px;
-    display: inline-block;
-    font-size: 0.8em;
-    margin-right: 4px;
-    line-height: 30px;
-    text-align: center;
-    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
-    border-radius: 15px 15px 15px 0px;
-}
 
 #save {
     margin-left: 1%;
@@ -186,34 +171,23 @@
     white-space: nowrap;
 }
 
-#mainlogo-td {
-    /*	 white-space:nowrap;*/
-    width: 1%;
-    vertical-align: top;
-    padding-top: 27px;
-}
-
-#audio-td {
-    align: right;
-}
 
 .audiobtns {
     width: 150px !important;
     padding: 6px !important;
     font-size: 15px !important;
-    font-family: main !important;
+    font-family: main, sans-serif !important;
 }
 
 legend, h3, button {
-    font-family: main !important;
+    font-family: main, sans-serif !important;
 }
 
 .title {
-    font-family: main !important;
+    font-family: main, sans-serif !important;
     font-size: 20px;
     font-weight: bold;
-    color: #1e79be;
-    /*color: #3d3d3d;*/
+    color: var(--vspt-blue);
 }
 
 .spacer {
@@ -231,7 +205,7 @@ legend, h3, button {
 
 #help {
     color: #2dace1;
-    font-family: main-l;
+    font-family: main-l, sans-serif;
 }
 
 .top-links a:link {
@@ -241,7 +215,7 @@ legend, h3, button {
 /* visited link */
 .top-links a:visited {
     color: #2dace1;
-    font-family: main-l;
+    font-family: main-l, sans-serif;
 }
 
 /* mouse over link */
@@ -509,13 +483,6 @@ select:focus,
     /*line-height: 100%;*/
 }
 
-.job_upload_form_lbl {
-    font-size: 0.9rem;
-    margin-top: 15px;
-    color: #1e79be;
-    font-weight: normal;
-}
-
 .mdc-text-field {
     --mdc-theme-primary: #1e79be;
     --mdc-theme-on-primary: #1e79be;
@@ -599,7 +566,7 @@ table {
 .spinner .bounce1 {
     -webkit-animation-delay: -0.32s;
     animation-delay: -0.32s;
-    background-color: #1e79be;
+    background-color: var(--vspt-blue);
 }
 
 .spinner .bounce2 {

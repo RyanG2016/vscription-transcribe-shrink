@@ -48,7 +48,7 @@
  */
 
 .popover-header {
-    background-color: #1e79be;
+    background-color: var(--vspt-blue);
     color: white;
 }
 
@@ -72,16 +72,7 @@ svg {
     vertical-align: baseline;
 }
 
-
-/* =============================
-    JQUERY CONFIRM CONFLICT
- ===============================
- */
-/*body > div.jconfirm.jconfirm-light.jconfirm-open > div.jconfirm-scrollpane > div > div > div > div > div > div {
-    max-width: unset;
-    !*min-width: fit-content;*!
-}*/
-
+/*  */
 .jconfirm-box-container {
     max-width: unset;
     min-width: fit-content;
@@ -92,62 +83,11 @@ svg {
 }
 
 
-/* Bootstrap4 Data tables search bar not on the right */
-
-
-/*#users-tbl_wrapper > div.row,
-#accounts-tbl_wrapper > div.row
-{
-    justify-content: space-between !important;
-
-}
-#users-tbl_wrapper > div.row > div.col-sm-12:nth-child(2),
-#accounts-tbl_wrapper > div.row > div.col-sm-12:nth-child(2)
-{
-    flex: 0 0 auto !important;
-    width: auto !important;
-    max-width: 100% !important;
-}
-thead{
-    white-space: nowrap;
-    border-radius: 16px;
-    background-color: var(--vspt-blue);
-    color: white;
-}
-
-!* Active page button *!
-.page-item.active .page-link {
-    z-index: 3;
-    color: #fff;
-    background-color: var(--vspt-blue);
-    border-color: var(--vspt-blue);
-}
-.page-link {
-    color: var(--vspt-blue);
-}
-
-body{
-    overflow: auto !important;
-}
-
-tr{
-    font-size: .875rem;
-}*/
-
-/*td{
-    padding: 6px 12px !important;
-}*/
-/*
-.mdc-button{
-    white-space: nowrap;
-}*/
-
-
 .list-group-item.active {
     z-index: 2;
     color: #fff;
-    background-color: var(--vspt-blue);
-    border-color: var(--vspt-blue);
+    background-color: var(--vspt-blue-dark);
+    border-color: var(--vspt-blue-dark);
 }
 
 .ui-accordion {

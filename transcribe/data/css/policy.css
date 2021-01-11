@@ -5,8 +5,8 @@
 [ RESTYLE TAG ]*/
 
 *:not(ul):not(li) {
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
@@ -96,7 +96,7 @@ p {
     -moz-box-shadow: 0 5px 10px 0 rgba(38, 38, 38, 1);
     -webkit-box-shadow: 0 5px 10px 0 rgba(38, 38, 38, 1);
     -o-box-shadow: 0 5px 10px 0 rgba(38, 38, 38, 1);
-    -ms-box-shadow: 0 5px 10px 0px rgba(38, 38, 38, 1);
+    -ms-box-shadow: 0 5px 10px 0 rgba(38, 38, 38, 1);
     -webkit-transition: width 1s; /* For Safari 3.1 to 6.0 */
     transition: width 1s;
 }

@@ -160,7 +160,7 @@ a:hover {
 
 .welcome-icon {
     font-size: 3.5rem !important;
-    color: #1e79be;
+    color: var(--vspt-blue);
 }
 
 .package-card {

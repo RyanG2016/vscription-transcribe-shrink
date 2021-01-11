@@ -44,7 +44,7 @@ body {
 }
 
 .jobNo, .title-default-text {
-    color: #1e79be;
+    color: var(--vspt-blue);
 }
 
 .title-default-text {

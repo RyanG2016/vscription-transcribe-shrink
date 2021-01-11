@@ -130,12 +130,12 @@ a:hover {
 
 .welcome-icon {
     font-size: 3.5rem !important;
-    color: #1e79be;
+    color: var(--vspt-blue);
 }
 
 .cart-icon {
     font-size: 1.2rem !important;
-    color: #1e79be;
+    color: var(--vspt-blue);
 }
 
 .package-card {
@@ -297,8 +297,8 @@ input {
 .creditcard svg#cardfront,
 .creditcard svg#cardback {
     width: 100%;
-    -webkit-box-shadow: 1px 5px 6px 0px black;
-    box-shadow: 1px 5px 6px 0px black;
+    -webkit-box-shadow: 1px 5px 6px 0 black;
+    box-shadow: 1px 5px 6px 0 black;
     border-radius: 22px;
 }
 
@@ -310,8 +310,6 @@ input {
     padding: 2px 4px;
     background-color: #909090;
     border-radius: 4px;
-    cursor: pointer;
-    float: right;
 }
 
 /* CHANGEABLE CARD ELEMENTS */
@@ -514,7 +512,6 @@ input {
     transform-style: preserve-3d;
     transition: -webkit-transform 0.6s;
     -webkit-transition: -webkit-transform 0.6s;
-    transition: transform 0.6s;
     transition: transform 0.6s, -webkit-transform 0.6s;
     cursor: pointer;
 }
