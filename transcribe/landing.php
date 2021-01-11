@@ -81,7 +81,7 @@ if (isset($_SESSION['counter'])) {
 
         <?php include_once "data/parts/nav.php"?>
 
-        <div class="vspt-page-container vspt-col-auto-fix">
+        <div class="vspt-page-container col">
 
             <div class="row">
                 <div class="col">
