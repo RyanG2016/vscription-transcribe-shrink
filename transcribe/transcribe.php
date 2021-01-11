@@ -233,20 +233,15 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 
                             </td>
                             <td width="225px">
+
+
+                            </td>
+                            <td id="help-td" align="right" width="225px">
                                 <button class="mdc-button mdc-button--unelevated compact-view-btn" id="pop" name="compact-view"
                                         type="button">
                                     <div class="mdc-button__ripple"></div>
                                     <i class="fas fa-external-link-alt"></i>
                                     <span class="mdc-button__label">&nbsp;Compact View</span>
-                                </button>
-
-                            </td>
-                            <td id="help-td" align="right" width="225px">
-                                <button class="mdc-button mdc-button--unelevated logout-btn" id="logoutBtn" name="logout-btn"
-                                        type="button">
-                                    <div class="mdc-button__ripple"></div>
-                                    <i class="fas fa-sign-out-alt"></i>
-                                    <span class="mdc-button__label">&nbsp;Logout</span>
                                 </button>
                             </td>
 
