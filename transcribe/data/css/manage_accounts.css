@@ -135,14 +135,31 @@
     /*grid-template-columns: 0.17fr 1fr;*/
     grid-template-columns: fit-content(100%) 1fr;
 }
-/* Billing Rate 1 Grid */
-.br1{grid-area: br1;}
-.br1min{grid-area: br1min;}
-.br1tat{grid-area: br1tat;}
 
-.br1desc > label{grid-area: br1descLbl; margin: auto 0 auto auto;}
-.br1desc > input{grid-area: br1descInput; margin: auto 0;}
-.br1desc{
+/* Billing Rate 1 Grid */
+.br1 {
+    grid-area: br1;
+}
+
+.br1min {
+    grid-area: br1min;
+}
+
+.br1tat {
+    grid-area: br1tat;
+}
+
+.br1desc > label {
+    grid-area: br1descLbl;
+    margin: auto 0 auto auto;
+}
+
+.br1desc > input {
+    grid-area: br1descInput;
+    margin: auto 0;
+}
+
+.br1desc {
     grid-area: br1desc;
     display: inline-grid;
     grid-template-areas:
@@ -152,14 +169,18 @@
     grid-template-columns: 105px 1fr;
 }
 
-.br1type > label{grid-area: br1typelbl; margin: auto 0 auto auto;}
+.br1type > label {
+    grid-area: br1typelbl;
+    margin: auto 0 auto auto;
+}
+
 .br1type > span,
 .br1type > select {
     grid-area: br1typeSp;
     margin: auto 0;
 }
 
-.br1type{
+.br1type {
     grid-area: br1type;
     display: inline-grid;
     grid-template-areas:
@@ -169,7 +190,7 @@
     grid-template-columns: 105px 1fr 1fr;
 }
 
-.bill1-grid{
+.bill1-grid {
     display: grid;
     grid-template-areas:
     'br1 br1type br1type'
@@ -179,17 +200,34 @@
     width: 100%;
     grid-template-columns: fit-content(100%) 1fr 1fr;
 }
+
 /* END Billing Rate 1 Grid */
 
 
 /* Billing Rate 2 Grid */
-.br2{grid-area: br2;}
-.br2min{grid-area: br2min;}
-.br2tat{grid-area: br2tat;}
+.br2 {
+    grid-area: br2;
+}
 
-.br2desc > label{grid-area: br2descLbl; margin: auto 0 auto auto;}
-.br2desc > input{grid-area: br2descInput; margin: auto 0;}
-.br2desc{
+.br2min {
+    grid-area: br2min;
+}
+
+.br2tat {
+    grid-area: br2tat;
+}
+
+.br2desc > label {
+    grid-area: br2descLbl;
+    margin: auto 0 auto auto;
+}
+
+.br2desc > input {
+    grid-area: br2descInput;
+    margin: auto 0;
+}
+
+.br2desc {
     grid-area: br2desc;
     display: inline-grid;
     grid-template-areas:
@@ -199,14 +237,18 @@
     grid-template-columns: 105px 1fr;
 }
 
-.br2type > label{grid-area: br2typelbl; margin: auto 0 auto auto;}
+.br2type > label {
+    grid-area: br2typelbl;
+    margin: auto 0 auto auto;
+}
+
 .br2type > span,
 .br2type > select {
     grid-area: br2typeSp;
     margin: auto 0;
 }
 
-.br2type{
+.br2type {
     grid-area: br2type;
     display: inline-grid;
     grid-template-areas:
@@ -216,7 +258,7 @@
     grid-template-columns: 105px 1fr 1fr;
 }
 
-.bill2-grid{
+.bill2-grid {
     display: grid;
     grid-template-areas:
     'br2 br2type br2type'
@@ -226,17 +268,34 @@
     width: 100%;
     grid-template-columns: fit-content(100%) 1fr 1fr;
 }
+
 /* END Billing Rate 2 Grid */
 
 
 /* Billing Rate 3 Grid */
-.br3{grid-area: br3;}
-.br3min{grid-area: br3min;}
-.br3tat{grid-area: br3tat;}
+.br3 {
+    grid-area: br3;
+}
 
-.br3desc > label{grid-area: br3descLbl; margin: auto 0 auto auto;}
-.br3desc > input{grid-area: br3descInput; margin: auto 0;}
-.br3desc{
+.br3min {
+    grid-area: br3min;
+}
+
+.br3tat {
+    grid-area: br3tat;
+}
+
+.br3desc > label {
+    grid-area: br3descLbl;
+    margin: auto 0 auto auto;
+}
+
+.br3desc > input {
+    grid-area: br3descInput;
+    margin: auto 0;
+}
+
+.br3desc {
     grid-area: br3desc;
     display: inline-grid;
     grid-template-areas:
@@ -246,14 +305,18 @@
     grid-template-columns: 105px 1fr;
 }
 
-.br3type > label{grid-area: br3typelbl; margin: auto 0 auto auto;}
+.br3type > label {
+    grid-area: br3typelbl;
+    margin: auto 0 auto auto;
+}
+
 .br3type > span,
 .br3type > select {
     grid-area: br3typeSp;
     margin: auto 0;
 }
 
-.br3type{
+.br3type {
     grid-area: br3type;
     display: inline-grid;
     grid-template-areas:
@@ -263,7 +326,7 @@
     grid-template-columns: 105px 1fr 1fr;
 }
 
-.bill3-grid{
+.bill3-grid {
     display: grid;
     grid-template-areas:
     'br3 br3type br3type'
@@ -273,16 +336,33 @@
     width: 100%;
     grid-template-columns: fit-content(100%) 1fr 1fr;
 }
+
 /* END Billing Rate 3 Grid */
 
 /* Billing Rate 4 Grid */
-.br4{grid-area: br4;}
-.br4min{grid-area: br4min;}
-.br4tat{grid-area: br4tat;}
+.br4 {
+    grid-area: br4;
+}
 
-.br4desc > label{grid-area: br4descLbl; margin: auto 0 auto auto;}
-.br4desc > input{grid-area: br4descInput; margin: auto 0;}
-.br4desc{
+.br4min {
+    grid-area: br4min;
+}
+
+.br4tat {
+    grid-area: br4tat;
+}
+
+.br4desc > label {
+    grid-area: br4descLbl;
+    margin: auto 0 auto auto;
+}
+
+.br4desc > input {
+    grid-area: br4descInput;
+    margin: auto 0;
+}
+
+.br4desc {
     grid-area: br4desc;
     display: inline-grid;
     grid-template-areas:
@@ -292,14 +372,18 @@
     grid-template-columns: 105px 1fr;
 }
 
-.br4type > label{grid-area: br4typelbl; margin: auto 0 auto auto;}
+.br4type > label {
+    grid-area: br4typelbl;
+    margin: auto 0 auto auto;
+}
+
 .br4type > span,
 .br4type > select {
     grid-area: br4typeSp;
     margin: auto 0;
 }
 
-.br4type{
+.br4type {
     grid-area: br4type;
     display: inline-grid;
     grid-template-areas:
@@ -309,7 +393,7 @@
     grid-template-columns: 105px 1fr 1fr;
 }
 
-.bill4-grid{
+.bill4-grid {
     display: grid;
     grid-template-areas:
     'br4 br4type br4type'
@@ -319,17 +403,34 @@
     width: 100%;
     grid-template-columns: fit-content(100%) 1fr 1fr;
 }
+
 /* END Billing Rate 4 Grid */
 
 
 /* Billing Rate 5 Grid */
-.br5{grid-area: br5;}
-.br5min{grid-area: br5min;}
-.br5tat{grid-area: br5tat;}
+.br5 {
+    grid-area: br5;
+}
 
-.br5desc > label{grid-area: br5descLbl; margin: auto 0 auto auto;}
-.br5desc > input{grid-area: br5descInput; margin: auto 0;}
-.br5desc{
+.br5min {
+    grid-area: br5min;
+}
+
+.br5tat {
+    grid-area: br5tat;
+}
+
+.br5desc > label {
+    grid-area: br5descLbl;
+    margin: auto 0 auto auto;
+}
+
+.br5desc > input {
+    grid-area: br5descInput;
+    margin: auto 0;
+}
+
+.br5desc {
     grid-area: br5desc;
     display: inline-grid;
     grid-template-areas:
@@ -339,14 +440,18 @@
     grid-template-columns: 105px 1fr;
 }
 
-.br5type > label{grid-area: br5typelbl; margin: auto 0 auto auto;}
+.br5type > label {
+    grid-area: br5typelbl;
+    margin: auto 0 auto auto;
+}
+
 .br5type > span,
 .br5type > select {
     grid-area: br5typeSp;
     margin: auto 0;
 }
 
-.br5type{
+.br5type {
     grid-area: br5type;
     display: inline-grid;
     grid-template-areas:
@@ -356,7 +461,7 @@
     grid-template-columns: 105px 1fr 1fr;
 }
 
-.bill5-grid{
+.bill5-grid {
     display: grid;
     grid-template-areas:
     'br5 br5type br5type'
@@ -366,14 +471,20 @@
     width: 100%;
     grid-template-columns: fit-content(100%) 1fr 1fr;
 }
+
 /* END Billing Rate 5 Grid */
 
 
 /* Retention Grid */
-.rt1{grid-area: acc;}
-.rt2{grid-area: actlog;}
+.rt1 {
+    grid-area: acc;
+}
 
-.retention-grid{
+.rt2 {
+    grid-area: actlog;
+}
+
+.retention-grid {
     display: grid;
     grid-template-areas:
     'acc actlog';
@@ -381,6 +492,7 @@
     width: 100%;
     grid-template-columns: 1fr 1fr;
 }
+
 /* END Billing Rate 5 Grid */
 
 .accounts-tbl-title {
@@ -422,15 +534,17 @@
     --mdc-theme-primary: #1e79be;
 }
 
-label{
+label {
     font-size: 16px;
     color: #4c4c4c;
     font-weight: bold;
 }
 
-legend{
+legend {
     font-size: 18px;
     width: auto;
 }
 
-.context-menu-item{font-family:main, sans-serif !important;}
+.context-menu-item {
+    font-family: main, sans-serif !important;
+}

@@ -34,22 +34,23 @@
     border-collapse: collapse;
 }
 
-.report > tbody > tr:last-child{
+.report > tbody > tr:last-child {
     border-bottom: 3px dashed #1e79be;
 }
 
-.report > tbody > tr > td{
+.report > tbody > tr > td {
     padding: 10px;
 }
 
 .report tbody {
     border-collapse: collapse;
 }
-.report td.num{
+
+.report td.num {
     text-align: center;
 }
 
-.report td.right{
+.report td.right {
     text-align: left;
 }
 
@@ -68,33 +69,39 @@
     width: 125px;
     text-align: left;
 }
+
 .datedict {
     width: 100px;
 }
+
 .audiolength {
     width: 75px;
 }
+
 .transdate {
     width: 125px;
     text-align: left;
 }
+
 .comments {
     width: 350px;
     text-align: left;
 }
 
-.report > thead > tr > th{
+.report > thead > tr > th {
     padding: 10px;
 }
-.report > thead > tr > th:first-child{
+
+.report > thead > tr > th:first-child {
     /*border: 2px dashed red;*/
     border-radius: 15px 0 0 0;
 }
-.report > thead > tr > th.comments{
+
+.report > thead > tr > th.comments {
     border-radius: 0 15px 0 0;
 }
 
-.report tr:not(#header):hover{
+.report tr:not(#header):hover {
     background: rgba(30, 121, 190, 0.1);
 }
 
@@ -108,33 +115,54 @@ h3 {
     font-size: 14px;
 }
 
-.pad15 > td{
+.pad15 > td {
     padding: 12px;
 }
 
-.grid-wrapper-tbl{
+.grid-wrapper-tbl {
     width: 100%;
 }
 
-input, label{
+input, label {
     /*font-family: 'OpenSans', serif;*/
 }
 
 
-.flr{
+.flr {
     float: right;
 }
 
 
 /* Grid */
 
-.start-date-item { grid-area: start; }
-.account { grid-area: acc; }
-.end-date-item { grid-area: end; }
-.retrieve-item { grid-area: get; }
-.pdf-item { grid-area: pdf; }
-.print-item { grid-area: printJS; }
-.report-grid {grid-area: report;}
+.start-date-item {
+    grid-area: start;
+}
+
+.account {
+    grid-area: acc;
+}
+
+.end-date-item {
+    grid-area: end;
+}
+
+.retrieve-item {
+    grid-area: get;
+}
+
+.pdf-item {
+    grid-area: pdf;
+}
+
+.print-item {
+    grid-area: printJS;
+}
+
+.report-grid {
+    grid-area: report;
+}
+
 .grid-wrapper {
     display: inline-grid;
     /*display: grid;*/
@@ -154,22 +182,22 @@ input, label{
     /*background-color: rgba(30, 121, 190, 0.2);*/
 }
 
-.bold{
+.bold {
     font-weight: bold;
 }
 
-.tools-button{
+.tools-button {
     position: relative;
     top: calc(100% - 36px);
 }
 
-.find-acc-icon{
+.find-acc-icon {
     vertical-align: bottom;
     color: var(--vspt-blue);
     float: right;
 }
 
-.find-acc-icon:hover{
+.find-acc-icon:hover {
     cursor: pointer;
     color: var(--vspt-orange);
 }

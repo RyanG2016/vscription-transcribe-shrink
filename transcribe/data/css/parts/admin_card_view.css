@@ -1,31 +1,31 @@
-#report{
+#report {
     resize: both;
     overflow: auto;
     width: 60%;
 }
 
 
-.upload_cell{
+.upload_cell {
     width: 50%;
     padding: 20px;
     vertical-align: top;
 }
 
 
-
-#tip{
+#tip {
     font-size: 0.9em;
 
     display: inline;
     /*white-space: nowrap;*/
 }
 
-#norm{
+#norm {
     vertical-align: middle;
     /*vertical-align: text-top;*/
     width: 34px;
     height: auto;
 }
+
 #accord {
     padding: 0 10px 10px 10px;
     /*width: 440px;*/
@@ -36,31 +36,34 @@
     /*float: right;*/
 }
 
-#leg{
+#leg {
     /*border: 1px solid #5f3f3f;*/
-    width:auto;
-    display:inline;
+    width: auto;
+    display: inline;
 }
 
-#mainlogo{
+#mainlogo {
     float: none !important;
 
 }
-#header-tbl,#demo-tbl{
+
+#header-tbl, #demo-tbl {
     padding-inline-start: 0.75em;
     padding-inline-end: 0.75em;
     width: 100%;
 }
-#rep-tbl{
+
+#rep-tbl {
     width: 100%;
 }
-#nr{
+
+#nr {
 
     width: 1%;
     white-space: nowrap;
 }
 
-#mainlogo-td{
+#mainlogo-td {
     /*	 white-space:nowrap;*/
     width: 1%;
     vertical-align: top;
@@ -68,18 +71,18 @@
 }
 
 
-.title{
+.title {
     font-size: 20px;
     font-weight: bold;
     color: #1e79be;
     /*color: #3d3d3d;*/
 }
 
-.spacer{
+.spacer {
     height: 20px;
 }
 
-.noHover{
+.noHover {
     pointer-events: none;
 }
 
@@ -87,7 +90,7 @@
     background-color: #efdfdf !important;
 }
 
-#help{
+#help {
     color: #2dace1;
 }
 
@@ -114,21 +117,21 @@ table, th, td {
     /*  border: 1px solid black;*/
 }
 
-#loadBtn{
+#loadBtn {
     display: block;
     max-width: 302px;
     text-overflow: ellipsis;
     overflow: hidden;
 }
 
-.grid-wrapper{
+.grid-wrapper {
     box-shadow: 0 0 16px #262626;
     background: white;
     padding: 20px;
     border-radius: 10px;
 }
 
-.page-title{
+.page-title {
     color: white;
     font-weight: normal;
 }

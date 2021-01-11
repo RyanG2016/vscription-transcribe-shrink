@@ -7,7 +7,7 @@
 
 
 /* upload_form_2 */
-#report{
+#report {
     resize: both;
     overflow: auto;
     width: 60%;
@@ -15,7 +15,7 @@
 
 
 /*form data*/
-.form-style-5{
+.form-style-5 {
 
     max-width: 90%;
     min-width: 860px;
@@ -23,14 +23,15 @@
     margin: 10px auto;
     padding: 12px 20px 15px 20px;
     border-radius: 8px;
-    font-family: main, sans-serif  !important;
+    font-family: main, sans-serif !important;
     -webkit-transition: width 1s;
     transition: width 1s;
 }
 
-.form-style-5 fieldset{
+.form-style-5 fieldset {
     border: none;
 }
+
 .form-style-5 legend {
     font-size: 1.4em;
     /*    margin-bottom: 10px;*/
@@ -44,18 +45,18 @@
 }
 
 
-#logbar{
-    font-family: main , sans-serif  !important;
+#logbar {
+    font-family: main, sans-serif !important;
     font-size: 12px;
 }
 
-.upload_cell{
+.upload_cell {
     width: 50%;
     padding: 20px;
     vertical-align: top;
 }
 
-.logout{
+.logout {
     color: #1e79be;
     text-decoration: underline;
 }
@@ -72,17 +73,16 @@
     margin-right: 4px;
     line-height: 30px;
     text-align: center;
-    text-shadow: 0 1px 0 rgba(255,255,255,0.2);
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
     border-radius: 15px 15px 15px 0px;
 }
 
-#save
-{
+#save {
     margin-left: 1%;
 }
 
 
-#report{
+#report {
     resize: both;
     overflow: auto;
     width: 100%;
@@ -90,31 +90,35 @@
 }
 
 
-#jobNo{
+#jobNo {
     width: 20%;
 }
 
-#authorName{
+#authorName {
     width: 40%
 }
 
-#TypistName{
-    width:39%;
+#TypistName {
+    width: 39%;
 
 }
-#comments{
+
+#comments {
     width: 34.5%;
 }
 
-#date,#dateT{
+#date, #dateT {
     width: 20%;
 }
-#comments,#date,#dateT{
+
+#comments, #date, #dateT {
     margin-bottom: 5px;
 }
-#jobType{
+
+#jobType {
     width: 24%;
 }
+
 /*
 
 #save,#clear{
@@ -130,7 +134,7 @@
     width: 10%;
 
 }*/
-#tip{
+#tip {
     font-size: 0.9em;
 
     font-family: main, sans-serif !important;
@@ -138,12 +142,13 @@
     /*white-space: nowrap;*/
 }
 
-#norm{
+#norm {
     vertical-align: middle;
     /*vertical-align: text-top;*/
     width: 34px;
     height: auto;
 }
+
 #accord {
     padding: 0 10px 10px 10px;
     /*width: 440px;*/
@@ -154,53 +159,56 @@
     /*float: right;*/
 }
 
-#leg{
+#leg {
     /*border: 1px solid #5f3f3f;*/
-    width:auto;
-    display:inline;
+    width: auto;
+    display: inline;
 }
 
-#mainlogo{
+#mainlogo {
     float: none !important;
 
 }
-#header-tbl,#demo-tbl{
+
+#header-tbl, #demo-tbl {
     padding-inline-start: 0.75em;
     padding-inline-end: 0.75em;
     width: 100%;
 }
-#rep-tbl{
+
+#rep-tbl {
     width: 100%;
 }
-#nr{
+
+#nr {
 
     width: 1%;
     white-space: nowrap;
 }
 
-#mainlogo-td{
+#mainlogo-td {
     /*	 white-space:nowrap;*/
     width: 1%;
     vertical-align: top;
     padding-top: 27px;
 }
 
-#audio-td{
+#audio-td {
     align: right;
 }
 
-.audiobtns{
+.audiobtns {
     width: 150px !important;
     padding: 6px !important;
     font-size: 15px !important;
     font-family: main !important;
 }
 
-legend, h3,button{
+legend, h3, button {
     font-family: main !important;
 }
 
-.title{
+.title {
     font-family: main !important;
     font-size: 20px;
     font-weight: bold;
@@ -208,11 +216,11 @@ legend, h3,button{
     /*color: #3d3d3d;*/
 }
 
-.spacer{
+.spacer {
     height: 20px;
 }
 
-.noHover{
+.noHover {
     pointer-events: none;
 }
 
@@ -221,7 +229,7 @@ legend, h3,button{
     background-color: #efdfdf !important;
 }
 
-#help{
+#help {
     color: #2dace1;
     font-family: main-l;
 }
@@ -250,31 +258,31 @@ table, th, td {
     /*  border: 1px solid black;*/
 }
 
-#loadBtn{
+#loadBtn {
     display: block;
     max-width: 302px;
     text-overflow: ellipsis;
     overflow: hidden;
 }
 
-.data-tbl{
+.data-tbl {
     /*box-shadow: 0px 0px 16px #262626;*/
     /*background: white;*/
 }
 
-.page-title{
+.page-title {
     color: white;
     font-weight: normal;
 }
 
-#logbar{
+#logbar {
     color: whitesmoke;
-    font-family: main , sans-serif  !important;
+    font-family: main, sans-serif !important;
     font-size: 12px;
 }
+
 #logbar a,
-#navbtn a
-{
+#navbtn a {
     color: #d4edff;
 }
 
@@ -285,14 +293,13 @@ table, th, td {
 }
 
 
-
 /* -----------------*/
 /* --BUTTON STYLING --*/
 /* -----------------*/
 
 div form .submit_btn,
 div form .clear_btn,
-div form .upload_btn_lbl{
+div form .upload_btn_lbl {
     /*background-color: #1e79be;*/
     padding: 5px 10px;
     border-radius: 5px;
@@ -302,14 +309,16 @@ div form .upload_btn_lbl{
     --mdc-theme-on-primary: white;
 }
 
-div form .submit_btn{
+div form .submit_btn {
     --mdc-theme-primary: #1e79be;
 }
-div form .upload_btn_lbl{
+
+div form .upload_btn_lbl {
     /*--mdc-theme-primary: #7f9ccb;*/
     --mdc-theme-primary: #1e79be;
 }
-div form .clear_btn{
+
+div form .clear_btn {
     --mdc-theme-primary: #B00020;
 }
 
@@ -338,6 +347,7 @@ div form .clear_btn{
 .upload_limits {
     font-size: 12px;
 }
+
 div.upload_failed_message {
     display: none;
 }
@@ -383,7 +393,7 @@ input[type=date] {
     /*border: 1px solid #ccc;*/
     /*border-radius: 4px;*/
     font-size: 1rem;
-    font-family: main , sans-serif  !important;
+    font-family: main, sans-serif !important;
 
     height: 56px;
     width: 94%;
@@ -399,7 +409,6 @@ input[type=date] {
     /*font-size: 1rem;*/
     color: #202020;
 }
-
 
 
 .box7 .upload_fields {
@@ -433,13 +442,14 @@ select {
     border-radius: 4px;
     font-size: 1rem;
     color: #202020;
-    font-family: main , sans-serif  !important;
+    font-family: main, sans-serif !important;
 
 
     /*font-family: Lato;*/
     /*line-height: 100%;*/
 }
-select option{
+
+select option {
     /*width: 80%;*/
 
     height: 56px;
@@ -465,29 +475,30 @@ input[type=text],
     /*width: 96%;*/
     font-size: 1.0rem;
     padding: 5px 10px;
-    background-color: rgba(255,255,255,0);
+    background-color: rgba(255, 255, 255, 0);
     height: 36px;
     /*border: 1px solid #97999a;*/
     border-radius: 4px;
     color: #202020;
-    font-family: main , sans-serif  !important;
+    font-family: main, sans-serif !important;
 }
-#demo_comments{
+
+#demo_comments {
     /*width: 96%;*/
     font-size: 1.0rem;
     padding: 5px 10px;
-    background-color: rgba(255,255,255,0);
+    background-color: rgba(255, 255, 255, 0);
     /*border: 1px solid #97999a;*/
     /*border-radius: 4px;*/
     color: #202020;
-    font-family: main , sans-serif  !important;
+    font-family: main, sans-serif !important;
 }
 
 input[type=date]:focus,
 input[type=text]:focus,
 #demo_comments:focus,
 select:focus,
-.demo_author:focus{
+.demo_author:focus {
     /*width: 80%;*/
 
     border-color: #1e79be !important;
@@ -498,70 +509,71 @@ select:focus,
     /*line-height: 100%;*/
 }
 
-.job_upload_form_lbl{
+.job_upload_form_lbl {
     font-size: 0.9rem;
     margin-top: 15px;
     color: #1e79be;
     font-weight: normal;
 }
 
-.mdc-text-field{
+.mdc-text-field {
     --mdc-theme-primary: #1e79be;
-    --mdc-theme-on-primary: #1e79be ;
+    --mdc-theme-on-primary: #1e79be;
     --mdc-theme-secondary: #1e79be;
-    --mdc-theme-background:#1e79be;
-    --mdc-theme-surface:#1e79be;
-    --mdc-theme-on-secondary:#1e79be;
-    --mdc-theme-on-surface:#1e79be;
+    --mdc-theme-background: #1e79be;
+    --mdc-theme-surface: #1e79be;
+    --mdc-theme-on-secondary: #1e79be;
+    --mdc-theme-on-surface: #1e79be;
 }
-.mdc-floating-label{
+
+.mdc-floating-label {
     --mdc-theme-primary: #1e79be;
-    --mdc-theme-on-primary: #1e79be ;
+    --mdc-theme-on-primary: #1e79be;
     --mdc-theme-secondary: #1e79be;
-    --mdc-theme-background:#1e79be;
-    --mdc-theme-surface:#1e79be;
-    --mdc-theme-on-secondary:#1e79be;
-    --mdc-theme-on-surface:#1e79be;
+    --mdc-theme-background: #1e79be;
+    --mdc-theme-surface: #1e79be;
+    --mdc-theme-on-secondary: #1e79be;
+    --mdc-theme-on-surface: #1e79be;
 }
 
 /*-----------------------*/
 /*   Header Styling      */
 /*-----------------------*/
-#navbtn{
+#navbtn {
     font-size: 0.9em;
 }
 
 
 /* Additional Specific Styling to modal */
-.modal{
+.modal {
     background-color: rgb(30, 121, 190); /* Fallback color */
     background-color: rgba(30, 121, 190, 0.9); /* Black w/ opacity */
 }
 
 /* Styling for progress bar */
-.mdc-linear-progress{
+.mdc-linear-progress {
     --mdc-theme-primary: #1e79be;
 }
 
-table{
+table {
     border-radius: 10px;
 }
 
-#cancelUpload{
+#cancelUpload {
     --mdc-theme-primary: #B00020;
 }
 
-#confirmUpload{
+#confirmUpload {
     --mdc-theme-primary: #53a13d;
     display: none;
 }
 
-.modal-buttons{
+.modal-buttons {
     text-align: right;
     margin-top: 15px;
 }
 
-.previewModal{
+.previewModal {
     margin-top: 15px;
 }
 
@@ -601,57 +613,63 @@ table{
 }
 
 @-webkit-keyframes sk-bouncedelay {
-    0%, 80%, 100% { -webkit-transform: scale(0) }
-    40% { -webkit-transform: scale(1.0) }
+    0%, 80%, 100% {
+        -webkit-transform: scale(0)
+    }
+    40% {
+        -webkit-transform: scale(1.0)
+    }
 }
 
 @keyframes sk-bouncedelay {
     0%, 80%, 100% {
         -webkit-transform: scale(0);
         transform: scale(0);
-    } 40% {
-          -webkit-transform: scale(1.0);
-          transform: scale(1.0);
-      }
+    }
+    40% {
+        -webkit-transform: scale(1.0);
+        transform: scale(1.0);
+    }
 }
 
 /* QUEUED FOR UPLOAD FILES TABLE */
-.que-files{
+.que-files {
     /*border-radius: 15px;*/
     margin-left: 30px;
     border-collapse: collapse;
 }
 
-.que-files tr:last-child{
+.que-files tr:last-child {
     /*border-collapse: collapse;*/
-    border:solid #1e79be;
-    border-width:0 0 3px 0;
+    border: solid #1e79be;
+    border-width: 0 0 3px 0;
 }
 
-.que-files tr:hover{
+.que-files tr:hover {
     /*border-collapse: collapse;*/
     background: rgba(30, 121, 190, 0.1);
 }
 
-.que-files > tr:nth-child(1) > th:nth-child(1){
+.que-files > tr:nth-child(1) > th:nth-child(1) {
 
     border-radius: 15px 0 0 0;
     border-collapse: collapse;
 }
 
-.que-files > tr:nth-child(1) > th:nth-child(5){
+.que-files > tr:nth-child(1) > th:nth-child(5) {
     border-radius: 0 15px 0 0;
     /*border-collapse: collapse;*/
 }
 
-.que-files > tr > th{
+.que-files > tr > th {
     text-align: start;
     /*border-collapse: collapse;*/
     padding: 10px;
     background: #1e79be;
     color: white;
 }
-.que-files > tr > td{
+
+.que-files > tr > td {
     text-align: start;
     /*border: groove #1e79be;*/
     /*border-collapse: collapse;*/

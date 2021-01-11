@@ -5,52 +5,51 @@
 [ RESTYLE TAG ]*/
 
 *:not(ul):not(li) {
-	margin: 0px; 
-	padding: 0px; 
-	box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
 }
 
 body, html {
-	height: 100%;
-	font-family: main, sans-serif;
+    height: 100%;
+    font-family: main, sans-serif;
 }
 
 /*---------------------------------------------*/
 a {
     font-family: main, sans-serif;
-	font-size: 14px;
-	line-height: 1.7;
-	color: #ec922f;
-/*	color: #666666;*/
-	margin: 0;
-	transition: all 0.4s;
-	-webkit-transition: all 0.4s;
-  -o-transition: all 0.4s;
-  -moz-transition: all 0.4s;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #ec922f;
+    /*	color: #666666;*/
+    margin: 0;
+    transition: all 0.4s;
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
 }
 
 a:focus {
-	outline: none !important;
+    outline: none !important;
 }
 
 a:hover {
-	text-decoration: none;
-  color: #6a7dfe;
+    text-decoration: none;
+    color: #6a7dfe;
 }
 
 /*---------------------------------------------*/
-h1,h2,h3,h4,h5,h6 {
-	margin: 0;
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
 }
 
 p {
     font-family: main, sans-serif;
-	font-size: 14px;
-	line-height: 1.7;
-/*	color: #666666;*/
-	margin: 0;
+    font-size: 14px;
+    line-height: 1.7;
+    /*	color: #666666;*/
+    margin: 0;
 }
-
 
 
 /*---------------------------------------------*/
@@ -59,51 +58,47 @@ p {
 [ form ]*/
 
 .limiter {
-  width: 100%;
-  margin: 0 auto;
+    width: 100%;
+    margin: 0 auto;
 }
 
 .container-login100 {
-  width: 100%;  
-  min-height: 100vh;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  padding: 15px;
+    width: 100%;
+    min-height: 100vh;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
 
 
-	
-	/*	Between Night And Sky   */
-background: #2c3e50;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to right, #3498db, #2c3e50);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to right, #3498db, #2c3e50); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    /*	Between Night And Sky   */
+    background: #2c3e50; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #3498db, #2c3e50); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #3498db, #2c3e50); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
 
-	
-
-	
-/*  background: #f2f2f2;  */
+    /*  background: #f2f2f2;  */
 }
 
 .wrap-login100 {
-  width: 1200px;
-  background: #fff;
-  border-radius: 10px;
-  overflow: hidden;
-  padding: 77px 55px 33px 55px;
+    width: 1200px;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 77px 55px 33px 55px;
 
-  box-shadow: 0 5px 10px 0 rgba(38,38,38,1);
-  -moz-box-shadow: 0 5px 10px 0 rgba(38,38,38,1);
-  -webkit-box-shadow: 0 5px 10px 0 rgba(38,38,38,1);
-  -o-box-shadow: 0 5px 10px 0 rgba(38,38,38,1);
-  -ms-box-shadow: 0 5px 10px 0px rgba(38,38,38,1);
-	-webkit-transition: width 1s; /* For Safari 3.1 to 6.0 */
-  transition: width 1s;
+    box-shadow: 0 5px 10px 0 rgba(38, 38, 38, 1);
+    -moz-box-shadow: 0 5px 10px 0 rgba(38, 38, 38, 1);
+    -webkit-box-shadow: 0 5px 10px 0 rgba(38, 38, 38, 1);
+    -o-box-shadow: 0 5px 10px 0 rgba(38, 38, 38, 1);
+    -ms-box-shadow: 0 5px 10px 0px rgba(38, 38, 38, 1);
+    -webkit-transition: width 1s; /* For Safari 3.1 to 6.0 */
+    transition: width 1s;
 }
 
 
@@ -111,25 +106,27 @@ background: linear-gradient(to right, #3498db, #2c3e50); /* W3C, IE 10+/ Edge, F
 [ Form ]*/
 
 .login100-form {
-  width: 100%;
+    width: 100%;
 }
 
 .login100-form-title {
-  display: block;
+    display: block;
     font-family: main-l, sans-serif;
-  font-size: 30px;
-  color: #545454;
-  line-height: 1.2;
-  text-align: center;
+    font-size: 30px;
+    color: #545454;
+    line-height: 1.2;
+    text-align: center;
 }
+
 .login100-form-title i {
-  font-size: 60px;
+    font-size: 60px;
 }
+
 /*------------------------------------------------------------------
 [ Responsive ]*/
 
 @media (max-width: 576px) {
-  .wrap-login100 {
-    padding: 77px 15px 33px 15px;
-  }
+    .wrap-login100 {
+        padding: 77px 15px 33px 15px;
+    }
 }

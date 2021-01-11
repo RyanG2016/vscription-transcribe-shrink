@@ -1,6 +1,7 @@
 @import "parts/modal_overlay.css";
 @import "parts/vtex-custom-styles.css";
 @import "parts/global.css";
+
 /*//////////////////////////////////////////////////////////////////
 [ RESTYLE TAG ]*/
 
@@ -15,7 +16,7 @@ body, html {
     font-family: main, sans-serif;
 }
 
-.login100-form-btn{
+.login100-form-btn {
     text-transform: capitalize !important;
 }
 
@@ -43,7 +44,6 @@ body {
         background-color: #2c504e;
     }
 }*/
-
 
 
 label {
@@ -273,31 +273,30 @@ input:-webkit-autofill:active {
     color: #ffde75;
 }
 
-.valid-feedback{
+.valid-feedback {
     color: #4fff78;
 }
 
-.country-box, .state-box{
+.country-box, .state-box {
     display: none;
 }
 
-.progress-bar{
+.progress-bar {
     /*-webkit-transition: none !important;*/
     /*transition: none !important;*/
-    transition-duration:1s;
+    transition-duration: 1s;
 }
 
 
 .btn-primary,
-.btn-primary:focus
-{
+.btn-primary:focus {
     background-color: var(--vspt-blue);
     border-color: var(--vspt-blue);
     border-radius: 0;
     transition: width 2s;
 }
 
-.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
+.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show > .btn-primary.dropdown-toggle {
     color: #fff;
     background-color: var(--vspt-blue-hover);
     border-color: var(--vspt-blue-hover);
@@ -309,54 +308,53 @@ input:-webkit-autofill:active {
     border-color: grey;
 }
 
-.btn-primary:hover:not(:disabled)
-{
+.btn-primary:hover:not(:disabled) {
     color: #fff;
     background-color: var(--vspt-blue-hover);
     border-color: var(--vspt-blue-hover);
 }
-.btn-primary:hover:disabled
-{
+
+.btn-primary:hover:disabled {
     color: #fff;
     background-color: grey;
     border-color: grey;
 }
 
-#signupBtn, .progress{
+#signupBtn, .progress {
     border-radius: 0;
 }
 
-#signupBtn{
+#signupBtn {
     width: 100%;
     font-family: 'main-l', sans-serif;
 }
 
-.progress-bar{
+.progress-bar {
     background-color: var(--vspt-blue-hover);
 }
 
-.progress{
+.progress {
     height: 5px;
 }
 
-.col, .col-auto{
+.col, .col-auto {
     padding: 0;
 }
 
-.prev-btn-div{
+.prev-btn-div {
     display: none;
 }
 
-.carousel-inner>.item {
+.carousel-inner > .item {
     height: 100%;
 
 }
 
-.carousel-page-title{
+.carousel-page-title {
     color: whitesmoke;
 }
 
-.carousel-item{
+.carousel-item {
     padding: 5px;
 }
 
@@ -365,23 +363,24 @@ input:-webkit-autofill:active {
     box-shadow: none;
 }
 
-h5{
+h5 {
     font-family: main-l, sans-serif;
 }
 
 #code::placeholder,
-#code{
+#code {
     text-align: center;
 }
+
 #code:focus {
     box-shadow: none;
     outline: none !important;
 }
 
-hr{
+hr {
     background-color: silver;
 }
 
-a.terms{
+a.terms {
     font-size: 15px !important;
 }

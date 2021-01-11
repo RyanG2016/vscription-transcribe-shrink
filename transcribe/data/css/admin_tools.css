@@ -10,32 +10,33 @@
 }
 
 
-#hashPwd{
+#hashPwd {
     --mdc-theme-primary: #1e79be;
 }
 
-.mdc-text-field{
+.mdc-text-field {
     --mdc-theme-primary: #1e79be;
-    --mdc-theme-on-primary: #1e79be ;
+    --mdc-theme-on-primary: #1e79be;
     --mdc-theme-secondary: #1e79be;
-    --mdc-theme-background:#1e79be;
-    --mdc-theme-surface:#1e79be;
-    --mdc-theme-on-secondary:#1e79be;
-    --mdc-theme-on-surface:#1e79be;
+    --mdc-theme-background: #1e79be;
+    --mdc-theme-surface: #1e79be;
+    --mdc-theme-on-secondary: #1e79be;
+    --mdc-theme-on-surface: #1e79be;
 }
-.mdc-floating-label{
+
+.mdc-floating-label {
     --mdc-theme-primary: #1e79be;
-    --mdc-theme-on-primary: #1e79be ;
+    --mdc-theme-on-primary: #1e79be;
     --mdc-theme-secondary: #1e79be;
-    --mdc-theme-background:#1e79be;
-    --mdc-theme-surface:#1e79be;
-    --mdc-theme-on-secondary:#1e79be;
-    --mdc-theme-on-surface:#1e79be;
+    --mdc-theme-background: #1e79be;
+    --mdc-theme-surface: #1e79be;
+    --mdc-theme-on-secondary: #1e79be;
+    --mdc-theme-on-surface: #1e79be;
 }
 
 /*-----------------------*/
 /*   Header Styling      */
 /*-----------------------*/
-#navbtn{
+#navbtn {
     font-size: 0.9em;
 }

@@ -10,34 +10,35 @@
 }
 
 
-.tools-button{
+.tools-button {
     --mdc-theme-primary: #1e79be;
     width: 100%;
 }
 
-.mdc-text-field{
+.mdc-text-field {
     --mdc-theme-primary: #1e79be;
-    --mdc-theme-on-primary: #1e79be ;
+    --mdc-theme-on-primary: #1e79be;
     --mdc-theme-secondary: #1e79be;
-    --mdc-theme-background:#1e79be;
-    --mdc-theme-surface:#1e79be;
-    --mdc-theme-on-secondary:#1e79be;
-    --mdc-theme-on-surface:#1e79be;
+    --mdc-theme-background: #1e79be;
+    --mdc-theme-surface: #1e79be;
+    --mdc-theme-on-secondary: #1e79be;
+    --mdc-theme-on-surface: #1e79be;
 }
-.mdc-floating-label{
+
+.mdc-floating-label {
     --mdc-theme-primary: #1e79be;
-    --mdc-theme-on-primary: #1e79be ;
+    --mdc-theme-on-primary: #1e79be;
     --mdc-theme-secondary: #1e79be;
-    --mdc-theme-background:#1e79be;
-    --mdc-theme-surface:#1e79be;
-    --mdc-theme-on-secondary:#1e79be;
-    --mdc-theme-on-surface:#1e79be;
+    --mdc-theme-background: #1e79be;
+    --mdc-theme-surface: #1e79be;
+    --mdc-theme-on-secondary: #1e79be;
+    --mdc-theme-on-surface: #1e79be;
 }
 
 /*-----------------------*/
 /*   Header Styling      */
 /*-----------------------*/
-#navbtn{
+#navbtn {
     font-size: 0.9em;
 }
 
@@ -45,15 +46,42 @@
 /*      Grid Layout      */
 /*-----------------------*/
 
-.item1 { grid-area: header; }
-.item2-header {grid-area: desc;}
-.item2 { grid-area: menu; }
-.item3 { grid-area: main; }
-.item4 { grid-area: compatBrowsers; }
-.item5 { grid-area: compatOS; }
-.item6 { grid-area: compatHardware; }
-.item7 { grid-area: compatDRHardware; }
-.item4-5-header { grid-area: compatHeader; }
+.item1 {
+    grid-area: header;
+}
+
+.item2-header {
+    grid-area: desc;
+}
+
+.item2 {
+    grid-area: menu;
+}
+
+.item3 {
+    grid-area: main;
+}
+
+.item4 {
+    grid-area: compatBrowsers;
+}
+
+.item5 {
+    grid-area: compatOS;
+}
+
+.item6 {
+    grid-area: compatHardware;
+}
+
+.item7 {
+    grid-area: compatDRHardware;
+}
+
+.item4-5-header {
+    grid-area: compatHeader;
+}
+
 .grid-wrapper {
     display: inline-grid;
     /*display: grid;*/
@@ -76,68 +104,76 @@
     text-align: left;
 }
 
-.bold{
+.bold {
     font-weight: bold;
 }
 
-.grid-wrapper .compat-tbl{
+.grid-wrapper .compat-tbl {
     border-collapse: collapse;
 }
-.grid-wrapper .compat-tbl tr td{
+
+.grid-wrapper .compat-tbl tr td {
     padding: 10px;
     border: 1px dashed #1e79be;
 }
-.grid-wrapper .compat-tbl tr th{
+
+.grid-wrapper .compat-tbl tr th {
     padding: 10px;
     border: 1px solid #1e79be;
     /*border-radius: 8px 8px 0 0;*/
 }
 
-.check{
+.check {
     text-align: center;
 }
 
-.controller-downloads-tbl{
+.controller-downloads-tbl {
     width: 100%;
     border-collapse: collapse;
 }
-.controller-downloads-tbl thead th{
+
+.controller-downloads-tbl thead th {
     padding: 10px;
     text-align: left;
 }
-.controller-downloads-tbl tbody td{
+
+.controller-downloads-tbl tbody td {
     padding: 10px;
 }
-.controller-downloads-tbl thead{
+
+.controller-downloads-tbl thead {
     background: #1e79be;
     color: white;
 }
-.grid-headers{
+
+.grid-headers {
     background-color: #1e79be !important;
     color: white;
     border-radius: 10px 10px 0 0;
     text-align: center !important;
 }
 
-a{
+a {
     color: #f5862c;
 }
-a:visited{
+
+a:visited {
     color: #f5862c;
 }
-a:hover{
+
+a:hover {
     color: #53a13d;
 }
 
-.item1{
+.item1 {
     border-radius: 0 10px 0 0;
 }
 
-.item2{
+.item2 {
     position: relative;
 }
 
-.item2 p{
+.item2 p {
     /*text-align: justify;*/
     /*text-justify: inter-word;*/
     margin: 0;
@@ -145,10 +181,10 @@ a:hover{
     bottom: 0;
 }
 
-#container > div > div > div.item2-header.grid-headers > h3{
+#container > div > div > div.item2-header.grid-headers > h3 {
     margin: 12px 18px;
 }
 
-.controller-downloads-tbl tbody tr:hover{
+.controller-downloads-tbl tbody tr:hover {
     box-shadow: inset 0 0 5px #1e79be;
 }

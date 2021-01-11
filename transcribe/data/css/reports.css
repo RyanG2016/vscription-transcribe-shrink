@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
 }
+
 body {
     padding: 10px;
 }
@@ -50,12 +51,15 @@ tbody {
 .jobtype {
     width: 125px;
 }
+
 .datedict {
     width: 100px;
 }
+
 .audiolength {
     width: 75px;
 }
+
 .transdate {
     width: 125px;
 }

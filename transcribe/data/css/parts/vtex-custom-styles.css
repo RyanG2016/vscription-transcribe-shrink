@@ -1,58 +1,60 @@
-.vtex-left-divider{
+.vtex-left-divider {
     border-left: 1px groove whitesmoke;
 }
 
-.vtex-right-divider{
+.vtex-right-divider {
     border-right: 1px groove whitesmoke;
 }
 
 
-.vtex-help-icon{
+.vtex-help-icon {
     color: var(--vspt-blue);
     cursor: pointer;
     opacity: 80%;
 }
-.vtex-help-icon:hover{
+
+.vtex-help-icon:hover {
     text-decoration: underline;
 }
 
-.top-up:hover
-{
+.top-up:hover {
     opacity: 0.9;
     transform: scale(1.2);
 }
 
-.top-up{
+.top-up {
     color: var(--vspt-green);
     cursor: pointer;
     transition: transform .2s; /* Animation */
 }
 
-.hover-expand:hover
-{
+.hover-expand:hover {
     transform: scale(1.1);
 }
 
-.hover-expand{
+.hover-expand {
     cursor: pointer;
     transition: transform .2s; /* Animation */
 }
 
-.vtex-editable-span{
+.vtex-editable-span {
     margin-bottom: 3px;
     padding: 3px !important;
     text-align: left;
 }
-.vtex-editable-span[contenteditable]{
+
+.vtex-editable-span[contenteditable] {
     border: 1px solid grey;
     border-radius: 3px;
 }
+
 .vtex-editable-span:empty::before {
     content: attr(aria-placeholder);
     display: inline-block;
     color: grey;
     font-style: italic;
 }
+
 .vtex-editable-span:empty:focus::before {
     content: attr(aria-placeholder);
     color: grey;
@@ -60,32 +62,35 @@
 }
 
 
-.vtex-editable-input{
+.vtex-editable-input {
     margin-bottom: 3px;
     padding: 3px !important;
     text-align: left;
 }
 
-.vtex-editable-input.vtex-err-border{
+.vtex-editable-input.vtex-err-border {
     margin-bottom: 3px;
     padding: 3px !important;
     text-align: left;
     border: 2px solid darkred;
 }
+
 .vtex-editable-input:focus {
     border: 2px solid #0097cf;
 }
 
-.vtex-editable-input[readonly]{
+.vtex-editable-input[readonly] {
     border: 0;
     /*border-radius: 3px;*/
 }
+
 .vtex-editable-input:empty::before {
     /*content: attr(aria-placeholder);*/
     /*display: inline-block;*/
     /*color: grey;*/
     /*font-style: italic;*/
 }
+
 .vtex-editable-input:empty:focus::before {
     /*content: attr(aria-placeholder);*/
     /*color: grey;*/
@@ -94,15 +99,14 @@
 
 
 .btn-primary,
-.btn-primary:focus
-{
+.btn-primary:focus {
     background-color: var(--vspt-blue);
     border-color: var(--vspt-blue);
     /*border-radius: 0;*/
     transition: transform .2s;
 }
 
-.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
+.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show > .btn-primary.dropdown-toggle {
     color: #fff;
     background-color: var(--vspt-blue-hover);
     border-color: var(--vspt-blue-hover);
@@ -114,15 +118,14 @@
     border-color: grey;
 }
 
-.btn-primary:hover:not(:disabled)
-{
+.btn-primary:hover:not(:disabled) {
     /*transform: scale(1.02);*/
     color: #fff;
     background-color: var(--vspt-blue-hover);
     border-color: var(--vspt-blue-hover);
 }
-.btn-primary:hover:disabled
-{
+
+.btn-primary:hover:disabled {
     color: #fff;
     background-color: grey;
     border-color: grey;
