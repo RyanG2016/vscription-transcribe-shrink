@@ -161,7 +161,7 @@ class Mailer
                     $emHTML = file_get_contents(__DIR__ . '/../../../mail/templates/sr_package_receipt.html');
                     $paymentJson = json_decode($payment->getPaymentJson(), true);
                     $replace_pairs = array(
-                        '{{date}}'    => date("d-m-y h:m:sa"),
+                        '{{date}}'    => date("d-M-Y h:m:s a"),
                         '{{name}}'    => $user->getFirstName() . " " . $user->getLastName(),
                         '{{email}}'  => $user->getEmail(),
                         '{{address}}'=> $user->getAddress() . ", " . $user->getCountry(),
