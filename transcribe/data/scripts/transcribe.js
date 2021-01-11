@@ -818,20 +818,20 @@ $(document).ready(function () {
         document.getElementById('user_field_2').value = "";
         document.getElementById('user_field_3').value = "";
         document.getElementById('report').value = "";
-        $('#date').garlic('destroy');
-        //		$( '#dateT' ).garlic( 'destroy' );
-        jobTypeDropDown.garlic('destroy');
-        $("#jobType").attr("disabled","")
-        $('#jobNo').garlic('destroy');
-        //		$( '#TypistName' ).garlic( 'destroy' );
-        $('#comments').garlic('destroy');
-        $("#comments").attr("disabled","")
-
-        $('#authorName').garlic('destroy');
-        $('#user_field_1').garlic('destroy');
-        $('#user_field_2').garlic('destroy');
-        $('#user_field_3').garlic('destroy');
-        $('#report').garlic('destroy');
+        // $('#date').garlic('destroy');
+        // //		$( '#dateT' ).garlic( 'destroy' );
+        // jobTypeDropDown.garlic('destroy');
+        // $("#jobType").attr("disabled","")
+        // $('#jobNo').garlic('destroy');
+        // //		$( '#TypistName' ).garlic( 'destroy' );
+        // $('#comments').garlic('destroy');
+        // $("#comments").attr("disabled","")
+        //
+        // $('#authorName').garlic('destroy');
+        // $('#user_field_1').garlic('destroy');
+        // $('#user_field_2').garlic('destroy');
+        // $('#user_field_3').garlic('destroy');
+        // $('#report').garlic('destroy');
         document.title = 'Form';
         tinyMCE.activeEditor.setContent('');
 

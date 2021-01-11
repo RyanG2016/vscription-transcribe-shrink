@@ -121,7 +121,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
         if (isset($_GET['DateTra']) && !empty($_GET['DateTra'])) {
             $dateT = $_GET['DateTra'];
         } else {
-            $dateT = date("d-M-yy");
+            $dateT = date("d-M-Y");
         }
 
     }
@@ -137,7 +137,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="data/main/jquery-ui.css">
 
-    <script src="data/main/garlic.js"></script>
+<!--    <script src="data/main/garlic.js"></script>-->
     <script src="data/main/jquery-ui.js"></script>
     <script src="data/thirdparty/scripts/moment.js"></script>
 
@@ -221,7 +221,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 
             <div class="vtex-card contents m-0">
 
-                <form class="validate-form" method="post" name="form" data-persist="garlic" id="form" enctype="multipart/form-data">
+                <form class="validate-form" method="post" name="form" id="form" enctype="multipart/form-data">
 
                     <table id="header-tbl">
                         <tr>
@@ -406,7 +406,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                        title="Date Transcribed" <?php if ($set == 1 && !empty($dateT)) {
                                     echo 'value="' . $dateT . "\"";
                                 } else {
-                                    echo date("d-M-yy");
+                                    echo date("d-M-Y");
                                 } ?> readonly>
                             </div>
                         </div>
