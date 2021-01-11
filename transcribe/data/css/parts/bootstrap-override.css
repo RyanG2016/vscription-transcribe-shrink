@@ -48,7 +48,7 @@
  */
 
 .popover-header {
-    background-color: var(--vspt-blue);
+    background-color: var(--vspt-popup-header);
     color: white;
 }
 
@@ -58,8 +58,8 @@
  ===============================
  */
 .btn-primary {
-    background-color: var(--vspt-blue);
-    border-color: var(--vspt-blue);
+    background-color: var(--vspt-primary-bootstrap-btn);
+    border-color: var(--vspt-primary-bootstrap-btn);
 }
 
 

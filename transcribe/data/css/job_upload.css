@@ -284,30 +284,17 @@ div form .upload_btn_lbl {
 }
 
 div form .submit_btn {
-    --mdc-theme-primary: #1e79be;
+    --mdc-theme-primary: var(--vspt-btn-blue);
 }
 
 div form .upload_btn_lbl {
-    /*--mdc-theme-primary: #7f9ccb;*/
-    --mdc-theme-primary: #1e79be;
+    --mdc-theme-primary: var(--vspt-btn-blue);
 }
 
 div form .clear_btn {
-    --mdc-theme-primary: #B00020;
+    --mdc-theme-primary: var(--vspt-btn-red);
 }
 
-
-/*div form label{
-    background-color: #1e79be;
-    padding: 5px 10px;
-    border-radius: 5px;
-    !*border: 1px ridge black;*!
-    font-size: 1rem;
-    height: auto;
-    --mdc-theme-primary: #1e79be;
-    --mdc-theme-on-primary: white;
-    margin-bottom: 7px;
-}*/
 
 /* --------------------------*/
 /* --UPLOAD STATUS STYLING --*/
@@ -555,8 +542,6 @@ table {
 .spinner > div {
     width: 12px;
     height: 12px;
-    /*background-color: #333333;*/
-
     border-radius: 100%;
     display: inline-block;
     -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;

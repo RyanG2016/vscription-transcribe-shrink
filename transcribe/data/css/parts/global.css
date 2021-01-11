@@ -63,6 +63,18 @@
     --vspt-sidebar-title-color: white;
 
     --vspt-topbar-hyperlink-fs: 12px;
+
+    /***** Buttons ******/
+    /* > MDC */
+    --vspt-btn-green: #53a13d;
+    --vspt-btn-blue: #1e79be;
+    --vspt-btn-red: #D32F2F;
+
+    /* > Bootstrap */
+    --vspt-primary-bootstrap-btn: #1e79be;
+
+    --vspt-popup-header: #1e79be;
+
 }
 
 /*
@@ -460,16 +472,11 @@ a:visited {
 }
 
 .green-btn {
-    --mdc-theme-primary: #53a13d;
+    --mdc-theme-primary: var(--vspt-btn-green);
 }
 
 .blue-btn {
-    --mdc-theme-primary: #1e79be;
-}
-
-legend {
-    /*font-weight: bold;*/
-    /*color: #1e79be;*/
+    --mdc-theme-primary: var(--vspt-btn-blue);
 }
 
 .vtex-spinner-4-digits {
