@@ -411,13 +411,6 @@ select, .dt-search {
     display: inline-flex;
 }
 
-#jobs-tbl_wrapper > div:nth-child(1) {
-    margin-left: auto !important;
-}
-
-#jobs-tbl_wrapper > div:nth-child(3) {
-    width: 100%;
-}
 
 #jobs-tbl_wrapper > div.mdc-layout-grid.dt-table {
     width: inherit;
