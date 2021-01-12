@@ -23,6 +23,10 @@ navLoverlay = $("#navOverlay");
 navLoverlayText = $("#navOverlayText");
 modalHeaderTitle = $("#modalHeaderTitle");
 
+/* NAV UI */
+navCollapseText = $('#collapse-text');
+navCollapseIcon = $('#collapse-icon');
+
 setDefaultRoleBtn.on("click", function (e) {
     setModalUI(true);
     changeRoleModal.modal();
@@ -310,7 +314,7 @@ $("#sidebar-container > ul > a").each(
 $('#body-row .collapse').collapse('hide');
 
 // Collapse/Expand icon
-$('#collapse-icon').addClass('fa-angle-double-right');
+navCollapseIcon.addClass('fa-angle-double-right');
 
 // Collapse click
 $('[data-toggle=sidebar-colapse]').click(function() {
@@ -318,6 +322,13 @@ $('[data-toggle=sidebar-colapse]').click(function() {
 });
 
 function SidebarCollapse () {
+
+
+    /*$(this).popover({
+        content: $(this).find("div > span.menu-collapsed").html(),
+        trigger: 'hover'
+    });*/
+
     $('.menu-collapsed').toggleClass('d-none');
     $('.sidebar-submenu').toggleClass('d-none');
     $('.submenu-icon').toggleClass('d-none');
@@ -334,5 +345,11 @@ function SidebarCollapse () {
     }
 
     // Collapse/Expand icon
-    $('#collapse-icon').toggleClass('fa-angle-double-left fa-angle-double-right');
+    navCollapseIcon.toggleClass('fa-angle-double-left fa-angle-double-right');
+    navCollapseText.html(navCollapseText.html() === "Expand"?"Collapse":"Expand");
+
+    navCollapseIcon.parent().parent().popover('dispose').popover({
+        content: navCollapseText.html(),
+        trigger: 'hover'
+    }).popover('show');
 }
