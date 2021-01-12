@@ -40,15 +40,29 @@ a:hover {
 
 /*---------------------------------------------*/
 h1, h2, h3, h4, h5, h6 {
-    margin: 0;
+    margin: 0px;
+    margin-top: 26px !IMPORTANT;
+    margin-bottom: 11px !IMPORTANT;
+    line-height: 1.4rem;
 }
 
+.h1, h1 {
+    font-size: 1.7rem;
+
+}
+.h2, h2 {
+    font-size: 1.2rem;
+}
 p {
-    font-family: main, sans-serif;
+    font-family: main, opensans;
     font-size: 14px;
     line-height: 1.7;
     /*	color: #666666;*/
     margin: 0;
+}
+
+.li, li {
+    font-size: 14px !IMPORTANT;
 }
 
 
