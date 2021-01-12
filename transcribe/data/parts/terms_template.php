@@ -1,8 +1,8 @@
-<!--<h1>Terms and Conditions</h1>
-<p>Last updated: January 12, 2021</p> -->
+<!--<h1>Terms and Conditions</h1>-->
+<p>Last updated: January 12, 2021</p>
 <p class="text-center">Please read these terms and conditions carefully before using Our Service.</p>
 <h1 class="text-center">Interpretation and Definitions</h1>
-<h2 class="text-center">Interpretation</h2>
+<h2>Interpretation</h2>
 <p>The words of which the initial letter is capitalized have meanings defined under the following conditions. The following definitions shall have the same meaning regardless of whether they appear in singular or in plural.</p>
 <h2>Definitions</h2>
 <p>For the purposes of these Terms and Conditions:</p>
@@ -212,5 +212,4 @@ You agree that the original English text shall prevail in the case of a dispute.
 <h1>Contact Us</h1>
 <p>If you have any questions about these Terms and Conditions, You can contact us:</p>
 <ul>
-<li>By email: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e28b8c848da2949181908b92968b8d8ccc818d8f">[email&#160;protected]</a></li>
-</ul><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script async src='/cdn-cgi/bm/cv/669835187/api.js'></script><script type="text/javascript">(function(){window['__CF$cv$params']={r:'61039a83588bb677',m:'5d382df8ab6ba5ad0874fa2ec42446b670947fb0-1610420178-1800-AWK1aSntZD/qQnpS1BTElzm35vexKnlBB1BpgT3WRrodAV7iF7TSFnWtBeTbWWgrSABz5k6/dF87CnAXwgHvKUTgGISsnAlIjIGLZWK+sc19iKG0unIe66So79s5jG+8noEGpTlFM7kzYO8RvzEJs6qxmkO9p/HJJfMG6NsE2VE8nWLIiIjfnQ+ANtxQsUEmYg==',s:[0xefb6dc30b7,0xfbe171ef84],}})();</script>
+<li>By email:info@vscription.com</li>
