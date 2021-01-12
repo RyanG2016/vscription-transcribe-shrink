@@ -295,3 +295,12 @@ function convertToSearchParam(params) {
 
     return searchParams;
 }
+
+$("#sidebar-container > ul > a").each(
+    function (){
+        $(this).popover({
+            content: $(this).find("div > span.menu-collapsed").html(),
+            trigger: 'hover'
+        });
+    }
+);
