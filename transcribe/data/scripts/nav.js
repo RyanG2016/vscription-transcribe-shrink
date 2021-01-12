@@ -15,19 +15,23 @@ $(document).ready(function(){
     const CHANGE_ROLE_HEADER = "<i class=\"fas fa-wrench\"></i>&nbsp;Change Role";
     const SET_DEFAULT_ROLE_HEADER = "<i class=\"fas fa-user-edit\"></i>&nbsp;Set Default";
 
-    changeRoleBtn = $("#changeRoleBtn");
-    setDefaultRoleBtn = $("#setDefaultRoleBtn");
-    updateRoleModalBtn = $("#updateRoleBtn");
-    changeRoleModal = $("#changeRole");
-    accountBoxNav = $("#accountBoxNav");
-    roleBoxNav = $("#roleBoxNav");
-    navLoverlay = $("#navOverlay");
-    navLoverlayText = $("#navOverlayText");
-    modalHeaderTitle = $("#modalHeaderTitle");
+    var changeRoleBtn = $("#changeRoleBtn");
+    var setDefaultRoleBtn = $("#setDefaultRoleBtn");
+    var updateRoleModalBtn = $("#updateRoleBtn");
+    var changeRoleModal = $("#changeRole");
+    var accountBoxNav = $("#accountBoxNav");
+    var roleBoxNav = $("#roleBoxNav");
+    var navLoverlay = $("#navOverlay");
+    var navLoverlayText = $("#navOverlayText");
+    var modalHeaderTitle = $("#modalHeaderTitle");
+    var pinBtn = $("#pinBtn");
+    var pinIcon = $("#pinIcon");
+    var pinBtnPressed = false;
+    var sidebarPinned = getCookie("sidebar_pinned");
 
     /* NAV UI */
-    navCollapseText = $('#collapse-text');
-    navCollapseIcon = $('#collapse-icon');
+    var navCollapseText = $('#collapse-text');
+    var navCollapseIcon = $('#collapse-icon');
 
     setDefaultRoleBtn.on("click", function (e) {
         setModalUI(true);
@@ -318,12 +322,8 @@ $(document).ready(function(){
 // Collapse/Expand icon
     navCollapseIcon.addClass('fa-angle-double-right');
 
-// Collapse click
-    $('[data-toggle=sidebar-colapse]').click(function() {
-        SidebarCollapse();
-    });
 
-    function SidebarCollapse () {
+    function SidebarCollapse (silent = false) {
 
         $('.menu-collapsed').toggleClass('d-none');
         $('.sidebar-submenu').toggleClass('d-none');
@@ -347,8 +347,66 @@ $(document).ready(function(){
         navCollapseIcon.parent().parent().popover('dispose').popover({
             content: navCollapseText.html(),
             trigger: 'hover'
-        }).popover('show');
+        });
+        if(!silent) navCollapseIcon.popover('show');
     }
 
+    // check if sidebar is pinned
+    if (sidebarPinned === "true"){
+        SidebarCollapse(true);
+        pinBtn.attr("aria-pressed", "true");
+        pinBtn.addClass("active");
+        pinIcon.removeClass("fa-rotate-315");
+    }
+
+    console.log("sidebar pinned: " + sidebarPinned);
+    // Collapse click
+    $('[data-toggle=sidebar-collapse-toggle]').click(function() {
+        if(pinBtnPressed) pinBtnPressed=false;
+        else SidebarCollapse();
+    });
+
+    pinBtn.on('click', function(e){
+        pinBtnPressed = true; // to prevent collapse from being pressed
+        pinIcon.toggleClass("fa-rotate-315");
+
+        // pinned?
+        sidebarPinned = !pinIcon.hasClass("fa-rotate-315");
+        setCookie("sidebar_pinned", sidebarPinned, 365);
+    });
+
+    function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        var expires = "expires="+d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    function getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return false;
+    }
+/*
+    function checkCookie() {
+        var user = getCookie("username");
+        if (user != "") {
+            alert("Welcome again " + user);
+        } else {
+            user = prompt("Please enter your name:", "");
+            if (user != "" && user != null) {
+                setCookie("username", user, 365);
+            }
+        }
+    }*/
 
 });

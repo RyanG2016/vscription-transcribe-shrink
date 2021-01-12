@@ -56,13 +56,17 @@
     --vspt-hint-text-color: white;
     --vspt-table-hover: rgb(245, 245, 245);
 
+    --vspt-topbar-hyperlink-fs: 12px;
+
     --footer-text-color: #babfc3;
     --footer-height: 35px;
 
+    /* Nav Sidebar */
+
     --vspt-sidebar-title-bg: var(--vspt-blue);
     --vspt-sidebar-title-color: white;
-
-    --vspt-topbar-hyperlink-fs: 12px;
+    --vspt-sidebar-toggle-btn: var(--vspt-dark);
+    --vspt-sidebar-toggle-btn-active: var(--vspt-btn-blue);
 
     /***** Buttons ******/
     /* > MDC */
@@ -187,7 +191,7 @@ a:visited {
 /* Menu item*/
 #sidebar-container .list-group a {
     height: 45px;
-    color: white;
+    color: var(--vspt-sidebar-title-color);
 }
 
 /* Submenu item*/
@@ -242,6 +246,21 @@ a:visited {
     display: inline;
     text-align: right;
     padding-left: 10px;
+}
+
+.fa-rotate-45 {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+.fa-rotate-315 {
+    -webkit-transform: rotate(315deg);
+    -moz-transform: rotate(315deg);
+    -ms-transform: rotate(315deg);
+    -o-transform: rotate(315deg);
+    transform: rotate(315deg);
 }
 
 /*
@@ -494,4 +513,14 @@ a:visited {
 
 .vtex-cursor-pointer {
     cursor: pointer;
+}
+
+.pin-button.btn-primary {
+    background-color: var(--vspt-sidebar-toggle-btn) !important;
+    border-color: var(--vspt-sidebar-toggle-btn) !important;
+}
+
+.pin-button.btn-primary.active {
+    background-color: var(--vspt-sidebar-toggle-btn-active) !important;
+    border-color: var(--vspt-sidebar-toggle-btn-active) !important;
 }
