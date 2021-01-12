@@ -442,28 +442,29 @@ class UserGateway implements GatewayInterface
 
         foreach ($_POST as $key => $value) {
 
-            // setting all empty params to 0
-            if (empty($input)) {
-                $input = 0;
+            // setting all empty params to ''
+            // skip empty values
+            if (empty($value)) {
+//                $input = "";
+                continue;
             }
 
+
             $fields .= "`$key`";
+
             array_push($valsArray, $value);
             $valsQMarks .= "?";
 
-            if ($i != $len - 1) {
-//             not last item add comma
             $fields .= ", ";
             $valsQMarks .= ", ";
-            }
 
             $i++;
         }
 
         // Optional Fields Calculations //
         // account_status
-        $fields .= ", " . "`account_status`";
-        $valsQMarks .= ", ?";
+        $fields .= "`account_status`";
+        $valsQMarks .= "?";
         array_push($valsArray, 5);
 
         // password
@@ -735,18 +736,6 @@ class UserGateway implements GatewayInterface
 
             $i++;
         }
-
-//        if(isset($put['state'])){
-
-//            $valPairs .= ", `state_id` = ";
-//            array_push($valsArray, null);
-//            $valPairs .= "?";
-//        }
-//        else if(isset($put['state_id'])){
-//            $valPairs .= ", `state` = ";
-//            array_push($valsArray, null);
-//            $valPairs .= "?";
-//        }
 
         array_push($valsArray, $id);
 

@@ -471,6 +471,11 @@ a:visited {
     padding: 10px;
 }
 
+.vtex-fieldset-light > legend {
+    width: auto;
+    font-size: 18px;
+}
+
 .green-btn {
     --mdc-theme-primary: var(--vspt-btn-green);
 }
