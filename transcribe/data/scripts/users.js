@@ -53,7 +53,7 @@ $(document).ready(function () {
 	const CITY_FILTER_REGEX = /\(.*| st.*|[^a-zA-Z0-9. ]/gi;
 
 	createAccModal = document.getElementById("modal");
-	// createAccModal.style.display = "block";
+
 	usersDT = $("#users-tbl");
 	createAcc = $("#createAcc");
 	createAccForm = $("#createAccForm");
@@ -576,7 +576,7 @@ function preFillForm(data)
 	updateAccBtn.removeAttr("disabled");
 
 	// show form
-	createAccModal.style.display = "block";
+
 	$('#modal').stop().animate({
 		scrollTop: 0
 	}, 500);
