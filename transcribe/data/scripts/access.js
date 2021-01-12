@@ -131,6 +131,7 @@ $(document).ready(function () {
                     content: response["msg"],
                     buttons: {
                         confirm: {
+                            text: 'ok',
                             btnClass: 'btn-green',
                             action: function () {
                                 return true;
