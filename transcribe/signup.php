@@ -313,7 +313,7 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
                 <label>
                     <input type="checkbox" id="tos"/>
                     <small class="text-sm-right font-italic fs-17"> &nbsp; I have read and agreed to the <span><a
-                                    class="fs-17" href="">Terms and Services</a </span></small>
+                                    class="fs-17" href="./terms.php" target="_blank">Terms and Conditions</a> </span></small>
                 </label>
 
             </div>
