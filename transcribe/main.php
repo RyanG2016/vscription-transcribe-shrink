@@ -38,15 +38,9 @@ else {
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="data/libs/node_modules/material-components-web/dist/material-components-web.js"></script>
 
-<!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">-->
-<!--    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>-->
 
 
-
-    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,300&display=swap"
-          rel="stylesheet">
     <script src="https://kit.fontawesome.com/00895b9561.js" crossorigin="anonymous"></script>
-<!--    <link rel="stylesheet" href="data/css/vs-style.css">-->
 
     <title>vScription Job Lister</title>
     <link rel="shortcut icon" type="image/png" href="data/images/favicon.png"/>
@@ -78,13 +72,6 @@ else {
 
 
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/material-components-web/4.0.0/material-components-web.min.css"/>
-
-    <!--  Data table Jquery helping libs  -->
-    <!--<link rel="stylesheet" type="text/css" href="data/libs/DataTables/datatables.css"/>
-
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/dataTables.material.min.css"/>
-    <script type="text/javascript" src="data/libs/DataTables/datatables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/dataTables.material.min.js"></script>-->
 
     <!--  Datatables  -->
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>

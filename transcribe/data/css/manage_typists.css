@@ -197,14 +197,6 @@ label {
     display: inline-flex;
 }
 
-#access-tbl_wrapper > div:nth-child(1) {
-    margin-left: auto !important;
-}
-
-#access-tbl_wrapper > div:nth-child(3) {
-    width: 100%;
-}
-
 #access-tbl_wrapper > div.mdc-layout-grid.dt-table {
     width: inherit;
 }

@@ -376,13 +376,6 @@ body {
     display: inline-flex;
 }
 
-#jobs-tbl_wrapper > div:nth-child(1) {
-    margin-left: auto !important;
-}
-
-#jobs-tbl_wrapper > div:nth-child(3) {
-    width: 100%;
-}
 
 #jobs-tbl_wrapper > div.mdc-layout-grid.dt-table {
     width: inherit;
@@ -590,11 +583,6 @@ td .times-downloaded {
     font-size: 18px;
     vertical-align: text-bottom;
     cursor: pointer;
-}
-
-.mdc-data-table__header-row {
-    background: rgba(30, 121, 190, 0.9) !important;
-
 }
 
 .mdc-button--colored {

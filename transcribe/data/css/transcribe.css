@@ -45,11 +45,6 @@
     !*background-image: linear-gradient(to bottom, #fff1eb 0%, #ace0f9 100%);*!
 }*/
 
-
-img:not(#norm) {
-    /*float: right;*/
-}
-
 .form-style-5 input[type="submit"],
 .form-style-5 input[type="button"] {
     position: relative;
@@ -86,26 +81,6 @@ img:not(#norm) {
     /*min-height: 30%;*/
 }
 
-
-/*#comments,#date,#dateT{
-    margin-bottom: 5px;
-}*/
-
-/*
-
-#save,#clear{
-    width: 50%;
-}*/
-/*
-
-#report_ifr.tooltip{
-    display: none !important;
-}*/
-/*#tip1,#tip2{
-    font-size: 1.0em;
-    width: 10%;
-
-}*/
 #tip {
     font-size: 0.9em;
 
@@ -185,74 +160,6 @@ legend, h3, button {
     pointer-events: none;
 }
 
-
-/* Validation */
-
-/*
-.validate-input {
-  position: relative;
-}
-
-.alert-validate::before {
-  content: attr(data-validate);
-  position: absolute;
-  max-width: 70%;
-  background-color: #fff;
-  border: 1px solid #c80000;
-  border-radius: 2px;
-  padding: 4px 25px 4px 10px;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  -moz-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  -o-transform: translateY(-50%);
-  transform: translateY(-50%);
-  right: 0px;
-  pointer-events: none;
-
-  font-family: Poppins-Regular;
-  color: #c80000;
-  font-size: 13px;
-  line-height: 1.4;
-  text-align: left;
-
-  visibility: hidden;
-  opacity: 0;
-
-  -webkit-transition: opacity 0.4s;
-  -o-transition: opacity 0.4s;
-  -moz-transition: opacity 0.4s;
-  transition: opacity 0.4s;
-}
-
-.alert-validate::after {
-  content: "\f12a";
-  font-family: FontAwesome;
-  display: block;
-  position: absolute;
-  color: #c80000;
-  font-size: 16px;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  -moz-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  -o-transform: translateY(-50%);
-  transform: translateY(-50%);
-  right: 8px;
-}
-
-.alert-validate:hover:before {
-  visibility: visible;
-  opacity: 1;
-}
-
-@media (max-width: 992px) {
-  .alert-validate::before {
-    visibility: visible;
-    opacity: 1;
-  }
-}*/
-
 .alert-validate {
     background-color: #efdfdf !important;
 }
@@ -286,13 +193,6 @@ table, th, td {
     /*  border: 1px solid black;*/
 }
 
-/*#loadBtn{
-    display: block;
-    max-width: 302px;
-    text-overflow: ellipsis;
-    overflow: hidden;
-}*/
-
 #updated_version_bar {
     display: none;
     padding: 5px;
@@ -307,15 +207,6 @@ table, th, td {
 #updated_version_bar a {
     color: white;
 }
-
-/*
-.tblButtons button {
-    display: inline-block;
-    margin: auto;
-    color: purple;
-    text-align: center;
-}
-*/
 
 
 /* Add Animation */
@@ -520,13 +411,6 @@ select, .dt-search {
     display: inline-flex;
 }
 
-#jobs-tbl_wrapper > div:nth-child(1) {
-    margin-left: auto !important;
-}
-
-#jobs-tbl_wrapper > div:nth-child(3) {
-    width: 100%;
-}
 
 #jobs-tbl_wrapper > div.mdc-layout-grid.dt-table {
     width: inherit;

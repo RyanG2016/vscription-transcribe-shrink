@@ -26,11 +26,16 @@
     <!-- Bootstrap List Group -->
     <ul class="list-group">
 
-        <a href="#top" data-toggle="sidebar-colapse"
-           class="bg-dark list-group-item list-group-item-action d-flex align-items-center">
+        <a href="#top" data-toggle="sidebar-collapse-toggle"
+           class="bg-dark list-group-item list-group-item-action d-flex align-items-center pin-collapse-div">
             <div class="d-flex w-100 justify-content-start align-items-center">
                 <span id="collapse-icon" class="fa fa-2x mr-3"></span>
-                <span id="collapse-text" class="menu-collapsed d-none">Collapse</span>
+                <span id="collapse-text" class="menu-collapsed d-none">Expand</span>
+                <span class="menu-collapsed d-none ml-auto">
+                    <button id="pinBtn" type="button" class="btn btn-primary pin-button" data-toggle="button" aria-pressed="false">
+                        <i id="pinIcon" class="fas fa-thumbtack fa-rotate-315"></i>
+                    </button>
+                </span>
             </div>
         </a>
 
@@ -58,7 +63,7 @@
                echo ' <a href="#adminmenu" data-toggle="collapse" aria-expanded="false"
                            class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
                             <div class="d-flex w-100 justify-content-start align-items-center">
-                                <span class="fas fa-user-shield fa-fw mr-3"></span>
+                                <i class="fas fa-user-tie fa-fw mr-3"></i>
                                 <span class="menu-collapsed d-none">Admin Panel</span>
                                 <span class="submenu-icon d-none ml-auto"></span>
                             </div>
@@ -220,7 +225,7 @@
        }
 
        echo ' <li class="list-group-item sidebar-separator-title text-muted align-items-center menu-collapsed d-none">
-                            <small>Actions</small>
+                            <small>Manage Role</small>
                     </li>
                     <!-- /END Separator -->
                     
@@ -252,40 +257,6 @@
 
     </ul><!-- List Group END-->
 </div><!-- sidebar-container END -->
-
-<script type="text/javascript">
-    // Hide submenus
-    $('#body-row .collapse').collapse('hide');
-
-    // Collapse/Expand icon
-    $('#collapse-icon').addClass('fa-angle-double-right');
-
-    // Collapse click
-    $('[data-toggle=sidebar-colapse]').click(function() {
-        SidebarCollapse();
-    });
-
-    function SidebarCollapse () {
-        $('.menu-collapsed').toggleClass('d-none');
-        $('.sidebar-submenu').toggleClass('d-none');
-        $('.submenu-icon').toggleClass('d-none');
-        $('#sidebar-container').toggleClass('sidebar-expanded sidebar-collapsed col-2 col');
-        // $('#sidebar-container').toggleClass('sidebar-expanded sidebar-collapsed col-2 col-auto');
-        $(".vspt-page-container").toggleClass("col-10 vspt-col-auto-fix");
-
-        // Treating d-flex/d-none on separators with title
-        var SeparatorTitle = $('.sidebar-separator-title');
-        if ( SeparatorTitle.hasClass('d-flex') ) {
-            SeparatorTitle.removeClass('d-flex');
-        } else {
-            SeparatorTitle.addClass('d-flex');
-        }
-
-        // Collapse/Expand icon
-        $('#collapse-icon').toggleClass('fa-angle-double-left fa-angle-double-right');
-    }
-</script>
-
 
 <div class="modal" tabindex="-1" id="changeRole">
     <div class="modal-dialog modal-dialog-centered">

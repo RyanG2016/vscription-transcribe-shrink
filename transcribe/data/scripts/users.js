@@ -10,8 +10,8 @@ var createAccForm;
 var createAccBtn;
 var updateAccBtn;
 var modalHeaderTitle;
-var countriesGlobal;
-const COUNTRIES_URL = "../api/v1/countries/?box_model";
+const COUNTRIES_URL = '/data/thirdparty/typeahead/countries.json';
+// const COUNTRIES_URL = "../api/v1/countries/?box_model";
 // const CITIES_URL = "../api/v1/cities/"; // + id + "?box_model"
 const API_INSERT_URL = '../api/v1/users/';
 
@@ -29,17 +29,10 @@ var act_log_retention_time;
 // -- combobox vars -- //
 var countryBox;
 
-// state
-var stateContainer;
-// var stateBoxLbl; // for combo box
-// var stateBox;
-
-var stateInputLbl; // for input
-var stateInput;
 // ====================
 // city
 var cityContainer;
-var cityInput;
+var city;
 // var cityLbl;
 // ---------
 var cityRequest;
@@ -55,8 +48,12 @@ $(document).ready(function () {
 
 	const maximum_rows_per_page_jobs_list = 10;
 
+	var lastZipRequested = '';
+	const zippoURL = "https://api.zippopotam.us/";
+	const CITY_FILTER_REGEX = /\(.*| st.*|[^a-zA-Z0-9. ]/gi;
+
 	createAccModal = document.getElementById("modal");
-	// createAccModal.style.display = "block";
+
 	usersDT = $("#users-tbl");
 	createAcc = $("#createAcc");
 	createAccForm = $("#createAccForm");
@@ -68,16 +65,13 @@ $(document).ready(function () {
 	countryBox = $("#country");
 
 	// state
-	stateContainer = $("#stateContainer");
-	// stateBoxLbl = $("#stateBoxLbl");
-	// stateBox = $("#stateBox");
-	stateInputLbl = $("#stateInputLbl");
-	stateInput = $("#stateInput");
+	state = $("#stateInput");
 
 
 	// city
 	cityContainer = $("#cityContainer");
-	cityInput = $("#cityInput");
+	city = $("#cityInput");
+	zip = $("#zipcode");
 
 	/** Fields */
 	fname = $("#fname");
@@ -401,29 +395,103 @@ $(document).ready(function () {
 		url: COUNTRIES_URL,
 		method: "GET",
 		success: function (countries) {
-			countriesGlobal = countries;
-			// console.log(countriesGlobal);
 			// setupComboBox(countries, "country");
 			const cbox = document.getElementById("country");
 			for (const country of countries) {
-				cbox.innerHTML += "<option value='"+country.label+"'>"+country.label+"</option>";
+				// cbox.innerHTML += "<option value='"+country.label+"'>"+country.label+"</option>";
+				cbox.innerHTML += "<option value='"+country+"'>"+country+"</option>";
 			}
 			countryBox.selectpicker({
 				liveSearch: true,
 				liveSearchPlaceholder: "Choose Country"
 			});
 
-			// loadCityAndState(countryBox.selectpicker('val')); // first time
-
-			countryBox.on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
-				// do something...
-				// console.log("selection changed to: " + clickedIndex + " and prev was: " + previousValue+ "and e is ");
-				// console.log(e);
-				// console.log(countryBox.selectpicker('val')); // selected value
-				// loadCityAndState(countryBox.selectpicker('val'));
-			});
 		}
 	});
+
+	zip.keyup(function () {
+		// check for matching regex
+		var CA_REGEX = /^[a-zA-Z0-9]{3}$|^[a-zA-Z0-9]{6}$|^[a-zA-Z0-9]{3} [a-zA-Z0-9]{3}$/;
+		var US_REGEX = /^[0-9]{5}$/;
+		zipValue = zip.val();
+
+		switch (zipValue.length) {
+
+			// CA
+			case 3:
+			case 6:
+				if(CA_REGEX.test(zipValue))
+				{
+					// lookup CA address
+					/*if(currentCountry != "Canada")
+                    {
+
+                        $("#countryBox").selectpicker('val', 203);
+                    }*/
+
+					lookupZip(zipValue.slice(0,3), "ca");
+				}
+				break;
+
+			// US
+			case 5:
+				if(US_REGEX.test(zipValue))
+				{
+					// lookup US address
+					/*if (currentCountry != 204) {
+                        $("#countryBox").selectpicker('val', 204);
+                    }*/
+					lookupZip(zipValue, "us");
+				}
+				break;
+		}
+
+	});
+
+	function lookupZip(zip, countryLookup)
+	{
+		if(lastZipRequested !== zip)
+		{
+			// var jqxhr = $.get( "example.php", function() {
+			// console.log("Looking up in " + country + " Zip: " + zip);
+			$.get( zippoURL + countryLookup + "/"+ zip, function() {
+				// alert( "success" );
+			})
+				.done(function(response) {
+					// var location = JSON.parse(response);
+					// "Winnipeg (St. Boniface NE)"
+					city.val(response["places"][0]["place name"].replace(CITY_FILTER_REGEX,"").trim());
+					// checkCity();
+
+					state.val(response["places"][0]["state"]);
+
+					if(countryLookup ===  "ca")
+					{
+						countryBox.selectpicker('val', "Canada");
+						// enableCaEngine();
+						// calculateTaxes();
+					}else if(countryLookup === "us")
+					{
+						countryBox.selectpicker('val',"United States");
+						// enableUsEngine();
+					}
+
+
+
+					// console.log(response);
+				})
+				.fail(function(error) {
+					// couldn't get address
+					// console.log("Failed to locate address by zip/postal code");
+					// alert( "error" );
+				});
+			/*.always(function() {
+                alert( "finished" );
+            });*/
+		}
+
+		lastZipRequested = zip;
+	}
 
 
 });
@@ -493,22 +561,22 @@ function preFillForm(data)
 	}
 	if(data["state"] != null)
 	{
-		stateInput.val(updateData["state"]);
+		state.val(updateData["state"]);
 	}else{
-		stateInput.val("");
+		state.val("");
 	}
 
-	// cityInput
+	// city
 	if(data["city"] != null)
 	{
-		cityInput.val(data["city"]);
+		city.val(data["city"]);
 	}else{
-		cityInput.val("");
+		city.val("");
 	}
 	updateAccBtn.removeAttr("disabled");
 
 	// show form
-	createAccModal.style.display = "block";
+
 	$('#modal').stop().animate({
 		scrollTop: 0
 	}, 500);

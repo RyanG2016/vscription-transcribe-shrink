@@ -62,7 +62,6 @@ $vtex_page = INTERNAL_PAGES::USERS;
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
-<!--    <script src="../data/custom-bootstrap-select/js/bootstrap.min.js"></script>-->
 
     <!-- BOOTSTRAP SELECT -->
     <link rel="stylesheet"
@@ -105,7 +104,7 @@ $vtex_page = INTERNAL_PAGES::USERS;
             <div class="row vspt-title-row no-gutters">
                 <div class="col align-items-end d-flex">
                     <legend class="page-title mt-auto">
-                        <i class="material-icons mdc-button__icon" aria-hidden="true">account_circle</i>
+                        <i class="fas fa-users fa-fw"></i>
                         Users Management
                     </legend>
                 </div>
@@ -162,47 +161,83 @@ $vtex_page = INTERNAL_PAGES::USERS;
                 </fieldset>
             </div>
 
-            <fieldset class="vtex-fieldset">
-                <div class="retention-grid">
-                    <label for="fname" class="vtex-form_lbl">
-                        First Name
-                        <input class="fname vtex-input" id="fname" name="first_name" type="text">
-                    </label>
+            <fieldset class="vtex-fieldset-light">
+                <legend>&nbsp;Required&nbsp;</legend>
 
-                    <label for="lname" class="vtex-form_lbl">
-                        Last Name
-                        <input class="lname vtex-input" id="lname" name="last_name" type="text">
-                    </label>
+                <div class="form-row mb-2">
+                    <div class="input-group col">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">First Name</span>
+                        </div>
+                        <input class="form-control" id="fname" name="first_name" type="text">
+                    </div>
+
+                    <div class="input-group col">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Last Name</span>
+                        </div>
+                        <input class="form-control" id="lname" name="last_name" type="text">
+                    </div>
                 </div>
+
+                <div class="form-row mb-2">
+                    <div class="input-group col-8">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Email</span>
+                        </div>
+                        <input class="form-control" id="email" name="email" type="text">
+                    </div>
+
+                    <div class="input-group col-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Country</span>
+                        </div>
+                        <select class="form-control selectpicker" id="country" name="country"> </select>
+                    </div>
+                </div>
+
             </fieldset>
 
-            <label for="email" class="vtex-form_lbl" style="width: 100%">
-                Email
-                <input class="email vtex-input" id="email" name="email" type="email" style="width: 100%">
-            </label>
+            <fieldset class="vtex-fieldset-light">
+                <legend>&nbsp;Optional&nbsp;</legend>
 
-            <div class="country">
-                <label>Country</label><br>
-                <select id="country" name="country" class="country_select" data-width="250px">
-                </select>
-            </div>
-            <br>
-            <!--===================================================-->
-            <div class="state" id="stateContainer">
-                <!------------------------------------------------------>
-                <label class="vtex-form_lbl state_input_lbl" id="stateInputLbl">
-                    State
-                    <input class="state_input vtex-input" id="stateInput" name="state" type="text">
-                </label>
-            </div>
-            <!--===================================================-->
-            <br>
-            <div id="cityContainer" class="city-container">
-                <label for="city" class="vtex-form_lbl city_lbl">
-                    City
-                    <input class="city-input vtex-input" id="cityInput" name="city" type="text">
-                </label>
-            </div>
+                <div class="form-row mb-2">
+
+                    <div class="input-group col">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">State</span>
+                        </div>
+                        <input class="form-control" id="stateInput" name="state" type="text" >
+                    </div>
+
+                    <div class="input-group col">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">City</span>
+                        </div>
+                        <input class="form-control" id="cityInput" name="city" type="text" >
+                    </div>
+
+                    <div class="input-group col">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Zip/PO</span>
+                        </div>
+                        <input class="form-control" id="zipcode" name="zipcode" type="text">
+                    </div>
+                </div>
+
+                <div class="form-row mb-2">
+
+                    <div class="input-group col">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Address</span>
+                        </div>
+                        <input class="form-control" id="addressInput" name="address" type="text" >
+                    </div>
+
+                </div>
+
+            </fieldset>
+
             <!--===================================================-->
 
             <div class="modal-footer pb-0">
