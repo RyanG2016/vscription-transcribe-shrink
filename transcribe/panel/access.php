@@ -26,7 +26,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
 }
 
 if( !isset($_POST["uid-access"]) || $_POST["uid-access"] <= 0) {
-    header('Location: ' . "accesss.php");
+    header('Location: ' . "access.php");
     exit();
 }
 
