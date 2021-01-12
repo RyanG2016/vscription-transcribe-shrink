@@ -58,8 +58,8 @@
  ===============================
  */
 .btn-primary {
-    background-color: var(--vspt-primary-bootstrap-btn);
-    border-color: var(--vspt-primary-bootstrap-btn);
+    background-color: var(--vspt-primary-bootstrap-btn) !important;
+    border-color: var(--vspt-primary-bootstrap-btn) !important;
 }
 
 
