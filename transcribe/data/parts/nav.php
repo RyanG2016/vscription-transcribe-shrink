@@ -63,7 +63,7 @@
                echo ' <a href="#adminmenu" data-toggle="collapse" aria-expanded="false"
                            class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
                             <div class="d-flex w-100 justify-content-start align-items-center">
-                                <span class="fas fa-user-shield fa-fw mr-3"></span>
+                                <i class="fas fa-user-tie fa-fw mr-3"></i>
                                 <span class="menu-collapsed d-none">Admin Panel</span>
                                 <span class="submenu-icon d-none ml-auto"></span>
                             </div>
@@ -225,7 +225,7 @@
        }
 
        echo ' <li class="list-group-item sidebar-separator-title text-muted align-items-center menu-collapsed d-none">
-                            <small>Actions</small>
+                            <small>Manage Role</small>
                     </li>
                     <!-- /END Separator -->
                     
