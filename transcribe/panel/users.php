@@ -104,7 +104,7 @@ $vtex_page = INTERNAL_PAGES::USERS;
             <div class="row vspt-title-row no-gutters">
                 <div class="col align-items-end d-flex">
                     <legend class="page-title mt-auto">
-                        <i class="material-icons mdc-button__icon" aria-hidden="true">account_circle</i>
+                        <i class="fas fa-users fa-fw"></i>
                         Users Management
                     </legend>
                 </div>
