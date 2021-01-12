@@ -74,7 +74,7 @@
                             </a>
                             <a href="/panel/accounts.php" class="list-group-item list-group-item-action bg-dark text-white">
                                 <span class="fas fa-id-card fa-fw mr-3"></span>
-                                <span class="menu-collapsed d-none">Accounts</span>
+                                <span class="menu-collapsed d-none">Organizations</span>
                             </a>
                 
                             <a href="/panel/admin_tools.php" class="list-group-item list-group-item-action bg-dark text-white">
