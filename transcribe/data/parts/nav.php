@@ -181,7 +181,7 @@
                        <a href="#" id="createAcc" class="bg-dark list-group-item list-group-item-action">
                         <div class="d-flex w-100 justify-content-start align-items-center">
                             <span class="fas fa-user-plus fa-fw mr-3"></span>
-                            <span class="menu-collapsed d-none">Create Org</span>
+                            <span class="menu-collapsed d-none">Create Organization</span>
                         </div>
                     </a>';
                break;
