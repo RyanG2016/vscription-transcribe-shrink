@@ -262,7 +262,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 style="color: #1e79be" id="modalHeaderTitle">
+                <h3 style="color: #1e79be" id="navModalHeaderTitle">
                     <i class="fas fa-wrench"></i>&nbsp;Change Role
                 </h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">

@@ -23,7 +23,7 @@ $(document).ready(function(){
     var roleBoxNav = $("#roleBoxNav");
     var navLoverlay = $("#navOverlay");
     var navLoverlayText = $("#navOverlayText");
-    var modalHeaderTitle = $("#modalHeaderTitle");
+    var navModalHeaderTitle = $("#navModalHeaderTitle");
     var pinBtn = $("#pinBtn");
     var pinIcon = $("#pinIcon");
     var pinBtnPressed = false;
@@ -115,9 +115,9 @@ $(document).ready(function(){
         setDefaultModal = setDefaultModalBool;
 
         if(setDefaultModalBool) {
-            modalHeaderTitle.html(SET_DEFAULT_ROLE_HEADER);
+            navModalHeaderTitle.html(SET_DEFAULT_ROLE_HEADER);
         } else{
-            modalHeaderTitle.html(CHANGE_ROLE_HEADER);
+            navModalHeaderTitle.html(CHANGE_ROLE_HEADER);
         }
     }
 
@@ -367,7 +367,7 @@ $(document).ready(function(){
         pinIcon.removeClass("fa-rotate-315");
     }
 
-    console.log("sidebar pinned: " + sidebarPinned);
+    // console.log("sidebar pinned: " + sidebarPinned);
     // Collapse click
     $('[data-toggle=sidebar-collapse-toggle]').click(function() {
         if(pinBtnPressed) pinBtnPressed=false;

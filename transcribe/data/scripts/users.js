@@ -65,7 +65,8 @@ $(document).ready(function () {
 	countryBox = $("#country");
 
 	// state
-	state = $("#stateInput");
+	var state = $("#stateInput");
+	var address = $("#addressInput");
 
 
 	// city
@@ -494,218 +495,223 @@ $(document).ready(function () {
 	}
 
 
-});
-
-function htmlEncodeStr(s)
-{
-	return s.replace(/&/g, "&amp;")
-		.replace(/>/g, "&gt;")
-		.replace(/</g, "&lt;")
-		.replace(/"/g, "&quot;")
-		.replace(/'/g, "&lsquo;");
-}
-
-function resetForm(){
-	modalHeaderTitle.html(CREATE_ACC_HEADER);
-	// setStateForm(true);
-	updateAccBtn.css("display","none");
-	createAccBtn.css("display","inline");
-	createAccForm.find("input:not(input[type=radio])").val("");
-	createAccForm.find("input[type=radio]").prop('checked', false).change();
-
-	createAccBtn.removeAttr("disabled");
-	updateAccBtn.removeAttr("disabled");
-}
-
-
-function preFillForm(data)
-{
-	update = true;
-	updateData = data;
-	// data: dataTable Item Array
-	// usersDTRef.row(this).data()["item"]
-	// data["item"]
-
-	// pass current ID
-	currentID = data["id"];
-
-	// header title
-	modalHeaderTitle.html(UPDATE_ACC_HEADER);
-
-	// buttons
-	updateAccBtn.css("display","inline");
-	createAccBtn.css("display","none");
-
-	// name
-	fname.val(data["first_name"]);
-	lname.val(data["last_name"]);
-
-	email.val(data["email"]);
-
-	// radio buttons
-	if(data["enabled"] == 1){
-		$("#enabled-t").prop('checked', true).change();
-	}else{
-		$("#enabled-f").prop('checked', true).change();
-	}
-	if(data["newsletter"] == 1){
-		$("#newsletter-t").prop('checked', true).change();
-	}else{
-		$("#newsletter-f").prop('checked', true).change();
-	}
-
-	// Setting address --
-	if(data["country"] != null)
+	function preFillForm(data)
 	{
-		countryBox.selectpicker('val',data["country"]);
+		update = true;
+		updateData = data;
+		// data: dataTable Item Array
+		// usersDTRef.row(this).data()["item"]
+		// data["item"]
+
+		// pass current ID
+		currentID = data["id"];
+
+		// header title
+		modalHeaderTitle.html(UPDATE_ACC_HEADER);
+
+		// buttons
+		updateAccBtn.css("display","inline");
+		createAccBtn.css("display","none");
+
+		// name
+		fname.val(data["first_name"]);
+		lname.val(data["last_name"]);
+
+		email.val(data["email"]);
+
+		// radio buttons
+		if(data["enabled"] == 1){
+			$("#enabled-t").prop('checked', true).change();
+		}else{
+			$("#enabled-f").prop('checked', true).change();
+		}
+		if(data["newsletter"] == 1){
+			$("#newsletter-t").prop('checked', true).change();
+		}else{
+			$("#newsletter-f").prop('checked', true).change();
+		}
+
+		// Setting address --
+		if(data["country"] != null)
+		{
+			countryBox.selectpicker('val',data["country"]);
+		}
+		if(data["state"] != null)
+		{
+			state.val(updateData["state"]);
+		}else{
+			state.val("");
+		}
+
+		// city
+		if(data["city"] != null)
+		{
+			city.val(data["city"]);
+		}else{
+			city.val("");
+		}
+
+
+		if(data["address"] != null)
+		{
+			address.val(data["address"]);
+		}else{
+			address.val("");
+		}
+
+		if(data["zipcode"] != null)
+		{
+			zip.val(data["zipcode"]);
+		}else{
+			zip.val("");
+		}
+		updateAccBtn.removeAttr("disabled");
+
+		// show form
+		createAccModal.style.display = "block";
+		$('#modal').stop().animate({
+			scrollTop: 0
+		}, 500);
+
 	}
-	if(data["state"] != null)
+
+	function resetForm(){
+		modalHeaderTitle.html(CREATE_ACC_HEADER);
+		// setStateForm(true);
+		updateAccBtn.css("display","none");
+		createAccBtn.css("display","inline");
+		createAccForm.find("input:not(input[type=radio])").val("");
+		createAccForm.find("input[type=radio]").prop('checked', false).change();
+
+		createAccBtn.removeAttr("disabled");
+		updateAccBtn.removeAttr("disabled");
+	}
+
+
+	function validateForm()
 	{
-		state.val(updateData["state"]);
-	}else{
-		state.val("");
-	}
+		var check = true;
+		/** radio buttons (2) */
+		// enabled
+		if($(".newsletter-radios input[type=radio]:checked").length === 0){
+			check = false;
+			newsletterRadioGroup.addClass("vtex-validate-error");
+		}
+		// newsletter
+		if($(".enabled-radios input[type=radio]:checked").length === 0){
+			check = false;
+			enabledRadioGroup.addClass("vtex-validate-error");
+		}
 
-	// city
-	if(data["city"] != null)
-	{
-		city.val(data["city"]);
-	}else{
-		city.val("");
-	}
-	updateAccBtn.removeAttr("disabled");
+		/**  User Name  */
+		if(isEmptyInput(fname)) {
+			check = false;
+			fname.addClass("vtex-validate-error");
+		}
 
-	// show form
-
-	$('#modal').stop().animate({
-		scrollTop: 0
-	}, 500);
-
-}
-
-function validateForm()
-{
-	var check = true;
-	/** radio buttons (2) */
-	// enabled
-	if($(".newsletter-radios input[type=radio]:checked").length === 0){
-		check = false;
-		newsletterRadioGroup.addClass("vtex-validate-error");
-	}
-	// newsletter
-	if($(".enabled-radios input[type=radio]:checked").length === 0){
-		check = false;
-		enabledRadioGroup.addClass("vtex-validate-error");
-	}
-
-	/**  User Name  */
-	if(isEmptyInput(fname)) {
-		check = false;
-		fname.addClass("vtex-validate-error");
-	}
-
-	if(isEmptyInput(lname)) {
-		check = false;
-		lname.addClass("vtex-validate-error");
-	}
+		if(isEmptyInput(lname)) {
+			check = false;
+			lname.addClass("vtex-validate-error");
+		}
 
 
-	if( !validateEmail(email.val()) ) {
-		check = false;
-		email.addClass("vtex-validate-error");
-	}
+		if( !validateEmail(email.val()) ) {
+			check = false;
+			email.addClass("vtex-validate-error");
+		}
 
 
-	if(!check){
-		// $("#modal").scrollTop(0);
-		$.confirm({
-			title: 'Error',
-			content: 'Make sure to correctly fill the highlighted fields.',
-			scrollToPreviousElement: false,
-			scrollToPreviousElementAnimate: false,
-			buttons: {
-				confirm: {
-					btnClass: 'btn-red',
-					text: "OK",
-					action: function () {
-						$('#modal').stop().animate({
-							scrollTop: 0
-						}, 500);
+		if(!check){
+			// $("#modal").scrollTop(0);
+			$.confirm({
+				title: 'Error',
+				content: 'Make sure to correctly fill the highlighted fields.',
+				scrollToPreviousElement: false,
+				scrollToPreviousElementAnimate: false,
+				buttons: {
+					confirm: {
+						btnClass: 'btn-red',
+						text: "OK",
+						action: function () {
+							$('#modal').stop().animate({
+								scrollTop: 0
+							}, 500);
 
-						return true;
+							return true;
+						}
 					}
 				}
-			}
-		});
-	}
-	return check;
-}
-
-function hideValidate(input, isRadioBtn = false) {
-
-	var self;
-	if(isRadioBtn){
-		self = $(input).parent();
-	}else{
-		self = $(input);
-	}
-	// self.val()
-	self.removeClass("vtex-validate-error");
-}
-
-function isEmptyInput( el ){
-	return !$.trim(el.val())
-}
-
-function convertToSearchParam(params){
-	const searchParams = new URLSearchParams();
-	// for (const prop in params) {
-	// 	searchParams.set(prop, params[prop]);
-	// }
-
-	for (const [key, value] of params) {
-		// console.log('»', key, value);
-		searchParams.set(key, value);
+			});
+		}
+		return check;
 	}
 
-	return searchParams;
-}
+	function hideValidate(input, isRadioBtn = false) {
+
+		var self;
+		if(isRadioBtn){
+			self = $(input).parent();
+		}else{
+			self = $(input);
+		}
+		// self.val()
+		self.removeClass("vtex-validate-error");
+	}
+
+	function isEmptyInput( el ){
+		return !$.trim(el.val())
+	}
+
+	function convertToSearchParam(params){
+		const searchParams = new URLSearchParams();
+		// for (const prop in params) {
+		// 	searchParams.set(prop, params[prop]);
+		// }
+
+		for (const [key, value] of params) {
+			// console.log('»', key, value);
+			searchParams.set(key, value);
+		}
+
+		return searchParams;
+	}
 
 
-function removeLoadingSpinner() {
-	$(".spinner").remove();
-}
-function generateLoadingSpinner() {
+	function removeLoadingSpinner() {
+		$(".spinner").remove();
+	}
+	function generateLoadingSpinner() {
 
-	// Generate a loading spinner //
-	//<div class="spinner">
-	//  <div class="bounce1"></div>
-	//  <div class="bounce2"></div>
-	//  <div class="bounce3"></div>
-	//</div>
+		// Generate a loading spinner //
+		//<div class="spinner">
+		//  <div class="bounce1"></div>
+		//  <div class="bounce2"></div>
+		//  <div class="bounce3"></div>
+		//</div>
 
-	const spinnerDiv = document.createElement("div");
-	spinnerDiv.setAttribute("class", "spinner");
-	const bounce1 = document.createElement("div");
-	const bounce2 = document.createElement("div");
-	const bounce3 = document.createElement("div");
-	bounce1.setAttribute("class", 'bounce1');
-	bounce2.setAttribute("class", 'bounce2');
-	bounce3.setAttribute("class", 'bounce3');
+		const spinnerDiv = document.createElement("div");
+		spinnerDiv.setAttribute("class", "spinner");
+		const bounce1 = document.createElement("div");
+		const bounce2 = document.createElement("div");
+		const bounce3 = document.createElement("div");
+		bounce1.setAttribute("class", 'bounce1');
+		bounce2.setAttribute("class", 'bounce2');
+		bounce3.setAttribute("class", 'bounce3');
 
-	spinnerDiv.appendChild(bounce1);
-	spinnerDiv.appendChild(bounce2);
-	spinnerDiv.appendChild(bounce3);
+		spinnerDiv.appendChild(bounce1);
+		spinnerDiv.appendChild(bounce2);
+		spinnerDiv.appendChild(bounce3);
 
-	return spinnerDiv;
-}
+		return spinnerDiv;
+	}
 
-function validateEmail(mail)
-{
-	if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))
+	function validateEmail(mail)
 	{
-		return (true)
+		if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))
+		{
+			return true;
+		}
+		// alert("You have entered an invalid email address!")
+		return false;
 	}
-	// alert("You have entered an invalid email address!")
-	return (false)
-}
+});

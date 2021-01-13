@@ -231,7 +231,7 @@ $vtex_page = INTERNAL_PAGES::USERS;
                         <div class="input-group-prepend">
                             <span class="input-group-text">Address</span>
                         </div>
-                        <input class="form-control" id="addressInput" name="address" type="text" >
+                        <input class="form-control" id="addressInput" name="address" type="text"  value="222">
                     </div>
 
                 </div>
