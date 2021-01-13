@@ -205,10 +205,15 @@ $vtex_page = INTERNAL_PAGES::USERS;
 
                     <div class="input-group col">
                         <div class="input-group-prepend">
-                            <span class="input-group-text">State</span>
+                            <span class="input-group-text">Address</span>
                         </div>
-                        <input class="form-control" id="stateInput" name="state" type="text" >
+                        <input class="form-control" id="addressInput" name="address" type="text"  value="222">
                     </div>
+
+                </div>
+
+                <div class="form-row mb-2">
+
 
                     <div class="input-group col">
                         <div class="input-group-prepend">
@@ -217,24 +222,23 @@ $vtex_page = INTERNAL_PAGES::USERS;
                         <input class="form-control" id="cityInput" name="city" type="text" >
                     </div>
 
+
                     <div class="input-group col">
                         <div class="input-group-prepend">
-                            <span class="input-group-text">Zip/PO</span>
+                            <span class="input-group-text">Prov/State</span>
+                        </div>
+                        <input class="form-control" id="stateInput" name="state" type="text" >
+                    </div>
+
+                    <div class="input-group col">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Postal Code/Zip</span>
                         </div>
                         <input class="form-control" id="zipcode" name="zipcode" type="text">
                     </div>
                 </div>
 
-                <div class="form-row mb-2">
 
-                    <div class="input-group col">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Address</span>
-                        </div>
-                        <input class="form-control" id="addressInput" name="address" type="text"  value="222">
-                    </div>
-
-                </div>
 
             </fieldset>
 
