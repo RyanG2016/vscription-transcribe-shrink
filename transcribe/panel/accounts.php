@@ -4,17 +4,9 @@
 require '../../api/vendor/autoload.php';
 use Src\Enums\INTERNAL_PAGES;
 
-include('../data/parts/session_settings.php');
+$vtex_page = INTERNAL_PAGES::ADMIN_PANEL_ACCOUNTS;
 
-require('../data/parts/ping.php');
-
-if (!isset($_SESSION['loggedIn'])) {
-    header('location:../logout.php');
-    exit();
-}
-if (isset($_SESSION['counter'])) {
-    unset($_SESSION['counter']);
-}
+include('../data/parts/head.php');
 
 // admin panel main
 
