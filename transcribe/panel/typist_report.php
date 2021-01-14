@@ -96,8 +96,15 @@ if ($_SESSION['role'] != "1") {
 
                 <div class="row typ-billing-container">
 
-                    <div class="col typist" id="typistContainer">
-
+                    <div class="col">
+<!--                        <div class="input-group">-->
+                            <label for="typist" class="mt-auto mb-auto h-auto">Typist</label>
+                            <select id="typistContainer" class="typist-select selectpicker">
+                                <option value="loading">
+                                    Loading..
+                                </option>
+                            </select>
+<!--                        </div>-->
                     </div>
 
 
