@@ -98,7 +98,7 @@ svg {
     font-size: .8rem !IMPORTANT;
 }
 
-.form-control,
+.form-control:not(#code),
 .filter-option-inner-inner{
     font-size: .8rem !IMPORTANT;
 }
