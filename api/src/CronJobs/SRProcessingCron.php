@@ -51,6 +51,9 @@ class SRProcessingCron{
     private ?SR $srE;
     private ?SRQueue $srqE;
 
+    // Service runtime var
+    private int $processedIterations = 0;
+
     public function __construct($db)
     {
         // call main process
@@ -77,28 +80,38 @@ class SRProcessingCron{
 
     function prepareNextFile()
     {
-        $srqRow = $this->srqGateway->getNextQFIProcessing();
-
-        if($srqRow)
+        if($this->processedIterations < 3600)
         {
-            $this->srqE = SRQueue::withRow($srqRow, $this->db);
-            $this->fileE = File::withRow($this->fileGateway->findAltModel($this->srqE->getFileId()), $this->db);
-            $this->srE = SR::withAccID($this->fileE->getAccId(), $this->db);
+            $this->processedIterations++;
+            $srqRow = $this->srqGateway->getNextQFIProcessing();
 
-            $this->requestCount++;
-
-            if($this->requestCount > self::REVAI_API_REQUEST_LIMIT)
+            if($srqRow)
             {
-                $this->thresholdWait(self::WAIT_THEN_CURL_CAPTIONS);
-                return;
+                $this->srqE = SRQueue::withRow($srqRow, $this->db);
+                $this->fileE = File::withRow($this->fileGateway->findAltModel($this->srqE->getFileId()), $this->db);
+                $this->srE = SR::withAccID($this->fileE->getAccId(), $this->db);
+
+                $this->requestCount++;
+
+                if($this->requestCount > self::REVAI_API_REQUEST_LIMIT)
+                {
+                    $this->thresholdWait(self::WAIT_THEN_CURL_CAPTIONS);
+                    return;
+                }
+
+                $this->curlGetCaptions();
+
+            }else{
+                // No Files in Queue
+                sleep(10);
+                $this->prepareNextFile();
             }
-
-            $this->curlGetCaptions();
-
         }else{
-            // No Files in Queue
-            sleep(10);
-            $this->prepareNextFile();
+            // stop script
+
+            // flush and restart
+            /*$this->processedIterations = 0;
+            $this->prepareNextFile();*/
         }
     }
 
