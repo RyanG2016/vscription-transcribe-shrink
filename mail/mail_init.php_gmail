@@ -19,25 +19,19 @@ $mail = new PHPMailer(true);
 try {
     //Server settings
 //    $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
-	$mail->Encoding = "base64";
-    $mail->isSMTP();  	// Send using SMTP   
-	$mail->isHTML(true);
-	$mail->CharSet = "UTF-8";
-	$mail->From = "mailer@vscription.com";
-    $mail->Host       = 'smtp.transmail.com';                    // Set the SMTP server to send through
+    $mail->isSMTP();                                            // Send using SMTP
+    $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
     $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-    $mail->Username   = 'emailapikey';                     // SMTP username
+    $mail->Username   = 'subscriptions@vtexvsi.com';                     // SMTP username
 //    $mail->Username   = 'hacker2894@gmail.com';                     // SMTP username
-    $mail->Password   = 'wSsVR61wqB+iBvounzatcb8+nVpQAgv3EUp4iwf06iL5HqjEosdvl0ycBFX1H/dLGWdrQTMbpOkhzhcA2mcG3IktnlsFXSiF9mqRe1U4J3x17qnvhDzOWWhYkRCALoIBxwVonmdmFM0h+g==';                               // SMTP password
-    $mail->SMTPSecure = 'TLS';         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
+    $mail->Password   = 'ysooulntbsyootak';                               // SMTP password
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
 //    $mail->SMTPDebug  = 5;         
     $mail->Port       = 587;                                    // TCP port to connect to
-	$mail->Sender = 'vsvoice@bounce.vscription.com';
-
 
     //Recipients
-    $mail->setFrom('mailer@vscription.com', 'vScription Transcribe');
-    //$mail->addReplyTo('noreply@vscription.com', 'vScription Transcribe');
+    $mail->setFrom('subscriptions@vtexvsi.com', 'vScription Transcribe');
+    $mail->addReplyTo('noreply@vtexvsi.com', 'vScription Transcribe');
 //	$mail->addAddress('cc@example.com', 'Recipient User');     // Add a recipient TO BE ADDED FROM METHOD
 //    $mail->addCC('cc@example.com');
 //    $mail->addBCC('bcc@example.com');
