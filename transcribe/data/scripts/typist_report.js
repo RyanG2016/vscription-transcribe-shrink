@@ -23,10 +23,9 @@ $(document).ready(function () {
     // startDate.datepicker({dateFormat: "yy-mm-dd"});
     // endDate.datepicker({dateFormat: "yy-mm-dd"});
 
-    typistContainer.html();
-    typistContainer.append(generateLoadingSpinner());
+    // typistContainer.html();
+    // typistContainer.append(generateLoadingSpinner());
     // typistContainer.appendChild(generateLoadingSpinner());
-    console.log(generateLoadingSpinner());
     
     startDate.val(today);
     endDate.val(tomorrow);
@@ -92,7 +91,6 @@ $(document).ready(function () {
         });
     });
 
-    getTypistsSelect();
 
 
     function getData(args) {
@@ -114,6 +112,9 @@ $(document).ready(function () {
             }
         });
     }
+
+
+    getTypistsSelect();
 
     function getTypistsSelect() {
         $.post("/data/parts/backend_request.php", {

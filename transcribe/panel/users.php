@@ -3,18 +3,8 @@
 
 require '../../api/vendor/autoload.php';
 use Src\Enums\INTERNAL_PAGES;
-
-include('../data/parts/session_settings.php');
-
-require('../data/parts/ping.php');
-
-if (!isset($_SESSION['loggedIn'])) {
-    header('location:../logout.php');
-    exit();
-}
-if (isset($_SESSION['counter'])) {
-    unset($_SESSION['counter']);
-}
+$vtex_page = INTERNAL_PAGES::ADMIN_PANEL_USERS;
+include('../data/parts/head.php');
 
 //redirect to main
 if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {

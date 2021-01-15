@@ -6,19 +6,7 @@ use Src\Enums\INTERNAL_PAGES;
 
 $vtex_page = INTERNAL_PAGES::TYPIST_REPORTS;
 
-include('../data/parts/session_settings.php');
-
-require('../data/parts/ping.php');
-
-if(!isset($_SESSION['loggedIn']))
-{
-    header('location:../logout.php');
-    exit();
-}
-if(isset($_SESSION['counter']))
-{
-    unset($_SESSION['counter']);
-}
+include('../data/parts/head.php');
 
 // admin panel main
 
@@ -108,8 +96,15 @@ if ($_SESSION['role'] != "1") {
 
                 <div class="row typ-billing-container">
 
-                    <div class="col typist" id="typistContainer">
-
+                    <div class="col">
+<!--                        <div class="input-group">-->
+                            <label for="typist" class="mt-auto mb-auto h-auto">Typist</label>
+                            <select id="typistContainer" class="typist-select selectpicker">
+                                <option value="loading">
+                                    Loading..
+                                </option>
+                            </select>
+<!--                        </div>-->
                     </div>
 
 

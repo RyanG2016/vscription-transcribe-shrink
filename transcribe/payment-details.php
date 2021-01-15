@@ -5,17 +5,7 @@ use Src\Enums\INTERNAL_PAGES;
 
 $vtex_page = INTERNAL_PAGES::PAYMENT_DETAILS;
 require '../api/bootstrap.php';
-include('data/parts/session_settings.php');
-
-require('data/parts/ping.php');
-
-if (!isset($_SESSION['loggedIn'])) {
-    header('location:../logout.php');
-    exit();
-}
-if (isset($_SESSION['counter'])) {
-    unset($_SESSION['counter']);
-}
+include('data/parts/head.php');
 
 use Src\Enums\PAYMENT_STATUS;
 use Src\Models\Package;

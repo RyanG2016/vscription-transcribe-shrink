@@ -1,18 +1,13 @@
 <?php
 //include('../data/parts/head.php');
-$vtex_page = 12;
+
 require __DIR__.'/../api/bootstrap.php';
-include('data/parts/session_settings.php');
 
-require('data/parts/ping.php');
+use Src\Enums\INTERNAL_PAGES;
 
-if (!isset($_SESSION['loggedIn'])) {
-    header('location:../logout.php');
-    exit();
-}
-if (isset($_SESSION['counter'])) {
-    unset($_SESSION['counter']);
-}
+$vtex_page = INTERNAL_PAGES::PROCESSING;
+
+include('data/parts/head.php');
 
 use Src\Models\Package;
 use Src\Models\SR;

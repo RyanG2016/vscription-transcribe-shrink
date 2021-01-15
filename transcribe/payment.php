@@ -7,17 +7,7 @@ use Src\Enums\INTERNAL_PAGES;
 $vtex_page = INTERNAL_PAGES::PAYMENT;
 
 require '../api/bootstrap.php';
-include('data/parts/session_settings.php');
-
-require('data/parts/ping.php');
-
-if (!isset($_SESSION['loggedIn'])) {
-    header('location:../logout.php');
-    exit();
-}
-if (isset($_SESSION['counter'])) {
-    unset($_SESSION['counter']);
-}
+include('data/parts/head.php');
 header("Cache-Control: no-cache, must-revalidate"); //HTTP 1.1
 header("Pragma: no-cache"); //HTTP 1.0
 //header("Expires: Sat, 26 Jul 1993 05:00:00 GMT"); // Date in the past

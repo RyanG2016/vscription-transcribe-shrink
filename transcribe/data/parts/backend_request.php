@@ -804,7 +804,7 @@ if(isset($_REQUEST["reqcode"])){
             {
                 if(mysqli_stmt_execute($stmt)){
                     $result = mysqli_stmt_get_result($stmt);
-                    $html = "<label for=\"typist\">Typist</label><select id=\"typist\" class=\"typist-select\">";
+                    $html = "";
                     if(mysqli_num_rows($result) > 0){
                         $num_rows = mysqli_num_rows($result);
                         while($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
@@ -814,7 +814,6 @@ if(isset($_REQUEST["reqcode"])){
                                 $row['first_name'] . " " . $row['last_name'] .
                                 "</option>";
                         }
-                        $html .= "</select>";
                         echo generateResponse($html,false, false);
                     }
                     else {
