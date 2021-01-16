@@ -364,6 +364,7 @@ $(document).ready(function(){
         SidebarCollapse(true);
         pinBtn.attr("aria-pressed", "true");
         pinBtn.addClass("active");
+        pinIcon.addClass("active");
         pinIcon.removeClass("fa-rotate-315");
     }
 
@@ -376,7 +377,7 @@ $(document).ready(function(){
 
     pinBtn.on('click', function(e){
         pinBtnPressed = true; // to prevent collapse from being pressed
-        pinIcon.toggleClass("fa-rotate-315");
+        pinIcon.toggleClass("fa-rotate-315 active");
 
         // pinned?
         sidebarPinned = !pinIcon.hasClass("fa-rotate-315");

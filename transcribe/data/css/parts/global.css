@@ -66,7 +66,7 @@
     --vspt-sidebar-title-bg: var(--vspt-blue);
     --vspt-sidebar-title-color: white;
     --vspt-sidebar-toggle-btn: var(--vspt-dark);
-    --vspt-sidebar-toggle-btn-active: var(--vspt-btn-blue);
+    --vspt-sidebar-toggle-btn-active: #239bd6;
 
     /***** Buttons ******/
     /* > MDC */
@@ -523,7 +523,16 @@ a:visited {
     border-color: var(--vspt-sidebar-toggle-btn) !important;
 }
 
+.pin-button,
+.pin-button:focus {
+    outline: 0 !important;
+    box-shadow: none !important;
+}
+
 .pin-button.btn-primary.active {
-    background-color: var(--vspt-sidebar-toggle-btn-active) !important;
-    border-color: var(--vspt-sidebar-toggle-btn-active) !important;
+
+}
+
+.pin-icon.active{
+    color: var(--vspt-sidebar-toggle-btn-active) !important;
 }

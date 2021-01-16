@@ -33,7 +33,7 @@
                 <span id="collapse-text" class="menu-collapsed d-none">Expand</span>
                 <span class="menu-collapsed d-none ml-auto">
                     <button id="pinBtn" type="button" class="btn btn-primary pin-button" data-toggle="button" aria-pressed="false">
-                        <i id="pinIcon" class="fas fa-thumbtack fa-rotate-315"></i>
+                        <i id="pinIcon" class="fas fa-thumbtack fa-rotate-315 pin-icon"></i>
                     </button>
                 </span>
             </div>
