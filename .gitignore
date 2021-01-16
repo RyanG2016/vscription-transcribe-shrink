@@ -48,3 +48,4 @@ transcribe/sr/*
 /uploads/
 /convert.log
 /docs/~$db_vscription.xlsx
+/logs/
