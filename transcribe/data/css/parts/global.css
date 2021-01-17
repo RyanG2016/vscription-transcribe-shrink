@@ -41,6 +41,7 @@
     --vspt-blue: #1e79be;
     --vspt-blue-dark: #4e6d85;
     --vspt-page-bg: #2c3e50;
+    --vspt-sr-balance: #217904;
     /*--vspt-page-bg: #252d3b;*/
     --vspt-dark: #343a40;
     --vspt-website-bg-color: #343a40;
@@ -500,6 +501,8 @@ a:visited {
 
 .green-btn {
     --mdc-theme-primary: var(--vspt-btn-green);
+    background-color: var(--vspt-btn-green) !important;
+    border-color:  var(--vspt-btn-green) !important;
 }
 
 .blue-btn {
@@ -523,16 +526,23 @@ a:visited {
     border-color: var(--vspt-sidebar-toggle-btn) !important;
 }
 
+
 .pin-button,
 .pin-button:focus {
     outline: 0 !important;
     box-shadow: none !important;
 }
 
-.pin-button.btn-primary.active {
+/*.pin-button.btn-primary.active {
 
-}
+}*/
 
 .pin-icon.active{
     color: var(--vspt-sidebar-toggle-btn-active) !important;
+}
+
+
+
+.noHover {
+    pointer-events: none;
 }

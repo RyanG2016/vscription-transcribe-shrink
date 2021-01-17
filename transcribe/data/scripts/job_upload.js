@@ -6,8 +6,9 @@ var uploadAjax;
 
 function documentReady() {
 
-	const input = document.getElementById('upload_btn');
-	const reset = document.getElementById('clear_btn');
+	const input = document.getElementById('filesInput');
+	const inputJQ = $("#filesInput");
+
 	const submitUploadBtn = document.querySelector('.submit_btn');
 	const cancel_popup_btn = document.getElementById('cancelUpload');
 	const confirm_popup_btn = document.getElementById('confirmUpload');
@@ -17,17 +18,35 @@ function documentReady() {
 	const backend_url = 'data/parts/backend_request.php';
 	const api_insert_url = 'api/v1/files/';
 
-	$('#dictdatetime').datetimepicker({format: "DD-MMM-YYYY hh:mm:ss A"});
 
-	new mdc.ripple.MDCRipple(document.querySelector('.clear_btn'));
-	var mdcMainUploadBtn = new mdc.ripple.MDCRipple(document.querySelector('.upload_btn_lbl'));
+	// 23-Feb-2020 12:35:40 AM
+
+	const flatPickr = $("#dictDatePicker").flatpickr({
+		enableTime: true,
+		altInput: true,
+		altFormat: "d-M-Y h:i:S K",
+		dateFormat: "Y-m-d H:i:S",
+		defaultDate: new Date()
+	});
+
+
 	new mdc.ripple.MDCRipple(document.querySelector('.submit_btn'));
 	new mdc.ripple.MDCRipple(document.querySelector('#cancelUpload'));
 	new mdc.ripple.MDCRipple(document.querySelector('#confirmUpload'));
-	// new mdc.textfield.MDCTextField(document.querySelector('.mdc-text-field'));
+	var uploadCarousel = $("#uploadCarousel");
+	
 	let modal = document.getElementById("modal");
 
-	const mainUploadBtn = $("#mainUploadBtn");
+	// const mainUploadBtn = $("#mainUploadBtn");
+	const dropUploadContent = $("#vsptDropUploadContent");
+	const dropUploadMainContent = $("#vsptDropMainContent");
+	const clearDiv = $("#clear");
+	const progressList = $("#vsptProgressList");
+	const nextBtn = $("#demoNextBtn");
+	const prevBtn = $("#demoBackBtn");
+	const dropZone = $("#vsptDropZone");
+	const speakerTypeDiv = $("#speakerTypeDiv");
+	const dictDateLbl = $("#dictDateLbl");
 
 	// allowed files for upload queue variables
 	var filesArr = [];
@@ -46,50 +65,102 @@ function documentReady() {
 	getSRenabled();
 	var srMinutesRemaining = 0;
 	var srMinutes = $("#srMinutes");
-	// getSRMinutes();
 
-	// const modalProgress = new mdc.linearProgress.MDCLinearProgress(document.querySelector('#modalProgress'));
-	// const modalProgressLay = $('#modalProgress');
-
-	/*window.onclick = function(event) {
-		if (event.target == modal) {
-			modal.style.display = "none";
-		}
-	}*/
-
-
-	input.style.display = "none";
-
-	mainUploadBtn.on('click', function (){
+	$("#chooseFile").on("click", function(){
 		input.click();
 	});
+
+	nextBtn.on("click", function(){
+		uploadCarousel.carousel(2);
+	});
+	prevBtn.on("click", function(){
+		uploadCarousel.carousel(0);
+	});
+
+	let p1nBtn = $("#p1nBtn");
+	let p3bBtn = $("#p3Bbtn");
+
+	p1nBtn.on("click", function(){
+		if(filesArr.length > 0)
+		{
+			uploadCarousel.carousel(1);
+		}
+	});
+
+	p3bBtn.on("click", function(){
+
+		uploadCarousel.carousel(1);
+
+	});
+
+	dropZone.on('drag dragstart dragend dragover dragenter dragleave drop', function(e) {
+		e.preventDefault();
+		e.stopPropagation();
+	})
+		.on('dragover dragenter', function() {
+			dropZone.addClass('is-dragover');
+			// console.log("entered");
+		})
+		// .on('dragleave dragend drop', function() {
+		.on('dragleave drop', function() {
+			dropZone.removeClass('is-dragover');
+			// console.log("left");
+		})
+		.on('drop', function(e) {
+			// console.log("file dropped");
+			curFiles = e.originalEvent.dataTransfer.files;
+			addFilesToUpload();
+			// showFiles(curFiles);
+
+		});
+
+
+	uploadCarousel.on('slide.bs.carousel', function (e) {
+		/*
+			e.direction     // The direction in which the carousel is sliding (either "left" or "right").
+		    e.relatedTarget // The DOM element that is being slid into place as the active item.
+		    e.from          // The index of the current item.
+		    e.to            // The index of the next item.
+		*/
+
+		switch(e.to)
+		{
+			case 2:
+				progressList.children().eq(2).addClass("active");
+			case 1:
+				progressList.children().eq(1).addClass("active");
+			case 0:
+				progressList.children().eq(0).addClass("active");
+				break;
+		}
+
+		switch(e.to + 1)
+		{
+			case 0:
+			case 1:
+				progressList.children().eq(1).removeClass("active");
+			case 2:
+				progressList.children().eq(2).removeClass("active");
+				break;
+			default: break;
+		}
+	})
 
 	input.addEventListener('click', function(){
 		resetFiles();
 	})
 
-	input.addEventListener('change', addFilesToUpload);
+	input.addEventListener('change', function(){
+		curFiles = input.files;
+		addFilesToUpload();
+	})
 
 	// modal.style.display = "block";
 	const linearProgress = new mdc.linearProgress.MDCLinearProgress(document.querySelector('.mdc-linear-progress'));
 	const linearProgressLay = $('.mdc-linear-progress');
 	const progressTxt = $('#progressTxt');
-	// linearProgressLay.removeClass('mdc-linear-progress--closed');
-	// linearProgress.progress = 0.5;
-	// linearProgress.determinate = false
 
-	// input.addEventListener('click', clickUpload);
-
-	const clear_btn = document.querySelector('.clear_btn');
-	clear_btn.addEventListener('click', e => {
-		/*    ---Doesn't seem to work. The Cancel doesn't NOT remove the files---  
-		      status = window.confirm('Remove files queued for download?');
-		      if (status) {
-		        files = [];
-		        resetFiles();
-		      } else {
-		        alert('Cancel was pressed. Files should remain');
-		      }*/
+	$("#clearBtn").on("click", function(){
 		linearProgressLay.addClass('mdc-linear-progress--closed');
 		files = [];
 		resetFiles();
@@ -101,7 +172,7 @@ function documentReady() {
 			stopProgressWatcher();
 			uploadAjax.abort();
 			document.getElementById("upload_form").reset();
-			console.log("Upload Cancelled (1)");
+			// console.log("Upload Cancelled (1)");
 		}
 		location.reload(); // reload
 	});
@@ -119,7 +190,6 @@ function documentReady() {
 	// progress timer
 	var timer;
 	var uploadForm =  $("#upload_form");
-	$("#datetimepicker5").datetimepicker();
 
 
 	uploadForm.on('submit', function (event) {
@@ -143,7 +213,7 @@ function documentReady() {
 				let file = files[i];
 				formData.append('file'+i, file);
 				formData.append('dur'+i, filesDur[i]);
-				console.log(files[i]);
+				// console.log(files[i]);
 			}
 
 
@@ -151,7 +221,7 @@ function documentReady() {
 			formData.append("sr_enabled", srEnabled);
 			formData.append("authorName", $("#demo_author").val());
 			formData.append("jobType", $("#demo_job_type option:selected").html());
-			formData.append("dictDate", $('#dictdatetime').datetimepicker('viewDate').format("YYYY-MM-DD HH:mm:ss"));
+			formData.append("dictDate", $("#dictDatePicker").val() );
 			// formData.append("dictDate", $('.demo_dictdate').val());
 			formData.append("speakerType", $("#demo_speaker_type").val());
 			if($('#demo_comments').val() !== "")
@@ -277,7 +347,7 @@ function documentReady() {
 						let total_bytes = progress['content_length'];
 						// lets do math now
 						let total_percent = Math.floor(processed_bytes * 100 / total_bytes);
-						console.log("percentage completed: " + total_percent);
+						// console.log("percentage completed: " + total_percent);
 
 						updateUI(total_percent, false);
 
@@ -394,7 +464,7 @@ function documentReady() {
 						let subPar = document.createElement('p');
 						subPar.innerHTML = "INSUFFICIENT BALANCE | Total upload mins: " + totalMinutes +
 						" | SR Balance: " + srMinutesRemaining + "<br>"
-						+ "<div><i><u id='skipSR' style='color: #404040; cursor: pointer'>Click here to skip SR this time</u></i></div>";
+						+ "<br><span><i><u id='skipSR' style='color: #404040; cursor: pointer'>Click here to skip SR this time</u></i></span>";
 
 						subPar.setAttribute("style", "color: darkred");
 						subPar.setAttribute("id", "subBar");
@@ -411,7 +481,7 @@ function documentReady() {
 					let subPar = document.createElement('p');
 					subPar.setAttribute("id", "subBar");
 					subPar.innerHTML = "Total upload mins: " + totalMinutes + " | SR minutes remaining: " + balanceAfterUpload
-						+ "<div><i><u id='skipSR' style='color: #404040; cursor: pointer'>Click here to skip SR this time</u></i></div>";
+						+ "<br><span><i><u id='skipSR' style='color: #404040; cursor: pointer'>Click here to skip SR this time</u></i></span>";
 					preview.appendChild(subPar);
 
 					$("#skipSR").on("click",function(){
@@ -633,12 +703,41 @@ function documentReady() {
 		return row;
 	}
 
+	function setDropText(text)
+	{
+		if(text === "")
+		{
+			dropUploadMainContent.show();
+			dropUploadContent.text("");
+			clearDiv.hide();
+			p1nBtn.hide();
+		}else{
+			dropUploadContent.text(text);
+			dropUploadMainContent.hide();
+			clearDiv.show();
+			p1nBtn.show();
+		}
+	}
+
 	function addFilesToUpload() {
 		while (preview.firstChild) {
 			preview.removeChild(preview.firstChild);
 		}
 
-		curFiles = input.files; // current selected files to upload by user
+		// curFiles = input.files; // current selected files to upload by user
+
+		/*if (f.length > 1) {
+			console.log(input.files, 1);
+			el.text('Sorry, multiple files are not allowed');
+			return;
+		}*/
+
+
+		// el.removeClass('focus');
+		/*el.html(f[0].name + '<br>' +
+			'<span class="sml">' +
+			'type: ' + f[0].type + ', ' +
+			Math.round(f[0].size / 1024) + ' KB</span>');*/
 
 		// init filesArr (to be sent for upload) -> handling done on this
 
@@ -646,16 +745,14 @@ function documentReady() {
 			const par = document.createElement('p');
 			par.textContent = 'No files currently selected for upload';
 			preview.appendChild(par);
+
+			setDropText("");
 		} else {
 
-			mainUploadBtn.attr("disabled", "disabled");
+			// mainUploadBtn.attr("disabled", "disabled");
 
 			filesCount = curFiles.length;
-
-			// document.querySelector('.submit_btn').removeAttribute("disabled");
-			document.querySelector('.clear_btn').removeAttribute("disabled");
-			// const list = document.createElement('ol');
-			// preview.appendChild(list);
+			setDropText(filesCount > 1 ? filesCount + " files selected" : curFiles[0].name);
 
 			const tbl = document.createElement("table");
 			const header = document.createElement("tr");
@@ -771,10 +868,11 @@ function documentReady() {
 		const par = document.createElement('p');
 		par.textContent = 'No files currently selected for upload';
 		preview.appendChild(par);
-		document.querySelector('.submit_btn').setAttribute("disabled", "true");
-		document.querySelector('.clear_btn').setAttribute("disabled", "true");
+		clearDiv.hide();
+		document.getElementById('clear').setAttribute("disabled", "true");
 
-		mainUploadBtn.removeAttr("disabled");
+		setDropText("");
+		// mainUploadBtn.removeAttr("disabled");
 	}
 	
 	function resetAfterUpload() {
@@ -782,19 +880,21 @@ function documentReady() {
 		const par = document.createElement('p');
 		preview.appendChild(par);
 		document.querySelector('.submit_btn').setAttribute("disabled", "true");
-		document.querySelector('.clear_btn').setAttribute("disabled", "true");
+		clearDiv.hide();
 		$('.demo_author').val("");
 		$("#demo_job_type option:selected").html();
-		$('#dictdatetime').datetimepicker('clear');
+		flatPickr.setDate(new Date());
 		$("#demo_speaker_type").val(0);
 		$('#demo_comments').val("");
 		getSRMinutes();
-		mainUploadBtn.removeAttr("disabled");
+		// mainUploadBtn.removeAttr("disabled");
+
+		setDropText("");
 	}
 		// Tutorial area
 	
 		//initialize instance
-		var enjoyhint_instance
+		/*var enjoyhint_instance
 			= new EnjoyHint({
 			onEnd:function(){
 				tutorialViewed();
@@ -825,11 +925,11 @@ function documentReady() {
 				"skipButton":{text: "Finish"}
 			}
 			,				
-			/**{
+			/!**{
 				"click #help > a":"Click here to access the online help",
 				// shape:"circle",
 				"skipButton":{text: "Finish"}
-			} **/
+			} **!/
 		];
 
 		//set script config
@@ -872,7 +972,7 @@ function documentReady() {
 
 			//Start Tutorial
 			enjoyhint_instance.run();
-		}
+		}*/
 
 		function getSRenabled()
 		{
@@ -884,10 +984,14 @@ function documentReady() {
 					if(data == 1)
 					{
 						srEnabled = true;
+						speakerTypeDiv.hide();
+						dictDateLbl.html("File Date");
 						getSRMinutes();
 					}
 					else{
 						srEnabled = false;
+						speakerTypeDiv.show();
+						dictDateLbl.html("Dictated Date");
 					}
 				}
 			});
@@ -904,37 +1008,22 @@ function documentReady() {
 				data: convertToSearchParam(formData)
 			});
 		}
+
+	$('#filesInput').on('focus', function() {
+		$(this).parent().addClass('focus');
+	});
+
+	$('#filesInput').on('blur', function() {
+		$(this).parent().removeClass('focus');
+	});
 }
-
-/////////////////////////////////////////
-/*function validateFields() {
-			var passed = 1;
-			if ($('.demo_author').val() === ""){
-				document.querySelector('.demo_author').style.backgroundColor = '#eec5c9';
-				passed = 0;
-			}
-
-			if ( $('#dictdatetimeTxt').val() === ""){
-				document.querySelector('.dictdatetimeTxt').style.backgroundColor = '#eec5c9';
-				passed = 0;
-			}
-			var selOpt = document.getElementById('demo_speaker_type');
-			var opt = selOpt.options[selOpt.selectedIndex];
-			if (opt.text === "--Please Select--"){
-				document.querySelector('#demo_speaker_type').style.backgroundColor = '#eec5c9';
-				passed = 0;
-			}
-			// todo remove
-	passed = 0;
-			return passed === 1;
-}*/
 
 document.addEventListener("DOMContentLoaded", documentReady);
 document.addEventListener('beforeunload', function(event) {
 	if(uploadAjax !== undefined) {
 		uploadAjax.abort();
 		document.getElementById("upload_form").reset();
-		console.log("Upload Cancelled (2)");
+		// console.log("Upload Cancelled (2)");
 	}
 });
 

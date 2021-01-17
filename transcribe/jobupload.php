@@ -44,8 +44,8 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="data/images/favicon.png"/>
 
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.0/moment.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
             integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
@@ -54,10 +54,14 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
+    <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />-->
 
-    <script src="https://kit.fontawesome.com/00895b9561.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+<!--    <script src="https://kit.fontawesome.com/00895b9561.js" crossorigin="anonymous"></script>-->
+    <script src="https://kit.fontawesome.com/12f6b99df9.js" crossorigin="anonymous"></script>
 
 
     <title>vScription Transcribe Pro Dictation Upload</title>
@@ -83,7 +87,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
     <script type="text/javascript">
         var tutorials='<?php echo $tuts;?>';
     </script>
-	
+
 	 <script src="data/scripts/job_upload.min.js?v=1"></script>
     <link rel="stylesheet" href="data/css/job_upload.css">
 	
@@ -105,8 +109,6 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                 <div class="col">
                     <a class="logbar" href="main.php"><i class="fas fa-arrow-left"></i> Go back to job list</a>
                 </div>
-
-
             </div>
 
             <div class="row vspt-title-row no-gutters">
@@ -122,175 +124,224 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
             </div>
 
             <div class="vtex-card contents">
+                <div class="vspt-step-progress-container mr-auto ml-auto">
+                    <ul class="vspt-step-progressbar" id="vsptProgressList">
+                        <li class="active">Add Files</li>
+                        <li>Add info</li>
+                        <li>Upload</li>
+                    </ul>
+                </div>
                 <form class="upload needs-validation" id="upload_form" method="post" enctype="multipart/form-data" novalidate>
-                    <table width="100%" class="data-tbl">
+                    <div id="uploadCarousel" class="carousel slide upload-carousel" data-ride="carousel" data-interval="false">
+                        <div class="carousel-inner">
 
-                        <tr>
-                            <td class="upload_cell">
-                                <div class="box box4">
+                            <div class="carousel-item active">
 
-                                    <h3>Upload Instructions</h3>
-                                    <ul class="ulInstructions">
-                                        <li>1. &nbsp;Click Choose File</li>
-                                        <li>2. Choose the file(s) to upload</li>
-                                        <li>3. Enter the file information under the Upload Demographics section.</li>
-
-                                        <small class="text-muted ">
-                                            &emsp;<strong>Note:</strong> If uploading multiple files at once, all files will have the same demographics entered on the right.
+                                <div class="row" id="srBalance" style="display:none;">
+                                    <div class="col text-center">
+                                        <small>
+                                            <b>Speech To Text Balance </b>
+                                            <span class="sr-balance"><span id="srMinutes"></span> min</span>
                                         </small>
 
-                                        <br>
-                                        <small class="upload_limits"><strong><i>&emsp;(Maximum 10 files at once total files size must be less than 128MB)</i></strong></small>
-                                    </ul>
+                                        <button class="btn btn-primary add-mins-btn" type="button" onclick="window.open('/packages.php', '_blank')">
+                                            <i class="fas fa-plus-circle" ></i> ADD MINS
+                                        </button>
+                                    </div>
                                 </div>
-                                <div class="box box5">
 
-                                    <div class="row">
-                                        <div class="col">
-                                            <!--<button class="mdc-button mdc-button--unelevated compact-view-btn"  name="compact-view"
-                                                    type="button">
-                                                <div class="mdc-button__ripple"></div>
-                                                <i class="fas fa-external-link-alt"></i>
-                                                <span class="mdc-button__label">&nbsp;Compact View</span>
-                                            </button>
-        -->
-                                            <button type="button" class="mdc-button mdc-button--unelevated upload_btn_lbl mb-2 w-100" for="upload_btn" id="mainUploadBtn">
-                                                <div class="mdc-button__ripple"></div>
-                                                <i class="fas fa-file-upload"></i>&nbsp;
-                                                <!--                                    <span class="mdc-button__label">Choose Files to Upload (wav, mp3, m4a, ds2, ogg)</span>-->
-                                                <span class="mdc-button__label">Choose files</span>
-                                            </button>
+                                <label class="vspt-drop-upload" id="vsptDropZone" for="filesInput">
+                                    <div>
+                                        <div class="mb-4"><i class="fad fa-upload" style="font-size: 72px"></i></div>
+
+                                        <div id="vsptDropMainContent">
+                                            <span>
+                                                <a href="#" id="chooseFile">Choose a file</a> or drag it here
+                                            </span>
+                                            <div>(wav, mp3, ds2, m4a, ogg)</div>
                                         </div>
-                                        <div class="col p-0">
-                                            <small class="text-muted">Allowed: (wav, mp3, m4a, ds2, ogg)</small>
+
+
+                                        <div id="vsptDropUploadContent" class="vspt-drop-upload-content"></div>
+                                        <div id="clear" style="display: none"><a href="#" id="clearBtn">clear</a></div>
+
+                                    </div>
+                                    <br>
+                                    <input id="filesInput" type="file" name="file[]"
+                                           accept=".wav, .mp3, .m4a, .ds2, .ogg" multiple style="display: none" />
+                                </label>
+
+                                <h6 class="upload_limits text-muted">&emsp;Maximum 10 files — total files size must be less than 128MB</h6>
+
+                                <input type="hidden" name="<?php echo ini_get("session.upload_progress.name"); ?>" value="job_upload" />
+
+                                <div class="carousel-nav one">
+                                    <button class="btn btn-primary p1n-button" id="p1nBtn" type="button">
+                                        Next
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="carousel-item">
+
+                                <div class="carousel-inner-container">
+
+                                    <div class="form-row">
+                                        <div class="input-group col mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" for="demo_author">Author Name</span>
+                                            </div>
+                                            <input type="text" class="form-control" id="demo_author" placeholder="" value="<?php echo $_SESSION['fname'] . ' ' . $_SESSION['lname'] ?>">
                                         </div>
                                     </div>
 
 
+                                    <div class="form-row">
 
+                                        <div class="input-group col mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" for="demo_job_type">Job Type</span>
+                                            </div>
 
-
-                                    <button class="mdc-button mdc-button--unelevated foo-button clear_btn" disabled>
-                                        <div class="mdc-button__ripple"></div>
-                                        <i class="material-icons mdc-button__icon" aria-hidden="true"
-                                        >clear</i
-                                        >
-                                        <span class="mdc-button__label">Clear Files</span>
-                                    </button>
-
-                                    <button class="mdc-button mdc-button--unelevated foo-button submit_btn" type="submit"
-                                            value="Upload File(s)" disabled>
-                                        <div class="mdc-button__ripple"></div>
-                                        <i class="material-icons mdc-button__icon" aria-hidden="true"
-                                        >cloud_upload</i
-                                        >
-                                        <span class="mdc-button__label">Upload File(s)</span>
-                                    </button>
-
-                                    <input id="upload_btn" type="file" name="file[]"
-                                           accept=".wav, .mp3, .m4a, .ds2, .ogg" multiple/>
-
-                                    <input type="hidden" name="<?php echo ini_get("session.upload_progress.name"); ?>" value="job_upload"/>
-
-                                </div>
-                                <div class="box box6 mt-3">
-                                    <h3>Selected Files:</h3>
-                                    <div class="preview">
-                                        <p>No files currently selected for upload</p>
-                                    </div>
-
-                                </div>
-                            </td>
-                            <!--       add vertical  center line        -->
-                            <td class="upload_cell">
-                                <div class="box box7">
-                                    <h3>Upload demographics</h3>
-                                    <div class="upload_fields">
-
-                                        <div class="form-group">
-                                            <label for="demo_author">Author Name</label>
-                                            <input type="text" class="form-control demo_author" id="demo_author" >
-                                        </div>
-
-
-                                        <div class="form-group">
-                                            <label for="demo_job_type">Job Type</label>
                                             <select class="form-control" id="demo_job_type">
                                                 <?php
-                                                foreach ($workTypes as $type)
-                                                {
+                                                foreach ($workTypes as $type) {
                                                     $type = trim($type);
-                                                    echo '<option value="'.strtolower($type).'">'.$type.'</option>';
+                                                    echo '<option value="' . strtolower($type) . '">' . $type . '</option>';
                                                 }
                                                 ?>
                                             </select>
                                         </div>
+                                    </div>
 
-                                        <div class="form-group">
-                                            <label for="dictdatetime">Dictated Date</label>
-                                            <div class="input-group date" id="dictdatetime" data-target-input="nearest">
-                                                <input type="text" class="form-control datetimepicker-input dictdatetimeTxt" id="dictdatetimeTxt" data-target="#dictdatetime" required/>
-                                                <div class="input-group-append" data-target="#dictdatetime" data-toggle="datetimepicker">
-                                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                                </div>
+                                    <div class="form-row mb-3">
 
-                                                <div class="valid-feedback">
-                                                    Looks good!
-                                                </div>
-                                                <div class="invalid-feedback">
-                                                    Please select a valid date.
+                                        <div class="input-group col date" data-target-input="nearest">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text" id="dictDateLbl">
+                                                    Dictated Date
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <div class="form-group">
-                                            <label for="demo_speaker_type">Speaker Type</label>
+                                            <input type="text" class="form-control flatpickr flatpickr-input"
+                                                   id="dictDatePicker" placeholder="Select Date.." data-input required>
+
+
+                                            <div class="valid-feedback">
+                                                Looks good!
+                                            </div>
+                                            <div class="invalid-feedback">
+                                                Please select a valid date.
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <div class="form-row mb-3" id="speakerTypeDiv">
+
+                                        <div class="input-group col">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" for="demo_speaker_type">Speaker Type</span>
+                                            </div>
+
                                             <select class="form-control" id="demo_speaker_type">
                                                 <option value="1">Single Speaker</option>
                                                 <option value="2">Multiple Speakers</option>
                                             </select>
                                         </div>
 
-                                        <div class="form-row">
+                                    </div>
 
-                                            <div class="form-group col-md-4">
-                                                <label for="user_field_1">User Field 1</label>
-                                                <input type="text" class="form-control user_field_1" id="user_field_1" name="user_field_1" placeholder="(optional)">
+                                    <div class="form-row mb-3">
+
+                                        <div class="input-group col">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" for="user_field_1">User Field 1</span>
                                             </div>
-                                            <div class="form-group col-md-4">
-                                                <label for="user_field_2">User Field 2</label>
-                                                <input type="text" class="form-control user_field_2" id="user_field_2" name="user_field_2" placeholder="(optional)">
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <label for="user_field_3">User Field 3</label>
-                                                <input type="text" class="form-control user_field_3" id="user_field_3" name="user_field_3" placeholder="(optional)">
-                                            </div>
+                                            <input type="text" class="form-control user_field_1" id="user_field_1"
+                                                   name="user_field_1" placeholder="(optional)">
                                         </div>
 
-                                        <div class="form-group">
-                                            <label for="demo_comments">Comments</label>
-                                            <textarea name="demo_comments" class="form-control" id="demo_comments" rows="4" placeholder="(optional)"></textarea>
-                                        </div>
-                                        <div class="row" id="srBalance" style="display:none;">
-                                            <div class="col text-right">
-                                                <!--                                        <em>SR Balance: </em>-->
-                                                <i class="fas fa-plus-circle top-up" onclick="window.open('/packages.php', '_blank')"></i>
-                                                <em>
-                                                    SR Balance:
-                                                    <span id="srMinutes"></span> min
-                                                </em>
+                                        <div class="input-group col">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" for="user_field_2">User Field 2</span>
                                             </div>
-                                            <!--                                    <div class="col text-right"></div>-->
+                                            <input type="text" class="form-control user_field_2" id="user_field_2"
+                                                   name="user_field_2" placeholder="(optional)">
                                         </div>
 
+                                        <div class="input-group col">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" for="user_field_3">User Field 3</span>
+                                            </div>
+                                            <input type="text" class="form-control user_field_3" id="user_field_3"
+                                                   name="user_field_3" placeholder="(optional)">
+                                        </div>
 
                                     </div>
-                                </div>
-                            </td>
 
-                        </tr>
-                    </table>
+                                    <div class="form-row">
+
+                                        <div class="input-group col mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" for="demo_comments">Comments</span>
+                                            </div>
+                                            <textarea name="demo_comments" class="form-control" id="demo_comments" rows="4"
+                                                      placeholder="(optional)"></textarea>
+                                        </div>
+
+                                    </div>
+
+                                    <h6 class="text-muted">
+                                        <strong>Note:</strong> If uploading multiple files at once, all files will have the same demographics entered on the right.
+                                    </h6>
+                                </div>
+
+                                <div class="carousel-nav">
+                                    <button class="btn btn-primary" id="demoBackBtn" type="button">
+                                        Back
+                                    </button>
+
+                                    <button class="btn btn-primary" id="demoNextBtn" type="button">
+                                        Next
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="carousel-item">
+
+                                <div class="page3-container">
+                                    <h3>Selected Files:</h3>
+                                    <div class="preview">
+                                        <p>No files currently selected for upload</p>
+                                    </div>
+
+                                    <div class="carousel-nav">
+                                        <button class="btn btn-primary" id="p3Bbtn" type="button">
+                                            Back
+                                        </button>
+
+                                        <button class="mdc-button mdc-button--unelevated foo-button submit_btn" type="submit"
+                                                value="Upload File(s)" disabled>
+                                            <div class="mdc-button__ripple"></div>
+                                            <i class="material-icons mdc-button__icon" aria-hidden="true"
+                                            >cloud_upload</i
+                                            >
+                                            <span class="mdc-button__label">Upload File(s)</span>
+                                        </button>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
                 </form>
+
             </div>
 
         </div>
