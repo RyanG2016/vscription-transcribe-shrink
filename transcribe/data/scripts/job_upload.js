@@ -7,14 +7,12 @@ var uploadAjax;
 function documentReady() {
 
 	const input = document.getElementById('filesInput');
-	const inputJQ = $("#filesInput");
 
 	const submitUploadBtn = document.querySelector('.submit_btn');
 	const cancel_popup_btn = document.getElementById('cancelUpload');
 	const confirm_popup_btn = document.getElementById('confirmUpload');
 	const preview = document.querySelector('.preview');
 	const previewModal = document.querySelector('.previewModal');
-	// const process_files_url = 'process.php';
 	const backend_url = 'data/parts/backend_request.php';
 	const api_insert_url = 'api/v1/files/';
 
@@ -109,8 +107,12 @@ function documentReady() {
 		.on('drop', function(e) {
 			// console.log("file dropped");
 			curFiles = e.originalEvent.dataTransfer.files;
-			addFilesToUpload();
-			// showFiles(curFiles);
+			if(curFiles.length > 10)
+			{
+				setDropText("Files exceeded maximum limit (10 files)", false);
+			}else{
+				addFilesToUpload();
+			}
 
 		});
 
@@ -703,23 +705,40 @@ function documentReady() {
 		return row;
 	}
 
-	function setDropText(text)
+	function setDropText(text, allowStep = true)
 	{
 		if(text === "")
 		{
 			dropUploadMainContent.show();
-			dropUploadContent.text("");
+			dropUploadContent.html("");
 			clearDiv.hide();
 			p1nBtn.hide();
 		}else{
-			dropUploadContent.text(text);
+			dropUploadContent.html(text);
 			dropUploadMainContent.hide();
 			clearDiv.show();
-			p1nBtn.show();
+
+			if(allowStep)
+			{
+				p1nBtn.show();
+			}else{
+				p1nBtn.hide();
+			}
 		}
 	}
 
 	function addFilesToUpload() {
+
+		// clear old arrays
+		filesCount = 0;
+		duratedFiles = 0;
+		commSize = 0;
+		qCount = 0;
+
+		// clearing arrays
+		filesArr = [];
+		filesDur = [];
+		filesIds = [];
 		while (preview.firstChild) {
 			preview.removeChild(preview.firstChild);
 		}
@@ -752,7 +771,12 @@ function documentReady() {
 			// mainUploadBtn.attr("disabled", "disabled");
 
 			filesCount = curFiles.length;
-			setDropText(filesCount > 1 ? filesCount + " files selected" : curFiles[0].name);
+			let dropText = '';
+			for (let i = 0; i < curFiles.length; i++) {
+				dropText += ((i+1) + ". " + curFiles[i].name + " <br> ");
+			}
+
+			setDropText(dropText);
 
 			const tbl = document.createElement("table");
 			const header = document.createElement("tr");
@@ -819,6 +843,7 @@ function documentReady() {
 			}
 		}
 		// console.log("current files: " + filesArr.toString());
+		let report = true;
 	}
 
 	//https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Audio_codecs
