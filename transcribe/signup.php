@@ -89,7 +89,7 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="data/css/custom-bootstrap-select.css"/>
 
-    <script src="https://kit.fontawesome.com/00895b9561.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/12f6b99df9.js" crossorigin="anonymous"></script>
 
     <script src="data/scripts/signup.min.js"></script>
 

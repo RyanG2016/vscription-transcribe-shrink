@@ -75,7 +75,7 @@ isset($_SESSION['uEmail'])?$uEmail = $_SESSION['uEmail']:$uEmail = "";
 	<link rel="stylesheet" href="data/dialogues/jquery-confirm.min2.css">
 	<script src="data/dialogues/jquery-confirm.min.js"></script>
 
-    <script src="https://kit.fontawesome.com/00895b9561.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/12f6b99df9.js" crossorigin="anonymous"></script>
 
 </head>
 

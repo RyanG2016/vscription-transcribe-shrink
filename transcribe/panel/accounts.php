@@ -32,7 +32,7 @@ $vtex_page = INTERNAL_PAGES::ACCOUNTS;
     <script src="../data/libs/node_modules/material-components-web/dist/material-components-web.js"></script>
     <script src="../data/libs/node_modules/@material/textfield/dist/mdc.textfield.js"></script>
     <script src="../data/libs/node_modules/@material/linear-progress/dist/mdc.linearProgress.js"></script>
-    <script src="https://kit.fontawesome.com/00895b9561.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/12f6b99df9.js" crossorigin="anonymous"></script>
 
     <!--	Scroll Bar Dependencies    -->
     <script src="../data/scrollbar/jquery.nicescroll.js"></script>

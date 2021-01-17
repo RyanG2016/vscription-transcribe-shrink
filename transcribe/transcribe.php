@@ -50,7 +50,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 
 
 
-    <script src="https://kit.fontawesome.com/00895b9561.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/12f6b99df9.js" crossorigin="anonymous"></script>
     <link href='ableplayer/styles/ableplayer.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet'/>
 
     <?php

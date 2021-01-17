@@ -129,7 +129,7 @@ function updateInitDownloadDate($con, $fileID, $accID)
 <!--    <script src="data/scripts/main.min.js?v=3"></script>-->
 
 
-    <script src="https://kit.fontawesome.com/00895b9561.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/12f6b99df9.js" crossorigin="anonymous"></script>
     <!--    <link rel="stylesheet" href="data/css/vs-style.css">-->
 
     <title>vScription Job Viewer</title>
