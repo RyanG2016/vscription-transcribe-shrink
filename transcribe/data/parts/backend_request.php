@@ -567,6 +567,8 @@ if(isset($_REQUEST["reqcode"])){
 			$key = ini_get("session.upload_progress.prefix") . $suffix;
             if(isset($_SESSION[$key])){
                 echo json_encode($_SESSION[$key]);
+            }else{
+                echo 'starting';
             }
 
             break;

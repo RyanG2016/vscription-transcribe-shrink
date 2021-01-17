@@ -344,20 +344,22 @@ function documentReady() {
 						clearInterval(timer);
 						updateUI(100, false);
 					} else {
-						let progress = JSON.parse(msg);
-						let processed_bytes = progress['bytes_processed'];
-						let total_bytes = progress['content_length'];
-						// lets do math now
-						let total_percent = Math.floor(processed_bytes * 100 / total_bytes);
-						// console.log("percentage completed: " + total_percent);
+						if (msg !== "starting") {
+							let progress = JSON.parse(msg);
+							let processed_bytes = progress['bytes_processed'];
+							let total_bytes = progress['content_length'];
+							// lets do math now
+							let total_percent = Math.floor(processed_bytes * 100 / total_bytes);
+							// console.log("percentage completed: " + total_percent);
 
-						updateUI(total_percent, false);
+							updateUI(total_percent, false);
 
-						if (total_percent >= 100) {
+							if (total_percent >= 100) {
 
-							// console.log("Should stop the timer");
-							clearInterval(timer)
-							updateUI(100, false);
+								// console.log("Should stop the timer");
+								clearInterval(timer)
+								updateUI(100, false);
+							}
 						}
 
 					}
