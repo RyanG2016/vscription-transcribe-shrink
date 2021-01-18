@@ -111,7 +111,18 @@ function documentReady() {
 			{
 				setDropText("Files exceeded maximum limit (10 files)", false);
 			}else{
-				addFilesToUpload();
+				// check type
+				let invalid = false;
+				for (let i = 0; i < curFiles.length; i++) {
+					if(!validFileType(curFiles[i]))
+					{
+						invalid = true;
+						setDropText("Invalid file(s) type added", false);
+						break;
+					}
+
+				}
+				if(!invalid) addFilesToUpload();
 			}
 
 		});
