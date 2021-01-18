@@ -399,6 +399,8 @@ table {
 /* QUEUED FOR UPLOAD FILES TABLE */
 .que-files {
     border-radius: 15px;
+    /*border-bottom-right-radius: 0;*/
+    /*border-bottom-left-radius: 0;*/
     margin: 0 auto;
     border-collapse: separate;
     /*border-collapse: inherit;*/
@@ -409,14 +411,14 @@ table {
 }
 
 
-.que-files > tr:first-child{
+.que-files > thead > tr:first-child{
     border: 1px  solid;
     /*border-radius: 25px;*/
     /*border-collapse: separate;*/
 }
 
 
-.que-files > tr > th {
+.que-files > thead > tr > th{
     text-align: start;
     /*border-collapse: collapse;*/
     padding: 10px;
@@ -430,25 +432,19 @@ table {
 }
 
 
-.que-files tr:last-child {
-    /*border-collapse: collapse;*/
-    /*border: solid #CED4DA;*/
-    /*border-width: 0 0 3px 0;*/
-}
-
-.que-files tr:hover {
+.que-files > tbody > tr:hover {
     /*border-collapse: collapse;*/
     background: var(--vspt-upload-tbl-hover);
 }
 
 
-.que-files > tr:nth-child(1) > th:nth-child(1) {
+.que-files >  thead > tr:nth-child(1) > th:nth-child(1) {
 
     border-radius: 15px 0 0 0;
     /*border-collapse: collapse;*/
 }
 
-.que-files > tr:nth-child(1) > th:nth-child(5) {
+.que-files > thead > tr:nth-child(1) > th:nth-child(5) {
     /*border-radius: 0 15px 0 0;*/
     border-radius: 0 15px 0 0;
     border-spacing: 0;
@@ -459,8 +455,7 @@ table {
     /*border-collapse: collapse;*/
 }
 
-
-.que-files > tr > td {
+#queFilesBody > tr > td {
     text-align: start;
     /*border: groove #1e79be;*/
     /*border-collapse: collapse;*/
@@ -688,7 +683,7 @@ label.vspt-drop-upload.focus {
 
 #subBar{
     width: fit-content;
-    margin: 0 auto;
+    margin: 5px auto 0;
     text-align: center;
     font-size: 13px;
 }

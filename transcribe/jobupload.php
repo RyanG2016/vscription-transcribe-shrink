@@ -180,6 +180,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                         Next
                                     </button>
                                 </div>
+
                             </div>
 
                             <div class="carousel-item">
@@ -313,9 +314,30 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                             <div class="carousel-item">
 
                                 <div class="page3-container">
-<!--                                    <h3>Selected Files:</h3>-->
+
                                     <div class="preview">
-                                        <p>No files currently selected for upload</p>
+
+                                        <table class="que-files">
+                                            <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>File Name</th>
+                                                <th>Size</th>
+                                                <th>Duration</th>
+                                                <th>Status</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="queFilesBody">
+                                            <tr>
+                                                <td colspan="5" style="text-align: center">
+                                                    No files currently selected for upload
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <div id="srBar"></div>
+
                                     </div>
 
                                     <div class="carousel-nav">
