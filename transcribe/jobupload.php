@@ -313,7 +313,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                             <div class="carousel-item">
 
                                 <div class="page3-container">
-                                    <h3>Selected Files:</h3>
+<!--                                    <h3>Selected Files:</h3>-->
                                     <div class="preview">
                                         <p>No files currently selected for upload</p>
                                     </div>

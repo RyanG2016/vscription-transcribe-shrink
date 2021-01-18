@@ -83,6 +83,13 @@
     /* Zoho */
     --zohohc_asap_web_fontfamily: main, sans-serif !important;
 
+    /* Job upload */
+    --vspt-upload-tbl-header-bg: #e9ecef;
+    --vspt-upload-tbl-stroke: #CED4DA;
+    --vspt-upload-tbl-hover: rgba(233, 236, 239, 0.5);
+
+
+
 }
 
 /*

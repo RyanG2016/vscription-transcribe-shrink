@@ -398,41 +398,67 @@ table {
 
 /* QUEUED FOR UPLOAD FILES TABLE */
 .que-files {
-    /*border-radius: 15px;*/
+    border-radius: 15px;
     margin: 0 auto;
-    border-collapse: collapse;
+    border-collapse: separate;
+    /*border-collapse: inherit;*/
+    border-spacing: 0;
     width: 100%;
+    font-size: 12.8px;
+    border: 1px solid var(--vspt-upload-tbl-stroke);
 }
 
-.que-files tr:last-child {
-    /*border-collapse: collapse;*/
-    border: solid var(--vspt-blue);
-    border-width: 0 0 3px 0;
+
+.que-files > tr:first-child{
+    border: 1px  solid;
+    /*border-radius: 25px;*/
+    /*border-collapse: separate;*/
 }
 
-.que-files tr:hover {
-    /*border-collapse: collapse;*/
-    background: var(--vspt-blue-10);
-}
-
-.que-files > tr:nth-child(1) > th:nth-child(1) {
-
-    border-radius: 15px 0 0 0;
-    border-collapse: collapse;
-}
-
-.que-files > tr:nth-child(1) > th:nth-child(5) {
-    border-radius: 0 15px 0 0;
-    /*border-collapse: collapse;*/
-}
 
 .que-files > tr > th {
     text-align: start;
     /*border-collapse: collapse;*/
     padding: 10px;
-    background: var(--vspt-blue);
-    color: white;
+    /*background: var(--vspt-blue);*/
+    /*background: var(--vspt-blue);*/
+    background-color: var(--vspt-upload-tbl-header-bg);
+    /*color: white;*/
+    font-size: 12.8px;
+    font-weight: 400;
+    font-family: main, sans-serif;
 }
+
+
+.que-files tr:last-child {
+    /*border-collapse: collapse;*/
+    /*border: solid #CED4DA;*/
+    /*border-width: 0 0 3px 0;*/
+}
+
+.que-files tr:hover {
+    /*border-collapse: collapse;*/
+    background: var(--vspt-upload-tbl-hover);
+}
+
+
+.que-files > tr:nth-child(1) > th:nth-child(1) {
+
+    border-radius: 15px 0 0 0;
+    /*border-collapse: collapse;*/
+}
+
+.que-files > tr:nth-child(1) > th:nth-child(5) {
+    /*border-radius: 0 15px 0 0;*/
+    border-radius: 0 15px 0 0;
+    border-spacing: 0;
+    /*border-radius: 25px;*/
+    /*border-collapse: separate !important;*/
+    /*border-spacing: 0 !important;*/
+    /*border: 2px solid #CED4DA;*/
+    /*border-collapse: collapse;*/
+}
+
 
 .que-files > tr > td {
     text-align: start;
