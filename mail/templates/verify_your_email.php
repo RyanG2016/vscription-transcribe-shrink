@@ -315,7 +315,7 @@ $emHTML= "<!DOCTYPE html>
 $emPlain = "Hi $email,
 		
 
-Thank you for signing up for vScription.
+Thank you for signing up for vScription Transcribe.
 
 Please verify your email address by entering this code: $token
 
