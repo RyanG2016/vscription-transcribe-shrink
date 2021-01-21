@@ -275,7 +275,7 @@ $emHTML= "<!DOCTYPE html>
                         <p style=\"margin: 0;\">
                             You've received this email because you have signed up for our service. If you didn't make the request you can safely delete this email.
                         </p>
-                        <p style=\"margin: 0;\">&copy; 2020 VTEX Voice Solutions Inc.</p>
+                        <p style=\"margin: 0;\">&copy; 2021 VTEX Voice Solutions Inc.</p>
                     </td>
                 </tr>
                 <!-- end permission -->

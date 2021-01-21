@@ -183,7 +183,7 @@ $emHTML= "<!DOCTYPE html>
                 <!-- start copy -->
                 <tr>
                     <td align=\"left\" bgcolor=\"#ffffff\" style=\"padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;\">
-                        <p style=\"margin: 0;\">Thank you for signing up for vScription.</p> <br>
+                        <p style=\"margin: 0;\">Thank you for signing up for vScription Transcribe!</p> <br>
                         <p style=\"margin: 0;\">Please verify your email address by entering the code shown below: </p>
                     </td>
                 </tr>
@@ -253,7 +253,7 @@ $emHTML= "<!DOCTYPE html>
                 <!-- start copy -->
                 <tr>
                     <td align=\"left\" bgcolor=\"#ffffff\" style=\"padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px; border-bottom: 3px solid #d4dadf\">
-                        <p style=\"margin: 0;\">Thank you for using VTEX<br></p>
+                        <p style=\"margin: 0;\">Thank you for using vScription Transcribe<br></p>
                     </td>
                 </tr>
                 <!-- end copy -->
@@ -284,7 +284,7 @@ $emHTML= "<!DOCTYPE html>
                         <p style=\"margin: 0;\">
                             You've received this email because you have signed up for our service. If you didn't make the request you can safely delete this email.
                         </p>
-                        <p style=\"margin: 0;\">&copy; 2020 VTEX Voice Solutions Inc.</p>
+                        <p style=\"margin: 0;\">&copy; 2021 VTEX Voice Solutions Inc.</p>
                     </td>
                 </tr>
                 <!-- end permission -->
@@ -325,4 +325,4 @@ $link
 
 If it is not clickable, please copy and paste the URL into your browsers.
 
-Thank you for using vScription Transcribe";
+Thank you for using vScription Transcribe!";
