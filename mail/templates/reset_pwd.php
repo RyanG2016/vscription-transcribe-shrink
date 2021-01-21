@@ -218,7 +218,7 @@ $emHTML = "<!DOCTYPE html>
                 <!-- start copy -->
                 <tr>
                     <td align=\"left\" bgcolor=\"#ffffff\" style=\"padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px; border-bottom: 3px solid #d4dadf\">
-                        <p style=\"margin: 0;\">Thank you for using VTEX<br></p>
+                        <p style=\"margin: 0;\">Thank you for using vScription Transcribe!<br></p>
                     </td>
                 </tr>
                 <!-- end copy -->
@@ -247,7 +247,7 @@ $emHTML = "<!DOCTYPE html>
                 <tr>
                     <td align=\"center\" bgcolor=\"#e9ecef\" style=\"padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;\">
                         <p style=\"margin: 0;\">You've received this email because we received a password reset request for your account. If you didn't request a reset you can safely delete this email.</p>
-                        <p style=\"margin: 0;\">&copy; 2020 VTEX Voice Solutions Inc.</p>
+                        <p style=\"margin: 0;\">&copy; 2021 VTEX Voice Solutions Inc.</p>
                     </td>
                 </tr>
                 <!-- end permission -->
@@ -278,7 +278,7 @@ $emHTML = "<!DOCTYPE html>
 $emPlain = "Hi $email,
 		
 
-You're receiving this email because you requested a password reset for your vScription Transcribe Pro Account. If you did not request this change, you can safely ignore this email.
+You're receiving this email because you requested a password reset for your vScription Transcribe Account. If you did not request this change, you can safely ignore this email.
 
 To choose a new password and complete your request, please follow the link below:
 

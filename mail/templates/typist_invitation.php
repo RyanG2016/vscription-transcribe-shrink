@@ -290,4 +290,4 @@ $link
 
 If it is not clickable, please copy and paste the URL into your browser.
 
-Thank you for using VTEX";
+Thank you for using vScription Transcribe!";

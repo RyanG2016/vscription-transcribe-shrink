@@ -185,7 +185,7 @@ $emHTML= "<!DOCTYPE html>
                 <tr>
                     <td align=\"left\" bgcolor=\"#ffffff\" style=\"padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;\">
                         <div style=\"margin: 0;\">
-                        A new user account has been created for you in vScription Transcribe Pro.<br><br>
+                        A new user account has been created for you in vScription Transcribe<br><br>
                          
                         Your login details are:<br>
                          Login Server: $cbaselink <br>
@@ -303,7 +303,7 @@ $emHTML= "<!DOCTYPE html>
 </body>
 </html>";
 
-$emPlain = "A new user account has been created for you in vScription Transcribe Pro. 
+$emPlain = "A new user account has been created for you in vScription Transcribe. 
 		
 Your login details are:
 Login Server: $cbaselink
