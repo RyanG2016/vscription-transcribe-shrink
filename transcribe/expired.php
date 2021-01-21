@@ -31,7 +31,7 @@
 			<div class="wrap-login100">
 
 					<span class="denied100-form-title p-b-20">
-						<img src="data/images/Logo_vScription_Transcribe_Pro_Stacked.png" style="height: 110px" />
+						<img src="data/images/Logo_vScription_Transcribe_Stacked.png" style="height: 110px" />
 					</span>
 					<span id="title" class="denied100-form-title p-b-26">
 						<h1>Expired</h1>

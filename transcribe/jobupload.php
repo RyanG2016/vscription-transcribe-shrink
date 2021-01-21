@@ -119,7 +119,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                     </legend>
                 </div>
                 <div class="col-auto">
-                    <img src="data/images/Logo_vScription_Transcribe_Pro_White.png" width="300px"/>
+                    <img src="data/images/Logo_vScription_Transcribe.png" width="300px"/>
                 </div>
             </div>
 
