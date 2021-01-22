@@ -165,12 +165,8 @@ class FileController
 
             // 1 -> single speaker, 2 -> multiple speaker, otherwise defaults to 1
             $speakerType = $_POST["speakerType"];
-            if (!is_numeric($speakerType)) {
-                return $this->errorOccurredResponse("invalid speaker type.");
-            } else {
-                if ($speakerType != 1 && $speakerType != 2) {
-                    $speakerType = 1; // default
-                }
+            if ($speakerType != 1 && $speakerType != 2) {
+                $speakerType = 1; // default
             }
             $comments = isset($_POST["comments"]) ? $_POST["comments"] : null; // Optional
 
