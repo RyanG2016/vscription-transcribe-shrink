@@ -132,7 +132,7 @@ $emHTML= "<!DOCTYPE html>
                 <tr>
                     <td align=\"center\" valign=\"top\" style=\"padding: 36px 24px;\">
                         <a href=\"$cbaselink\" target=\"_blank\" style=\"display: inline-block;\">
-                            <img src=\"$cbaselink/data/images/Logo_vScription_Transcribe_Pro_Stacked.png\" border=\"0\" width=\"256\" style=\"display: block; width: 256px;\">
+                            <img src=\"$cbaselink/data/images/Logo_vScription_Transcribe_Stacked.png\" border=\"0\" width=\"256\" style=\"display: block; width: 256px;\">
                         </a>
                     </td>
                 </tr>
@@ -222,7 +222,7 @@ $emHTML= "<!DOCTYPE html>
                 <!-- start copy -->
                 <tr>
                     <td align=\"left\" bgcolor=\"#ffffff\" style=\"padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px; border-bottom: 3px solid #d4dadf\">
-                        <p style=\"margin: 0;\">Thank you for using VTEX<br></p>
+                        <p style=\"margin: 0;\">Thank you for using vScription Transcribe<br></p>
                     </td>
                 </tr>
                 <!-- end copy -->
@@ -290,4 +290,4 @@ $link
 
 If it is not clickable, please copy and paste the URL into your browser.
 
-Thank you for using VTEX";
+Thank you for using vScription Transcribe!";

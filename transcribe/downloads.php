@@ -70,7 +70,7 @@ if(isset($_SESSION['counter']))
                     </td>-->
 
                 <td width="300px">
-                    <img src="data/images/Logo_vScription_Transcribe_Pro_White.png" style="float:right;" width="300px"/>
+                    <img src="data/images/Logo_vScription_Transcribe.png" style="float:right;" width="300px"/>
                 </td>
             </tr>
 

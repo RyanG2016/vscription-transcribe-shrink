@@ -231,7 +231,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                     <table id="header-tbl">
                         <tr>
                             <td id="mainlogo-td" rowspan="2">
-                                <img id="mainlogo" src="data/images/Logo_vScription_Transcribe_Pro_Stacked.png"/>
+                                <img id="mainlogo" src="data/images/Logo_vScription_Transcribe.png"/>
 
                             </td>
                             <td align="right" rowspan="2" id="fix-td">

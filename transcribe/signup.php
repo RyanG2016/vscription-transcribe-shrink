@@ -102,7 +102,7 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
     <form class="vtex-signup-form needs-validation" id="signupForm" autocomplete="off" novalidate>
 
         <span class="login100-form-title p-b-20">
-            <img src="data/images/Logo_vScription_Transcribe_Pro_Stacked_White.png" style="height: 110px"
+            <img src="data/images/Logo_vScription_Transcribe_Stacked.png" style="height: 110px"
                  alt="vScription"/>
         </span>
         <span id="title" class="login100-form-title p-b-26">

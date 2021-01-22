@@ -133,7 +133,7 @@ $emHTML= "<!DOCTYPE html>
                 <tr>
                     <td align=\"center\" valign=\"top\" style=\"padding: 36px 24px;\">
                         <a href=\"$cbaselink\" target=\"_blank\" style=\"display: inline-block;\">
-                            <img src=\"$cbaselink/data/images/Logo_vScription_Transcribe_Pro_Stacked.png\" border=\"0\" width=\"256\" style=\"display: block; width: 256px;\">
+                            <img src=\"$cbaselink/data/images/Logo_vScription_Transcribe_Stacked.png\" border=\"0\" width=\"256\" style=\"display: block; width: 256px;\">
                         </a>
                     </td>
                 </tr>
@@ -185,7 +185,7 @@ $emHTML= "<!DOCTYPE html>
                 <tr>
                     <td align=\"left\" bgcolor=\"#ffffff\" style=\"padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;\">
                         <div style=\"margin: 0;\">
-                        A new user account has been created for you in vScription Transcribe Pro.<br><br>
+                        A new user account has been created for you in vScription Transcribe<br><br>
                          
                         Your login details are:<br>
                          Login Server: $cbaselink <br>
@@ -275,7 +275,7 @@ $emHTML= "<!DOCTYPE html>
                         <p style=\"margin: 0;\">
                             You've received this email because you have signed up for our service. If you didn't make the request you can safely delete this email.
                         </p>
-                        <p style=\"margin: 0;\">&copy; 2020 VTEX Voice Solutions Inc.</p>
+                        <p style=\"margin: 0;\">&copy; 2021 VTEX Voice Solutions Inc.</p>
                     </td>
                 </tr>
                 <!-- end permission -->
@@ -303,7 +303,7 @@ $emHTML= "<!DOCTYPE html>
 </body>
 </html>";
 
-$emPlain = "A new user account has been created for you in vScription Transcribe Pro. 
+$emPlain = "A new user account has been created for you in vScription Transcribe. 
 		
 Your login details are:
 Login Server: $cbaselink
