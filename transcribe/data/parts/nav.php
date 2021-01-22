@@ -130,13 +130,6 @@
                             </div>
                         </a>
                         
-                        <a href="/manage_typists.php" class="bg-dark list-group-item list-group-item-action">
-                            <div class="d-flex w-100 justify-content-start align-items-center">
-                                <span class="fas fa-keyboard fa-fw mr-3"></span>
-                                <span class="menu-collapsed d-none">Manage Typists</span>
-                            </div>
-                        </a>
-                        
                         <a href="/jobupload.php" class="bg-dark list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-start align-items-center">
                                 <span class="fas fa-cloud-upload-alt fa-fw mr-3"></span>
@@ -194,7 +187,7 @@
                     
                        <a href="#" id="createAcc" class="bg-dark list-group-item list-group-item-action">
                         <div class="d-flex w-100 justify-content-start align-items-center">
-                            <span class="fas fa-key fa-fw mr-3"></span>
+                            <span class="fas fa-plus-circle fa-fw mr-3"></span>
                             <span class="menu-collapsed d-none">Add Permission</span>
                         </div>
                     </a>';
@@ -237,13 +230,20 @@
                     </a>
                        <a href="#" id="setDefaultRoleBtn" class="bg-dark list-group-item list-group-item-action">
                         <div class="d-flex w-100 justify-content-start align-items-center">
-                            <span class="fas fa-wrench fa-fw mr-3"></span>
+                            <span class="fas fa-key fa-fw mr-3"></span>
                             <span class="menu-collapsed d-none">Set Default</span>
                         </div>
                     </a>
                     ';
-
        ?>
+
+
+        <a href="/settings.php" class="bg-dark list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+                <span class="fad fa-cogs fa-fw mr-3"></span>
+                <span class="menu-collapsed d-none">Settings</span>
+            </div>
+        </a>
 
         <!-- Separator without title -->
         <li class="list-group-item sidebar-separator menu-collapsed d-none"></li>
@@ -254,6 +254,7 @@
                 <span class="menu-collapsed d-none">Logout</span>
             </div>
         </a>
+
 
     </ul><!-- List Group END-->
 </div><!-- sidebar-container END -->
