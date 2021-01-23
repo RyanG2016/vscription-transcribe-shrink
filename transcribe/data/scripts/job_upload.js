@@ -467,7 +467,7 @@ function documentReady() {
                         // show error msg
                         submitUploadBtn.setAttribute("disabled", "true");
                         let subPar = document.createElement('p');
-                        subPar.innerHTML = "INSUFFICIENT BALANCE | Total upload mins: " + totalMinutes +
+                        subPar.innerHTML = "INSUFFICIENT BALANCE | Total minutes for this upload: " + totalMinutes +
                             " | SR Balance: " + srMinutesRemaining + "<br>"
                             + "<br><span><i><u id='skipSR' style='color: #404040; cursor: pointer'>Click here to skip SR this time</u></i></span>";
 
@@ -485,7 +485,7 @@ function documentReady() {
 
                     let subPar = document.createElement('p');
                     subPar.setAttribute("id", "subBar");
-                    subPar.innerHTML = "Total upload mins: " + totalMinutes + " | SR minutes remaining: " + balanceAfterUpload
+                    subPar.innerHTML = "Total minutes for this upload: " + totalMinutes + " | SR Balance (Mins) after upload: " + balanceAfterUpload
                         + "<br><span><i><u id='skipSR' style='color: #404040; cursor: pointer'>Click here to skip SR this time</u></i></span>";
                     srBar.html(subPar);
 
