@@ -275,8 +275,10 @@ class PaymentProcessor
         );
         $pid = $payment->save();
 
-        $this->mailer->sendEmail(17 , $this->userModel->getEmail(), "", $pid);
-
+        if (!$error) {
+            $this->mailer->sendEmail(17, $this->userModel->getEmail(), "", $pid);
+        }
+        
         return $error;
     }
 
