@@ -440,7 +440,7 @@ class FileGateway implements GatewayInterface
             return false;
         }
         $nextJobNum = $jobPrefix .str_pad($nextNum, 7, "0", STR_PAD_LEFT);
-
+        echo "trying to insert job_id: " . $nextJobNum . "\n";
 
         $statement = "INSERT
                         INTO 
