@@ -383,12 +383,10 @@ class FileGateway implements GatewayInterface
                 return $result['job_prefix'];
 
             }else{
-                echo "code 5\n job prefix isn't available";
                 return false;
             }
         } catch (PDOException $e) {
 //            exit($e->getMessage());
-            echo "code 4\n " . $e->getMessage();
             return false;
         }
 
@@ -436,7 +434,6 @@ class FileGateway implements GatewayInterface
         if(!$jobPrefix)
         {
 //            die("couldn't get job prefix");
-            echo "code 4\n couldn't generate job prefix";
             return false;
         }
         $nextJobNum = $jobPrefix .str_pad($nextNum, 7, "0", STR_PAD_LEFT);
@@ -528,17 +525,14 @@ class FileGateway implements GatewayInterface
                                 return true;
                             } catch (PDOException $e) {
 //                                die($e->getMessage());
-                                echo "code 2\n".$e->getMessage();
                                 return false;
                             }
             }else{
-                echo "couldn't execute insert statement";
                 return false;
             }
 //            return $statement->rowCount();
         } catch (PDOException $e) {
 //            die($e->getMessage());
-            echo "code 3\n".$e->getMessage();
             return false;
         }
 
