@@ -428,8 +428,6 @@ class FileGateway implements GatewayInterface
             }
         }
 
-        echo "if you see this you have correctly pulled the debug version of upload";
-
         $jobPrefix = $this->getAccountPrefix($acc_id);
         if(!$jobPrefix)
         {
