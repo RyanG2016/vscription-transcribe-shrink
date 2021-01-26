@@ -108,10 +108,18 @@ if(isset($_SESSION['counter']))
                     </thead>
                     <tbody>
                     <tr>
- <!--                       <td>
-                            Controller Cross Platform Jar <i><br>(Requires <a href='https://www.oracle.com/java/technologies/javase-jdk15-downloads.html' target='blank'>OpenJDK</a> > 12 installed)</i>
+                        <td>
+                           <strong>vScription Controller Windows Installer</strong></i><br>For USB Foot Control Support
+                            Windows Installer <i>(JDK 14 included)</i>
                         </td>
--->
+                        <td>
+                            164 MB
+                        </td>
+                        <td>
+                            <a href="/controller_app/windows/vScriptionControllerWin_v1.8.exe">vScriptionControllerWin_v1.8.exe</a>
+                        </td>
+                    </tr>                    
+                    <tr>
                         <td>
                             <strong>vScription Controller Cross Platform Jar</strong><i><br>(Requires <a href='www.java.com' target='blank'>Java</a> 8 installed)</i><br>For USB Foot Control Support
                         </td>
@@ -122,26 +130,15 @@ if(isset($_SESSION['counter']))
                             <a href="/controller_app/jars/controller_v1.8.jar">vScriptionControllerCrossPlatform_v1.8.jar</a>
                         </td>
                     </tr>
-                       <tr>
-                        <td>
-                            Windows Bundle <i>(JDK 14 included)</i>
-                        </td>
-                        <td>
-                            164 MB
-                        </td>
-                        <td>
-                            <a href="/controller_app/windows/vScriptionControllerWin_v1.8.exe">vScriptionControllerWin_v1.8.exe</a>
-                        </td>
-                    </tr>
                     <tr>
                         <td>
-                            <strong>vScription Transfer Cross Platform Jar </strong><i><br>(Requires <a href='https://www.oracle.com/java/technologies/javase-jdk15-downloads.html' target='blank'>OpenJDK</a> > 14 installed)</i><br>For Digital Portable Uploads and 3rd Party Integrations
+                            <strong>vScription Upload Cross Platform Jar </strong><i><br>(Requires <a href='https://www.oracle.com/java/technologies/javase-jdk15-downloads.html' target='blank'>OpenJDK</a> > 14 installed)</i><br>For Digital Portable Automatic Uploads and 3rd Party Integrations
                         </td>
                         <td>
                             164 MB
                         </td>
                         <td>
-                            <a href="/controller_app/windows/vScriptionControllerWin_v1.6.exe">vScriptionTransfer.jar</a>
+                            <a href="/controller_app/jars/vScriptionUpload-v1.1.jar">vScriptionUpload-v1.1.jar</a>
                         </td>
                     </tr>
 
