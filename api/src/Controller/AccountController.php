@@ -14,9 +14,10 @@ class AccountController
 
     private $accountGateway;
 
-    public function __construct($db, $requestMethod, $accountId)
+    public function __construct($db, $requestMethod, $accountId, $uri)
     {
         $this->db = $db;
+        $this->uri = $uri;
         $this->requestMethod = $requestMethod;
         $this->accountId = $accountId;
 
@@ -35,8 +36,21 @@ class AccountController
 //                }
                 break;
             case 'POST':
-                $response = $this->createAccountFromRequest();
-//                }
+                if(isset($this->uri[0]) && $this->uri[0] == "update")
+                {
+
+                    if(isset($this->uri[1])  && $this->uri[1] == "self")
+                    {
+                        // update owned organization account
+                        $response = $this->accountGateway->postUpdateAccount($_SESSION["userData"]["acc_id"], true);
+                    }else{
+                        // update current logged into account data
+                        $response = $this->accountGateway->postUpdateAccount($_SESSION["accID"]);
+                    }
+
+                }else{
+                    $response = $this->createAccountFromRequest();
+                }
                 break;
             case 'PUT':
                 $response = $this->updateAccountFromRequest($this->accountId);
@@ -70,8 +84,19 @@ class AccountController
 
                 break;
             case 'POST':
-                $response = $this->createClientAccount();
-//                }
+                if(isset($this->uri[0]) && $this->uri[0] == "update")
+                {
+                    if(isset($this->uri[1]) && $this->uri[1] == "self")
+                    {
+                        // update owned organization account
+                        $response = $this->accountGateway->postUpdateAccount($_SESSION["userData"]["acc_id"], true);
+                    }else{
+                        // update current logged into account data
+                        $response = $this->accountGateway->postUpdateAccount($_SESSION["accID"]);
+                    }
+                }else {
+                    $response = $this->createClientAccount();
+                }
                 break;
 //            case 'PUT':
 //                $response = $this->updateAccountFromRequest($this->accountId);

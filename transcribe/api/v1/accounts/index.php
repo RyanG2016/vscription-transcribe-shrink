@@ -35,11 +35,12 @@ $accountId = null;
 if (isset($uri[4])) {
     $accountId = (int)$uri[4];
 }
+$uri = array_slice($uri, 4);
 
 $requestMethod = $_SERVER["REQUEST_METHOD"];
 
 // pass the request method and user ID to the PersonController and process the HTTP request:
-$controller = new AccountController($dbConnection, $requestMethod, $accountId);
+$controller = new AccountController($dbConnection, $requestMethod, $accountId, $uri);
 if(isset($_REQUEST["out"]) || $_SESSION['role'] != 1)
 {
     $controller->processPublicRequest();
