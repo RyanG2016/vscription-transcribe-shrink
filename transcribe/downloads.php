@@ -119,10 +119,9 @@ if(isset($_SESSION['counter']))
                             3.88 MB
                         </td>
                         <td>
-                            <a href="/controller_app/jars/controller_v1.6.jar">controller_v1.6.jar</a>
+                            <a href="/controller_app/jars/controller_v1.8.jar">controller_v1.8.jar</a>
                         </td>
                     </tr>
-                    <!-- We're having some issues with the 1.8 build and java so we're just going to put the 1.6 back 
                        <tr>
                         <td>
                             Windows Bundle <i>(JDK 14 included)</i>
@@ -131,10 +130,9 @@ if(isset($_SESSION['counter']))
                             164 MB
                         </td>
                         <td>
-                            <a href="/controller_app/windows/vScriptionControllerWin_v1.6.exe">vScriptionControllerWin_v1.8.exe</a>
+                            <a href="/controller_app/windows/vScriptionControllerWin_v1.8.exe">vScriptionControllerWin_v1.8.exe</a>
                         </td>
                     </tr>
--->
                     <tr>
                         <td>
                             <strong>vScription Transfer Cross Platform Jar </strong><i><br>(Requires <a href='https://www.oracle.com/java/technologies/javase-jdk15-downloads.html' target='blank'>OpenJDK</a> > 14 installed)</i><br>For Digital Portable Uploads and 3rd Party Integrations
