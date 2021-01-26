@@ -127,7 +127,7 @@ if(isset($_SESSION['counter']))
                             3.88 MB
                         </td>
                         <td>
-                            <a href="/controller_app/jars/controller_v1.8.jar">vScriptionControllerCrossPlatform_v1.8.jar</a>
+                            <a href="/controller_app/jars/vScriptionControllerCrossPlatform_v1.8.jar">vScriptionControllerCrossPlatform_v1.8.jar</a>
                         </td>
                     </tr>
                     <tr>
