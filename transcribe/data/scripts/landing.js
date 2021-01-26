@@ -321,7 +321,7 @@ $(document).ready(function () {
 
     function validAccName()
     {
-        "hel@#l6o".search()
+        // "hel@#l6o".search()
         if(accNameInput.val() === "" ||
             accNameInput.val().length >= 50 ||
             accNameInput.val().search(/[!@#$%^&*)(+=._-]+/g) !== -1)
