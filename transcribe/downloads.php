@@ -63,7 +63,7 @@ if(isset($_SESSION['counter']))
             <tr class="spacer"></tr>
             <tr style="margin-top: 50px">
                 <td class="title" align="left" width="450px">
-                    <legend class="page-title">vScription Pro Transcribe Downloads</legend>
+                    <legend class="page-title">vScription Transcribe Downloads</legend>
                 </td>
                 <!--<td align="right" rowspan="2" id="fix-td">
 
@@ -109,8 +109,8 @@ if(isset($_SESSION['counter']))
                     <tbody>
                     <tr>
                         <td>
-                           <strong>vScription Controller Windows Installer</strong></i><br>For USB Foot Control Support
-                            Windows Installer <i>(JDK 14 included)</i>
+                           <strong>vScription Controller Windows Installer</strong></i><br><span style='font-size:.7rem';>For USB Foot Control Support
+                            Windows Installer <i>(JDK 14 included)</span>
                         </td>
                         <td>
                             164 MB
@@ -121,7 +121,7 @@ if(isset($_SESSION['counter']))
                     </tr>                    
                     <tr>
                         <td>
-                            <strong>vScription Controller Cross Platform Jar</strong><i><br>(Requires <a href='www.java.com' target='blank'>Java</a> 8 installed)</i><br>For USB Foot Control Support
+                            <strong>vScription Controller Cross Platform Jar</strong><i><br><span style='font-size:.8rem';>(Requires <a href='www.java.com' target='blank'>Java</a> 8 installed)</i><br></span><span style='font-size:.7rem';>For USB Foot Control Support</span>
                         </td>
                         <td>
                             3.88 MB
@@ -132,7 +132,7 @@ if(isset($_SESSION['counter']))
                     </tr>
                     <tr>
                         <td>
-                            <strong>vScription Upload Cross Platform Jar </strong><i><br>(Requires <a href='https://www.oracle.com/java/technologies/javase-jdk15-downloads.html' target='blank'>OpenJDK</a> > 14 installed)</i><br>For Digital Portable Automatic Uploads and 3rd Party Integrations
+                            <strong>vScription Upload Cross Platform Jar </strong><i><br><span style='font-size:.8rem';>(Requires <a href='https://www.oracle.com/java/technologies/javase-jdk15-downloads.html' target='blank'>OpenJDK</a> > 14 installed)</i><br></span><span style='font-size:.7rem';>For Digital Portable Automatic Uploads and 3rd Party Integrations</span>
                         </td>
                         <td>
                             164 MB
