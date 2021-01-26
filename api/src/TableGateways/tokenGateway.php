@@ -407,6 +407,8 @@ class tokenGateway
             SELECT 
                 access.*,
                 a.acc_name,
+                a.acc_retention_time,
+                a.act_log_retention_time,
                 r.role_name,
                 r.role_desc,
                 a.sr_enabled as sr_enabled,
@@ -431,6 +433,8 @@ class tokenGateway
                 $_SESSION['role'] = $result["acc_role"];
                 $_SESSION['sr_enabled'] = $result["sr_enabled"];
                 $_SESSION['acc_name'] = $result["acc_name"];
+                $_SESSION['acc_retention_time'] = $result["acc_retention_time"];
+                $_SESSION['act_log_retention_time'] = $result["act_log_retention_time"];
                 $_SESSION['role_desc'] = $result["role_desc"];
                 $_SESSION['landed'] = true;
                 return $this->oKResponse(null, "Role changed successfully");

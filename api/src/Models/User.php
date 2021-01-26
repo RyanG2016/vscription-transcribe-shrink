@@ -29,6 +29,9 @@ class User extends BaseModel implements BaseModelInterface
                                 public ?string $state = null,
                                 public string $address = '',
 
+                                public int $email_notification = 1,
+                                public int $newsletter = 0,
+
                                 private $db = null
     )
     {
@@ -37,6 +40,38 @@ class User extends BaseModel implements BaseModelInterface
             $this->UserGateway = new UserGateway($db);
             parent::__construct($this->UserGateway);
         }
+    }
+
+    /**
+     * @return int
+     */
+    public function getEmailNotification(): int
+    {
+        return $this->email_notification;
+    }
+
+    /**
+     * @param int $email_notification
+     */
+    public function setEmailNotification(int $email_notification): void
+    {
+        $this->email_notification = $email_notification;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNewsletter(): int
+    {
+        return $this->newsletter;
+    }
+
+    /**
+     * @param int $newsletter
+     */
+    public function setNewsletter(int $newsletter): void
+    {
+        $this->newsletter = $newsletter;
     }
 
 
@@ -278,11 +313,11 @@ class User extends BaseModel implements BaseModelInterface
 //            $this->last_login = $row['last_login'];
 //            $this->trials = $row['trials'];
 //            $this->unlock_time = $row['unlock_time'];
-//            $this->newsletter = $row['newsletter'];
+            $this->newsletter = $row['newsletter'];
 //            $this->def_access_id = $row['def_access_id'];
 //            $this->shortcuts = $row['shortcuts'];
 //            $this->dictionary = $row['dictionary'];
-//            $this->email_notification = $row['email_notification'];
+            $this->email_notification = $row['email_notification'];
 //            $this->enabled = $row['enabled'];
 //            $this->account = $row['account'];
 //            $this->tutorials = $row['tutorials'];

@@ -15,15 +15,17 @@ class UserController
     private $requestMethod;
     private $userId;
     private $mailer;
+    private $uri;
 
     private $accessGateway;
     private $userGateway;
 
-    public function __construct($db, $requestMethod, $userId)
+    public function __construct($db, $requestMethod, $userId, $uri = false)
     {
         $this->db = $db;
         $this->requestMethod = $requestMethod;
         $this->userId = $userId;
+        $this->uri = $uri;
         $this->mailer = new Mailer($db);
 
         $this->userGateway = new UserGateway($db);
@@ -62,6 +64,9 @@ class UserController
                 }
                 else if ($this->userId == "tutorial-viewed") {
                     $response = $this->tutorialViewed();
+                }
+                else if ($this->userId == "update"){
+                    $response = $this->userGateway->updateCurrentUser();
                 }
                 else if($this->userId == null) {
                     $response = $this->createUserFromRequest();
@@ -125,6 +130,9 @@ class UserController
                 else if ($this->userId == "invite"){
                     $response = $this->inviteTypistToCurrentAccount();
                 }
+                else if ($this->userId == "update"){
+                    $response = $this->userGateway->updateCurrentUser();
+                }
                 else{
                     $response = $this->notFoundResponse();
                 }
@@ -168,7 +176,7 @@ class UserController
     /**
      * SET available to work as typist for current logged in user
      * @param int POST av: availability (0,1,2)
-     * @return boolean success
+     * @return array|bool success
      */
     private function setAvailableForWork()
     {
@@ -196,7 +204,9 @@ class UserController
         {
             return false;
         }
-        $result = $this->userGateway->setSRforCurrUser($_POST["sr"]);
+        $result = $this->userGateway->setSRforCurrUser($_POST["sr"],
+            (isset($this->uri[1])  && $this->uri[1] == "self")?$_SESSION["userData"]["account"]:$_SESSION['accID']
+        );
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
         $response['body'] = $result;
         return $response;
@@ -248,7 +258,9 @@ class UserController
             return $response;
         }
 
-        $result = $this->userGateway->getSRenabled();
+        $result = $this->userGateway->getSRenabled(
+            (isset($this->uri[1])  && $this->uri[1] == "self")?$_SESSION["userData"]["account"]:$_SESSION['accID']
+        );
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
         $response['body'] = $result;
         return $response;
@@ -261,16 +273,10 @@ class UserController
      */
     private function getSRmins()
     {
-        if(!isset($_SESSION['accID']))
+        if(isset($this->uri[1]) && $this->uri[1] == "self")
         {
-            $response['status_code_header'] = 'HTTP/1.1 200 OK';
-            $response['body'] = 0;
-            return $response;
-        }
-
-        if($_SESSION["role"] == 1 || $_SESSION["role"] == 2)
-        {
-            $sr = SR::withAccID($_SESSION["accID"], $this->db);
+            // get SR minutes for user owned organization instead of current logged in one
+            $sr = SR::withAccID($_SESSION["userData"]["account"], $this->db);
             $minutes = $sr->getSrMinutesRemaining();
 
             $result = $minutes;
@@ -280,8 +286,28 @@ class UserController
             }
 
         }else{
+            if(!isset($_SESSION['accID']))
+            {
+                $response['status_code_header'] = 'HTTP/1.1 200 OK';
+                $response['body'] = 0;
+                return $response;
+            }
+
+            if($_SESSION["role"] == 1 || $_SESSION["role"] == 2)
+            {
+                $sr = SR::withAccID($_SESSION["accID"], $this->db);
+                $minutes = $sr->getSrMinutesRemaining();
+
+                $result = $minutes;
+                if($minutes == null)
+                {
+                    $result = "0.00";
+                }
+
+            }else{
 //            $result = "Permission denied";
-            $result = "00.00";
+                $result = "00.00";
+            }
         }
 
         $response['status_code_header'] = 'HTTP/1.1 200 OK';

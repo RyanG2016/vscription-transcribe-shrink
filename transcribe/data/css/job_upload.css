@@ -632,19 +632,6 @@ label.vspt-drop-upload.focus {
     text-align: left ;
 }
 
-
-
-.add-mins-btn:focus,
-.add-mins-btn{
-    font-size: small;
-    padding: 3px 8px;
-    margin-left: 20px;
-    border-radius: 6px;
-    background-color: var(--vspt-btn-green) !important;
-    border-color: hsl(107, 45%, 40%) !important;
-}
-
-
 .carousel-inner-container
 {
     max-width: 700px;

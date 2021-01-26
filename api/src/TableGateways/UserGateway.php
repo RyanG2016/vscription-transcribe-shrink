@@ -259,7 +259,7 @@ class UserGateway implements GatewayInterface
      * 5 if disabled <br>
      * 1 if enabled
      */
-    public function getSRenabled()
+    public function getSRenabled($accID)
     {
 
         $statement = "
@@ -272,7 +272,7 @@ class UserGateway implements GatewayInterface
 
         try {
             $statement = $this->db->prepare($statement);
-            $statement->execute(array($_SESSION['accID']));
+            $statement->execute(array($accID));
             $result = $statement->fetch();
             if($statement->rowCount() > 0)
             {
@@ -315,7 +315,7 @@ class UserGateway implements GatewayInterface
      * @param $sr_enabled (0,1)
      * @return boolean success
      */
-    public function setSRforCurrUser($sr_enabled)
+    public function setSRforCurrUser($sr_enabled, $accID)
     {
 
         $statement = "
@@ -328,7 +328,7 @@ class UserGateway implements GatewayInterface
 
         try {
             $statement = $this->db->prepare($statement);
-            $statement->execute(array($sr_enabled, $_SESSION['accID']));
+            $statement->execute(array($sr_enabled, $accID));
             return $statement->rowCount();
         } catch (\PDOException) {
             return false;
@@ -556,6 +556,8 @@ class UserGateway implements GatewayInterface
 
                 // setting session variables to bypass the need of logging out and in again
                 $_SESSION["adminAccount"] = $accID;
+                $_SESSION["adminAccRetTime"] = 14;
+                $_SESSION["adminAccLogRetTime"] = 90;
                 $_SESSION["adminAccountName"] = $accName;
 
             return true;
@@ -773,6 +775,107 @@ class UserGateway implements GatewayInterface
         }
     }
 
+    
+    public function updateCurrentUser()
+    {
+        $id = $_SESSION["uid"];
+
+        // required fields
+        if (
+            !isset($_POST["first_name"]) ||
+            !isset($_POST["last_name"]) ||
+            !isset($_POST["email"]) ||
+            !isset($_POST["country"]) ||
+            !isset($_POST["newsletter"]) ||
+            !isset($_POST["email_notification"]) ||
+            !isset($_POST["city"]) ||
+            !isset($_POST["state"]) ||
+            !isset($_POST["address"]) ||
+            !isset($_POST["zip"])
+        ) {
+            return $this->errorOccurredResponse("Invalid Input, required fields missing (VSPT-U400)");
+        }
+
+        // validation
+        foreach ($_POST as $keyPost => $valuePost) {
+            switch ($keyPost)
+            {
+                case 'first_name':
+                case 'last_name':
+                    if(!preg_match("/^[a-z ]{2,50}$/i", $valuePost))
+                    {
+                        return $this->errorOccurredResponse("Invalid Input (VSPT-U201)");
+                    }
+                    break;
+
+                case 'address':
+                    if(!preg_match("/^[a-z0-9_ .]{0,100}$/i", $valuePost))
+                    {
+                        return $this->errorOccurredResponse("Invalid Input (VSPT-U202)");
+                    }
+                    break;
+
+                case 'city':
+                case 'state':
+                    if(!preg_match("/^[a-z ]{0,100}$/i", $valuePost))
+                    {
+                        return $this->errorOccurredResponse("Invalid Input (VSPT-U203)");
+                    }
+                    break;
+
+                case 'zip':
+                    if(!preg_match("/^[a-z0-9 ]{0,20}$/i", $valuePost))
+                    {
+                        return $this->errorOccurredResponse("Invalid Input (VSPT-U204)");
+                    }
+                    break;
+
+                case 'country':
+                    if(!preg_match("/^[a-z ]{2,100}$/i", $valuePost))
+                    {
+                        return $this->errorOccurredResponse("Invalid Input (VSPT-U205)");
+                    }
+                    break;
+
+                case 'newsletter':
+                case 'email_notification':
+                    if(!(is_numeric($valuePost) && $valuePost <= 1 && $valuePost >= 0))
+                    {
+                        return $this->errorOccurredResponse("Invalid Input (VSPT-U206)");
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        $reverify = $_POST['email'] != $_SESSION["uEmail"];
+
+        // update DB //
+
+        $user = User::withID($id, $this->db);
+        $user->setFirstName($_POST["first_name"]);
+        $user->setLastName($_POST["last_name"]);
+        $user->setEmail($_POST["email"]);
+        $user->setCountry($_POST["country"]);
+        $user->setState($_POST["state"]);
+        $user->setCity($_POST["city"]);
+        $user->setAddress($_POST["address"]);
+        $user->setZipcode($_POST["zip"]);
+        $user->setNewsletter($_POST["newsletter"]);
+        $user->setEmailNotification($_POST["email_notification"]);
+
+        $updated = $user->save();
+
+        if ($updated) {
+            $this->logger->insertAuditLogEntry($this->API_NAME, "Updated User from settings: " . $id);
+            return $this->oKResponse($id, "User Updated");
+        } else {
+            return $this->errorOccurredResponse("Couldn't update user or no changes were found to update");
+        }
+    }
+
     public function oKResponse($id, $msg2 = "")
     {
 
@@ -845,6 +948,8 @@ class UserGateway implements GatewayInterface
                 country = :country,
                 zipcode = :zipcode,
                 state = :state,
+                email_notification = :email_notification,
+                newsletter = :newsletter,
                 address = :address
             WHERE
             id = :id;
@@ -862,6 +967,8 @@ class UserGateway implements GatewayInterface
                 'country' => $model ->getCountry()  ,
                 'zipcode' => $model ->getZipcode()  ,
                 'state' => $model ->getState()  ,
+                'email_notification' => $model ->getEmailNotification()  ,
+                'newsletter' => $model ->getNewsletter() ,
                 'address' => $model ->getAddress()
             ));
             // setting session variables
@@ -870,6 +977,18 @@ class UserGateway implements GatewayInterface
             $_SESSION['userData']['state'] = $model->getState();
             $_SESSION['userData']['country'] = $model->getCountry();
             $_SESSION['userData']['zipcode'] = $model->getZipcode();
+            $_SESSION['userData']['newsletter'] = $model->getNewsletter();
+            $_SESSION['userData']['email_notification'] = $model->getEmailNotification();
+
+            $_SESSION['userData']['first_name'] = $model->getFirstName();
+            $_SESSION['fname'] = $model->getFirstName();
+
+            $_SESSION['userData']['last_name'] = $model->getLastName();
+            $_SESSION['lname'] = $model->getLastName();
+
+            $_SESSION['userData']['email'] = $model->getEmail();
+            $_SESSION['uEmail'] = $model->getEmail();
+
 
             return $statement->rowCount();
         } catch (\PDOException) {
@@ -907,6 +1026,8 @@ class UserGateway implements GatewayInterface
                     city,
                    country,
                    zipcode,
+                   email_notification,
+                   newsletter,
 
                     state,
                    address

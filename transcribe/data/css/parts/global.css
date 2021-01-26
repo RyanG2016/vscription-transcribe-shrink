@@ -548,8 +548,28 @@ a:visited {
     color: var(--vspt-sidebar-toggle-btn-active) !important;
 }
 
-
-
 .noHover {
     pointer-events: none;
+}
+
+.add-mins-btn:focus,
+.add-mins-btn{
+    font-size: small;
+    padding: 3px 8px;
+    margin-left: 20px;
+    border-radius: 6px;
+    background-color: var(--vspt-btn-green) !important;
+    border-color: hsl(107, 45%, 40%) !important;
+}
+
+
+.vspt-small-btn:focus,
+.vspt-small-btn{
+    font-size: small;
+    padding: 3px 8px;
+    border-radius: 6px;
+}
+
+.sr-balance-div > span{
+    vertical-align: middle;
 }

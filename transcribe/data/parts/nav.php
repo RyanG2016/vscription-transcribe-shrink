@@ -276,7 +276,7 @@
 <!--                <form method="post" id="createAccForm" class="createAccForm" target="_self">-->
 
                     <div class="account text-center w-100">
-                        <div><h4 class="font-weight-light">Account</h4></div>
+                        <div><h4 class="font-weight-light">Organization</h4></div>
                         <select id="accountBoxNav" name="acc_id" class="w-100 m-t-7" data-width="250px">
                         </select>
                     </div>
