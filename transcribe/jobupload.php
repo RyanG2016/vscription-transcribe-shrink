@@ -135,20 +135,20 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                     <div id="uploadCarousel" class="carousel slide upload-carousel" data-ride="carousel" data-interval="false">
                         <div class="carousel-inner">
 
-                            <div class="carousel-item active">
+                            <div class="row" id="srBalance" style="display:none;">
+                                <div class="col text-center">
+                                    <small>
+                                        <b>Speech To Text Balance </b>
+                                        <span class="sr-balance"><span id="srMinutes"></span> min</span>
+                                    </small>
 
-                                <div class="row" id="srBalance" style="display:none;">
-                                    <div class="col text-center">
-                                        <small>
-                                            <b>Speech To Text Balance </b>
-                                            <span class="sr-balance"><span id="srMinutes"></span> min</span>
-                                        </small>
-
-                                        <button class="btn btn-primary add-mins-btn" type="button" onclick="window.open('/packages.php', '_blank')">
-                                            <i class="fas fa-plus-circle" ></i> ADD MINS
-                                        </button>
-                                    </div>
+                                    <button class="btn btn-primary add-mins-btn" type="button" onclick="window.open('/packages.php', '_blank')">
+                                        <i class="fas fa-plus-circle" ></i> ADD MINS
+                                    </button>
                                 </div>
+                            </div>
+
+                            <div class="carousel-item active">
 
                                 <label class="vspt-drop-upload" id="vsptDropZone" for="filesInput">
                                     <div>
