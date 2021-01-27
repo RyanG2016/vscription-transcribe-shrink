@@ -245,6 +245,13 @@
             </div>
         </a>
 
+        <a href="/downloads.php" class="bg-dark list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+                <span class="fad fa-download fa-fw mr-3"></span>
+                <span class="menu-collapsed d-none">Downloads</span>
+            </div>
+        </a>
+
         <!-- Separator without title -->
         <li class="list-group-item sidebar-separator menu-collapsed d-none"></li>
         <!-- /END Separator -->
