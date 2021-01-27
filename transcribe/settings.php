@@ -144,7 +144,7 @@ include('data/parts/head.php');
                                             </div>
 
                                             <div class="col text-right">
-                                                <span class="bs-text">Receive job updates</span>
+                                                <span class="bs-text">Receive Job Notifications</span>
                                                 &emsp;<button id="emailTranscript" type="button"
                                                               class="btn btn-primary newsletter-button <?php echo (isset($_SESSION['userData']['email_notification']) && $_SESSION['userData']['email_notification'] == 1)? 'active':''  ?>"
                                                               data-toggle="button" aria-pressed="<?php echo (isset($_SESSION['userData']['email_notification']) && $_SESSION['userData']['email_notification'] == 1)?'true':'false' ?>">
@@ -156,7 +156,7 @@ include('data/parts/head.php');
 
                                     <button class="btn btn-primary vspt-small-btn float-right" type="submit"
                                             id="updateUser">
-                                        <i class="fas fa-save"></i> Update
+                                        <i class="fas fa-save"></i> Save
                                     </button>
                                 </div>
 
@@ -321,7 +321,7 @@ include('data/parts/head.php');
                                 </button>
 
                                 <button class="btn btn-primary vspt-small-btn float-right" type="submit" id="updateCurrentOrg">
-                                    <i class="fas fa-save"></i> Update
+                                    <i class="fas fa-save"></i> Save
                                 </button>
 
                             </div>
@@ -434,7 +434,7 @@ include('data/parts/head.php');
                                     </div>
 
                                     <button class="btn btn-primary vspt-small-btn float-right" type="submit" id="updateOwnOrg">
-                                        <i class="fas fa-save"></i> Update
+                                        <i class="fas fa-save"></i> Save
                                     </button>
 
                                 </div>
@@ -534,7 +534,7 @@ include('data/parts/head.php');
                                                                     <div class="bounce3"></div>
                                                                 </span>
                                                     </span></span>
-                                                <button class="btn btn-primary add-mins-btn" type="button" onclick="window.open('/packages.php', '_blank')">
+                                                <button class="btn btn-primary add-mins-btn" type="button" onclick="window.open('/packages.php?self', '_blank')">
                                                     <i class="fas fa-plus-circle" ></i> ADD MINS
                                                 </button>
                                             </div>
@@ -542,7 +542,7 @@ include('data/parts/head.php');
                                     </div>
 
                                     <button class="btn btn-primary vspt-small-btn float-right" type="submit" id="updateOwnOrg">
-                                        <i class="fas fa-save"></i> Update
+                                        <i class="fas fa-save"></i> Save
                                     </button>
 
                                 </div>
