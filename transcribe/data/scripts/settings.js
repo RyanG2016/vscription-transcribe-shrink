@@ -153,7 +153,9 @@ $(document).ready(function () {
     let country = $("#country");
     let newsletter = $("#newsletter");
     let jobUpdates = $("#emailTranscript");
+    let email = $("#email");
     let lastZipRequested = "";
+    let currentEmail = email.val();
 
     /*    userForm.parsley({
             /!*errorsWrapper: '<br><ul class="parsley-error-list"></ul>'*!/
@@ -167,7 +169,7 @@ $(document).ready(function () {
             $('.bs-callout-warning').toggleClass('hidden', ok);
         })
             .on('form:submit', function() {
-                return false; // Don't submit form for this demo
+                return false; // Don't submit form
             });*/
 
     userForm.parsley().on('form:submit', function () {
@@ -175,6 +177,35 @@ $(document).ready(function () {
         var formData = new FormData(userForm[0]);
         formData.append("newsletter", newsletter.hasClass("active") ? "1" : "0");
         formData.append("email_notification", jobUpdates.hasClass("active") ? "1" : "0");
+
+        if(email.val() !== currentEmail)
+        {
+            // inform user of a possible logout
+            $.confirm({
+                title: 'Important!',
+                // theme: 'bootstrap',
+                type: 'orange',
+                columnClass: 'col-6',
+                content: 'By changing your email address you will be logged out until your account is verified by visiting the link mailed to you.',
+                buttons: {
+                    confirm: function () {
+                        // $.alert('Confirmed!');
+                        // proceed
+                        updateUserInfo(formData, true);
+                    },
+                    cancel: function () {
+                        return true;
+                    }
+                }
+            });
+        }else{
+            updateUserInfo(formData);
+        }
+
+        return false; // Don't submit form
+    });
+
+    function updateUserInfo(formData, reload = false){
         $.confirm({
             title: 'Updating User Info',
             theme: 'supervan',
@@ -204,6 +235,11 @@ $(document).ready(function () {
                     self.buttons.ok.removeClass("btn-default");
                     self.buttons.close.hide();
 
+                    if(reload)
+                    {
+                        location.reload();
+                    }
+
                     // self.setContentAppend('<div>Done!</div>');
 
                 }).fail(function(xhr, status, err){
@@ -231,9 +267,7 @@ $(document).ready(function () {
 
             }
         });
-
-        return false; // Don't submit form for this demo
-    });
+    }
 
     orgForm.parsley().on('form:submit', function () {
 
@@ -295,7 +329,7 @@ $(document).ready(function () {
             }
         });
 
-        return false; // Don't submit form for this demo
+        return false; // Don't submit form
     });
 
     ownOrgForm.parsley().on('form:submit', function () {
@@ -357,7 +391,7 @@ $(document).ready(function () {
             }
         });
 
-        return false; // Don't submit form for this demo
+        return false; // Don't submit form
     });
 
 

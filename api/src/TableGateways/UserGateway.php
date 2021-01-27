@@ -3,6 +3,7 @@
 namespace Src\TableGateways;
 
 use PDOException;
+use Src\Enums\USER_ACCOUNT_STATUS;
 use Src\Models\BaseModel;
 use Src\Models\User;
 use Src\TableGateways\logger;
@@ -865,11 +866,25 @@ class UserGateway implements GatewayInterface
         $user->setZipcode($_POST["zip"]);
         $user->setNewsletter($_POST["newsletter"]);
         $user->setEmailNotification($_POST["email_notification"]);
+        if($reverify)
+        {
+            $user->setAccountStatus(USER_ACCOUNT_STATUS::PENDING_EMAIL_VERIFICATION);
+        }
 
         $updated = $user->save();
 
         if ($updated) {
             $this->logger->insertAuditLogEntry($this->API_NAME, "Updated User from settings: " . $id);
+
+            if($reverify)
+            {
+                // re-send verification mail
+                $this->mailer->sendEmail(5, $_POST["email"]);
+
+                // logout user
+                session_unset();
+            }
+
             return $this->oKResponse($id, "User Updated");
         } else {
             return $this->errorOccurredResponse("Couldn't update user or no changes were found to update");
@@ -949,6 +964,7 @@ class UserGateway implements GatewayInterface
                 zipcode = :zipcode,
                 state = :state,
                 email_notification = :email_notification,
+                account_status = :account_status,
                 newsletter = :newsletter,
                 address = :address
             WHERE
@@ -967,6 +983,7 @@ class UserGateway implements GatewayInterface
                 'country' => $model ->getCountry()  ,
                 'zipcode' => $model ->getZipcode()  ,
                 'state' => $model ->getState()  ,
+                'account_status' => $model ->getAccountStatus()  ,
                 'email_notification' => $model ->getEmailNotification()  ,
                 'newsletter' => $model ->getNewsletter() ,
                 'address' => $model ->getAddress()
@@ -1018,20 +1035,19 @@ class UserGateway implements GatewayInterface
 
         $statement = "
             SELECT 
-                    id,
-                    first_name,
-                    last_name,
-                    email,
-                    password,
-                    city,
-                   country,
-                   zipcode,
-                   email_notification,
-                   newsletter,
-
-                    state,
-                   address
-                    
+                id,
+                first_name,
+                last_name,
+                email,
+                password,
+                city,
+                country,
+                zipcode,
+                email_notification,
+                newsletter,
+                account_status,
+                state,
+                address
                                       
             FROM
                 users

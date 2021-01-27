@@ -31,6 +31,7 @@ class User extends BaseModel implements BaseModelInterface
 
                                 public int $email_notification = 1,
                                 public int $newsletter = 0,
+                                public int $account_status = 5,
 
                                 private $db = null
     )
@@ -72,6 +73,22 @@ class User extends BaseModel implements BaseModelInterface
     public function setNewsletter(int $newsletter): void
     {
         $this->newsletter = $newsletter;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAccountStatus(): int
+    {
+        return $this->account_status;
+    }
+
+    /**
+     * @param int $account_status
+     */
+    public function setAccountStatus(int $account_status): void
+    {
+        $this->account_status = $account_status;
     }
 
 
@@ -309,7 +326,7 @@ class User extends BaseModel implements BaseModelInterface
 //            $this->registeration_date = $row['registeration_date'];
 //            $this->last_ip_address = $row['last_ip_address'];
 //            $this->typist = $row['typist'];
-//            $this->account_status = $row['account_status'];
+            $this->account_status = $row['account_status'];
 //            $this->last_login = $row['last_login'];
 //            $this->trials = $row['trials'];
 //            $this->unlock_time = $row['unlock_time'];
