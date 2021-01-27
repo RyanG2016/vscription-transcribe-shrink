@@ -63,7 +63,7 @@ if(isset($_SESSION['counter']))
             <tr class="spacer"></tr>
             <tr style="margin-top: 50px">
                 <td class="title" align="left" width="450px">
-                    <legend class="page-title">vScription Pro Transcribe Downloads</legend>
+                    <legend class="page-title">vScription Transcribe Downloads</legend>
                 </td>
                 <!--<td align="right" rowspan="2" id="fix-td">
 
@@ -108,42 +108,37 @@ if(isset($_SESSION['counter']))
                     </thead>
                     <tbody>
                     <tr>
- <!--                       <td>
-                            Controller Cross Platform Jar <i><br>(Requires <a href='https://www.oracle.com/java/technologies/javase-jdk15-downloads.html' target='blank'>OpenJDK</a> > 12 installed)</i>
-                        </td>
--->
                         <td>
-                            <strong>vScription Controller Cross Platform Jar</strong><i><br>(Requires <a href='www.java.com' target='blank'>Java</a> 8 installed)</i><br>For USB Foot Control Support
+                           <strong>vScription Controller Windows Installer</strong></i><br><span style='font-size:.7rem';>For USB Foot Control Support
+                            Windows Installer <i>(JDK 14 included)</span>
+                        </td>
+                        <td>
+                            164 MB
+                        </td>
+                        <td>
+                            <a href="/controller_app/windows/vScriptionControllerWin_v1.8.exe">vScriptionControllerWin_v1.8.exe</a>
+                        </td>
+                    </tr>                    
+                    <tr>
+                        <td>
+                            <strong>vScription Controller Cross Platform Jar</strong><i><br><span style='font-size:.8rem';>(Requires <a href='www.java.com' target='blank'>Java</a> 8 installed)</i><br></span><span style='font-size:.7rem';>For USB Foot Control Support</span>
                         </td>
                         <td>
                             3.88 MB
                         </td>
                         <td>
-                            <a href="/controller_app/jars/controller_v1.6.jar">controller_v1.6.jar</a>
+                            <a href="/controller_app/jars/vScriptionControllerCrossPlatform_v1.8.jar">vScriptionControllerCrossPlatform_v1.8.jar</a>
                         </td>
                     </tr>
-                    <!-- We're having some issues with the 1.8 build and java so we're just going to put the 1.6 back 
-                       <tr>
-                        <td>
-                            Windows Bundle <i>(JDK 14 included)</i>
-                        </td>
-                        <td>
-                            164 MB
-                        </td>
-                        <td>
-                            <a href="/controller_app/windows/vScriptionControllerWin_v1.6.exe">vScriptionControllerWin_v1.8.exe</a>
-                        </td>
-                    </tr>
--->
                     <tr>
                         <td>
-                            <strong>vScription Transfer Cross Platform Jar </strong><i><br>(Requires <a href='https://www.oracle.com/java/technologies/javase-jdk15-downloads.html' target='blank'>OpenJDK</a> > 14 installed)</i><br>For Digital Portable Uploads and 3rd Party Integrations
+                            <strong>vScription Upload Cross Platform Jar </strong><i><br><span style='font-size:.8rem';>(Requires <a href='https://www.oracle.com/java/technologies/javase-jdk15-downloads.html' target='blank'>OpenJDK</a> > 14 installed)</i><br></span><span style='font-size:.7rem';>For Digital Portable Automatic Uploads and 3rd Party Integrations</span>
                         </td>
                         <td>
                             164 MB
                         </td>
                         <td>
-                            <a href="/controller_app/windows/vScriptionControllerWin_v1.6.exe">vScriptionTransfer.jar</a>
+                            <a href="/controller_app/jars/vScriptionUpload-v1.1.jar">vScriptionUpload-v1.1.jar</a>
                         </td>
                     </tr>
 
