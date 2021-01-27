@@ -475,17 +475,6 @@ textarea {
     font-family: main, sans-serif;
 }
 
-select, .dt-search {
-    width: 100%;
-    /*padding: 6px 20px;*/
-    margin: 8px 0;
-    display: block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-    font-family: main, sans-serif;
-}
-
 input[type=date] {
     width: 75%;
     padding: 6px 20px;
@@ -599,4 +588,21 @@ td .times-downloaded {
 
 .mdc-layout-grid.dt-table {
     overflow-x: auto;
+}
+
+#jobs-tbl > tfoot tr th
+{
+    padding: 4px 2px !important;
+}
+
+
+select, .dt-search {
+    /*width: 100%;*/
+    /*!*padding: 6px 20px;*!*/
+    /*margin: 8px 0;*/
+    /*display: block;*/
+    /*border: 1px solid #ccc;*/
+    /*border-radius: 4px;*/
+    /*font-size: 16px;*/
+    /*font-family: main, sans-serif;*/
 }

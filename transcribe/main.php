@@ -100,7 +100,7 @@ else {
     </script>
 	
 	<link rel="stylesheet" href="data/css/main.css">
-	<script src="data/scripts/main.min.js?v=5"></script>
+	<script src="data/scripts/main.js?v=5"></script>
 	
 </head>
 
@@ -154,7 +154,22 @@ else {
 
 
                 <div style="overflow-x: hidden" class="vspt-table-div">
-                    <table id="jobs-tbl" class="users-tbl table vspt-table hover compact"></table>
+                    <table id="jobs-tbl" class="users-tbl table vspt-table hover compact">
+                        <tfoot>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        </tfoot>
+                    </table>
                 </div>
                 <div class="row mt-3 pt-2 border-top">
                     <div class="col" id="tjd">
