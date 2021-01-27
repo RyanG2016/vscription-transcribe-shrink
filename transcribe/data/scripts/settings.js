@@ -577,6 +577,19 @@ $(document).ready(function () {
         }
     });
 
+
+    function changeLoading(show, text = false) {
+        if(!show){
+            loading.fadeOut();
+            $("body").css("overflow", "auto");
+        }else{
+            $("body").css("overflow", "none");
+            if(text) loadingText.html(text);
+            loading.fadeIn();
+        }
+    }
+
+
     getAvailabilityAsTypist();
 
     function getAvailabilityAsTypist() {

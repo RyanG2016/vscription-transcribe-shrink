@@ -457,6 +457,18 @@ class AccountGateway implements GatewayInterface
                 // update account field in user entry and give client admin permission
                 if($this->userGateway->internalUpdateUserClientAdminAccount($accountID, $accName)){
                     if($this->accessGateway->giveClientAdminPermission($accountID)){
+
+                        // set session variables
+                        $account = Account::withID($accountID, $this->db);
+                        $_SESSION["userData"]["admin_acc_name"] = $account->getAccName();
+                        $_SESSION["userData"]["account"] = $accountID;
+                        $_SESSION["userData"]["acc_name"] = $account->getAccName();
+                        $_SESSION["userData"]["adminart"] = $account->getAccRetentionTime();
+                        $_SESSION["userData"]["adminalrt"] = $account->getActLogRetentionTime();
+
+                        $_SESSION["adminAccountName"] = $account->getAccName();
+                        $_SESSION["adminAccLogRetTime"] = $account->getActLogRetentionTime();
+                        $_SESSION["adminAccRetTime"] = $account->getAccRetentionTime();
                         return $this->oKResponse($accountID, "Account Created");
                     }
                 }
@@ -590,7 +602,7 @@ class AccountGateway implements GatewayInterface
                 $_SESSION["userData"]["acc_name"] = $account->getAccName();
                 $_SESSION["userData"]["adminart"] = $account->getAccRetentionTime();
                 $_SESSION["userData"]["adminalrt"] = $account->getActLogRetentionTime();
-
+                $_SESSION["userData"]["account"] = $acc_id;
                 $_SESSION["adminAccountName"] = $account->getAccName();
                 $_SESSION["adminAccLogRetTime"] = $account->getActLogRetentionTime();
                 $_SESSION["adminAccRetTime"] = $account->getAccRetentionTime();
