@@ -151,7 +151,7 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
                             echo '"  /></div>';
 
                             echo '<div class="row no-gutters">
-                                    <input id="state" name="state" type="text" class="col vtex-editable-input typeahead" placeholder="<State>" value = "';
+                                    <input id="state" name="state" type="text" class="col vtex-editable-input typeahead" placeholder="<Province/State>" value = "';
                             echo isset($_SESSION['userData']['state']) && !empty($_SESSION['userData']['state'])?$_SESSION['userData']['state']:'';
                             echo '" /></div>';
 
