@@ -46,6 +46,7 @@ class PaymentProcessor
         private $amount,
 
         private Package $package,
+        private $selfAccount,
 
         private $db
     )
@@ -259,6 +260,8 @@ class PaymentProcessor
             "pkg_name" => $this->package->getSrpName(),
             "pkg_price" => $this->package->getSrpPrice(),
             "pkg_minutes" => $this->package->getSrpMinutes(),
+            "acc_name" => $this->selfAccount?$_SESSION["userData"]["admin_acc_name"]:$_SESSION["acc_name"],
+            "acc_id" => $this->selfAccount?$_SESSION["userData"]["account"]:$_SESSION["accID"],
             "msg" => $msg
         ));
 

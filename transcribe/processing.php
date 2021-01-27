@@ -83,6 +83,7 @@ use Src\Payment\PaymentProcessor;
                     $_POST['expiry_date'],
                     $pkg->getSrpPrice(),
                     $pkg,
+                    isset($_POST["self"]),
                     $dbConnection
             );
             $processor->saveUserAddress();
@@ -92,7 +93,14 @@ use Src\Payment\PaymentProcessor;
                     echo 'Payment Success! <i class="far fa-laugh-beam"></i> redirecting..';
 
                     // add minutes to user account
-                    $sr = SR::withAccID($_SESSION["accID"], $dbConnection);
+
+                    // check if minutes for self account
+                    $accID = $_SESSION["accID"];
+                    if(isset($_POST["self"]))
+                    {
+                        $accID = $_SESSION["userData"]["account"];
+                    }
+                    $sr = SR::withAccID($accID, $dbConnection);
                     $sr->addToMinutesRemaining($pkg->getSrpMins());
                     $sr->save();
 

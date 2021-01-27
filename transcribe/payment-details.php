@@ -22,7 +22,7 @@ if($lastPayment != null)
     $paymentSucceed = $payment->getStatus() == PAYMENT_STATUS::PAID;
     $paymentJson = json_decode($payment->getPaymentJson(),true);
     $pkg = Package::withID($payment->getPkgId(), $dbConnection);
-    $sr = SR::withAccID($_SESSION["accID"], $dbConnection);
+    $sr = SR::withAccID($paymentJson["acc_id"], $dbConnection);
 }
 //$pkg = Package::withID($_POST["package"], $dbConnection);
 // User Setting
@@ -197,7 +197,7 @@ if($lastPayment != null)
                                     
                                     <div class="row">
                                         <div class="col-auto">Organization</div>
-                                        <div class="col text-right">' . $_SESSION['acc_name'] . '</div>
+                                        <div class="col text-right">' . $paymentJson["acc_name"] . '</div>
                                     </div>
                                     
                                     <div class="row">

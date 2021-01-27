@@ -127,6 +127,10 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
                 <hr>
                 <form id="paymentForm" method="post" action="processing.php" enctype="multipart/form-data" novalidate>
                     <input type="hidden" name="package" value="<?php echo $pkg->getSrpId()?>" />
+                    <?php if(isset($_POST["self"]))
+                    {
+                        echo '<input type="number" name="self" value="1" hidden>';
+                    } ?>
                     <div class="row">
 
                         <div class="col-lg-9 col-md-8 col-sm-8 border-right">
@@ -364,7 +368,7 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
                                     
                                     <div class="row">
                                         <div class="col-auto">Organization</div>
-                                        <div class="col text-right">' . $_SESSION['acc_name'] . '</div>
+                                        <div class="col text-right">' .  (isset($_POST["self"]) ? $_SESSION["userData"]["admin_acc_name"] :  $_SESSION['acc_name'])  . '</div>
                                     </div>';
                             ?>
 

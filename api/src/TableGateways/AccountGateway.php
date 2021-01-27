@@ -462,7 +462,6 @@ class AccountGateway implements GatewayInterface
                         $account = Account::withID($accountID, $this->db);
                         $_SESSION["userData"]["admin_acc_name"] = $account->getAccName();
                         $_SESSION["userData"]["account"] = $accountID;
-                        $_SESSION["userData"]["acc_name"] = $account->getAccName();
                         $_SESSION["userData"]["adminart"] = $account->getAccRetentionTime();
                         $_SESSION["userData"]["adminalrt"] = $account->getActLogRetentionTime();
 
@@ -599,7 +598,6 @@ class AccountGateway implements GatewayInterface
             if($self)
             {
                 $_SESSION["userData"]["admin_acc_name"] = $account->getAccName();
-                $_SESSION["userData"]["acc_name"] = $account->getAccName();
                 $_SESSION["userData"]["adminart"] = $account->getAccRetentionTime();
                 $_SESSION["userData"]["adminalrt"] = $account->getActLogRetentionTime();
                 $_SESSION["userData"]["account"] = $acc_id;

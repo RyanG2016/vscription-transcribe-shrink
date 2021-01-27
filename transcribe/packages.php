@@ -154,6 +154,13 @@ $pkgGateway = new PackageGateway($dbConnection);
 
     <form id="purchase" action="payment.php" method="post">
         <input type="number" id="package" name="package" hidden>
+        <?php
+        if(isset($_GET["self"]))
+        {
+            echo '<input type="number" name="self" value="1" hidden>';
+        }
+
+        ?>
     </form>
 
 </div>
