@@ -70,7 +70,19 @@ class Mailer
                     $token = $this->generateToken($user_email, $mailType);
                     if(!$token) return false;
                     $link = "$cbaselink/reset.php?token=$token";
-                    include(__DIR__ . '/../../../mail/templates/reset_pwd.php');
+
+
+                    $emHTML = file_get_contents(__DIR__ . '/../../../mail/templates/reset_pwd.html');
+
+                    $replace_pairs = array(
+                        '{{year}}'    => date("Y"),
+                        '{{url}}' => $link,
+                    );
+
+                    $emHTML = strtr($emHTML, $replace_pairs);
+                    $emPlain = $emHTML;
+
+
                     $sbj = "Password Reset";
                     break;
 
