@@ -142,7 +142,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                         <span class="sr-balance"><span id="srMinutes"></span> min</span>
                                     </small>
 
-                                    <button class="btn btn-primary add-mins-btn" type="button" onclick="window.open('/packages.php', '_blank')">
+                                    <button class="btn btn-primary add-mins-btn" id="addMinsBtn" type="button" onclick="window.open('/packages.php', '_blank')">
                                         <i class="fas fa-plus-circle" ></i> ADD MINS
                                     </button>
                                 </div>

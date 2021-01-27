@@ -48,6 +48,7 @@ function documentReady() {
     const dictDateLbl = $("#dictDateLbl");
     const tblBody = $("#queFilesBody");
     const srBar = $("#srBar");
+    const addMinsBtn = $("#addMinsBtn");
 
     // allowed files for upload queue variables
     var filesArr = [];
@@ -950,10 +951,15 @@ function documentReady() {
                     speakerTypeDiv.hide();
                     dictDateLbl.html("File Date");
                     getSRMinutes();
+                    addMinsBtn.attr("onclick", "window.open('/packages.php', '_blank')");
+                    addMinsBtn.html('<i class="fas fa-plus-circle" ></i> ADD MINS');
                 } else {
                     srEnabled = false;
                     speakerTypeDiv.show();
                     dictDateLbl.html("Dictated Date");
+                    // change add mins button
+                    addMinsBtn.attr("onclick", "window.open('/settings.php#srSwitch', '_blank')");
+                    addMinsBtn.html('<i class="fal fa-toggle-on"></i> Enable');
                 }
             }
         });
