@@ -162,6 +162,7 @@ class Mailer
                     $paymentJson = json_decode($payment->getPaymentJson(), true);
                     $replace_pairs = array(
                         '{{date}}'    => date("d-M-Y h:m:s a"),
+                        '{{year}}'    => date("Y"),
                         '{{name}}'    => $user->getFirstName() . " " . $user->getLastName(),
                         '{{email}}'  => $user->getEmail(),
                         '{{address}}'=> $user->getAddress() . ", " . $user->getCountry(),
