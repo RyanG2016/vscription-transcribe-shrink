@@ -432,12 +432,10 @@ include('data/parts/head.php');
                             </div>
                         </form>
 
-                        <div class="w-100">
-                            <hr>
-                        </div>
+                        <hr>
                     </div>
 
-
+                    <div class="w-100"></div>
 
                     <div id="typistCard" class="col">
                         <h5><i class="fad fa-typewriter"></i> Typist</h5>
