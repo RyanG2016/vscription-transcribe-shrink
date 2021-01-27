@@ -69,7 +69,7 @@ include('data/parts/head.php');
 
             <div class="row">
                 <div class="col">
-                    <a class="logbar" href="landing.php"><i class="fas fa-arrow-left"></i> home</a>
+                    <a class="logbar" href="/"><i class="fas fa-arrow-left"></i> home</a>
                 </div>
             </div>
 

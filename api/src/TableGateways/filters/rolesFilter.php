@@ -1,7 +1,7 @@
 <?php
 
 
-function parseParams($addWhereClause = false){
+function parseRolesParams($addWhereClause = false){
     $addedEnum = 0;
     $firstMatch = true;
     if($addWhereClause){
@@ -36,7 +36,7 @@ function parseParams($addWhereClause = false){
                             $filter .= ")";
 
                         }else{
-                            unprocessableFilterResponse();
+                            unprocessableRolesFilterResponse();
                         }
 
                     }else if(gettype($value) == "string"){
@@ -55,7 +55,7 @@ function parseParams($addWhereClause = false){
     }
 }
 
-function unprocessableFilterResponse()
+function unprocessableRolesFilterResponse()
 {
     header('HTTP/1.1 422 Unprocessable Filter');
     echo json_encode([

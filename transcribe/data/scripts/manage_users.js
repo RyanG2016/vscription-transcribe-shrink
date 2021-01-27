@@ -24,7 +24,6 @@ const UPDATE_ACC_HEADER = "<i class=\"fas fa-user-edit\"></i>&nbsp;Update Permis
 
 // -- combobox vars -- //
 var accountBox;
-var roleBox;
 
 var navLoverlay;
 var loadingText;
@@ -34,6 +33,7 @@ $(document).ready(function () {
 
     const maximum_rows_per_page_jobs_list = 10;
     const REVOKE_ACCESS = '../api/v1/access/'; // + id ?out
+    const ROLES_URL = "../api/v1/roles/";
 
     createAccModal = $("#modal");
     // createAccModal.style.display = "block";
@@ -47,7 +47,7 @@ $(document).ready(function () {
 
     // comboBoxes
     accountBox = $("#accountBox");
-    roleBox = $("#roleBox");
+    let roleBox = $("#roleBox");
 
     /** Fields */
     // email = $("#email");
@@ -90,7 +90,7 @@ $(document).ready(function () {
 
         var formData = new FormData();
         formData.append("email", accountBox.val());
-        // formData.append("uid", uid);
+        formData.append("role", roleBox.val());
         changeLoading(true, "Sending invite..");
         $.ajax({
             type: 'POST',
@@ -142,22 +142,6 @@ $(document).ready(function () {
         lengthChange: false,
         pageLength: maximum_rows_per_page_jobs_list,
         autoWidth: false,
- /*       columnDefs: [
-            {
-                targets: ['_all'],
-                className: 'mdc-data-table__cell'
-            }
-        ],*/
-
-        /*
-        * 				<th>ID</th>
-                        <th>Acc ID</th>
-                        <th>Account</th>
-                        <th>accessname</th>
-                        <th>Role ID</th>
-                        <th>Role</th>
-
-        * */
         "columns": [
             // {"data": "access_id"},
             // {"data": "acc_id"},
@@ -165,31 +149,9 @@ $(document).ready(function () {
             // {"data": "username"},
             {"title": "Email",
             "data": "email"},
-            // {"data": "acc_role"},
             {"title": "Role",
             "data": "role_desc"},
             // {"data": "access_id"}
-            /*,
-            render: function (data, type, row) {
-                if(data)
-                {
-                    return data;
-                }else{
-
-                }
-            }
-        },
-        { "data": "account_status" },
-        { "data": "enabled",
-            render: function (data) {
-                if(data == true)
-                {
-                    return "<i class=\"fas fa-check-circle vtex-status-icon\"></i>";
-                }else{
-                    return "<i class=\"fas fa-times-circle vtex-status-icon\"></i>";
-                }
-            }
-        }*/
         ]
     });
 
@@ -270,89 +232,11 @@ $(document).ready(function () {
                         }
                     });
                     break;
-
-
-                case "def":
-                    var access_id = data["access_id"];
-                    var acc_id = data["acc_id"];
-                    var acc_role = data["acc_role"];
-                    var uid = data["uid"];
-                    // var accName = data["email"];
-                    $.confirm({
-                        title: '<i class="fas fa-key"></i> Set as default?',
-                        content: 'Are you sure do you want to set <b>' +
-                            access_id + '</b> as default access ?<br><br>'
-
-                        ,buttons: {
-                            confirm: {
-                                text: "yes",
-                                btnClass: 'btn-green',
-                                action: function () {
-
-                                    var formData = new FormData();
-                                    formData.append("acc_id", acc_id);
-                                    formData.append("acc_role", acc_role);
-                                    formData.append("uid", uid);
-
-                                    $.ajax({
-                                        type: 'POST',
-                                        url: SET_DEFAULT_ACCESS_URL,
-                                        processData: false,
-                                        // contentType: "application/x-www-form-urlencoded",
-                                        data: convertToSearchParam(formData),
-                                        // headers: update?{'Content-Type': 'application/x-www-form-urlencoded'}:{'Content-Type': "multipart/form-data; boundary="+formData.boundary},
-
-                                        success: function (response) {
-
-                                            accessDTRef.ajax.reload(); // refresh access table
-                                            return true;
-
-                                        },
-                                        error: function (err) {
-                                            $.confirm({
-                                                title: 'Error',
-                                                content: err.responseJSON["msg"],
-                                                buttons: {
-                                                    confirm: {
-                                                        text: "Ok",
-                                                        btnClass: 'btn-red',
-                                                        action: function () {
-                                                            accessDTRef.ajax.reload(); // refresh access table
-                                                            return true;
-                                                        }
-                                                    }
-                                                }
-                                            });
-                                        }
-                                    });
-
-                                    return true;
-                                }
-                            },
-                            cancel:
-                                {
-                                    text: "no",
-                                    btnClass: 'btn-red',
-                                    function() {
-                                        return true;
-                                    }
-                                }
-                        }
-                    });
-                    break;
-
-                case "edit":
-                    preFillForm(data);
-                    break;
             }
 
         },
         items: {
-            // "edit": {name: "Edit", icon: "fas fa-key"},
-            // "def": {name: "Set as default", icon: "fas fa-toggle-on"},
-            // "sep1": "---------",
             "delete": {name: "Revoke", icon: "fas fa-times"}
-            // "quit2": {name: "Quit2", icon: "quit"},
             // "quit": {name: "Quit", icon: function(){
             // 		console.log("return function for quit");
             // 		return 'context-menu-icon context-menu-icon-quit';
@@ -381,7 +265,27 @@ $(document).ready(function () {
     $("#closeAccModal").on("click", function (e) {
         createAccModal.modal('hide');
     });
- 
+
+    // retreive roles from db
+    $.ajax({
+        url: ROLES_URL,
+        method: "GET",
+        success: function (roles) {
+            rolesGlobal = roles;
+            roleBox.empty();
+            for (const role of roles) {
+                roleBox.append("<option value='" + role.role_id + "'>" +
+                    role.role_desc +
+                    "</option>");
+            }
+            roleBox.selectpicker('refresh');
+        }
+    });
+
+    roleBox.selectpicker({
+        liveSearch: true,
+        liveSearchPlaceholder: "Choose Role"
+    });
 
     /*getTypists();
 
@@ -433,31 +337,6 @@ function convertToSearchParam(params) {
     }
 
     return searchParams;
-}
-
-function generateLoadingSpinner() {
-
-    // Generate a loading spinner //
-    //<div class="spinner">
-    //  <div class="bounce1"></div>
-    //  <div class="bounce2"></div>
-    //  <div class="bounce3"></div>
-    //</div>
-
-    const spinnerDiv = document.createElement("div");
-    spinnerDiv.setAttribute("class", "spinner");
-    const bounce1 = document.createElement("div");
-    const bounce2 = document.createElement("div");
-    const bounce3 = document.createElement("div");
-    bounce1.setAttribute("class", 'bounce1');
-    bounce2.setAttribute("class", 'bounce2');
-    bounce3.setAttribute("class", 'bounce3');
-
-    spinnerDiv.appendChild(bounce1);
-    spinnerDiv.appendChild(bounce2);
-    spinnerDiv.appendChild(bounce3);
-
-    return spinnerDiv;
 }
 
 function changeLoading(show, text = false) {

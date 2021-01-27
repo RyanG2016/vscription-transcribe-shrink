@@ -21,11 +21,11 @@ if (isset($_SESSION['loggedIn'])) {
             //User is a Transcriptionist
             redirect("transcribe.php");
         } else {
-            redirect("landing.php");
+            redirect("settings.php");
         }
 
     } else {
-        redirect("landing.php");
+        redirect("settings.php");
     }
 
 }
@@ -125,6 +125,7 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
                         <div class="col-12">
                             <label for="inputEmail"><i class="fas fa-envelope"></i> Email</label>
                             <input type="email" class="form-control" id="inputEmail" placeholder="Email" name="email"
+                                   value="<?php echo isset($_GET['email'])?$_GET['email']:'' ?>"
                                    required autofocus>
                             <!--                                <div class="valid-feedback">-->
                             <!--                                    Looks good!-->

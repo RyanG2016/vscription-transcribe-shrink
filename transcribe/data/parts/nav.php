@@ -45,7 +45,27 @@
         </li>
         <!-- /END Separator -->
         <!-- Menu with submenu -->
-        <a href="/landing.php" class="bg-dark list-group-item list-group-item-action">
+
+        <?php
+         // home page calculation
+        $homePage = "settings.php"; // default
+
+        if(isset($_SESSION["role"]))
+        {
+            switch ($_SESSION["role"])
+            {
+                case 1:
+                case 2:
+                    $homePage = "main.php";
+                break;
+                case 3:
+                    $homePage = "transcribe.php";
+                    break;
+            }
+        }
+        ?>
+
+        <a href="/<?php echo $homePage ?>" class="bg-dark list-group-item list-group-item-action">
             <div class="d-flex w-100 justify-content-start align-items-center">
                 <span class="fas fa-home fa-fw mr-3"></span>
                 <span class="menu-collapsed d-none">Home</span>
@@ -202,7 +222,7 @@
                break;
 
 
-           case INTERNAL_PAGES::MANAGE_TYPISTS:
+           case INTERNAL_PAGES::MANAGE_USERS:
                echo ' <li class="list-group-item sidebar-separator-title text-muted align-items-center menu-collapsed d-none">
                             <small>Actions</small>
                     </li>
@@ -211,7 +231,7 @@
                        <a href="#" id="createAcc" class="bg-dark list-group-item list-group-item-action">
                         <div class="d-flex w-100 justify-content-start align-items-center">
                             <span class="fas fa-envelope fa-fw mr-3"></span>
-                            <span class="menu-collapsed d-none">Invite Typist</span>
+                            <span class="menu-collapsed d-none">Invite User</span>
                         </div>
                     </a>';
 

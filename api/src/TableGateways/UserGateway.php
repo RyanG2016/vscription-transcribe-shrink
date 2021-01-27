@@ -866,6 +866,11 @@ class UserGateway implements GatewayInterface
         $user->setZipcode($_POST["zip"]);
         $user->setNewsletter($_POST["newsletter"]);
         $user->setEmailNotification($_POST["email_notification"]);
+        if(isset($_POST["typist"]))
+        {
+            $user->setTypist($_POST["typist"]);
+        }
+
         if($reverify)
         {
             $user->setAccountStatus(USER_ACCOUNT_STATUS::PENDING_EMAIL_VERIFICATION);
@@ -965,6 +970,7 @@ class UserGateway implements GatewayInterface
                 state = :state,
                 email_notification = :email_notification,
                 account_status = :account_status,
+                typist = :typist,
                 newsletter = :newsletter,
                 address = :address
             WHERE
@@ -984,6 +990,7 @@ class UserGateway implements GatewayInterface
                 'zipcode' => $model ->getZipcode()  ,
                 'state' => $model ->getState()  ,
                 'account_status' => $model ->getAccountStatus()  ,
+                'typist' => $model ->getTypist()  ,
                 'email_notification' => $model ->getEmailNotification()  ,
                 'newsletter' => $model ->getNewsletter() ,
                 'address' => $model ->getAddress()
@@ -1046,6 +1053,7 @@ class UserGateway implements GatewayInterface
                 email_notification,
                 newsletter,
                 account_status,
+               typist,
                 state,
                 address
                                       
@@ -1070,9 +1078,44 @@ class UserGateway implements GatewayInterface
         }
     }
 
-    public function findAltModel($id): array|null
+    // by email
+    public function findAltModel($email): array|null
     {
-        // TODO: Implement findAltModel() method.
+        $statement = "
+            SELECT 
+                id,
+                first_name,
+                last_name,
+                email,
+                password,
+                city,
+                country,
+                zipcode,
+                email_notification,
+                newsletter,
+                account_status,
+                state,
+                typist,
+                address
+                                      
+            FROM
+                users
+            WHERE
+                users.email = ?";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($email));
+            $result = $statement->fetch(\PDO::FETCH_ASSOC);
+            if($statement->rowCount() > 0)
+            {
+                return $result;
+            }else{
+                return null;
+            }
+        } catch (\PDOException) {
+            return null;
+        }
     }
 
     public function findAllModel($page = 1): array|null

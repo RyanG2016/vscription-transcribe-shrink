@@ -269,130 +269,135 @@ $(document).ready(function () {
         });
     }
 
-    orgForm.parsley().on('form:submit', function () {
+    if (roleIsset) {
+        orgForm.parsley().on('form:submit', function () {
 
-        var formData = new FormData(orgForm[0]);
-        $.confirm({
-            title: 'Updating Organization Info',
-            theme: 'supervan',
-            columnClass: 'col-8',
-            content: function(){
-                var self = this;
-                // self.setContent('Checking callback flow');
-                return $.ajax({
-                    type: 'POST',
-                    method: 'POST',
-                    url: UPDATE_ORGANIZATION_URL,
-                    data: formData,
-                    processData: false,
-                    contentType: false
-                }).done(function (response) {
+            var formData = new FormData(orgForm[0]);
+            $.confirm({
+                title: 'Updating Organization Info',
+                theme: 'supervan',
+                columnClass: 'col-8',
+                content: function () {
+                    var self = this;
+                    // self.setContent('Checking callback flow');
+                    return $.ajax({
+                        type: 'POST',
+                        method: 'POST',
+                        url: UPDATE_ORGANIZATION_URL,
+                        data: formData,
+                        processData: false,
+                        contentType: false
+                    }).done(function (response) {
 
-                    // handle responses
-                    // -------------
+                        // handle responses
+                        // -------------
 
-                    self.setTitle("Organization Updated!");
-                    self.setType("green");
-                    // self.setContent(response["msg"]);
-                    self.setContent("");
+                        self.setTitle("Organization Updated!");
+                        self.setType("green");
+                        // self.setContent(response["msg"]);
+                        self.setContent("");
 
-                    self.buttons.ok.setText("Ok");
-                    self.buttons.ok.addClass("btn-green");
-                    self.buttons.ok.removeClass("btn-default");
-                    self.buttons.close.hide();
+                        self.buttons.ok.setText("Ok");
+                        self.buttons.ok.addClass("btn-green");
+                        self.buttons.ok.removeClass("btn-default");
+                        self.buttons.close.hide();
 
-                    // self.setContentAppend('<div>Done!</div>');
+                        // self.setContentAppend('<div>Done!</div>');
 
-                }).fail(function(xhr, status, err){
+                    }).fail(function (xhr, status, err) {
 
-                    self.setTitle("Oops..");
-                    self.setType("red");
-                    self.setContent(xhr.responseJSON["msg"]);
+                        self.setTitle("Oops..");
+                        self.setType("red");
+                        self.setContent(xhr.responseJSON["msg"]);
 
-                    self.buttons.ok.setText("Ok");
-                    self.buttons.ok.addClass("btn-green");
-                    self.buttons.ok.removeClass("btn-default");
+                        self.buttons.ok.setText("Ok");
+                        self.buttons.ok.addClass("btn-green");
+                        self.buttons.ok.removeClass("btn-default");
 
-                    self.buttons.ok.action = function(){
-                        // location.href = "index.php";
-                        // location.reload();
-                    };
+                        self.buttons.ok.action = function () {
+                            // location.href = "index.php";
+                            // location.reload();
+                        };
 
-                    self.buttons.close.hide();
+                        self.buttons.close.hide();
 
-                }).always(function () {
-                    orgForm.find(".parsley-success").each(function(){
-                        $(this).removeClass("parsley-success");
-                    });
-                })
+                    }).always(function () {
+                        orgForm.find(".parsley-success").each(function () {
+                            $(this).removeClass("parsley-success");
+                        });
+                    })
 
-            }
+                }
+            });
+
+            return false; // Don't submit form
         });
+    }
 
-        return false; // Don't submit form
-    });
+    if(hasOwnOrg && !ownMatchesCurrent)
+    {
+        ownOrgForm.parsley().on('form:submit', function () {
+            var formData = new FormData(ownOrgForm[0]);
+            $.confirm({
+                title: 'Updating Organization Info',
+                theme: 'supervan',
+                columnClass: 'col-8',
+                content: function(){
+                    var self = this;
+                    // self.setContent('Checking callback flow');
+                    return $.ajax({
+                        type: 'POST',
+                        method: 'POST',
+                        url: UPDATE_SELF_ORGANIZATION_URL,
+                        data: formData,
+                        processData: false,
+                        contentType: false
+                    }).done(function (response) {
 
-    ownOrgForm.parsley().on('form:submit', function () {
-        var formData = new FormData(ownOrgForm[0]);
-        $.confirm({
-            title: 'Updating Organization Info',
-            theme: 'supervan',
-            columnClass: 'col-8',
-            content: function(){
-                var self = this;
-                // self.setContent('Checking callback flow');
-                return $.ajax({
-                    type: 'POST',
-                    method: 'POST',
-                    url: UPDATE_SELF_ORGANIZATION_URL,
-                    data: formData,
-                    processData: false,
-                    contentType: false
-                }).done(function (response) {
+                        // handle responses
+                        // -------------
 
-                    // handle responses
-                    // -------------
+                        self.setTitle("Organization Updated!");
+                        self.setType("green");
+                        // self.setContent(response["msg"]);
+                        self.setContent("");
 
-                    self.setTitle("Organization Updated!");
-                    self.setType("green");
-                    // self.setContent(response["msg"]);
-                    self.setContent("");
+                        self.buttons.ok.setText("Ok");
+                        self.buttons.ok.addClass("btn-green");
+                        self.buttons.ok.removeClass("btn-default");
+                        self.buttons.close.hide();
 
-                    self.buttons.ok.setText("Ok");
-                    self.buttons.ok.addClass("btn-green");
-                    self.buttons.ok.removeClass("btn-default");
-                    self.buttons.close.hide();
+                        // self.setContentAppend('<div>Done!</div>');
 
-                    // self.setContentAppend('<div>Done!</div>');
+                    }).fail(function(xhr, status, err){
 
-                }).fail(function(xhr, status, err){
+                        self.setTitle("Oops..");
+                        self.setType("red");
+                        self.setContent(xhr.responseJSON["msg"]);
 
-                    self.setTitle("Oops..");
-                    self.setType("red");
-                    self.setContent(xhr.responseJSON["msg"]);
+                        self.buttons.ok.setText("Ok");
+                        self.buttons.ok.addClass("btn-green");
+                        self.buttons.ok.removeClass("btn-default");
 
-                    self.buttons.ok.setText("Ok");
-                    self.buttons.ok.addClass("btn-green");
-                    self.buttons.ok.removeClass("btn-default");
+                        self.buttons.ok.action = function(){
+                            // location.href = "index.php";
+                            // location.reload();
+                        };
 
-                    self.buttons.ok.action = function(){
-                        // location.href = "index.php";
-                        // location.reload();
-                    };
+                        self.buttons.close.hide();
 
-                    self.buttons.close.hide();
+                    }).always(function () {
+                        ownOrgForm.find(".parsley-success").each(function(){
+                            $(this).removeClass("parsley-success");
+                        });
+                    })
 
-                }).always(function () {
-                    ownOrgForm.find(".parsley-success").each(function(){
-                        $(this).removeClass("parsley-success");
-                    });
-                })
+                }
+            });
 
-            }
+            return false; // Don't submit form
         });
-
-        return false; // Don't submit form
-    });
+    }
 
 
     const zippoURL = "https://api.zippopotam.us/";
@@ -509,7 +514,6 @@ $(document).ready(function () {
 
     if (roleIsset && (redirectID == 1 || redirectID == 2)) {
         srSwitchMDC = new mdc.switchControl.MDCSwitch(document.querySelector('#srSwitch'));
-        srOwnSwitchMDC = new mdc.switchControl.MDCSwitch(document.querySelector('#srOwnSwitch'));
 
         srSwitch.on('change', function (e) {
             srSwitchMDC.disabled = true;
@@ -520,6 +524,15 @@ $(document).ready(function () {
             }
         });
 
+        getSRenabled();
+
+        // get remaining minutes balance
+        getSRMinutes();
+    }
+
+    if(hasOwnOrg && !ownMatchesCurrent)
+    {
+        srOwnSwitchMDC = new mdc.switchControl.MDCSwitch(document.querySelector('#srOwnSwitch'));
         srOwnSwitch.on('change', function (e) {
             srOwnSwitchMDC.disabled = true;
             if (srOwnSwitchMDC.checked) {
@@ -528,10 +541,9 @@ $(document).ready(function () {
                 setSROwnEnabled(0);
             }
         });
-        getSRenabled();
 
-        // get remaining minutes balance
-        getSRMinutes();
+        getOwnSRenabled();
+        getOwnSRMinutes();
     }
 
     accNameInput.keyup(function () {
@@ -622,6 +634,11 @@ $(document).ready(function () {
             }
         });
 
+    }
+
+
+    function getOwnSRenabled() {
+
         $.ajax({
             url: "../api/v1/users/sr-enabled/self",
             method: "GET",
@@ -648,6 +665,10 @@ $(document).ready(function () {
                 // $("#register_area").text(jqxhr.responseText); // @text = response error, it is will be errors: 324, 500, 404 or anythings else
             }
         });
+
+    }
+
+    function getOwnSRMinutes() {
 
         $.ajax({
             url: "../api/v1/users/sr-mins/self",
@@ -729,11 +750,11 @@ $(document).ready(function () {
                     srOwnSwitchMDC.checked = enabled === 1;
                     srOwnSwitchMDC.disabled = false;
                 } else {
-                    getSRenabled();
+                    getOwnSRenabled();
                 }
             },
             error: function () {
-                getSRenabled();
+                getOwnSRenabled();
             }
         });
     }

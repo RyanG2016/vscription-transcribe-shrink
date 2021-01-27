@@ -10,7 +10,7 @@ $_SESSION['lastPing'] = date("Y-m-d H:i:s");
 $error = false;
 $msg = false;
 
-if(isset($_GET['s']))
+if(isset($_GET['s']) )
 {
     $tokenGateway = new tokenGateway($dbConnection);
     $result = $tokenGateway->evaluateToken($_GET["s"]);
@@ -55,7 +55,7 @@ else{ //token isn't set
 	?>
 
 $(document).ready(function () {
-    $("#loadingText").html(<?php echo "'$msg'" ?>);
+    $("#loadingText").html(<?php echo "\"" . htmlentities($msg) ."\"" ?>);
     $(".spinner").hide();
 
     setTimeout(function() {

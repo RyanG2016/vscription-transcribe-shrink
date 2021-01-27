@@ -17,7 +17,7 @@ class BaseModel
         return $this->gateway->findModel($id);
     }
 
-    protected function getRecordAlt(int $id) {
+    protected function getRecordAlt($id) {
     return $this->gateway->findAltModel($id);
     }
 

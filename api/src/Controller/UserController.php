@@ -4,6 +4,7 @@ namespace Src\Controller;
 
 //use PHPMailer\PHPMailer\Exception;
 use Src\Models\SR;
+use Src\Models\User;
 use Src\TableGateways\UserGateway;
 use Src\TableGateways\accessGateway;
 use Src\System\Mailer;
@@ -68,6 +69,9 @@ class UserController
                 else if ($this->userId == "update"){
                     $response = $this->userGateway->updateCurrentUser();
                 }
+                else if ($this->userId == "invite"){
+                    $response = $this->inviteUserToCurrentAccount();
+                }
                 else if($this->userId == null) {
                     $response = $this->createUserFromRequest();
                 }else{
@@ -128,7 +132,7 @@ class UserController
                     $response = $this->tutorialViewed();
                 }
                 else if ($this->userId == "invite"){
-                    $response = $this->inviteTypistToCurrentAccount();
+                    $response = $this->inviteUserToCurrentAccount();
                 }
                 else if ($this->userId == "update"){
                     $response = $this->userGateway->updateCurrentUser();
@@ -351,37 +355,51 @@ class UserController
         );
     }*/
 
-    private function inviteTypistToCurrentAccount()
+    private function inviteUserToCurrentAccount()
     {
 
 
-        if(!isset($_POST["email"]) || empty($_POST["email"]) ||
-            !isset($_SESSION['role']) || $_SESSION['role'] != 2
+        if(
+            !isset($_POST["email"]) || empty($_POST["email"]) ||
+            !isset($_POST["role"]) || empty($_POST["role"]) ||
+            !isset($_SESSION['role']) || ($_SESSION['role'] != 2 && $_SESSION['role'] != 1)
         ) {
             return generateApiHeaderResponse("Invalid Input (UC-I1)", true);
         }
+        $email = $_POST["email"];
+        $role = $_POST["role"];
 
-        $user = $this->userGateway->getUserByEmail($_POST["email"]);
+        if($role == 1)
+        {
+            $role = 2; // prevent js attack to add system admin permission to a user
+        }
+
+//        $user = $this->userGateway->getUserByEmail($_POST["email"]);
+        $user = User::withEmail($email, $this->db);
+
         if($user)
         {
-//            if($user["email_notification"] != 1) // oldTodo OR plan ID != 3
-            if($user["typist"] != 1)
+            // user exist in db check if typist invites are allowed -> then go to (2)
+            if($role == 3 && $user->getTypist() != 1)
             {
-                return generateApiHeaderResponse("User is not accepting invites at the moment.", true);
+                return generateApiHeaderResponse("User is not accepting typist invitations1 at the moment.", true);
             }
         }else{
+            // user doesn't exist in db
+
             // send signup and accept invite email to user email address
             // 1. send signup_typist_invitation email
-            $this->mailer->sendEmail(7, $_POST["email"], $_SESSION["acc_name"], $_SESSION["accID"]);
+            $this->mailer->sendEmail(7, $email, $_SESSION["acc_name"], $_SESSION["accID"], $role);
             return generateApiHeaderResponse("Signup invitation sent, user will be granted permission once signed up.", false);
 //            return generateApiHeaderResponse("User not found.", true);
         }
 
-        $accessID = $this->accessGateway->internalManualInsertAccessRecord($_SESSION["accID"], $user["id"], $_POST["email"], 6);
+        // (2) -> user exists in db proceed with invitation
+        $accessID = $this->accessGateway->internalManualInsertAccessRecord($_SESSION["accID"], $user->getId(), $email, 6);
         if(!$accessID){
             return generateApiHeaderResponse("Failed to send invitation. (AID-1)", true);
         }
-        $emailSent = $this->mailer->sendEmail(6, $_POST["email"], $_SESSION["acc_name"], $accessID);
+        $emailSent = $this->mailer->sendEmail(6, $email, $_SESSION["acc_name"], $accessID, $role);
         if( $emailSent )
         {
             return generateApiHeaderResponse("Invitation sent.", false);

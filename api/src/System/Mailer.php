@@ -2,8 +2,10 @@
 
 namespace Src\System;
 
+use Src\Models\Account;
 use Src\Models\Package;
 use Src\Models\Payment;
+use Src\Models\Role;
 use Src\Models\User;
 use Src\TableGateways\logger;
 use Src\TableGateways\MailingGateway;
@@ -32,7 +34,11 @@ class Mailer
      * Token is internally generated and inserted to tokens table
      * @param $mailType int  >4: reset-password <br>&nbsp; 5: verify email
      * <br> &nbsp; 6: typist-invitation
+     * <br> - $extra1: access_id @access_tbl, $extra2: roleID
+     * <br> ----------------------------------------
      * <br>7: signup with typist invitation -> (adds a token to token table and signup link will have ref param with token in it)
+     * <br> - $extra1: accID, $extra2: roleID
+     * <br> ----------------------------------------
      * <br>10: document-complete
      * <br>15: job added
      * <br>16: user-added-via-sys-admin
@@ -42,7 +48,7 @@ class Mailer
      * @param int $extra1 extra field to insert to tokens table
      * @return bool true -> OK | false -> failed to send email
      */
-    public function sendEmail($mailType, $user_email, $account_name = "", $extra1 = 0)
+    public function sendEmail($mailType, $user_email, $account_name = "", $extra1 = 0, $extra2 = 0)
     {
         global $cbaselink;
         global $link;
@@ -80,21 +86,45 @@ class Mailer
 
                 case 6:
                     $mailingListSize = 1;
-                    $token = $this->generateToken($user_email, $mailType, $extra1);
+                    $token = $this->generateToken($user_email, $mailType, $extra1, $extra2);
                     if(!$token) return false;
                     $link = "$cbaselink/secret.php?s=$token";
-                    include(__DIR__ . '/../../../mail/templates/typist_invitation.php');
-                    $sbj = "vScription Transcribe Pro - New Typist Account Access Granted";
+
+                    $emHTML = file_get_contents(__DIR__ . '/../../../mail/templates/user_invitation.html');
+
+                    $replace_pairs = array(
+                        '{{year}}'    => date("Y"),
+                        '{{organization}}'=> $account_name,
+                        '{{role}}'=> Role::withID($extra2, $this->db)->getRoleDesc(),
+                        '{{url}}' => $link,
+                    );
+
+                    $emHTML = strtr($emHTML, $replace_pairs);
+                    $emPlain = $emHTML;
+
+                    $sbj = "vScription Invitation";
                     $mail->addBCC("sales@vtexvsi.com");
                     break;
 
                 case 7:
                     $mailingListSize = 1;
-                    $token = $this->generateToken($user_email, $mailType, $extra1);
+                    $token = $this->generateToken($user_email, $mailType, $extra1, $extra2);
                     if(!$token) return false;
-                    $link = "$cbaselink/signup.php?ref=$token";
-                    include(__DIR__ . '/../../../mail/templates/signup_with_typist_invitation.php');
-                    $sbj = "Typist Invitation";
+                    $link = "$cbaselink/signup.php?ref=$token&email=$user_email";
+
+                    $emHTML = file_get_contents(__DIR__ . '/../../../mail/templates/signup_with_user_invitation.html');
+
+                    $replace_pairs = array(
+                        '{{year}}'    => date("Y"),
+                        '{{organization}}'=> $account_name,
+                        '{{role}}'=> Role::withID($extra2, $this->db)->getRoleDesc(),
+                        '{{url}}' => $link,
+                    );
+
+                    $emHTML = strtr($emHTML, $replace_pairs);
+                    $emPlain = $emHTML;
+
+                    $sbj = "vScription Invitation";
                     $mail->addBCC("sales@vtexvsi.com");
                     break;
 

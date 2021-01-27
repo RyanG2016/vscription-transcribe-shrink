@@ -1,6 +1,9 @@
 <?php
 
 namespace Src\TableGateways;
+use Src\Models\Access;
+use Src\Models\Account;
+use Src\Models\Role;
 use Src\TableGateways\CityGateway;
 use Src\TableGateways\CountryGateway;
 include_once "common.php";
@@ -134,6 +137,27 @@ class LoginGateway
             $_SESSION['act_log_retention_time'] = $row["act_log_retention_time"];
             $_SESSION['role_desc'] = $row["role_desc"];
             $_SESSION['landed'] = true;
+        }else{
+            // choose the earliest & highest user role available
+            $highestAccess = Access::getHighestAccessWithID($row["id"], $this->db);
+            if($highestAccess)
+            {
+                $account = Account::withID($highestAccess->getAccId(), $this->db);
+                $role = Role::withID($highestAccess->getAccRole(), $this->db);
+
+
+                $_SESSION['accID'] = $highestAccess->getAccId();
+                $_SESSION['role'] = $highestAccess->getAccRole();
+                $_SESSION['sr_enabled'] = $account->getSrEnabled();
+                $_SESSION['acc_name'] = $account->getAccName();
+                $_SESSION['acc_retention_time'] = $account->getAccRetentionTime();
+                $_SESSION['act_log_retention_time'] = $account->getActLogRetentionTime();
+                $_SESSION['role_desc'] = $role->getRoleDesc();
+                $_SESSION['landed'] = true;
+            }
+//            else{
+                // no accesses found for user MUST GO TO LANDING/SETTINGS PAGE
+//            }
         }
 
 //        $_SESSION['accID'] = $row['account'];

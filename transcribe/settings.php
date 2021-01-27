@@ -44,9 +44,17 @@ include('data/parts/head.php');
     <script type="text/javascript">
         <?php
             $roleIsSet = (!isset($_SESSION['role']) && !isset($_SESSION['accID']))?0:true;
+            $hasOwnOrg = (isset($_SESSION["userData"]["account"]) && $_SESSION["userData"]["account"] != 0);
+            $ownMatchesCurrent = false;
+            if($roleIsSet && $hasOwnOrg && ($_SESSION["accID"] == $_SESSION["userData"]["account"]))
+            {
+                $ownMatchesCurrent = true;
+            }
         ?>
         var roleIsset = <?php echo $roleIsSet ?>;
-        var redirectID = <?php echo $roleIsSet? $_SESSION['role']:0 ?>;
+        var redirectID = <?php echo $roleIsSet? $_SESSION['role']:"0" ?>;
+        var hasOwnOrg = <?php echo $hasOwnOrg?"1":"0" ?>;
+        var ownMatchesCurrent = <?php echo $ownMatchesCurrent?"1":"0" ?>;
     </script>
 
     <!-- Enjoyhint library -->
@@ -225,232 +233,152 @@ include('data/parts/head.php');
                         <hr>
                     </div>
 
-                    <div id="orgCard" class="col">
-                        <h5 class="mb-3"><i class="fas fa-building"></i> Current Organization</h5>
+                    <?php
 
-                        <form id="orgForm">
-                            <div class="row">
-                            <div class="col">
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">Organization Name</span>
-                                    </div>
-                                    <input type="text" class="form-control" id="orgName"
-                                           name="organization_name"
-                                           data-parsley-pattern="/^[a-z]{1}[a-z0-9_ ]{2,255}$/i"
-                                           data-parsley-error-message="<?php echo CUSTOM_FIELD_ERRORS::ORG ?>"
-                                           placeholder="" aria-describedby="inputGroupPrepend" value="<?php echo $_SESSION['acc_name'] ?>" required>
-                                </div>
+                    if($roleIsSet)
+                    {
+                    ?>
 
-                                <div class="row no-gutters w-100 ret">
+                        <div id="orgCard" class="col">
+
+                            <?php
+                            if(($hasOwnOrg && $ownMatchesCurrent) || ($hasOwnOrg && !$roleIsSet))
+                            {
+                                echo '<h5 class="mb-3"><i class="fas fa-laptop-house"></i> My Organization</h5>';
+                            }else{
+                                echo '<h5 class="mb-3"><i class="fas fa-building"></i> Current Organization</h5>';
+                            }
+                            ?>
+
+                            <form id="orgForm">
+                                <div class="row">
                                     <div class="col">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text">Organization Retention Time</span>
+                                                <span class="input-group-text">Organization Name</span>
                                             </div>
-                                            <input type="number" class="form-control" id="orgRetTime"
-                                                   placeholder=""
-                                                   name="retention_time"
-                                                   aria-describedby="inputGroupPrepend"
-                                                   value="<?php echo $_SESSION['acc_retention_time'] ?>"
-                                                   data-parsley-error-message="<?php echo CUSTOM_FIELD_ERRORS::RETENTION_TIME ?>"
-                                                   max="180"
-                                                   min="1"
-                                                   required>
+                                            <input type="text" class="form-control" id="orgName"
+                                                   name="organization_name"
+                                                   data-parsley-pattern="/^[a-z]{1}[a-z0-9_ ]{2,255}$/i"
+                                                   data-parsley-error-message="<?php echo CUSTOM_FIELD_ERRORS::ORG ?>"
+                                                   placeholder="" aria-describedby="inputGroupPrepend" value="<?php echo $_SESSION['acc_name'] ?>" required>
                                         </div>
-                                    </div>
 
-                                    <div class="col">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">Activity Log Retention Time</span>
-                                            </div>
-
-                                            <input type="number" class="form-control" id="orgLogTime"
-                                                   placeholder=""
-                                                   max="180"
-                                                   min="1"
-                                                   name="act_log_ret_time"
-                                                   aria-describedby="inputGroupPrepend"
-                                                   data-parsley-error-message="<?php echo CUSTOM_FIELD_ERRORS::LOG_RETENTION_TIME ?>"
-                                                   value="<?php echo $_SESSION['act_log_retention_time'] ?>"
-                                                   required>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="input-group">
-
-                                </div>
-
-                                <div class="input-group">
-                                    <div class="row w-100 no-gutters">
-                                        <div class="col" style="align-self: center">
-                                            <div class="form-row">
-                                                <div class="col">
-                                                    <em class="bs-text">Enable Speech To Text  <span  class="vtex-help-icon">(?)</span></em>
+                                        <div class="row no-gutters w-100 ret">
+                                            <div class="col">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">Organization Retention Time</span>
+                                                    </div>
+                                                    <input type="number" class="form-control" id="orgRetTime"
+                                                           placeholder=""
+                                                           name="retention_time"
+                                                           aria-describedby="inputGroupPrepend"
+                                                           value="<?php echo $_SESSION['acc_retention_time'] ?>"
+                                                           data-parsley-error-message="<?php echo CUSTOM_FIELD_ERRORS::RETENTION_TIME ?>"
+                                                           max="180"
+                                                           min="1"
+                                                           required>
                                                 </div>
-                                                <div class="col text-right">
-                                                    <div class="mdc-switch mdc-switch--disabled ml-auto mt-auto mb-auto" id="srSwitch">
-                                                        <div class="mdc-switch__track"></div>
-                                                        <div class="mdc-switch__thumb-underlay">
-                                                            <div class="mdc-switch__thumb"></div>
-                                                            <input type="checkbox" id="srSwitchCheckbox" class="mdc-switch__native-control" role="switch" aria-checked="false" disabled>
+                                            </div>
+
+                                            <div class="col">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">Activity Log Retention Time</span>
+                                                    </div>
+
+                                                    <input type="number" class="form-control" id="orgLogTime"
+                                                           placeholder=""
+                                                           max="180"
+                                                           min="1"
+                                                           name="act_log_ret_time"
+                                                           aria-describedby="inputGroupPrepend"
+                                                           data-parsley-error-message="<?php echo CUSTOM_FIELD_ERRORS::LOG_RETENTION_TIME ?>"
+                                                           value="<?php echo $_SESSION['act_log_retention_time'] ?>"
+                                                           required>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="input-group">
+
+                                        </div>
+
+                                        <div class="input-group">
+                                            <div class="row w-100 no-gutters">
+                                                <div class="col" style="align-self: center">
+                                                    <div class="form-row">
+                                                        <div class="col">
+                                                            <em class="bs-text">Enable Speech To Text  <span  class="vtex-help-icon">(?)</span></em>
+                                                        </div>
+                                                        <div class="col text-right">
+                                                            <div class="mdc-switch mdc-switch--disabled ml-auto mt-auto mb-auto" id="srSwitch">
+                                                                <div class="mdc-switch__track"></div>
+                                                                <div class="mdc-switch__thumb-underlay">
+                                                                    <div class="mdc-switch__thumb"></div>
+                                                                    <input type="checkbox" id="srSwitchCheckbox" class="mdc-switch__native-control" role="switch" aria-checked="false" disabled>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
+
+                                                <div class="col font-italic sr-balance-div"><span class="bs-text">Speech-to-text minutes:</span> <span class="col bs-text p-0 text-left"><span id="srMinutes">
+                                                            <span class="spinner">
+                                                                <div class="bounce1"></div>
+                                                                <div class="bounce2"></div>
+                                                                <div class="bounce3"></div>
+                                                            </span>
+                                                    </span></span>
+                                                    <button class="btn btn-primary add-mins-btn" type="button" onclick="window.open('/packages.php', '_blank')">
+                                                        <i class="fas fa-plus-circle" ></i> ADD MINS
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
 
-                                        <div class="col font-italic sr-balance-div"><span class="bs-text">Speech-to-text minutes:</span> <span class="col bs-text p-0 text-left"><span id="srMinutes">
-                                                        <span class="spinner">
-                                                            <div class="bounce1"></div>
-                                                            <div class="bounce2"></div>
-                                                            <div class="bounce3"></div>
-                                                        </span>
-                                                </span></span>
-                                            <button class="btn btn-primary add-mins-btn" type="button" onclick="window.open('/packages.php', '_blank')">
-                                                <i class="fas fa-plus-circle" ></i> ADD MINS
-                                            </button>
-                                        </div>
+                                        <button class="btn btn-primary vspt-small-btn" type="button" onclick="window.open('/manage_users.php', '_blank')">
+                                            <i class="fas fa-users" ></i> Manage Users
+                                        </button>
+
+                                        <button class="btn btn-primary vspt-small-btn float-right" type="submit" id="updateCurrentOrg">
+                                            <i class="fas fa-save"></i> Save
+                                        </button>
+
                                     </div>
                                 </div>
-
-                                <button class="btn btn-primary vspt-small-btn" type="button" onclick="window.open('/manage_typists.php', '_blank')" disabled>
-                                    <i class="fas fa-users" ></i> Manage Users
-                                </button>
-
-                                <button class="btn btn-primary vspt-small-btn float-right" type="submit" id="updateCurrentOrg">
-                                    <i class="fas fa-save"></i> Save
-                                </button>
-
-                            </div>
+                            </form>
                         </div>
-                        </form>
-                    </div>
 
-                    <div class="w-100">
-                        <hr>
-                    </div>
+                        <div class="w-100">
+                            <hr>
+                        </div>
+
 
                     <?php
-                    if (!$_SESSION["adminAccountName"] && !$_SESSION["adminAccount"]) {
+                    }
+                    if (!$_SESSION["userData"]["account"]) {
 
                     ?>
 
-                    <div id="ownOrgCard" class="border-left col <?php echo ($_SESSION['acc_name'] == $_SESSION['adminAccountName'])?"d-none":"" ?>">
+                    <div id="ownOrgCard" class="border-left col">
                         <h5 class="mb-3"><i class="fas fa-laptop-house"></i> My Organization</h5>
 
                         <div class="alert alert-info" role="alert">
                             <em>You didn't create an organization profile, <u class="vtex-cursor-pointer" data-toggle="modal" data-target="#createAccModal" >create one?</u></em>
                         </div>
 
-                        <form id="ownOrgForm" class="d-none">
-                            <div class="row">
-                                <div class="col">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">Organization Name</span>
-                                        </div>
-                                        <input type="text" class="form-control" id="ownOrgName"
-                                               name="organization_name"
-                                               data-parsley-pattern="/^[a-z]{1}[a-z0-9_ ]{2,255}$/i"
-                                               data-parsley-error-message="<?php echo CUSTOM_FIELD_ERRORS::ORG ?>"
-                                               placeholder="" aria-describedby="inputGroupPrepend" value="<?php echo $_SESSION['adminAccountName'] ?>" required>
-                                    </div>
-
-                                    <div class="row no-gutters w-100 ret">
-                                        <div class="col">
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">Organization Retention Time</span>
-                                                </div>
-                                                <input type="number" class="form-control" id="ownOrgRetTime"
-                                                       placeholder=""
-                                                       name="retention_time"
-                                                       aria-describedby="inputGroupPrepend"
-                                                       value="<?php echo $_SESSION['adminAccRetTime'] ?>"
-                                                       max="180"
-                                                       min="1"
-                                                       data-parsley-error-message="<?php echo CUSTOM_FIELD_ERRORS::RETENTION_TIME ?>"
-                                                       required>
-                                            </div>
-                                        </div>
-
-                                        <div class="col">
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">Activity Log Retention Time</span>
-                                                </div>
-
-                                                <input type="number" class="form-control" id="ownOrgLogTime"
-                                                       placeholder=""
-                                                       max="180"
-                                                       data-parsley-error-message="<?php echo CUSTOM_FIELD_ERRORS::LOG_RETENTION_TIME ?>"
-                                                       min="1"
-                                                       name="act_log_ret_time"
-                                                       aria-describedby="inputGroupPrepend"
-                                                       value="<?php echo $_SESSION['adminAccLogRetTime'] ?>"
-                                                       required>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="input-group">
-
-                                    </div>
-
-                                    <div class="input-group">
-                                        <div class="row w-100 no-gutters">
-                                            <div class="col" style="align-self: center">
-                                                <div class="form-row">
-                                                    <div class="col">
-                                                        <em class="bs-text">Enable Speech To Text  <span  class="vtex-help-icon">(?)</span></em>
-                                                    </div>
-                                                    <div class="col text-right">
-                                                        <div class="mdc-switch mdc-switch--disabled ml-auto mt-auto mb-auto" id="srOwnSwitch">
-                                                            <div class="mdc-switch__track"></div>
-                                                            <div class="mdc-switch__thumb-underlay">
-                                                                <div class="mdc-switch__thumb"></div>
-                                                                <input type="checkbox" id="ownSrSwitchCheckbox" class="mdc-switch__native-control" role="switch" aria-checked="false" disabled>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col font-italic sr-balance-div"><span class="bs-text">Speech-to-text minutes:</span> <span class="col bs-text p-0 text-left"><span id="srOwnMinutes">
-                                                                <span class="spinner">
-                                                                    <div class="bounce1"></div>
-                                                                    <div class="bounce2"></div>
-                                                                    <div class="bounce3"></div>
-                                                                </span>
-                                                    </span></span>
-                                                <button class="btn btn-primary add-mins-btn" type="button" onclick="window.open('/packages.php', '_blank')">
-                                                    <i class="fas fa-plus-circle" ></i> ADD MINS
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <button class="btn btn-primary vspt-small-btn float-right" type="submit" id="updateOwnOrg">
-                                        <i class="fas fa-save"></i> Save
-                                    </button>
-
-                                </div>
-                            </div>
-                        </form>
-
                         <hr>
                     </div>
 
                     <?php
                     }
-                    else {
+                    else if(!$ownMatchesCurrent){
 
                     ?>
 
-                    <div id="ownOrgCard" class="border-left col <?php echo ($_SESSION['acc_name'] == $_SESSION['adminAccountName'])?"d-none":"" ?>">
+                    <div id="ownOrgCard" class="border-left col">
                         <h5 class="mb-3"><i class="fas fa-user"></i> My Organization</h5>
 
                         <form id="ownOrgForm">

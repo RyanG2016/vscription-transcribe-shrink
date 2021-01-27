@@ -2,6 +2,7 @@
 @import "parts/admin_card_view.css";
 @import "parts/data-tbl.css";
 @import "parts/modal_overlay.css";
+@import "parts/bootstrap-override.css";
 @import "parts/global.css";
 
 /* ---------------- */
@@ -200,3 +201,8 @@ label {
 #access-tbl_wrapper > div.mdc-layout-grid.dt-table {
     width: inherit;
 }
+
+/*
+.bootstrap-select{
+    width: 100%;
+}*/

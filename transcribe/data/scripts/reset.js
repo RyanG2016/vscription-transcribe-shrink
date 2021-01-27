@@ -61,7 +61,6 @@
 				$.confirm({
 					title: 'Password Requirements',
 					type: 'red',
-					// content: "Min 8 characters length<br/>Max 30 characters length<br/>One capital<br/>One lowercase<br/>One number",
 					content: "<ul>\n" +
 						"    <li><b>Password length should be between 8 and 60 characters</b></li>\n" +
 						"    <li>at least 1 uppercase.</li>\n" +

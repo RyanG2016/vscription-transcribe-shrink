@@ -113,13 +113,13 @@ else {
 
         <div class="vspt-page-container vspt-col-auto-fix">
 
-            <div class="row">
-                <div class="col">
-                    <a class="logbar" href="landing.php"><i class="fas fa-arrow-left"></i> Go back to landing page</a>
-                </div>
-
-
-            </div>
+<!--            <div class="row">-->
+<!--                <div class="col">-->
+<!--                    <a class="logbar" href="landing.php"><i class="fas fa-arrow-left"></i> Go back to landing page</a>-->
+<!--                </div>-->
+<!---->
+<!---->
+<!--            </div>-->
 
             <div class="row vspt-title-row no-gutters">
                 <div class="col align-items-end d-flex">

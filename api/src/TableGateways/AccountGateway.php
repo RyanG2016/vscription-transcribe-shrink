@@ -988,7 +988,7 @@ class AccountGateway implements GatewayInterface
 
     public function findAltModel($id): array|null
     {
-        // TODO: Implement findAltModel() method.
+        return null;
     }
 
     public function findAllModel($page = 1): array|null

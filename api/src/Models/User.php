@@ -32,6 +32,7 @@ class User extends BaseModel implements BaseModelInterface
                                 public int $email_notification = 1,
                                 public int $newsletter = 0,
                                 public int $account_status = 5,
+                                public int $typist = 0,
 
                                 private $db = null
     )
@@ -91,6 +92,22 @@ class User extends BaseModel implements BaseModelInterface
         $this->account_status = $account_status;
     }
 
+    /**
+     * @return int
+     */
+    public function getTypist(): int
+    {
+        return $this->typist;
+    }
+
+    /**
+     * @param int $typist
+     */
+    public function setTypist(int $typist): void
+    {
+        $this->typist = $typist;
+    }
+
 
     // Custom Constructors //
 
@@ -98,6 +115,18 @@ class User extends BaseModel implements BaseModelInterface
         $instance = new self("","", "","", db: $db);
         $row = $instance->getRecord($id);
         $instance->fill( $row );
+        return $instance;
+    }
+
+    public static function withEmail($email, $db) {
+        $instance = new self("","", "","", db: $db);
+        $row = $instance->getRecordAlt($email);
+        if($row)
+        {
+            $instance->fill( $row );
+        }else{
+            return false;
+        }
         return $instance;
     }
 
@@ -325,7 +354,7 @@ class User extends BaseModel implements BaseModelInterface
             $this->address = $row['address'];
 //            $this->registeration_date = $row['registeration_date'];
 //            $this->last_ip_address = $row['last_ip_address'];
-//            $this->typist = $row['typist'];
+            $this->typist = $row['typist'];
             $this->account_status = $row['account_status'];
 //            $this->last_login = $row['last_login'];
 //            $this->trials = $row['trials'];

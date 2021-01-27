@@ -2,21 +2,26 @@
 
 namespace Src\TableGateways;
 use PDOException;
+use Src\Helpers\common;
+use Src\Models\BaseModel;
 use Src\TableGateways\accessGateway;
 
 include_once "common.php";
 
 
-class tokenGateway
+class tokenGateway implements GatewayInterface
 {
 
     private $db;
     private $accessGateway;
+    private $common;
+    private $limit = 10;
 
     public function __construct($db)
     {
         $this->db = $db;
         $this->accessGateway = new accessGateway($db);
+        $this->common = new common();
     }
 
     /**
@@ -44,7 +49,8 @@ class tokenGateway
 
             case 6:
                 $access_id = $row["extra1"];
-                if($this->accessGateway->typistAcceptInvitation($access_id))
+                $role = $row["extra2"];
+                if($this->accessGateway->userAcceptInvitation($access_id, $role))
                 {
                     // accepted
                     $this->expireToken($row["id"]);
@@ -661,5 +667,139 @@ class tokenGateway
             'msg' => $error_msg
         ]);
         return $response;
+    }
+
+    public function insertModel(BaseModel $model): int
+    {
+        $statement = "
+            INSERT INTO tokens 
+                ( email, identifier, time, used, token_type, extra1, extra2)
+            VALUES
+                (:email, :identifier, :time, :used, :token_type, :extra1, :extra2)
+        ;";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array(
+                'email' => $model->getEmail(),
+                'identifier' => $model->getIdentifier(),
+                'time' => $model->getTime(),
+                'used' => $model->getUsed(),
+                'token_type' => $model->getTokenType(),
+                'extra1' => $model->getExtra1(),
+                'extra2' => $model->getExtra2()
+            ));
+            if($statement->rowCount())
+            {
+                return $this->db->lastInsertId();
+            }else{
+                return 0;
+            }
+        } catch (\PDOException) {
+            return 0;
+        }
+    }
+
+    public function updateModel(BaseModel $model): int
+    {
+        $statement = "
+            UPDATE tokens
+            SET
+                email = :email,
+                identifier = :identifier,
+                time = :time,
+                used = :used,
+                token_type = :token_type,
+                extra1 = :extra1,
+                extra2 = :extra2
+            WHERE
+                id = :id
+        ;";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array(
+                'id' => $model->getId(),
+                'email' => $model->getEmail(),
+                'identifier' => $model->getIdentifier(),
+                'time' => $model->getTime(),
+                'used' => $model->getUsed(),
+                'token_type' => $model->getTokenType(),
+                'extra1' => $model->getExtra1(),
+                'extra2' => $model->getExtra2()
+            ));
+            return $statement->rowCount();
+        } catch (\PDOException $e) {
+            return 0;
+        }
+    }
+
+    public function deleteModel(int $id): int
+    {
+        $statement = "
+            DELETE FROM tokens
+            WHERE id = :id;
+        ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array('id' => $id));
+            return $statement->rowCount();
+        } catch (\PDOException) {
+            return 0;
+        }
+    }
+
+    public function findModel($id): array|null
+    {
+        $statement = "
+            SELECT 
+                *            
+            FROM
+                tokens
+            WHERE id = ?;
+        ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($id));
+            $result = $statement->fetch(\PDO::FETCH_ASSOC);
+            return $result;
+        } catch (\PDOException $e) {
+            return null;
+//            exit($e->getMessage());
+        }
+    }
+
+    public function findAltModel($id): array|null
+    {
+        return null;
+    }
+
+    public function findAllModel($page = 1): array|null
+    {
+
+        $offset = $this->common->getOffsetByPageNumber($page, $this->limit);
+
+        $statement = "
+            SELECT 
+                *
+            FROM
+                tokens
+            LIMIT :limit
+            OFFSET :offset
+        ;";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->bindParam(":limit",$this->limit, \PDO::PARAM_INT);
+            $statement->bindParam(":offset",$offset, \PDO::PARAM_INT);
+            $statement->execute();
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            return $result;
+        } catch (\PDOException $e) {
+            return null;
+//            exit($e->getMessage());
+        }
     }
 }

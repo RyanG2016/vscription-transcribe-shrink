@@ -73,7 +73,7 @@ $pkgGateway = new PackageGateway($dbConnection);
 
             <div class="row">
                 <div class="col">
-                    <a class="logbar" href="landing.php"><i class="fas fa-arrow-left"></i> go to home page</a>
+                    <a class="logbar" href="/"><i class="fas fa-arrow-left"></i> Home </a>
                 </div>
 
 

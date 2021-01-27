@@ -2,16 +2,22 @@
 
 namespace Src\TableGateways;
 
+use Src\Helpers\common;
+use Src\Models\BaseModel;
+
 require "filters/accessFilter.php";
 
-class accessGateway
+class accessGateway implements GatewayInterface
 {
 
     private $db;
+    private $common;
+    private $limit = 10;
 
     public function __construct($db)
     {
         $this->db = $db;
+        $this->common = new common();
     }
 
     public function findAll()
@@ -636,24 +642,25 @@ class accessGateway
     }
 
     /**
-     * accept invitation for typist access
-     * @param $id
-     * @return mixed
+     * accept invitation for a user access @secret.php mail type 6
+     * @param $accessID int access_id @access_tbl
+     * @param $role int role_id  @roles_tbl
+     * @return bool
      * @internal
      */
-    public function typistAcceptInvitation($accessID)
+    public function userAcceptInvitation($accessID, $role): bool
     {
         // update DB //
         $statement = "UPDATE
                         access 
                         SET 
-                           acc_role = 3
+                           acc_role = ?
                         WHERE 
                             access_id = ?";
 
         try {
             $statement = $this->db->prepare($statement);
-            $statement->execute(array($accessID));
+            $statement->execute(array($role, $accessID));
 
             if ($statement->rowCount() > 0) {
                 return true;
@@ -708,5 +715,156 @@ class accessGateway
             'msg' => $error_msg
         ]);
         return $response;
+    }
+
+    public function insertModel(BaseModel $model): int
+    {
+        $statement = "
+            INSERT INTO access 
+                ( acc_id, uid, username, acc_role)
+            VALUES
+                (:acc_id, :uid, :username, :acc_role)
+        ;";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array(
+                'access_id' => $model->getAccessId(),
+                'acc_id' => $model->getAccId(),
+                'uid' => $model->getUid(),
+                'username' => $model->getUsername(),
+                'acc_role' => $model->getAccRole()
+            ));
+            if($statement->rowCount())
+            {
+                return $this->db->lastInsertId();
+            }else{
+                return 0;
+            }
+        } catch (\PDOException) {
+            return 0;
+        }
+    }
+
+    public function updateModel(BaseModel $model): int
+    {
+        $statement = "
+            UPDATE access
+            SET
+                acc_id = :acc_id,
+                uid = :uid,
+                username = :username,
+                acc_role = :acc_role
+            WHERE
+                access_id = :access_id
+
+        ;";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array(
+                'access_id' => $model->getAccessId(),
+                'acc_id' => $model->getAccId(),
+                'uid' => $model->getUid(),
+                'username' => $model->getUsername(),
+                'acc_role' => $model->getAccRole()
+            ));
+            return $statement->rowCount();
+        } catch (\PDOException $e) {
+            return 0;
+        }
+    }
+
+    public function deleteModel(int $id): int
+    {
+        $statement = "
+            DELETE FROM access
+            WHERE access_id = :id;
+        ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array('id' => $id));
+            return $statement->rowCount();
+        } catch (\PDOException) {
+            return 0;
+        }
+    }
+
+    public function findHighestAccessModel($id): array|null|bool
+    {
+        $statement = "
+            SELECT 
+                *            
+            FROM
+                access
+            WHERE 
+                  uid = ?
+            ORDER BY
+                     acc_role, access_id
+            Limit 
+                1
+        ;";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($id));
+            $result = $statement->fetch(\PDO::FETCH_ASSOC);
+            return $result;
+        } catch (\PDOException ) {
+            return null;
+        }
+    }
+
+    public function findModel($id): array|null
+    {
+        $statement = "
+            SELECT 
+                *            
+            FROM
+                access
+            WHERE access_id = ?;
+        ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($id));
+            $result = $statement->fetch(\PDO::FETCH_ASSOC);
+            return $result;
+        } catch (\PDOException $e) {
+            return null;
+//            exit($e->getMessage());
+        }
+    }
+
+    public function findAltModel($id): array|null
+    {
+        return null;
+    }
+
+    public function findAllModel($page = 1): array|null
+    {
+        $offset = $this->common->getOffsetByPageNumber($page, $this->limit);
+
+        $statement = "
+            SELECT 
+                *
+            FROM
+                access
+            LIMIT :limit
+            OFFSET :offset
+        ;";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->bindParam(":limit",$this->limit, \PDO::PARAM_INT);
+            $statement->bindParam(":offset",$offset, \PDO::PARAM_INT);
+            $statement->execute();
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            return $result;
+        } catch (\PDOException $e) {
+            return null;
+//            exit($e->getMessage());
+        }
     }
 }

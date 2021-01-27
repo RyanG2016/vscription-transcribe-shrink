@@ -1,6 +1,7 @@
 <?php
 
 namespace Src\TableGateways;
+use Src\Models\Account;
 use Src\TableGateways\CityGateway;
 use Src\TableGateways\CountryGateway;
 use Src\TableGateways\accessGateway;
@@ -192,35 +193,36 @@ class SignupGateway
                     if($tokenData)
                     {
                         $accID = $tokenData["extra1"];
+                        $role = $tokenData["extra2"];
 
                         // accept invite
                         $this->accessGateway->internalManualInsertAccessRecord(
                             $accID,
                             $lastInsertedUID,
                             $_POST["email"],
-                            3);
+                            $role);
 
                         $this->tokenGateway->expireToken($tokenData["id"]);
 
                         $this->createClientAdminAccount($accName, $email, $lastInsertedUID);
                         return generateApiHeaderResponse("Signup Successful."
-                            ." We have sent an email to ".$email.", please click the link provided to verify your email address.".
-                              " \nTypist invitation accepted.",
+                            ."<br>We have sent an email to ".$email.",<br>please click the link provided to verify your email address.".
+                              " <br><br>Invitation for ". Account::withID($accID, $this->db)->getAccName() ." accepted.",
                             false,
                             array("id"=>$lastInsertedUID));
                     }else{
                         // token not found or expired
                         $this->createClientAdminAccount($accName, $email, $lastInsertedUID);
-                        return generateApiHeaderResponse("Signup Successful."
-                        ." We have sent an email to ".$email.", please click the link provided to verify your email address.".
-                        "\n\ncouldn't accept typist invitation (Invalid or Expired token)",
+                        return generateApiHeaderResponse("<br>Signup Successful."
+                        ."<br>We have sent an email to ".$email.",<br>please click the link provided to verify your email address.".
+                        "<br><br>couldn't accept invitation (Invalid or Expired token)",
                             false,
                             array("id"=>$lastInsertedUID));
                     }
                 }
                 $this->createClientAdminAccount($accName, $email, $lastInsertedUID);
                 return generateApiHeaderResponse("Signup Successful."
-                    ." We have sent an email to ".$email.", please click the link provided to verify your email address.",
+                    ."<br>We have sent an email to ".$email.",<br>please click the link provided to verify your email address.",
                     false,
                     array("id"=>$lastInsertedUID));
             }else{
