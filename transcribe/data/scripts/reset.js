@@ -54,14 +54,21 @@
 
 	//validate function
     function validate (input) {
-       
+		const PWREGEX = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,. <>\/?]).{8,60}$/;
 		if($(input).attr('type') == 'password' || $(input).attr('name') == 'password') {
-			if($(input).val().match('(?=.*?[0-9])(?=.*?[A-Z])(?=.*?[a-z])') == null || $(input).val().length<8|| $(input).val().length>30) {
+			if($(input).val().match(PWREGEX) == null) {
 
 				$.confirm({
 					title: 'Password Requirements',
 					type: 'red',
-					content: "Min 8 characters length<br/>Max 30 characters length<br/>One capital<br/>One lowercase<br/>One number",
+					// content: "Min 8 characters length<br/>Max 30 characters length<br/>One capital<br/>One lowercase<br/>One number",
+					content: "<ul>\n" +
+						"    <li><b>Password length should be between 8 and 60 characters</b></li>\n" +
+						"    <li>at least 1 uppercase.</li>\n" +
+						"    <li>at least 1 lowercase.</li>\n" +
+						"    <li>at least 1 number.</li>\n" +
+						"    <li>at least 1 special character.</li>\n" +
+						"</ul>",
 					buttons: {
 						confirm: {
 						btnClass: 'btn-green',
@@ -144,12 +151,23 @@ $(document).ready(function() {
 //        toggleFormAction();
 //    });
 	//password tooltip
-	$('input[name="password"]').tooltipster({
+	$('input[name="password"]').popover({
+		html: true,
+		content: "<ul>\n" +
+			"    <li><b>Password length should be between 8 and 60 characters</b></li>\n" +
+			"    <li>at least 1 uppercase.</li>\n" +
+			"    <li>at least 1 lowercase.</li>\n" +
+			"    <li>at least 1 number.</li>\n" +
+			"    <li>at least 1 special character.</li>\n" +
+			"</ul>"
+
+	});
+	/*$('input[name="password"]').tooltipster({
 	content:'• min  8 characters length<br/>• max 30 characters length<br/>• at least one uppercase<br/>• at least one lowercase<br/>• at least one number',
 	trigger:'click',
 	contentAsHTML: true,
 	theme: 'tooltipster-shadow'
-	});
+	});*/
 	
 	
     $("body").niceScroll({

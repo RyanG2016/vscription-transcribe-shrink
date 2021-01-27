@@ -147,8 +147,8 @@ else{ //token isn't set
 	<link rel="stylesheet" type="text/css" href="data/login/vendor/css-hamburgers/hamburgers.min.css">
 	<link rel="stylesheet" type="text/css" href="data/login/vendor/animsition/css/animsition.min.css">
 	<link rel="stylesheet" type="text/css" href="data/login/vendor/select2/select2.min.css">
-	<link rel="stylesheet" type="text/css" href="data/tooltipster/css/tooltipster.bundle.min.css" />
-	<link rel="stylesheet" type="text/css" href="data/tooltipster/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-shadow.min.css" />
+<!--	<link rel="stylesheet" type="text/css" href="data/tooltipster/css/tooltipster.bundle.min.css" />-->
+<!--	<link rel="stylesheet" type="text/css" href="data/tooltipster/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-shadow.min.css" />-->
 	
 	<link rel="stylesheet" type="text/css" href="data/login/vendor/daterangepicker/daterangepicker.css">
 	<link rel="stylesheet" type="text/css" href="data/login/css/util.css">
@@ -156,7 +156,7 @@ else{ //token isn't set
 	
 	<script src="data/login/vendor/jquery/jquery-3.2.1.min.js"></script>
 		<!--	Tooltip 	-->
-	<script type="text/javascript" src="data/tooltipster/js/tooltipster.bundle.min.js"></script>
+<!--	<script type="text/javascript" src="data/tooltipster/js/tooltipster.bundle.min.js"></script>-->
 	<!--	Scroll bar  	-->
 	<script src="data/scrollbar/jquery.nicescroll.js"></script>
 	
@@ -226,14 +226,7 @@ else{ //token isn't set
 						<span class="focus-input100" data-placeholder="New Password"></span>
 					</div>
 
-					
-						<div class="container-login100-form-btn">
-						<div class="wrap-login100-form-btn">
-							<div class="login100-form-bgbtn"></div>
-							<button class="login100-form-btn">
-								Reset
-							</button>
-						</div>
+                    <button type="submit" class="btn btn-primary btn-lg w-100">Reset</button>
 					</div>
 				</form>
 <!--				</div>-->
@@ -242,13 +235,13 @@ else{ //token isn't set
 	</div>
 	
 	
-	<script src="data/login/vendor/animsition/js/animsition.min.js"></script>
+<!--	<script src="data/login/vendor/animsition/js/animsition.min.js"></script>-->
 	<script src="data/login/vendor/bootstrap/js/popper.js"></script>
 	<script src="data/login/vendor/bootstrap/js/bootstrap.min.js"></script>
-	<script src="data/login/vendor/select2/select2.min.js"></script>
-	<script src="data/login/vendor/daterangepicker/moment.min.js"></script>
-	<script src="data/login/vendor/daterangepicker/daterangepicker.js"></script>
-	<script src="data/login/vendor/countdowntime/countdowntime.js"></script>
+<!--	<script src="data/login/vendor/select2/select2.min.js"></script>-->
+<!--	<script src="data/login/vendor/daterangepicker/moment.min.js"></script>-->
+<!--	<script src="data/login/vendor/daterangepicker/daterangepicker.js"></script>-->
+<!--	<script src="data/login/vendor/countdowntime/countdowntime.js"></script>-->
 	<script src="data/scripts/reset.min.js"></script>
 	
 	
