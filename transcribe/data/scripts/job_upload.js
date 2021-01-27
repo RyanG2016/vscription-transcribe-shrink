@@ -28,6 +28,12 @@ function documentReady() {
         defaultDate: new Date()
     });
 
+    flatPickr.config.onChange.push(function (selectedDates, dateStr, instance) {
+        if (dateStr === "") {
+            instance.setDate(new Date());
+        }
+    })
+
 
     new mdc.ripple.MDCRipple(document.querySelector('.submit_btn'));
     new mdc.ripple.MDCRipple(document.querySelector('#cancelUpload'));
