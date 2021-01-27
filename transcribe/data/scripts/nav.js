@@ -12,7 +12,7 @@ $(document).ready(function(){
     const ACCESS_URL = "../api/v1/access/?out";
     const SET_DEFAULT_ACCESS_URL_NAV = "../api/v1/users/set-default/";
 
-    const CHANGE_ROLE_HEADER = "<i class=\"fas fa-wrench\"></i>&nbsp;Change Role";
+    const CHANGE_ROLE_HEADER = "<i class=\"fas fa-wrench\"></i>&nbsp;Switch Org/Role";
     const SET_DEFAULT_ROLE_HEADER = "<i class=\"fas fa-user-edit\"></i>&nbsp;Set Default";
 
     var changeRoleBtn = $("#changeRoleBtn");

@@ -264,7 +264,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h3 style="color: #1e79be" id="navModalHeaderTitle">
-                    <i class="fas fa-wrench"></i>&nbsp;Change Role
+                    <i class="fas fa-wrench"></i>&nbsp;Switch Org/Role
                 </h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true"><i class="fas fa-times"></i></span>
