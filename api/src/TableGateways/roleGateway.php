@@ -25,13 +25,13 @@ class roleGateway implements GatewayInterface
     {
         $filter = parseRolesParams(false);
 
-
+        //where role_id != 1 && roles.role_id != 6
         $statement = "
             SELECT 
                 *
             FROM
                 roles
-            where role_id != 1 && roles.role_id != 6
+            where role_id == 2 && roles.role_id == 3
             " . $filter . ";";
 
 
