@@ -333,7 +333,7 @@ include('data/parts/head.php');
                         <hr>
                     </div>
 
-                    <div id="ownOrgCard" class="border-left col">
+                    <div id="ownOrgCard" class="border-left col <?php echo ($_SESSION['acc_name'] == $_SESSION['adminAccountName'])?"d-none":"" ?>">
                         <h5 class="mb-3"><i class="fas fa-user"></i> Own Organization</h5>
 
                         <form id="ownOrgForm">
@@ -431,11 +431,13 @@ include('data/parts/head.php');
                                 </div>
                             </div>
                         </form>
+
+                        <div class="w-100">
+                            <hr>
+                        </div>
                     </div>
 
-                    <div class="w-100">
-                        <hr>
-                    </div>
+
 
                     <div id="typistCard" class="col">
                         <h5><i class="fad fa-typewriter"></i> Typist</h5>
