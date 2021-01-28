@@ -606,3 +606,9 @@ select, .dt-search {
     /*font-size: 16px;*/
     /*font-family: main, sans-serif;*/
 }
+
+.dt-bootstrap4 > div:nth-child(2){
+    overflow-x: auto;
+    margin-left: 0;
+    margin-right: 0;
+}
