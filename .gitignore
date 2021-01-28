@@ -43,3 +43,9 @@ workingTemp/
 /uploads/
 /convert.log
 /api/src/Controller/conversionCron.php
+/logs/*
+revai-receive.log
+revai.log
+/transcribe/sr/27yBVCgs4Jm1E5Yffg3NiVN/*
+/transcribe/authorizenetlog.log
+/api/src/Payment/authorizeNet.log
