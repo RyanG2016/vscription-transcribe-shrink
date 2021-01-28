@@ -82,7 +82,7 @@ function parseFilesParams($addWhereClause = false)
 }
 
 
-function parseFileUpdateParams($role, $data = null)
+function parseFileUpdateParams($role, $data = null, $db = null)
 {
     $addedEnum = 0;
     $firstMatch = true;
@@ -178,7 +178,8 @@ function parseFileUpdateParams($role, $data = null)
                             } else {
                                 $filter .= ", ";
                             }
-                            $filter .= "$key = '$value'";
+                            $fixedVal = $db->quote($value);
+                            $filter .= "$key = $fixedVal";
                         }
                         break;
                 }
@@ -229,7 +230,8 @@ function parseFileUpdateParams($role, $data = null)
                             } else {
                                 $filter .= ", ";
                             }
-                            $filter .= "$key = '$value'";
+                            $fixedVal = $db->quote($value);
+                            $filter .= "$key = $fixedVal";
                         }
                         break;
                 }
@@ -283,7 +285,8 @@ function parseFileUpdateParams($role, $data = null)
 //                            } else {
                                 $filter .= ", ";
 //                            }
-                            $filter .= "$key = '$value'";
+                            $fixedVal = $db->quote($value);
+                            $filter .= "$key = $fixedVal";
                         }
                         break;
                 }

@@ -630,7 +630,7 @@ class FileGateway implements GatewayInterface
         }*/
 
         $currentFile = $this->find($id);
-        $fields = parseFileUpdateParams($role, $currentFile);
+        $fields = parseFileUpdateParams($role, $currentFile, $this->db);
         $currentFile = $currentFile[0];
 
         $statement = "
