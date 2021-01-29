@@ -112,12 +112,13 @@ $(document).ready(function () {
                         }
                     }
                 });
-
+                accountBox.val("");
 
             },
             error: function (err) {
                 createAccModal.modal('hide');
                 changeLoading(false);
+                accountBox.val("");
                 $.confirm({
                     title: 'Error',
                     content: err.responseJSON["msg"],
@@ -256,6 +257,10 @@ $(document).ready(function () {
         $('#modal').stop().animate({
             scrollTop: 0
         }, 500);
+    });
+
+    createAccModal.on("hidden.bs.modal", function(){
+        accountBox.val("");
     });
 
     sendInviteBtn.on("click", function (e) {
