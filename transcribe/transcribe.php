@@ -441,13 +441,6 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                 </td>
 
                                 <td id="nr">
-								<span class="top-links" id="help">
-									<a href="https://vscriptionpro.helpdocsonline.com/" target="_blank" title="">Need help <i
-                                                class="far fa-question-circle"></i></a>
-								</span>
-                                </td>
-
-                                <td id="nr">
                                     <button class="mdc-button mdc-button--unelevated save-button" id="saveBtn" type="submit"
                                             name="saveBtn" disabled>
                                         <div class="mdc-button__ripple"></div>
