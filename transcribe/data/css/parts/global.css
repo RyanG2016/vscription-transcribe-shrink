@@ -54,10 +54,15 @@
     --vspt-blue-30: rgba(30, 121, 190, 0.3);
     --vspt-orange: #f5862c;
     --vspt-orange-30: rgba(245, 134, 44, 0.30);
+
+    /* --- Tutorials Variables --- */
     --vspt-hint-border-color: #f5862c;
     --vspt-hint-text-color: white;
-    --vspt-table-hover: rgb(245, 245, 245);
+    --vspt-hint-buttons-font: normal normal normal 17px/40px main, sans-serif;
+    --vspt-hint-label-font:  normal normal normal 22px main, sans-serif;
 
+
+    --vspt-table-hover: rgb(245, 245, 245);
     --vspt-topbar-hyperlink-fs: 12px;
 
     --footer-text-color: #babfc3;

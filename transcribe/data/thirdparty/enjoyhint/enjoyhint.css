@@ -1,13 +1,5 @@
 @import "../../css/parts/global.css";
 
-@font-face {
-    font-family: casino_handregular;
-    src: url(src/Casino_Hand/casino_hand-webfont.eot);
-    src: url(src/Casino_Hand/casino_hand-webfont.eot?#iefix) format("embedded-opentype"), url(src/Casino_Hand/casino_hand-webfont.woff) format("woff"), url(src/Casino_Hand/casino_hand-webfont.ttf) format("truetype"), url(src/Casino_Hand/casino_hand-webfont.svg#casino_handregular) format("svg");
-    font-weight: 400;
-    font-style: normal;
-}
-
 .enjoyhint {
     position: fixed;
     width: 100%;
@@ -35,7 +27,7 @@
     min-width: 100px;
     -webkit-box-sizing: content-box;
     height: 40px;
-    font: normal normal normal 17px/40px OpenSans-l, sans-serif, Helvetica;
+    font: var(--vspt-hint-buttons-font);
     cursor: pointer;
     margin: 0 auto;
     letter-spacing: 1px;
@@ -75,8 +67,8 @@
 }
 
 .enjoyhint_prev_btn:active {
-    border: 2px solid rgba(245, 134, 44, 1);
-    background: rgba(245, 134, 44, 1);
+    border: 2px solid var(--vspt-hint-border-color);
+    background: var(--vspt-hint-border-color);
     -webkit-transition: none;
     -moz-transition: none;
     -o-transition: none;
@@ -95,8 +87,8 @@
 }
 
 .enjoyhint_next_btn:active {
-    border: 2px solid rgba(245, 134, 44, 1);
-    background: rgba(245, 134, 44, 1);
+    border: 2px solid var(--vspt-hint-border-color);
+    background: var(--vspt-hint-border-color);
     transition: none
 }
 
@@ -119,8 +111,8 @@
 }
 
 .enjoyhint_skip_btn:active {
-    border: 2px solid rgba(245, 134, 44, 1);
-    background: rgba(245, 134, 44, 1);
+    border: 2px solid var(--vspt-hint-border-color);
+    background: var(--vspt-hint-border-color);
     transition: none
 }
 
@@ -131,13 +123,12 @@
     box-sizing: content-box;
     width: .3em;
     height: .3em;
-    border: none;
     -webkit-border-radius: 1em;
     border-radius: 1em;
     font: 400 8em/normal Arial, Helvetica, sans-serif;
     color: rgba(0, 0, 0, 1);
     background: rgba(0, 0, 0, 0);
-    border: 2px solid rgba(245, 134, 44, 1)
+    border: 2px solid var(--vspt-hint-border-color)
 }
 
 .enjoyhint_close_btn::after, .enjoyhint_close_btn::before {
@@ -186,8 +177,8 @@
 }
 
 .enjoyhint_close_btn:active {
-    border: 2px solid rgba(245, 134, 44, 1);
-    background: rgba(245, 134, 44, 1);
+    border: 2px solid var(--vspt-hint-border-color);
+    background: var(--vspt-hint-border-color);
     -webkit-transition: none;
     -moz-transition: none;
     -o-transition: none;
@@ -204,7 +195,7 @@
     border: 2px solid var(--vspt-hint-border-color);
     -webkit-border-radius: 40px;
     border-radius: 40px;
-    font: normal normal normal 17px/40px "Advent Pro", Helvetica, sans-serif;
+    font: var(--vspt-hint-buttons-font);
     color: var(--vspt-hint-text-color);
     text-align: center;
     letter-spacing: 1px;
@@ -227,8 +218,8 @@
 }
 
 .enjoyhint_btn:active {
-    border: 2px solid rgba(245, 134, 44, 1);
-    background: rgba(245, 134, 44, 1);
+    border: 2px solid var(--vspt-hint-border-color);
+    background: var(--vspt-hint-border-color);
     -webkit-transition: none;
     -moz-transition: none;
     -o-transition: none;
@@ -273,8 +264,9 @@
     overflow: hidden;
     color: #fff;
     z-index: 107;
-    font-size: 22px;
-    font-family: opensans-l, sans-serif;
+    /*font-size: 22px;*/
+    /*font-family: var(--vspt-hint-label-font);*/
+    font: var(--vspt-hint-label-font);
     -webkit-transition: opacity .4s cubic-bezier(.42, 0, .58, 1);
     -moz-transition: opacity .4s cubic-bezier(.42, 0, .58, 1);
     transition: opacity .4s cubic-bezier(.42, 0, .58, 1)
