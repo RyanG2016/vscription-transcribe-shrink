@@ -110,3 +110,20 @@ svg {
     outline: 0;
     box-shadow: 0 0 0 0.2rem var(--vspt-blue-30);
 }
+
+
+/* Toast Edits */
+.toast-header{
+    background-color: var(--vspt-dark);
+    color: white;
+    font-weight: 300;
+}
+
+.toast-header > button{
+    color: white;
+}
+
+.toast-container{
+    margin-bottom: 35px;
+    margin-right: 24px;
+}

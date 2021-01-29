@@ -723,6 +723,7 @@ $(document).ready(function () {
                 if (success) {
                     srSwitchMDC.checked = enabled === 1;
                     srSwitchMDC.disabled = false;
+                    sttToastNotification(enabled);
                 } else {
                     getSRenabled();
                 }
@@ -733,6 +734,15 @@ $(document).ready(function () {
         });
     }
 
+    const sttToast = $("#sttToast");
+    const sttBody = sttToast.find(".toast-body");
+
+    function sttToastNotification(enabled = true)
+    {
+        let info = enabled?"enabled":"disabled";
+        sttBody.html("Speech To Text has been " + info);
+        sttToast.toast('show');
+    }
 
     function setSROwnEnabled(enabled) {
         srOwnSwitchMDC.disabled = true;
@@ -749,6 +759,7 @@ $(document).ready(function () {
                 if (success) {
                     srOwnSwitchMDC.checked = enabled === 1;
                     srOwnSwitchMDC.disabled = false;
+                    sttToastNotification(enabled);
                 } else {
                     getOwnSRenabled();
                 }

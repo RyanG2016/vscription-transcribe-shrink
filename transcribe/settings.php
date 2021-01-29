@@ -72,7 +72,7 @@ include('data/parts/head.php');
     <link href="data/css/parts/parsleyjs.css" rel="stylesheet">
 
     <link href="data/css/settings.css?v=2" rel="stylesheet">
-    <script src="data/scripts/settings.min.js?v=3" type="text/javascript"></script>
+    <script src="data/scripts/settings.min.js?v=4" type="text/javascript"></script>
 
 </head>
 
@@ -513,6 +513,23 @@ include('data/parts/head.php');
 <!--
                         <div id="typist1" class="text-muted text-justify">Switch your current role to typist from the side menu to start working.</div>
                         <div id="typist0" class="text-muted">Please wait for a job invitation from an admin.</div>-->
+
+                        <div class="position-fixed bottom-0 toast-container right-0 p-3" style="z-index: 50000; right: 0; bottom: 0;">
+                            <div id="sttToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
+                                <div class="toast-header">
+                                           <img src="data/images/Logo_only.png" height="24px" class="rounded mr-2">
+                                    <strong class="mr-auto">Organization Updated</strong>
+<!--                                    <small>Just now</small>-->
+                                    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="toast-body">
+                                    Speech To Text has been enabled
+                                </div>
+                            </div>
+                        </div>
+
 
                     </div>
 
