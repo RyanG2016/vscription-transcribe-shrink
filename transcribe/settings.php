@@ -235,7 +235,7 @@ include('data/parts/head.php');
 
                     <?php
 
-                    if($roleIsSet)
+                    if($roleIsSet && $_SESSION["role"] != 3)
                     {
                     ?>
 

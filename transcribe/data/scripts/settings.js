@@ -269,7 +269,7 @@ $(document).ready(function () {
         });
     }
 
-    if (roleIsset) {
+    if (roleIsset && redirectID != 3) {
         orgForm.parsley().on('form:submit', function () {
 
             var formData = new FormData(orgForm[0]);
@@ -291,16 +291,33 @@ $(document).ready(function () {
 
                         // handle responses
                         // -------------
+                        let success = !response.error;
+                        if (success) {
+                            self.setTitle("Organization Updated!");
+                            self.setType("green");
+                            // self.setContent(response["msg"]);
+                            self.setContent("");
 
-                        self.setTitle("Organization Updated!");
-                        self.setType("green");
-                        // self.setContent(response["msg"]);
-                        self.setContent("");
+                            self.buttons.ok.setText("Ok");
+                            self.buttons.ok.addClass("btn-green");
+                            self.buttons.ok.removeClass("btn-default");
+                            self.buttons.close.hide();
+                        }else{
+                            self.setTitle("Oops..");
+                            self.setType("red");
+                            self.setContent(response.msg);
 
-                        self.buttons.ok.setText("Ok");
-                        self.buttons.ok.addClass("btn-green");
-                        self.buttons.ok.removeClass("btn-default");
-                        self.buttons.close.hide();
+                            self.buttons.ok.setText("Ok");
+                            self.buttons.ok.addClass("btn-green");
+                            self.buttons.ok.removeClass("btn-default");
+
+                            self.buttons.ok.action = function () {
+                                // location.href = "index.php";
+                                // location.reload();
+                            };
+
+                            self.buttons.close.hide();
+                        }
 
                         // self.setContentAppend('<div>Done!</div>');
 

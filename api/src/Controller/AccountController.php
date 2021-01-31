@@ -45,7 +45,15 @@ class AccountController
                         $response = $this->accountGateway->postUpdateAccount($_SESSION["userData"]["acc_id"], true);
                     }else{
                         // update current logged into account data
-                        $response = $this->accountGateway->postUpdateAccount($_SESSION["accID"]);
+                        if (isset($_SESSION["role"]) && ($_SESSION["role"] == 1 OR $_SESSION["role"] == 2)) {
+                            $response = $this->accountGateway->postUpdateAccount($_SESSION["accID"]);
+                        }else{
+                            $response['status_code_header'] = 'HTTP/1.1 200 OK';
+                            $response['body'] = json_encode([
+                                'error' => true,
+                                'msg' => "You don't have permission to update this organization"
+                            ]);
+                        }
                     }
 
                 }else{
@@ -92,7 +100,15 @@ class AccountController
                         $response = $this->accountGateway->postUpdateAccount($_SESSION["userData"]["acc_id"], true);
                     }else{
                         // update current logged into account data
-                        $response = $this->accountGateway->postUpdateAccount($_SESSION["accID"]);
+                        if (isset($_SESSION["role"]) && ($_SESSION["role"] == 1 OR $_SESSION["role"] == 2)) {
+                            $response = $this->accountGateway->postUpdateAccount($_SESSION["accID"]);
+                        }else{
+                            $response['status_code_header'] = 'HTTP/1.1 200 OK';
+                            $response['body'] = json_encode([
+                                'error' => true,
+                                'msg' => "You don't have permission to update this organization"
+                            ]);
+                        }
                     }
                 }else {
                     $response = $this->createClientAccount();

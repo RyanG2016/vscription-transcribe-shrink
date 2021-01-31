@@ -204,7 +204,7 @@ class UserController
         {
             return  false;
         }
-        if($_SESSION["role"] != 1 && $_SESSION["role"] != 2)
+        if(($_SESSION["role"] != 1 && $_SESSION["role"] != 2) && (!isset($this->uri[1]) && $this->uri[1] != "self"))
         {
             return false;
         }
