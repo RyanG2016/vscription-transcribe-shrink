@@ -258,11 +258,11 @@ $(document).ready(function () {
 			}
 			,
 			{
-				"next td#tjd":'Here is the length of all jobs in your account',
+				"next #tjd":'Here is the length of all jobs in your account',
 			}
 			,
 			{
-				"next td#cbm":'Here is the length of backlog (Jobs awaiting typing) for your account',
+				"next #cbm":'Here is the length of backlog (Jobs awaiting typing) for your account',
 			}
 			,		
 			{
@@ -271,12 +271,12 @@ $(document).ready(function () {
 			}
 			,
 			{
-				"next .navbar-toggler collapsed":"Click here to expand the navigation bar to get access to various settings",
+				"next #collapse-icon":"Click here to expand the navigation bar to get access to various pages and settings",
 				// shape:"circle",
 			}
 			,		
 			{
-				"click #help > a":"Click here to access the online help",
+				"click #zohohc-asap-web-launcherbox > a":"Click here to access the online help",
 				// shape:"circle",
 				"skipButton":{text: "Finish"}
 			}
@@ -318,14 +318,16 @@ $(document).ready(function () {
 				text_downloaded_date: "2020-09-28 03:50:25",
 				times_text_downloaded_date: "5",
 				tmp_name: null,
-				typist_comments: "WElcome to vScription Transcribe Pro!",
+				typist_comments: "Welcome to vScription Transcribe!",
 				user_field_1: "",
 				user_field_2: "",
 				user_field_3: ""}
 				).draw();
 			// show tutorial
-			enjoyhint_instance.run();
+			//enjoyhint_instance.run();
 		}
+		//This is just for hint styling. Remove after testing
+		enjoyhint_instance.run();
 
 		function tutorialViewed() {
 			var formData = new FormData();
