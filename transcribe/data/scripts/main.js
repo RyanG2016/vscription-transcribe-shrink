@@ -298,24 +298,24 @@ $(document).ready(function () {
 				billed: "0",
 				file_author: "Sample Author",
 				file_comment: "Sample file comment",
-				file_date_dict: "2020-09-28 03:50:25",
+				file_date_dict: "2021-01-28 03:50:25",
 				file_id: "0",
 				file_speaker_type: "1",
 				file_status: "3",
 				file_status_ref: "Completed",
-				file_transcribed_date: "2020-09-28 03:50:25",
+				file_transcribed_date: "2021-01-29 03:50:25",
 				file_type: null,
 				file_work_type: "Sample",
 				filename: "F1_AA000_Sample_File.mp3",
 				isBillable: "0",
 				job_id: "AA-0000001",
 				job_transcribed_by: "typist@mail.com",
-				job_upload_date: "2020-09-28 03:50:25",
+				job_upload_date: "2021-01-28 03:50:25",
 				job_uploaded_by: "admin@mail.com",
 				last_audio_position: "0",
 				org_ext: "mp3",
 				orig_filename: "Sample_File.mp3",
-				text_downloaded_date: "2020-09-28 03:50:25",
+				text_downloaded_date: "2021-02-01 14:50:25",
 				times_text_downloaded_date: "5",
 				tmp_name: null,
 				typist_comments: "Welcome to vScription Transcribe!",
@@ -324,10 +324,8 @@ $(document).ready(function () {
 				user_field_3: ""}
 				).draw();
 			// show tutorial
-			//enjoyhint_instance.run();
+			enjoyhint_instance.run();
 		}
-		//This is just for hint styling. Remove after testing
-		enjoyhint_instance.run();
 
 		function tutorialViewed() {
 			var formData = new FormData();
