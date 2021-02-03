@@ -58,8 +58,8 @@
     /* --- Tutorials Variables --- */
     --vspt-hint-border-color: #f5862c;
     --vspt-hint-text-color: white;
-    --vspt-hint-buttons-font: normal normal normal 17px/40px main, sans-serif;
-    --vspt-hint-label-font:  normal normal normal 22px main, sans-serif;
+    --vspt-hint-buttons-font: normal normal normal 16px/40px main, sans-serif;
+    --vspt-hint-label-font:  normal normal normal 20px main, sans-serif;
 
 
     --vspt-table-hover: rgb(245, 245, 245);
