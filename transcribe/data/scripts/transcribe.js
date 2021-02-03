@@ -826,6 +826,8 @@ $(document).ready(function () {
         document.getElementById('user_field_2').value = "";
         document.getElementById('user_field_3').value = "";
         document.getElementById('report').value = "";
+		document.getElementById('comments').value = "";		
+		document.getElementById('file_comment').value = "";
         // $('#date').garlic('destroy');
         // //		$( '#dateT' ).garlic( 'destroy' );
         // jobTypeDropDown.garlic('destroy');
@@ -1164,6 +1166,95 @@ $(document).ready(function () {
             // loading.fadeIn();
         }
     }
+
+    	// Tutorial area
+		//initialize instance
+		var enjoyhint_instance
+        = new EnjoyHint({
+        onEnd:function(){
+            tutorialViewed();
+        },
+        onSkip:function(){
+            tutorialViewed();
+        }
+    });
+
+    //simple config.
+
+    var enjoyhint_script_steps = [	
+        {
+            "next #loadBtn":"Click here to choose a job to open",
+        },
+		{
+			"next #demoItems": "Job file information and demographics"
+		},
+		{
+			"next #divv": "This is the rich text editor. This is where any speech to text content will show and/or where you will type "
+		},
+		{
+			"next #saveBtn": "This saves, finishes and closes the job"
+		},
+		{
+			"next #suspendBtn": "This saves your progress and closes the job. You can continue working on it whenever you want"
+		},
+		{
+			"next #discardBtn": "This closes the job without saving your progress"
+		},
+		{
+			"next #statusTxt": "This tells you if your USB foot control is connected"
+		},
+		{
+			"next #pop": "Click here to switch to mini player"
+		},
+		{
+			"next #collapse-icon":"Click here to expand the navigation bar to get access to various pages and settings",
+		},		
+		{
+			"click #zohohc-asap-web-launcherbox > a":"Click here to access the online help",
+				// shape:"circle",
+			"skipButton":{text: "Finish"}
+		}
+
+    ];
+
+    //set script config
+    enjoyhint_instance.set(enjoyhint_script_steps);
+
+    // get page name
+    const currentPageName = location.pathname.split("/").slice(-1)[0].replace(".php","");
+    // parse user tutorials data to JSON
+    var tutorialsJson = JSON.parse(tutorials);
+    // check if tutorial for the current page isn't viewed before
+    if(tutorialsJson[currentPageName] == undefined || tutorialsJson[currentPageName] == 0){
+        //Insert sample dictation text since there won't be a job loaded
+	//$(".able-duration").html = "/ 5:43";
+		$("#jobNo").val("VT-001234");
+		$("#authorName").val("Sample Author");
+		$("#date").val("23-Jan-2021 10:34:00");
+		$("#jobType").val("Meeting Notes");
+		$("#user_field_1").val("Conf ID: 2234");
+		$("#dateT").val("23-Jan-2021 11:01:00");
+		$("#comments").val("Jane was speaking very softly. Hard to hear");
+		$("#file_comment").val("Please send a copy to Jeremy");
+		$("#report").val("Thank you all for taking the time to meet today. I know the weather wasn't favourable and we really appreciate you making it here today");
+		$("#saveBtn").prop('disabled', false);
+		$("#suspendBtn").prop('disabled', false);
+		$("#discardBtn").prop('disabled', false);	
+        // show tutorial
+        enjoyhint_instance.run();
+    }
+
+    function tutorialViewed() {
+        var formData = new FormData();
+        formData.append("page", currentPageName);
+		$.ajax({
+		type: 'POST',
+		url: "../api/v1/users/tutorial-viewed/",
+		processData: false,
+		data: convertToSearchParam(formData)
+			});
+		clear();
+    }
 });
 
 
@@ -1197,4 +1288,12 @@ function switchBack() // back to full view request from popup compact view
 {
     compactViewWindow.close();
     $("#reconnect").click();
+}
+
+function convertToSearchParam(params) {
+const searchParams = new URLSearchParams();
+for (const [key, value] of params) {
+    searchParams.set(key, value);
+}
+return searchParams;
 }

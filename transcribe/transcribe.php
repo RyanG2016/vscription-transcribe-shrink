@@ -207,6 +207,16 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 
     <link href='data/css/transcribe.css?v=2' type='text/css' rel='stylesheet'/>
 
+    <!-- Enjoyhint library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/kineticjs/5.2.0/kinetic.js"> </script>
+    <link href="data/thirdparty/enjoyhint/enjoyhint.css" rel="stylesheet">
+    <script src="data/thirdparty/enjoyhint/enjoyhint.min.js"></script>
+
+	<?php $tuts=(isset($_SESSION['tutorials']))?$_SESSION['tutorials']:'{}'; ?>
+    <script type="text/javascript">
+        var tutorials='<?php echo $tuts;?>';
+    </script>
+
 </head>
 
 <body>
