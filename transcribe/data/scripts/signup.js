@@ -60,7 +60,6 @@ $(document).ready(function () {
     // var address = $("#inputAddress");
     var tosDiv = $("#tosDiv");
     var tos = $("#tos");
-    var haveAccCheckbox = $("#haveAccCB");
     var haveAccDiv = $("#haveAccDiv");
     signupBtn = $("#signupBtn");
     email = $("#inputEmail");
@@ -248,20 +247,6 @@ $(document).ready(function () {
         checkName(2);
     });
 
-    haveAccCheckbox.change(function(){
-
-        if(haveAccCheckbox.prop("checked"))
-        {
-            accName.val("");
-            accName.attr("disabled","disabled")
-            checkAccName();
-        }else{
-            accName.removeAttr('disabled');
-            checkAccName();
-        }
-
-    });
-
     carousel.on('slide.bs.carousel', function(e){
         /*e.direction     // The direction in which the carousel is sliding (either "left" or "right").
         e.relatedTarget // The DOM element that is being slid into place as the active item.
@@ -351,10 +336,18 @@ $(document).ready(function () {
         if (checkEmail() &&
             checkPassword() &&
             checkConfirmPassword() &&
-            checkAccName() &&
             checkName(1) &&
             checkName(2)) {
-            pass = true;
+
+            if(!ref)
+            {
+                if(checkAccName())
+                {
+                    pass = true;
+                }
+            }else{
+                pass = true;
+            }
         }
         return pass;
     }

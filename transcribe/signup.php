@@ -31,7 +31,7 @@ if (isset($_SESSION['loggedIn'])) {
 }
 
 isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
-
+$hasRef = isset($_GET['ref']) && !empty($_GET['ref']);
 ?>
 
 
@@ -52,7 +52,7 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
     </noscript>
 
     <script type="text/javascript">
-        let ref = <?php echo (isset($_GET['ref']) && !empty($_GET['ref'])) ? "'" . $_GET['ref'] . "'" : 0 ?>;
+        let ref = <?php echo $hasRef ? "'" . $_GET['ref'] . "'" : 0 ?>;
     </script>
 
     <script src="data/login/vendor/jquery/jquery-3.2.1.min.js"></script>
@@ -178,25 +178,29 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
                     <div class="form-row m-t-16">
                         <div class="col-12">
                             <label for="inputAccName"><i class="fas fa-sitemap"></i> Organization Name</label>
-                            <input type="text" class="form-control" id="inputAccName" placeholder="" name="accname"
-                                   required>
+
+                            <?php
+                            if($hasRef)
+                            {
+                                ?>
+                                <input type="text" class="form-control" id="inputAccName" placeholder="" value="<?php echo isset($_GET['org'])?$_GET['org']:'invitation' ?>"
+                                       disabled>
+                                <?php
+                            }
+
+                            else{
+                            ?>
+
+                                <input type="text" class="form-control" id="inputAccName" placeholder="" name="accname"
+                                       required>
+
+                           <?php
+                           }
+                            ?>
                         </div>
 
                         <!----------------------Line Break----------------->
                         <div class="w-100 m-t-2"></div>
-
-                        <div class="col">
-                            <div class="checkbox justify-content-start" id="haveAccDiv"
-                                 style="visibility: hidden; height: 0">
-                                <div class="form-inline justify-content-start">
-                                    <label>
-                                        <input type="checkbox" id="haveAccCB"/>&nbsp;
-                                        <small class="text-muted">Don't create</small>
-                                    </label>
-
-                                </div>
-                            </div>
-                        </div>
 
                     </div>
 

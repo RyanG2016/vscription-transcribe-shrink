@@ -185,6 +185,11 @@ class SignupGateway
             {
                 $this->mailer->sendEmail(5, $email);
 
+                if($accName)
+                {
+                    $this->createClientAdminAccount($accName, $email, $lastInsertedUID);
+                }
+
                 // check if there's a pending typist invite (ref)
                 if($ref)
                 {
@@ -204,7 +209,6 @@ class SignupGateway
 
                         $this->tokenGateway->expireToken($tokenData["id"]);
 
-                        $this->createClientAdminAccount($accName, $email, $lastInsertedUID);
                         return generateApiHeaderResponse("Signup Successful."
                             ."<br>We have sent an email to ".$email.",<br>please click the link provided to verify your email address.".
                               " <br><br>Invitation for ". Account::withID($accID, $this->db)->getAccName() ." accepted.",
@@ -212,7 +216,6 @@ class SignupGateway
                             array("id"=>$lastInsertedUID));
                     }else{
                         // token not found or expired
-                        $this->createClientAdminAccount($accName, $email, $lastInsertedUID);
                         return generateApiHeaderResponse("<br>Signup Successful."
                         ."<br>We have sent an email to ".$email.",<br>please click the link provided to verify your email address.".
                         "<br><br>couldn't accept invitation (Invalid or Expired token)",
@@ -220,7 +223,6 @@ class SignupGateway
                             array("id"=>$lastInsertedUID));
                     }
                 }
-                $this->createClientAdminAccount($accName, $email, $lastInsertedUID);
                 return generateApiHeaderResponse("Signup Successful."
                     ."<br>We have sent an email to ".$email.",<br>please click the link provided to verify your email address.",
                     false,
