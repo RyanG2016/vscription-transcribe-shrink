@@ -100,7 +100,7 @@ class Mailer
                     $mailingListSize = 1;
                     $token = $this->generateToken($user_email, $mailType, $extra1, $extra2);
                     if(!$token) return false;
-                    $link = "$cbaselink/secret.php?s=$token";
+                    $link = "$cbaselink/accept.php?s=$token";
 
                     $emHTML = file_get_contents(__DIR__ . '/../../../mail/templates/user_invitation.html');
 

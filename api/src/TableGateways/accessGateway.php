@@ -642,7 +642,7 @@ class accessGateway implements GatewayInterface
     }
 
     /**
-     * accept invitation for a user access @secret.php mail type 6
+     * accept invitation for a user access @accept.php mail type 6
      * @param $accessID int access_id @access_tbl
      * @param $role int role_id  @roles_tbl
      * @return bool

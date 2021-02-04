@@ -30,7 +30,7 @@ class tokenGateway implements GatewayInterface
      *
      * &nbsp;&nbsp; 0: invalid <br>
      * 498: expired or doesn't exist
-     * @internal internally used by secret.php
+     * @internal internally used by accept.php
      */
     public function evaluateToken($token)
     {
