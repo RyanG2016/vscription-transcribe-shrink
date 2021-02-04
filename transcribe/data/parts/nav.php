@@ -29,7 +29,7 @@
         <a href="#top" data-toggle="sidebar-collapse-toggle"
            class="bg-dark list-group-item list-group-item-action d-flex align-items-center pin-collapse-div">
             <div class="d-flex w-100 justify-content-start align-items-center">
-                <span id="collapse-icon" class="fad fa-fw mr-3"></span>
+                <span id="collapse-icon" class="fas fa-fw mr-3"></span>
                 <span id="collapse-text" class="menu-collapsed d-none">Expand</span>
                 <span class="menu-collapsed d-none ml-auto">
                     <button id="pinBtn" type="button" class="btn btn-primary pin-button" data-toggle="button" aria-pressed="false">
