@@ -198,7 +198,7 @@
                         </li>
                         <!-- /END Separator -->
                         
-                           <a href="#" id="createAcc" class="bg-dark list-group-item list-group-item-action">
+                           <a href="#" id="createAcc" class="bg-dark list-group-item list-group-item-action vspt-actions">
                             <div class="d-flex w-100 justify-content-start align-items-center">
                                 <span class="fas fa-user-plus fa-fw mr-3"></span>
                                 <span class="menu-collapsed d-none">Add User</span>
@@ -212,7 +212,7 @@
                     </li>
                     <!-- /END Separator -->
                     
-                       <a href="#" id="createAcc" class="bg-dark list-group-item list-group-item-action">
+                       <a href="#" id="createAcc" class="bg-dark list-group-item list-group-item-action vspt-actions">
                         <div class="d-flex w-100 justify-content-start align-items-center">
                             <span class="fas fa-user-plus fa-fw mr-3"></span>
                             <span class="menu-collapsed d-none">Create Organization</span>
@@ -226,7 +226,7 @@
                     </li>
                     <!-- /END Separator -->
                     
-                       <a href="#" id="createAcc" class="bg-dark list-group-item list-group-item-action">
+                       <a href="#" id="createAcc" class="bg-dark list-group-item list-group-item-action vspt-actions">
                         <div class="d-flex w-100 justify-content-start align-items-center">
                             <span class="fas fa-plus-circle fa-fw mr-3"></span>
                             <span class="menu-collapsed d-none">Add Permission</span>
@@ -242,7 +242,7 @@
                     </li>
                     <!-- /END Separator -->
                     
-                       <a href="#" id="createAcc" class="bg-dark list-group-item list-group-item-action">
+                       <a href="#" id="createAcc" class="bg-dark list-group-item list-group-item-action vspt-actions">
                         <div class="d-flex w-100 justify-content-start align-items-center">
                             <span class="fas fa-envelope fa-fw mr-3"></span>
                             <span class="menu-collapsed d-none">Invite User</span>

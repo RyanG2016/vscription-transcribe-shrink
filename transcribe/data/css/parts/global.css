@@ -74,6 +74,8 @@
     --vspt-sidebar-title-color: white;
     --vspt-sidebar-toggle-btn: var(--vspt-dark);
     --vspt-sidebar-toggle-btn-active: #239bd6;
+    --vspt-sidebar-actions-bg: hsl(107, 45%, 33%);
+    --vspt-sidebar-actions-bg-hover: hsl(107, 45%, 20%);
 
     /***** Buttons ******/
     /* > MDC */

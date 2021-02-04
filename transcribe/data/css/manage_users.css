@@ -206,3 +206,12 @@ label {
 .bootstrap-select{
     width: 100%;
 }*/
+
+.sidebar-collapsed ul .vspt-actions {
+    background-color: var(--vspt-sidebar-actions-bg) !important;
+}
+
+.sidebar-collapsed ul .vspt-actions:hover {
+    background-color: var(--vspt-sidebar-actions-bg-hover) !important;
+}
+
