@@ -6,7 +6,7 @@
     height: 100%;
     top: 0;
     left: 0;
-    z-index: 1010;
+    z-index: 100010;
     pointer-events: none;
     overflow: hidden
 }
@@ -19,7 +19,7 @@
     position: absolute;
     width: 2000px;
     height: 1500px;
-    z-index: 1011;
+    z-index: 100011;
     pointer-events: all
 }
 
@@ -36,7 +36,7 @@
 
 .enjoyhint_next_btn, .enjoyhint_prev_btn {
     position: absolute;
-    z-index: 1012;
+    z-index: 100012;
     pointer-events: all;
     -moz-box-sizing: content-box;
     box-sizing: content-box;
@@ -54,7 +54,7 @@
 }
 
 .enjoyhint_close_btn, .enjoyhint_skip_btn {
-    z-index: 1012;
+    z-index: 100012;
     pointer-events: all;
     -moz-box-sizing: content-box;
     -o-text-overflow: clip;
@@ -231,7 +231,7 @@
 }
 
 .enjoyhint_canvas {
-    z-index: 100;
+    z-index: 10000;
     pointer-events: none
 }
 
@@ -244,7 +244,7 @@
 .enjoyhint_svg_wrapper {
     top: 0;
     left: 0;
-    z-index: 100;
+    z-index: 10000;
     -webkit-transition: opacity .4s cubic-bezier(.42, 0, .58, 1);
     -moz-transition: opacity .4s cubic-bezier(.42, 0, .58, 1);
     transition: opacity .4s cubic-bezier(.42, 0, .58, 1)
@@ -263,7 +263,7 @@
     position: absolute;
     overflow: hidden;
     color: #fff;
-    z-index: 107;
+    z-index: 10007;
     /*font-size: 22px;*/
     /*font-family: var(--vspt-hint-label-font);*/
     font: var(--vspt-hint-label-font);

@@ -1207,7 +1207,7 @@ $(document).ready(function () {
 			"next #pop": "Click here to switch to mini player"
 		},
 		{
-			"next #collapse-icon":"Click here to expand the navigation bar to get access to various pages and settings",
+			"next .pin-collapse-div":"Click here to expand the navigation bar to get access to various pages and settings",
 		},		
 		{
 			"click #zohohc-asap-web-launcherbox > a":"Click here to access the online help",
@@ -1241,7 +1241,7 @@ $(document).ready(function () {
 		$("#suspendBtn").prop('disabled', false);
 		$("#discardBtn").prop('disabled', false);	
         // show tutorial
-        enjoyhint_instance.run();
+        setTimeout(function(){enjoyhint_instance.run()},1000);
     }
 
     function tutorialViewed() {
