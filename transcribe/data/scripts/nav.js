@@ -328,7 +328,7 @@ $(document).ready(function(){
     $('#body-row .collapse').collapse('hide');
 
 // Collapse/Expand icon
-    navCollapseIcon.addClass('fa-bars');
+    navCollapseIcon.addClass('fa-chevron-double-right');
 
 
     function SidebarCollapse (silent = false) {
@@ -349,7 +349,7 @@ $(document).ready(function(){
         }
 
         // Collapse/Expand icon
-        navCollapseIcon.toggleClass('fa-bars fa-chevron-double-left');
+        navCollapseIcon.toggleClass('fa-chevron-double-right fa-chevron-double-left');
         navCollapseText.html(navCollapseText.html() === "Expand"?"Collapse":"Expand");
 
         navCollapseIcon.parent().parent().popover('dispose').popover({
