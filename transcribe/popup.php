@@ -11,7 +11,7 @@
 <!DOCTYPE html>
 
 <?php
-include('data/parts/head.php');
+include('data/parts/head_without_zoho.php');
 include ('data/parts/constants.php');
 
 
