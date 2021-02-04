@@ -282,6 +282,24 @@ a:visited {
     transform: rotate(315deg);
 }
 
+/* Actions when collapsed */
+
+.sidebar-collapsed ul .vspt-actions {
+    background-color: var(--vspt-sidebar-actions-bg) !important;
+}
+
+.sidebar-collapsed ul .vspt-actions:hover {
+    background-color: var(--vspt-sidebar-actions-bg-hover) !important;
+}
+
+.vspt-sidebar-container ul .fa-fw{
+    line-height: 20px;
+}
+
+#collapse-icon{
+    font-size: 18px;
+}
+
 /*
  ===============================
             Table
@@ -539,6 +557,7 @@ a:visited {
 .pin-button.btn-primary {
     background-color: var(--vspt-sidebar-toggle-btn) !important;
     border-color: var(--vspt-sidebar-toggle-btn) !important;
+    margin-left: 8px;
 }
 
 
