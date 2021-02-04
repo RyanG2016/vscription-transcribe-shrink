@@ -130,7 +130,7 @@ include('data/parts/head.php');
                                     <strong>vScription Controller Cross Platform Jar</strong><i><br><span
                                                 style='font-size:.8rem' ;>(Requires <a href='https://java.com'
                                                                                        target='blank'>Java</a> 8 installed)</i><br></span>
-                                    <span style='font-size:.7rem' ;>For USB Foot Control Support</span>
+                                    <span style='font-size:.7rem'>For USB Foot Control Support</span>
                                 </td>
                                 <td>
                                     3.88 MB
