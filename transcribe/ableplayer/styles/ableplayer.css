@@ -74,7 +74,7 @@ div.able-now-playing > changed background color
 }
 .able-player {
 	font-family: opensans-l,Georgia, "Times New Roman", Times, serif;
-	background-color: #f4f7f8; /* background color of player (appears on top & bottom) */
+	background-color: #fff; /* background color of player (appears on top & bottom) */
 /*	background-color: #262626;  background color of player (appears on top & bottom) */
 }
 .able-offscreen {
@@ -98,7 +98,7 @@ div.able-now-playing > changed background color
 	border-top: 1px solid #bfbfbf;
 	border-bottom: 1px solid #bfbfbf;
 /*	border-bottom: 2px solid #4c4c4c;*/
-	background-color: #f4f7f8; /* background color of controller bar */
+	background-color: #fff; /* background color of controller bar */
 /*	background-color: #3498db;  background color of controller bar */
 	min-height: 38px; /* height of button (20px) + 4px border + 4px padding */
 	padding: 0;
@@ -409,7 +409,7 @@ input[type=range]:focus::-ms-fill-upper {
 	color: #8a97a0;
 	font-size: 0.9em;
 /*	background-color: #e9eeef;*/
-	background-color: #f4f7f8;
+	background-color: #fff;
 	padding: 0.5em 0.5em 0.25em;
 }
 .able-status-bar span.able-timer {
@@ -482,7 +482,7 @@ div.able-now-playing {
 	font-weight: bold;
 	font-size: 1.1em;
 	color: #FFFFFF;
-	background-color: #f4f7f8;
+	background-color: #fff;
 	padding: 0.5em 0.5em 1em;
 	display: none;
 }
@@ -856,7 +856,7 @@ div.able-chapters-div button::-moz-focus-inner {
   border-width: 1px;
   color: #656565 !important;
 /*  background-color: #CCCCCC;*/
-  background-color: #f4f7f8;
+  background-color: #fff;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
