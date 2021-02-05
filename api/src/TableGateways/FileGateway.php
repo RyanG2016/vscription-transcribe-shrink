@@ -84,7 +84,13 @@ class FileGateway implements GatewayInterface
             }
             return $result;
         } catch (PDOException $e) {
-            exit($e->getMessage());
+            if(isset($_GET['dt'])) {
+                return array("data" => "");
+            }
+            else{
+                return array();
+            }
+//            exit($e->getMessage());
         }
     }
 
