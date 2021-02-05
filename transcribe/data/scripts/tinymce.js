@@ -5,7 +5,7 @@ tinymce.init({
     branding: false,
     resize: false,
     nanospell_dictionary: "en,en_ca,en_med",
-    height: "300",
+    height: "400",
 
     external_plugins: { "nanospell": "/tinymce/plugins/nanospell/plugin.js" },
     nanospell_server: "php",

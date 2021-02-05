@@ -141,9 +141,13 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
     <script src="data/main/jquery-ui.js"></script>
     <script src="data/thirdparty/scripts/moment.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+
     <!--  MDC Components  -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <script src="data/libs/node_modules/material-components-web/dist/material-components-web.js"></script>
+<!--    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">-->
+<!--    <script src="data/libs/node_modules/material-components-web/dist/material-components-web.js"></script>-->
 
     <!-- BOOTSTRAP -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
@@ -235,52 +239,149 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
         <div class="vspt-page-container vspt-col-auto-fix">
 
             <div class="vtex-card contents m-0">
+                <button type="button" class="btn btn-primary btn-sm pop-btn float-right" id="pop"><i class="fas fa-external-link-alt"></i></button>
 
                 <form class="validate-form" method="post" name="form" id="form" enctype="multipart/form-data">
 
-                    <table id="header-tbl">
-                        <tr>
-                            <td id="mainlogo-td" rowspan="2">
-                                <img id="mainlogo" src="data/images/Logo_vScription_Transcribe.png"/>
+                    <div class="form-row">
+                        <div class="col-xl col-lg-12 demographics-col">
+                            <legend><span class="number">1</span> Demographics &nbsp;<i class="fas fa-chevron-down vtex-glow" id="demoExpand"></i></legend>
+                            <div id="demoItems">
+                                <div class="form-row mt-2">
 
-                            </td>
-                            <td align="right" rowspan="2" id="fix-td">
+                                    <div class="input-group mb-3 col-xl-3 col-lg-3 col-md-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="jobNo-addon1">#</span>
+                                        </div>
+                                        <input type="text" class="form-control" id="jobNo" placeholder="Job/File ID"
+                                               name="jobNo" <?php if ($set == 1 && !empty($n1)) {
+                                            echo 'value="' . $n1 . "\"";
+                                        } ?> readonly>
+                                    </div>
 
-                            </td>
-                            <td width="225px">
+                                    <div class="input-group mb-3 col-xl-5 col-lg-6 col-md-6 ">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="authorName-addon1">Author</span>
+                                        </div>
+                                        <input type="text" id="authorName" class="form-control" name="authorName"
+                                               title="Author Name" <?php if ($set == 1 && !empty($n2)) {
+                                            echo 'value="' . $n2 . "\"";
+                                        } ?> readonly>
+                                    </div>
+
+                                    <div class="input-group mb-3 col-xl-4 col-lg-3 col-md-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="jobType-addon1">Job Type</span>
+                                        </div>
 
 
-                            </td>
-                            <td id="help-td" align="right" width="225px">
-                                <button class="mdc-button mdc-button--unelevated compact-view-btn" id="pop" name="compact-view"
-                                        type="button">
-                                    <div class="mdc-button__ripple"></div>
-                                    <i class="fas fa-external-link-alt"></i>
-                                    <span class="mdc-button__label">&nbsp;Compact View</span>
-                                </button>
-                            </td>
+                                        <select class="form-control mt-0" id="jobType" name="jobType" disabled>
+                                            <?php
+                                            foreach ($workTypes as $type)
+                                            {
+                                                $type = trim($type);
+                                                echo '<option value="'.strtolower($type).'">'.$type.'</option>';
+                                            }
 
-                        </tr>
-                        <tr>
-                            <td id="audio-td" align="right" width="450px" colspan="2">
+                                            ?>
+                                        </select>
 
-                                <audio id="audio1" width="450" data-able-player preload="auto" data-seek-interval="2" data-transcript-src="transcript">
-                                    <!--			  <source type="audio/ogg" id="audsrc2" src="ableplayer/media/Test_D7813875.ogg"/>-->
-                                    <!--			  <source type="audio/mpeg" id="audsrc" src="ableplayer/media/Test_D7813875.mp3"/>-->
-                                </audio>
+                                    </div>
+
+                                    <div class="input-group mb-3 col-xl-6 col-lg-6 col-md-6">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="date-addon1"><i class="fas fa-calendar-alt"></i> &nbsp;Dictated</span>
+                                        </div>
+                                        <input type="text" name="DateDic" class="form-control" id="date"
+                                               title="Date Dictated" <?php if ($set == 1 && !empty($dateD)) {
+                                            echo 'value="' . $dateD . "\"";
+                                        } ?> readonly>
+                                    </div>
+
+                                    <div class="input-group mb-3 col-xl-6 col-lg-6 col-md-6">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="dateT-addon1"><i class="fas fa-calendar-alt"></i> &nbsp;Transcribed</span>
+                                        </div>
+                                        <input type="text" name="DateTra" id="dateT" class="form-control"
+                                               title="Date Transcribed" <?php if ($set == 1 && !empty($dateT)) {
+                                            echo 'value="' . $dateT . "\"";
+                                        } else {
+                                            echo date("d-M-Y");
+                                        } ?> readonly>
+                                    </div>
 
 
-                            </td>
-                        </tr>
+                                    <div class="col-12 user-fields" id="userFields">
+                                        <div class="form-row">
+                                            <div class="input-group mb-3 col-xl-4 col-lg-4 col-md-4">
+                                                <div class="input-group-prepend">
+                                                <span class="input-group-text"
+                                                      id="user_field_1-addon1">User Field 1</span>
+                                                </div>
+                                                <input type="text" id="user_field_1" name="user_field_1"
+                                                       class="form-control"
+                                                       title="User Field 1" <?php if ($set == 1 && !empty($uf1)) {
+                                                    echo 'value="' . $uf1 . "\"";
+                                                } ?> readonly>
+                                            </div>
 
-                    </table>
+                                            <div class="input-group mb-3 col-xl-4 col-lg-4 col-md-4">
+                                                <div class="input-group-prepend">
+                                                <span class="input-group-text"
+                                                      id="user_field_2-addon1">User Field 2</span>
+                                                </div>
+                                                <input type="text" id="user_field_2" name="user_field_2"
+                                                       class="form-control"
+                                                       title="User Field 2" <?php if ($set == 1 && !empty($uf2)) {
+                                                    echo 'value="' . $uf2 . "\"";
+                                                } ?> readonly>
+                                            </div>
+
+                                            <div class="input-group mb-3 col-xl-4 col-lg-4 col-md-4">
+                                                <div class="input-group-prepend">
+                                                <span class="input-group-text"
+                                                      id="user_field_3-addon1">User Field 3</span>
+                                                </div>
+                                                <input type="text" id="user_field_3" name="user_field_3"
+                                                       class="form-control"
+                                                       title="User Field 3" <?php if ($set == 1 && !empty($uf3)) {
+                                                    echo 'value="' . $uf3 . "\"";
+                                                } ?> readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="input-group mb-3 col-xl-6 col-lg-6 col-md-6">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="comments-addon1"><i class="fas fa-comment-dots"></i> &nbsp;Typist</span>
+                                        </div>
+                                        <input type="text" id="comments" name="comments" class="form-control"
+                                               title="Typist Comments" <?php if ($set == 1 && !empty($ph)) {
+                                            echo 'value="' . $ph . "\"";
+                                        } ?> disabled>
+                                    </div>
+
+                                    <div class="input-group mb-3 col-xl-6 col-lg-6 col-md-6">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="file_comment-addon1"><i class="fas fa-comment-dots"></i> &nbsp;Job</span>
+                                        </div>
+                                        <input type="text" id="file_comment" name="file_comment" class="form-control"
+                                               title="File Comments" <?php if ($set == 1 && !empty($ph)) {
+                                            echo 'value="' . $ph . "\"";
+                                        } ?> readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col audio-col">
+                            <audio id="audio1" width="450" data-able-player preload="auto" data-seek-interval="2" data-transcript-src="transcript">
+                            </audio>
+                        </div>
+                    </div>
 
                     <table width="100%" style="padding-bottom: 5px" id="demo-tbl">
                         <tr>
-                            <td id="demo-td">
-                                <legend><span class="number">1</span> Demographics &nbsp;<i class="fas fa-chevron-down vtex-glow" id="demoExpand"></i></legend>
-                            </td>
-
 
                             <td align="right">
 
@@ -288,160 +389,15 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                 <i>connecting to controller please wait...</i>
                             </span>
 
-                                <button class="mdc-button mdc-button--unelevated load-button" id="loadBtn" name="loadBtn"
-                                        type="button">
-                                    <div class="mdc-button__ripple"></div>
-                                    <i class="material-icons mdc-button__icon" aria-hidden="true">backup</i>
-                                    <span class="mdc-button__label">Load</span>
+                                <button class="btn btn-sm load-button" id="loadBtn" name="loadBtn" type="button">
+
+                                    <i class="fas fa-cloud-download"></i>
+                                    Load
                                 </button>
-                                <!--<input type="file" id="fileLoadDiag" style="display: none" accept="audio/vnd.wave, audio/wav, audio/wave, audio/mpeg,audio/ogg,audio/x-wav" />-->
                             </td>
 
-                            <!--<td align="right" width="114px" style="width:1%; white-space:nowrap;">
-                                <a class="button noHover disabled" id="completeBtn">
-                                    <i class="fas fa-check-circle"></i>
-
-                                    Complete
-                                </a>
-                            </td>-->
                         </tr>
                     </table>
-
-                    <div id="demoItems">
-                        <div class="form-row mt-2">
-
-                            <div class="input-group col-md-2 mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="jobNo-addon1">#</span>
-                                </div>
-                                <input type="text" class="form-control" id="jobNo" placeholder="Job/File ID"
-                                       name="jobNo" <?php if ($set == 1 && !empty($n1)) {
-                                    echo 'value="' . $n1 . "\"";
-                                } ?> readonly>
-                            </div>
-
-                            <div class="input-group col mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="authorName-addon1">Author</span>
-                                </div>
-                                <input type="text" id="authorName" class="form-control" name="authorName"
-                                       title="Author Name" <?php if ($set == 1 && !empty($n2)) {
-                                    echo 'value="' . $n2 . "\"";
-                                } ?> readonly>
-                            </div>
-
-                            <!--<div class="input-group col mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="TypistName-addon1">Typist</span>
-                    </div>
-                    <input type="text" id="TypistName" class="form-control" name="TypistName"  title="Typist Name"
-                           value="<?php /*echo $popName */?>" readonly="readonly">
-                    <div class="valid-feedback">
-                        Looks good!
-                    </div>
-                </div>-->
-
-                            <div class="input-group mb-3 col-md-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="date-addon1"><i class="fas fa-calendar-alt"></i> &nbsp;Dictated</span>
-                                </div>
-                                <input type="text" name="DateDic" class="form-control" id="date"
-                                       title="Date Dictated" <?php if ($set == 1 && !empty($dateD)) {
-                                    echo 'value="' . $dateD . "\"";
-                                } ?> readonly>
-                            </div>
-
-                        </div>
-
-                        <div class="form-row mb-3">
-                            <div class="input-group col">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="jobType-addon1">Job Type</span>
-                                </div>
-
-
-                                <select class="form-control mt-0" id="jobType" name="jobType" disabled>
-                                    <?php
-                                    foreach ($workTypes as $type)
-                                    {
-                                        $type = trim($type);
-                                        echo '<option value="'.strtolower($type).'">'.$type.'</option>';
-                                    }
-                                    ?>
-
-                                    <!--                            <option value="Focus Group">Focus Group</option>-->
-                                    <!--                            <option value="Notes">Notes</option>-->
-                                    <!--                            <option value="Letter">Letter</option>-->
-                                    <!--                            <option value="Other">Other</option>-->
-                                </select>
-
-                            </div>
-
-                            <div class="input-group col">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="user_field_1-addon1">User Field 1</span>
-                                </div>
-                                <input type="text" id="user_field_1" name="user_field_1" class="form-control"
-                                       title="User Field 1" <?php if ($set == 1 && !empty($uf1)) {
-                                    echo 'value="' . $uf1 . "\"";
-                                } ?> readonly>
-                            </div>
-
-
-                            <div class="input-group col">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="user_field_2-addon1">User Field 2</span>
-                                </div>
-                                <input type="text" id="user_field_2" name="user_field_2" class="form-control"
-                                       title="User Field 2" <?php if ($set == 1 && !empty($uf2)) {
-                                    echo 'value="' . $uf2 . "\"";
-                                } ?> readonly>
-                            </div>
-
-                            <div class="input-group col">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="user_field_3-addon1">User Field 3</span>
-                                </div>
-                                <input type="text" id="user_field_3" name="user_field_3" class="form-control"
-                                       title="User Field 3" <?php if ($set == 1 && !empty($uf3)) {
-                                    echo 'value="' . $uf3 . "\"";
-                                } ?> readonly>
-                            </div>
-
-                            <div class="input-group col">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="dateT-addon1"><i class="fas fa-calendar-alt"></i> &nbsp;Transcribed</span>
-                                </div>
-                                <input type="text" name="DateTra" id="dateT" class="form-control"
-                                       title="Date Transcribed" <?php if ($set == 1 && !empty($dateT)) {
-                                    echo 'value="' . $dateT . "\"";
-                                } else {
-                                    echo date("d-M-Y");
-                                } ?> readonly>
-                            </div>
-                        </div>
-
-                        <div class="form-row mb-3">
-                            <div class="input-group col">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="comments-addon1"><i class="fas fa-comment-dots"></i> &nbsp;Typist</span>
-                                </div>
-                                <input type="text" id="comments" name="comments" class="form-control"
-                                       title="Typist Comments" <?php if ($set == 1 && !empty($ph)) {
-                                    echo 'value="' . $ph . "\"";
-                                } ?> disabled>
-                            </div>
-                            <div class="input-group col">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="file_comment-addon1"><i class="fas fa-comment-dots"></i> &nbsp;Job</span>
-                                </div>
-                                <input type="text" id="file_comment" name="file_comment" class="form-control"
-                                       title="File Comments" <?php if ($set == 1 && !empty($ph)) {
-                                    echo 'value="' . $ph . "\"";
-                                } ?> readonly>
-                            </div>
-                        </div>
-                    </div>
 
                     <fieldset>
                         <table id="rep-tbl">
@@ -451,32 +407,20 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                 </td>
 
                                 <td id="nr">
-                                    <button class="mdc-button mdc-button--unelevated save-button" id="saveBtn" type="submit"
-                                            name="saveBtn" disabled>
-                                        <div class="mdc-button__ripple"></div>
-                                        <i class="material-icons mdc-button__icon" aria-hidden="true"
-                                        >save</i
-                                        >
-                                        <span class="mdc-button__label">Save and Complete</span>
-                                    </button>
-
-                                </td>
-                                <td id="nr">
-                                    <button class="mdc-button mdc-button--unelevated suspend-button" id="suspendBtn"
-                                            type="submit" name="suspendBtn" disabled>
-                                        <div class="mdc-button__ripple"></div>
-                                        <i class="material-icons mdc-button__icon" aria-hidden="true">pause_circle_outline</i>
-                                        <span class="mdc-button__label">Suspend</span>
+                                    <button class="btn btn-sm save-button" id="saveBtn" name="saveBtn" type="submit" disabled>
+                                        <i class="fas fa-save"></i> Save and Complete
                                     </button>
                                 </td>
                                 <td id="nr">
-                                    <button class="mdc-button mdc-button--unelevated discard-button" id="discardBtn"
-                                            name="discardBtn" type="button" disabled>
-                                        <div class="mdc-button__ripple"></div>
-                                        <i class="material-icons mdc-button__icon" aria-hidden="true">clear</i>
-                                        <span class="mdc-button__label">Discard</span>
+                                    <button class="btn btn-sm suspend-button" id="suspendBtn" type="submit" name="suspendBtn" disabled>
+                                        <i class="fas fa-pause-circle"></i> Suspend
                                     </button>
-
+                                </td>
+                                <td id="nr">
+                                    <button class="btn btn-sm discard-button" id="discardBtn" name="discardBtn" type="button" disabled>
+                                        <i class="fas fa-times" aria-hidden="true"></i>
+                                        Discard
+                                    </button>
                                 </td>
                             </tr>
                         </table>

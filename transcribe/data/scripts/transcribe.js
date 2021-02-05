@@ -49,12 +49,20 @@ $(document).ready(function () {
 
     var jobTypeDropDown = $('#jobType');
     var captionsSearch = $('#captionsSearch');
+    let userFields = $('#userFields');
     // var captionResult = $('#captionResult');
 
     let modalCapSearch = document.getElementById("modalSearchCaptions");
 
     var searchEngine =   $("#searchEngine");
     var compactView =   $("#pop");
+
+    compactView.popover({
+        // html: true,
+        content: "Compact View",
+        trigger: "hover"
+
+    });
 
     $("#capSrcClose").on('click', function(){
         modalCapSearch.style.display = "none";
@@ -341,11 +349,11 @@ $(document).ready(function () {
 
 
     // buttons styling init
-    new mdc.ripple.MDCRipple(document.querySelector("#saveBtn"));
-    new mdc.ripple.MDCRipple(document.querySelector("#suspendBtn"));
-    new mdc.ripple.MDCRipple(document.querySelector("#discardBtn"));
-    new mdc.ripple.MDCRipple(document.querySelector("#loadingConfirm"));
-    new mdc.ripple.MDCRipple(document.querySelector("#pop"));
+    // new mdc.ripple.MDCRipple(document.querySelector("#saveBtn"));
+    // new mdc.ripple.MDCRipple(document.querySelector("#suspendBtn"));
+    // new mdc.ripple.MDCRipple(document.querySelector("#discardBtn"));
+    // new mdc.ripple.MDCRipple(document.querySelector("#loadingConfirm"));
+    // new mdc.ripple.MDCRipple(document.querySelector("#pop"));
 
     jobsDT = $("#jobs-tbl");
     loadingConfirmBtn = $("#loadingConfirm");
@@ -407,9 +415,13 @@ $(document).ready(function () {
                 "data": "job_id",
                 render: function (data, type, row) {
                     if (row["file_comment"] != null) {
-                        return data + " <i class=\"material-icons mdc-button__icon job-comment cTooltip\" aria-hidden=\"true\" title='"
+
+                        /*return data + " <i class=\"material-icons mdc-button__icon job-comment cTooltip\" aria-hidden=\"true\" title='"
                             + htmlEncodeStr(row["file_comment"])
-                            + "'>speaker_notes</i>";
+                            + "'>speaker_notes</i>";*/
+
+                        return data +
+                            ' <i class="fas fa-comment-dots job-comment cTooltip" title="'+ htmlEncodeStr(row["file_comment"]) +'"></i>';
                     } else {
                         return data;
                     }
@@ -828,6 +840,7 @@ $(document).ready(function () {
         document.getElementById('report').value = "";
 		document.getElementById('comments').value = "";		
 		document.getElementById('file_comment').value = "";
+        userFields.hide();
         // $('#date').garlic('destroy');
         // //		$( '#dateT' ).garlic( 'destroy' );
         // jobTypeDropDown.garlic('destroy');
@@ -887,7 +900,7 @@ $(document).ready(function () {
         }, 300);*/
 
         loadBtn.removeClass('noHover');
-        loadBtn.html('<i class="fas fa-cloud-upload-alt"></i>&nbsp;Load');
+        loadBtn.html('<i class="fas fa-cloud-download"></i>&nbsp;Load');
         loadBtn.find("i").show();
         completeBtn.addClass('noHover');
         completeBtn.addClass('button');
@@ -983,9 +996,17 @@ $(document).ready(function () {
         $('#file_comment').val(jobDetails.file_comment);
         $("#comments").removeAttr("disabled");
         // console.log("Typist comments: " + jobDetails.typist_comments);
-        $('#user_field_1').val(jobDetails.user_field_1);
-        $('#user_field_2').val(jobDetails.user_field_2);
-        $('#user_field_3').val(jobDetails.user_field_3);
+
+        if(jobDetails.user_field_1 != "" || jobDetails.user_field_2 != "" || jobDetails.user_field_3 != "")
+        {
+            userFields.show();
+            $('#user_field_1').val(jobDetails.user_field_1);
+            $('#user_field_2').val(jobDetails.user_field_2);
+            $('#user_field_3').val(jobDetails.user_field_3);
+        }else
+        {
+            userFields.hide();
+        }
 
         var $loadBtn = $('#loadBtn');
         var $completeBtn = $('#completeBtn');
