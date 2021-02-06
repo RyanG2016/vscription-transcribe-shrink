@@ -497,6 +497,7 @@ select, .dt-search {
 
 .demographics-col{
     max-width: 900px !important;
+    padding-right: 16px !important;
 }
 
 .user-fields{
