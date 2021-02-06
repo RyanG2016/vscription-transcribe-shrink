@@ -402,7 +402,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                         <table id="rep-tbl">
                             <tr>
                                 <td>
-                                    <legend id="leg"><span class="number">2</span> Report Body</legend>
+                                    <legend id="leg"><span class="number">1</span> Report Body</legend>
                                 </td>
 
                                 <td id="nr">
