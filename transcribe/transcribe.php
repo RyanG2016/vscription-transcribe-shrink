@@ -245,7 +245,6 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 
                     <div class="form-row">
                         <div class="col-xl col-lg-12 demographics-col">
-                            <legend><span class="number">1</span> Demographics &nbsp;<i class="fas fa-chevron-down vtex-glow" id="demoExpand"></i></legend>
                             <div id="demoItems">
                                 <div class="form-row mt-2">
 
