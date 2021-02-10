@@ -141,7 +141,19 @@ class Mailer
                     break;
 
                 case 10:
-                    include(__DIR__ . '/../../../mail/templates/document_complete.php');
+
+                    $link = "$cbaselink";
+
+                    $emHTML = file_get_contents(__DIR__ . '/../../../mail/templates/document_complete.html');
+
+                    $replace_pairs = array(
+                        '{{year}}'    => date("Y"),
+                        '{{url}}' => $link,
+                    );
+
+                    $emHTML = strtr($emHTML, $replace_pairs);
+                    $emPlain = $emHTML;
+
                     $sbj = "New Document(s) Ready for Download";
                     $mail->addBCC("sales@vtexvsi.com"); // duplicate do not uncomment
                     $emailsArray = $this->mailingGateway->getClientAccAdminsEmailForJobUpdates();
