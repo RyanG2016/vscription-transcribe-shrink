@@ -202,11 +202,21 @@ class Mailer
                     $token = $this->generateToken($user_email, 5); // verify email token
                     if(!$token) return false;
                     $link = "$cbaselink/verify.php?token=$token&user=$user_email";
-//                    $link = "$cbaselink/index.php";
-                    global $pass;
-                    $pass = $extra1;
-                    include(__DIR__ . '/../../../mail/templates/user_added.php');
-                    $sbj = "vScription Transcribe Pro - New User Account Password";
+
+                    $emHTML = file_get_contents(__DIR__ . '/../../../mail/templates/user_added.html');
+
+                    $replace_pairs = array(
+                        '{{year}}'    => date("Y"),
+                        '{{verify_url}}' => $link,
+                        '{{url}}' => $cbaselink,
+                        '{{username}}' => $user_email,
+                        '{{pass}}' => $extra1
+                    );
+
+                    $emHTML = strtr($emHTML, $replace_pairs);
+                    $emPlain = $emHTML;
+
+                    $sbj = "vScription Transcribe Pro - New User Account Created";
                     $mail->addBCC("sales@vtexvsi.com");
                     break;
 
