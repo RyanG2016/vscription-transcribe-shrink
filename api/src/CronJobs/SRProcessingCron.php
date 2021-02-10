@@ -18,7 +18,11 @@ use Src\Enums\SRQ_STATUS;
 
 require __DIR__ . "/../../bootstrap.php";
 
-
+/**
+ * Class SRProcessingCron <br>
+ * Processes responses returned from Rev.ai
+ * @package Src\CronJobs
+ */
 class SRProcessingCron{
 
     private $db;
