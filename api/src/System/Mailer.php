@@ -91,7 +91,21 @@ class Mailer
                     $token = $this->generateToken($user_email, $mailType);
                     if(!$token) return false;
                     $link = "$cbaselink/verify.php?token=$token&user=$user_email";
-                    include(__DIR__ . '/../../../mail/templates/verify_your_email.php');
+
+
+                    $emHTML = file_get_contents(__DIR__ . '/../../../mail/templates/verify_your_email.html');
+
+                    $replace_pairs = array(
+                        '{{year}}'    => date("Y"),
+                        '{{code}}'=> $token,
+                        '{{url}}' => $link
+                    );
+
+                    $emHTML = strtr($emHTML, $replace_pairs);
+                    $emPlain = $emHTML;
+
+
+
                     $sbj = "Account Verification";
                     $mail->addBCC("sales@vtexvsi.com");
                     break;
@@ -108,7 +122,7 @@ class Mailer
                         '{{year}}'    => date("Y"),
                         '{{organization}}'=> $account_name,
                         '{{role}}'=> Role::withID($extra2, $this->db)->getRoleDesc(),
-                        '{{url}}' => $link,
+                        '{{url}}' => $link
                     );
 
                     $emHTML = strtr($emHTML, $replace_pairs);
