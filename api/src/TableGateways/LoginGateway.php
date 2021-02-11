@@ -5,7 +5,6 @@ use Src\Models\Access;
 use Src\Models\Account;
 use Src\Models\Role;
 use Src\TableGateways\CityGateway;
-use Src\TableGateways\CountryGateway;
 include_once "common.php";
 
 class LoginGateway
@@ -13,13 +12,11 @@ class LoginGateway
 
     private $db = null;
     private $cityGateway = null;
-    private $CountryGateway = null;
 
     public function __construct($db)
     {
         $this->db = $db;
         $this->cityGateway = new CityGateway($db);
-        $this->CountryGateway = new CountryGateway($db);
     }
 
     public function find($email, $pass)

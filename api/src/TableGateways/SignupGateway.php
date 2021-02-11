@@ -3,7 +3,6 @@
 namespace Src\TableGateways;
 use Src\Models\Account;
 use Src\TableGateways\CityGateway;
-use Src\TableGateways\CountryGateway;
 use Src\TableGateways\accessGateway;
 use Src\TableGateways\tokenGateway;
 use Src\TableGateways\AccountGateway;
@@ -15,7 +14,6 @@ class SignupGateway
 
     private $db = null;
     private $cityGateway = null;
-    private $CountryGateway = null;
     private $accessGateway = null;
     private $tokenGateway = null;
     private $accountGateway = null;
@@ -25,7 +23,6 @@ class SignupGateway
     {
         $this->db = $db;
         $this->cityGateway = new CityGateway($db);
-        $this->CountryGateway = new CountryGateway($db);
         $this->accessGateway = new accessGateway($db);
         $this->tokenGateway = new tokenGateway($db);
         $this->accountGateway = new AccountGateway($db);
@@ -98,30 +95,6 @@ class SignupGateway
 //        return generateApiHeaderResponse("You already have an account, login instead?", true,false,301);
 //        return generateApiHeaderResponse("Couldn't sign you up, please contact system admin", true);
 
-        // state check
-        /*if($countryID == 204 || $countryID == 203)
-        {
-            if($stateID == null) return generateApiHeaderResponse("Incorrect state input", true);
-            $stateArr = $this->cityGateway->getCity($stateID);
-            if(sizeof($stateArr) == 0)
-            {
-                return generateApiHeaderResponse("Incorrect state input", true);
-            }else{
-                if($stateArr["country"] !== $countryID){
-                    return generateApiHeaderResponse("State doesn't match given country", true);
-                }
-            }
-            $stateName = $stateArr["city"];
-        }else{
-            // country check only
-            if(!$this->CountryGateway->find($countryID))
-            {
-                return generateApiHeaderResponse("Invalid Input (C)", true);
-            }
-            $stateID = null;
-            $stateName = null;
-        }*/
-
         $statement = "INSERT INTO 
                 users(
                   first_name,
@@ -129,6 +102,7 @@ class SignupGateway
                   email,
                   password,
                   city,
+                  country,
 
                   state,
                   registeration_date,
@@ -146,6 +120,7 @@ class SignupGateway
                     :email,
                     :password,
                     :city,
+                    :country,
                     :state,
                     :registeration_date,
                     :email_notification,
@@ -168,6 +143,7 @@ class SignupGateway
                 'email' => $email,
                 'password' => password_hash($pass,PASSWORD_BCRYPT),
                 'city' => null,
+                'country' => $country,
 //                'state_id' => null,
                 'state' => null,
                 'registeration_date' => date("Y-m-d H:i:s"),
