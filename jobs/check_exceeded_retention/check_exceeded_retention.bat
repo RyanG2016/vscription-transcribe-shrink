@@ -59,7 +59,7 @@ FOR /F "usebackq tokens=1-4 delims=," %%a IN (%inputfile%) DO (
 	C:\"Program Files"\"MariaDB 10.5"\bin\mysql.exe -u sys_maint -pTEST vtexvsi_transcribe < C:\utils\jobs\check_exceeded_retention\temp.sql  1>>%Log%  2>>&1
 	echo. >> %Log%
 	echo Inserted audit log record >> %Log%
-	DEL /F C:\utils\jobs\check_exceeded_retention\temp.sql
+	REM DEL /F C:\utils\jobs\check_exceeded_retention\temp.sql
 	) ELSE (
 	echo Something went wrong. The file to delete %audio_src_folder%%a% doesn't exist. %date% at %time% by %UserName% >> %Log%
 	)
@@ -73,10 +73,10 @@ REM Now that we're done, let's delete the deleted_records.csv file
 echo ---------- >> %Log%
 echo All done. Last thing is we'll delete the deleted_records.csv file if it exists >> %Log%
 echo ---------- >> %Log%
-IF EXIST C:\utils\jobs\check_exceeded_retention\csv\deleted_records.csv (
-	DEL /F C:\utils\jobs\check_exceeded_retention\csv\deleted_records.csv
-	echo Deleted existing deleted_records.csv file %date% at %time% by %UserName% >> %Log%
-)
+REM IF EXIST C:\utils\jobs\check_exceeded_retention\csv\deleted_records.csv (
+REM	DEL /F C:\utils\jobs\check_exceeded_retention\csv\deleted_records.csv
+REM	echo Deleted existing deleted_records.csv file %date% at %time% by %UserName% >> %Log%
+REM )
 echo *************************** >> %Log%
 echo ***Maintenance Job ended on %date% at %time% by %UserName% *** >> %Log%
 echo *************************** >> %Log%
