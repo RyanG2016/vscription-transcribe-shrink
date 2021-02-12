@@ -24,7 +24,7 @@ echo ---------- >> %Log%
 echo Running SQL script to check for records exceeding retention time and mark them as deleted as well as clear out any text data in the record >> %Log%
 echo ---------- >> %Log%
 REM The path to mysql.exe and root password needs to be changed per server.
-C:\MAMP\bin\mysql\bin\mysql.exe -u sys_maint -psys_maint vtexvsi_transcribe < C:\utils\jobs\check_exceeded_retention\check_exceeded_retention.sql  1>>%Log%  2>>&1
+C:\"Program Files"\"MariaDB 10.5"\bin\mysql.exe -u sys_maint -pTEST vtexvsi_transcribe < C:\utils\jobs\check_exceeded_retention\check_exceeded_retention.sql  1>>%Log%  2>>&1
 echo. >> %Log%
 
 REM Now lets go through the csv and move the audio file to the deletedUploads folder and update the audiofile_deleted datetime
@@ -56,7 +56,7 @@ FOR /F "usebackq tokens=1-4 delims=," %%a IN (%inputfile%) DO (
 	echo set @acc_id=%%c; >> C:\utils\jobs\check_exceeded_retention\temp.sql
 	type C:\utils\jobs\check_exceeded_retention\check_exceeded_retention_audit.sql >> C:\utils\jobs\check_exceeded_retention\temp.sql
 	type C:\utils\jobs\check_exceeded_retention\temp.sql
-	C:\MAMP\bin\mysql\bin\mysql.exe -u sys_maint -psys_maint vtexvsi_transcribe < C:\utils\jobs\check_exceeded_retention\temp.sql  1>>%Log%  2>>&1
+	C:\"Program Files"\"MariaDB 10.5"\bin\mysql.exe -u sys_maint -pTEST vtexvsi_transcribe < C:\utils\jobs\check_exceeded_retention\temp.sql  1>>%Log%  2>>&1
 	echo. >> %Log%
 	echo Inserted audit log record >> %Log%
 	DEL /F C:\utils\jobs\check_exceeded_retention\temp.sql
