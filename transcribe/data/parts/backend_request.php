@@ -83,7 +83,7 @@ if(isset($_REQUEST["reqcode"])){
                                             "file_date_dict" => $row['file_date_dict'],
                                             "file_work_type" => $row['file_work_type'],
                                             "last_audio_position" => $row['last_audio_position'],
-                                            "job_status" => $row['file_status'],
+                                            "file_status" => $row['file_status'],
                                             "file_speaker_type" => $row['file_speaker_type'],
                                             "file_comment" => $row['file_comment']
                                         );
@@ -125,7 +125,7 @@ if(isset($_REQUEST["reqcode"])){
                                         "file_date_dict" => $row['file_date_dict'],
                                         "file_work_type" => $row['file_work_type'],
                                         "last_audio_position" => $row['last_audio_position'],
-                                        "job_status" => $row['file_status'],
+                                        "file_status" => $row['file_status'],
                                         "file_speaker_type" => $row['file_speaker_type'],
                                         "file_comment" => $row['file_comment']
                                     );
@@ -565,9 +565,13 @@ if(isset($_REQUEST["reqcode"])){
 
 			$suffix = $_REQUEST['suffix'];
 			$key = ini_get("session.upload_progress.prefix") . $suffix;
-			echo json_encode($_SESSION[$key]);
+            if(isset($_SESSION[$key])){
+                echo json_encode($_SESSION[$key]);
+            }else{
+                echo 'starting';
+            }
 
-			break;
+            break;
 
 			/** Password hashing **/
 		case 66:
@@ -802,7 +806,7 @@ if(isset($_REQUEST["reqcode"])){
             {
                 if(mysqli_stmt_execute($stmt)){
                     $result = mysqli_stmt_get_result($stmt);
-                    $html = "<label for=\"typist\">Typist</label><select id=\"typist\" class=\"typist-select\">";
+                    $html = "";
                     if(mysqli_num_rows($result) > 0){
                         $num_rows = mysqli_num_rows($result);
                         while($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
@@ -812,7 +816,6 @@ if(isset($_REQUEST["reqcode"])){
                                 $row['first_name'] . " " . $row['last_name'] .
                                 "</option>";
                         }
-                        $html .= "</select>";
                         echo generateResponse($html,false, false);
                     }
                     else {

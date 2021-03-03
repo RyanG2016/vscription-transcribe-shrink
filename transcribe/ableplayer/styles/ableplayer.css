@@ -73,8 +73,8 @@ div.able-now-playing > changed background color
   top: 0;
 }
 .able-player {
-	font-family: oxygen-l,Georgia, "Times New Roman", Times, serif;
-	background-color: #f4f7f8; /* background color of player (appears on top & bottom) */
+	font-family: opensans-l,Georgia, "Times New Roman", Times, serif;
+	background-color: #fff; /* background color of player (appears on top & bottom) */
 /*	background-color: #262626;  background color of player (appears on top & bottom) */
 }
 .able-offscreen {
@@ -98,7 +98,7 @@ div.able-now-playing > changed background color
 	border-top: 1px solid #bfbfbf;
 	border-bottom: 1px solid #bfbfbf;
 /*	border-bottom: 2px solid #4c4c4c;*/
-	background-color: #f4f7f8; /* background color of controller bar */
+	background-color: #fff; /* background color of controller bar */
 /*	background-color: #3498db;  background color of controller bar */
 	min-height: 38px; /* height of button (20px) + 4px border + 4px padding */
 	padding: 0;
@@ -275,7 +275,7 @@ div.able-now-playing > changed background color
   background-color: #464646; /* same as .able-controller */
   padding: 10px 0;
   position: absolute;
-  right: 0px;
+  right: 0;
   top: -74px;
   display: block;
   z-index: 9100;
@@ -409,7 +409,7 @@ input[type=range]:focus::-ms-fill-upper {
 	color: #8a97a0;
 	font-size: 0.9em;
 /*	background-color: #e9eeef;*/
-	background-color: #f4f7f8;
+	background-color: #fff;
 	padding: 0.5em 0.5em 0.25em;
 }
 .able-status-bar span.able-timer {
@@ -482,7 +482,7 @@ div.able-now-playing {
 	font-weight: bold;
 	font-size: 1.1em;
 	color: #FFFFFF;
-	background-color: #f4f7f8;
+	background-color: #fff;
 	padding: 0.5em 0.5em 1em;
 	display: none;
 }
@@ -503,15 +503,15 @@ div.able-modal-dialog {
 	max-width: 90%;
 	margin-left: auto;
 	margin-right: auto;
-	left: 0px;
-	right: 0px;
-	outline: 0px none;
+	left: 0;
+	right: 0;
+	outline: 0 none;
 	display: none;
 	color: #000;
 	background-color: #FAFAFA;
 	box-sizing: content-box !important;
 	z-index: 10000;
-	font-family: oxygen-l;
+	font-family: opensans-l;
 	text-align: justify;
 	border-radius: 10px;
 }
@@ -856,16 +856,16 @@ div.able-chapters-div button::-moz-focus-inner {
   border-width: 1px;
   color: #656565 !important;
 /*  background-color: #CCCCCC;*/
-  background-color: #f4f7f8;
+  background-color: #fff;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
   display: block;
-box-shadow: 0px 0px 4px #262626;
+box-shadow: 0 0 4px #262626;
 }
 .able-alert {
   background-color: #FFFFCC;
-  box-shadow: 0px 0px 16px #262626;
+  box-shadow: 0 0 16px #262626;
   z-index: 9400;
   position: absolute;
   top: 1em;

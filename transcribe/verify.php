@@ -10,10 +10,10 @@ $error = "";
 $showmsg = false;
 $passed = false;
 $mark = false;
-if(isset($_GET['token']))
+if(isset($_GET['token']) && isset($_GET['user']))
 {
 	//check alogrithm
-//	$email = strtolower($a["email"]);//tbc
+	$email = strtolower($_GET['user']);//tbc
 	$token = $_GET['token'];
 	$ct = date("Y-m-d H:i:s");
 	$sct = strtotime(date("Y-m-d H:i:s")); //current time stamp in seconds
@@ -29,7 +29,13 @@ if(isset($_GET['token']))
 	$action = "Password Reset";
 
 
-	$sql = "SELECT *, DATE_ADD(time, INTERVAL '24:0' HOUR_MINUTE) as expire FROM `tokens` WHERE identifier=? AND used=0 and token_type=5 and DATE_ADD(time, INTERVAL '24:0' HOUR_MINUTE) > NOW()";
+	$sql = "SELECT *, DATE_ADD(time, INTERVAL '24:0' HOUR_MINUTE) as expire
+                FROM `tokens` 
+                WHERE identifier=?
+                  AND email = ?
+                  AND used=0 
+                  AND token_type=5 
+                  AND DATE_ADD(time, INTERVAL '24:0' HOUR_MINUTE) > NOW()";
 	
 	
 	$sql2 = "UPDATE tokens SET used=1 WHERE identifier = ?";
@@ -40,18 +46,18 @@ if(isset($_GET['token']))
 	
 	if($stmt = mysqli_prepare($con, $sql) ) //token query
 	{
-		mysqli_stmt_bind_param($stmt, "s", $token);
+		mysqli_stmt_bind_param($stmt, "ss", $token, $email);
 		mysqli_stmt_bind_param($stmt2, "s", $token);
 
 		if(mysqli_stmt_execute($stmt)){
 			$result = mysqli_stmt_get_result($stmt);
 
 			// Check number of rows in the result set
-			if(mysqli_num_rows($result) > 0){ //token exists
+			if(mysqli_num_rows($result) > 0){ //token with email exists
 
 				while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
 
-					$email = $row['email'];
+//					$email = $row['email'];
 					$_SESSION['uEmail'] = $email;
 					$time = $row['time'];
 					$stime = strtotime($time);
@@ -69,15 +75,44 @@ if(isset($_GET['token']))
 						/*$_SESSION['msg'] = "Email verified! you can now login.";
 						$_SESSION['error'] = false;
 						$_SESSION['src'] = 0;
-						redirect("index.php");*/ 
-						
+						redirect("index.php");*/
+
+                        if(isset($_GET["notify"]))
+                        {
+                            $a = array(
+                                'msg' => "Account verified! logging you in please wait,",
+                                'error' => false,
+                                'code' => 200
+                            );
+                            $response['status_code_header'] = "HTTP/1.1 200 OK";
+                            $response['body'] = json_encode($a);
+                            echo json_encode($a);
+                            return;
+                        }
 					}
 					
 					else{// token was used
-						$_SESSION['msg'] = "Link doesn\'t exist or expired.";
+						$_SESSION['msg'] = "Link doesn't exist or expired.";
 //						$_SESSION['msg'] = "Token used before.";
 						$_SESSION['error'] = true;
 						$_SESSION['src'] = 4;
+
+						if(isset($_GET["notify"]))
+                        {
+
+                            $a = array(
+                                'msg' => "Verification code doesn't exist or expired.",
+                                'error' => true,
+                                'code' => 404
+                            );
+
+
+//                          $response['status_code_header'] = $error ? "HTTP/1.1 422 Unprocessable Entity" : "HTTP/1.1 200 OK";
+                            $response['status_code_header'] = "HTTP/1.1 200 OK";
+                            $response['body'] = json_encode($a);
+                            echo json_encode($a);;
+                            return;
+                        }
 						redirect("index.php");
 						exit();
 					}
@@ -87,9 +122,22 @@ if(isset($_GET['token']))
 
 			}
 			else{ //token doesn't exist
-				$_SESSION['msg'] = "Link doesn\'t exist or expired.";
+				$_SESSION['msg'] = "Link doesn't exist or expired.";
 				$_SESSION['error'] = true;
 				$_SESSION['src'] = 0;
+
+                if(isset($_GET["notify"]))
+                {
+                    $a = array(
+                        'msg' => "Verification code doesn't exist or expired.",
+                        'error' => true,
+                        'code' => 404
+                    );
+
+//                          $response['status_code_header'] = $error ? "HTTP/1.1 422 Unprocessable Entity" : "HTTP/1.1 200 OK";
+                    echo json_encode($a);
+                    return;
+                }
 				redirect("index.php");
                 exit();
 				
@@ -109,7 +157,7 @@ if(isset($_GET['token']))
 	mysqli_stmt_close($stmt)  or die( "Error in bind_param: (" .$con->errno . ") " . $con->error);
 }//end isset token
 else{ //token isn't set
-	
+
 	redirect("index.php");
 }
 ?>

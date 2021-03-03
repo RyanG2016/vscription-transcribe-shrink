@@ -1,18 +1,6 @@
-.dropdown-item.active, .dropdown-item:active{
-    background-color: var(--vtex-blue);
-}
-
-/* =============================
- BOOTSTRAP BODY CUSTOMIZATION
+/*
  ===============================
- */
-
-body{
-    font-family: oxygen, sans-serif;
-}
-
-/* =============================
- BOOTSTRAP SELECT CUSTOMIZATION
+ BOOTSTRAP SELECT/DROP DOWN CUSTOMIZATION
  ===============================
  */
 .dropdown-toggle {
@@ -23,7 +11,7 @@ body{
     border-image-slice: initial;
     border-image-repeat: initial;
     border-radius: 0.25rem;
-    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
     transition-property: border-color, box-shadow;
 }
 
@@ -31,7 +19,7 @@ body{
 .btn-light:active, .btn-light.active,
 .show > .btn-light.dropdown-toggle,
 .dropdown-toggle:active,
-.dropdown-toggle:focus  {
+.dropdown-toggle:focus {
     background-color: transparent;
 
     border: 1px solid #80bdff;
@@ -39,109 +27,103 @@ body{
     border-image-slice: initial;
     border-image-repeat: initial;
     border-radius: 0.25rem;
-    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
     transition-property: border-color, box-shadow;
 }
 
 .dropdown-item:focus,
-.dropdown-item:hover{
-    background-color: var(--vtex-orange-30);
+.dropdown-item:hover {
+    background-color: var(--vspt-blue-30);
+
 }
+
+.dropdown-item.active, .dropdown-item:active {
+    background-color: var(--vspt-blue);
+}
+
 
 /* =============================
  BOOTSTRAP POPOVER CUSTOMIZATION
  ===============================
  */
 
-.popover-header{
-    background-color: #1e79be;
+.popover-header {
+    background-color: var(--vspt-popup-header);
     color: white;
 }
+
+
 /* =============================
  BOOTSTRAP BUTTONS CUSTOMIZATION
  ===============================
  */
-.btn-primary{
-    background-color: var(--vtex-blue);
-    border-color: var(--vtex-blue);
+.btn-primary {
+    background-color: var(--vspt-primary-bootstrap-btn) !important;
+    border-color: var(--vspt-primary-bootstrap-btn) !important;
 }
+
 
 /* =============================
   BOOTSTRAP ABLEPLAYER BUTTONS
         ICON CONFLICT
  ===============================
  */
-svg{
+svg {
     vertical-align: baseline;
 }
 
-
-/* =============================
-    JQUERY CONFIRM CONFLICT
- ===============================
- */
-/*body > div.jconfirm.jconfirm-light.jconfirm-open > div.jconfirm-scrollpane > div > div > div > div > div > div {
-    max-width: unset;
-    !*min-width: fit-content;*!
-}*/
-
-.jconfirm-box-container{
+/*  */
+.jconfirm-box-container {
     max-width: unset;
     min-width: fit-content;
 }
 
-.modal-content{
+.modal-content {
     border-radius: 15px;
 }
 
-/* Bootstrap4 Data tables search bar not on the right */
-#users-tbl_wrapper > div.row,
-#accounts-tbl_wrapper > div.row
-{
-    justify-content: space-between !important;
 
+.list-group-item.active {
+    z-index: 2;
+    color: #fff;
+    background-color: var(--vspt-blue-dark);
+    border-color: var(--vspt-blue-dark);
 }
-#users-tbl_wrapper > div.row > div.col-sm-12:nth-child(2),
-#accounts-tbl_wrapper > div.row > div.col-sm-12:nth-child(2)
-{
-    flex: 0 0 auto !important;
-    width: auto !important;
-    max-width: 100% !important;
+
+.ui-accordion {
+    font-size: .9rem !IMPORTANT;
 }
-thead{
-    white-space: nowrap;
-    border-radius: 16px;
-    background-color: var(--vtex-blue);
+
+.input-group-text {
+    font-size: .8rem !IMPORTANT;
+}
+
+.form-control:not(#code),
+.filter-option-inner-inner{
+    font-size: .8rem !IMPORTANT;
+}
+
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: var(--vspt-blue-30);
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem var(--vspt-blue-30);
+}
+
+
+/* Toast Edits */
+.toast-header{
+    background-color: var(--vspt-dark);
+    color: white;
+    font-weight: 300;
+}
+
+.toast-header > button{
     color: white;
 }
 
-/* Active page button */
-.page-item.active .page-link {
-    z-index: 3;
-    color: #fff;
-    background-color: var(--vtex-blue);
-    border-color: var(--vtex-blue);
-}
-.page-link {
-    color: var(--vtex-blue);
-}
-
-body{
-    overflow: auto !important;
-}
-
-tr{
-    font-size: .875rem;
-}
-
-/*tbody>tr:hover{*/
-/*    background-color: var(--vtex-blue-10);*/
-/*}*/
-
-td{
-    padding: 6px 12px !important;
-}
-
-.mdc-button{
-    white-space: nowrap;
+.toast-container{
+    margin-bottom: 35px;
+    margin-right: 24px;
 }

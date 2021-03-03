@@ -1,0 +1,104 @@
+@startuml
+title Speech Recognition API Webhook endpoint
+
+skinparam backgroundColor white
+skinparam noteFontSize 23
+skinparam titleFontSize 40
+skinparam swimlaneTitleFontSize 40
+skinparam swimlaneTitleFontColor #green
+'skinparam handwritten true
+
+skinparam activity {
+  StartColor #1e79be
+  ArrowColor #1e79be
+  EndColor #1e79be
+  BackgroundColor white
+  SequenceTitleFontColor white
+  BorderColor #1e79be
+  FontName Tahoma
+  FontSize 25
+  DiamondFontSize 25
+  ArrowFontSize 24
+}
+
+|Success|
+start
+
+:notification recieved from rev.ai<
+-> json job object;
+:job}
+
+if(job.status) is (transcribed) then
+    :== Queue Job for internal processing
+    ----
+    * set srq_status to (9)
+         queued for internal processing
+
+    * give it an internal ID to
+         order recieved files in the queue by the last max ID    |
+
+         :sent to internal queue;
+         #red:(X)
+         detach
+
+        |Internal Queue|
+         #lightGreen:Internal Queue Process>
+    :get data from rev.ai
+        ""using job.id"";
+        :""GET Caption VTT file""
+        ""//accept text/vtt//"">
+
+        if (response code) is (200) then
+            split
+                :**process** vtt to html > **files.job_document_html**/
+            split again
+                :generate save **.vtt** file in uploads folder/
+                -> saved;
+                :**set** files.hasSRT = 1/
+            end split
+    '        #32CD32:(A)
+    '        detach
+
+        else (no captions)
+            :add to sr_queue_notes response.status + ": " + response.details/
+            :get transcript (rev.ai api)
+            ""//accept: text/plain//"">
+
+            if (response) is (200) then
+                :**process** text to html > **files.job_document_html**/
+    '            #32CD32:(A)
+    '            detach
+            else (response error)
+                partition "no data" {
+                    :Failed to retrieve transcript nor captions;
+                    :""srq_status = 5 (manual revision required)""/
+                    :inform/mail website admin to take proper action
+
+                    //""pass job.id & file_id somewhere""// <
+                    #red:(X)
+                    detach
+                }
+            endif
+        endif
+
+else (failed)
+    |Fail|
+    :""select file_id from sr_queue where job_id =  job.id""|
+
+    :restore srq_revai_minutes to account_minutes/
+    note left: restore minutes to user\n as it is a rev.ai error
+
+    :job.failure_detail > sr_queue_notes
+    srq_status > failed (3)
+    file_status > awaiting transcription (0)
+    /
+    end
+endif
+
+|#honeyDew|Internal Queue|
+'#32CD32:(A)
+:""//files.status = awaiting correction (7)//""/
+:""//srq_status = complete (2)//""/
+end
+
+@enduml

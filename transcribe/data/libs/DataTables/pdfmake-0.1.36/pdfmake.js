@@ -4060,7 +4060,7 @@ TextTools.prototype.sizeOfString = function (text, styleContextStack) {
 	text = text ? text.toString().replace(/\t/g, '    ') : '';
 
 	//TODO: refactor - extract from measure
-	var fontName = getStyleProperty({}, styleContextStack, 'font', 'Roboto');
+	var fontName = getStyleProperty({}, styleContextStack, 'font', 'OpenSans');
 	var fontSize = getStyleProperty({}, styleContextStack, 'fontSize', 12);
 	var fontFeatures = getStyleProperty({}, styleContextStack, 'fontFeatures', null);
 	var bold = getStyleProperty({}, styleContextStack, 'bold', false);
@@ -4222,7 +4222,7 @@ function measure(fontProvider, textArray, styleContextStack) {
 	}
 
 	normalized.forEach(function (item) {
-		var fontName = getStyleProperty(item, styleContextStack, 'font', 'Roboto');
+		var fontName = getStyleProperty(item, styleContextStack, 'font', 'OpenSans');
 		var fontSize = getStyleProperty(item, styleContextStack, 'fontSize', 12);
 		var fontFeatures = getStyleProperty(item, styleContextStack, 'fontFeatures', null);
 		var bold = getStyleProperty(item, styleContextStack, 'bold', false);
@@ -12676,11 +12676,11 @@ var FileSaver = __webpack_require__(306);
 var saveAs = FileSaver.saveAs;
 
 var defaultClientFonts = {
-	Roboto: {
-		normal: 'Roboto-Regular.ttf',
-		bold: 'Roboto-Medium.ttf',
-		italics: 'Roboto-Italic.ttf',
-		bolditalics: 'Roboto-MediumItalic.ttf'
+	OpenSans: {
+		normal: 'OpenSans-Regular.ttf',
+		bold: 'OpenSans-SemiBold.ttf',
+		italics: 'OpenSans-Italic.ttf',
+		bolditalics: 'OpenSans-SemiBoldItalic.ttf'
 	}
 };
 
@@ -13106,11 +13106,11 @@ var isArray = __webpack_require__(0).isArray;
  *
  * @example
  * var fontDescriptors = {
- *	Roboto: {
- *		normal: 'fonts/Roboto-Regular.ttf',
- *		bold: 'fonts/Roboto-Medium.ttf',
- *		italics: 'fonts/Roboto-Italic.ttf',
- *		bolditalics: 'fonts/Roboto-MediumItalic.ttf'
+ *	OpenSans: {
+ *		normal: 'fonts/OpenSans-Regular.ttf',
+ *		bold: 'fonts/OpenSans-SemiBold.ttf',
+ *		italics: 'fonts/OpenSans-Italic.ttf',
+ *		bolditalics: 'fonts/OpenSans-SemiBoldItalic.ttf'
  *	}
  * };
  *
@@ -13183,7 +13183,7 @@ PdfPrinter.prototype.createPdfKitDocument = function (docDefinition, options) {
 		builder.registerTableLayouts(options.tableLayouts);
 	}
 
-	var pages = builder.layoutDocument(docDefinition.content, this.fontProvider, docDefinition.styles || {}, docDefinition.defaultStyle || {fontSize: 12, font: 'Roboto'}, docDefinition.background, docDefinition.header, docDefinition.footer, docDefinition.images, docDefinition.watermark, docDefinition.pageBreakBefore);
+	var pages = builder.layoutDocument(docDefinition.content, this.fontProvider, docDefinition.styles || {}, docDefinition.defaultStyle || {fontSize: 12, font: 'OpenSans'}, docDefinition.background, docDefinition.header, docDefinition.footer, docDefinition.images, docDefinition.watermark, docDefinition.pageBreakBefore);
 	var maxNumberPages = docDefinition.maxPagesNumber || -1;
 	if (isNumber(maxNumberPages) && maxNumberPages > -1) {
 		pages = pages.slice(0, maxNumberPages);
@@ -13931,7 +13931,7 @@ LayoutBuilder.prototype.addWatermark = function (watermark, fontProvider, defaul
 		return;
 	}
 
-	watermark.font = watermark.font || defaultStyle.font || 'Roboto';
+	watermark.font = watermark.font || defaultStyle.font || 'OpenSans';
 	watermark.color = watermark.color || 'black';
 	watermark.opacity = watermark.opacity || 0.6;
 	watermark.bold = watermark.bold || false;

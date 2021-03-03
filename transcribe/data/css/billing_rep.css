@@ -5,6 +5,7 @@
 /*-----------------------*/
 
 @import "billing_print.css";
+@import "parts/global.css";
 
 /* -----------------*/
 /* --BUTTON STYLING --*/
@@ -15,38 +16,48 @@
 }
 
 
-.tools-button{
+.tools-button {
     --mdc-theme-primary: #1e79be;
     width: 100%;
 }
 
-.mdc-text-field{
+.mdc-text-field {
     --mdc-theme-primary: #1e79be;
-    --mdc-theme-on-primary: #1e79be ;
+    --mdc-theme-on-primary: #1e79be;
     --mdc-theme-secondary: #1e79be;
-    --mdc-theme-background:#1e79be;
-    --mdc-theme-surface:#1e79be;
-    --mdc-theme-on-secondary:#1e79be;
-    --mdc-theme-on-surface:#1e79be;
+    --mdc-theme-background: #1e79be;
+    --mdc-theme-surface: #1e79be;
+    --mdc-theme-on-secondary: #1e79be;
+    --mdc-theme-on-surface: #1e79be;
 }
-.mdc-floating-label{
+
+.mdc-floating-label {
     --mdc-theme-primary: #1e79be;
-    --mdc-theme-on-primary: #1e79be ;
+    --mdc-theme-on-primary: #1e79be;
     --mdc-theme-secondary: #1e79be;
-    --mdc-theme-background:#1e79be;
-    --mdc-theme-surface:#1e79be;
-    --mdc-theme-on-secondary:#1e79be;
-    --mdc-theme-on-surface:#1e79be;
+    --mdc-theme-background: #1e79be;
+    --mdc-theme-surface: #1e79be;
+    --mdc-theme-on-secondary: #1e79be;
+    --mdc-theme-on-surface: #1e79be;
 }
 
 /*-----------------------*/
 /*   Header Styling      */
 /*-----------------------*/
-#navbtn{
+#navbtn {
     font-size: 0.9em;
 }
 
-h3{
+h3 {
     font-size: 14px !important;
     font-weight: bold !important;
+}
+
+div.row.typ-billing-container > div {
+    padding-right: 6px;
+    padding-left: 6px;
+}
+
+div.row.typ-billing-container label {
+    margin-right: 6px;
 }

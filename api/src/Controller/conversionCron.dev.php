@@ -5,8 +5,11 @@ $switchPath = "C:\Program Files (x86)\NCH Software\Switch\switch.exe";
 require "$rootDir\api\bootstrap.php";
 require "$rootDir\api\src\TableGateways\common.php";
 //require '../../bootstrap.php';
+use Src\Enums\FILE_STATUS;
+use Src\Enums\SRQ_STATUS;
 use Src\TableGateways\conversionGateway;
 use Src\TableGateways\FileGateway;
+use Src\Models\SRQueue;
 
 global $conversionsGateway;
 global $fileGateway;
@@ -22,6 +25,9 @@ global $orgFile;
 global $orgFileSize;
 global $retries;
 global $file_id;
+global $file_status;
+global $acc_id;
+global $dbConnection;
 
 // switch process status vars //
 global $firstCheckPass;
@@ -40,11 +46,14 @@ $start = true;
 
 
 while ($start) {
+    global $file_status;
+    global $acc_id;
     $fileEntry = $conversionsGateway->findAll(true);
     if(sizeof($fileEntry) > 0)
     {
         $retries = 0;
         $fileEntry = $fileEntry[0];
+        $acc_id = $fileEntry["acc_id"];
 //        print_r($fileEntry);
         $fileName = $fileEntry["filename"];
         $org_ext = $fileEntry["org_ext"];
@@ -54,7 +63,7 @@ while ($start) {
         $file_id = $fileEntry["file_id"];
         $fileStatus = $fileEntry["file_status"];
 
-        if($fileStatus != 8)
+        if($fileStatus != FILE_STATUS::QUEUED_FOR_CONVERSION && $fileStatus != FILE_STATUS::QUEUED_FOR_SR_CONVERSION)
         {
             $conversionsGateway->updateConversionStatusFromParam($file_id ,2); // need review
         }
@@ -87,6 +96,9 @@ function convertDssToMp3($fileName)
     global $file_id;
     global $conversionsGateway;
     global $fileGateway;
+    global $file_status;
+    global $acc_id;
+    global $dbConnection;
 
 //    $command = "'$switchPath' -convert '$uploadsDir\out\\$fileName' -settempfolder '$uploadsDir\out\\tmp\' -format .mp3 -overwrite ALWAYS -hide -exit";
     //    $command = "'$switchPath' -convert '$orgFile' -outfolder '$uploadsDir' -format $conv_ext -overwrite ALWAYS -hide -exit";
@@ -131,7 +143,21 @@ function convertDssToMp3($fileName)
                     vtexEcho("Finish time: ".formatSecs($diff)." \n" );
 
                     $conversionsGateway->updateConversionStatusFromParam($file_id, 1);
-                    $fileGateway->directUpdateFileStatus($file_id, 0, $plainName . $conv_ext);
+
+                    // send files with prev status of 9 to speech recognition queue
+                    if($file_status == FILE_STATUS::QUEUED_FOR_SR_CONVERSION)
+                    {
+                        $fileGateway->directUpdateFileStatus($file_id, FILE_STATUS::QUEUED_FOR_RECOGNITION, $plainName . $conv_ext);
+
+                        // move to queue SRQueue entry for this file
+                        $srq = SRQueue::withFileID($file_id, $dbConnection);
+                        $srq->setSrqStatus(SRQ_STATUS::QUEUED);
+                        $srq->save();
+
+                    }else{
+                        $fileGateway->directUpdateFileStatus($file_id, FILE_STATUS::AWAITING_TRANSCRIPTION, $plainName . $conv_ext);
+                    }
+
 
                 } else {
                     // partial conversion - fail

@@ -21,9 +21,11 @@ function parseUserParams($addWhereClause = false){
                 case "email":
                 case "city":
                 case "state":
+                case "country":
+                case "address":
+                case "zipcode":
                 case "registeration_date":
                 case "last_ip_address":
-                case "plan_id":
                 case "account_status":
                 case "last_login":
                 case "newsletter":
@@ -57,36 +59,6 @@ function parseUserParams($addWhereClause = false){
                         $firstMatch = false;
                     }
                     break;
-
-
-                case "country":
-                    $addedEnum ++;
-
-                    // check if filter is multiple values
-                    if(gettype($value) == "array")
-                    {
-                        if(isset($value["mul"]))
-                        {
-                            $values = preg_split('/,/', $value["mul"], -1, PREG_SPLIT_NO_EMPTY);
-                            $filter .= "(";
-                            foreach ($values as $opt)
-                            {
-                                if(!$firstMatch) {$filter .= " OR ";}
-                                $filter .= "countries.$key = '$opt'";
-                                $firstMatch = false;
-                            }
-                            $filter .= ")";
-
-                        }else{
-                            unprocessableUserFilterResponse();
-                        }
-
-                    }else if(gettype($value) == "string"){
-                        if(!$firstMatch) {$filter .= " AND ";}
-                        $filter .= "countries.$key = '$value'";
-                        $firstMatch = false;
-                    }
-                    break;
             }
         }
 
@@ -108,10 +80,12 @@ function sqlInjectionUserCheckPassed($array){
             case "first_name":
             case "last_name":
             case "email":
-            case "city":
+            case "country":
             case "state":
+            case "city":
+            case "address":
+            case "zipcode":
             case "last_ip_address":
-            case "plan_id":
             case "account_status":
             case "last_login":
             case "trials":
@@ -121,7 +95,6 @@ function sqlInjectionUserCheckPassed($array){
             case "email_notification":
             case "account":
                 if (
-                    empty(trim($value)) ||
                     strpos($value, '%') !== FALSE
 //                    ||strpos($value, '_')
                 ) {
@@ -129,8 +102,6 @@ function sqlInjectionUserCheckPassed($array){
                 }
 
                 break;
-            case "country_id":
-            case "state_id":
             case "enabled":
             case "newsletter":
                 if (
@@ -169,7 +140,6 @@ function sqlInjectionCreateCheckPassed($array){
             case "first_name":
             case "last_name":
             case "email":
-            case "state":
             case "last_login":
                 if (
                     empty(trim($value)) ||
@@ -181,8 +151,12 @@ function sqlInjectionCreateCheckPassed($array){
                 break;
 
             case "city":
+            case "state":
+            case "address":
+            case "country":
+            case "zipcode":
 
-                if (
+            if (
                     strpos($value, '%') !== FALSE
                 ) {
                     return false;
@@ -190,8 +164,8 @@ function sqlInjectionCreateCheckPassed($array){
 
                 break;
 
-            case "country_id":
-            case "state_id":
+//            case "country_id":
+//            case "state_id":
             case "enabled":
             case "newsletter":
                 if (

@@ -1,7 +1,7 @@
 .rte-autocomplete{
     position: absolute;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
     display: block;
     z-index: 1000;
     float: left;
@@ -21,7 +21,7 @@
     -webkit-background-clip: padding-box;
     -moz-background-clip: padding;
     background-clip: padding-box;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "OpenSans",Helvetica,Arial,sans-serif;
     font-size: 14px;
 }
 

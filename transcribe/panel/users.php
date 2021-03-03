@@ -1,27 +1,20 @@
 <?php
 //include('../data/parts/head.php');
 
-include('../data/parts/session_settings.php');
-
-require('../data/parts/ping.php');
-
-if (!isset($_SESSION['loggedIn'])) {
-    header('location:../logout.php');
-    exit();
-}
-if (isset($_SESSION['counter'])) {
-    unset($_SESSION['counter']);
-}
+require '../../api/vendor/autoload.php';
+use Src\Enums\INTERNAL_PAGES;
+$vtex_page = INTERNAL_PAGES::ADMIN_PANEL_USERS;
+include('../data/parts/head.php');
 
 //redirect to main
 if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
 //User is a System Administrator ONLY
     ob_start();
-    header('Location: ' . "../accessdenied.php");
+    header('Location: ' . "../index.php");
     ob_end_flush();
     die();
 }
-$vtex_page = 5;
+$vtex_page = INTERNAL_PAGES::USERS;
 ?>
 
 <html lang="en">
@@ -35,7 +28,7 @@ $vtex_page = 5;
     <script src="../data/libs/node_modules/material-components-web/dist/material-components-web.js"></script>
     <script src="../data/libs/node_modules/@material/textfield/dist/mdc.textfield.js"></script>
     <script src="../data/libs/node_modules/@material/linear-progress/dist/mdc.linearProgress.js"></script>
-    <script src="https://kit.fontawesome.com/00895b9561.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/12f6b99df9.js" crossorigin="anonymous"></script>
 
     <!--	Scroll Bar Dependencies    -->
     <script src="../data/scrollbar/jquery.nicescroll.js"></script>
@@ -59,7 +52,6 @@ $vtex_page = 5;
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
-<!--    <script src="../data/custom-bootstrap-select/js/bootstrap.min.js"></script>-->
 
     <!-- BOOTSTRAP SELECT -->
     <link rel="stylesheet"
@@ -83,76 +75,35 @@ $vtex_page = 5;
 </head>
 
 <body>
-<?php include_once "../data/parts/nav.php"?>
 
-<div id="container" style="width: 100%">
-    <div class="form-style-5">
+<div class="container-fluid d-flex h-auto vspt-container-fluid">
+    <div class="row w-100 h-100 vspt-container-fluid-row no-gutters" style="white-space: nowrap">
 
-        <table id="header-tbl">
-            <tr>
-                <td id="navbtn" align="left" colspan="1">
-                    <a class="logout" href="index.php"><i class="fas fa-arrow-left"></i> Go back to Admin Panel</a>
-                </td>
+        <?php include_once "../data/parts/nav.php"?>
 
-                <td id="logbar" align="right" colspan="1">
-                    Logged in as: <?php echo $_SESSION['uEmail'] ?> |
-                    <!--                    </div>-->
-                    <a class="logout" href="../logout.php">
-                        <i class="fas fa-sign-out-alt"></i>
-                        Logout
-                    </a>
-                </td>
+        <div class="vspt-page-container vspt-col-auto-fix">
 
-            </tr>
-            <tr class="spacer"></tr>
-            <tr style="margin-top: 50px">
-                <td class="title" align="left" width="450px">
-
-                    <legend class="page-title">
-                        <i class="material-icons mdc-button__icon" aria-hidden="true">account_circle</i>
-                        Users Management
-                    </legend>
-                </td>
-                <!--<td align="right" rowspan="2" id="fix-td">
-
-                    </td>-->
-
-                <td width="300px">
-                    <img src="../data/images/Logo_vScription_Transcribe_Pro_White.png" width="300px"/>
-                </td>
-            </tr>
-
-
-        </table>
-
-        <div class="root">
-            <div class="nav-bar">
-
-                <div class="vtex-card nav-header first">
-                    ACTIONS
+            <div class="row">
+                <div class="col">
+                    <a class="logbar" href="index.php"><i class="fas fa-arrow-left"></i> Go back to Admin Panel</a>
                 </div>
-                <div class="nav-btns-div actions-btns">
-                    <button class="mdc-button mdc-button--outlined tools-button" id="createAcc">
-                        <div class="mdc-button__ripple"></div>
-                        <i class="fas fa-user-plus"></i>
-                        <span class="mdc-button__label">&nbsp;Add User</span>
-                    </button>
 
-                    <!--<div class="vtex-card nav-header">
-                        Header 2
-                    </div>
-
-                    <button class="mdc-button mdc-button--outlined tools-button" >
-                        <div class="mdc-button__ripple"></div>
-                        <i class="material-icons mdc-button__icon" aria-hidden="true">attach_money</i>
-                        <span class="mdc-button__label">Button 2</span>
-                    </button>-->
-
-
-                </div>
 
             </div>
-            <div class="vtex-card contents first">
+
+            <div class="row vspt-title-row no-gutters">
+                <div class="col align-items-end d-flex">
+                    <legend class="page-title mt-auto">
+                        <i class="fas fa-users fa-fw"></i>
+                        Users Management
+                    </legend>
+                </div>
+                <div class="col-auto">
+                    <img src="../data/images/Logo_vScription_Transcribe.png" width="300px"/>
+                </div>
+            </div>
+
+            <div class="vtex-card contents">
 
                 <div class="vtex-top-bar">
                     <h2 class="users-tbl-title">Users List</h2>
@@ -163,29 +114,15 @@ $vtex_page = 5;
                     </button>
                 </div>
 
-
-                <!--        CONTENTS GOES HERE        -->
-                <table id="users-tbl" class="users-tbl table row-border hover compact" style="width:100%">
-                    <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Country</th>
-                        <th>City</th>
-                        <th>State</th>
-                        <th>Status</th>
-                        <th>Def Access</th>
-                        <th>Enabled</th>
-                    </tr>
-                    </thead>
-                </table>
+                <div style="overflow-x: hidden" class="vspt-table-div">
+                    <table id="users-tbl" class="users-tbl table vspt-table hover compact"></table>
+                </div>
             </div>
+
         </div>
-
-
     </div>
 </div>
+
 
 <!-- The Modal -->
 <div id="modal" class="modal">
@@ -195,8 +132,6 @@ $vtex_page = 5;
         <h3 style="color: #1e79be" id="modalHeaderTitle"><i class="fas fa-user-plus"></i>&nbsp;Create New User</h3>
 
         <form method="post" id="createAccForm" class="createAccForm" target="_self">
-            <!--            <label for="enabled" class="vtex-form_lbl">Enabled</label>-->
-            <!--            <input class="enabled vtex-input" type="text">-->
             <div style="text-align: right">
                 <fieldset class="vtex-fieldset enabled-radios" style="display: inline;text-align: center;">
                     <legend style="font-size: 18px">Enabled</legend>
@@ -216,52 +151,87 @@ $vtex_page = 5;
                 </fieldset>
             </div>
 
-            <fieldset class="vtex-fieldset">
-                <!--                <legend>&nbsp;Retention&nbsp;</legend>-->
-                <div class="retention-grid">
-                    <label for="fname" class="vtex-form_lbl">
-                        First Name
-                        <input class="fname vtex-input" id="fname" name="first_name" type="text">
-                    </label>
+            <fieldset class="vtex-fieldset-light">
+                <legend>&nbsp;Required&nbsp;</legend>
 
-                    <label for="lname" class="vtex-form_lbl">
-                        Last Name
-                        <input class="lname vtex-input" id="lname" name="last_name" type="text">
-                    </label>
+                <div class="form-row mb-2">
+                    <div class="input-group col">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">First Name</span>
+                        </div>
+                        <input class="form-control" id="fname" name="first_name" type="text">
+                    </div>
+
+                    <div class="input-group col">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Last Name</span>
+                        </div>
+                        <input class="form-control" id="lname" name="last_name" type="text">
+                    </div>
                 </div>
+
+                <div class="form-row mb-2">
+                    <div class="input-group col-8">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Email</span>
+                        </div>
+                        <input class="form-control" id="email" name="email" type="text">
+                    </div>
+
+                    <div class="input-group col-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Country</span>
+                        </div>
+                        <select class="form-control selectpicker" id="country" name="country"> </select>
+                    </div>
+                </div>
+
             </fieldset>
 
-            <label for="email" class="vtex-form_lbl" style="width: 100%">
-                Email
-                <input class="email vtex-input" id="email" name="email" type="email" style="width: 100%">
-            </label>
+            <fieldset class="vtex-fieldset-light">
+                <legend>&nbsp;Optional&nbsp;</legend>
 
-            <div class="country">
-                <label>Country</label><br>
-                <select id="country" name="country_id" class="country_select" data-width="250px">
-                </select>
-            </div>
-            <br>
-            <!--===================================================-->
-            <div class="state" id="stateContainer">
-                <label id="stateBoxLbl" class="stateLbl">State<br>
-                    <select id="stateBox" name="state_id" class="state_select" data-width="250px">
-                    </select>
-                </label>
-                <!------------------------------------------------------>
-                <label class="vtex-form_lbl state_input_lbl" id="stateInputLbl">
-                    State
-                    <input class="state_input vtex-input" id="stateInput" name="state" type="text">
-                </label>
-            </div>
-            <!--===================================================-->
-            <br>
-            <div id="cityContainer" class="city-container">
-                <label for="city" class="vtex-form_lbl city_lbl">
-                    City
-                    <input class="city-input vtex-input" id="cityInput" name="city" type="text">
-                </label>
-            </div>
+                <div class="form-row mb-2">
+
+                    <div class="input-group col">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Address</span>
+                        </div>
+                        <input class="form-control" id="addressInput" name="address" type="text"  value="222">
+                    </div>
+
+                </div>
+
+                <div class="form-row mb-2">
+
+
+                    <div class="input-group col">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">City</span>
+                        </div>
+                        <input class="form-control" id="cityInput" name="city" type="text" >
+                    </div>
+
+
+                    <div class="input-group col">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Prov/State</span>
+                        </div>
+                        <input class="form-control" id="stateInput" name="state" type="text" >
+                    </div>
+
+                    <div class="input-group col">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Postal Code/Zip</span>
+                        </div>
+                        <input class="form-control" id="zipcode" name="zipcode" type="text">
+                    </div>
+                </div>
+
+
+
+            </fieldset>
+
             <!--===================================================-->
 
             <div class="modal-footer pb-0">
@@ -286,9 +256,10 @@ $vtex_page = 5;
 
         </form>
 
-
     </div>
 </div>
+
+<?php include_once "../data/parts/footer.php"?>
 </body>
 
 </html>

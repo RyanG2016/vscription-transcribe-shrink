@@ -1,8 +1,10 @@
 <?php
 
 namespace Src\TableGateways;
+use Src\Models\Access;
+use Src\Models\Account;
+use Src\Models\Role;
 use Src\TableGateways\CityGateway;
-use Src\TableGateways\CountryGateway;
 include_once "common.php";
 
 class LoginGateway
@@ -10,13 +12,11 @@ class LoginGateway
 
     private $db = null;
     private $cityGateway = null;
-    private $CountryGateway = null;
 
     public function __construct($db)
     {
         $this->db = $db;
         $this->cityGateway = new CityGateway($db);
-        $this->CountryGateway = new CountryGateway($db);
     }
 
     public function find($email, $pass)
@@ -25,8 +25,10 @@ class LoginGateway
 
         $statement = "
             SELECT
-                id,first_name, last_name, email, password, plan_id, account_status, last_login, trials, unlock_time,tutorials,
-                account, def_access_id, users.enabled, a.acc_role, a.acc_id, r.role_desc, a2.acc_name,
+                users.id,first_name, last_name, email, password, address,city, state, account_status, last_login, trials, unlock_time,tutorials,
+                   newsletter, email_notification,
+                   a2.act_log_retention_time, a2.acc_retention_time, admin.acc_retention_time as adminart, admin.act_log_retention_time as adminalrt,
+                account, def_access_id, users.enabled, a.acc_role, a.acc_id, r.role_desc, a2.acc_name, country, zipcode, a2.sr_enabled as sr_enabled,
                 IF(account != 0 , (select accounts.acc_name from accounts where accounts.acc_id = account), false) 
                     as 'admin_acc_name'                
             FROM
@@ -34,14 +36,10 @@ class LoginGateway
             LEFT JOIN access a on users.def_access_id = a.access_id
             LEFT JOIN roles r on a.acc_role = r.role_id
             LEFT JOIN accounts a2 on a.acc_id = a2.acc_id
+            LEFT JOIN accounts admin on users.account = admin.acc_id
             WHERE email = ?;
         ";
 
-        // $_SESSION['accID'] = $result["acc_id"];
-        // $_SESSION['role'] = $result["acc_role"];
-        // $_SESSION['acc_name'] = $result["acc_name"];
-        // $_SESSION['role_desc'] = $result["role_desc"];
-        // $_SESSION['landed'] = true;
 
         try {
             $statement = $this->db->prepare($statement);
@@ -110,7 +108,8 @@ class LoginGateway
             }
 
         } catch (\PDOException $e) {
-            exit($e->getMessage());
+            return array("error" => true, "msg" => "We couldn't log you in please contact system admin");
+//            exit($e->getMessage());
         }
         return array("error" => true, "msg" => "Incorrect Password");
     }
@@ -122,17 +121,46 @@ class LoginGateway
         $_SESSION['lname'] = $row['last_name'];
         $_SESSION['uEmail'] = $row["email"];
 
+        // adding user data to php session
+        unset($row["password"]);
+        $_SESSION["userData"] = $row;
+
         if ($row["def_access_id"] != null) {
             $_SESSION['accID'] = $row["acc_id"];
             $_SESSION['role'] = $row["acc_role"];
+            $_SESSION['sr_enabled'] = $row["sr_enabled"];
             $_SESSION['acc_name'] = $row["acc_name"];
+            $_SESSION['acc_retention_time'] = $row["acc_retention_time"];
+            $_SESSION['act_log_retention_time'] = $row["act_log_retention_time"];
             $_SESSION['role_desc'] = $row["role_desc"];
             $_SESSION['landed'] = true;
+        }else{
+            // choose the earliest & highest user role available
+            $highestAccess = Access::getHighestAccessWithID($row["id"], $this->db);
+            if($highestAccess)
+            {
+                $account = Account::withID($highestAccess->getAccId(), $this->db);
+                $role = Role::withID($highestAccess->getAccRole(), $this->db);
+
+
+                $_SESSION['accID'] = $highestAccess->getAccId();
+                $_SESSION['role'] = $highestAccess->getAccRole();
+                $_SESSION['sr_enabled'] = $account->getSrEnabled();
+                $_SESSION['acc_name'] = $account->getAccName();
+                $_SESSION['acc_retention_time'] = $account->getAccRetentionTime();
+                $_SESSION['act_log_retention_time'] = $account->getActLogRetentionTime();
+                $_SESSION['role_desc'] = $role->getRoleDesc();
+                $_SESSION['landed'] = true;
+            }
+//            else{
+                // no accesses found for user MUST GO TO LANDING/SETTINGS PAGE
+//            }
         }
 
-//        $_SESSION['role'] = $row['plan_id'];
 //        $_SESSION['accID'] = $row['account'];
         $_SESSION["adminAccount"] = $row["account"];
+        $_SESSION["adminAccRetTime"] = $row["adminart"];
+        $_SESSION["adminAccLogRetTime"] = $row["adminalrt"];
         $_SESSION["adminAccountName"] = $row["admin_acc_name"];
         $_SESSION['loggedIn'] = true;
         $_SESSION['tutorials'] = $row["tutorials"];

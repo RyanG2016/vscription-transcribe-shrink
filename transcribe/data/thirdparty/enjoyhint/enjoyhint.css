@@ -1,12 +1,4 @@
-@import "../../css/parts/vars.css";
-
-@font-face {
-    font-family: casino_handregular;
-    src: url(src/Casino_Hand/casino_hand-webfont.eot);
-    src: url(src/Casino_Hand/casino_hand-webfont.eot?#iefix) format("embedded-opentype"), url(src/Casino_Hand/casino_hand-webfont.woff) format("woff"), url(src/Casino_Hand/casino_hand-webfont.ttf) format("truetype"), url(src/Casino_Hand/casino_hand-webfont.svg#casino_handregular) format("svg");
-    font-weight: 400;
-    font-style: normal;
-}
+@import "../../css/parts/global.css";
 
 .enjoyhint {
     position: fixed;
@@ -14,7 +6,7 @@
     height: 100%;
     top: 0;
     left: 0;
-    z-index: 1010;
+    z-index: 100010;
     pointer-events: none;
     overflow: hidden
 }
@@ -27,7 +19,7 @@
     position: absolute;
     width: 2000px;
     height: 1500px;
-    z-index: 1011;
+    z-index: 100011;
     pointer-events: all
 }
 
@@ -35,7 +27,7 @@
     min-width: 100px;
     -webkit-box-sizing: content-box;
     height: 40px;
-    font: normal normal normal 17px/40px oxygen-l, sans-serif, Helvetica;
+    font: var(--vspt-hint-buttons-font);
     cursor: pointer;
     margin: 0 auto;
     letter-spacing: 1px;
@@ -44,14 +36,14 @@
 
 .enjoyhint_next_btn, .enjoyhint_prev_btn {
     position: absolute;
-    z-index: 1012;
+    z-index: 100012;
     pointer-events: all;
     -moz-box-sizing: content-box;
     box-sizing: content-box;
-    border: 2px solid var(--vtex-hint-border-color);
+    border: 2px solid var(--vspt-hint-border-color);
     -webkit-border-radius: 40px;
     border-radius: 40px;
-    color: var(--vtex-hint-text-color);
+    color: var(--vspt-hint-text-color);
     -o-text-overflow: clip;
     text-overflow: clip;
     background: rgba(0, 0, 0, 0);
@@ -62,7 +54,7 @@
 }
 
 .enjoyhint_close_btn, .enjoyhint_skip_btn {
-    z-index: 1012;
+    z-index: 100012;
     pointer-events: all;
     -moz-box-sizing: content-box;
     -o-text-overflow: clip;
@@ -71,12 +63,12 @@
 
 .enjoyhint_prev_btn:hover {
     color: rgba(255, 255, 255, 1);
-    background: var(--vtex-hint-border-color)
+    background: var(--vspt-hint-border-color)
 }
 
 .enjoyhint_prev_btn:active {
-    border: 2px solid rgba(245, 134, 44, 1);
-    background: rgba(245, 134, 44, 1);
+    border: 2px solid var(--vspt-hint-border-color);
+    background: var(--vspt-hint-border-color);
     -webkit-transition: none;
     -moz-transition: none;
     -o-transition: none;
@@ -91,21 +83,21 @@
 
 .enjoyhint_next_btn:hover {
     color: rgba(255, 255, 255, 1);
-    background: var(--vtex-hint-border-color)
+    background: var(--vspt-hint-border-color)
 }
 
 .enjoyhint_next_btn:active {
-    border: 2px solid rgba(245, 134, 44, 1);
-    background: rgba(245, 134, 44, 1);
+    border: 2px solid var(--vspt-hint-border-color);
+    background: var(--vspt-hint-border-color);
     transition: none
 }
 
 .enjoyhint_skip_btn {
     box-sizing: content-box;
-    border: 2px solid var(--vtex-hint-border-color);
+    border: 2px solid var(--vspt-hint-border-color);
     -webkit-border-radius: 40px;
     border-radius: 40px;
-    color: var(--vtex-hint-text-color);
+    color: var(--vspt-hint-text-color);
     background: rgba(0, 0, 0, 0);
     -webkit-transition: background-color .3s cubic-bezier(0, 0, 0, 0), color .3s cubic-bezier(0, 0, 0, 0), width .3s cubic-bezier(0, 0, 0, 0), border-width .3s cubic-bezier(0, 0, 0, 0), border-color .3s cubic-bezier(0, 0, 0, 0);
     -moz-transition: background-color .3s cubic-bezier(0, 0, 0, 0), color .3s cubic-bezier(0, 0, 0, 0), width .3s cubic-bezier(0, 0, 0, 0), border-width .3s cubic-bezier(0, 0, 0, 0), border-color .3s cubic-bezier(0, 0, 0, 0);
@@ -115,12 +107,12 @@
 
 .enjoyhint_skip_btn:hover {
     color: rgba(255, 255, 255, 1);
-    background: var(--vtex-hint-border-color)
+    background: var(--vspt-hint-border-color)
 }
 
 .enjoyhint_skip_btn:active {
-    border: 2px solid rgba(245, 134, 44, 1);
-    background: rgba(245, 134, 44, 1);
+    border: 2px solid var(--vspt-hint-border-color);
+    background: var(--vspt-hint-border-color);
     transition: none
 }
 
@@ -131,13 +123,12 @@
     box-sizing: content-box;
     width: .3em;
     height: .3em;
-    border: none;
     -webkit-border-radius: 1em;
     border-radius: 1em;
     font: 400 8em/normal Arial, Helvetica, sans-serif;
     color: rgba(0, 0, 0, 1);
     background: rgba(0, 0, 0, 0);
-    border: 2px solid rgba(245, 134, 44, 1)
+    border: 2px solid var(--vspt-hint-border-color)
 }
 
 .enjoyhint_close_btn::after, .enjoyhint_close_btn::before {
@@ -181,13 +172,13 @@
 
 .enjoyhint_close_btn:hover {
     color: rgba(255, 255, 255, 1);
-    background: var(--vtex-hint-border-color);
+    background: var(--vspt-hint-border-color);
     cursor: pointer
 }
 
 .enjoyhint_close_btn:active {
-    border: 2px solid rgba(245, 134, 44, 1);
-    background: rgba(245, 134, 44, 1);
+    border: 2px solid var(--vspt-hint-border-color);
+    background: var(--vspt-hint-border-color);
     -webkit-transition: none;
     -moz-transition: none;
     -o-transition: none;
@@ -201,11 +192,11 @@
     height: 40px;
     cursor: pointer;
     margin: 0 auto;
-    border: 2px solid var(--vtex-hint-border-color);
+    border: 2px solid var(--vspt-hint-border-color);
     -webkit-border-radius: 40px;
     border-radius: 40px;
-    font: normal normal normal 17px/40px "Advent Pro", Helvetica, sans-serif;
-    color: var(--vtex-hint-text-color);
+    font: var(--vspt-hint-buttons-font);
+    color: var(--vspt-hint-text-color);
     text-align: center;
     letter-spacing: 1px;
     background: rgba(0, 0, 0, 0);
@@ -223,12 +214,12 @@
 
 .enjoyhint_btn:hover {
     color: rgba(255, 255, 255, 1);
-    background: var(--vtex-hint-border-color)
+    background: var(--vspt-hint-border-color)
 }
 
 .enjoyhint_btn:active {
-    border: 2px solid rgba(245, 134, 44, 1);
-    background: rgba(245, 134, 44, 1);
+    border: 2px solid var(--vspt-hint-border-color);
+    background: var(--vspt-hint-border-color);
     -webkit-transition: none;
     -moz-transition: none;
     -o-transition: none;
@@ -240,7 +231,7 @@
 }
 
 .enjoyhint_canvas {
-    z-index: 100;
+    z-index: 10000;
     pointer-events: none
 }
 
@@ -253,7 +244,7 @@
 .enjoyhint_svg_wrapper {
     top: 0;
     left: 0;
-    z-index: 100;
+    z-index: 10000;
     -webkit-transition: opacity .4s cubic-bezier(.42, 0, .58, 1);
     -moz-transition: opacity .4s cubic-bezier(.42, 0, .58, 1);
     transition: opacity .4s cubic-bezier(.42, 0, .58, 1)
@@ -272,9 +263,10 @@
     position: absolute;
     overflow: hidden;
     color: #fff;
-    z-index: 107;
-    font-size: 22px;
-    font-family: oxygen-l, sans-serif;
+    z-index: 10007;
+    /*font-size: 22px;*/
+    /*font-family: var(--vspt-hint-label-font);*/
+    font: var(--vspt-hint-label-font);
     -webkit-transition: opacity .4s cubic-bezier(.42, 0, .58, 1);
     -moz-transition: opacity .4s cubic-bezier(.42, 0, .58, 1);
     transition: opacity .4s cubic-bezier(.42, 0, .58, 1)

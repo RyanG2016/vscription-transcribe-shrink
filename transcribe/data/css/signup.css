@@ -1,7 +1,6 @@
-@import "parts/vars.css";
-@import "parts/spinner.css";
 @import "parts/modal_overlay.css";
-/*@import "parts/bootstrap-override.css";*/
+@import "parts/vtex-custom-styles.css";
+@import "parts/global.css";
 
 /*//////////////////////////////////////////////////////////////////
 [ RESTYLE TAG ]*/
@@ -14,17 +13,17 @@
 
 body, html {
     height: 100%;
-    font-family: oxygen, sans-serif;
+    font-family: main, sans-serif;
 }
 
-.login100-form-btn{
+.login100-form-btn {
     text-transform: capitalize !important;
 }
 
 body {
     width: 100%;
     margin-bottom: 100px;
-    background-color: #2c3e50;
+    /*background-color: #2c3e50;*/
     overflow: hidden !important;
 }
 
@@ -47,7 +46,6 @@ body {
 }*/
 
 
-
 label {
     color: white;
 }
@@ -58,7 +56,7 @@ label {
 
 /*---------------------------------------------*/
 a {
-    font-family: oxygen, sans-serif;
+    font-family: main, sans-serif;
     font-size: 14px;
     line-height: 1.7;
     /*color: #666666;*/
@@ -76,7 +74,7 @@ a:focus {
 
 a:hover {
     text-decoration: none;
-    color: var(--vtex-orange);
+    color: var(--vspt-orange);
     /*color: -webkit-linear-gradient(left, #21d4fd, #b721ff);
     color: -o-linear-gradient(left, #21d4fd, #b721ff);
     color: -moz-linear-gradient(left, #21d4fd, #b721ff);
@@ -86,7 +84,7 @@ a:hover {
 /*---------------------------------------------*/
 
 p {
-    font-family: oxygen, sans-serif;
+    font-family: main, sans-serif;
     font-size: 14px;
     line-height: 1.7;
     color: #666666;
@@ -101,7 +99,7 @@ ul, li {
 
 /*---------------------------------------------*/
 .wrap-login100-form-btn {
-    border-radius: 4px !important;
+    border-radius: 0 !important;
 }
 
 button {
@@ -121,34 +119,27 @@ iframe {
 /*//////////////////////////////////////////////////////////////////
 [ Signup ]*/
 
-.vtex-signup-wrap {
-    width: 100%;
-    min-height: 100vh;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-box;
-    display: -ms-flexbox;
+
+body{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     padding: 15px;
-
-    /*	Between Night And Sky   */
-    background: rgba(255, 255, 255, 0); /* fallback for old browsers */
-    /*background: -webkit-linear-gradient(to right, rgba(52, 152, 219, 0), var(--vtex-blue) );  !* Chrome 10-25, Safari 5.1-6 *!*/
-    /*background: linear-gradient(to right, rgba(52, 152, 219, 0), var(--vtex-blue) ); !* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ *!*/
-
-    /*  background: #f2f2f2;  */
 }
 
+
 .vtex-signup-container {
-    width: 550px;
+    margin: auto;
+    align-self: center;
+
+    width: 650px;
     background: rgba(255, 255, 255, 0);
     border-radius: 10px;
     /*border: 3px groove rgba(30, 121, 190, 0.37);*/
     overflow: hidden;
     padding: 40px 55px 33px 55px;
+    /*margin-bottom: 15px;*/
 
     /*box-shadow: 0 5px 10px 0px rgba(38,38,38,1);*/
     /*  box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);*/
@@ -177,12 +168,12 @@ iframe {
 
 .login100-form-title {
     display: block;
-    /*  font-family: Poppins-Bold;*/
-    font-family: oxygen-l, sans-serif;
+    /*font-family: opensans-l, sans-serif;*/
     font-size: 30px;
     color: white;
     line-height: 1.2;
     text-align: center;
+    font-family: main-l, sans-serif;
 }
 
 .login100-form-title i {
@@ -201,7 +192,7 @@ input:-webkit-autofill:active {
 
 /*------------------------------------------------------------------
  [ Button ]*/
-.container-login100-form-btn {
+.container-login100-form-btn, .verify-btn-container {
     display: -webkit-box;
     display: -webkit-flex;
     display: -moz-box;
@@ -210,6 +201,7 @@ input:-webkit-autofill:active {
     flex-wrap: wrap;
     justify-content: center;
     padding-top: 13px;
+    margin-top: 5px;
 }
 
 .wrap-login100-form-btn {
@@ -222,7 +214,7 @@ input:-webkit-autofill:active {
     margin: 0 auto;
 }
 
-.login100-form-bgbtn {
+/*.login100-form-bgbtn {
     position: absolute;
     z-index: -1;
     width: 300%;
@@ -232,10 +224,10 @@ input:-webkit-autofill:active {
     background: -o-linear-gradient(right, #21d4fd, #b721ff, #21d4fd, #b721ff);
     background: -moz-linear-gradient(right, #21d4fd, #b721ff, #21d4fd, #b721ff);
     background: linear-gradient(right, #21d4fd, #b721ff, #21d4fd, #b721ff);
-    /*	background: -webkit-linear-gradient(to left, #ffd194, #70e1f5, #ffd194, #70e1f5);*/
+    !*	background: -webkit-linear-gradient(to left, #ffd194, #70e1f5, #ffd194, #70e1f5);*!
     background: -webkit-linear-gradient(to left, #fcb63a, #249fd9, #249fd9, #70e1f5);
     background: linear-gradient(to left, #fcb63a, #249fd9, #fcb63a, #249fd9);
-    /*	background: linear-gradient(to left, #ffd194, #70e1f5, #ffd194, #70e1f5);*/
+    !*	background: linear-gradient(to left, #ffd194, #70e1f5, #ffd194, #70e1f5);*!
     top: 0;
     left: -100%;
 
@@ -243,10 +235,10 @@ input:-webkit-autofill:active {
     -o-transition: all 0.4s;
     -moz-transition: all 0.4s;
     transition: all 0.4s;
-}
+}*/
 
 .login100-form-btn {
-    font-family: oxygen, sans-serif;
+    font-family: main, sans-serif;
     font-size: 15px;
     color: #fff;
     line-height: 1.2;
@@ -273,6 +265,114 @@ input:-webkit-autofill:active {
     color: #ffde75;
 }
 
-.valid-feedback{
+.valid-feedback {
     color: #4fff78;
+}
+
+.country-box, .state-box {
+    display: none;
+}
+
+.progress-bar {
+    /*-webkit-transition: none !important;*/
+    /*transition: none !important;*/
+    transition-duration: 1s;
+}
+
+
+.btn-primary,
+.btn-primary:focus {
+    background-color: var(--vspt-blue);
+    border-color: var(--vspt-blue);
+    border-radius: 0;
+    transition: width 2s;
+}
+
+.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show > .btn-primary.dropdown-toggle {
+    color: #fff;
+    background-color: var(--vspt-blue-hover);
+    border-color: var(--vspt-blue-hover);
+}
+
+.btn-primary.disabled, .btn-primary:disabled {
+    color: #fff;
+    background-color: grey;
+    border-color: grey;
+}
+
+.btn-primary:hover:not(:disabled) {
+    color: #fff;
+    background-color: var(--vspt-blue-hover);
+    border-color: var(--vspt-blue-hover);
+}
+
+.btn-primary:hover:disabled {
+    color: #fff;
+    background-color: grey;
+    border-color: grey;
+}
+
+#signupBtn, .progress {
+    border-radius: 0;
+}
+
+#signupBtn {
+    width: 100%;
+    font-family: 'main-l', sans-serif;
+}
+
+.progress-bar {
+    background-color: var(--vspt-blue-hover);
+}
+
+.progress {
+    height: 5px;
+}
+
+.col, .col-auto {
+    padding: 0;
+}
+
+.prev-btn-div {
+    display: none;
+}
+
+.carousel-inner > .item {
+    height: 100%;
+
+}
+
+.carousel-page-title {
+    color: whitesmoke;
+}
+
+.carousel-item {
+    padding: 5px;
+}
+
+/* bootstrap fix button keeps in focus after clicking - at least on chrome vtex-fix*/
+.btn:focus {
+    box-shadow: none;
+}
+
+h5 {
+    font-family: main-l, sans-serif;
+}
+
+#code::placeholder,
+#code {
+    text-align: center;
+}
+
+#code:focus {
+    box-shadow: none;
+    outline: none !important;
+}
+
+hr {
+    background-color: silver;
+}
+
+a.terms {
+    font-size: 15px !important;
 }

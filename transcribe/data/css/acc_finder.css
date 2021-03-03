@@ -2,40 +2,40 @@
 /* --- TABLE STYLING  --*/
 /* ---------------------*/
 
-/* BODY */
-body{
-    font-family: 'oxygen', serif;
-}
+@import "parts/global.css";
 
-.mdc-data-table{
+/* BODY */
+
+.mdc-data-table {
     width: 100%;
     --mdc-theme-primary: #1e79be;
-    --mdc-theme-on-primary: #1e79be ;
+    --mdc-theme-on-primary: #1e79be;
     --mdc-theme-secondary: #1e79be;
     /*--mdc-theme-background:#1e79be;*/
     /*--mdc-theme-surface:#1e79be;*/
-    --mdc-theme-on-secondary:#1e79be;
+    --mdc-theme-on-secondary: #1e79be;
     /*--mdc-theme-on-surface:#1e79be;*/
 }
 
-.mdc-data-table__row--selected{
+.mdc-data-table__row--selected {
     /*background: rgba(30, 121, 190, 0.1);*/
     background: rgba(232, 142, 43, 0.1);
 }
 
-.mdc-data-table__header-row{
+.mdc-data-table__header-row {
     background: rgba(30, 121, 190, 0.9) !important;
 
 }
-.mdc-data-table__header-cell{
+
+.mdc-data-table__header-cell {
     color: white !important;
     font-weight: bold;
     /*font-size: 0.9rem;*/
-    /*font-family: oxygen;*/
+    /*font-family: opensans;*/
     padding-left: 10px !important;
 }
 
-.data-tbl{
+.data-tbl {
     width: 100%;
     padding-right: 2.5%;
     padding-left: 2.5%;
@@ -43,29 +43,30 @@ body{
 
 }
 
-.mdc-data-table__cell, .mdc-data-table__header-cell{
+.mdc-data-table__cell, .mdc-data-table__header-cell {
     height: 32px !important;
 }
 
-.job-comment{
-    color: #1e79be;
+.job-comment {
+    color: var(--vspt-blue);
     font-size: 18px !important;
     vertical-align: text-bottom;
     cursor: pointer;
 }
 
-.mdc-button--colored{
+.mdc-button--colored {
     color: white !important;
 }
 
-.dataTables_info{
+.dataTables_info {
     float: left !important;
 }
+
 #jobs-tbl_wrapper > div:nth-child(1) {
     display: none;
 }
 
-select,.dt-search {
+select, .dt-search {
     width: 100%;
     /*padding: 6px 20px;*/
     /*padding: 3px;*/
@@ -74,8 +75,9 @@ select,.dt-search {
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
-    font-family: oxygen, sans-serif;
+    font-family: main, sans-serif;
 }
-#jobs-tbl > tfoot > tr > th{
+
+#jobs-tbl > tfoot > tr > th {
     padding: 0 10px 0 5px;
 }

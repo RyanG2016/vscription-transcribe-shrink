@@ -1,63 +1,66 @@
-@import "parts/spinner.css";
+@import "parts/modal_popup.css";
+@import "parts/global.css";
 
 /* --------------------------------*/
 /* vScription Transcribe Modal Box */
 /* --------------------------------*/
 
-@import "parts/modal_popup.css";
-@font-face {
-    font-family: oxygen;
-    src: url("../Fonts/Oxygen-Regular.ttf");
-}
+
 /* Modal loading edits */
-#modalLoading .modal-content h2{
+#modalLoading .modal-content h2 {
     text-align: center;
 }
 
-#modalLoading .modal-content{
+#modalLoading .modal-content {
     width: fit-content;
     min-width: 300px;
 }
 
-#loading_confirm{
+#loading_confirm {
     display: none;
 }
 
-body{
-    background: #f4f7f8;
-    font-family: 'oxygen', sans-serif;
+body {
+    /*background: #f4f7f8;*/
+    background: #fff;
+    font-family: main, sans-serif;
     margin-bottom: 0;
 }
-.able-status-bar{
-    font-family: 'oxygen', sans-serif;
+
+.able-status-bar {
+    font-family: main, sans-serif;
 }
 
-.logo{
+.logo {
     width: 50px;
     height: 50px;
 }
 
-.title{
+.title {
     font-size: 1.2rem;
 }
-.title img{
+
+.title img {
     vertical-align: text-bottom;
 }
 
-.jobNo, .title-default-text{
-    color: #1e79be;
+.jobNo, .title-default-text {
+    color: var(--vspt-blue);
 }
-.title-default-text{
+
+.title-default-text {
     display: none;
 }
-.author{
+
+.author {
     color: #53a13d;
 }
-.jobType{
+
+.jobType {
     color: #f5862c;
 }
 
-.overlay{
+.overlay {
     position: fixed; /* Sit on top of the page content */
     width: 100%; /* Full width (cover the whole page) */
     height: 100%; /* Full height (cover the whole page) */
@@ -65,7 +68,7 @@ body{
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+    background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
     text-align: center;
     vertical-align: middle;
     margin: auto;
@@ -74,87 +77,87 @@ body{
     display: block;
 }
 
-.overlay .spinner{
+.overlay .spinner {
     position: absolute;
     top: 50%;
     left: 50%;
     font-size: 50px;
     color: white;
-    transform: translate(-50%,-50%);
-    -ms-transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
 }
 
-.mdc-button{
+.mdc-button {
     height: 27px;
     text-transform: unset !important;
 }
 
-.toolbar{
+.toolbar {
     margin-top: 16px;
 }
 
-.able{
+.able {
     margin-top: 5px !important;
     margin-bottom: 0 !important;
 }
 
-.save-button{
+.save-button {
     --mdc-theme-primary: #53a13d;
 }
 
-.suspend-button{
+.suspend-button {
     --mdc-theme-primary: #f5862c;
 }
 
-.discard-button{
+.discard-button {
     --mdc-theme-primary: #E53935;
 }
 
-.load-button{
+.load-button {
     --mdc-theme-primary: #1e79be;
 }
 
-.switch-back-button{
+.switch-back-button {
     --mdc-theme-primary: #53a13d;
 }
 
-.confirm-button{
+.confirm-button {
     --mdc-theme-primary: #66BB6A;
 }
 
-u{
+u {
     cursor: pointer;
 }
 
-#audio-td{
+#audio-td {
     margin-right: 0;
 }
 
-#updated_version_bar{
-    display:none;
+#updated_version_bar {
+    display: none;
     padding: 5px;
     width: 100%;
     background: #f5862c;
     text-align: center;
     vertical-align: center;
-    font-family: "oxygen", sans-serif;
+    font-family: "OpenSans", sans-serif;
     color: white;
 }
 
-#updated_version_bar a{
+#updated_version_bar a {
     color: white;
 }
 
-.controller-status-holder{
+.controller-status-holder {
     width: 100%;
     text-align: right;
     font-size: 0.9rem;
 }
 
-.able-button-handler-preferences{
+.able-button-handler-preferences {
     display: none !important;
 }
 
-.able-tooltip{
-    font-family: 'oxygen', sans-serif;
+.able-tooltip {
+    font-family: main, sans-serif;
 }

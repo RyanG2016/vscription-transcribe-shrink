@@ -21,22 +21,22 @@ if (isset($_SESSION['loggedIn'])) {
             //User is a Transcriptionist
             redirect("transcribe.php");
         } else {
-            redirect("landing.php");
+            redirect("settings.php");
         }
 
     } else {
-        redirect("landing.php");
+        redirect("settings.php");
     }
 
 }
 
 isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
-
+$hasRef = isset($_GET['ref']) && !empty($_GET['ref']);
 ?>
 
 
 <!DOCTYPE html>
-<html <?php echo $chtml ?>>
+<html lang="en">
 
 <head>
 
@@ -52,22 +52,20 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
     </noscript>
 
     <script type="text/javascript">
-        var ref = <?php echo ( isset($_GET['ref']) && !empty($_GET['ref']) )? "'".$_GET['ref']."'" :0 ?>;
+        let ref = <?php echo $hasRef ? "'" . $_GET['ref'] . "'" : 0 ?>;
     </script>
-
-<!--    <link rel="stylesheet" type="text/css" href="data/login/vendor/bootstrap/css/bootstrap.min.css">-->
 
     <script src="data/login/vendor/jquery/jquery-3.2.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
             integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
             crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+            integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+            crossorigin="anonymous"></script>
 
     <link rel="stylesheet" type="text/css" href="data/login/vendor/animate/animate.css">
-
-    <!--  todo delete select 2  folder -->
-<!--    <link rel="stylesheet" type="text/css" href="data/login/vendor/select2/select2.min.css">-->
 
     <link rel="stylesheet" type="text/css" href="data/login/css/util.css?v=<?php echo $version_control ?>">
     <link rel="stylesheet" type="text/css" href="data/css/signup.css?v=<?php echo $version_control ?>">
@@ -89,156 +87,303 @@ isset($_SESSION['uEmail']) ? $uEmail = $_SESSION['uEmail'] : $uEmail = "";
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"
             integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg=="
             crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="data/css/custom-bootstrap-select.css" />
+    <link rel="stylesheet" href="data/css/custom-bootstrap-select.css"/>
 
-    <script src="https://kit.fontawesome.com/00895b9561.js" crossorigin="anonymous"></script>
-
-<!--    <link rel="stylesheet" href="data/css/parts/bootstrap-override.css" />-->
+    <script src="https://kit.fontawesome.com/12f6b99df9.js" crossorigin="anonymous"></script>
 
     <script src="data/scripts/signup.min.js"></script>
 
 </head>
 
 <body>
-<!--Header include -->
-<div class="vtex-signup-wrap">
-    <div class="vtex-signup-container">
-        <form class="vtex-signup-form needs-validation" id="signupForm" autocomplete="off" novalidate>
-        <span class="login100-form-title p-b-20">
-            <img src="data/images/Logo_vScription_Transcribe_Pro_Stacked_White.png" style="height: 110px"/>
-        </span>
 
-            <span id="title" class="login100-form-title p-b-26">
+
+<div class="vtex-signup-container">
+    <form class="vtex-signup-form needs-validation" id="signupForm" autocomplete="off" novalidate>
+
+        <span class="login100-form-title p-b-20">
+            <img src="data/images/Logo_vScription_Transcribe_Stacked.png" style="height: 110px"
+                 alt="vScription"/>
+        </span>
+        <span id="title" class="login100-form-title p-b-26">
             Signup
         </span>
 
-            <!----------------------NAME----------------->
+        <div id="signupCarousel" class="carousel slide" data-interval="false">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
 
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="inputfName">First Name</label>
-                    <input type="text" class="form-control" id="inputfName" placeholder="" name="fname" required autofocus>
-                    <div class="valid-feedback">
-                        Looks good!
+                    <!--<div class="row justify-content-center carousel-page-title">
+                        <span class="align-text-bottom"> <i class="fas fa-info-circle fa-lg"></i> </span>
+                        <h5 class="fs-22 align-top">&nbsp;Basic</h5>
+                    </div>-->
+
+                    <!----------------------Row 1----------------->
+
+                    <div class="form-row">
+                        <!----------------------EMAIL----------------->
+                        <div class="col-12">
+                            <label for="inputEmail"><i class="fas fa-envelope"></i> Email</label>
+                            <input type="email" class="form-control" id="inputEmail" placeholder="Email" name="email"
+                                   value="<?php echo isset($_GET['email'])?$_GET['email']:'' ?>"
+                                   required autofocus>
+                            <!--                                <div class="valid-feedback">-->
+                            <!--                                    Looks good!-->
+                            <!--                                </div>-->
+                            <div class="invalid-feedback">
+                                Please enter a valid email
+                            </div>
+                        </div>
                     </div>
-                    <div class="invalid-feedback">
-                        Please enter your name.
+
+
+                    <div class="form-row m-t-16">
+
+                        <div class="col">
+                            <!----------------------PASSWORD-------------->
+                            <label for="inputPassword"><i class="fas fa-key"></i> Password</label>
+                            <input type="password" class="form-control" id="inputPassword" placeholder="Password"
+                                   name="password"
+                                   title="Password Requirements"
+                                   data-trigger="focus"
+                                   required>
+                            <!--<div class="valid-feedback">
+                                Looks good!
+                            </div>-->
+                            <div class="invalid-feedback">
+                                Please enter a valid password
+                            </div>
+                        </div>
+                        <div class="col">
+                            <!----------------------Confirm Password-------------->
+                            <label for="inputConfirmPassword"><i class="fas fa-key"></i> Confirm Password</label>
+                            <input type="password" class="form-control" id="inputConfirmPassword"
+                                   placeholder="Confirm Password"
+                                   title="Confirm Password"
+                                   data-trigger="focus"
+                                   required>
+                            <!--<div class="valid-feedback">
+                                Looks good!
+                            </div>-->
+                            <div class="invalid-feedback">
+                                Passwords doesn't match.
+                            </div>
+                        </div>
+
                     </div>
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="inputlName">Last Name</label>
-                    <input type="text" class="form-control" id="inputlName" placeholder="" name="lname" required>
-                    <div class="valid-feedback">
-                        Looks good!
+
+
+                    <!----------------------Organization----------------->
+
+                    <div class="form-row m-t-16">
+                        <div class="col-12">
+                            <label for="inputAccName"><i class="fas fa-sitemap"></i> Organization Name</label>
+
+                            <?php
+                            if($hasRef)
+                            {
+                                ?>
+                                <input type="text" class="form-control" id="inputAccName" placeholder="" value="<?php echo isset($_GET['org'])?$_GET['org']:'invitation' ?>"
+                                       disabled>
+                                <?php
+                            }
+
+                            else{
+                            ?>
+
+                                <input type="text" class="form-control" id="inputAccName" placeholder="" name="accname"
+                                       required>
+
+                           <?php
+                           }
+                            ?>
+                        </div>
+
+                        <!----------------------Line Break----------------->
+                        <div class="w-100 m-t-2"></div>
+
                     </div>
+
+                    <!----------------------NAME----------------->
+                    <div class="form-row m-t-16">
+                        <div class="col">
+                            <label for="inputfName"><i class="fas fa-font"></i> First Name</label>
+                            <input type="text" class="form-control" id="inputfName" placeholder="" name="fname"
+                                   required autofocus>
+                            <!--<div class="valid-feedback">
+                                Looks good!
+                            </div>-->
+                            <div class="invalid-feedback">
+                                Please enter your name.
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label for="inputlName"><i class="fas fa-bold"></i> Last Name</label>
+                            <input type="text" class="form-control" id="inputlName" placeholder="" name="lname"
+                                   required>
+                            <!--<div class="valid-feedback">
+                                Looks good!
+                            </div>-->
+                        </div>
+                    </div>
+
+                    <div class="form-row m-t-16">
+
+                        <div class="col">
+                            <label for="countryBox"><i class="fas fa-globe-americas"></i> Country</label>
+                            <div class="spinner" id="countrySpin">
+                                <div class="bounce1"></div>
+                                <div class="bounce2"></div>
+                                <div class="bounce3"></div>
+                            </div>
+                            <select class="form-control show-tick country-box" id="countryBox" data-container="body"
+                                    data-dropup-auto="false" name="country">
+                                <option selected>Loading...</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+
+                </div>
+                <div class="carousel-item">
+
+                    <!--<div class="row justify-content-center carousel-page-title mb-3">
+                        <span class="align-text-bottom"> <i class="fas fa-user-check fa-lg"></i> </span>
+                        <h5 class="fs-22 align-top">&nbsp;Verification</h5>
+                    </div>-->
+
+                    <!-------------Verification Page----------------->
+
+                    <div class="form-row">
+                        <div class="form-group col justify-content-center text-center">
+                            <label for="code" class="justify-content-center text-center">
+                                Enter the verification code sent to your email
+                            </label>
+                            <input type="text" class="form-control text-lg-center fs-25 col-sm-5 ml-auto mr-auto"
+                                   id="code" maxlength="6" placeholder="Code">
+                            <!--<div class="valid-feedback">
+                                Looks good!
+                            </div>-->
+                            <div class="invalid-feedback">
+                                Please check your entry
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="verify-btn-container">
+                         <div class=" row w-100">
+                             <div class="col">
+                                 <button type="button" class="btn btn-primary btn-lg w-100" id="verifyBtn">Verify</button>
+                             </div>
+                         </div>
+                     </div>
+-->
+
+                </div>
+
+                <div class="carousel-item">
+
+                    <div class="row justify-content-center carousel-page-title mb-3">
+                        <span class="align-text-bottom"> <i class="fas fa-sign-in-alt fa-lg"></i> </span>
+                        <h5 class="fs-22 align-top">&nbsp;Logging in</h5>
+                    </div>
+
+                    <!-------------ACCOUNT-NAME----------------->
+
+                    <h6 class="text-white text-center">Setting up your account, please wait..<br>
+                        <!--<h6 class="text-sm-center font-italic font-weight-light text-muted">
+                            <small>You can verify later by visiting the link sent to your email</small>
+                        </h6>-->
+                    </h6>
+
+                    <!-- <div class="verify-btn-container">
+                         <div class=" row w-100">
+                             <div class="col">
+                                 <button type="button" class="btn btn-primary btn-lg w-100" id="verifyBtn">Verify</button>
+                             </div>
+                         </div>
+                     </div>
+-->
+
+                </div>
+
+
+            </div>
+        </div>
+
+        <!--            <hr/>-->
+        <div class="checkbox justify-content-center m-t-10" id="tosDiv">
+            <div class="form-inline justify-content-center">
+                <label>
+                    <input type="checkbox" id="tos"/>
+                    <small class="text-sm-right font-italic fs-17"> &nbsp; I have read and agreed to the <span><a
+                                    class="fs-17" href="./terms.php" target="_blank">Terms and Conditions</a> </span></small>
+                </label>
+
+            </div>
+        </div>
+
+
+        <!----------------------Signup---------------->
+        <div class="container-login100-form-btn pt-0">
+            <div class="row w-100 justify-content-center">
+                <!--<div class="col-auto arrows prev-btn-div">
+                    <button type="button" class="btn btn-primary btn-lg" id="prevBtn" ><</button>
+                </div>-->
+                <div class="col-8">
+                    <button type="button" class="btn btn-primary btn-lg" id="signupBtn" disabled>Signup</button>
+                </div>
+                <!--<div class="col-auto arrows next-btn-div">
+                    <button type="button" class="btn btn-primary btn-lg w-auto" id="nextBtn" >></button>
+                </div>-->
+            </div>
+        </div>
+
+        <div class="row w-100 m-0 justify-content-center">
+
+            <div class="col-8">
+                <div class="progress" id="formProgressDiv">
+                    <div class="progress-bar" id="formProgressBar"
+                         role="progressbar" style="width: 0;" aria-valuenow="0" aria-valuemin="0"
+                         aria-valuemax="100"></div>
                 </div>
             </div>
 
-            <!----------------------EMAIL----------------->
-            <div class="form-group">
-                <label for="inputEmail">Email</label>
-                <input type="email" class="form-control" id="inputEmail" placeholder="Email" name="email"
-                       required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-                <div class="invalid-feedback">
-                    Please enter your email.
+            <div class="w-100"></div>
+
+            <div class="col-8">
+                <div class="progress" id="loginProgressDiv" style="display: none">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated"
+                         id="loginProgressBar"
+                         role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
+                         style="width: 100%"></div>
                 </div>
             </div>
 
-            <!----------------------PASSWORD-------------->
-            <div class="form-group">
-                <label for="inputPassword">Password</label>
-                <input type="password" class="form-control" id="inputPassword" placeholder="Password" name="password"
-                       title="Password Requirements"
-                       data-trigger="focus"
-                       required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-                <div class="invalid-feedback">
-                    Please check your password.
-                </div>
-            </div>
+        </div>
 
-            <!----------------------Confirm Password-------------->
-            <div class="form-group">
-                <label for="inputConfirmPassword">Confirm Password</label>
-                <input type="password" class="form-control" id="inputConfirmPassword" placeholder="Confirm Password"
-                       title="Confirm Password"
-                       data-trigger="focus"
-                       required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-                <div class="invalid-feedback">
-                    Passwords doesn't match.
-                </div>
-            </div>
+    </form>
 
-            <!----------------------Country--------------->
-            <div class="form-group">
-                <label for="countryBox">Country</label>
-                <select class="form-control show-tick" id="countryBox" data-container="body" data-dropup-auto="false" name="countryID">
-                    <option selected>Loading...</option>
-                </select>
-            </div>
 
-            <!----------------------State----------------->
-
-            <div class="form-group" id="stateGroup">
-                <label for="countryBox">Province/State</label>
-                <select class="form-control show-tick" id="stateBox" data-container="body" data-dropup-auto="false" name="stateID">
-                    <option selected>Loading...</option>
-                </select>
-            </div>
-
-            <!----------------------CITY----------------->
-            <div class="form-group">
-                <label for="inputCity">City</label>
-                <input type="text" class="form-control" id="inputCity" placeholder="" name="city">
-                <small id="cityHelpInline" class="text-muted">
-                    (optional)
-                </small>
-            </div>
-
-            <!----------------------Signup---------------->
-            <div class="container-login100-form-btn">
-                <div class="wrap-login100-form-btn">
-                    <div class="login100-form-bgbtn"></div>
-                    <button class="login100-form-btn" id="signupBtn">
-                        Signup
-                    </button>
-                </div>
-            </div>
-
-            <div class="text-center p-t-15" id="info" hidden>
-						<span class="txt1" id="btmtxt1">
-							Don’t have an account?
-						</span>
-
-                <a class="txt2" href="#" id="btmtxt2" hidden>
-                    Sign Up
+    <div class="row p-t-20 m-0 " style="width: 100%">
+        <div class="col">
+            <div class="text-left">
+                <a class="txt2" href="./index.php" id="loginHyperLink">
+                    Back to Login
                 </a>
             </div>
-        </form>
-        <div class="text-right p-t-10" id="policy">
-            <a class="txt2" href="./policy.php" id="btmtxt2" target="_blank">
-                Privacy Policy
-            </a>
+        </div>
+        <div class="col">
+            <div class="text-right">
+                <a class="txt2" href="./policy.php" target="_blank">
+                    Privacy Policy
+                </a>
+            </div>
         </div>
     </div>
 </div>
 
-<div class="overlay" id="overlay">
-    <div class="loading-overlay-text" id="loadingText">Please wait..</div>
-    <div class="spinner">
-        <div class="bounce1"></div>
-        <div class="bounce2"></div>
-        <div class="bounce3"></div>
-    </div>
-</div>
 </body>
 <noscript>
     For full functionality of this site, it is necessary to enable JavaScript.

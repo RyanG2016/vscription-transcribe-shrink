@@ -3,13 +3,18 @@
 namespace Src\TableGateways;
 
 use PDOException;
+use Src\Helpers\common;
+use Src\Models\Account;
+use Src\Models\BaseModel;
+use Src\Models\SR;
 use Src\TableGateways\logger;
 use Src\TableGateways\accessGateway;
 use Src\TableGateways\UserGateway;
+use Src\Constants\Constants;
 
 require "accountsFilter.php";
 
-class AccountGateway
+class AccountGateway implements GatewayInterface
 {
 
     private $db;
@@ -17,6 +22,8 @@ class AccountGateway
     private $API_NAME;
     private $accessGateway;
     private $userGateway;
+    private $common;
+    private $limit = 10;
 
     public function __construct($db)
     {
@@ -24,6 +31,7 @@ class AccountGateway
         $this->logger = new logger($db);
         $this->accessGateway = new accessGateway($db);
         $this->userGateway = new UserGateway($db);
+        $this->common = new common();
         $this->API_NAME = "Accounts";
     }
 
@@ -52,37 +60,40 @@ class AccountGateway
                 acc_creation_date,
                 bill_rate1,
                 bill_rate1_type,
-                bill_rate1_TAT,
+                bill_rate1_tat,
                 bill_rate1_desc,
                 bill_rate1_min_pay,
                 bill_rate2,
                 bill_rate2_type,
-                bill_rate2_TAT,
+                bill_rate2_tat,
                 bill_rate2_desc,
                 bill_rate2_min_pay,
                 bill_rate3,
                 bill_rate3_type,
-                bill_rate3_TAT,
+                bill_rate3_tat,
                 bill_rate3_desc,
                 bill_rate3_min_pay,
                 bill_rate4,
                 bill_rate4_type,
-                bill_rate4_TAT,
+                bill_rate4_tat,
                 bill_rate4_desc,
                 bill_rate4_min_pay,
                 bill_rate5,
                 bill_rate5_type,
-                bill_rate5_TAT,
+                bill_rate5_tat,
                 bill_rate5_desc,
                 bill_rate5_min_pay,
                 lifetime_minutes,
                 work_types,
                 next_job_tally,
                 act_log_retention_time,
-                job_prefix
+                job_prefix,
+                sr.sr_minutes_remaining
             FROM
                 accounts
-        " . $filter . ";";
+            LEFT JOIN speech_recognition sr on accounts.acc_id = sr.account_id                    
+        " . $filter . "
+        ;";
         }
 
 
@@ -120,38 +131,40 @@ class AccountGateway
                 acc_creation_date,
                 bill_rate1,
                 bill_rate1_type,
-                bill_rate1_TAT,
+                bill_rate1_tat,
                 bill_rate1_desc,
                 bill_rate1_min_pay,
                 bill_rate2,
                 bill_rate2_type,
-                bill_rate2_TAT,
+                bill_rate2_tat,
                 bill_rate2_desc,
                 bill_rate2_min_pay,
                 bill_rate3,
                 bill_rate3_type,
-                bill_rate3_TAT,
+                bill_rate3_tat,
                 bill_rate3_desc,
                 bill_rate3_min_pay,
                 bill_rate4,
                 bill_rate4_type,
-                bill_rate4_TAT,
+                bill_rate4_tat,
                 bill_rate4_desc,
                 bill_rate4_min_pay,
                 bill_rate5,
                 bill_rate5_type,
-                bill_rate5_TAT,
+                bill_rate5_tat,
                 bill_rate5_desc,
                 bill_rate5_min_pay,
                 lifetime_minutes,
                 work_types,
                 next_job_tally,
                 act_log_retention_time,
-                job_prefix
+                job_prefix,
+                sr_minutes_remaining
             FROM
                 accounts
-            WHERE acc_id = ?;
-        ";
+            LEFT JOIN speech_recognition sr on accounts.acc_id = sr.account_id
+            WHERE acc_id = ?
+        ;";
 
         try {
             $statement = $this->db->prepare($statement);
@@ -221,7 +234,7 @@ class AccountGateway
                 $lastPrefix = $result["job_prefix"];
                 $regex = "/(.{2})(.*)-/";
                 preg_match($regex, $lastPrefix, $matchGroups);
-                $nextNum = $matchGroups[2] + 1;
+                $nextNum = (int)$matchGroups[2] + 1;
                 return $matchGroups[1] . ($nextNum) . "-";
             }
 
@@ -273,19 +286,19 @@ class AccountGateway
             $fields .= "`$key`";
             switch ($key){
                 case "bill_rate1":
-                case "bill_rate1_TAT":
+                case "bill_rate1_tat":
                 case "bill_rate1_min_pay":
                 case "bill_rate2":
-                case "bill_rate2_TAT":
+                case "bill_rate2_tat":
                 case "bill_rate2_min_pay":
                 case "bill_rate3":
-                case "bill_rate3_TAT":
+                case "bill_rate3_tat":
                 case "bill_rate3_min_pay":
                 case "bill_rate4":
-                case "bill_rate4_TAT":
+                case "bill_rate4_tat":
                 case "bill_rate4_min_pay":
                 case "bill_rate5":
-                case "bill_rate5_TAT":
+                case "bill_rate5_tat":
                 case "bill_rate5_min_pay":
             }{
                 if($value == ""){
@@ -323,7 +336,15 @@ class AccountGateway
             $statement->execute($valsArray);
 
             if ($statement->rowCount() > 0) {
+                $accountID = $this->db->lastInsertId();
                 $this->logger->insertAuditLogEntry($this->API_NAME, "Account Created: " . $_POST["acc_name"]);
+
+
+                $sr = SR::withAccID($accountID, $this->db);
+                $sr->addToMinutesRemaining(Constants::COMPLEMENTARY_NEW_ACCOUNT_FREE_STT_MINUTES);
+                $sr->save();
+                $this->logger->insertAuditLogEntry($this->API_NAME, "Added complementary " . Constants::COMPLEMENTARY_NEW_ACCOUNT_FREE_STT_MINUTES . " minutes to new account: " . $accountID);
+
                 return $this->oKResponse($this->db->lastInsertId(), "Account Created");
             } else {
                 return $this->errorOccurredResponse("Couldn't Create Account");
@@ -361,27 +382,27 @@ class AccountGateway
                              acc_retention_time,
                              bill_rate1,
                              bill_rate1_type,
-                             bill_rate1_TAT,
+                             bill_rate1_tat,
                              bill_rate1_min_pay,
                              bill_rate1_desc,
                              bill_rate2,
                              bill_rate2_type,
-                             bill_rate2_TAT,
+                             bill_rate2_tat,
                              bill_rate2_min_pay,
                              bill_rate2_desc,
                              bill_rate3,
                              bill_rate3_type,
-                             bill_rate3_TAT, 
+                             bill_rate3_tat, 
                              bill_rate3_min_pay,
                              bill_rate3_desc, 
                              bill_rate4, 
                              bill_rate4_type,
-                             bill_rate4_TAT,
+                             bill_rate4_tat,
                              bill_rate4_min_pay,
                              bill_rate4_desc, 
                              bill_rate5, 
                              bill_rate5_type, 
-                             bill_rate5_TAT,
+                             bill_rate5_tat,
                              bill_rate5_min_pay, 
                              bill_rate5_desc, 
                              act_log_retention_time,
@@ -427,9 +448,26 @@ class AccountGateway
                 $accountID = $this->db->lastInsertId();
                 $this->logger->insertAuditLogEntry($this->API_NAME, "Account Created: " . $accName);
 
+                // add Complementary 30 minutes STT
+                $sr = SR::withAccID($accountID, $this->db);
+                $sr->addToMinutesRemaining(Constants::COMPLEMENTARY_NEW_ACCOUNT_FREE_STT_MINUTES);
+                $sr->save();
+                $this->logger->insertAuditLogEntry($this->API_NAME, "Added complementary " . Constants::COMPLEMENTARY_NEW_ACCOUNT_FREE_STT_MINUTES . " minutes to new account: " . $accountID);
+
                 // update account field in user entry and give client admin permission
                 if($this->userGateway->internalUpdateUserClientAdminAccount($accountID, $accName)){
                     if($this->accessGateway->giveClientAdminPermission($accountID)){
+
+                        // set session variables
+                        $account = Account::withID($accountID, $this->db);
+                        $_SESSION["userData"]["admin_acc_name"] = $account->getAccName();
+                        $_SESSION["userData"]["account"] = $accountID;
+                        $_SESSION["userData"]["adminart"] = $account->getAccRetentionTime();
+                        $_SESSION["userData"]["adminalrt"] = $account->getActLogRetentionTime();
+
+                        $_SESSION["adminAccountName"] = $account->getAccName();
+                        $_SESSION["adminAccLogRetTime"] = $account->getActLogRetentionTime();
+                        $_SESSION["adminAccRetTime"] = $account->getAccRetentionTime();
                         return $this->oKResponse($accountID, "Account Created");
                     }
                 }
@@ -448,6 +486,10 @@ class AccountGateway
     public function updateAccount($id)
     {
         parse_str(file_get_contents('php://input'), $put);
+        if(isset($put["update-sr-min"]))
+        {
+            return $this->addSRminutesToAcc($id, $put["min"]);
+        }
 
         if (
             !isset($put["enabled"]) ||
@@ -516,6 +558,91 @@ class AccountGateway
 //            die($e->getMessage());
             return false;
         }
+    }
+
+
+    // updates user accounts (logged in or owned) from settings page
+    public function postUpdateAccount($acc_id, $self = false)
+    {
+        // validation
+        foreach ($_POST as $keyPost => $valuePost) {
+            switch ($keyPost)
+            {
+                case 'organization_name':
+                    if(!preg_match("/^[a-z][a-z0-9_ ]{2,255}$/i", $valuePost))
+                    {
+                        return $this->errorOccurredResponse("Invalid Input (VSPT-OR101)");
+                    }
+                    break;
+
+                case 'act_log_ret_time':
+                case 'retention_time':
+                    if(!(is_numeric($valuePost) && $valuePost <= 180 && $valuePost > 0))
+                    {
+                        return $this->errorOccurredResponse("Invalid Input (VSPT-R100)");
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        // valid data proceed with account update
+        $account = Account::withID($acc_id, $this->db);
+        $account->setAccName($_POST["organization_name"]);
+        $account->setAccRetentionTime($_POST["retention_time"]);
+        $account->setActLogRetentionTime($_POST["act_log_ret_time"]);
+
+        if ($account->save() > 0) {
+            if($self)
+            {
+                $_SESSION["userData"]["admin_acc_name"] = $account->getAccName();
+                $_SESSION["userData"]["adminart"] = $account->getAccRetentionTime();
+                $_SESSION["userData"]["adminalrt"] = $account->getActLogRetentionTime();
+                $_SESSION["userData"]["account"] = $acc_id;
+                $_SESSION["adminAccountName"] = $account->getAccName();
+                $_SESSION["adminAccLogRetTime"] = $account->getActLogRetentionTime();
+                $_SESSION["adminAccRetTime"] = $account->getAccRetentionTime();
+            }else{
+                $_SESSION["acc_name"] = $account->getAccName();
+                $_SESSION["acc_retention_time"] = $account->getAccRetentionTime();
+                $_SESSION["act_log_retention_time"] = $account->getActLogRetentionTime();
+            }
+
+            $this->logger->insertAuditLogEntry($this->API_NAME, "Organization Updated from settings page: " . $acc_id);
+            return $this->oKResponse($acc_id, "Organization Updated");
+        } else {
+            return $this->errorOccurredResponse("Couldn't update Organization or no changes were found to update");
+        }
+
+
+    }
+
+    public function addSRminutesToAcc($id, $minutes)
+    {
+        // update DB //
+        $sr = SR::withAccID($id, $this->db);
+        $sr->addToMinutesRemaining(floatval($minutes));
+        $sr->save();
+        $this->logger->insertAuditLogEntry($this->API_NAME, "Manually added STT mins to account: " . $id . " | minutes: " . $minutes);
+        return $this->oKResponse($id, "Minutes Updated");
+
+        /*try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute($valsArray);
+
+            if ($statement->rowCount() > 0) {
+                $this->logger->insertAuditLogEntry($this->API_NAME, "Account Updated: " . $id);
+                return $this->oKResponse($id, "Account Updated");
+            } else {
+                return $this->errorOccurredResponse("Couldn't update account or no changes were found to update");
+            }
+
+        } catch (PDOException $e) {
+//            die($e->getMessage());
+            return false;
+        }*/
     }
 
     public function oKResponse($id, $msg2 = "")
@@ -623,5 +750,270 @@ class AccountGateway
 //            exit($e->getMessage());
         }
         return $defaultTypes;
+    }
+
+    public function insertModel(BaseModel|Account $model): int
+    {
+        $statement = "
+            INSERT INTO accounts 
+                (enabled, billable, acc_name, acc_retention_time, acc_creation_date, bill_rate1, bill_rate1_type, bill_rate1_tat, bill_rate1_desc, bill_rate1_min_pay, bill_rate2, bill_rate2_type, bill_rate2_tat, bill_rate2_desc, bill_rate2_min_pay, bill_rate3, bill_rate3_type, bill_rate3_tat, bill_rate3_desc, bill_rate3_min_pay, bill_rate4, bill_rate4_type, bill_rate4_tat, bill_rate4_desc, bill_rate4_min_pay, bill_rate5, bill_rate5_type, bill_rate5_tat, bill_rate5_desc, bill_rate5_min_pay, lifetime_minutes, work_types, next_job_tally, act_log_retention_time, job_prefix, sr_enabled)
+            VALUES
+                (:enabled, :billable, :acc_name, :acc_retention_time, :acc_creation_date, :bill_rate1, :bill_rate1_type, :bill_rate1_tat, :bill_rate1_desc, :bill_rate1_min_pay, :bill_rate2, :bill_rate2_type, :bill_rate2_tat, :bill_rate2_desc, :bill_rate2_min_pay, :bill_rate3, :bill_rate3_type, :bill_rate3_tat, :bill_rate3_desc, :bill_rate3_min_pay, :bill_rate4, :bill_rate4_type, :bill_rate4_tat, :bill_rate4_desc, :bill_rate4_min_pay, :bill_rate5, :bill_rate5_type, :bill_rate5_tat, :bill_rate5_desc, :bill_rate5_min_pay, :lifetime_minutes, :work_types, :next_job_tally, :act_log_retention_time, :job_prefix, :sr_enabled)
+        ;";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array(
+                'enabled' => $model->getEnabled(),
+                'billable' => $model->getBillable(),
+                'acc_name' => $model->getAccName(),
+                'acc_retention_time' => $model->getAccRetentionTime(),
+                'acc_creation_date' => $model->getAccCreationDate(),
+                'bill_rate1' => $model->getBillRate1(),
+                'bill_rate1_type' => $model->getBillRate1Type(),
+                'bill_rate1_tat' => $model->getBillRate1Tat(),
+                'bill_rate1_desc' => $model->getBillRate1Desc(),
+                'bill_rate1_min_pay' => $model->getBillRate1MinPay(),
+                'bill_rate2' => $model->getBillRate2(),
+                'bill_rate2_type' => $model->getBillRate2Type(),
+                'bill_rate2_tat' => $model->getBillRate2Tat(),
+                'bill_rate2_desc' => $model->getBillRate2Desc(),
+                'bill_rate2_min_pay' => $model->getBillRate2MinPay(),
+                'bill_rate3' => $model->getBillRate3(),
+                'bill_rate3_type' => $model->getBillRate3Type(),
+                'bill_rate3_tat' => $model->getBillRate3Tat(),
+                'bill_rate3_desc' => $model->getBillRate3Desc(),
+                'bill_rate3_min_pay' => $model->getBillRate3MinPay(),
+                'bill_rate4' => $model->getBillRate4(),
+                'bill_rate4_type' => $model->getBillRate4Type(),
+                'bill_rate4_tat' => $model->getBillRate4Tat(),
+                'bill_rate4_desc' => $model->getBillRate4Desc(),
+                'bill_rate4_min_pay' => $model->getBillRate4MinPay(),
+                'bill_rate5' => $model->getBillRate5(),
+                'bill_rate5_type' => $model->getBillRate5Type(),
+                'bill_rate5_tat' => $model->getBillRate5Tat(),
+                'bill_rate5_desc' => $model->getBillRate5Desc(),
+                'bill_rate5_min_pay' => $model->getBillRate5MinPay(),
+                'lifetime_minutes' => $model->getLifetimeMinutes(),
+                'work_types' => $model->getWorkTypes(),
+                'next_job_tally' => $model->getNextJobTally(),
+                'act_log_retention_time' => $model->getActLogRetentionTime(),
+                'job_prefix' => $model->getJobPrefix(),
+                'sr_enabled' => $model->getSrEnabled()
+
+            ));
+            if($statement->rowCount())
+            {
+                return $this->db->lastInsertId();
+            }else{
+                return 0;
+            }
+        } catch (\PDOException) {
+            return 0;
+        }
+    }
+
+    public function updateModel(BaseModel|Account $model): int
+    {
+        $statement = "
+            UPDATE accounts
+            SET
+                enabled = :enabled,
+                billable = :billable,
+                acc_name = :acc_name,
+                acc_retention_time = :acc_retention_time,
+                acc_creation_date = :acc_creation_date,
+                bill_rate1 = :bill_rate1,
+                bill_rate1_type = :bill_rate1_type,
+                bill_rate1_tat = :bill_rate1_tat,
+                bill_rate1_desc = :bill_rate1_desc,
+                bill_rate1_min_pay = :bill_rate1_min_pay,
+                bill_rate2 = :bill_rate2,
+                bill_rate2_type = :bill_rate2_type,
+                bill_rate2_tat = :bill_rate2_tat,
+                bill_rate2_desc = :bill_rate2_desc,
+                bill_rate2_min_pay = :bill_rate2_min_pay,
+                bill_rate3 = :bill_rate3,
+                bill_rate3_type = :bill_rate3_type,
+                bill_rate3_tat = :bill_rate3_tat,
+                bill_rate3_desc = :bill_rate3_desc,
+                bill_rate3_min_pay = :bill_rate3_min_pay,
+                bill_rate4 = :bill_rate4,
+                bill_rate4_type = :bill_rate4_type,
+                bill_rate4_tat = :bill_rate4_tat,
+                bill_rate4_desc = :bill_rate4_desc,
+                bill_rate4_min_pay = :bill_rate4_min_pay,
+                bill_rate5 = :bill_rate5,
+                bill_rate5_type = :bill_rate5_type,
+                bill_rate5_tat = :bill_rate5_tat,
+                bill_rate5_desc = :bill_rate5_desc,
+                bill_rate5_min_pay = :bill_rate5_min_pay,
+                lifetime_minutes = :lifetime_minutes,
+                work_types = :work_types,
+                next_job_tally = :next_job_tally,
+                act_log_retention_time = :act_log_retention_time,
+                job_prefix = :job_prefix,
+                sr_enabled = :sr_enabled
+            WHERE
+                acc_id = :acc_id;
+        ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array(
+                'acc_id' => $model->getAccId(),
+                'enabled' => $model->getEnabled(),
+                'billable' => $model->getBillable(),
+                'acc_name' => $model->getAccName(),
+                'acc_retention_time' => $model->getAccRetentionTime(),
+                'acc_creation_date' => $model->getAccCreationDate(),
+                'bill_rate1' => $model->getBillRate1(),
+                'bill_rate1_type' => $model->getBillRate1Type(),
+                'bill_rate1_tat' => $model->getBillRate1Tat(),
+                'bill_rate1_desc' => $model->getBillRate1Desc(),
+                'bill_rate1_min_pay' => $model->getBillRate1MinPay(),
+                'bill_rate2' => $model->getBillRate2(),
+                'bill_rate2_type' => $model->getBillRate2Type(),
+                'bill_rate2_tat' => $model->getBillRate2Tat(),
+                'bill_rate2_desc' => $model->getBillRate2Desc(),
+                'bill_rate2_min_pay' => $model->getBillRate2MinPay(),
+                'bill_rate3' => $model->getBillRate3(),
+                'bill_rate3_type' => $model->getBillRate3Type(),
+                'bill_rate3_tat' => $model->getBillRate3Tat(),
+                'bill_rate3_desc' => $model->getBillRate3Desc(),
+                'bill_rate3_min_pay' => $model->getBillRate3MinPay(),
+                'bill_rate4' => $model->getBillRate4(),
+                'bill_rate4_type' => $model->getBillRate4Type(),
+                'bill_rate4_tat' => $model->getBillRate4Tat(),
+                'bill_rate4_desc' => $model->getBillRate4Desc(),
+                'bill_rate4_min_pay' => $model->getBillRate4MinPay(),
+                'bill_rate5' => $model->getBillRate5(),
+                'bill_rate5_type' => $model->getBillRate5Type(),
+                'bill_rate5_tat' => $model->getBillRate5Tat(),
+                'bill_rate5_desc' => $model->getBillRate5Desc(),
+                'bill_rate5_min_pay' => $model->getBillRate5MinPay(),
+                'lifetime_minutes' => $model->getLifetimeMinutes(),
+                'work_types' => $model->getWorkTypes(),
+                'next_job_tally' => $model->getNextJobTally(),
+                'act_log_retention_time' => $model->getActLogRetentionTime(),
+                'job_prefix' => $model->getJobPrefix(),
+                'sr_enabled' => $model->getSrEnabled(),
+            ));
+            return $statement->rowCount();
+        } catch (\PDOException) {
+            return 0;
+        }
+    }
+
+    public function deleteModel(int $id): int
+    {
+        $statement = "
+            DELETE FROM accounts
+            WHERE acc_id = :id;
+        ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array('id' => $id));
+            return $statement->rowCount();
+        } catch (\PDOException) {
+            return 0;
+        }
+    }
+
+    public function findModel($id): array|null
+    {
+        $statement = "
+            SELECT 
+                   acc_id,
+                   enabled,
+                   billable,
+                   acc_id,
+                   enabled,
+                   billable,
+                   acc_name,
+                   acc_retention_time,
+                   acc_creation_date,
+                   bill_rate1,
+                   bill_rate1_type,
+                   bill_rate1_tat,
+                   bill_rate1_desc,
+                   bill_rate1_min_pay,
+                   bill_rate2,
+                   bill_rate2_type,
+                   bill_rate2_tat,
+                   bill_rate2_desc,
+                   bill_rate2_min_pay,
+                   bill_rate3,
+                   bill_rate3_type,
+                   bill_rate3_tat,
+                   bill_rate3_desc,
+                   bill_rate3_min_pay,
+                   bill_rate4,
+                   bill_rate4_type,
+                   bill_rate4_tat,
+                   bill_rate4_desc,
+                   bill_rate4_min_pay,
+                   bill_rate5,
+                   bill_rate5_type,
+                   bill_rate5_tat,
+                   bill_rate5_desc,
+                   bill_rate5_min_pay,
+                   lifetime_minutes,
+                   work_types,
+                   next_job_tally,
+                   act_log_retention_time,
+                   job_prefix,
+                   sr_enabled
+                                      
+            FROM
+                accounts
+            WHERE
+                accounts.acc_id = ?";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($id));
+            $result = $statement->fetch(\PDO::FETCH_ASSOC);
+            if($statement->rowCount() > 0)
+            {
+                return $result;
+            }else{
+                return null;
+            }
+        } catch (\PDOException $e) {
+            return null;
+        }
+    }
+
+    public function findAltModel($id): array|null
+    {
+        return null;
+    }
+
+    public function findAllModel($page = 1): array|null
+    {
+
+        $offset = $this->common->getOffsetByPageNumber($page, $this->limit);
+
+        $statement = "
+            SELECT 
+                *
+            FROM
+                accounts
+            LIMIT :limit
+            OFFSET :offset
+        ;";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->bindParam(":limit",$this->limit, \PDO::PARAM_INT);
+            $statement->bindParam(":offset",$offset, \PDO::PARAM_INT);
+            $statement->execute();
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            return $result;
+        } catch (\PDOException) {
+            return null;
+        }
     }
 }

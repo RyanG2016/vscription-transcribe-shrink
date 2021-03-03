@@ -1,10 +1,11 @@
 <?php
 
 namespace Src\TableGateways;
+use Src\Models\Account;
 use Src\TableGateways\CityGateway;
-use Src\TableGateways\CountryGateway;
 use Src\TableGateways\accessGateway;
 use Src\TableGateways\tokenGateway;
+use Src\TableGateways\AccountGateway;
 use Src\System\Mailer;
 include_once "common.php";
 
@@ -13,18 +14,18 @@ class SignupGateway
 
     private $db = null;
     private $cityGateway = null;
-    private $CountryGateway = null;
     private $accessGateway = null;
     private $tokenGateway = null;
+    private $accountGateway = null;
     private $mailer;
 
     public function __construct($db)
     {
         $this->db = $db;
         $this->cityGateway = new CityGateway($db);
-        $this->CountryGateway = new CountryGateway($db);
         $this->accessGateway = new accessGateway($db);
         $this->tokenGateway = new tokenGateway($db);
+        $this->accountGateway = new AccountGateway($db);
         $this->mailer = new Mailer($db);
     }
 
@@ -82,34 +83,17 @@ class SignupGateway
         $pass = $_POST["password"];
         $fname = $_POST["fname"];
         $lname = $_POST["lname"];
-        $ref = $_POST["ref"];
-        $countryID = $_POST["countryID"];
-        $stateID = $_POST["stateID"]?$_POST["stateID"]:null;
-        $city = isset($_POST["city"])?$_POST["city"]:null;
+        $ref = isset($_POST["ref"])?$_POST["ref"]:false;
+        $country = $_POST["country"];
+//        $stateID = $_POST["stateID"]?$_POST["stateID"]:null;
+//        $city = isset($_POST["city"])?$_POST["city"]:null;
+//        $address = $_POST["address"];
+//        $address = isset($_POST["address"]) ? (empty(trim($_POST["address"]))? "": $_POST["address"]) :'';
+        $accName = isset($_POST["accname"]) ? (empty(trim($_POST["accname"]))? false: $_POST["accname"]) :false;
 
-        // state check
-        if($countryID == 204 || $countryID == 203)
-        {
-            if($stateID == null) return generateApiHeaderResponse("Incorrect state input", true);
-            $stateArr = $this->cityGateway->getCity($stateID);
-            if(sizeof($stateArr) == 0)
-            {
-                return generateApiHeaderResponse("Incorrect state input", true);
-            }else{
-                if($stateArr["country"] !== $countryID){
-                    return generateApiHeaderResponse("State doesn't match given country", true);
-                }
-            }
-            $stateName = $stateArr["city"];
-        }else{
-            // country check only
-            if(!$this->CountryGateway->find($countryID))
-            {
-                return generateApiHeaderResponse("Invalid Input (C)", true);
-            }
-            $stateID = null;
-            $stateName = null;
-        }
+        // DEBUG simulate error
+//        return generateApiHeaderResponse("You already have an account, login instead?", true,false,301);
+//        return generateApiHeaderResponse("Couldn't sign you up, please contact system admin", true);
 
         $statement = "INSERT INTO 
                 users(
@@ -118,8 +102,8 @@ class SignupGateway
                   email,
                   password,
                   city,
-                  state_id,
-                  country_id,
+                  country,
+
                   state,
                   registeration_date,
                   email_notification,
@@ -128,7 +112,7 @@ class SignupGateway
                   trials,
                   newsletter,
                   last_ip_address,
-                  plan_id
+                  address
                   ) 
                 values (
                     :first_name,
@@ -136,8 +120,7 @@ class SignupGateway
                     :email,
                     :password,
                     :city,
-                    :state_id,
-                    :country_id,
+                    :country,
                     :state,
                     :registeration_date,
                     :email_notification,
@@ -146,7 +129,7 @@ class SignupGateway
                     :trials,
                     :newsletter,
                     :last_ip_address,
-                    :plan_id
+                    :address
                   )
                   
                   ;";
@@ -159,10 +142,10 @@ class SignupGateway
                 'last_name' => $lname,
                 'email' => $email,
                 'password' => password_hash($pass,PASSWORD_BCRYPT),
-                'city' => $city,
-                'state_id' => $stateID,
-                'country_id' => $countryID,
-                'state' => $stateName,
+                'city' => null,
+                'country' => $country,
+//                'state_id' => null,
+                'state' => null,
                 'registeration_date' => date("Y-m-d H:i:s"),
                 'email_notification' => 1,
                 "enabled" => 1,
@@ -170,13 +153,18 @@ class SignupGateway
                 "trials" => 0,
                 "newsletter" => 1,
                 "last_ip_address" => getIP(),
-                "plan_id" => 2
+                "address" => ""
             ));
             $lastInsertedUID = $this->db->lastInsertId();
             $count =  $statement->rowCount();
             if($count != 0)
             {
                 $this->mailer->sendEmail(5, $email);
+
+                if($accName)
+                {
+                    $this->createClientAdminAccount($accName, $email, $lastInsertedUID);
+                }
 
                 // check if there's a pending typist invite (ref)
                 if($ref)
@@ -186,28 +174,33 @@ class SignupGateway
                     if($tokenData)
                     {
                         $accID = $tokenData["extra1"];
+                        $role = $tokenData["extra2"];
 
                         // accept invite
                         $this->accessGateway->internalManualInsertAccessRecord(
                             $accID,
                             $lastInsertedUID,
                             $_POST["email"],
-                            3);
+                            $role);
 
                         $this->tokenGateway->expireToken($tokenData["id"]);
 
-                        return generateApiHeaderResponse("Signed up successfully, \nTypist invitation accepted, \n\nPlease verify your email address before trying to login",
+                        return generateApiHeaderResponse("Signup Successful."
+                            ."<br>We have sent an email to ".$email.",<br>please click the link provided to verify your email address.".
+                              " <br><br>Invitation for ". Account::withID($accID, $this->db)->getAccName() ." accepted.",
                             false,
                             array("id"=>$lastInsertedUID));
                     }else{
                         // token not found or expired
-                        return generateApiHeaderResponse("Signed up successfully, please verify your email address before trying to login, couldn't accept typist invitation (Invalid or Expired token)",
+                        return generateApiHeaderResponse("<br>Signup Successful."
+                        ."<br>We have sent an email to ".$email.",<br>please click the link provided to verify your email address.".
+                        "<br><br>couldn't accept invitation (Invalid or Expired token)",
                             false,
                             array("id"=>$lastInsertedUID));
                     }
                 }
-
-                return generateApiHeaderResponse("Signed up successfully, please verify your email address before trying to login",
+                return generateApiHeaderResponse("Signup Successful."
+                    ."<br>We have sent an email to ".$email.",<br>please click the link provided to verify your email address.",
                     false,
                     array("id"=>$lastInsertedUID));
             }else{
@@ -218,6 +211,21 @@ class SignupGateway
         }
 
 
+    }
+
+    /**
+     * @internal used by signup function to create and associate Client Admin Account with a newly created user
+     * if the accName is present
+     */
+    private function createClientAdminAccount($accName, $email, $uid){
+        if($accName)
+        {
+            $_SESSION['uid'] = $uid;
+            $_SESSION['uEmail'] = $email;
+            $response = $this->accountGateway->createNewClientAdminAccount($accName);
+            $debugresponse =1;
+            return json_decode($response["body"], true)["error"];
+        }
     }
 
     /**

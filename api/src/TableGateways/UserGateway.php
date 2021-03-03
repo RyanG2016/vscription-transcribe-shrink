@@ -3,13 +3,16 @@
 namespace Src\TableGateways;
 
 use PDOException;
+use Src\Enums\USER_ACCOUNT_STATUS;
+use Src\Models\BaseModel;
+use Src\Models\User;
 use Src\TableGateways\logger;
 use Src\System\Mailer;
 
 require "filters/usersFilter.php";
 include_once "common.php";
 
-class UserGateway
+class UserGateway implements GatewayInterface
 {
 
     private $db;
@@ -35,14 +38,14 @@ class UserGateway
                     users.first_name,
                     users.last_name,
                     users.email,
-                    users.country_id,
-                    countries.country,
+                    
+                    users.country,
                     users.city,
-                    users.state_id,
                     users.state,
+                    users.zipcode,
+                    users.address,
                     users.registeration_date,
                     users.last_ip_address,
-                    users.plan_id,
                     users.account_status,
                     users.last_login,
                     users.newsletter,
@@ -53,13 +56,10 @@ class UserGateway
                     users.enabled,
                     users.def_access_id,
                     accounts.acc_name,
-                    access.acc_role,
-                    cities.city as `state_ref`
+                    access.acc_role
                                       
             FROM
-                users
-            INNER JOIN countries ON users.country_id = countries.id 
-            LEFT JOIN cities ON users.state_id = cities.id
+                users 
             LEFT JOIN access ON users.def_access_id = access.access_id
             LEFT JOIN accounts ON access.acc_id = accounts.acc_id
         " . $filter . ";";
@@ -80,7 +80,7 @@ class UserGateway
             }
             return $result;
         } catch (\PDOException $e) {
-            exit($e->getMessage());
+            return false;
         }
     }
 
@@ -190,14 +190,13 @@ class UserGateway
                     users.first_name,
                     users.last_name,
                     users.email,
-                    users.country_id,
-                    countries.country,
+                    users.country,
                     users.city,
-                    users.state_id,
                     users.state,
+                    users.zipcode,
+                    users.address,
                     users.registeration_date,
                     users.last_ip_address,
-                    users.plan_id,
                     users.account_status,
                     users.last_login,
                     users.newsletter,
@@ -206,13 +205,11 @@ class UserGateway
                     users.email_notification,
                     users.account,
                     users.enabled,
-                    users.def_access_id,
-                   cities.city as `state_ref`
+                    users.def_access_id
+                   
                                       
             FROM
                 users
-            INNER JOIN countries ON users.country_id = countries.id
-            LEFT JOIN cities ON users.state_id = cities.id
             WHERE
                 users.id = ?";
 
@@ -258,6 +255,37 @@ class UserGateway
     }
 
     /**
+     * Retrieves if the current user -> account is sr enabled
+     * @return int
+     * 5 if disabled <br>
+     * 1 if enabled
+     */
+    public function getSRenabled($accID)
+    {
+
+        $statement = "
+            SELECT 
+                   sr_enabled       
+            FROM
+                accounts
+            WHERE
+                acc_id = ?";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($accID));
+            $result = $statement->fetch();
+            if($statement->rowCount() > 0)
+            {
+                return $result["sr_enabled"]==0?5:$result["sr_enabled"];
+            }
+            return false;
+        } catch (\PDOException) {
+            return false;
+        }
+    }
+
+    /**
      * SETs available to work as typist for current logged in user
      * @param $availability (0,1,2)
      * @return boolean success
@@ -280,6 +308,31 @@ class UserGateway
         } catch (\PDOException $e) {
             return false;
 //            exit($e->getMessage());
+        }
+    }
+
+    /**
+     * SET sr_enabled for current user logged in account
+     * @param $sr_enabled (0,1)
+     * @return boolean success
+     */
+    public function setSRforCurrUser($sr_enabled, $accID)
+    {
+
+        $statement = "
+            UPDATE
+                accounts
+                   SET       
+                sr_enabled = ?
+            WHERE
+                acc_id = ?";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($sr_enabled, $accID));
+            return $statement->rowCount();
+        } catch (\PDOException) {
+            return false;
         }
     }
 
@@ -333,14 +386,13 @@ class UserGateway
                     users.first_name,
                     users.last_name,
                     users.email,
-                    users.country_id,
-                    countries.country,
+                    users.country,
                     users.city,
-                    users.state_id,
                     users.state,
+                    users.zipcode,
+                    users.address,
                     users.registeration_date,
                     users.last_ip_address,
-                    users.plan_id,
                     users.account_status,
                     users.last_login,
                     users.newsletter,
@@ -349,13 +401,9 @@ class UserGateway
                     users.email_notification,
                     users.account,
                     users.enabled,
-                    users.typist,
-                   cities.city as `state_ref`
-                                      
+                    users.typist                                      
             FROM
                 users
-            INNER JOIN countries ON users.country_id = countries.id
-            LEFT JOIN cities ON users.state_id = cities.id
             WHERE
                 users.email = ?";
 
@@ -378,7 +426,7 @@ class UserGateway
             !isset($_POST["first_name"]) ||
             !isset($_POST["last_name"]) ||
             !isset($_POST["email"]) ||
-            !isset($_POST["country_id"]) ||
+            !isset($_POST["country"]) ||
             !isset($_POST["newsletter"]) ||
             !isset($_POST["enabled"])
         ) {
@@ -401,28 +449,29 @@ class UserGateway
 
         foreach ($_POST as $key => $value) {
 
-            // setting all empty params to 0
-            if (empty($input)) {
-                $input = 0;
+            // setting all empty params to ''
+            // skip empty values
+            if (empty($value)) {
+//                $input = "";
+                continue;
             }
 
+
             $fields .= "`$key`";
+
             array_push($valsArray, $value);
             $valsQMarks .= "?";
 
-            if ($i != $len - 1) {
-//             not last item add comma
             $fields .= ", ";
             $valsQMarks .= ", ";
-            }
 
             $i++;
         }
 
         // Optional Fields Calculations //
         // account_status
-        $fields .= ", " . "`account_status`";
-        $valsQMarks .= ", ?";
+        $fields .= "`account_status`";
+        $valsQMarks .= "?";
         array_push($valsArray, 5);
 
         // password
@@ -436,13 +485,6 @@ class UserGateway
         $fields .= ", " . "`last_ip_address`";
         $valsQMarks .= ", ?";
         array_push($valsArray, getIP());
-
-
-        // todo remove below
-        // plan_id hardcode default to typist
-        $fields .= ", " . "`plan_id`";
-        $valsQMarks .= ", ?";
-        array_push($valsArray, 3);
 
 
 
@@ -515,6 +557,8 @@ class UserGateway
 
                 // setting session variables to bypass the need of logging out and in again
                 $_SESSION["adminAccount"] = $accID;
+                $_SESSION["adminAccRetTime"] = 14;
+                $_SESSION["adminAccLogRetTime"] = 90;
                 $_SESSION["adminAccountName"] = $accName;
 
             return true;
@@ -702,18 +746,6 @@ class UserGateway
             $i++;
         }
 
-        if(isset($put['state'])){
-
-            $valPairs .= ", `state_id` = ";
-            array_push($valsArray, null);
-            $valPairs .= "?";
-        }
-        else if(isset($put['state_id'])){
-            $valPairs .= ", `state` = ";
-            array_push($valsArray, null);
-            $valPairs .= "?";
-        }
-
         array_push($valsArray, $id);
 
 
@@ -741,6 +773,126 @@ class UserGateway
         } catch (PDOException $e) {
 //            die($e->getMessage());
             return false;
+        }
+    }
+
+    
+    public function updateCurrentUser()
+    {
+        $id = $_SESSION["uid"];
+
+        // required fields
+        if (
+            !isset($_POST["first_name"]) ||
+            !isset($_POST["last_name"]) ||
+            !isset($_POST["email"]) ||
+            !isset($_POST["country"]) ||
+            !isset($_POST["newsletter"]) ||
+            !isset($_POST["email_notification"]) ||
+            !isset($_POST["city"]) ||
+            !isset($_POST["state"]) ||
+            !isset($_POST["address"]) ||
+            !isset($_POST["zip"])
+        ) {
+            return $this->errorOccurredResponse("Invalid Input, required fields missing (VSPT-U400)");
+        }
+
+        // validation
+        foreach ($_POST as $keyPost => $valuePost) {
+            switch ($keyPost)
+            {
+                case 'first_name':
+                case 'last_name':
+                    if(!preg_match("/^[a-z ]{2,50}$/i", $valuePost))
+                    {
+                        return $this->errorOccurredResponse("Invalid Input (VSPT-U201)");
+                    }
+                    break;
+
+                case 'address':
+                    if(!preg_match("/^[a-z0-9_ .]{0,100}$/i", $valuePost))
+                    {
+                        return $this->errorOccurredResponse("Invalid Input (VSPT-U202)");
+                    }
+                    break;
+
+                case 'city':
+                case 'state':
+                    if(!preg_match("/^[a-z ]{0,100}$/i", $valuePost))
+                    {
+                        return $this->errorOccurredResponse("Invalid Input (VSPT-U203)");
+                    }
+                    break;
+
+                case 'zip':
+                    if(!preg_match("/^[a-z0-9 ]{0,20}$/i", $valuePost))
+                    {
+                        return $this->errorOccurredResponse("Invalid Input (VSPT-U204)");
+                    }
+                    break;
+
+                case 'country':
+                    if(!preg_match("/^[a-z ]{2,100}$/i", $valuePost))
+                    {
+                        return $this->errorOccurredResponse("Invalid Input (VSPT-U205)");
+                    }
+                    break;
+
+                case 'newsletter':
+                case 'email_notification':
+                    if(!(is_numeric($valuePost) && $valuePost <= 1 && $valuePost >= 0))
+                    {
+                        return $this->errorOccurredResponse("Invalid Input (VSPT-U206)");
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        $reverify = $_POST['email'] != $_SESSION["uEmail"];
+
+        // update DB //
+
+        $user = User::withID($id, $this->db);
+        $user->setFirstName($_POST["first_name"]);
+        $user->setLastName($_POST["last_name"]);
+        $user->setEmail($_POST["email"]);
+        $user->setCountry($_POST["country"]);
+        $user->setState($_POST["state"]);
+        $user->setCity($_POST["city"]);
+        $user->setAddress($_POST["address"]);
+        $user->setZipcode($_POST["zip"]);
+        $user->setNewsletter($_POST["newsletter"]);
+        $user->setEmailNotification($_POST["email_notification"]);
+        if(isset($_POST["typist"]))
+        {
+            $user->setTypist($_POST["typist"]);
+        }
+
+        if($reverify)
+        {
+            $user->setAccountStatus(USER_ACCOUNT_STATUS::PENDING_EMAIL_VERIFICATION);
+        }
+
+        $updated = $user->save();
+
+        if ($updated) {
+            $this->logger->insertAuditLogEntry($this->API_NAME, "Updated User from settings: " . $id);
+
+            if($reverify)
+            {
+                // re-send verification mail
+                $this->mailer->sendEmail(5, $_POST["email"]);
+
+                // logout user
+                session_unset();
+            }
+
+            return $this->oKResponse($id, "User Updated");
+        } else {
+            return $this->errorOccurredResponse("Couldn't update user or no changes were found to update");
         }
     }
 
@@ -796,5 +948,178 @@ class UserGateway
     function generateRandomPassword($length = 12){
         $chars = "0123456789bcdfghjkmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ";
         return substr(str_shuffle($chars),0,$length);
+    }
+
+    public function insertModel(BaseModel $model): int
+    {
+        // TODO: Implement insertModel() method.
+    }
+
+    public function updateModel(BaseModel|User $model): int
+    {
+        $statement = "
+            UPDATE users
+            SET
+                first_name = :first_name,
+                last_name = :last_name,
+                email = :email,
+                password = :password,
+                city = :city,
+                country = :country,
+                zipcode = :zipcode,
+                state = :state,
+                email_notification = :email_notification,
+                account_status = :account_status,
+                typist = :typist,
+                newsletter = :newsletter,
+                address = :address
+            WHERE
+            id = :id;
+        ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array(
+                'id' => $model ->getId()  ,
+                'first_name' => $model ->getFirstName()  ,
+                'last_name' => $model ->getLastName()  ,
+                'email' => $model ->getEmail()  ,
+                'password' => $model ->getPassword()  ,
+                'city' => $model ->getCity()  ,
+                'country' => $model ->getCountry()  ,
+                'zipcode' => $model ->getZipcode()  ,
+                'state' => $model ->getState()  ,
+                'account_status' => $model ->getAccountStatus()  ,
+                'typist' => $model ->getTypist()  ,
+                'email_notification' => $model ->getEmailNotification()  ,
+                'newsletter' => $model ->getNewsletter() ,
+                'address' => $model ->getAddress()
+            ));
+            // setting session variables
+            $_SESSION['userData']['address'] = $model->getAddress();
+            $_SESSION['userData']['city'] = $model->getCity();
+            $_SESSION['userData']['state'] = $model->getState();
+            $_SESSION['userData']['country'] = $model->getCountry();
+            $_SESSION['userData']['zipcode'] = $model->getZipcode();
+            $_SESSION['userData']['newsletter'] = $model->getNewsletter();
+            $_SESSION['userData']['email_notification'] = $model->getEmailNotification();
+
+            $_SESSION['userData']['first_name'] = $model->getFirstName();
+            $_SESSION['fname'] = $model->getFirstName();
+
+            $_SESSION['userData']['last_name'] = $model->getLastName();
+            $_SESSION['lname'] = $model->getLastName();
+
+            $_SESSION['userData']['email'] = $model->getEmail();
+            $_SESSION['uEmail'] = $model->getEmail();
+
+
+            return $statement->rowCount();
+        } catch (\PDOException) {
+            return 0;
+        }
+    }
+
+    public function deleteModel(int $id): int
+    {
+        $statement = "
+            DELETE FROM users
+            WHERE id = :id;
+        ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array('id' => $id));
+            return $statement->rowCount();
+        } catch (\PDOException $e) {
+            return 0;
+//            exit($e->getMessage());
+        }
+    }
+
+    public function findModel($id): array|null
+    {
+
+        $statement = "
+            SELECT 
+                id,
+                first_name,
+                last_name,
+                email,
+                password,
+                city,
+                country,
+                zipcode,
+                email_notification,
+                newsletter,
+                account_status,
+               typist,
+                state,
+                address
+                                      
+            FROM
+                users
+            WHERE
+                users.id = ?";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($id));
+            $result = $statement->fetch(\PDO::FETCH_ASSOC);
+            if($statement->rowCount() > 0)
+            {
+                return $result;
+            }else{
+                return null;
+            }
+        } catch (\PDOException $e) {
+            return null;
+//            exit($e->getMessage());
+        }
+    }
+
+    // by email
+    public function findAltModel($email): array|null
+    {
+        $statement = "
+            SELECT 
+                id,
+                first_name,
+                last_name,
+                email,
+                password,
+                city,
+                country,
+                zipcode,
+                email_notification,
+                newsletter,
+                account_status,
+                state,
+                typist,
+                address
+                                      
+            FROM
+                users
+            WHERE
+                users.email = ?";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($email));
+            $result = $statement->fetch(\PDO::FETCH_ASSOC);
+            if($statement->rowCount() > 0)
+            {
+                return $result;
+            }else{
+                return null;
+            }
+        } catch (\PDOException) {
+            return null;
+        }
+    }
+
+    public function findAllModel($page = 1): array|null
+    {
+        // TODO: Implement findAllModel() method.
     }
 }

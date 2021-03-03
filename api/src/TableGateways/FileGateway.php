@@ -4,6 +4,11 @@ namespace Src\TableGateways;
 
 use PDO;
 use PDOException;
+use Src\Enums\FILE_STATUS;
+use Src\Enums\SRQ_STATUS;
+use Src\Models\BaseModel;
+use Src\Models\File;
+use Src\Models\SRQueue;
 use Src\TableGateways\conversionGateway;
 use Src\TableGateways\accessGateway;
 use Src\TableGateways\logger;
@@ -12,7 +17,7 @@ use Src\System\Mailer;
 require "filesFilter.php";
 require_once "common.php";
 
-class FileGateway
+class FileGateway implements GatewayInterface
 {
 
     private $db;
@@ -20,6 +25,7 @@ class FileGateway
     private $accessGateway;
     private $logger;
     private $mailer;
+    private $API_NAME;
 
     public function __construct($db)
     {
@@ -39,6 +45,8 @@ class FileGateway
 
     public function findAll()
     {
+        if(!isset($_SESSION['accID']))
+        {return array("error"=> true, "msg" => "please set an account first");}
         $filter = parseFilesParams();
 
         $statement = "
@@ -76,11 +84,21 @@ class FileGateway
             }
             return $result;
         } catch (PDOException $e) {
-            exit($e->getMessage());
+            if(isset($_GET['dt'])) {
+                return array("data" => "");
+            }
+            else{
+                return array();
+            }
+//            exit($e->getMessage());
         }
     }
 
     /* add ?tr to the request to move audio file to tmp directory for transcribe.php usage */
+    /**
+     * @param $id
+     * @return false|string
+     */
     public function find($id)
     {
 
@@ -91,7 +109,7 @@ class FileGateway
                    job_document_html, job_document_rtf,                  
                    times_text_downloaded_date, job_transcribed_by, file_transcribed_date, typist_comments,isBillable,
                    user_field_1, user_field_2, user_field_3, 
-                   billed
+                   billed, has_caption, captions
             
             FROM
                 files
@@ -217,12 +235,14 @@ class FileGateway
                     "file_date_dict" => $row['file_date_dict'],
                     "file_work_type" => $row['file_work_type'],
                     "last_audio_position" => $row['last_audio_position'],
-                    "job_status" => $row['file_status'],
+                    "file_status" => $row['file_status'],
                     "file_speaker_type" => $row['file_speaker_type'],
                     "typist_comments" => $row['typist_comments'],
                     "file_comment" => $row['file_comment'],
                     "user_field_1" => $row['user_field_1'],
                     "user_field_2" => $row['user_field_2'],
+                    "has_caption" => $row['has_caption'],
+                    "captions" => $row['captions'],
                     "user_field_3" => $row['user_field_3']
                 );
 
@@ -252,6 +272,13 @@ class FileGateway
 
             // -> file is copied successfully to tmp -> set tmp value to db
 
+            // check if it has caption file and copy it too under the same rand name
+//            if($row["has_caption"])
+//            {
+//                copy(__DIR__ . '/../../../uploads/' . pathinfo($row['filename'], PATHINFO_FILENAME) . ".vtt",
+//                    __DIR__.'/../../../transcribe/workingTemp/' .  pathinfo($randFileName, PATHINFO_FILENAME) . ".vtt");
+//            }
+
             $jobDetails = array(
                 "file_id" => $row['file_id'],
                 "job_id" => $row['job_id'],
@@ -262,12 +289,14 @@ class FileGateway
                 "file_date_dict" => $row['file_date_dict'],
                 "file_work_type" => $row['file_work_type'],
                 "last_audio_position" => $row['last_audio_position'],
-                "job_status" => $row['file_status'],
+                "file_status" => $row['file_status'],
                 "file_speaker_type" => $row['file_speaker_type'],
                 "typist_comments" => $row['typist_comments'],
                 "file_comment" => $row['file_comment'],
                 "user_field_1" => $row['user_field_1'],
                 "user_field_2" => $row['user_field_2'],
+                "has_caption" => $row['has_caption'],
+                "captions" => $row['captions'],
                 "user_field_3" => $row['user_field_3']
             );
 
@@ -342,8 +371,7 @@ class FileGateway
                 );
                 return json_encode($numbers);
             }
-        } catch (PDOException $e) {
-//            exit($e->getMessage());
+        } catch (PDOException) {
             return false;
         }
 
@@ -386,12 +414,24 @@ class FileGateway
         $user_field_3 = $input[12];
         $acc_id = $input[13];
         $org_ext = $input[14];
+        $fileRoundedDuration = $input[15];
         $uploadedBy = $_SESSION['uEmail'];
 
         $file_status = 0;
         if($org_ext == "ds2")
         {
             $file_status = 8; // Queued for conversion
+        }
+
+        if(isset($_POST["sr_enabled"]) && $_POST["sr_enabled"] === "true")
+        {
+            if($file_status == 8)
+            {
+                $file_status = FILE_STATUS::QUEUED_FOR_SR_CONVERSION;
+            }
+            else{
+                $file_status = FILE_STATUS::QUEUED_FOR_RECOGNITION;
+            }
         }
 
         $jobPrefix = $this->getAccountPrefix($acc_id);
@@ -452,11 +492,32 @@ class FileGateway
 
             if($statement->rowCount()){
                 $file_id = $this->db->lastInsertId();
-                if($file_status == 8){
+
+                // Add to conversion queue
+                if($file_status == FILE_STATUS::QUEUED_FOR_CONVERSION || $file_status == FILE_STATUS::QUEUED_FOR_SR_CONVERSION){
                     // Queued for conversion - insert queue entry using curl
 //                     vtexCurlPost(getenv("BASE_LINK").'/api/v1/conversions/'.$file_id); // should be sufficient
                     $this->conversionsGateway->insertNewConversion($file_id);
                 }
+
+
+                // Add to recognition queue
+                if($file_status == FILE_STATUS::QUEUED_FOR_SR_CONVERSION || $file_status == FILE_STATUS::QUEUED_FOR_RECOGNITION)
+                {
+                    $srq = new SRQueue($file_id,
+                    $file_status == FILE_STATUS::QUEUED_FOR_SR_CONVERSION ? SRQ_STATUS::WAITING_SWITCH_CONVERT : SRQ_STATUS::QUEUED,
+                    0,
+                    null,
+                    $fileRoundedDuration,
+                    null,
+                    0,
+                    null,
+                    null,
+                    $this->db);
+
+                    $srq->save();
+                }
+
 
                 $statement = "UPDATE accounts SET next_job_tally=next_job_tally+1 where acc_id = ".$acc_id;
 
@@ -597,13 +658,13 @@ class FileGateway
                 if(isset($_POST["file_status"]))
                 {
                     $file_status = $_POST["file_status"];
-                    if ($file_status == 5 || $file_status == 3) {
+                    if ($file_status == 5 || $file_status == 3|| $file_status == 11) {
                         $this->mailer->sendEmail(10, false);
                         $this->deleteTmpFile($id, $currentFile["tmp_name"]);
                     }
 
                     // update elapsed time
-                    if($file_status == 2 || $file_status == 3 || $file_status == 4 || $file_status == 5 ){
+                    if($file_status == 2 || $file_status == 3 || $file_status == 4 || $file_status == 5 || $file_status == 11){
                         $this->updateElapsed($id);
                     }
                 }
@@ -633,14 +694,19 @@ class FileGateway
 
             $dir = realpath(__DIR__ . "/../../../transcribe/workingTemp/"); // working tmp directory
             $file = $dir . "\\" . $tmpName;
+            $vttFile = $dir . "\\" . pathinfo($tmpName, PATHINFO_FILENAME) . ".vtt";
             if(file_exists($file)){
                 sleep(0.4);
                 unlink($file);
             }
+            if(file_exists($vttFile))
+            {
+                unlink($vttFile);
+            }
 
             return $statement->rowCount();
         } catch (PDOException $e) {
-            exit($e->getMessage());
+            return 0;
         }
     }
 
@@ -653,7 +719,7 @@ class FileGateway
 //            !isset($put["first_name"]) ||
 //            !isset($put["last_name"]) ||
 //            !isset($put["email"]) ||
-//            !isset($put["country_id"]) ||
+
 //            !isset($put["newsletter"]) ||
 //            !isset($put["enabled"])
 //        ) {
@@ -734,7 +800,7 @@ class FileGateway
 //        }
 //    }
 
-    public function delete($id)
+    public function delete($id): int
     {
         $statement = "
             DELETE FROM files
@@ -745,8 +811,200 @@ class FileGateway
             $statement = $this->db->prepare($statement);
             $statement->execute(array('id' => $id));
             return $statement->rowCount();
-        } catch (PDOException $e) {
-            exit($e->getMessage());
+        } catch (PDOException) {
+            return 0;
         }
     }
+
+    public function insertModel(BaseModel $model): int
+    {
+        // TODO: Implement insertModel() method.
+    }
+
+    public function updateModel(BaseModel|File $model): int
+    {
+        $statement = "
+            UPDATE files
+            SET
+                job_id = :job_id,
+                acc_id = :acc_id,
+                file_type = :file_type,
+                org_ext = :org_ext,
+                filename = :filename,
+                tmp_name = :tmp_name,
+                orig_filename = :orig_filename,
+                job_document_html = :job_document_html,
+                job_document_rtf = :job_document_rtf,
+                file_tag = :file_tag,
+                file_author = :file_author,
+                file_work_type = :file_work_type,
+                file_comment = :file_comment,
+                file_speaker_type = :file_speaker_type,
+                file_date_dict = :file_date_dict,
+                file_status = :file_status,
+                audio_length = :audio_length,
+                last_audio_position = :last_audio_position,
+                job_upload_date = :job_upload_date,
+                job_uploaded_by = :job_uploaded_by,
+                text_downloaded_date = :text_downloaded_date,
+                times_text_downloaded_date = :times_text_downloaded_date,
+                job_transcribed_by = :job_transcribed_by,
+                file_transcribed_date = :file_transcribed_date,
+                elapsed_time = :elapsed_time,
+                typist_comments = :typist_comments,
+                isBillable = :isBillable,
+                billed = :billed,
+                typ_billed = :typ_billed,
+                user_field_1 = :user_field_1,
+                user_field_2 = :user_field_2,
+                user_field_3 = :user_field_3,
+                deleted = :deleted
+            WHERE
+                file_id = :file_id;
+        ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array(
+                'file_id' => $model->getFileId() ,
+                'job_id' => $model->getJobId()  ,
+                'acc_id' => $model->getAccId()  ,
+                'file_type' => $model->getFileType()  ,
+                'org_ext' => $model->getOrgExt()  ,
+                'has_caption' => $model->getHasCaption()  ,
+                'filename' => $model->getFilename()  ,
+                'tmp_name' => $model->getTmpName()  ,
+                'orig_filename' => $model->getOrigFilename()  ,
+                'job_document_html' => $model->getJobDocumentHtml()  ,
+                'job_document_rtf' => $model->getJobDocumentRtf()  ,
+                'file_tag' => $model->getFileTag() ,
+                'file_author' => $model->getFileAuthor()  ,
+                'file_work_type' => $model->getFileWorkType()  ,
+                'file_comment' => $model->getFileComment()  ,
+                'file_speaker_type' => $model->getFileSpeakerType()  ,
+                'file_date_dict' => $model->getFileDateDict()  ,
+                'file_status' => $model->getFileStatus()  ,
+                'audio_length' => $model->getAudioLength()  ,
+                'last_audio_position' => $model->getLastAudioPosition()  ,
+                'job_upload_date' => $model->getJobUploadDate()  ,
+                'job_uploaded_by' => $model->getJobUploadedBy()  ,
+                'text_downloaded_date' => $model->getTextDownloadedDate()  ,
+                'times_text_downloaded_date' => $model->getTimesTextDownloadedDate()  ,
+                'job_transcribed_by' => $model->getJobTranscribedBy()  ,
+                'file_transcribed_date' => $model->getFileTranscribedDate()  ,
+                'elapsed_time' => $model-> getElapsedTime() ,
+                'typist_comments' => $model->getTypistComments()  ,
+                'isBillable' => $model->getIsBillable()  ,
+                'billed' => $model->getBilled()  ,
+                'typ_billed' => $model->getTypBilled()  ,
+                'user_field_1' => $model->getUserField1()  ,
+                'user_field_2' => $model->getUserField2()  ,
+                'user_field_3' => $model->getUserField3()  ,
+                'deleted' => $model->getDeleted()
+            ));
+            return $statement->rowCount();
+        } catch (\PDOException) {
+            return 0;
+        }
+    }
+
+    public function updateFileHTML(BaseModel|File $model, ?int $optional_has_caption = null, ?string $captions = null): int
+    {
+        $statement = "
+            UPDATE files
+            SET
+                job_document_html = :job_document_html
+            WHERE
+                file_id = :file_id;
+        ";
+
+        if($optional_has_caption != null)
+        {
+            $statement = "
+            UPDATE files
+            SET
+                job_document_html = :job_document_html,
+                has_caption = :has_caption,
+                captions = :captions
+            WHERE
+                file_id = :file_id;
+        ";
+        }
+
+        try {
+            $statement = $this->db->prepare($statement);
+            if($optional_has_caption == null)
+            {
+                $statement->execute(array(
+                    'job_document_html' => $model->getJobDocumentHtml(),
+                    'file_id' => $model->getFileId()
+                ));
+            }else{
+                $statement->execute(array(
+                    'job_document_html' => $model->getJobDocumentHtml()  ,
+                    'file_id' => $model->getFileId()  ,
+                    'captions' => $captions  ,
+                    'has_caption' => $optional_has_caption
+                ));
+            }
+            return $statement->rowCount();
+        } catch (\PDOException) {
+            return 0;
+        }
+    }
+
+    public function deleteModel(int $id): int
+    {
+        return $this->delete($id);
+    }
+
+    public function findModel($id): array|null
+    {
+        // TODO: Implement findModel() method.
+    }
+
+
+    /**
+     * Get File by ID with minimal data
+     * * used by revai cron job
+     * @param $id int fileID
+     * @return array|null
+     */
+    public function findAltModel($id): array|null
+    {
+
+        $statement = "
+            SELECT 
+                file_id, job_id, acc_id, file_type, org_ext, filename, tmp_name, orig_filename, file_author, file_work_type,file_comment,
+                   file_speaker_type, file_date_dict, file_status, audio_length,
+                  
+                   isBillable, billed
+            
+            FROM
+                files
+            WHERE file_id = ?;
+        ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($id));
+            if($statement->rowCount())
+            {
+                return $statement->fetch(PDO::FETCH_ASSOC);
+            }else{
+                return null;
+            }
+        } catch (PDOException $e) {
+            return null;
+        }
+    }
+
+
+
+    public function findAllModel($page = 1): array|null
+    {
+        // TODO: Implement findAllModel() method.
+    }
+
+
 }

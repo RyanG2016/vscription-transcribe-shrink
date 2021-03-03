@@ -1,23 +1,9 @@
 @import "parts/modal_popup.css";
 @import "parts/admin_card_view.css";
-@import "parts/card.css";
-@import "parts/vars.css";
 @import "parts/data-tbl.css";
 @import "parts/bootstrap-override.css";
+@import "parts/global.css";
 
-/* ---------------- */
-/* JQUERY OVERRIDE  */
-/* ---------------- */
-.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover {
-    border: 1px solid #1e79be;
-    background: #1e79be;
-    font-weight: normal;
-    color: #ffffff;
-}
-
-.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active {
-    background: white;
-}
 
 /* ---------------- */
 /* CREATE ACC MODAL */
@@ -28,7 +14,7 @@
 }
 
 .cancel-acc-button {
-    --mdc-theme-primary: var(--vtex-red);
+    --mdc-theme-primary: var(--vspt-red);
 }
 
 .ui-state-active.vtex-jq-lbl-check,
@@ -41,8 +27,8 @@
 .ui-state-active.vtex-jq-lbl-cross,
 .ui-state-active:hover.vtex-jq-lbl-cross,
 .ui-button:active.vtex-jq-lbl-cross {
-    border: 1px solid var(--vtex-red);
-    background: var(--vtex-red);
+    border: 1px solid var(--vspt-red);
+    background: var(--vspt-red);
 }
 
 .ui-autocomplete {
@@ -138,264 +124,6 @@
     grid-area: content;
 }
 
-.root {
-    /*display: inline-grid;*/
-    display: grid;
-    grid-template-areas:
-    'nav content';
-    grid-gap: 20px;
-    width: 100%;
-    /*grid-template-columns: 0.17fr 1fr;*/
-    grid-template-columns: fit-content(100%) 1fr;
-}
-/* Billing Rate 1 Grid */
-.br1{grid-area: br1;}
-.br1min{grid-area: br1min;}
-.br1tat{grid-area: br1tat;}
-
-.br1desc > label{grid-area: br1descLbl; margin: auto 0 auto auto;}
-.br1desc > input{grid-area: br1descInput; margin: auto 0;}
-.br1desc{
-    grid-area: br1desc;
-    display: inline-grid;
-    grid-template-areas:
-    'br1descLbl br1descInput';
-    width: 100%;
-    grid-gap: 10px;
-    grid-template-columns: 105px 1fr;
-}
-
-.br1type > label{grid-area: br1typelbl; margin: auto 0 auto auto;}
-.br1type > span,
-.br1type > select {
-    grid-area: br1typeSp;
-    margin: auto 0;
-}
-
-.br1type{
-    grid-area: br1type;
-    display: inline-grid;
-    grid-template-areas:
-    'br1typelbl br1typeSp br1typeSp';
-    width: 100%;
-    grid-gap: 10px;
-    grid-template-columns: 105px 1fr 1fr;
-}
-
-.bill1-grid{
-    display: grid;
-    grid-template-areas:
-    'br1 br1type br1type'
-    'br1min br1desc br1desc'
-    'br1tat . .';
-    grid-gap: 10px;
-    width: 100%;
-    grid-template-columns: fit-content(100%) 1fr 1fr;
-}
-/* END Billing Rate 1 Grid */
-
-
-/* Billing Rate 2 Grid */
-.br2{grid-area: br2;}
-.br2min{grid-area: br2min;}
-.br2tat{grid-area: br2tat;}
-
-.br2desc > label{grid-area: br2descLbl; margin: auto 0 auto auto;}
-.br2desc > input{grid-area: br2descInput; margin: auto 0;}
-.br2desc{
-    grid-area: br2desc;
-    display: inline-grid;
-    grid-template-areas:
-    'br2descLbl br2descInput';
-    width: 100%;
-    grid-gap: 10px;
-    grid-template-columns: 105px 1fr;
-}
-
-.br2type > label{grid-area: br2typelbl; margin: auto 0 auto auto;}
-.br2type > span,
-.br2type > select {
-    grid-area: br2typeSp;
-    margin: auto 0;
-}
-
-.br2type{
-    grid-area: br2type;
-    display: inline-grid;
-    grid-template-areas:
-    'br2typelbl br2typeSp br2typeSp';
-    width: 100%;
-    grid-gap: 10px;
-    grid-template-columns: 105px 1fr 1fr;
-}
-
-.bill2-grid{
-    display: grid;
-    grid-template-areas:
-    'br2 br2type br2type'
-    'br2min br2desc br2desc'
-    'br2tat . .';
-    grid-gap: 10px;
-    width: 100%;
-    grid-template-columns: fit-content(100%) 1fr 1fr;
-}
-/* END Billing Rate 2 Grid */
-
-
-/* Billing Rate 3 Grid */
-.br3{grid-area: br3;}
-.br3min{grid-area: br3min;}
-.br3tat{grid-area: br3tat;}
-
-.br3desc > label{grid-area: br3descLbl; margin: auto 0 auto auto;}
-.br3desc > input{grid-area: br3descInput; margin: auto 0;}
-.br3desc{
-    grid-area: br3desc;
-    display: inline-grid;
-    grid-template-areas:
-    'br3descLbl br3descInput';
-    width: 100%;
-    grid-gap: 10px;
-    grid-template-columns: 105px 1fr;
-}
-
-.br3type > label{grid-area: br3typelbl; margin: auto 0 auto auto;}
-.br3type > span,
-.br3type > select {
-    grid-area: br3typeSp;
-    margin: auto 0;
-}
-
-.br3type{
-    grid-area: br3type;
-    display: inline-grid;
-    grid-template-areas:
-    'br3typelbl br3typeSp br3typeSp';
-    width: 100%;
-    grid-gap: 10px;
-    grid-template-columns: 105px 1fr 1fr;
-}
-
-.bill3-grid{
-    display: grid;
-    grid-template-areas:
-    'br3 br3type br3type'
-    'br3min br3desc br3desc'
-    'br3tat . .';
-    grid-gap: 10px;
-    width: 100%;
-    grid-template-columns: fit-content(100%) 1fr 1fr;
-}
-/* END Billing Rate 3 Grid */
-
-/* Billing Rate 4 Grid */
-.br4{grid-area: br4;}
-.br4min{grid-area: br4min;}
-.br4tat{grid-area: br4tat;}
-
-.br4desc > label{grid-area: br4descLbl; margin: auto 0 auto auto;}
-.br4desc > input{grid-area: br4descInput; margin: auto 0;}
-.br4desc{
-    grid-area: br4desc;
-    display: inline-grid;
-    grid-template-areas:
-    'br4descLbl br4descInput';
-    width: 100%;
-    grid-gap: 10px;
-    grid-template-columns: 105px 1fr;
-}
-
-.br4type > label{grid-area: br4typelbl; margin: auto 0 auto auto;}
-.br4type > span,
-.br4type > select {
-    grid-area: br4typeSp;
-    margin: auto 0;
-}
-
-.br4type{
-    grid-area: br4type;
-    display: inline-grid;
-    grid-template-areas:
-    'br4typelbl br4typeSp br4typeSp';
-    width: 100%;
-    grid-gap: 10px;
-    grid-template-columns: 105px 1fr 1fr;
-}
-
-.bill4-grid{
-    display: grid;
-    grid-template-areas:
-    'br4 br4type br4type'
-    'br4min br4desc br4desc'
-    'br4tat . .';
-    grid-gap: 10px;
-    width: 100%;
-    grid-template-columns: fit-content(100%) 1fr 1fr;
-}
-/* END Billing Rate 4 Grid */
-
-
-/* Billing Rate 5 Grid */
-.br5{grid-area: br5;}
-.br5min{grid-area: br5min;}
-.br5tat{grid-area: br5tat;}
-
-.br5desc > label{grid-area: br5descLbl; margin: auto 0 auto auto;}
-.br5desc > input{grid-area: br5descInput; margin: auto 0;}
-.br5desc{
-    grid-area: br5desc;
-    display: inline-grid;
-    grid-template-areas:
-    'br5descLbl br5descInput';
-    width: 100%;
-    grid-gap: 10px;
-    grid-template-columns: 105px 1fr;
-}
-
-.br5type > label{grid-area: br5typelbl; margin: auto 0 auto auto;}
-.br5type > span,
-.br5type > select {
-    grid-area: br5typeSp;
-    margin: auto 0;
-}
-
-.br5type{
-    grid-area: br5type;
-    display: inline-grid;
-    grid-template-areas:
-    'br5typelbl br5typeSp br5typeSp';
-    width: 100%;
-    grid-gap: 10px;
-    grid-template-columns: 105px 1fr 1fr;
-}
-
-.bill5-grid{
-    display: grid;
-    grid-template-areas:
-    'br5 br5type br5type'
-    'br5min br5desc br5desc'
-    'br5tat . .';
-    grid-gap: 10px;
-    width: 100%;
-    grid-template-columns: fit-content(100%) 1fr 1fr;
-}
-/* END Billing Rate 5 Grid */
-
-
-/* Retention Grid */
-.rt1{grid-area: acc;}
-.rt2{grid-area: actlog;}
-
-.retention-grid{
-    display: grid;
-    grid-template-areas:
-    'acc actlog';
-    grid-gap: 10px;
-    width: 100%;
-    grid-template-columns: 1fr 1fr;
-}
-/* END Billing Rate 5 Grid */
-
 .accounts-tbl-title {
     grid-area: tbl-title;
 }
@@ -424,7 +152,7 @@
 
 .welcome-icon {
     font-size: 5rem !important;
-    color: #1e79be;
+    color: var(--vspt-blue);
 }
 
 .accounts-tbl-title {
@@ -435,15 +163,12 @@
     --mdc-theme-primary: #1e79be;
 }
 
-label{
+label {
     font-size: 16px;
     color: #4c4c4c;
     font-weight: bold;
 }
 
-legend{
-    font-size: 18px;
-    width: auto;
+.context-menu-item {
+    font-family: main, sans-serif !important;
 }
-
-.context-menu-item{font-family:oxygen, serif !important;}

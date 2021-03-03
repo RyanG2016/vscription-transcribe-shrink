@@ -8,7 +8,7 @@ use Mnvx\Lowrapper\Converter;
 use Mnvx\Lowrapper\LowrapperParameters;
 use Mnvx\Lowrapper\Format;
 
-include('data/parts/head.php');
+include('data/parts/head_without_zoho.php');
 include('data/parts/constants.php');
 include('data/parts/config.php');
 include('data/parts/common_functions.php');

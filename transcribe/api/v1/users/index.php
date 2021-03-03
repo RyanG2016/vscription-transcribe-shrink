@@ -17,12 +17,7 @@ if(isset($_SESSION['counter']))
 {
     unset($_SESSION['counter']);
 }
-// todo re enable and test
-/*if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
-//User is a System Administrator ONLY
-    header("HTTP/1.1 401 ACCESS DENIED");
-    exit();
-}*/
+
 
 use Src\Controller\UserController;
 
@@ -48,11 +43,12 @@ $userId = null;
 if (isset($uri[4])) {
     $userId = $uri[4];
 }
+$uri = array_slice($uri, 4);
 
 $requestMethod = $_SERVER["REQUEST_METHOD"];
 
 // pass the request method and user ID to the PersonController and process the HTTP request:
-$controller = new UserController($dbConnection, $requestMethod, $userId);
+$controller = new UserController($dbConnection, $requestMethod, $userId, $uri);
 if(isset($_SESSION["role"]) && $_SESSION["role"] != 1)
 {
     $controller->processPublicRequest();

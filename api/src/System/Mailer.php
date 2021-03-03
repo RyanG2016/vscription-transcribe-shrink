@@ -2,6 +2,11 @@
 
 namespace Src\System;
 
+use Src\Models\Account;
+use Src\Models\Package;
+use Src\Models\Payment;
+use Src\Models\Role;
+use Src\Models\User;
 use Src\TableGateways\logger;
 use Src\TableGateways\MailingGateway;
 
@@ -29,17 +34,21 @@ class Mailer
      * Token is internally generated and inserted to tokens table
      * @param $mailType int  >4: reset-password <br>&nbsp; 5: verify email
      * <br> &nbsp; 6: typist-invitation
+     * <br> - $extra1: access_id @access_tbl, $extra2: roleID
+     * <br> ----------------------------------------
      * <br>7: signup with typist invitation -> (adds a token to token table and signup link will have ref param with token in it)
+     * <br> - $extra1: accID, $extra2: roleID
+     * <br> ----------------------------------------
      * <br>10: document-complete
      * <br>15: job added
      * <br>16: user-added-via-sys-admin
-     * <br>16: user-added-via-sys-admin
+     * <br>17: SR-package-receipt
      * @param $user_email string user email address
      * @param string $account_name client admin account name for email type 6
      * @param int $extra1 extra field to insert to tokens table
      * @return bool true -> OK | false -> failed to send email
      */
-    public function sendEmail($mailType, $user_email, $account_name = "", $extra1 = 0)
+    public function sendEmail($mailType, $user_email, $account_name = "", $extra1 = 0, $extra2 = 0)
     {
         global $cbaselink;
         global $link;
@@ -48,6 +57,7 @@ class Mailer
         global $emPlain;
         global $email;
         global $accName;
+        global $token;
         $email = $user_email;
         $accName = $account_name;
         $mailingListSize = 0;
@@ -60,7 +70,19 @@ class Mailer
                     $token = $this->generateToken($user_email, $mailType);
                     if(!$token) return false;
                     $link = "$cbaselink/reset.php?token=$token";
-                    include(__DIR__ . '/../../../mail/templates/reset_pwd.php');
+
+
+                    $emHTML = file_get_contents(__DIR__ . '/../../../mail/templates/reset_pwd.html');
+
+                    $replace_pairs = array(
+                        '{{year}}'    => date("Y"),
+                        '{{url}}' => $link,
+                    );
+
+                    $emHTML = strtr($emHTML, $replace_pairs);
+                    $emPlain = $emHTML;
+
+
                     $sbj = "Password Reset";
                     break;
 
@@ -68,34 +90,84 @@ class Mailer
                     $mailingListSize = 1;
                     $token = $this->generateToken($user_email, $mailType);
                     if(!$token) return false;
-                    $link = "$cbaselink/verify.php?token=$token";
-                    include(__DIR__ . '/../../../mail/templates/verify_your_email.php');
+                    $link = "$cbaselink/verify.php?token=$token&user=$user_email";
+
+
+                    $emHTML = file_get_contents(__DIR__ . '/../../../mail/templates/verify_your_email.html');
+
+                    $replace_pairs = array(
+                        '{{year}}'    => date("Y"),
+                        '{{code}}'=> $token,
+                        '{{url}}' => $link
+                    );
+
+                    $emHTML = strtr($emHTML, $replace_pairs);
+                    $emPlain = $emHTML;
+
+
+
                     $sbj = "Account Verification";
                     $mail->addBCC("sales@vtexvsi.com");
                     break;
 
                 case 6:
                     $mailingListSize = 1;
-                    $token = $this->generateToken($user_email, $mailType, $extra1);
+                    $token = $this->generateToken($user_email, $mailType, $extra1, $extra2);
                     if(!$token) return false;
-                    $link = "$cbaselink/secret.php?s=$token";
-                    include(__DIR__ . '/../../../mail/templates/typist_invitation.php');
-                    $sbj = "vScription Transcribe Pro - New Typist Account Access Granted";
+                    $link = "$cbaselink/accept.php?s=$token";
+
+                    $emHTML = file_get_contents(__DIR__ . '/../../../mail/templates/user_invitation.html');
+
+                    $replace_pairs = array(
+                        '{{year}}'    => date("Y"),
+                        '{{organization}}'=> $account_name,
+                        '{{role}}'=> Role::withID($extra2, $this->db)->getRoleDesc(),
+                        '{{url}}' => $link
+                    );
+
+                    $emHTML = strtr($emHTML, $replace_pairs);
+                    $emPlain = $emHTML;
+
+                    $sbj = "vScription Invitation";
                     $mail->addBCC("sales@vtexvsi.com");
                     break;
 
                 case 7:
                     $mailingListSize = 1;
-                    $token = $this->generateToken($user_email, $mailType, $extra1);
+                    $token = $this->generateToken($user_email, $mailType, $extra1, $extra2);
                     if(!$token) return false;
-                    $link = "$cbaselink/signup.php?ref=$token";
-                    include(__DIR__ . '/../../../mail/templates/signup_with_typist_invitation.php');
-                    $sbj = "Typist Invitation";
+                    $link = "$cbaselink/signup.php?ref=$token&email=$user_email&org=$account_name";
+
+                    $emHTML = file_get_contents(__DIR__ . '/../../../mail/templates/signup_with_user_invitation.html');
+
+                    $replace_pairs = array(
+                        '{{year}}'    => date("Y"),
+                        '{{organization}}'=> $account_name,
+                        '{{role}}'=> Role::withID($extra2, $this->db)->getRoleDesc(),
+                        '{{url}}' => $link,
+                    );
+
+                    $emHTML = strtr($emHTML, $replace_pairs);
+                    $emPlain = $emHTML;
+
+                    $sbj = "vScription Invitation";
                     $mail->addBCC("sales@vtexvsi.com");
                     break;
 
                 case 10:
-                    include(__DIR__ . '/../../../mail/templates/document_complete.php');
+
+                    $link = "$cbaselink";
+
+                    $emHTML = file_get_contents(__DIR__ . '/../../../mail/templates/document_complete.html');
+
+                    $replace_pairs = array(
+                        '{{year}}'    => date("Y"),
+                        '{{url}}' => $link,
+                    );
+
+                    $emHTML = strtr($emHTML, $replace_pairs);
+                    $emPlain = $emHTML;
+
                     $sbj = "New Document(s) Ready for Download";
                     $mail->addBCC("sales@vtexvsi.com"); // duplicate do not uncomment
                     $emailsArray = $this->mailingGateway->getClientAccAdminsEmailForJobUpdates();
@@ -113,7 +185,16 @@ class Mailer
                     break;
 
                 case 15:
-                    include(__DIR__ . '/../../../mail/templates/job_ready_for_typing.php');
+
+                    $emHTML = file_get_contents(__DIR__ . '/../../../mail/templates/job_ready_for_typing.html');
+
+                    $replace_pairs = array(
+                        '{{year}}'    => date("Y")
+                    );
+
+                    $emHTML = strtr($emHTML, $replace_pairs);
+                    $emPlain = $emHTML;
+
                     $sbj = "New Job(s) Ready for Typing";
                     $emailsArray = $this->mailingGateway->getCurrentTypistsForJobUpdates();
                     $mailingListSize = sizeof($emailsArray);
@@ -134,13 +215,57 @@ class Mailer
                     $mailingListSize = 1;
                     $token = $this->generateToken($user_email, 5); // verify email token
                     if(!$token) return false;
-                    $link = "$cbaselink/verify.php?token=$token";
+                    $link = "$cbaselink/verify.php?token=$token&user=$user_email";
 
-//                    $link = "$cbaselink/index.php";
-                    global $pass;
-                    $pass = $extra1;
-                    include(__DIR__ . '/../../../mail/templates/user_added.php');
-                    $sbj = "vScription Transcribe Pro - New User Account Password";
+                    $emHTML = file_get_contents(__DIR__ . '/../../../mail/templates/user_added.html');
+
+                    $replace_pairs = array(
+                        '{{year}}'    => date("Y"),
+                        '{{verify_url}}' => $link,
+                        '{{url}}' => $cbaselink,
+                        '{{username}}' => $user_email,
+                        '{{pass}}' => $extra1
+                    );
+
+                    $emHTML = strtr($emHTML, $replace_pairs);
+                    $emPlain = $emHTML;
+
+                    $sbj = "vScription Transcribe Pro - New User Account Created";
+                    $mail->addBCC("sales@vtexvsi.com");
+                    break;
+
+                case 17:
+                    /** $extra1 : payment ID */
+
+                    $mailingListSize = 1;
+//                    global $pass;
+//                    $pass = $extra1;
+
+                    // get models
+                    $payment = Payment::withID($extra1, $this->db);
+                    $user = User::withID($payment->getUserId(), $this->db);
+
+                    $emHTML = file_get_contents(__DIR__ . '/../../../mail/templates/sr_package_receipt.html');
+                    $paymentJson = json_decode($payment->getPaymentJson(), true);
+                    $replace_pairs = array(
+                        '{{date}}'    => date("d-M-Y h:m:s a"),
+                        '{{year}}'    => date("Y"),
+                        '{{name}}'    => $user->getFirstName() . " " . $user->getLastName(),
+                        '{{email}}'  => $user->getEmail(),
+                        '{{address}}'=> $user->getAddress() . ", " . $user->getCountry(),
+                        '{{pkgname}}'  => $paymentJson["pkg_name"],
+                        '{{pkgmin}}'   => $paymentJson["pkg_minutes"],
+                        '{{taxes}}'   => $this->generateTaxes($paymentJson["taxes"],$paymentJson["pkg_price"] ),
+                        '{{totalprice}}'   => $this->formatPrice($paymentJson["total_price"]),
+                        '{{ref}}'   => $payment->getRefId(),
+                        '{{card}}'   => $paymentJson["card"],
+                    );
+
+
+                    $emHTML = strtr($emHTML, $replace_pairs);
+                    $emPlain = $emHTML;
+
+                    $sbj = "vScription Transcribe Pro Purchase Receipt";
                     $mail->addBCC("sales@vtexvsi.com");
                     break;
 
@@ -180,6 +305,25 @@ class Mailer
         }
     } // send Email end
 
+    function generateTaxes($taxes, $pkgPrice)
+    {
+        $taxesHTML = "";
+
+        foreach ($taxes as $tax) {
+            $taxesHTML .= '<tr><td>Taxes ('.$tax["code"].'- '.number_format(floatval($tax["tax"]) * 100, 0).'%)</td><td style="text-align: right">
+                    '.
+                    $this->formatPrice(number_format((floatval($pkgPrice) * floatval($tax["tax"])), 2))
+                .'
+                </td></tr>';
+        }
+
+        return$taxesHTML;
+    }
+    function formatPrice($price)
+    {
+        return "$" . number_format(floatval($price), 2) . " CAD";
+    }
+
     /**
      * Generates a random 78 length token, inserts it to tokens table
      * @param $reasonCode 5 -> email verification | 6 -> signup with typist invite
@@ -191,7 +335,7 @@ class Mailer
 
         while(true)
         {
-            $token = $this->getToken();
+            $token = $this->getToken($reasonCode==5?6:78);
             if($token != 0)
             {
                 break;
@@ -234,13 +378,14 @@ class Mailer
     }
 
     /**
-     * Generates a random token of 78 characters length
+     * Generates a random token
      * used for verification emails
+     * @param int $length token length default is 78
      * @return string generated token
      */
-    function getToken()
+    function getToken($length = 78)
     {
-        $length = 78;
+        $length = (int)floor($length/2);
         try {
             return bin2hex(random_bytes($length));
         } catch (\Exception $e) {

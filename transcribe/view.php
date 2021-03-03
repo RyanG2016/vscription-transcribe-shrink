@@ -128,9 +128,8 @@ function updateInitDownloadDate($con, $fileID, $accID)
 
 <!--    <script src="data/scripts/main.min.js?v=3"></script>-->
 
-    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,300&display=swap"
-          rel="stylesheet">
-    <script src="https://kit.fontawesome.com/00895b9561.js" crossorigin="anonymous"></script>
+
+    <script src="https://kit.fontawesome.com/12f6b99df9.js" crossorigin="anonymous"></script>
     <!--    <link rel="stylesheet" href="data/css/vs-style.css">-->
 
     <title>vScription Job Viewer</title>
@@ -144,34 +143,18 @@ function updateInitDownloadDate($con, $fileID, $accID)
     <!--	Scroll Bar Dependencies    -->
 
     <script src="data/scrollbar/jquery.nicescroll.js"></script>
-    <!--	///// End of scrollbar depdns   /////-->
 
-
-<!--    <link rel="stylesheet" href="data/dialogues/jquery-confirm.min.css">-->
-<!--    <script src="data/dialogues/jquery-confirm.min.js"></script>-->
-
-    <!--  Data table Jquery helping libs  -->
-<!--    <link rel="stylesheet" type="text/css" href="data/libs/DataTables/datatables.css"/>-->
-<!--    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/material-components-web/4.0.0/material-components-web.min.css"/>-->
-<!--    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/dataTables.material.min.css"/>-->
-<!--    <script type="text/javascript" src="data/libs/DataTables/datatables.min.js"></script>-->
-<!--    <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/dataTables.material.min.js"></script>-->
 
     <!-- BOOTSTRAP -->
-
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-            crossorigin="anonymous"></script>
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-
-
-    <!--	Tooltip 	-->
-<!--    <link rel="stylesheet" type="text/css" href="data/tooltipster/css/tooltipster.bundle.min.css" />-->
-<!--    <link rel="stylesheet" type="text/css" href="data/tooltipster/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-punk.min.css" />-->
-<!--    <script type="text/javascript" src="data/tooltipster/js/tooltipster.bundle.min.js"></script>-->
-
+<!---->
+<!--    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"-->
+<!--            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"-->
+<!--            crossorigin="anonymous"></script>-->
+<!---->
+<!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">-->
+<!--    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>-->
+<!---->
+<!--    -->
     <link rel="stylesheet" href="data/css/view.css">
     <script type="text/javascript">
         $(".vtex-report-body").niceScroll({

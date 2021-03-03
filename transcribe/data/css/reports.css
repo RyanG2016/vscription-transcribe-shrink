@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
 }
+
 body {
     padding: 10px;
 }
@@ -12,12 +13,12 @@ body {
 }
 
 .header .head-left h2 {
-    font-family: 'oxygen', serif;
+    font-family: main, sans-serif;
 }
 
 .report {
     border: 1px solid;
-    font-family: 'oxygen', serif;
+    font-family: main, sans-serif;
     font-size: 14px;
     padding: 5px;
 }
@@ -50,18 +51,21 @@ tbody {
 .jobtype {
     width: 125px;
 }
+
 .datedict {
     width: 100px;
 }
+
 .audiolength {
     width: 75px;
 }
+
 .transdate {
     width: 125px;
 }
 
 p {
-    font-family: 'oxygen', serif;
+    font-family: main, sans-serif;
     font-size: 14px;
     text-align: right;
     margin-right: 15%;

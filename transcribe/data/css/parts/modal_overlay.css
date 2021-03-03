@@ -1,4 +1,4 @@
-.overlay{
+.overlay {
     position: fixed; /* Sit on top of the page content */
     width: 100%; /* Full width (cover the whole page) */
     height: 100%; /* Full height (cover the whole page) */
@@ -6,7 +6,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+    background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
     text-align: center;
     vertical-align: middle;
     margin: auto;
@@ -15,37 +15,50 @@
     display: block;
 }
 
-.overlay .spinner{
+.overlay .spinner {
     position: absolute;
     top: 50%;
     left: 50%;
     font-size: 50px;
     color: white;
-    transform: translate(-50%,-50%);
-    -ms-transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
 }
 
-.overlay{
+.overlay {
     text-align: center;
 }
-.loading-overlay-text{
+
+.loading-overlay-text {
     position: relative;
     top: 40%;
     color: #444444;
-    font-family: oxygen, sans-serif;
+    font-family: main, sans-serif;
     font-size: 40px;
     -webkit-animation: bounce 2.5s infinite ease-in-out both;
     animation: bounce 2.5s infinite ease-in-out both;
 }
 
 @-webkit-keyframes bounce {
-    0% { transform: translateY(-3px)  }
-    50% { transform: translateY(6px) }
-    100% { transform: translateY(-3px) }
+    0% {
+        transform: translateY(-3px)
+    }
+    50% {
+        transform: translateY(6px)
+    }
+    100% {
+        transform: translateY(-3px)
+    }
 }
 
 @keyframes bounce {
-    0% { transform: translateY(-3px)  }
-    50% { transform: translateY(6px) }
-    100% { transform: translateY(-3px) }
+    0% {
+        transform: translateY(-3px)
+    }
+    50% {
+        transform: translateY(6px)
+    }
+    100% {
+        transform: translateY(-3px)
+    }
 }

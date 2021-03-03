@@ -1,17 +1,12 @@
 <?php
 //include('../data/parts/head.php');
 
-include('../data/parts/session_settings.php');
+require '../../api/vendor/autoload.php';
+use Src\Enums\INTERNAL_PAGES;
 
-require('../data/parts/ping.php');
+$vtex_page = INTERNAL_PAGES::ADMIN_PANEL_ACCOUNTS;
 
-if (!isset($_SESSION['loggedIn'])) {
-    header('location:../logout.php');
-    exit();
-}
-if (isset($_SESSION['counter'])) {
-    unset($_SESSION['counter']);
-}
+include('../data/parts/head.php');
 
 // admin panel main
 
@@ -19,17 +14,17 @@ if (isset($_SESSION['counter'])) {
 if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
 //User is a System Administrator ONLY
     ob_start();
-    header('Location: ' . "../accessdenied.php");
+    header('Location: ' . "../index.php");
     ob_end_flush();
     die();
 }
-$vtex_page = 6;
+$vtex_page = INTERNAL_PAGES::ACCOUNTS;
 ?>
 
-<html>
+<html lang="en">
 
 <head>
-    <title>vScription Manage Accounts</title>
+    <title>vScription Manage Organizations</title>
     <link rel="shortcut icon" type="image/png" href="../data/images/favicon.png"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="../data/libs/node_modules/material-components-web/dist/material-components-web.css" rel="stylesheet">
@@ -37,7 +32,7 @@ $vtex_page = 6;
     <script src="../data/libs/node_modules/material-components-web/dist/material-components-web.js"></script>
     <script src="../data/libs/node_modules/@material/textfield/dist/mdc.textfield.js"></script>
     <script src="../data/libs/node_modules/@material/linear-progress/dist/mdc.linearProgress.js"></script>
-    <script src="https://kit.fontawesome.com/00895b9561.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/12f6b99df9.js" crossorigin="anonymous"></script>
 
     <!--	Scroll Bar Dependencies    -->
     <script src="../data/scrollbar/jquery.nicescroll.js"></script>
@@ -87,84 +82,42 @@ $vtex_page = 6;
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css"
           crossorigin="anonymous">
 
-    <script src="../data/scripts/accounts.min.js"></script>
+    <script src="../data/scripts/accounts.min.js?v=2"></script>
     <link href="../data/css/manage_accounts.css" rel="stylesheet">
 </head>
 
 <body>
-<?php include_once "../data/parts/nav.php" ?>
+<div class="container-fluid d-flex h-auto vspt-container-fluid">
+    <div class="row w-100 h-100 vspt-container-fluid-row no-gutters" style="white-space: nowrap">
 
-<div id="container" style="width: 100%">
-    <div class="form-style-5">
+        <?php include_once "../data/parts/nav.php"?>
 
-        <table id="header-tbl">
-            <tr>
-                <td id="navbtn" align="left" colspan="1">
-                    <a class="logout" href="index.php"><i class="fas fa-arrow-left"></i> Go back to Admin Panel</a>
-                </td>
+        <div class="vspt-page-container vspt-col-auto-fix">
 
-                <td id="logbar" align="right" colspan="1">
-                    Logged in as: <?php echo $_SESSION['uEmail'] ?> |
-                    <!--                    </div>-->
-                    <a class="logout" href="../logout.php">
-                        <i class="fas fa-sign-out-alt"></i>
-                        Logout
-                    </a>
-                </td>
-
-            </tr>
-            <tr class="spacer"></tr>
-            <tr style="margin-top: 50px">
-                <td class="title" align="left" width="450px">
-
-                    <legend class="page-title">
-                        <i class="material-icons mdc-button__icon" aria-hidden="true">admin_panel_settings</i>
-                        Accounts Management
-                    </legend>
-                </td>
-                <!--<td align="right" rowspan="2" id="fix-td">
-
-                    </td>-->
-
-                <td width="300px">
-                    <img src="../data/images/Logo_vScription_Transcribe_Pro_White.png" width="300px"/>
-                </td>
-            </tr>
-
-
-        </table>
-
-        <div class="root">
-            <div class="nav-bar">
-
-                <div class="vtex-card nav-header first">
-                    ACTIONS
+            <div class="row">
+                <div class="col">
+                    <a class="logbar" href="index.php"><i class="fas fa-arrow-left"></i> Go back to Admin Panel</a>
                 </div>
-                <div class="nav-btns-div actions-btns">
-                    <button class="mdc-button mdc-button--outlined tools-button" id="createAcc">
-                        <div class="mdc-button__ripple"></div>
-                        <i class="fas fa-user-plus"></i>
-                        <span class="mdc-button__label">&nbsp;Create Account</span>
-                    </button>
 
-                    <!--<div class="vtex-card nav-header">
-                        Header 2
-                    </div>
-
-                    <button class="mdc-button mdc-button--outlined tools-button" >
-                        <div class="mdc-button__ripple"></div>
-                        <i class="material-icons mdc-button__icon" aria-hidden="true">attach_money</i>
-                        <span class="mdc-button__label">Button 2</span>
-                    </button>-->
-
-
-                </div>
 
             </div>
-            <div class="vtex-card contents first">
+
+            <div class="row vspt-title-row no-gutters">
+                <div class="col align-items-end d-flex">
+                    <legend class="page-title mt-auto">
+                        <i class="material-icons mdc-button__icon" aria-hidden="true">admin_panel_settings</i>
+                        Organization Management
+                    </legend>
+                </div>
+                <div class="col-auto">
+                    <img src="../data/images/Logo_vScription_Transcribe.png" width="300px"/>
+                </div>
+            </div>
+
+            <div class="vtex-card contents">
 
                 <div class="vtex-top-bar">
-                    <h2 class="accounts-tbl-title">Accounts List</h2>
+                    <h2 class="users-tbl-title">Organization List</h2>
                     <button class="mdc-button mdc-button--unelevated refresh-button" id="refresh_btn">
                         <div class="mdc-button__ripple"></div>
                         <i class="material-icons mdc-button__icon" aria-hidden="true">refresh</i>
@@ -172,30 +125,16 @@ $vtex_page = 6;
                     </button>
                 </div>
 
-
-                <!--        CONTENTS GOES HERE        -->
-                <table id="accounts-tbl" class="accounts-tbl users-tbl table row-border hover compact"
-                       style="width:100%">
-                    <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Prefix</th>
-                        <th>Date Created</th>
-                        <th>Ret.</th>
-                        <th>Log Ret.</th>
-                        <th>Prefix</th>
-                        <th>Enabled</th>
-                        <th>Billable</th>
-                    </tr>
-                    </thead>
-                </table>
+                <div style="overflow-x: hidden" class="vspt-table-div">
+                    <table id="accounts-tbl" class="accounts-tbl vspt-table table row-border hover compact"></table>
+                </div>
             </div>
+
         </div>
-
-
     </div>
 </div>
+
+
 
 <!-- The Modal -->
 <div id="modal" class="modal">
@@ -206,7 +145,7 @@ $vtex_page = 6;
             <div class="modal-header">
                 <div>
                     <h3 style="color: #1e79be" id="modalHeaderTitle"><i class="fas fa-user-plus"></i>&nbsp;Create New
-                        Account</h3>
+                        Org</h3>
                 </div>
                 <div style="text-align: right">
                     <fieldset class="vtex-fieldset enabled-radios" style="display: inline;text-align: center;">
@@ -242,7 +181,7 @@ $vtex_page = 6;
                 <div class="form-row">
                     <div class="input-group col w-100 mb-3">
                         <div class="input-group-prepend">
-                            <span class="input-group-text">Account Name</span>
+                            <span class="input-group-text">Org Name</span>
                         </div>
                         <input type="text" class="form-control" id="accName" placeholder="" name="acc_name">
                     </div>
@@ -252,7 +191,7 @@ $vtex_page = 6;
                 <div class="form-row mb-2">
                     <div class="input-group col">
                         <div class="input-group-prepend">
-                            <span class="input-group-text">Account Retention Time</span>
+                            <span class="input-group-text">Org Retention Time</span>
                         </div>
                         <input type="number" class="form-control" id="acc_retention_time" placeholder=""
                                name="acc_retention_time" min="0"
@@ -576,6 +515,8 @@ $vtex_page = 6;
 
     </div>
 </div>
+
+<?php include_once "../data/parts/footer.php"?>
 </body>
 
 </html>

@@ -1,0 +1,68 @@
+/*@import "parts/user_card_view.css";*/
+@import "parts/modal_overlay.css";
+/*@import "parts/data-tbl.css";*/
+@import "parts/vtex-custom-styles.css";
+@import "parts/material-override.css";
+@import "parts/util.css";
+@import "parts/global.css";
+
+.input-group{
+    margin-bottom: 8px;
+}
+
+.newsletter-button{
+    background-color: var(--vspt-red) !important;
+    height: 27px;
+    width: 45px;
+    font-size: 15px;
+    padding: 0;
+}
+
+.newsletter-button.active{
+    background-color: var(--vspt-btn-green) !important;
+}
+
+.vspt-check-toggle-icon:before{
+    content: "\f00d";
+    font-family: FontAwesome;
+}
+
+.newsletter-button.active > span:before{
+    content: "\f00c";
+    font-family: FontAwesome;
+}
+
+.bs-text{
+    font-size: 12.8px;
+    align-self: center;
+}
+
+#userCard .input-group-text{
+    width: 90px;
+}
+
+#orgCard .input-group-text,
+#ownOrgCard .input-group-text{
+    width: 197px;
+}
+
+.sr-balance-div{
+    text-align: right;
+}
+
+.ret> div:first-child{
+    padding-right: 15px;
+}
+
+.ret > div:last-child{
+    padding-left: 15px;
+}
+
+.settings-content{
+    max-width: 900px;
+}
+
+#country{
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}

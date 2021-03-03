@@ -1,7 +1,7 @@
 <!--<!doctype html>-->
 <!--<h1>Privacy Policy</h1>-->
 
-<p class="text-left">Last updated: February 01, 2020</p>
+<p class="text-left">Last updated: January 12, 2021</p>
 <br/>
 <p class="text-center">This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You.</p>
 
@@ -20,11 +20,11 @@
 		<p><strong>You</strong> means the individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable.</p>
 	</li>
 	<li>
-		<p><strong>Company</strong> (referred to as either "the Company", "We", "Us" or "Our" in this Agreement) refers to VTEX Voice Solutions Inc., 11 St. Anne's Rd, Winnipeg, MB Canada - R2N 2Y1.</p>
+		<p><strong>Company</strong> (referred to as either "the Company", "We", "Us" or "Our" in this Agreement) refers to VTEX Voice Solutions Inc., 130 Scott Street, Winnipeg, MB Canada - R3L 0K8.</p>
 	</li>
 	<li><strong>Affiliate</strong> means an entity that controls, is controlled by or is under common control with a party, where "control" means ownership of 50% or more of the shares, equity interest or other securities entitled to vote for election of directors or other managing authority.</li>
 	<li><strong>Account</strong> means a unique account created for You to access our Service or parts of our Service.</li>
-	<li><strong>Website</strong> refers to vScription Transcribe Free, accessible from <a href="https://vtexvsi.com/vscription/transcribe">https://vtexvsi.com/vscription/transcribe</a> </li>
+	<li><strong>Website</strong> refers to vScription Transcribe Pro, accessible from <a href="https://www.vscription.com">https://www.vscription.com</a> </li>
 	<li><strong>Service</strong> refers to the Website.</li>
 	<li><strong>Country</strong> refers to: Manitoba, Canada</li>
 	<li>

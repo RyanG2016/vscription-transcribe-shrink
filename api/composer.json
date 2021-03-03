@@ -9,6 +9,17 @@
       "email": "hossamt7552@gmail.com"
     }
   ],
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/iceman2894/lowrapper"
+    },
+    {
+      "type": "vcs",
+      "url": "git@github.com:vkhramtsov/sdk-php.git",
+      "no-api": true
+    }
+  ],
   "require": {
     "vlucas/phpdotenv": "^2.4",
     "ext-json": "*",
@@ -16,8 +27,11 @@
     "ext-fileinfo": "*",
     "ext-curl": "*",
     "bandwidth-throttle/token-bucket": "^2.0",
-    "phpmailer/phpmailer": "~6.1",
-    "mnvx/lowrapper": "^1.0"
+    "phpmailer/phpmailer": "6.1.7",
+    "iceman2894/lowrapper": "*",
+    "authorizenet/authorizenet": "dev-bugfix-remove-parent-call-when-class-does-not-have-parent",
+    "myclabs/php-enum": "^1.7",
+    "mantas-done/subtitles": "^0.3.9"
   },
   "autoload": {
     "psr-4": {

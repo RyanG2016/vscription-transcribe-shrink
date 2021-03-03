@@ -2,18 +2,23 @@
 <html lang="en">
 
 <?php
-$vtex_page = 2;
+
+require '../api/vendor/autoload.php';
+use Src\Enums\INTERNAL_PAGES;
+
+$vtex_page = INTERNAL_PAGES::JOB_LISTER;
+
 include('data/parts/head.php');
 include('rtf3/src/HtmlToRtf.php');
 include('data/parts/constants.php');
 
 if (isset($_SESSION['role'])) {
     if ($_SESSION['role'] != "2" && $_SESSION['role'] != "1") {
-        header('location:accessdenied.php');
+        header('location:index.php');
     }
 }
 else {
-        header('location:accessdenied.php');
+        header('location:index.php');
 }
 
 ?>
@@ -33,40 +38,50 @@ else {
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="data/libs/node_modules/material-components-web/dist/material-components-web.js"></script>
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
 
-
-    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,300&display=swap"
-          rel="stylesheet">
-    <script src="https://kit.fontawesome.com/00895b9561.js" crossorigin="anonymous"></script>
-<!--    <link rel="stylesheet" href="data/css/vs-style.css">-->
+    <script src="https://kit.fontawesome.com/12f6b99df9.js" crossorigin="anonymous"></script>
 
     <title>vScription Job Lister</title>
     <link rel="shortcut icon" type="image/png" href="data/images/favicon.png"/>
-    <link rel="stylesheet" href="data/css/job_lister_form_5.css">
-
-    <link rel="stylesheet" href="data/main/jquery-ui.css">
-    <script src="data/main/jquery.js"></script>
-    <script src="data/main/garlic.js"></script>
-    <script src="data/main/jquery-ui.js"></script>
 
     <!--	Scroll Bar Dependencies    -->
 
-    <script src="data/scrollbar/jquery.nicescroll.js"></script>
+<!--    <script src="data/scrollbar/jquery.nicescroll.js"></script>-->
+
+    <!--  JQUERY  -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="data/dialogues/jquery-confirm.min.css">
+    <script src="data/dialogues/jquery-confirm.min.js"></script>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.ui.position.js"></script>
+
+
     <!--	///// End of scrollbar depdns   /////-->
 
 
-    <link rel="stylesheet" href="data/dialogues/jquery-confirm.min.css">
-    <script src="data/dialogues/jquery-confirm.min.js"></script>
+    <!-- BOOTSTRAP -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
 
-    <!--  Data table Jquery helping libs  -->
-    <link rel="stylesheet" type="text/css" href="data/libs/DataTables/datatables.css"/>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/material-components-web/4.0.0/material-components-web.min.css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/dataTables.material.min.css"/>
-    <script type="text/javascript" src="data/libs/DataTables/datatables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/dataTables.material.min.js"></script>
+
+    <!--  Datatables  -->
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+
+    <!--  css  -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" crossorigin="anonymous">
+
+
 
     <!--	Tooltip 	-->
     <link rel="stylesheet" type="text/css" href="data/tooltipster/css/tooltipster.bundle.min.css" />
@@ -90,119 +105,86 @@ else {
 </head>
 
 <body>
-<?php include_once "data/parts/nav.php" ?>
-<div id="container" style="width: 100%">
-    <div class="form-style-5">
 
-        <table id="header-tbl">
-            <tr>
-                <td id="navbtn" align="left" colspan="1">
+<div class="container-fluid d-flex h-auto vspt-container-fluid">
+    <div class="row w-100 h-100 vspt-container-fluid-row no-gutters" style="white-space: nowrap">
 
-                    <a class="logout" href="landing.php"><i class="fas fa-arrow-left"></i> Go back to landing page</a>
-                </td>
+        <?php include_once "data/parts/nav.php"?>
 
-                <td id="logbar" align="right" colspan="1">
-                    Logged in as: <?php echo $_SESSION['uEmail'] ?> |
-                    <!--                    </div>-->
-                    <a class="logout" href="logout.php">
-                        <i class="fas fa-sign-out-alt"></i>
-                        Logout
-                    </a>
-                </td>
+        <div class="vspt-page-container vspt-col-auto-fix">
 
-            </tr>
-            <tr class="spacer"></tr>
-            <tr style="margin-top: 50px">
-                <td class="title" align="left" width="450px">
-                    <legend class="page-title">vScription Transcribe Pro Job Lister</legend>
-                </td>
-                <!--<td align="right" rowspan="2" id="fix-td">
+<!--            <div class="row">-->
+<!--                <div class="col">-->
+<!--                    <a class="logbar" href="landing.php"><i class="fas fa-arrow-left"></i> Go back to landing page</a>-->
+<!--                </div>-->
+<!---->
+<!---->
+<!--            </div>-->
 
-                    </td>-->
+            <div class="row vspt-title-row no-gutters">
+                <div class="col align-items-end d-flex">
+                    <legend class="page-title mt-auto">
+                        <span class="fas fa-list-alt fa-fw mr-3"></span>
+                        vScription Transcribe Pro Job Lister
+                    </legend>
+                </div>
+                <div class="col-auto">
+                    <img src="data/images/Logo_vScription_Transcribe.png" width="300px"/>
+                </div>
+            </div>
 
-                <td width="300px">
-                    <img src="data/images/Logo_vScription_Transcribe_Pro_White.png" width="300px"/>
-                </td>
-            </tr>
-        </table>
+            <div class="vtex-card contents">
 
-        <table class="data-tbl">
-            <tr>
-                <td colspan="1">
-                    <h3 class="getList job_list_tbl_title">Jobs List</h3>
-                </td>
-                <td colspan="3" align="right">
-                    <span class="top-links" id="help">
-                        <a href="https://vscriptionpro.helpdocsonline.com/" target="_blank" title="">Need help <i class="far fa-question-circle"></i></a>
-                    </span>
-                    <button class="mdc-button mdc-button--unelevated foo-button" id="newupload_btn">
+                <div class="vtex-top-bar form-row m-0">
+                    <h2 class="users-tbl-title col">Jobs List</h2>
+<!--                    <a href="https://vscriptionpro.helpdocsonline.com/" class="col-auto mt-auto mb-auto" target="_blank" title="">Need help <i class="far fa-question-circle"></i></a>-->
+
+                    <button class="mdc-button mdc-button--unelevated mr-2 foo-button" id="newupload_btn">
                         <div class="mdc-button__ripple"></div>
                         <i class="material-icons mdc-button__icon" aria-hidden="true">cloud_upload</i>
                         <span class="mdc-button__label">Upload Jobs</span>
                     </button>
 
-                    <button class="mdc-button mdc-button--unelevated vtex-mtb" id="manage_typists_btn">
+                    <button class="mdc-button col-auto pr-2 pl-2 mdc-button--unelevated refresh-button" id="refresh_btn">
                         <div class="mdc-button__ripple"></div>
-                        <i class="fas fa-keyboard"></i>&nbsp;
-                        <span class="mdc-button__label">Manage Typists</span>
-                    </button>
-
-                    <button class="mdc-button mdc-button--unelevated foo-button" id="refresh_btn"
-                            >
-                        <div class="mdc-button__ripple"></div>
-                        <i class="material-icons mdc-button__icon" aria-hidden="true"
-                        >refresh</i
-                        >
+                        <i class="material-icons mdc-button__icon" aria-hidden="true">refresh</i>
                         <span class="mdc-button__label">Refresh</span>
                     </button>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="4">
+                </div>
 
-                    <table id="jobs-tbl" class="display" style="width:100%">
-                        <thead>
-                        <tr>
-                            <th>Job #</th>
-                            <th>Author</th>
-                            <th>Job Type</th>
-                            <th>Date Dictated</th>
-                            <th>Date Uploaded</th>
-                            <th>Job Length</th>
-                            <th>Job Status</th>
-                            <th>Job Transcribed</th>
-                            <th>Initial Download</th>
-                            <th>Actions</th>
-                        </tr>
-                        </thead>
 
+                <div style="overflow-x: hidden" class="vspt-table-div">
+                    <table id="jobs-tbl" class="users-tbl table vspt-table hover compact">
                         <tfoot>
                         <tr>
-                            <th>Job #</th>
-                            <th>Author</th>
-                            <th>Job Type</th>
-                            <th>Date Dictated</th>
-                            <th>Date Uploaded</th>
-                            <th>Job Length</th>
-                            <th>Job Status</th>
-                            <th>Job Transcribed</th>
-                            <th>Initial Download</th>
-                            <th>Actions</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
                         </tr>
                         </tfoot>
                     </table>
-                </td>
-            </tr>
-            <tr>
-                <td id="tjd"></td>
-                <td id="cbm" style="text-align: right"></td>
-            </tr>
-        </table>
+                </div>
+                <div class="row mt-3 pt-2 border-top">
+                    <div class="col" id="tjd">
 
+                    </div>
+                    <div class="col-auto" id="cbm"></div>
+                </div>
+            </div>
 
+        </div>
     </div>
 </div>
 
+
+<?php include_once "data/parts/footer.php"?>
 </body>
 
 </html>

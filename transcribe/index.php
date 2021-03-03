@@ -23,12 +23,14 @@ if(isset($_SESSION['loggedIn']))
             //User is a Transcriptionist
             redirect("transcribe.php");
         } else {
-            redirect("landing.php");
+//            redirect("landing.php");
+            redirect("settings.php");
         }
 
     } else {
-		redirect("landing.php");
-	}
+//		redirect("landing.php");
+        redirect("settings.php");
+    }
 
 }
 
@@ -75,7 +77,7 @@ isset($_SESSION['uEmail'])?$uEmail = $_SESSION['uEmail']:$uEmail = "";
 	<link rel="stylesheet" href="data/dialogues/jquery-confirm.min2.css">
 	<script src="data/dialogues/jquery-confirm.min.js"></script>
 
-    <script src="https://kit.fontawesome.com/00895b9561.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/12f6b99df9.js" crossorigin="anonymous"></script>
 
 </head>
 
@@ -92,12 +94,12 @@ isset($_SESSION['uEmail'])?$uEmail = $_SESSION['uEmail']:$uEmail = "";
 
 					<span class="login100-form-title p-b-20">
 						<!--						<i class="zmdi zmdi-font"></i>-->
-						<img src="data/images/Logo_vScription_Transcribe_Pro_Stacked.png" style="height: 110px" />
+						<img src="data/images/Logo_vScription_Transcribe_Stacked.png" style="height: 110px" />
 					</span>
 
-					<span id="title" class="login100-form-title p-b-26">
+					<!--<span id="title" class="login100-form-title p-b-26">
 						Welcome
-					</span>
+					</span>-->
 
 					<!----------------------NAME----------------->
 					<table>
@@ -205,20 +207,18 @@ isset($_SESSION['uEmail'])?$uEmail = $_SESSION['uEmail']:$uEmail = "";
 
 					</div>
 
-					<div class="container-login100-form-btn">
-						<div class="wrap-login100-form-btn">
-							<div class="login100-form-bgbtn"></div>
-							<button class="login100-form-btn">
-								Login
-							</button>
-						</div>
-					</div>
+                    <button type="submit" class="btn btn-primary btn-lg mt-4" id="loginBtn">Login</button>
+                    <!--<button class="login-btn">
+                        Login
+                    </button>-->
+<!--					<div class="container-login100-form-btn">-->
+<!--						<div class="wrap-login100-form-btn">-->
+<!--							<div class="login100-form-bgbtn"></div>-->
+<!---->
+<!--						</div>-->
+<!--					</div>-->
 
-					<div class="text-center p-t-15" id="info">
-						<span class="txt1" id="btmtxt1">
-							Don’t have an account?
-						</span>
-
+					<div class="text-center p-t-3" id="info">
 						<a class="txt2" href="signup.php" id="btmtxt2">
 							Sign Up
 						</a>
