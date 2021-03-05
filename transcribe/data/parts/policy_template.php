@@ -94,13 +94,6 @@
 		<p>Administered by: Third-Parties</p>
 		<p>Purpose: These Cookies are used to track information about traffic to the Website and how users use the Website. The information gathered via these Cookies may directly or indirectly identify you as an individual visitor. This is because the information collected is typically linked to a pseudonymous identifier associated with the device you use to access the Website. We may also use these Cookies to test new advertisements, pages, features or new functionality of the Website to see how our users react to them.</p>
 	</li>
-	<li>
-		<p><strong>Targeting and Advertising Cookies</strong>
-		</p>
-		<p>Type: Persistent Cookies</p>
-		<p>Administered by: Third-Parties</p>
-		<p>Purpose: These Cookies track your browsing habits to enable Us to show advertising which is more likely to be of interest to You. These Cookies use information about your browsing history to group You with other users who have similar interests. Based on that information, and with Our permission, third party advertisers can place Cookies to enable them to show adverts which We think will be relevant to your interests while You are on third party websites.</p>
-	</li>
 </ul>
 <p>For more information about the cookies we use and your choices regarding cookies, please visit our Cookies Policy.</p>
 
@@ -119,18 +112,17 @@
 <p>We may share your personal information in the following situations:</p>
 
 <ul>
-    <li><strong>With Service Providers:</strong> We may share Your personal information with Service Providers to monitor and analyze the use of our Service, to show advertisements to You to help support and maintain Our Service, to contact You, to advertise on third party websites to You after You visited our Service or for payment processing.</li>
-    <li><strong>For Business transfers:</strong> We may share or transfer Your personal information in connection with, or during negotiations of, any merger, sale of Company assets, financing, or acquisition of all or a portion of our business to another company.</li>
+    <li><strong>With Service Providers:</strong> Your information is shared with our payment processor for payment processing only. </li>
 </ul>
 
 <br/>
 <h2>Retention of Your Personal Data</h2>
-<p>The Company will retain Your Personal Data only for as long as is necessary for the purposes set out in this Privacy Policy. We will retain and use Your Personal Data to the extent necessary to comply with our legal obligations (for example, if we are required to retain your data to comply with applicable laws), resolve disputes, and enforce our legal agreements and policies.</p>
+<p>The Company will retain Your Personal Data only for as long as is necessary for the purposes set out in this Privacy Policy. We will retain and use Your Personal Data to the extent necessary to comply with our legal obligations (for example, if we are required to retain your data to comply with applicable laws), resolve disputes, and enforce our legal agreements and policies. Audio and Transcribed data are retained for the amount of time specified by the client. Default retention time is 30 days from the date of the first download or a transcribed file. Audit logs are retained for a period of 180 days unless requested otherwise by the client.</p>
 <p>The Company will also retain Usage Data for internal analysis purposes. Usage Data is generally retained for a shorter period of time, except when this data is used to strengthen the security or to improve the functionality of Our Service, or We are legally obligated to retain this data for longer time periods.</p>
 
 <br/>
 <h2>Transfer of Your Personal Data</h2>
-<p>Your information, including Personal Data, is processed at the Company's operating offices and in any other places where the parties involved in the processing are located. It means that this information may be transferred to — and maintained on — computers located outside of Your state, province, country or other governmental jurisdiction where the data protection laws may differ than those from Your jurisdiction.</p>
+<p>Your information, including Personal Data, is processed at the Company's operating offices and in any other places where the parties involved in the processing are located. It means that this information may be transferred to — and maintained on — computers located outside of Your state or province (Not country) or other governmental jurisdiction where the data protection laws may differ than those from Your jurisdiction.</p>
 <p>Your consent to this Privacy Policy followed by Your submission of such information represents Your agreement to that transfer.</p>
 <p>The Company will take all steps reasonably necessary to ensure that Your data is treated securely and in accordance with this Privacy Policy and no transfer of Your Personal Data will take place to an organization or a country unless there are adequate controls in place including the security of Your data and other personal information.</p>
 
@@ -176,47 +168,12 @@
                                     </ul>
 
 <br/>
-<h2>Advertising</h2>
-<p>We may use Service providers to show advertisements to You to help support and maintain Our Service.</p>
-<ul>
-        <li>
-          <p><strong>Google AdSense &amp; DoubleClick Cookie</strong></p>
-          <p>Google, as a third party vendor, uses cookies to serve ads on our Service. Google's use of the DoubleClick cookie enables it and its partners to serve ads to our users based on their visit to our Service or other websites on the Internet.</p>
-          <p>You may opt out of the use of the DoubleClick Cookie for interest-based advertising by visiting the Google Ads Settings web page: <a href="http://www.google.com/ads/preferences/">http://www.google.com/ads/preferences/</a></p>
-      </li>
-            <li>
-          <p><strong>Bing Ads</strong></p>
-          <p>Bing Ads is an advertising service provided by Microsoft Inc.</p>
-          <p>You can opt-out from Bing Ads by following the instructions on Bing Ads Opt-out page: <a href="https://advertise.bingads.microsoft.com/en-us/resources/policies/personalized-ads">https://advertise.bingads.microsoft.com/en-us/resources/policies/personalized-ads</a></p>
-          <p>For more information about Bing Ads, please visit their Privacy Policy: <a href="https://privacy.microsoft.com/en-us/PrivacyStatement">https://privacy.microsoft.com/en-us/PrivacyStatement</a></p>
-      </li>
-                    </ul>
-
-<br/>
 <h2>Email Marketing</h2>
 <p>We may use Your Personal Data to contact You with newsletters, marketing or promotional materials and other information that may be of interest to You. You may opt-out of receiving any, or all, of these communications from Us by following the unsubscribe link or instructions provided in any email We send or by contacting Us.</p>
 <p>We may use Email Marketing Service Providers to manage and send emails to You.</p>
     
 <br/>
-<h2>Behavioral Remarketing</h2>
-<p>The Company uses remarketing services to advertise on third party websites to You after You visited our Service. We and Our third-party vendors use cookies to inform, optimize and serve ads based on Your past visits to our Service.</p>
-<ul>
-          <li>
-            <p><strong>Google Ads (AdWords)</strong></p>
-            <p>Google Ads (AdWords) remarketing service is provided by Google Inc.</p>
-            <p>You can opt-out of Google Analytics for Display Advertising and customise the Google Display Network ads by visiting the Google Ads Settings page: <a href="http://www.google.com/settings/ads">http://www.google.com/settings/ads</a></p>
-            <p>Google also recommends installing the Google Analytics Opt-out Browser Add-on - <a href="https://tools.google.com/dlpage/gaoptout">https://tools.google.com/dlpage/gaoptout</a> - for your web browser. Google Analytics Opt-out Browser Add-on provides visitors with the ability to prevent their data from being collected and used by Google Analytics.</p>
-            <p>For more information on the privacy practices of Google, please visit the Google Privacy &amp; Terms web page: <a href="https://policies.google.com/privacy?hl=en">https://policies.google.com/privacy?hl=en</a></p>
-        </li>
-            <li>
-            <p><strong>Bing Ads Remarketing</strong></p>
-            <p>Bing Ads remarketing service is provided by Microsoft Inc.</p>
-            <p>You can opt-out of Bing Ads interest-based ads by following their instructions: <a href="https://advertise.bingads.microsoft.com/en-us/resources/policies/personalized-ads">https://advertise.bingads.microsoft.com/en-us/resources/policies/personalized-ads</a></p>
-            <p>You can learn more about the privacy practices and policies of Microsoft by visiting their Privacy Policy page: <a href="https://privacy.microsoft.com/en-us/PrivacyStatement">https://privacy.microsoft.com/en-us/PrivacyStatement</a></p>
-        </li>
-              </ul>
 
-<br/>
 <h1 class="text-center">Children's Privacy</h1>
 <br/>
 <p>Our Service does not address anyone under the age of 13. We do not knowingly collect personally identifiable information from anyone under the age of 13. If You are a parent or guardian and You are aware that Your child has provided Us with Personal Data, please contact Us. If We become aware that We have collected Personal Data from anyone under the age of 13 without verification of parental consent, We take steps to remove that information from Our servers.</p>
