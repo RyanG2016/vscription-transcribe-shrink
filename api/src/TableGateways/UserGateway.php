@@ -810,7 +810,7 @@ class UserGateway implements GatewayInterface
                     break;
 
                 case 'address':
-                    if(!preg_match("/^[a-z0-9_ .]{0,100}$/i", $valuePost))
+                    if(!preg_match("/^[a-z0-9_\- .]{0,100}$/i", $valuePost))
                     {
                         return $this->errorOccurredResponse("Invalid Input (VSPT-U202)");
                     }
