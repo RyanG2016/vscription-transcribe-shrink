@@ -6,6 +6,8 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Attribute' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
+    'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'Done\\Subtitles\\AssConverter' => $vendorDir . '/mantas-done/subtitles/src/code/Converters/AssConverter.php',
     'Done\\Subtitles\\ConverterContract' => $vendorDir . '/mantas-done/subtitles/src/code/Converters/ConverterContract.php',
     'Done\\Subtitles\\DfxpConverter' => $vendorDir . '/mantas-done/subtitles/src/code/Converters/DfxpConverter.php',
@@ -19,6 +21,10 @@ return array(
     'Done\\Subtitles\\TtmlConverter' => $vendorDir . '/mantas-done/subtitles/src/code/Converters/TtmlConverter.php',
     'Done\\Subtitles\\TxtConverter' => $vendorDir . '/mantas-done/subtitles/src/code/Converters/TxtConverter.php',
     'Done\\Subtitles\\VttConverter' => $vendorDir . '/mantas-done/subtitles/src/code/Converters/VttConverter.php',
+    'JsonException' => $vendorDir . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
+    'Stringable' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
+    'UnhandledMatchError' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
+    'ValueError' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
     'net\\authorize\\api\\constants\\ANetEnvironment' => $vendorDir . '/authorizenet/authorizenet/lib/net/authorize/api/constants/ANetEnvironment.php',
     'net\\authorize\\api\\contract\\v1\\ANetApiRequestType' => $vendorDir . '/authorizenet/authorizenet/lib/net/authorize/api/contract/v1/ANetApiRequestType.php',
     'net\\authorize\\api\\contract\\v1\\ANetApiResponseType' => $vendorDir . '/authorizenet/authorizenet/lib/net/authorize/api/contract/v1/ANetApiResponseType.php',
