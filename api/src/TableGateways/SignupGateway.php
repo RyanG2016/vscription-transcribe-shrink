@@ -207,7 +207,7 @@ class SignupGateway
                 return generateApiHeaderResponse("Couldn't sign you up, please contact system admin", true);
             }
         } catch (\PDOException $e) {
-            return generateApiHeaderResponse("Couldn't sign you up, please contact system admin (2)", true);
+            return generateApiHeaderResponse("Couldn't sign you up, please contact system admin (2) " . $e->getMessage(), true);
         }
 
 
