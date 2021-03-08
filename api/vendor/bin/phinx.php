@@ -28,12 +28,12 @@ return
             'port' => '3306',
             'charset' => 'utf8',
         ],
-        'test' => [
+		'test' => [
             'adapter' => 'mysql',
             'host' => 'localhost',
-            'name' => 'testing_db',
+            'name' => 'vtexvsi_transcribe',
             'user' => 'root',
-            'pass' => '',
+            'pass' => 'root',
             'port' => '3306',
             'charset' => 'utf8',
         ]
