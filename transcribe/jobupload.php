@@ -168,7 +168,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                     </div>
                                     <br>
                                     <input id="filesInput" type="file" name="file[]"
-                                           accept=".wav, .mp3, .m4a, .ds2, .ogg" multiple style="display: none" />
+                                           accept=".wav, .mp3, .m4a, .ds2, .ogg, .mp4" multiple style="display: none" />
                                 </label>
 
                                 <h6 class="upload_limits text-muted">&emsp;Maximum 10 files — total files size must be less than 128MB</h6>
