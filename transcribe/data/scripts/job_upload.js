@@ -805,7 +805,7 @@ function documentReady() {
         'audio/aac',
         'audio/alac',
         'audio/x-m4a',
-        'video/avc'
+        'video/mp4'
     ];
 
     function validFileType(file) {
