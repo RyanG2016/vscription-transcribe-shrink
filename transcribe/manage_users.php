@@ -82,7 +82,7 @@ if (!isset($_SESSION['role']) || ($_SESSION['role'] != "2") && ($_SESSION['role'
           crossorigin="anonymous">
 
 
-    <script src="data/scripts/manage_users.js"></script>
+    <script src="data/scripts/manage_users.min.js"></script>
     <link href="data/css/manage_users.css" rel="stylesheet">
 </head>
 
