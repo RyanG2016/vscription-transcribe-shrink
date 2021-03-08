@@ -25,7 +25,8 @@ $(document).ready(function () {
     // var caStates = {};
     // var usStates = {};
 
-    var countriesURL = "../api/v1/countries/";
+    var countriesURL = "/data/thirdparty/typeahead/countries.json";
+    // var countriesURL = "../api/v1/countries/";
     var signupURL = "../api/v1/signup/";
     var verifyURL = "verify.php";
     var loginURL = "../api/v1/login";
@@ -690,8 +691,8 @@ $(document).ready(function () {
                 for (const country of countries) {
                     // console.log(country.id);
                     countryBox.html(countryBox.html() +
-                        "<option value='" + country.country + "'>" +
-                        country.country +
+                        "<option value='" + country + "'>" +
+                        country +
                         "</option>");
                 }
 
