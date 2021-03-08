@@ -166,6 +166,7 @@ class ComposerStaticInit6adee100c1c1d6b46b6a0aa11003ed2a
 
     public static $classMap = array (
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Done\\Subtitles\\AssConverter' => __DIR__ . '/..' . '/mantas-done/subtitles/src/code/Converters/AssConverter.php',
         'Done\\Subtitles\\ConverterContract' => __DIR__ . '/..' . '/mantas-done/subtitles/src/code/Converters/ConverterContract.php',
         'Done\\Subtitles\\DfxpConverter' => __DIR__ . '/..' . '/mantas-done/subtitles/src/code/Converters/DfxpConverter.php',

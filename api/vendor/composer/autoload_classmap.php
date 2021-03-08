@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Attribute' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
+    'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'Done\\Subtitles\\AssConverter' => $vendorDir . '/mantas-done/subtitles/src/code/Converters/AssConverter.php',
     'Done\\Subtitles\\ConverterContract' => $vendorDir . '/mantas-done/subtitles/src/code/Converters/ConverterContract.php',
     'Done\\Subtitles\\DfxpConverter' => $vendorDir . '/mantas-done/subtitles/src/code/Converters/DfxpConverter.php',
