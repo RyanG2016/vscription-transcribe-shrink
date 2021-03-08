@@ -247,6 +247,7 @@ class AccountGateway implements GatewayInterface
 
     public function insertNewAccount()
     {
+        // todo prepare
         if (
             !isset($_POST["enabled"]) ||
             !isset($_POST["billable"]) ||
@@ -263,10 +264,10 @@ class AccountGateway implements GatewayInterface
             return $this->errorOccurredResponse("Invalid Input (2)");
         }
 
-        if(!accountSqlInjectionCheckPassed($_POST))
+        /*if(!accountSqlInjectionCheckPassed($_POST))
         {
             return $this->errorOccurredResponse("Invalid Input (505-CACC)");
-        }
+        }*/
 
         $accPrefix = $this->generateNewAccountPrefix($accName);
         if (!$accPrefix) {
