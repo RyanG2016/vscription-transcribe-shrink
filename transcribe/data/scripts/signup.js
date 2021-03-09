@@ -342,7 +342,7 @@ $(document).ready(function () {
 
             if(!ref)
             {
-                if(checkAccName())
+                if(checkAccName() && checkEmail())
                 {
                     pass = true;
                 }

@@ -124,9 +124,29 @@ $hasRef = isset($_GET['ref']) && !empty($_GET['ref']);
                         <!----------------------EMAIL----------------->
                         <div class="col-12">
                             <label for="inputEmail"><i class="fas fa-envelope"></i> Email</label>
-                            <input type="email" class="form-control" id="inputEmail" placeholder="Email" name="email"
-                                   value="<?php echo isset($_GET['email'])?$_GET['email']:'' ?>"
-                                   required autofocus>
+
+                            <?php
+                            if($hasRef)
+                            {
+                                ?>
+                                <input type="email" class="form-control" id="inputEmail" placeholder="Email" name="email"
+                                       value="<?php echo isset($_GET['email'])?$_GET['email']:'' ?>"
+                                       required disabled>
+                                <?php
+                            }
+
+                            else{
+                                ?>
+
+                                <input type="email" class="form-control" id="inputEmail" placeholder="Email" name="email"
+                                       value="<?php echo isset($_GET['email'])?$_GET['email']:'' ?>"
+                                       required autofocus>
+
+                                <?php
+                            }
+                            ?>
+
+
                             <!--                                <div class="valid-feedback">-->
                             <!--                                    Looks good!-->
                             <!--                                </div>-->
