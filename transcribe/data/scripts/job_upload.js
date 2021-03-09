@@ -66,7 +66,8 @@ function documentReady() {
     var qCount = 0; // Queue count
     var duratedFiles = 0;
     var commSize = 0; // accumulated file sizes
-    let maxFileSize = 134217728;
+    // let maxFileSize = 134217728;
+    let maxFileSize = 367001600; 
     const MAX_FILES_COUNT = 10;
 
     var srEnabled = false;
@@ -594,7 +595,7 @@ function documentReady() {
 
         if (qCount <= MAX_FILES_COUNT - 1) // -1 as the qCount++ is performed after the check
         {
-            if (size > maxFileSize) // 128 MB
+            if (size > maxFileSize) // 350 MB
             {
                 // file size not allowed
                 // remove file from upload queue
@@ -804,7 +805,8 @@ function documentReady() {
         'audio/x-wav',
         'audio/aac',
         'audio/alac',
-        'audio/x-m4a'
+        'audio/x-m4a',
+        'video/mp4'
     ];
 
     function validFileType(file) {

@@ -49,3 +49,4 @@ transcribe/sr/*
 /convert.log
 /docs/~$db_vscription.xlsx
 /logs/
+/uploads.LARGEDATA/*
