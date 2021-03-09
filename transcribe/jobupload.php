@@ -64,7 +64,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
     <script src="https://kit.fontawesome.com/12f6b99df9.js" crossorigin="anonymous"></script>
 
 
-    <title>vScription Transcribe Pro Dictation Upload</title>
+    <title>vScription Transcribe Dictation Upload</title>
 
     <!--  MDC Components  -->
     <link href="data/libs/node_modules/material-components-web/dist/material-components-web.css" rel="stylesheet">
@@ -115,7 +115,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                 <div class="col align-items-end d-flex">
                     <legend class="page-title mt-auto">
                         <i class="material-icons mdc-button__icon" aria-hidden="true">cloud_upload</i>
-                        vScription Transcribe Pro Dictation Upload
+                        vScription Transcribe Dictation Upload
                     </legend>
                 </div>
                 <div class="col-auto">
@@ -158,7 +158,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                             <span>
                                                 <a href="#" id="chooseFile">Choose a file</a> or drag it here
                                             </span>
-                                            <div>(wav, mp3, ds2, m4a, ogg)</div>
+                                            <div>(wav, mp3, ds2, m4a, mp4, ogg)</div>
                                         </div>
 
 
@@ -168,10 +168,10 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                     </div>
                                     <br>
                                     <input id="filesInput" type="file" name="file[]"
-                                           accept=".wav, .mp3, .m4a, .ds2, .ogg" multiple style="display: none" />
+                                           accept=".wav, .mp3, .m4a, .ds2, .ogg, .mp4" multiple style="display: none" />
                                 </label>
 
-                                <h6 class="upload_limits text-muted">&emsp;Maximum 10 files — total files size must be less than 128MB</h6>
+                                <h6 class="upload_limits text-muted">&emsp;Maximum 10 files — total files size must be less than 350MB</h6>
 
                                 <input type="hidden" name="<?php echo ini_get("session.upload_progress.name"); ?>" value="job_upload" />
 
