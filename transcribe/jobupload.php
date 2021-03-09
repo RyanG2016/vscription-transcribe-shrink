@@ -158,7 +158,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                             <span>
                                                 <a href="#" id="chooseFile">Choose a file</a> or drag it here
                                             </span>
-                                            <div>(wav, mp3, ds2, m4a, ogg)</div>
+                                            <div>(wav, mp3, ds2, m4a, mp4, ogg)</div>
                                         </div>
 
 
