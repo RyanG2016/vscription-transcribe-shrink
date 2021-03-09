@@ -252,8 +252,8 @@ class FileController
                     unlink($file_tmp); // delete the tmp file.
                     continue;
                 }
-                //Max file upload size is 128MB. PHP is configured for max size of 128MB
-                if ($file_size > 134217728) {
+                //Max file upload size is 350MB. PHP is configured for max size of 128MB
+                if ($file_size > 367001600 ) {
 //                    $uploadMsg[] = "<li>File: $orig_filename - <span style='color:red;'>UPLOAD FAILED </span>(File size exceeds limit)</li>";
                     $uploadMsg[] = $this->formatFileResult($orig_filename, "upload failed file size exceeds limit", true);
                     continue;
