@@ -489,10 +489,9 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 
 
         <div style="text-align: right">
-            <button class="mdc-button mdc-button--unelevated confirm-button" id="loadingConfirm">
-                <div class="mdc-button__ripple"></div>
-                <i class="material-icons mdc-button__icon" aria-hidden="true">done_all</i>
-                <span class="mdc-button__label">OK</span>
+            <button class="btn confirm-button" id="loadingConfirm">
+                <i class="fas fa-check"></i>
+                OK
             </button>
         </div>
     </div>
