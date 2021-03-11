@@ -341,15 +341,16 @@ $(document).ready(function () {
 
     jobsDT = $("#jobs-tbl");
     loadingConfirmBtn = $("#loadingConfirm");
-    loadingSub = $("#modalLoading #loadingContent p i");
+    loadingSub = $("#modalLoading #loadingContent p");
     loadingTitle = $("#modalLoading #loadingContent h2");
 
 
     // loading.style.display = "block";
 
     loadingConfirmBtn.on("click", function () {
-        // loading.style.display = "none";
-        location.reload();
+        // todo skip reloading if an error has occurred
+        loading.style.display = "none";
+        // location.reload();
     });
 
     $(".close").on("click", function () {
@@ -601,18 +602,19 @@ $(document).ready(function () {
         // -->  save or suspend clicked <-- //
 
         let currentFile = currentFileID;
-        if(clear())
-        {
-            $.ajax({
-                type: 'POST',
-                url: files_api+currentFile,
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function (response) {
+        $.ajax({
+            type: 'POST',
+            url: files_api+currentFile,
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
 
-                    // clear();
+                // clear();
 
+                if(!response.error)
+                {
+                    clear();
                     if (jobStatus === 2) {
 
                         loadingTitle.text("Done");
@@ -628,12 +630,23 @@ $(document).ready(function () {
                         loadingSub.text("Job " + currentFileData.job_id + " updated successfully");
                         loadingConfirmBtn.css("display", "");
                     }
-                },
-                error: function (err) {
-                    errorWhileSavingFile();
+                }else{
+                    loadingTitle.text("Error");
+                    loadingSub.html(response.msg + "<br><i><small>We will attempt to save the text contents to your clipboard if there is any.</small></i>");
+                    loadingConfirmBtn.css("display", "");
+
+                    try{
+                        tinyMCE.activeEditor.selection.select(tinyMCE.activeEditor.getBody());
+                        tinyMCE.activeEditor.execCommand("Copy");
+                    }catch (e) {
+                        alert("Couldn't copy your work to clipboard.")
+                    }
                 }
-            });
-        }
+            },
+            error: function (err) {
+                errorWhileSavingFile();
+            }
+        });
 
 
 
