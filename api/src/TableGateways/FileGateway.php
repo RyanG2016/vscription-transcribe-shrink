@@ -673,7 +673,7 @@ class FileGateway implements GatewayInterface
                 return generateApiResponse("Couldn't update file or no changes were found to update");
             }
         } catch (PDOException $e) {
-            $this->logger->insertAuditLogEntry($this->API_NAME, "Error updating file: " . $id);
+            $this->logger->insertAuditLogEntry($this->API_NAME, "Error updating file: " . $id . " | Error: " . $e->getMessage());
             return generateApiResponse("Error occurred while updating file, consult system admin", true);
 //            exit($e->getMessage());
         }
