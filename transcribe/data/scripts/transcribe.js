@@ -913,7 +913,6 @@ $(document).ready(function () {
             if (data) {
                 loadIntoPlayer(data);
             } else {
-                switchUI(false);
                 changeLoading(false, "Loading transcribe..");
                 $.confirm({
                     title: 'Error',
@@ -924,7 +923,7 @@ $(document).ready(function () {
         });
 
     }
-
+ 
     function decodeHtml(html) {
         var txt = document.createElement("textarea");
         txt.innerHTML = html;
