@@ -59,11 +59,11 @@ $(document).ready(function () {
 
     getReport.on("click", function() {
         //console.log("Account: " + accountEl.val());
-        console.log("Typist: " + $("#typist option:selected").val());
+        console.log("Typist: " + $("#typistContainer option:selected").val());
         let arg = {
             startDate: startDate.val(),
             endDate: endDate.val(),
-            typist: $("#typist option:selected").val()
+            typist: $("#typistContainer option:selected").val()
         };
         document.title = "Typist_Bill_report_"+startDate.val()+"_to_" + endDate.val();
         getData(arg);
