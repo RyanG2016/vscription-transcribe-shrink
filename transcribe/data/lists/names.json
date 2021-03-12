@@ -1,5 +1,10 @@
 [
- { "name" : "-py", "val" : "-pack-year"},
+{ "name" : "1s", "val" : "<-Speaker 1->"}, 
+{ "name" : "2s", "val" : "<-Speaker 2->"},
+{ "name" : "3s", "val" : "<-Speaker 3->"},  
+{ "name" : "4s", "val" : "<-Speaker 4->"}, 
+{ "name" : "5s", "val" : "<-Speaker 5->"}, 
+{ "name" : "-py", "val" : "-pack-year"},
 { "name" : "2cm", "val" : "square centimeters"},
 { "name" : "2d", "val" : "2-D"},
 { "name" : "5f", "val" : "5-French"},
