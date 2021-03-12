@@ -1049,11 +1049,12 @@ $(document).ready(function () {
             }
         }
 */
-        if (jobDetails.job_status == 2 || jobDetails.job_status == 1) // suspend or being typed
+        if (jobDetails.file_status == 2 || jobDetails.file_status == 1) // suspend or being typed
         {
             // seek to last position
             $("#audio1").attr("data-start-time",jobDetails.last_audio_position - rewindAmountOnPause);
             AblePlayerInstances[0].media.currentTime = jobDetails.last_audio_position - rewindAmountOnPause;
+            console.log(jobDetails.last_audio_position);
         } else {
             $("#audio1").attr("data-start-time",0);
             AblePlayerInstances[0].media.currentTime = 0;
