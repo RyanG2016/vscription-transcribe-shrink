@@ -50,3 +50,4 @@ transcribe/sr/*
 /docs/~$db_vscription.xlsx
 /logs/
 /uploads.LARGEDATA/*
+/sql_maintenance/*
