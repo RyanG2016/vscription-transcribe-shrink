@@ -599,6 +599,7 @@ if(isset($_REQUEST["reqcode"])){
 
 		$rptStartDate = $a['startDate'];
 		$rptEndDate = $a['endDate'];
+		$acc_id = $a['accID'];
         $sql="SELECT 
        file_id,
 		job_id, 
@@ -616,9 +617,6 @@ if(isset($_REQUEST["reqcode"])){
 		billed = '0' AND 
         acc_id = ? AND
 		file_transcribed_date BETWEEN ? AND ?";
-
-			//Hardcoded for now. Need to add selector to client billing page screen if role_type=3 or use logged in user if role_type=2
-		$acc_id = 1;
 
 		$billRatesObj = getBillRates($con, $acc_id);
 		$billRates = json_decode($billRatesObj, true);
@@ -1158,10 +1156,11 @@ function getBillRates($con, $acc_id) {
 	bill_rate3,bill_rate3_type,bill_rate3_TAT,bill_rate3_desc, 
 	bill_rate4,bill_rate4_type,bill_rate4_TAT,bill_rate4_desc,
 	bill_rate5,bill_rate5_type,bill_rate5_TAT,bill_rate5_desc
-	FROM accounts WHERE acc_id  = 1";
+	FROM accounts WHERE acc_id  = ?";
 	if($stmt = mysqli_prepare($con, $sql))
 	{
- 		if(mysqli_stmt_execute($stmt)){
+		mysqli_stmt_bind_param($stmt, 's', $acc_id);
+		if(mysqli_stmt_execute($stmt)){
 			$result = mysqli_stmt_get_result($stmt);
 			$billInfo = "";
 			if(mysqli_num_rows($result) > 0){
@@ -1188,7 +1187,7 @@ function getBillRates($con, $acc_id) {
 				// "No Results Found"
 				// Note this should NEVER happen as the billtype1 fields are NOT NULL values
 				$billInfo = Array (
-					"billrate1" => "0",
+					"billrate1" => "999.99",
 					"bill_rate1_type" => "1"
 				);
 				return json_encode($billInfo);
