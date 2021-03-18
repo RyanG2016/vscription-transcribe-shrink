@@ -126,7 +126,7 @@ class accessGateway implements GatewayInterface
             INNER JOIN accounts a on access.acc_id = a.acc_id
             INNER JOIN roles r on access.acc_role = r.role_id
             INNER JOIN users u on access.uid = u.id
-            where access.acc_id = ? and access.acc_role in (2,3,6)
+            where access.acc_id = ? and access.acc_role in (2,3,4,5,6)
             ;"; // This defines which Roles are actually shown inside manage_users table
         // currently showing Account Admin, Typists, and pending invites
 
