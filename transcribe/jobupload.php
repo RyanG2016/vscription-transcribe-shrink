@@ -83,6 +83,12 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
     <link href="data/thirdparty/enjoyhint/enjoyhint.css" rel="stylesheet">
     <script src="data/thirdparty/enjoyhint/enjoyhint.min.js"></script>
 
+    <!-- mediainfo library -->
+    <script
+      type="text/javascript"
+      src="https://unpkg.com/mediainfo.js/dist/mediainfo.min.js"
+    ></script>
+
 	<?php $tuts=(isset($_SESSION['tutorials']))?$_SESSION['tutorials']:'{}'; ?>
     <script type="text/javascript">
         var tutorials='<?php echo $tuts;?>';
@@ -164,6 +170,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 
                                         <div id="vsptDropUploadContent" class="vspt-drop-upload-content"></div>
                                         <div id="clear" style="display: none"><a href="#" id="clearBtn">clear</a></div>
+                                        <div id="getMediaInfo" style="display: none"><a href="#" id="getMediaInfoBtn">get media info</a></div>
 
                                     </div>
                                     <br>

@@ -46,6 +46,7 @@ function documentReady() {
     const dropUploadContent = $("#vsptDropUploadContent");
     const dropUploadMainContent = $("#vsptDropMainContent");
     const clearDiv = $("#clear");
+    const mediaInfoDiv = $("#getMediaInfo");
     const progressList = $("#vsptProgressList");
     const nextBtn = $("#demoNextBtn");
     const prevBtn = $("#demoBackBtn");
@@ -68,6 +69,7 @@ function documentReady() {
     var commSize = 0; // accumulated file sizes
     // let maxFileSize = 134217728;
     let maxFileSize = 367001600; 
+    let mediaInfoOutput = null;
     const MAX_FILES_COUNT = 10;
 
     var srEnabled = false;
@@ -714,12 +716,14 @@ function documentReady() {
             dropUploadMainContent.show();
             dropUploadContent.html("");
             clearDiv.hide();
+            mediaInfoDiv.hide();
             p1nBtn.hide();
         } else {
             if(append) dropUploadContent.append(text);
             else dropUploadContent.html(text);
             dropUploadMainContent.hide();
             clearDiv.show();
+            mediaInfoDiv.show();
 
             if (allowStep) {
                 p1nBtn.show();
@@ -794,6 +798,73 @@ function documentReady() {
         }
     }
 
+    // Code for new feature to gather media data from upload screen for troubleshooting
+    // Code modified from examples from https://github.com/buzz/mediainfo.js
+
+    function get_file_info(mediainfo, file) {
+        let getSize = () => file.size
+        let readChunk = (chunkSize, offset) =>
+          new Promise((resolve, reject) => {
+            let reader = new FileReader()
+            reader.onload = (event) => {
+              if (event.target.error) {
+                reject(event.target.error)
+              }
+              resolve(new Uint8Array(event.target.result))
+            }
+            reader.readAsArrayBuffer(file.slice(offset, offset + chunkSize))
+          })
+      
+        return mediainfo
+          .analyzeData(getSize, readChunk)
+          .then((result) => {
+            //Display outcome in html
+            mediaInfoOutput = `${mediaInfoOutput}File Name: ${file.name}\n${result}`
+          })
+          .catch((error) => {
+            mediaInfoOutput = `${mediaInfoOutput}\n\nAn error occured:\n${error.stack}`
+          })
+      }
+      
+      async function genMediaInfo(mediainfo) {
+        let file
+        mediaInfoOutput = ''
+        if (filesArr.length >= 2) {
+          for (let i = 0; i < filesArr.length; i++) {
+            file = filesArr[i]
+            if (file) {
+              await get_file_info(mediainfo, file)
+              if (i + 1 == filesArr.length) {
+                //console.log(`We should output ${mediaInfoOutput} to file`)
+                downloadMediaInfo("vScription Transcribe Media Analyzer Results.txt", `Report generated on ${Date()}\n\n${mediaInfoOutput}`)
+                return
+              }
+            }  
+          }
+        } else {
+          file = filesArr[0]
+          if (file) {
+            await get_file_info(mediainfo, file)
+            //console.log(`We should output ${mediaInfoOutput} to file`)
+            downloadMediaInfo("vScription Transcribe Media Analyzer Results.txt", `Report generated on ${Date()}\n\n${mediaInfoOutput}`)
+          }
+        }
+      }
+     
+    MediaInfo({ format: 'text' }, (mediainfo) => {
+        getMediaInfoBtn.addEventListener('click', () => genMediaInfo(mediainfo))
+    })
+
+    function downloadMediaInfo(filename, text) {
+        let element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+        element.setAttribute('download', filename);      
+        element.style.display = 'none';
+        document.body.appendChild(element);   
+        element.click();  
+        document.body.removeChild(element);
+      }
+
     //https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Audio_codecs
     const fileTypes = [
         'audio/mpeg',
@@ -839,6 +910,7 @@ function documentReady() {
         tblBody.html(NO_FILES_TBL_ROW);
 
         clearDiv.hide();
+        mediaInfoDiv.hide();
         document.getElementById('clear').setAttribute("disabled", "true");
 
         setDropText("");
@@ -851,6 +923,7 @@ function documentReady() {
         tblBody.html(NO_FILES_TBL_ROW);
         document.querySelector('.submit_btn').setAttribute("disabled", "true");
         clearDiv.hide();
+        mediaInfoDiv.hide();
         $('.demo_author').val("");
         $("#demo_job_type option:selected").html();
         flatPickr.setDate(new Date());

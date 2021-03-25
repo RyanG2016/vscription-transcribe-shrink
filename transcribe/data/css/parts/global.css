@@ -600,3 +600,11 @@ a:visited {
 .sr-balance-div > span{
     vertical-align: middle;
 }
+
+/* ---------------- */
+/* GET MEDIA INFO BUTTON STYLING */
+/* ---------------- */
+
+#getMediaInfoBtn {
+    color: lightgray;
+}
