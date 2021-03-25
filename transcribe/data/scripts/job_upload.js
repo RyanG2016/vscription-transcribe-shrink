@@ -836,7 +836,7 @@ function documentReady() {
               await get_file_info(mediainfo, file)
               if (i + 1 == filesArr.length) {
                 //console.log(`We should output ${mediaInfoOutput} to file`)
-                downloadMediaInfo("vScription Transcribe Media Analyzer Results.txt", `Report generated on ${Date()}\n\n${mediaInfoOutput}`)
+                downloadMediaInfo("vScription Transcribe Media Analyzer Results.txt", `Report generated on ${Date()}\nPlease email this file to support@vscription.com\n\n${mediaInfoOutput}\n`)
                 return
               }
             }  
@@ -846,7 +846,7 @@ function documentReady() {
           if (file) {
             await get_file_info(mediainfo, file)
             //console.log(`We should output ${mediaInfoOutput} to file`)
-            downloadMediaInfo("vScription Transcribe Media Analyzer Results.txt", `Report generated on ${Date()}\n\n${mediaInfoOutput}`)
+            downloadMediaInfo("vScription Transcribe Media Analyzer Results.txt", `Report generated on ${Date()}\nPlease email this file to support@vscription.com\n\n${mediaInfoOutput}\n`)
           }
         }
       }
