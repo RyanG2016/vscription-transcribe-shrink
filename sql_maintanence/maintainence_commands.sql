@@ -5,7 +5,8 @@ create table maintenance_log
 (
 	maint_id int auto_increment,
 	maint_table varchar(250) null,
-	maint_count int default 0 null,
+	maint_recs_affected int default 0 null,
+    maint_comments varchar(250) null,
 	timestamp TIMESTAMP default CURRENT_TIMESTAMP null,
 	constraint maintenance_log_pk
 		primary key (maint_id)
