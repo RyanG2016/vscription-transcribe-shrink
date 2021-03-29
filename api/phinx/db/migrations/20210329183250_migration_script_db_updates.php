@@ -26,8 +26,15 @@ final class MigrationScriptDBUpdates extends AbstractMigration
             ->create();
 
         $filesTable = $this->table('files');
-        $filesTable->addColumn("deleted_date", 'timestamp', ['null'=>true, 'default'=>null, 'after'=>'deleted']);
-        $filesTable->addColumn("audio_deleted_date", 'timestamp', ['null'=>true, 'default'=>null, 'after'=>'deleted_date'])->update();
+        if($filesTable->getColumn("deleted_date") == null)
+        {
+            $filesTable->addColumn("deleted_date", 'timestamp', ['null'=>true, 'default'=>null, 'after'=>'deleted']);
+        }
+
+        if($filesTable->getColumn("audio_deleted_date") == null)
+        {
+            $filesTable->addColumn("audio_deleted_date", 'timestamp', ['null'=>true, 'default'=>null, 'after'=>'deleted_date'])->update();
+        }
 
     }
 }
