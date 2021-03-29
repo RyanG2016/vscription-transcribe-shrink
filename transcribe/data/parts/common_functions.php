@@ -61,7 +61,6 @@ function insertMaintenanceAuditLogEntry($con, $args) {
     $maint_comments = $a['maint_comments'];
 
     $sql = "INSERT INTO maintenance_log(maint_table, maint_recs_affected, maint_comments) VALUES(?,?,?)";
-    //echo $sql;
 
     if($stmt = mysqli_prepare($con, $sql)){
 
@@ -69,7 +68,7 @@ function insertMaintenanceAuditLogEntry($con, $args) {
 
         $a = mysqli_stmt_execute($stmt);
         if($a){
-            echo "Maintenance table record added successfully!";
+            //echo "Maintenance table record added successfully!";
 
         } else{
             echo "ERROR: Could not execute $sql. " . mysqli_error($con);

@@ -261,7 +261,7 @@ FROM files LEFT JOIN accounts ON accounts.acc_id = files.acc_id
 WHERE DATE(text_downloaded_date) < DATE_SUB(CURDATE(), INTERVAL accounts.acc_retention_time DAY)
 AND deleted = 0
 AND audio_file_deleted_date IS NULL";
-$sql2 = "UPDATE files SET deleted = 1, deleted_date = CURRENT_TIMESTAMP(), audio_file_deleted_date = CURRENT_TIMESTAMP(), job_document_html = '',  captions = ''
+$sql2 = "UPDATE files SET deleted = 1, deleted_date = CURRENT_TIMESTAMP(), audio_file_deleted_date = CURRENT_TIMESTAMP(), job_document_html = null,  captions = null
 WHERE file_id = ?";
 
 if ($stmt = mysqli_prepare($con, $sql)) {
@@ -467,18 +467,3 @@ if ($stmt = mysqli_prepare($con, $sql)) {
 //					echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
 }
 
-
-
-/*
-            $a = json_decode($args, true);
-
-            $tempAudioFile = $a['job_id'];
-            //Paths need to be relative to the calling PHP file
-            if (file_exists('../../workingTemp/' . $tempAudioFile)) {
-                if (unlink('../../workingTemp/' . $tempAudioFile)) {
-                    echo "Temp Audio File Deleted";
-                } else {
-                    echo "Error deleting temp audio file";
-                };
-            };
-*/    
