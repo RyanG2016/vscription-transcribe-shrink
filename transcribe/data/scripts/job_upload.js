@@ -134,7 +134,7 @@ function documentReady() {
                     ) {
                         // invalid = true;
                         // setDropText("Invalid file(s) type added", false);
-                        uploadToastBody.html(`(${curFiles[i].type}) File type is not supported`);
+                        uploadToastBody.html(`(${curFiles[i].name}) File type is not supported`);
                         uploadToast.toast('show');
                         continue;
                     }
