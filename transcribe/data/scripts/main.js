@@ -66,6 +66,7 @@ $(document).ready(function () {
 		lengthChange: false,
 		pageLength: maximum_rows_per_page_jobs_list,
 		autoWidth: false,
+		order:[[0,"desc"]],
 
 		"columns": [
 			{
