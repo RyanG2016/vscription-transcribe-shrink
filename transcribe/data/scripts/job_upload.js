@@ -56,6 +56,8 @@ function documentReady() {
     const tblBody = $("#queFilesBody");
     const srBar = $("#srBar");
     const addMinsBtn = $("#addMinsBtn");
+    const uploadToast = $("#uploadToast");
+    const uploadToastBody = uploadToast.find(".toast-body");
 
     // allowed files for upload queue variables
     var filesArr = [];
@@ -132,6 +134,8 @@ function documentReady() {
                     ) {
                         // invalid = true;
                         // setDropText("Invalid file(s) type added", false);
+                        uploadToastBody.html(`(${curFiles[i].type}) File type is not supported`);
+                        uploadToast.toast('show');
                         continue;
                     }
 

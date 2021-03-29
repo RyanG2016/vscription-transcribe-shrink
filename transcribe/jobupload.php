@@ -371,6 +371,23 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                     </div>
                 </form>
 
+                <div class="position-fixed bottom-0 toast-container right-0 p-3" style="z-index: 50000; right: 0; bottom: 0;">
+
+                    <div id="uploadToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
+                        <div class="toast-header">
+                            <img src="data/images/Logo_only.png" height="24px" class="rounded mr-2">
+                            <strong class="mr-auto">Uploader</strong>
+                            <!--                                    <small>Just now</small>-->
+                            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="toast-body">
+                            (.MP4) File type is not supported
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
         </div>
