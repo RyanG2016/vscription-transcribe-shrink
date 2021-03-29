@@ -15,6 +15,7 @@ workingTemp/
 transcribe/sr/*
 *.pem
 /deletedUploads/*
+/api/phinx/phinx.php
 
 /transcribe/data/parts/config.php
 /transcribe/data/scripts/parts/constants.js
