@@ -18,12 +18,20 @@ final class MigrationScriptDBUpdates extends AbstractMigration
      */
     public function change(): void
     {
-        $table = $this->table('maintenance_log', ['id' => 'maint_id']);
-        $table->addColumn('maint_table', 'string', ['limit'=>250, 'null'=>true])
-            ->addColumn('maint_recs_affected', 'integer', ['default'=>0, 'null'=>true])
-            ->addColumn('maint_comments', 'string', ['null'=>true, 'limit'=>250])
-            ->addColumn('timestamp', 'timestamp', ['default'=>'CURRENT_TIMESTAMP'])
-            ->create();
+        if(!$this->hasTable("maintenance_log"))
+        {
+            $table = $this->table('maintenance_log', ['id' => 'maint_id']);
+            $table->addColumn('maint_table', 'string', ['limit'=>250, 'null'=>true])
+                ->addColumn('maint_recs_affected', 'integer', ['default'=>0, 'null'=>true])
+                ->addColumn('maint_comments', 'string', ['null'=>true, 'limit'=>250])
+                ->addColumn('timestamp', 'timestamp', ['default'=>'CURRENT_TIMESTAMP'])
+                ->create();
+        }else{
+            $mainTable = $this->table('maintenance_log');
+            $mainTable->renameColumn("maint_count", "maint_recs_affected");
+            $mainTable->addColumn('maint_comments', 'string', ['null'=>true, 'limit'=>250, 'after' => 'maint_recs_affected'])->update();
+        }
+
 
         $filesTable = $this->table('files');
         if($filesTable->getColumn("deleted_date") == null)
