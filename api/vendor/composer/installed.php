@@ -1,12 +1,12 @@
 <?php return array (
   'root' => 
   array (
-    'pretty_version' => 'dev-master',
-    'version' => 'dev-master',
+    'pretty_version' => 'dev-main',
+    'version' => 'dev-main',
     'aliases' => 
     array (
     ),
-    'reference' => '571d1a05646804174df381888613db90ebd58330',
+    'reference' => '2834d44cd2423d3d5d2c5e15f8f7a07a642a67ae',
     'name' => 'transcribe/src',
   ),
   'versions' => 
@@ -254,12 +254,12 @@
     ),
     'transcribe/src' => 
     array (
-      'pretty_version' => 'dev-master',
-      'version' => 'dev-master',
+      'pretty_version' => 'dev-main',
+      'version' => 'dev-main',
       'aliases' => 
       array (
       ),
-      'reference' => '571d1a05646804174df381888613db90ebd58330',
+      'reference' => '2834d44cd2423d3d5d2c5e15f8f7a07a642a67ae',
     ),
     'vlucas/phpdotenv' => 
     array (
