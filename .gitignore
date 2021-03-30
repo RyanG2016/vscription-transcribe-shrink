@@ -52,3 +52,5 @@ transcribe/sr/*
 /logs/
 /uploads.LARGEDATA/*
 /sql_maintanence/*
+/transcribe/data/scripts/obf_me.js
+/transcribe/data/scripts/obf_me.min.js
