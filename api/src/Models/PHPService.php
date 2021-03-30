@@ -21,7 +21,7 @@ class PHPService extends BaseModel implements BaseModelInterface
                                 public string $service_name = '',
                                 public ?string $last_start_time = null,
                                 public ?string $last_stop_time = null,
-                                public ?string $revai_start_window = null,
+                                public int $revai_start_window = 0,
                                 public int $requests_made = 0,
                                 public int $current_status = 0,
                                 private $db = null
@@ -86,6 +86,12 @@ class PHPService extends BaseModel implements BaseModelInterface
         $this->last_stop_time = date("Y-m-d H:i:s");
         $this->current_status = 0;
         return $this->phpServiceGateway->updateStopTime($this);
+    }
+
+    public function resetRevAiStart():int{
+        $this->revai_start_window = time();
+        $this->requests_made = 0;
+        return $this->phpServiceGateway->resetRevAiStart($this);
     }
 
     public function delete():int
@@ -207,19 +213,22 @@ class PHPService extends BaseModel implements BaseModelInterface
     }
 
     /**
-     * @return string|null
+     * @return int
      */
-    public function getRevaiStartWindow(): ?string
+    public function getRevaiStartWindow(): int
     {
         return $this->revai_start_window;
     }
 
     /**
-     * @param string|null $revai_start_window
+     * @param int $revai_start_window
      */
-    public function setRevaiStartWindow(?string $revai_start_window): void
+    public function setRevaiStartWindow(int $revai_start_window): void
     {
         $this->revai_start_window = $revai_start_window;
     }
+
+
+
 
 }

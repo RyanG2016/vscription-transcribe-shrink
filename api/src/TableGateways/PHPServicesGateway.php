@@ -163,12 +163,13 @@ class PHPServicesGateway implements GatewayInterface
         }
     }
 
-    public function setRevAiStart(BaseModel|PHPService $model): int
+    public function resetRevAiStart(BaseModel|PHPService $model): int
     {
         $statement = "
             UPDATE php_services
             SET
-                revai_start_window = :revai_start_window
+                revai_start_window = :revai_start_window,
+                 requests_made= :requests_made
             WHERE
                 service_id = :service_id;
         ";
@@ -177,6 +178,7 @@ class PHPServicesGateway implements GatewayInterface
             $statement = $this->db->prepare($statement);
             $statement->execute(array(
                 'service_id' => $model->getServiceId(),
+                'requests_made' => $model->getRequestsMade(),
                 'revai_start_window' => $model->getRevaiStartWindow()
             ));
             return $statement->rowCount();
