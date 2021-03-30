@@ -1,7 +1,5 @@
 <?php
 
-//strtolower
-
 include("config.php");
 //include(__DIR__ . "/../../../mail/mail_init.php");
 include("common_functions.php");
@@ -29,6 +27,7 @@ insertMaintenanceAuditLogEntry($con, $b);
         group by user_id) AND timestamp < DATE_SUB(CURRENT_DATE, INTERVAL 1 MONTH))";
     $sql1 = "DELETE from payments where payment_id in (select payment_id from payments l where payment_id NOT IN (select max(payment_id) as latest from payments 
         group by user_id) AND timestamp < DATE_SUB(CURRENT_DATE, INTERVAL 1 MONTH))";
+    $table_name = 'payments';
 
     if ($stmt = mysqli_prepare($con, $sql)) {
         if (mysqli_stmt_execute($stmt)) {
@@ -45,17 +44,17 @@ insertMaintenanceAuditLogEntry($con, $b);
                         if (mysqli_stmt_execute($stmt2)) {
                             $result = mysqli_stmt_get_result($stmt2);
                             $a = Array(
-                                'maint_table' => 'payments',
+                                'maint_table' => $table_name,
                                 'maint_recs_affected' => $maint_recs_affected,
-                                'maint_comments' => 'Maintenance for payments table succeeded'
+                                'maint_comments' => "Maintenance for '$table_name' table succeeded"
                             );
                             $b = json_encode($a);
                             insertMaintenanceAuditLogEntry($con, $b);
                         } else {
                             $a = Array(
-                                'maint_table' => 'payments',
+                                'maint_table' => $table_name,
                                 'maint_recs_affected' => '0',
-                                'maint_comments' => 'Maintenance for payments table failed while running the delete command'
+                                'maint_comments' => "Maintenance for '$table_name' table failed while running the delete command"
                             );
                             $b = json_encode($a);
                             insertMaintenanceAuditLogEntry($con, $b);
@@ -63,18 +62,18 @@ insertMaintenanceAuditLogEntry($con, $b);
                     }
                 } else {
                     $a = Array(
-                        'maint_table' => 'payments',
+                        'maint_table' => $table_name,
                         'maint_recs_affected' => '0',
-                        'maint_comments' => 'No records purged from payment table.'
+                        'maint_comments' => "No records purged from '$table_name' table."
                     );
                     $b = json_encode($a);
                     insertMaintenanceAuditLogEntry($con, $b);
                 }  
             } else {
                 $a = Array(
-                    'maint_table' => 'payments',
+                    'maint_table' => $table_name,
                     'maint_recs_affected' => '0',
-                    'maint_comments' => 'No records purged from payment table due to possible SQL error'
+                    'maint_comments' => "No records purged from '$table_name' table due to possible SQL error"
                 );
                 $b = json_encode($a);
                 insertMaintenanceAuditLogEntry($con, $b);
@@ -167,6 +166,7 @@ if (mysqli_stmt_execute($stmt)) {
 
 $sql = "SELECT COUNT(*) as numRowsToDelete from tokens where time < (DATE_SUB(CURRENT_DATE, INTERVAL 1 WEEK))";
 $sql1 = "DELETE from tokens where time < (DATE_SUB(CURRENT_DATE, INTERVAL 1 WEEK))";
+$table_name = "tokens";
 
 if ($stmt = mysqli_prepare($con, $sql)) {
 if (mysqli_stmt_execute($stmt)) {
@@ -183,17 +183,17 @@ if (mysqli_stmt_execute($stmt)) {
                 if (mysqli_stmt_execute($stmt2)) {
                     $result = mysqli_stmt_get_result($stmt2);
                     $a = Array(
-                        'maint_table' => 'tokens',
+                        'maint_table' => $table_name,
                         'maint_recs_affected' => $maint_recs_affected,
-                        'maint_comments' => 'Maintenance for tokens table succeeded'
+                        'maint_comments' => "Maintenance for '$table_name' table succeeded"
                     );
                     $b = json_encode($a);
                     insertMaintenanceAuditLogEntry($con, $b);
                 } else {
                     $a = Array(
-                        'maint_table' => 'tokens',
+                        'maint_table' => $table_name,
                         'maint_recs_affected' => '0',
-                        'maint_comments' => 'Maintenance for tokens table failed while running the delete command'
+                        'maint_comments' => "Maintenance for '$table_name' table failed while running the delete command"
                     );
                     $b = json_encode($a);
                     insertMaintenanceAuditLogEntry($con, $b);
@@ -201,18 +201,18 @@ if (mysqli_stmt_execute($stmt)) {
             }
         } else {
             $a = Array(
-                'maint_table' => 'tokens',
+                'maint_table' => $table_name,
                 'maint_recs_affected' => '0',
-                'maint_comments' => 'No records purged from tokens table.'
+                'maint_comments' => "No records purged from '$table_name table."
             );
             $b = json_encode($a);
             insertMaintenanceAuditLogEntry($con, $b);
         }  
     } else {
         $a = Array(
-            'maint_table' => 'tokens',
+            'maint_table' => $table_name,
             'maint_recs_affected' => '0',
-            'maint_comments' => 'No records purged from tokens table due to possible SQL error'
+            'maint_comments' => "No records purged from '$table_name' table due to possible SQL error"
         );
         $b = json_encode($a);
         insertMaintenanceAuditLogEntry($con, $b);
@@ -263,6 +263,7 @@ AND deleted = 0
 AND audio_file_deleted_date IS NULL";
 $sql2 = "UPDATE files SET deleted = 1, deleted_date = CURRENT_TIMESTAMP(), audio_file_deleted_date = CURRENT_TIMESTAMP(), job_document_html = null,  captions = null
 WHERE file_id = ?";
+$table_name = "files";
 
 if ($stmt = mysqli_prepare($con, $sql)) {
     if (mysqli_stmt_execute($stmt)) {
@@ -289,27 +290,27 @@ if ($stmt = mysqli_prepare($con, $sql)) {
                                     $result2 = mysqli_stmt_get_result($stmt2);
                                     //echo "SUCCESS purging files table";
                                     $a = Array(
-                                        'maint_table' => 'files',
+                                        'maint_table' => $table_name,
                                         'maint_recs_affected' => 1,
-                                        'maint_comments' => "Maintenance for files table succeeded. Updated row for file '$file_id'"
+                                        'maint_comments' => "Maintenance for files '$table_name' succeeded. Updated row for file '$file_id'"
                                     );
                                     $b = json_encode($a);
                                     insertMaintenanceAuditLogEntry($con, $b);
                                     //Let's attempt to delete the actual audio file
                                     if (file_exists('../../../uploads/' . $filename)) {
                                         if (rename('../../../uploads/' . $filename,'../../../deletedUploads/' . $filename)) {
-                                            echo "Temp Audio File Deleted";
+                                            //echo "Temp Audio File Deleted";
                                             $a = Array(
-                                                'maint_table' => 'files',
+                                                'maint_table' => $table_name,
                                                 'maint_recs_affected' => 1,
                                                 'maint_comments' => "Deleted audio file '$filename' for file '$file_id'"
                                             );
                                             $b = json_encode($a);
                                             insertMaintenanceAuditLogEntry($con, $b);
                                         } else {
-                                            echo "Error deleting temp audio file";
+                                            //echo "Error deleting temp audio file";
                                             $a = Array(
-                                                'maint_table' => 'files',
+                                                'maint_table' => $table_name,
                                                 'maint_recs_affected' => 1,
                                                 'maint_comments' => "Error deleting audio file '$filename' for file '$file_id'"
                                             );
@@ -317,9 +318,9 @@ if ($stmt = mysqli_prepare($con, $sql)) {
                                             insertMaintenanceAuditLogEntry($con, $b);
                                         };
                                     } else {
-                                        echo "Audio file doesn't exist";
+                                        //echo "Audio file doesn't exist";
                                         $a = Array(
-                                            'maint_table' => 'files',
+                                            'maint_table' => $table_name,
                                             'maint_recs_affected' => 1,
                                             'maint_comments' => "Audio file '$filename' for file '$file_id' doesn't exist. Unable to delete file"
                                         );
@@ -334,7 +335,7 @@ if ($stmt = mysqli_prepare($con, $sql)) {
                                             if (rename('../../../uploads/' . $file_caption,'../../../deletedUploads/' . $file_caption)) {
                                                 //echo "Caption file deleted";
                                                 $a = Array(
-                                                    'maint_table' => 'files',
+                                                    'maint_table' => $table_name,
                                                     'maint_recs_affected' => 1,
                                                     'maint_comments' => "Deleted audio file caption '$file_caption' for file '$file_id'"
                                                 );
@@ -343,7 +344,7 @@ if ($stmt = mysqli_prepare($con, $sql)) {
                                             } else {
                                                 //echo "Error deleting audio caption file";
                                                 $a = Array(
-                                                    'maint_table' => 'files',
+                                                    'maint_table' => $table_name,
                                                     'maint_recs_affected' => 1,
                                                     'maint_comments' => "Error deleting audio file caption '$file_caption' for file '$file_id'"
                                                 );
@@ -353,7 +354,7 @@ if ($stmt = mysqli_prepare($con, $sql)) {
                                         } else {
                                             //echo "Caption file doesn't exist";
                                             $a = Array(
-                                                'maint_table' => 'files',
+                                                'maint_table' => $table_name,
                                                 'maint_recs_affected' => 1,
                                                 'maint_comments' => "Caption file '$file_caption' for file '$file_id' doesn't exist. Unable to delete file"
                                             );
@@ -376,17 +377,17 @@ if ($stmt = mysqli_prepare($con, $sql)) {
                     echo "Error getting records to purge total";
                 }
                 $a = Array(
-                    'maint_table' => 'files',
+                    'maint_table' => $table_name,
                     'maint_recs_affected' => $maint_recs_affected,
-                    'maint_comments' => 'Maintenance for files table succeeded. '
+                    'maint_comments' => "Maintenance for '$table_name' table succeeded."
                 );
                 $b = json_encode($a);
                 insertMaintenanceAuditLogEntry($con, $b);
             } else {
                 $a = Array(
-                    'maint_table' => 'files',
+                    'maint_table' => $table_name,
                     'maint_recs_affected' => '0',
-                    'maint_comments' => 'No records matched purge criteria from files table.'
+                    'maint_comments' => "No records matched purge criteria from '$table_name table."
                 );
                 $b = json_encode($a);
                 insertMaintenanceAuditLogEntry($con, $b);
@@ -409,6 +410,7 @@ if ($stmt = mysqli_prepare($con, $sql)) {
 # ---------------------------------------------------------------------
 $sql = "SELECT COUNT(*) as numRowsToDelete FROM act_log WHERE act_log_id IN (SELECT act_log_id FROM act_log log INNER JOIN accounts a ON log.acc_id = a.acc_id WHERE act_log_date < DATE_SUB(CURRENT_DATE, INTERVAL a.act_log_retention_time DAY))";
 $sql1 = "DELETE FROM act_log WHERE act_log_id IN (SELECT act_log_id FROM act_log log INNER JOIN accounts a ON log.acc_id = a.acc_id WHERE act_log_date < DATE_SUB(CURRENT_DATE, INTERVAL a.act_log_retention_time DAY))";
+$table_name = 'act_log';
 
 if ($stmt = mysqli_prepare($con, $sql)) {
     if (mysqli_stmt_execute($stmt)) {
@@ -425,17 +427,17 @@ if ($stmt = mysqli_prepare($con, $sql)) {
                     if (mysqli_stmt_execute($stmt2)) {
                         $result = mysqli_stmt_get_result($stmt2);
                         $a = Array(
-                            'maint_table' => 'act_log',
+                            'maint_table' => $table_name,
                             'maint_recs_affected' => $maint_recs_affected,
-                            'maint_comments' => 'Maintenance for act_log table succeeded'
+                            'maint_comments' => "Maintenance for '$table_name' table succeeded"
                         );
                         $b = json_encode($a);
                         insertMaintenanceAuditLogEntry($con, $b);
                     } else {
                         $a = Array(
-                            'maint_table' => 'act_log',
+                            'maint_table' => $table_name,
                             'maint_recs_affected' => '0',
-                            'maint_comments' => 'Maintenance for act_log table failed while running the delete command'
+                            'maint_comments' => "Maintenance for '$table_name' table failed while running the delete command"
                         );
                         $b = json_encode($a);
                         insertMaintenanceAuditLogEntry($con, $b);
@@ -443,18 +445,18 @@ if ($stmt = mysqli_prepare($con, $sql)) {
                 }
             } else {
                 $a = Array(
-                    'maint_table' => 'act_log',
+                    'maint_table' => $table_name,
                     'maint_recs_affected' => '0',
-                    'maint_comments' => 'No records purged from act_log table.'
+                    'maint_comments' => "No records purged from '$table_name' table."
                 );
                 $b = json_encode($a);
                 insertMaintenanceAuditLogEntry($con, $b);
             }  
         } else {
             $a = Array(
-                'maint_table' => 'act_log',
+                'maint_table' => $table_name,
                 'maint_recs_affected' => '0',
-                'maint_comments' => 'No records purged from act_log table due to possible SQL error'
+                'maint_comments' => "No records purged from '$table_name' table due to possible SQL error"
             );
             $b = json_encode($a);
             insertMaintenanceAuditLogEntry($con, $b);
@@ -467,3 +469,69 @@ if ($stmt = mysqli_prepare($con, $sql)) {
 //					echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
 }
 
+# ---------------------------------------------------------------------	  
+# downloads TBL #
+# Delete expired downloads from table
+#
+# ---------------------------------------------------------------------
+
+$sql = "SELECT COUNT(*) as numRowsToDelete from downloads where expired = 1";
+$sql1 = "DELETE from downloads where expired = 1";
+$table_name = "downloads";
+
+if ($stmt = mysqli_prepare($con, $sql)) {
+if (mysqli_stmt_execute($stmt)) {
+    $result = mysqli_stmt_get_result($stmt);
+    // Check number of rows in the result set
+    if (mysqli_num_rows($result) > 0) {
+        $maint_recs_affected = 0;
+        // Check to see if there are records to delete and store the total
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $maint_recs_affected = $row['numRowsToDelete'];
+        }
+        if ($maint_recs_affected > 0) {
+            if ($stmt2 = mysqli_prepare($con, $sql1)) {
+                if (mysqli_stmt_execute($stmt2)) {
+                    $result = mysqli_stmt_get_result($stmt2);
+                    $a = Array(
+                        'maint_table' => $table_name,
+                        'maint_recs_affected' => $maint_recs_affected,
+                        'maint_comments' => "Maintenance for '$table_name' table succeeded"
+                    );
+                    $b = json_encode($a);
+                    insertMaintenanceAuditLogEntry($con, $b);
+                } else {
+                    $a = Array(
+                        'maint_table' => $table_name,
+                        'maint_recs_affected' => '0',
+                        'maint_comments' => "Maintenance for '$table_name' table failed while running the delete command"
+                    );
+                    $b = json_encode($a);
+                    insertMaintenanceAuditLogEntry($con, $b);
+                }
+            }
+        } else {
+            $a = Array(
+                'maint_table' => $table_name,
+                'maint_recs_affected' => '0',
+                'maint_comments' => "No records purged from '$table_name' table."
+            );
+            $b = json_encode($a);
+            insertMaintenanceAuditLogEntry($con, $b);
+        }  
+    } else {
+        $a = Array(
+            'maint_table' => $table_name,
+            'maint_recs_affected' => '0',
+            'maint_comments' => "No records purged from '$table_name' table due to possible SQL error"
+        );
+        $b = json_encode($a);
+        insertMaintenanceAuditLogEntry($con, $b);
+
+    }
+} else {
+//					echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
+}
+} else {
+//					echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
+}

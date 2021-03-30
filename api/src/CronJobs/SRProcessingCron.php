@@ -101,6 +101,7 @@ class SRProcessingCron{
 
         }else{
             // No Files in Queue
+            echo "[" . (new DateTime())->format("y:m:d h:i:s")."] " . "Nothing to receive from rev.ai.. waiting\n";
             sleep(10);
             $this->prepareNextFile();
         }

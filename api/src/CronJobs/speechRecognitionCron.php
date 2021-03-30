@@ -190,6 +190,7 @@ class speechRecognitionCron{
 
         }else{
             // No Files in Queue
+            echo "[" . (new DateTime())->format("y:m:d h:i:s")."] " . "Nothing to submit to rev.ai.. waiting\n";
             sleep(10);
             $this->prepareNextFile();
         }
