@@ -298,6 +298,8 @@ class SRQueueGateway implements GatewayInterface
             if ($statement->rowCount()) {
                 return $statement->fetch(\PDO::FETCH_ASSOC);
             } else {
+                $statement->closeCursor();
+                unset($statement);
                 return null;
             }
 
