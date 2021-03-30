@@ -71,7 +71,7 @@ while ($start) {
         convertDssToMp3($fileName);
     }else{
 //        vtexEcho("nothing to convert.. waiting\n");
-        echo "nothing to convert.. waiting\n";
+        echo "[" . (new DateTime())->format("y:m:d h:i:s")."] " . "Nothing to convert.. waiting\n";
     }
 
 //    exit();
