@@ -23,7 +23,7 @@ final class StoppingPhpServices extends AbstractMigration
             ->addColumn('service_name', 'string', ['limit' => 100])
             ->addColumn('last_start_time', 'timestamp', ['null'=>true, 'default'=>null])
             ->addColumn('last_stop_time', 'timestamp', ['null'=>true, 'default'=>null])
-            ->addColumn('requests_made', 'integer', ['default'=>0])
+            ->addColumn('requests_made', 'integer', ['default'=>0, 'comment' => 'actual requests made to rev.ai in the current window NOT internal iterations'])
             ->addColumn('current_status', 'integer',
                 ['default'=>0, 'comment'=>'This is not a reliable indicator as it may not be updated on sudden power loss'])
             ->create();
