@@ -8,11 +8,18 @@ var jobsDT;
 var jobsDTRef;
 var totalDur = 0;
 var totalTrDur = 0;
+var autoListRefresh = 0;
+var autoListRefreshInterval = 10000;
+
+//getAutoListRefreshInterval();
+getAutoListRefreshEnabled();
 
 $(document).ready(function () {
 
 	const maximum_rows_per_page_jobs_list = 10;
 	var calculatedIds = [];
+
+	console.log(`On Document.ready the autoListRefresh is set to ${autoListRefresh} and autoListRefreshInterval is set to ${autoListRefreshInterval}`);
 
 	// $('.tooltip').tooltipster();
 
@@ -339,7 +346,6 @@ $(document).ready(function () {
 				data: convertToSearchParam(formData)
 			});
 		}
-
 });
 
 
@@ -407,4 +413,47 @@ for (const [key, value] of params) {
     searchParams.set(key, value);
 }
 return searchParams;
+}
+function getAutoListRefreshEnabled() {
+	$.ajax({
+		url: "../api/v1/users/list-refresh-enabled/",
+		method: "GET",
+		dataType: "text",
+		success: function (data) {
+			//console.log(`What the api returned was ${data}`);
+			if (data == 1) {
+				autoListRefresh = 1;
+				getAutoListRefreshInterval(function(output){
+					console.log(output);
+					autoListRefreshInterval = output*1000;
+				});
+			} else {
+				autoListRefresh = 0;
+			}
+			console.log(`After Check Function: autoListRefresh value is ${autoListRefresh} and the interval is ${autoListRefreshInterval}`);
+		}
+	});
+}
+
+function getAutoListRefreshInterval(handleData) {
+	$.ajax({
+		url: "../api/v1/users/list-refresh-interval/",
+		method: "GET",
+		dataType: "text",
+		success: function (data) {
+			handleData(data);
+		},
+		error: function (jqxhr) {
+			// $("#register_area").text(jqxhr.responseText); // @text = response error, it is will be errors: 324, 500, 404 or anythings else
+		}
+	});
+	//console.log(`After Interval Function: autoListRefresh value is ${autoListRefresh} and the interval is ${autoListRefreshInterval}`);
+}
+
+function startRefreshTimer(refreshInterval) {
+		console.log(`Starting the job list refresh timer with an interval of ${refreshInterval}`);
+			setInterval(function () {
+			console.log(`Refreshing DataTables...`);
+			jobsDTRef.ajax.reload();
+		}, refreshInterval);
 }

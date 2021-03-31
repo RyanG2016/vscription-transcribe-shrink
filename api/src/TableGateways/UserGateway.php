@@ -308,7 +308,7 @@ class UserGateway implements GatewayInterface
             $result = $statement->fetch();
             if($statement->rowCount() > 0)
             {
-                return $result["getListRefreshEnabled"];
+                return $result["auto_list_refresh"];
             }
             return false;
         } catch (\PDOException) {
