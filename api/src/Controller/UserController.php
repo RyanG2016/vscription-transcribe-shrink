@@ -122,6 +122,12 @@ class UserController
                 else if ($this->userId == "sr-mins") {
                     $response = $this->getSRmins();
                 }
+                else if ($this->userId == "list-refresh-interval") {
+                    $response = $this->getListRefreshInterval();
+                }
+                else if ($this->userId == "list-refresh-enabled") {
+                    $response = $this->getListRefreshEnabled();
+                }
                 else {
 //                    $response = $this->getAllUsers();
                     $response = $this->notFoundResponse();

@@ -17,6 +17,9 @@ var typistAvSwitchMDC;
 var srSwitchMDC;
 var srOwnSwitchMDC;
 
+// Job list enable switch
+var jlSwitchMDC;
+
 var roleIsset; //-> from PHP (landing.php)
 var redirectID; //-> from PHP (landing.php) this is current role ID but named redirect for reasons
 
@@ -54,7 +57,18 @@ $(document).ready(function () {
         });
     });
 
-
+    $(".vtex-jr-help-icon").each(function () {
+        $(this).popover({
+            html: true,
+            trigger: 'hover',
+            content: "<div>" +
+                "<b>This enables or disables automatic job list refresh in the Job Lister<br><br></b>" +
+                // "<br><br>" +
+                "" +
+                "<i>You can set the refresh frequency in the adjacent field. (30-600 seconds)</i>" +
+                "</div>"
+        });
+    });
     //<editor-fold desc="Tutorial Snippet to copy">
     /**
      * Copy this fold to any JS file for any page and just edit the following
@@ -156,6 +170,8 @@ $(document).ready(function () {
     let email = $("#email");
     let lastZipRequested = "";
     let currentEmail = email.val();
+    let jlSwitch = $("#jlSwitch");
+    let orgJobListRefreshInterval = $("#orgJobListResfreshInterval");
 
     /*    userForm.parsley({
             /!*errorsWrapper: '<br><ul class="parsley-error-list"></ul>'*!/
@@ -531,6 +547,7 @@ $(document).ready(function () {
 
     if (roleIsset && (redirectID == 1 || redirectID == 2)) {
         srSwitchMDC = new mdc.switchControl.MDCSwitch(document.querySelector('#srSwitch'));
+        jlSwitchMDC = new mdc.switchControl.MDCSwitch(document.querySelector('#jlSwitch'));
 
         srSwitch.on('change', function (e) {
             srSwitchMDC.disabled = true;
@@ -541,10 +558,22 @@ $(document).ready(function () {
             }
         });
 
+        jlSwitch.on('change', function (e) {
+            jlSwitchMDC.disabled = true;
+            if (jlSwitchMDC.checked) {
+                setjlEnabled(1);
+            } else {
+                setjlEnabled(0);
+            }
+        });
+
         getSRenabled();
 
         // get remaining minutes balance
         getSRMinutes();
+
+        // get Job List Refresh Details
+        getAutoListRefreshEnabled();
     }
 
     if(hasOwnOrg && !ownMatchesCurrent)
@@ -561,6 +590,7 @@ $(document).ready(function () {
 
         getOwnSRenabled();
         getOwnSRMinutes();
+
     }
 
     accNameInput.keyup(function () {
@@ -750,6 +780,32 @@ $(document).ready(function () {
             }
         });
     }
+    
+    function setjlEnabled(enabled) {
+        jlSwitchMDC.disabled = true;
+        var formData = new FormData();
+        formData.append('lr', enabled);
+
+        $.ajax({
+            type: 'POST',
+            url: "../api/v1/users/set-auto-list-refresh/",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (success) {
+                if (success) {
+                    jlSwitchMDC.checked = enabled === 1;
+                    jlSwitchMDC.disabled = false;
+                    jlrToastNotification(enabled);
+                } else {
+                    getAutoListRefreshEnabled();
+                }
+            },
+            error: function (err) {
+                getAutoListRefreshEnabled();
+            }
+        });
+    }
 
     const sttToast = $("#sttToast");
     const sttBody = sttToast.find(".toast-body");
@@ -758,6 +814,13 @@ $(document).ready(function () {
     {
         let info = enabled?"enabled":"disabled";
         sttBody.html("Speech To Text has been " + info);
+        sttToast.toast('show');
+    }
+
+    function jlrToastNotification(enabled = true)
+    {
+        let info = enabled?"enabled":"disabled";
+        sttBody.html("Job list auto refresh has been " + info);
         sttToast.toast('show');
     }
 
@@ -799,6 +862,37 @@ $(document).ready(function () {
             accNameInput.addClass("is-valid");
             return true;
         }
+    }
+
+    function getAutoListRefreshEnabled() {
+        $.ajax({
+            url: "../api/v1/users/list-refresh-enabled/",
+            method: "GET",
+            dataType: "text",
+            success: function (data) {
+                //console.log(`What the api returned was ${data}`);
+                jlSwitchMDC.checked = data;
+                jlSwitchMDC.disabled = false;
+                getAutoListRefreshInterval(function(output){
+                    console.log(`Job List Refresh Interval is: ${output}`);
+                    orgJobListRefreshInterval.html(output*1000);
+                });
+            }
+        });
+    }
+    
+    function getAutoListRefreshInterval(handleData) {
+        $.ajax({
+            url: "../api/v1/users/list-refresh-interval/",
+            method: "GET",
+            dataType: "text",
+            success: function (data) {
+                handleData(data);
+            },
+            error: function (jqxhr) {
+                // $("#register_area").text(jqxhr.responseText); // @text = response error, it is will be errors: 324, 500, 404 or anythings else
+            }
+        });
     }
 
 });
