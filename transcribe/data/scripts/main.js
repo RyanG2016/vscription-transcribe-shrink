@@ -12,15 +12,13 @@ var autoListRefresh = 0;
 var autoListRefreshInterval = 10000;
 
 //getAutoListRefreshInterval();
-getAutoListRefreshEnabled();
 
 $(document).ready(function () {
 
 	const maximum_rows_per_page_jobs_list = 10;
 	var calculatedIds = [];
 
-	console.log(`On Document.ready the autoListRefresh is set to ${autoListRefresh} and autoListRefreshInterval is set to ${autoListRefreshInterval}`);
-
+	getAutoListRefreshEnabled();
 	// $('.tooltip').tooltipster();
 
 	dataTbl = $('.jobs_tbl');
@@ -424,13 +422,14 @@ function getAutoListRefreshEnabled() {
 			if (data == 1) {
 				autoListRefresh = 1;
 				getAutoListRefreshInterval(function(output){
-					console.log(output);
+					// console.log(output);
 					autoListRefreshInterval = output*1000;
+					startRefreshTimer();
 				});
 			} else {
 				autoListRefresh = 0;
 			}
-			console.log(`After Check Function: autoListRefresh value is ${autoListRefresh} and the interval is ${autoListRefreshInterval}`);
+			// console.log(`After Check Function: autoListRefresh value is ${autoListRefresh} and the interval is ${autoListRefreshInterval}`);
 		}
 	});
 }
@@ -450,10 +449,10 @@ function getAutoListRefreshInterval(handleData) {
 	//console.log(`After Interval Function: autoListRefresh value is ${autoListRefresh} and the interval is ${autoListRefreshInterval}`);
 }
 
-function startRefreshTimer(refreshInterval) {
-		console.log(`Starting the job list refresh timer with an interval of ${refreshInterval}`);
+function startRefreshTimer() {
+		// console.log(`Starting the job list refresh timer with an interval of ${autoListRefreshInterval}`);
 			setInterval(function () {
-			console.log(`Refreshing DataTables...`);
+			// console.log(`Refreshing DataTables...`);
 			jobsDTRef.ajax.reload();
-		}, refreshInterval);
+		}, autoListRefreshInterval);
 }
