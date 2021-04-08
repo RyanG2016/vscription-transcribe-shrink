@@ -72,7 +72,7 @@ include('data/parts/head.php');
     <link href="data/css/parts/parsleyjs.css" rel="stylesheet">
 
     <link href="data/css/settings.css?v=2" rel="stylesheet">
-    <script src="data/scripts/settings.min.js?v=4" type="text/javascript"></script>
+    <script src="data/scripts/settings.min.js?v=5" type="text/javascript"></script>
 
 </head>
 
@@ -304,6 +304,43 @@ include('data/parts/head.php');
                                         <div class="input-group">
 
                                         </div>
+                                        <div class="input-group">
+                                            <div class="row w-100 no-gutters">
+                                                <div class="col" style="align-self: center">
+                                                    <div class="form-row">
+                                                        <div class="col">
+                                                            <em class="bs-text">Auto Refresh Job List  <span  class="vtex-jr-help-icon">(?)</span></em>
+                                                        </div>
+                                                        <div class="col text-right">
+                                                            <div class="mdc-switch mdc-switch--disabled ml-auto mt-auto mb-auto" id="jlSwitch">
+                                                                <div class="mdc-switch__track"></div>
+                                                                <div class="mdc-switch__thumb-underlay">
+                                                                    <div class="mdc-switch__thumb"></div>
+                                                                    <input type="checkbox" id="jlSwitchCheckbox" class="mdc-switch__native-control" role="switch" aria-checked="false" disabled>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                <div class="input-group input-group-jl">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">Job List Refresh Interval</span>
+                                                    </div>
+
+                                                    <input type="number" class="form-control" id="orgJobListRefreshInterval"
+                                                           placeholder=""
+                                                           max="300"
+                                                           min="30"
+                                                           name="auto_list_ref_interval"
+                                                           aria-describedby="inputGroupPrepend"
+                                                           data-parsley-error-message="<?php echo CUSTOM_FIELD_ERRORS::LIST_REFRESH_INTERVAL ?>"
+                                                           value="<?php echo $_SESSION['auto_list_refresh_interval'] ?>"
+                                                           required>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
 
                                         <div class="input-group">
                                             <div class="row w-100 no-gutters">
@@ -337,7 +374,6 @@ include('data/parts/head.php');
                                                 </div>
                                             </div>
                                         </div>
-
                                         <button class="btn btn-primary vspt-small-btn" type="button" onclick="window.open('/manage_users.php', '_blank')">
                                             <i class="fas fa-users" ></i> Manage Users
                                         </button>
@@ -435,6 +471,44 @@ include('data/parts/head.php');
                                     <div class="input-group">
 
                                     </div>
+                                    <div class="input-group">
+                                            <div class="row w-100 no-gutters">
+                                                <div class="col" style="align-self: center">
+                                                    <div class="form-row">
+                                                        <div class="col">
+                                                            <em class="bs-text">Auto Refresh Job List  <span  class="vtex-jr-help-icon">(?)</span></em>
+                                                        </div>
+                                                        <div class="col text-right">
+                                                            <div class="mdc-switch mdc-switch--disabled ml-auto mt-auto mb-auto" id="jlOwnSwitch">
+                                                                <div class="mdc-switch__track"></div>
+                                                                <div class="mdc-switch__thumb-underlay">
+                                                                    <div class="mdc-switch__thumb"></div>
+                                                                    <input type="checkbox" id="jlOwnSwitchCheckbox" class="mdc-switch__native-control" role="switch" aria-checked="false" disabled>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                <div class="input-group input-group-jl">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">Job List Refresh Interval</span>
+                                                    </div>
+
+                                                    <input type="number" class="form-control" id="ownOrgJobListRefreshInterval"
+                                                           placeholder=""
+                                                           max="300"
+                                                           min="30"
+                                                           name="auto_list_ref_interval"
+                                                           aria-describedby="inputGroupPrepend"
+                                                           data-parsley-error-message="<?php echo CUSTOM_FIELD_ERRORS::LIST_REFRESH_INTERVAL ?>"
+                                                           value="<?php echo $_SESSION['adminAccJobRefreshInterval'] ?>"
+                                                           required>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+
 
                                     <div class="input-group">
                                         <div class="row w-100 no-gutters">

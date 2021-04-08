@@ -8,12 +8,17 @@ var jobsDT;
 var jobsDTRef;
 var totalDur = 0;
 var totalTrDur = 0;
+var autoListRefresh = 0;
+var autoListRefreshInterval = 10000;
+
+//getAutoListRefreshInterval();
 
 $(document).ready(function () {
 
 	const maximum_rows_per_page_jobs_list = 10;
 	var calculatedIds = [];
 
+	getAutoListRefreshEnabled();
 	// $('.tooltip').tooltipster();
 
 	dataTbl = $('.jobs_tbl');
@@ -339,7 +344,6 @@ $(document).ready(function () {
 				data: convertToSearchParam(formData)
 			});
 		}
-
 });
 
 
@@ -407,4 +411,48 @@ for (const [key, value] of params) {
     searchParams.set(key, value);
 }
 return searchParams;
+}
+function getAutoListRefreshEnabled() {
+	$.ajax({
+		url: "../api/v1/users/list-refresh-enabled/",
+		method: "GET",
+		dataType: "text",
+		success: function (data) {
+			//console.log(`What the api returned was ${data}`);
+			if (data == 1) {
+				autoListRefresh = 1;
+				getAutoListRefreshInterval(function(output){
+					// console.log(output);
+					autoListRefreshInterval = output*1000;
+					$("#jlr").removeClass("jlrd").addClass("jlre");
+					$("#jlr").html("Auto Job List Refresh is Enabled");
+					startRefreshTimer();
+				});
+			} else {
+				autoListRefresh = 0;
+				$("#jlr").html("Auto Job List Refresh is Disabled");
+				$("#jlr").removeClass("jlre").addClass("jlrd");
+			}
+		}
+	});
+}
+
+function getAutoListRefreshInterval(handleData) {
+	$.ajax({
+		url: "../api/v1/users/list-refresh-interval/",
+		method: "GET",
+		dataType: "text",
+		success: function (data) {
+			handleData(data);
+		},
+		error: function (jqxhr) {
+			// $("#register_area").text(jqxhr.responseText); // @text = response error, it is will be errors: 324, 500, 404 or anythings else
+		}
+	});
+}
+
+function startRefreshTimer() {
+			setInterval(function () {
+			jobsDTRef.ajax.reload();
+		}, autoListRefreshInterval);
 }

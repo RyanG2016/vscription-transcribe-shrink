@@ -24,11 +24,11 @@ class LoginGateway
         $cTime = strtotime(date("Y-m-d H:i:s"));
 
         $statement = "
-            SELECT
+                SELECT
                 users.id,first_name, last_name, email, password, address,city, state, account_status, last_login, trials, unlock_time,tutorials,
-                   newsletter, email_notification,
-                   a2.act_log_retention_time, a2.acc_retention_time, admin.acc_retention_time as adminart, admin.act_log_retention_time as adminalrt,
-                account, def_access_id, users.enabled, a.acc_role, a.acc_id, r.role_desc, a2.acc_name, country, zipcode, a2.sr_enabled as sr_enabled,
+                newsletter, email_notification,
+                a2.act_log_retention_time, a2.acc_retention_time, a2.auto_list_refresh_interval, admin.acc_retention_time as adminart, admin.act_log_retention_time as adminalrt,
+                admin.auto_list_refresh_interval AS adminalr, account, def_access_id, users.enabled, a.acc_role, a.acc_id, r.role_desc, a2.acc_name, country, zipcode, a2.sr_enabled as sr_enabled,
                 IF(account != 0 , (select accounts.acc_name from accounts where accounts.acc_id = account), false) 
                     as 'admin_acc_name'                
             FROM
@@ -132,6 +132,7 @@ class LoginGateway
             $_SESSION['acc_name'] = $row["acc_name"];
             $_SESSION['acc_retention_time'] = $row["acc_retention_time"];
             $_SESSION['act_log_retention_time'] = $row["act_log_retention_time"];
+            $_SESSION["auto_list_refresh_interval"] = $row["auto_list_refresh_interval"];
             $_SESSION['role_desc'] = $row["role_desc"];
             $_SESSION['landed'] = true;
         }else{
@@ -149,6 +150,7 @@ class LoginGateway
                 $_SESSION['acc_name'] = $account->getAccName();
                 $_SESSION['acc_retention_time'] = $account->getAccRetentionTime();
                 $_SESSION['act_log_retention_time'] = $account->getActLogRetentionTime();
+                $_SESSION["auto_list_refresh_interval"] = $account->getAccJobRefreshInterval();
                 $_SESSION['role_desc'] = $role->getRoleDesc();
                 $_SESSION['landed'] = true;
             }
@@ -161,6 +163,7 @@ class LoginGateway
         $_SESSION["adminAccount"] = $row["account"];
         $_SESSION["adminAccRetTime"] = $row["adminart"];
         $_SESSION["adminAccLogRetTime"] = $row["adminalrt"];
+        $_SESSION["adminAccJobRefreshInterval"] = $row["adminalr"];
         $_SESSION["adminAccountName"] = $row["admin_acc_name"];
         $_SESSION['loggedIn'] = true;
         $_SESSION['tutorials'] = $row["tutorials"];

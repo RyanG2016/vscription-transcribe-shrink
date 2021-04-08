@@ -55,6 +55,7 @@ class Account extends BaseModel implements BaseModelInterface
         private int $act_log_retention_time = 180,
         private string $job_prefix = '',
         private int $sr_enabled = 0,
+        private int $auto_list_refresh_interval = 0,
 
         private $db = null
     )
@@ -151,6 +152,7 @@ class Account extends BaseModel implements BaseModelInterface
             $this->act_log_retention_time = $row['act_log_retention_time'];
             $this->job_prefix = $row['job_prefix'];
             $this->sr_enabled = $row['sr_enabled'];
+            $this->auto_list_refresh_interval = $row['auto_list_refresh_interval'];
         }
     }
 
@@ -658,6 +660,22 @@ class Account extends BaseModel implements BaseModelInterface
     public function setLifetimeMinutes(?int $lifetime_minutes): void
     {
         $this->lifetime_minutes = $lifetime_minutes;
+    }
+
+        /**
+     * @return int|null
+     */
+    public function getAccJobRefreshInterval(): ?int
+    {
+        return $this->auto_list_refresh_interval;
+    }
+
+    /**
+     * @param int|null $auto_list_refresh_interval
+     */
+    public function setAccJobRefreshInterval(?int $auto_list_refresh_interval): void
+    {
+        $this->auto_list_refresh_interval = $auto_list_refresh_interval;
     }
 
     /**

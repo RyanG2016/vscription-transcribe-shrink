@@ -17,6 +17,10 @@ var typistAvSwitchMDC;
 var srSwitchMDC;
 var srOwnSwitchMDC;
 
+// Job list enable switch
+var jlSwitchMDC;
+var jlOwnSwitchMDC;
+
 var roleIsset; //-> from PHP (landing.php)
 var redirectID; //-> from PHP (landing.php) this is current role ID but named redirect for reasons
 
@@ -54,7 +58,18 @@ $(document).ready(function () {
         });
     });
 
-
+    $(".vtex-jr-help-icon").each(function () {
+        $(this).popover({
+            html: true,
+            trigger: 'hover',
+            content: "<div>" +
+                "<b>This enables or disables automatic job list refresh in the Job Lister<br><br></b>" +
+                // "<br><br>" +
+                "" +
+                "<i>You can set the refresh frequency in the adjacent field. (30-300 seconds)</i>" +
+                "</div>"
+        });
+    });
     //<editor-fold desc="Tutorial Snippet to copy">
     /**
      * Copy this fold to any JS file for any page and just edit the following
@@ -156,6 +171,10 @@ $(document).ready(function () {
     let email = $("#email");
     let lastZipRequested = "";
     let currentEmail = email.val();
+    let jlSwitch = $("#jlSwitch");
+    let orgJobListRefreshInterval = $("#orgJobListRefreshInterval");
+    let jlOwnSwitch = $("#jlOwnSwitch");
+    let ownOrgJobListRefreshInterval = $("#ownOrgJobListRefreshInterval");
 
     /*    userForm.parsley({
             /!*errorsWrapper: '<br><ul class="parsley-error-list"></ul>'*!/
@@ -376,7 +395,7 @@ $(document).ready(function () {
 
                         self.setTitle("Organization Updated!");
                         self.setType("green");
-                        // self.setContent(response["msg"]);
+                        //self.setContent(response["msg"]);
                         self.setContent("");
 
                         self.buttons.ok.setText("Ok");
@@ -531,6 +550,7 @@ $(document).ready(function () {
 
     if (roleIsset && (redirectID == 1 || redirectID == 2)) {
         srSwitchMDC = new mdc.switchControl.MDCSwitch(document.querySelector('#srSwitch'));
+        jlSwitchMDC = new mdc.switchControl.MDCSwitch(document.querySelector('#jlSwitch'));
 
         srSwitch.on('change', function (e) {
             srSwitchMDC.disabled = true;
@@ -541,15 +561,28 @@ $(document).ready(function () {
             }
         });
 
+        jlSwitch.on('change', function (e) {
+            jlSwitchMDC.disabled = true;
+            if (jlSwitchMDC.checked) {
+                setjlEnabled(1);
+            } else {
+                setjlEnabled(0);
+            }
+        });
+
         getSRenabled();
 
         // get remaining minutes balance
         getSRMinutes();
+
+        // get Job List Refresh Details
+        getAutoListRefreshEnabled();
     }
 
     if(hasOwnOrg && !ownMatchesCurrent)
     {
         srOwnSwitchMDC = new mdc.switchControl.MDCSwitch(document.querySelector('#srOwnSwitch'));
+        jlOwnSwitchMDC = new mdc.switchControl.MDCSwitch(document.querySelector('#jlOwnSwitch'));
         srOwnSwitch.on('change', function (e) {
             srOwnSwitchMDC.disabled = true;
             if (srOwnSwitchMDC.checked) {
@@ -559,8 +592,17 @@ $(document).ready(function () {
             }
         });
 
+        jlOwnSwitch.on('change', function (e) {
+            jlOwnSwitchMDC.disabled = true;
+            if (jlOwnSwitchMDC.checked) {
+                setJLOwnEnabled(1);
+            } else {
+                setJLOwnEnabled(0);
+            }
+        });
         getOwnSRenabled();
         getOwnSRMinutes();
+        getOwnAutoListRefreshEnabled();
     }
 
     accNameInput.keyup(function () {
@@ -618,7 +660,6 @@ $(document).ready(function () {
         }
     }
 
-
     getAvailabilityAsTypist();
 
     function getAvailabilityAsTypist() {
@@ -636,7 +677,6 @@ $(document).ready(function () {
         });
     }
 
-
     function getSRenabled() {
         $.ajax({
             url: "../api/v1/users/sr-enabled/",
@@ -653,9 +693,7 @@ $(document).ready(function () {
 
     }
 
-
     function getOwnSRenabled() {
-
         $.ajax({
             url: "../api/v1/users/sr-enabled/self",
             method: "GET",
@@ -682,11 +720,9 @@ $(document).ready(function () {
                 // $("#register_area").text(jqxhr.responseText); // @text = response error, it is will be errors: 324, 500, 404 or anythings else
             }
         });
-
     }
 
     function getOwnSRMinutes() {
-
         $.ajax({
             url: "../api/v1/users/sr-mins/self",
             method: "GET",
@@ -751,16 +787,6 @@ $(document).ready(function () {
         });
     }
 
-    const sttToast = $("#sttToast");
-    const sttBody = sttToast.find(".toast-body");
-
-    function sttToastNotification(enabled = true)
-    {
-        let info = enabled?"enabled":"disabled";
-        sttBody.html("Speech To Text has been " + info);
-        sttToast.toast('show');
-    }
-
     function setSROwnEnabled(enabled) {
         srOwnSwitchMDC.disabled = true;
         var formData = new FormData();
@@ -786,6 +812,74 @@ $(document).ready(function () {
             }
         });
     }
+    
+    function setjlEnabled(enabled) {
+        jlSwitchMDC.disabled = true;
+        var formData = new FormData();
+        formData.append('lr', enabled);
+
+        $.ajax({
+            type: 'POST',
+            url: "../api/v1/users/set-auto-list-refresh/",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (success) {
+                if (success) {
+                    jlSwitchMDC.checked = enabled === 1;
+                    jlSwitchMDC.disabled = false;
+                    jlrToastNotification(enabled);
+                } else {
+                    getAutoListRefreshEnabled();
+                }
+            },
+            error: function (err) {
+                getAutoListRefreshEnabled();
+            }
+        });
+    }
+
+    function setJLOwnEnabled(enabled) {
+        jlOwnSwitchMDC.disabled = true;
+        var formData = new FormData();
+        formData.append('lr', enabled);
+
+        $.ajax({
+            type: 'POST',
+            url: "../api/v1/users/set-auto-list-refresh/self",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (success) {
+                if (success) {
+                    jlOwnSwitchMDC.checked = enabled === 1;
+                    jlOwnSwitchMDC.disabled = false;
+                    jlrToastNotification(enabled);
+                } else {
+                    getOwnAutoListRefreshEnabled();                }
+            },
+            error: function () {             
+                getOwnAutoListRefreshEnabled();
+            }
+        });
+    }
+
+    const sttToast = $("#sttToast");
+    const sttBody = sttToast.find(".toast-body");
+
+    function sttToastNotification(enabled = true)
+    {
+        let info = enabled?"enabled":"disabled";
+        sttBody.html("Speech To Text has been " + info);
+        sttToast.toast('show');
+    }
+
+    function jlrToastNotification(enabled = true)
+    {
+        let info = enabled?"enabled":"disabled";
+        sttBody.html("Job list auto refresh has been " + info);
+        sttToast.toast('show');
+    }
 
     function validAccName() {
         if (accNameInput.val() === "" ||
@@ -799,6 +893,64 @@ $(document).ready(function () {
             accNameInput.addClass("is-valid");
             return true;
         }
+    }
+
+    function getAutoListRefreshEnabled() {
+        $.ajax({
+            url: "../api/v1/users/list-refresh-enabled/",
+            method: "GET",
+            dataType: "text",
+            success: function (data) {
+                jlSwitchMDC.checked = data;
+                jlSwitchMDC.disabled = false;
+                getAutoListRefreshInterval(function(output){
+                    orgJobListRefreshInterval.html(output*1000);
+                });
+            }
+        });
+    }
+
+    function getOwnAutoListRefreshEnabled() {
+        $.ajax({
+            url: "../api/v1/users/list-refresh-enabled/self",
+            method: "GET",
+            dataType: "text",
+            success: function (data) {
+                jlOwnSwitchMDC.checked = data;
+                jlOwnSwitchMDC.disabled = false;
+                getOwnAutoListRefreshInterval(function(output){
+                    ownOrgJobListRefreshInterval.html(output*1000);
+                });
+            }
+        });
+    }
+    
+    function getAutoListRefreshInterval(handleData) {
+        $.ajax({
+            url: "../api/v1/users/list-refresh-interval/",
+            method: "GET",
+            dataType: "text",
+            success: function (data) {
+                handleData(data);
+            },
+            error: function (jqxhr) {
+                // $("#register_area").text(jqxhr.responseText); // @text = response error, it is will be errors: 324, 500, 404 or anythings else
+            }
+        });
+    }
+
+    function getOwnAutoListRefreshInterval(handleData) {
+        $.ajax({
+            url: "../api/v1/users/list-refresh-interval/self",
+            method: "GET",
+            dataType: "text",
+            success: function (data) {
+                handleData(data);
+            },
+            error: function (jqxhr) {
+                // $("#register_area").text(jqxhr.responseText); // @text = response error, it is will be errors: 324, 500, 404 or anythings else
+            }
+        });
     }
 
 });
