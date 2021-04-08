@@ -475,9 +475,7 @@ class AccountGateway implements GatewayInterface
                         $_SESSION["adminAccountName"] = $account->getAccName();
                         $_SESSION["adminAccLogRetTime"] = $account->getActLogRetentionTime();
                         $_SESSION["adminAccRetTime"] = $account->getAccRetentionTime();
-                        //$_SESSION["adminJobListRefreshInterval"] = $account->getAccJobRefreshInterval();
-                        $_SESSION["adminJobListRefreshInterval"] = 150;
-                        echo $_SESSION["adminJobListRefreshInterval"];
+                        $_SESSION["adminJobListRefreshInterval"] = $account->getAccJobRefreshInterval();
                         return $this->oKResponse($accountID, "Account Created");
                     }
                 }
@@ -552,7 +550,6 @@ class AccountGateway implements GatewayInterface
                         WHERE 
                             acc_id = ?";
 
-
         try {
             $statement = $this->db->prepare($statement);
             $statement->execute($valsArray);
@@ -592,7 +589,12 @@ class AccountGateway implements GatewayInterface
                         return $this->errorOccurredResponse("Invalid Input (VSPT-R100)");
                     }
                     break;
-
+                case 'auto_list_ref_interval':
+                    if(!(is_numeric($valuePost) && $valuePost <= 300 && $valuePost > 29))
+                    {
+                        return $this->errorOccurredResponse("Invalid Input (VSPT-R101)");
+                    }
+                    break;
                 default:
                     break;
             }
@@ -603,7 +605,7 @@ class AccountGateway implements GatewayInterface
         $account->setAccName($_POST["organization_name"]);
         $account->setAccRetentionTime($_POST["retention_time"]);
         $account->setActLogRetentionTime($_POST["act_log_ret_time"]);
-        $account->getAccJobRefreshInterval($_POST["auto_list_refresh_interval"]);
+        $account->setAccJobRefreshInterval($_POST["auto_list_ref_interval"]);
 
         if ($account->save() > 0) {
             if($self)
@@ -615,7 +617,7 @@ class AccountGateway implements GatewayInterface
                 $_SESSION["adminAccountName"] = $account->getAccName();
                 $_SESSION["adminAccLogRetTime"] = $account->getActLogRetentionTime();
                 $_SESSION["adminAccRetTime"] = $account->getAccRetentionTime();
-                $_SESSION["auto_list_refresh_interval"] = $account->getAccJobRefreshInterval();
+                $_SESSION["adminAccJobRefreshInterval"] = $account->getAccJobRefreshInterval();
             }else{
                 $_SESSION["acc_name"] = $account->getAccName();
                 $_SESSION["acc_retention_time"] = $account->getAccRetentionTime();
@@ -771,7 +773,7 @@ class AccountGateway implements GatewayInterface
             INSERT INTO accounts 
                 (enabled, billable, acc_name, acc_retention_time, acc_creation_date, bill_rate1, bill_rate1_type, bill_rate1_tat, bill_rate1_desc, bill_rate1_min_pay, bill_rate2, bill_rate2_type, bill_rate2_tat, bill_rate2_desc, bill_rate2_min_pay, bill_rate3, bill_rate3_type, bill_rate3_tat, bill_rate3_desc, bill_rate3_min_pay, bill_rate4, bill_rate4_type, bill_rate4_tat, bill_rate4_desc, bill_rate4_min_pay, bill_rate5, bill_rate5_type, bill_rate5_tat, bill_rate5_desc, bill_rate5_min_pay, lifetime_minutes, work_types, next_job_tally, act_log_retention_time, job_prefix, sr_enabled, auto_list_refresh_interval)
             VALUES
-                (:enabled, :billable, :acc_name, :acc_retention_time, :acc_creation_date, :bill_rate1, :bill_rate1_type, :bill_rate1_tat, :bill_rate1_desc, :bill_rate1_min_pay, :bill_rate2, :bill_rate2_type, :bill_rate2_tat, :bill_rate2_desc, :bill_rate2_min_pay, :bill_rate3, :bill_rate3_type, :bill_rate3_tat, :bill_rate3_desc, :bill_rate3_min_pay, :bill_rate4, :bill_rate4_type, :bill_rate4_tat, :bill_rate4_desc, :bill_rate4_min_pay, :bill_rate5, :bill_rate5_type, :bill_rate5_tat, :bill_rate5_desc, :bill_rate5_min_pay, :lifetime_minutes, :work_types, :next_job_tally, :act_log_retention_time, :job_prefix, :sr_enabled, :jl_refresh)
+                (:enabled, :billable, :acc_name, :acc_retention_time, :acc_creation_date, :bill_rate1, :bill_rate1_type, :bill_rate1_tat, :bill_rate1_desc, :bill_rate1_min_pay, :bill_rate2, :bill_rate2_type, :bill_rate2_tat, :bill_rate2_desc, :bill_rate2_min_pay, :bill_rate3, :bill_rate3_type, :bill_rate3_tat, :bill_rate3_desc, :bill_rate3_min_pay, :bill_rate4, :bill_rate4_type, :bill_rate4_tat, :bill_rate4_desc, :bill_rate4_min_pay, :bill_rate5, :bill_rate5_type, :bill_rate5_tat, :bill_rate5_desc, :bill_rate5_min_pay, :lifetime_minutes, :work_types, :next_job_tally, :act_log_retention_time, :job_prefix, :sr_enabled, :auto_list_refresh_interval)
         ;";
 
         try {
@@ -868,7 +870,7 @@ class AccountGateway implements GatewayInterface
                 act_log_retention_time = :act_log_retention_time,
                 job_prefix = :job_prefix,
                 sr_enabled = :sr_enabled,
-                auto_list_refresh_interval = :jl_refresh,
+                auto_list_refresh_interval = :auto_list_refresh_interval
             WHERE
                 acc_id = :acc_id;
         ";

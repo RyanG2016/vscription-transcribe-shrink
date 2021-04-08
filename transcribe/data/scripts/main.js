@@ -424,12 +424,15 @@ function getAutoListRefreshEnabled() {
 				getAutoListRefreshInterval(function(output){
 					// console.log(output);
 					autoListRefreshInterval = output*1000;
+					$("#jlr").removeClass("jlrd").addClass("jlre");
+					$("#jlr").html("Auto Job List Refresh is Enabled");
 					startRefreshTimer();
 				});
 			} else {
 				autoListRefresh = 0;
+				$("#jlr").html("Auto Job List Refresh is Disabled");
+				$("#jlr").removeClass("jlre").addClass("jlrd");
 			}
-			// console.log(`After Check Function: autoListRefresh value is ${autoListRefresh} and the interval is ${autoListRefreshInterval}`);
 		}
 	});
 }
@@ -446,13 +449,10 @@ function getAutoListRefreshInterval(handleData) {
 			// $("#register_area").text(jqxhr.responseText); // @text = response error, it is will be errors: 324, 500, 404 or anythings else
 		}
 	});
-	//console.log(`After Interval Function: autoListRefresh value is ${autoListRefresh} and the interval is ${autoListRefreshInterval}`);
 }
 
 function startRefreshTimer() {
-		// console.log(`Starting the job list refresh timer with an interval of ${autoListRefreshInterval}`);
 			setInterval(function () {
-			// console.log(`Refreshing DataTables...`);
 			jobsDTRef.ajax.reload();
 		}, autoListRefreshInterval);
 }

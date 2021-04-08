@@ -612,3 +612,14 @@ select, .dt-search {
     margin-left: 0;
     margin-right: 0;
 }
+
+.jlre {
+    margin-left: auto;
+    font-size: .6em;
+    color: limegreen;
+}
+.jlrd {
+    margin-left: auto;
+    font-size: .6em;
+    color: gray;
+}

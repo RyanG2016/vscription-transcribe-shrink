@@ -10,6 +10,11 @@
     margin-bottom: 8px;
 }
 
+.input-group-jl{
+    margin-bottom: 8px;
+    padding-left: 15px;
+}
+
 .newsletter-button{
     background-color: var(--vspt-red) !important;
     height: 27px;

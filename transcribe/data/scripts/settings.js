@@ -19,6 +19,7 @@ var srOwnSwitchMDC;
 
 // Job list enable switch
 var jlSwitchMDC;
+var jlOwnSwitchMDC;
 
 var roleIsset; //-> from PHP (landing.php)
 var redirectID; //-> from PHP (landing.php) this is current role ID but named redirect for reasons
@@ -65,7 +66,7 @@ $(document).ready(function () {
                 "<b>This enables or disables automatic job list refresh in the Job Lister<br><br></b>" +
                 // "<br><br>" +
                 "" +
-                "<i>You can set the refresh frequency in the adjacent field. (30-600 seconds)</i>" +
+                "<i>You can set the refresh frequency in the adjacent field. (30-300 seconds)</i>" +
                 "</div>"
         });
     });
@@ -171,7 +172,9 @@ $(document).ready(function () {
     let lastZipRequested = "";
     let currentEmail = email.val();
     let jlSwitch = $("#jlSwitch");
-    let orgJobListRefreshInterval = $("#orgJobListResfreshInterval");
+    let orgJobListRefreshInterval = $("#orgJobListRefreshInterval");
+    let jlOwnSwitch = $("#jlOwnSwitch");
+    let ownOrgJobListRefreshInterval = $("#ownOrgJobListRefreshInterval");
 
     /*    userForm.parsley({
             /!*errorsWrapper: '<br><ul class="parsley-error-list"></ul>'*!/
@@ -392,7 +395,7 @@ $(document).ready(function () {
 
                         self.setTitle("Organization Updated!");
                         self.setType("green");
-                        // self.setContent(response["msg"]);
+                        //self.setContent(response["msg"]);
                         self.setContent("");
 
                         self.buttons.ok.setText("Ok");
@@ -579,6 +582,7 @@ $(document).ready(function () {
     if(hasOwnOrg && !ownMatchesCurrent)
     {
         srOwnSwitchMDC = new mdc.switchControl.MDCSwitch(document.querySelector('#srOwnSwitch'));
+        jlOwnSwitchMDC = new mdc.switchControl.MDCSwitch(document.querySelector('#jlOwnSwitch'));
         srOwnSwitch.on('change', function (e) {
             srOwnSwitchMDC.disabled = true;
             if (srOwnSwitchMDC.checked) {
@@ -588,9 +592,17 @@ $(document).ready(function () {
             }
         });
 
+        jlOwnSwitch.on('change', function (e) {
+            jlOwnSwitchMDC.disabled = true;
+            if (jlOwnSwitchMDC.checked) {
+                setJLOwnEnabled(1);
+            } else {
+                setJLOwnEnabled(0);
+            }
+        });
         getOwnSRenabled();
         getOwnSRMinutes();
-
+        getOwnAutoListRefreshEnabled();
     }
 
     accNameInput.keyup(function () {
@@ -648,7 +660,6 @@ $(document).ready(function () {
         }
     }
 
-
     getAvailabilityAsTypist();
 
     function getAvailabilityAsTypist() {
@@ -666,7 +677,6 @@ $(document).ready(function () {
         });
     }
 
-
     function getSRenabled() {
         $.ajax({
             url: "../api/v1/users/sr-enabled/",
@@ -683,9 +693,7 @@ $(document).ready(function () {
 
     }
 
-
     function getOwnSRenabled() {
-
         $.ajax({
             url: "../api/v1/users/sr-enabled/self",
             method: "GET",
@@ -712,11 +720,9 @@ $(document).ready(function () {
                 // $("#register_area").text(jqxhr.responseText); // @text = response error, it is will be errors: 324, 500, 404 or anythings else
             }
         });
-
     }
 
     function getOwnSRMinutes() {
-
         $.ajax({
             url: "../api/v1/users/sr-mins/self",
             method: "GET",
@@ -780,6 +786,32 @@ $(document).ready(function () {
             }
         });
     }
+
+    function setSROwnEnabled(enabled) {
+        srOwnSwitchMDC.disabled = true;
+        var formData = new FormData();
+        formData.append('sr', enabled);
+
+        $.ajax({
+            type: 'POST',
+            url: "../api/v1/users/sr-enabled/self",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (success) {
+                if (success) {
+                    srOwnSwitchMDC.checked = enabled === 1;
+                    srOwnSwitchMDC.disabled = false;
+                    sttToastNotification(enabled);
+                } else {
+                    getOwnSRenabled();
+                }
+            },
+            error: function () {
+                getOwnSRenabled();
+            }
+        });
+    }
     
     function setjlEnabled(enabled) {
         jlSwitchMDC.disabled = true;
@@ -807,6 +839,31 @@ $(document).ready(function () {
         });
     }
 
+    function setJLOwnEnabled(enabled) {
+        jlOwnSwitchMDC.disabled = true;
+        var formData = new FormData();
+        formData.append('lr', enabled);
+
+        $.ajax({
+            type: 'POST',
+            url: "../api/v1/users/set-auto-list-refresh/self",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (success) {
+                if (success) {
+                    jlOwnSwitchMDC.checked = enabled === 1;
+                    jlOwnSwitchMDC.disabled = false;
+                    jlrToastNotification(enabled);
+                } else {
+                    getOwnAutoListRefreshEnabled();                }
+            },
+            error: function () {             
+                getOwnAutoListRefreshEnabled();
+            }
+        });
+    }
+
     const sttToast = $("#sttToast");
     const sttBody = sttToast.find(".toast-body");
 
@@ -822,32 +879,6 @@ $(document).ready(function () {
         let info = enabled?"enabled":"disabled";
         sttBody.html("Job list auto refresh has been " + info);
         sttToast.toast('show');
-    }
-
-    function setSROwnEnabled(enabled) {
-        srOwnSwitchMDC.disabled = true;
-        var formData = new FormData();
-        formData.append('sr', enabled);
-
-        $.ajax({
-            type: 'POST',
-            url: "../api/v1/users/sr-enabled/self",
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function (success) {
-                if (success) {
-                    srOwnSwitchMDC.checked = enabled === 1;
-                    srOwnSwitchMDC.disabled = false;
-                    sttToastNotification(enabled);
-                } else {
-                    getOwnSRenabled();
-                }
-            },
-            error: function () {
-                getOwnSRenabled();
-            }
-        });
     }
 
     function validAccName() {
@@ -870,12 +901,25 @@ $(document).ready(function () {
             method: "GET",
             dataType: "text",
             success: function (data) {
-                //console.log(`What the api returned was ${data}`);
                 jlSwitchMDC.checked = data;
                 jlSwitchMDC.disabled = false;
                 getAutoListRefreshInterval(function(output){
-                    console.log(`Job List Refresh Interval is: ${output}`);
                     orgJobListRefreshInterval.html(output*1000);
+                });
+            }
+        });
+    }
+
+    function getOwnAutoListRefreshEnabled() {
+        $.ajax({
+            url: "../api/v1/users/list-refresh-enabled/self",
+            method: "GET",
+            dataType: "text",
+            success: function (data) {
+                jlOwnSwitchMDC.checked = data;
+                jlOwnSwitchMDC.disabled = false;
+                getOwnAutoListRefreshInterval(function(output){
+                    ownOrgJobListRefreshInterval.html(output*1000);
                 });
             }
         });
@@ -884,6 +928,20 @@ $(document).ready(function () {
     function getAutoListRefreshInterval(handleData) {
         $.ajax({
             url: "../api/v1/users/list-refresh-interval/",
+            method: "GET",
+            dataType: "text",
+            success: function (data) {
+                handleData(data);
+            },
+            error: function (jqxhr) {
+                // $("#register_area").text(jqxhr.responseText); // @text = response error, it is will be errors: 324, 500, 404 or anythings else
+            }
+        });
+    }
+
+    function getOwnAutoListRefreshInterval(handleData) {
+        $.ajax({
+            url: "../api/v1/users/list-refresh-interval/self",
             method: "GET",
             dataType: "text",
             success: function (data) {
