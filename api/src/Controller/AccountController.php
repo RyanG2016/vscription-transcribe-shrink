@@ -42,7 +42,7 @@ class AccountController
                     if(isset($this->uri[1])  && $this->uri[1] == "self")
                     {
                         // update owned organization account
-                        $response = $this->accountGateway->postUpdateAccount($_SESSION["userData"]["acc_id"], true);
+                        $response = $this->accountGateway->postUpdateAccount($_SESSION["userData"]["account"], true);
                     }else{
                         // update current logged into account data
                         if (isset($_SESSION["role"]) && ($_SESSION["role"] == 1 OR $_SESSION["role"] == 2)) {
@@ -97,7 +97,8 @@ class AccountController
                     if(isset($this->uri[1]) && $this->uri[1] == "self")
                     {
                         // update owned organization account
-                        $response = $this->accountGateway->postUpdateAccount($_SESSION["userData"]["acc_id"], true);
+                        error_log($_SESSION["userData"]["account"]);
+                        $response = $this->accountGateway->postUpdateAccount($_SESSION["userData"]["account"], true);
                     }else{
                         // update current logged into account data
                         if (isset($_SESSION["role"]) && ($_SESSION["role"] == 1 OR $_SESSION["role"] == 2)) {
