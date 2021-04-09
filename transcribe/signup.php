@@ -131,7 +131,7 @@ $hasRef = isset($_GET['ref']) && !empty($_GET['ref']);
                                 ?>
                                 <input type="email" class="form-control" id="inputEmail" placeholder="Email" name="email"
                                        value="<?php echo isset($_GET['email'])?$_GET['email']:'' ?>"
-                                       required disabled>
+                                       required readonly>
                                 <?php
                             }
 
