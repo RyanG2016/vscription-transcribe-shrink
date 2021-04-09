@@ -321,6 +321,8 @@ class accessGateway implements GatewayInterface
                 a.acc_name,
                 a.acc_retention_time,
                 a.act_log_retention_time,
+                a.auto_list_refresh,
+                a.auto_list_refresh_interval,
                 r.role_name,
                 r.role_desc,
                 a.sr_enabled as sr_enabled,
@@ -350,6 +352,7 @@ class accessGateway implements GatewayInterface
                 $_SESSION['act_log_retention_time'] = $result["act_log_retention_time"];
                 $_SESSION['role_desc'] = $result["role_desc"];
                 $_SESSION['landed'] = true;
+                $_SESSION['auto_list_refresh_interval'] = $result["auto_list_refresh_interval"];
                 return $this->oKResponse(null, "Role changed successfully");
 
             }else{

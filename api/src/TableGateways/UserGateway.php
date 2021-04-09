@@ -285,6 +285,117 @@ class UserGateway implements GatewayInterface
         }
     }
 
+        /**
+     * Retrieves if the current user -> auto job list refresh is enabled
+     * @return int
+     * 0 if disabled <br>
+     * 1 if enabled
+     */
+    public function getListRefreshEnabled($accID)
+    {
+
+        $statement = "
+            SELECT 
+                   auto_list_refresh       
+            FROM
+                accounts
+            WHERE
+                acc_id = ?";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($accID));
+            $result = $statement->fetch();
+            if($statement->rowCount() > 0)
+            {
+                return $result["auto_list_refresh"];
+            }
+            return false;
+        } catch (\PDOException) {
+            return false;
+        }
+    }
+
+            /**
+     * Retrieves auto job list refresh interval
+     * @return int
+     * 30 if value set to less than 30 <br>
+     */
+    public function getListRefreshInterval($accID)
+    {
+
+        $statement = "
+            SELECT 
+                   auto_list_refresh_interval       
+            FROM
+                accounts
+            WHERE
+                acc_id = ?";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($accID));
+            $result = $statement->fetch();
+            if($statement->rowCount() > 0)
+            {
+                return $result["auto_list_refresh_interval"];
+            }
+            return false;
+        } catch (\PDOException) {
+            return false;
+        }
+    }
+
+       /**
+     * SET auto list refresh enable for current user logged in account
+     * @param $auto_list_refresh_enabled (0,1)
+     * @return boolean success
+     */
+    public function setAutoListRefresh($auto_list_refresh_enabled, $accID)
+    {
+
+        $statement = "
+            UPDATE
+                accounts
+                   SET       
+                   auto_list_refresh = ?
+            WHERE
+                acc_id = ?";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($auto_list_refresh_enabled, $accID));
+            return $statement->rowCount();
+        } catch (\PDOException) {
+            return false;
+        }
+    }
+
+           /**
+     * SET auto list refresh interval for current user logged in account
+     * @param $auto_list_refresh_intervak (0,1)
+     * @return boolean success
+     */
+    public function setAutoListRefreshInterval($auto_list_refresh_interval, $accID)
+    {
+
+        $statement = "
+            UPDATE
+                accounts
+                   SET       
+                   auto_list_refresh_interval = ?
+            WHERE
+                acc_id = ?";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($auto_list_refresh_interval, $accID));
+            return $statement->rowCount();
+        } catch (\PDOException) {
+            return false;
+        }
+    }
+
     /**
      * SETs available to work as typist for current logged in user
      * @param $availability (0,1,2)

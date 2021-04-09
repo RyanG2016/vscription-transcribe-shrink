@@ -441,6 +441,7 @@ class tokenGateway implements GatewayInterface
                 $_SESSION['acc_name'] = $result["acc_name"];
                 $_SESSION['acc_retention_time'] = $result["acc_retention_time"];
                 $_SESSION['act_log_retention_time'] = $result["act_log_retention_time"];
+                $_SESSION["auto_list_refresh_interval"] = $row["auto_list_refresh_interval"];
                 $_SESSION['role_desc'] = $result["role_desc"];
                 $_SESSION['landed'] = true;
                 return $this->oKResponse(null, "Role changed successfully");
