@@ -5,11 +5,14 @@ $switchPath = "C:\Program Files (x86)\NCH Software\Switch\switch.exe";
 require "$rootDir\api\bootstrap.php";
 require "$rootDir\api\src\TableGateways\common.php";
 //require '../../bootstrap.php';
+use Src\CronJobs\CronConfiguration;
 use Src\Enums\FILE_STATUS;
 use Src\Enums\SRQ_STATUS;
+use Src\Enums\PHP_SERVICES_IDS;
 use Src\TableGateways\conversionGateway;
 use Src\TableGateways\FileGateway;
 use Src\Models\SRQueue;
+use Src\Models\PHPService;
 
 global $conversionsGateway;
 global $fileGateway;
@@ -43,11 +46,24 @@ $uploadsDir = "$rootDir\uploads";
 $conv_ext = ".mp3";
 
 $start = true;
+$currentIterations = 0;
+$service = PHPService::withID(PHP_SERVICES_IDS::CONVERSION_SERVICE, $dbConnection);
 
+$service->updateStartTime();
 
 while ($start) {
     global $file_status;
     global $acc_id;
+
+    $currentIterations += 1;
+
+    if($currentIterations >= CronConfiguration::MAX_ITERATIONS)
+    {
+        $start = false;
+        $service->updateStopTime();
+        die("Shutting Down");
+    }
+
     $fileEntry = $conversionsGateway->findAll(true);
     if(sizeof($fileEntry) > 0)
     {
@@ -71,11 +87,11 @@ while ($start) {
         convertDssToMp3($fileName);
     }else{
 //        vtexEcho("nothing to convert.. waiting\n");
-        echo "nothing to convert.. waiting\n";
+        echo "[" . (new DateTime())->format("y:m:d h:i:s")."] " . "Nothing to convert.. waiting ($currentIterations)\n" ;
     }
 
 //    exit();
-    sleep(5); // check intervals of 5 seconds
+    sleep(CronConfiguration::CONVERSION_SLEEP_TIME); // check intervals of 5 seconds
 }
 
 

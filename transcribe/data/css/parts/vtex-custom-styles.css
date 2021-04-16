@@ -17,6 +17,16 @@
     text-decoration: underline;
 }
 
+.vtex-jr-help-icon {
+    color: var(--vspt-blue);
+    cursor: pointer;
+    opacity: 80%;
+}
+
+.vtex-jr-help-icon:hover {
+    text-decoration: underline;
+}
+
 .top-up:hover {
     opacity: 0.9;
     transform: scale(1.2);

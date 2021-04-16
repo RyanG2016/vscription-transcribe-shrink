@@ -100,7 +100,7 @@ else {
     </script>
 	
 	<link rel="stylesheet" href="data/css/main.css">
-	<script src="data/scripts/main.min.js?v=5"></script>
+	<script src="data/scripts/main.min.js?v=6"></script>
 	
 </head>
 
@@ -176,6 +176,9 @@ else {
 
                     </div>
                     <div class="col-auto" id="cbm"></div>
+                </div>
+                <div class="row mt-0 pt-0">
+                    <div class="col-auto" id="jlr"></div>
                 </div>
             </div>
 

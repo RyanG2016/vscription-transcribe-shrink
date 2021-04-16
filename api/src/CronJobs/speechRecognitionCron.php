@@ -3,8 +3,11 @@
 namespace Src\CronJobs;
 
 use DateTime;
+use Src\CronJobs\CronConfiguration;
 use Src\Enums\FILE_STATUS;
+use Src\Enums\PHP_SERVICES_IDS;
 use Src\Models\File;
+use Src\Models\PHPService;
 use Src\TableGateways\SRQueueGateway;
 use Src\TableGateways\FileGateway;
 use Src\Helpers\common;
@@ -41,6 +44,8 @@ class speechRecognitionCron{
     const REVAI_API_REQUEST_LIMIT = 10000;
     const REVAI_API_TIME_LIMIT = 600; // 10 minutes
     const REVAI_POST_URL = "https://api.rev.ai/speechtotext/v1/jobs";
+    private int $currentIterations = 0;
+    private PHPService $service;
     private string $REVAI_CALLBACK_URL;
 
 
@@ -60,25 +65,44 @@ class speechRecognitionCron{
         $this->srlogger = new SRLogger($db);
         $this->common = new common();
         $this->id3 = new \getID3();
+        $this->service = PHPService::withID(PHP_SERVICES_IDS::REVAI_SUBMITTER_SERVICE, $db);
 
         $this->uploadDir = __DIR__ . "/../../../uploads/";
         $this->revAItmpDir = __DIR__ . "/../../../transcribe/sr/".getenv("REVAI_TMP_DIR_NAME")."/";
         $this->REVAI_CALLBACK_URL = getenv("BASE_LINK") . "/api/webhooks/" . getenv('REVAI_CALLBACK_URL_DIR_NAME');
-        $this->startTimeStamp = time();
-        $this->requestCount = 0;
         $this->retries = 0;
 
+
+        if($this->service->revai_start_window == 0 || (time() - $this->service->revai_start_window) > self::REVAI_API_TIME_LIMIT)
+        {
+            $this->service->resetRevAiStart(); // reset timer & request count
+        }
+
+        $this->requestCount = $this->service->getRequestsMade();
+        $this->startTimeStamp = $this->service->getRevaiStartWindow();
+
+
+        $this->service->updateStartTime();
         $this->prepareNextFile();
     }
 
     function resetRevAiVars()
     {
-        $this->startTimeStamp = time();
         $this->requestCount = 0;
+        $this->service->resetRevAiStart();
+        $this->startTimeStamp = $this->service->getRevaiStartWindow();
     }
 
     function prepareNextFile()
     {
+        $this->currentIterations += 1;
+
+        if($this->currentIterations >= CronConfiguration::MAX_ITERATIONS)
+        {
+            $this->service->updateStopTime();
+            exit("Shutting Down");
+        }
+
         $srqRow = $this->srqGateway->getFirst();
 
         if($srqRow)
@@ -190,8 +214,13 @@ class speechRecognitionCron{
 
         }else{
             // No Files in Queue
-            sleep(10);
-            $this->prepareNextFile();
+            echo "[" . (new DateTime())->format("y:m:d h:i:s")."] " . "Nothing to submit to rev.ai.. waiting ($this->currentIterations)\n";
+            sleep(CronConfiguration::REVAI_SUBMITTER_SLEEP_TIME);
+//            $this->prepareNextFile();
+            if($this->currentIterations < CronConfiguration::MAX_ITERATIONS)
+            {
+                $this->prepareNextFile();
+            }
         }
     }
 
@@ -212,6 +241,7 @@ class speechRecognitionCron{
 
         // Curl request to rev.ai
         $this->requestCount++;
+        $this->service->updateRequests($this->requestCount);
 
         if($this->requestCount > self::REVAI_API_REQUEST_LIMIT)
         {

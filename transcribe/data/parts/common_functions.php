@@ -44,6 +44,40 @@ function insertAuditLogEntry($con, $args) {
     //Again we're not closing the $con as we will need it and when we return to the calling switch statement it should close there
 }
 
+function insertMaintenanceAuditLogEntry($con, $args) {
+    /* Insert Maintenance Audit Data Template
+            $a = Array(
+                'maint_table' => 'payments',
+                'maint_recs_affected' => '0',
+                'maint_comments' => 'Maintenance for payments table successful'
+            );
+            $b = json_encode($a);
+            insertMaintenanceAuditLogEntry($con, $b);
+    */
+    //INSERT AUDIT LOG DATA
+    $a = json_decode($args,true);
+    $maint_table = $a['maint_table'];
+    $maint_recs_affected = $a['maint_recs_affected'];
+    $maint_comments = $a['maint_comments'];
+
+    $sql = "INSERT INTO maintenance_log(maint_table, maint_recs_affected, maint_comments) VALUES(?,?,?)";
+
+    if($stmt = mysqli_prepare($con, $sql)){
+
+        $stmt->bind_param("sis", $maint_table, $maint_recs_affected, $maint_comments);
+
+        $a = mysqli_stmt_execute($stmt);
+        if($a){
+            //echo "Maintenance table record added successfully!";
+
+        } else{
+            echo "ERROR: Could not execute $sql. " . mysqli_error($con);
+
+        }
+    }
+    //Again we're not closing the $con as we will need it and when we return to the calling switch statement it should close there
+}
+
 function getIP2()
 {
     return getenv('HTTP_CLIENT_IP')?:

@@ -14,21 +14,22 @@ return
             'adapter' => 'mysql',
             'host' => 'localhost',
             'name' => 'production_db',
-            'user' => 'admin',
-            'pass' => 'tFn3wPZYFn72yPt',
+            'user' => 'root',
+            'pass' => 'root',
             'port' => '3306',
             'charset' => 'utf8',
         ],
         'development' => [
+
             'adapter' => 'mysql',
             'host' => 'localhost',
             'name' => 'vtexvsi_transcribe',
-            'user' => 'admin',
-            'pass' => 'EJT2Dz59XFU6DFJX',
+            'user' => 'root',
+            'pass' => 'root',
             'port' => '3306',
             'charset' => 'utf8',
         ],
-		'test' => [
+		'local' => [
             'adapter' => 'mysql',
             'host' => 'localhost',
             'name' => 'vtexvsi_transcribe',

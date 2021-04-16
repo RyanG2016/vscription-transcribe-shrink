@@ -11,6 +11,10 @@ data/parts/error_log
 main_scratch.php
 test*
 workingTemp/
+transcribe/sr/*
+*.pem
+/deletedUploads/*
+/api/phinx/phinx.php
 
 /transcribe/data/parts/config.php
 /transcribe/data/scripts/parts/constants.js
@@ -52,3 +56,9 @@ revai.log
 /transcribe/sr/27yBVCgs4Jm1E5Yffg3NiVN/*
 /transcribe/authorizenetlog.log
 /api/src/Payment/authorizeNet.log
+/docs/~$db_vscription.xlsx
+/logs/
+/uploads.LARGEDATA/*
+/sql_maintanence/*
+/transcribe/data/scripts/obf_me.js
+/transcribe/data/scripts/obf_me.min.js

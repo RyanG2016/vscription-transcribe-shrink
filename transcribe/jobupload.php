@@ -83,6 +83,12 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
     <link href="data/thirdparty/enjoyhint/enjoyhint.css" rel="stylesheet">
     <script src="data/thirdparty/enjoyhint/enjoyhint.min.js"></script>
 
+    <!-- mediainfo library -->
+    <script
+      type="text/javascript"
+      src="https://unpkg.com/mediainfo.js/dist/mediainfo.min.js"
+    ></script>
+
 	<?php $tuts=(isset($_SESSION['tutorials']))?$_SESSION['tutorials']:'{}'; ?>
     <script type="text/javascript">
         var tutorials='<?php echo $tuts;?>';
@@ -164,6 +170,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 
                                         <div id="vsptDropUploadContent" class="vspt-drop-upload-content"></div>
                                         <div id="clear" style="display: none"><a href="#" id="clearBtn">clear</a></div>
+                                        <div id="getMediaInfo" style="display: none"><a href="#" id="getMediaInfoBtn">get media info</a></div>
 
                                     </div>
                                     <br>
@@ -363,6 +370,23 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 
                     </div>
                 </form>
+
+                <div class="position-fixed bottom-0 toast-container right-0 p-3" style="z-index: 50000; right: 0; bottom: 0;">
+
+                    <div id="uploadToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
+                        <div class="toast-header">
+                            <img src="data/images/Logo_only.png" height="24px" class="rounded mr-2">
+                            <strong class="mr-auto">Uploader</strong>
+                            <!--                                    <small>Just now</small>-->
+                            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="toast-body">
+                            (.MP4) File type is not supported
+                        </div>
+                    </div>
+                </div>
 
             </div>
 

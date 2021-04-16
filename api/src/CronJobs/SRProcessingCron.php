@@ -6,7 +6,9 @@ use DateTime;
 use Done\Subtitles\Subtitles;
 use Src\Enums\FILE_STATUS;
 use Src\Enums\HTTP_CONTENT_TYPE;
+use Src\Enums\PHP_SERVICES_IDS;
 use Src\Models\File;
+use Src\Models\PHPService;
 use Src\TableGateways\SRQueueGateway;
 use Src\TableGateways\FileGateway;
 use Src\Helpers\common;
@@ -47,6 +49,9 @@ class SRProcessingCron{
     const REVAI_API_TIME_LIMIT = 600; // 10 minutes
     const REVAI_TRANSCRIPT_URL = "https://api.rev.ai/speechtotext/v1/jobs/{id}/transcript";
     const REVAI_CAPTIONS_URL = "https://api.rev.ai/speechtotext/v1/jobs/{id}/captions";
+    private int $currentIterations = 0;
+    private PHPService $service;
+
 
 
     // Runtime vars for each file //
@@ -63,24 +68,42 @@ class SRProcessingCron{
         $this->fileGateway = new FileGateway($db);
         $this->srlogger = new SRLogger($db);
         $this->common = new common();
+        $this->service = PHPService::withID(PHP_SERVICES_IDS::REVAI_RECEIVER_SERVICE, $db);
+
 
         $this->uploadDir = __DIR__ . "/../../../uploads/";
         $this->revAItmpDir = __DIR__ . "/../../../transcribe/sr/".getenv("REVAI_TMP_DIR_NAME")."/";
-        $this->startTimeStamp = time();
-        $this->requestCount = 0;
         $this->retries = 0;
 
+        if($this->service->revai_start_window == 0 || (time() - $this->service->revai_start_window) > self::REVAI_API_TIME_LIMIT)
+        {
+            $this->service->resetRevAiStart(); // reset timer & request count
+        }
+
+        $this->requestCount = $this->service->getRequestsMade();
+        $this->startTimeStamp = $this->service->getRevaiStartWindow();
+
+        $this->service->updateStartTime();
         $this->prepareNextFile();
     }
 
     function resetRevAiVars()
     {
-        $this->startTimeStamp = time();
         $this->requestCount = 0;
+        $this->service->resetRevAiStart();
+        $this->startTimeStamp = $this->service->getRevaiStartWindow();
     }
 
     function prepareNextFile()
     {
+        $this->currentIterations += 1;
+
+        if($this->currentIterations >= CronConfiguration::MAX_ITERATIONS)
+        {
+            $this->service->updateStopTime();
+            exit("Shutting Down");
+        }
+
         $srqRow = $this->srqGateway->getNextQFIProcessing();
 
         if($srqRow)
@@ -90,6 +113,8 @@ class SRProcessingCron{
             $this->srE = SR::withAccID($this->fileE->getAccId(), $this->db);
 
             $this->requestCount++;
+            $this->service->updateRequests($this->requestCount);
+
 
             if($this->requestCount > self::REVAI_API_REQUEST_LIMIT)
             {
@@ -101,7 +126,8 @@ class SRProcessingCron{
 
         }else{
             // No Files in Queue
-            sleep(10);
+            echo "[" . (new DateTime())->format("y:m:d h:i:s")."] " . "Nothing to receive from rev.ai.. waiting ($this->currentIterations)\n";
+            sleep(CronConfiguration::REVAI_RECEIVER_SLEEP_TIME);
             $this->prepareNextFile();
         }
     }
@@ -169,6 +195,8 @@ class SRProcessingCron{
 
 
             $this->requestCount++;
+            $this->service->updateRequests($this->requestCount);
+
             if($this->requestCount > self::REVAI_API_REQUEST_LIMIT)
             {
                 $this->thresholdWait(self::WAIT_THEN_CURL_TRANSCRIPT);
