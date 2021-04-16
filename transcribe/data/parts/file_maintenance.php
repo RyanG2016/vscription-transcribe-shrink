@@ -234,22 +234,41 @@ if (mysqli_stmt_execute($stmt)) {
 
 //Clear the deletedUploads folder
 
-$deletedFilesList = glob('../../../deletedUploads/*');
-foreach($deletedFilesList as $deletedFileName){
-    if(is_file($deletedFileName)){
-        //echo $deletedFileName, '<br>'; 
-        $a = Array(
-            'maint_table' => 'deletedFilesDirectory',
-            'maint_recs_affected' => 1,
-            'maint_comments' => "Deleted file '$deletedFileName' from deletedUploads folder"
-        );
-        $b = json_encode($a);
-        insertMaintenanceAuditLogEntry($con, $b);
-    }   
-}
 //Check to ensure that the deletedUploads folder exists
 if (!file_exists("../../../deletedUploads")){
     mkdir("../../../deletedUploads");
+}
+$deletedFilesList = glob('../../../deletedUploads/*');
+foreach($deletedFilesList as $deletedFileName){
+    if(is_file($deletedFileName)){
+		if ((time()- filemtime($deletedFileName)) >= 86400) { 
+			if (unlink($deletedFileName)) {				
+				$a = Array(
+					'maint_table' => 'deletedFilesDirectory',
+					'maint_recs_affected' => 1,
+					'maint_comments' => "Permanently deleted file '$deletedFileName' from deletedUploads folder"
+				);
+				$b = json_encode($a);
+				insertMaintenanceAuditLogEntry($con, $b);
+			} else {
+					$a = Array(
+					'maint_table' => 'deletedFilesDirectory',
+					'maint_recs_affected' => 1,
+					'maint_comments' => "An error occurred when trying to permanently delete file '$deletedFileName' from deletedUploads folder"
+				);
+				$b = json_encode($a);
+				insertMaintenanceAuditLogEntry($con, $b);
+			}
+		} else {
+			$a = Array(
+            'maint_table' => 'deletedFilesDirectory',
+            'maint_recs_affected' => 1,
+            'maint_comments' => "Not deleting file '$deletedFileName' from deletedUploads folder as it hasn't been 24 hours"
+			);
+			$b = json_encode($a);
+			insertMaintenanceAuditLogEntry($con, $b);
+		}			
+    }   
 }
 $sql = "SELECT COUNT(*) as numRowsToDelete
 FROM files LEFT JOIN accounts ON accounts.acc_id = files.acc_id
@@ -261,7 +280,7 @@ FROM files LEFT JOIN accounts ON accounts.acc_id = files.acc_id
 WHERE DATE(text_downloaded_date) < DATE_SUB(CURDATE(), INTERVAL accounts.acc_retention_time DAY)
 AND deleted = 0
 AND audio_file_deleted_date IS NULL";
-$sql2 = "UPDATE files SET deleted = 1, deleted_date = CURRENT_TIMESTAMP(), audio_file_deleted_date = CURRENT_TIMESTAMP(), job_document_html = null,  captions = null
+$sql2 = "UPDATE files SET deleted = 1, deleted_date = CURRENT_TIMESTAMP(), audio_file_deleted_date = CURRENT_TIMESTAMP(), job_document_html = null,  job_document_rtf = null, captions = null
 WHERE file_id = ?";
 $table_name = "files";
 
@@ -299,20 +318,32 @@ if ($stmt = mysqli_prepare($con, $sql)) {
                                     //Let's attempt to delete the actual audio file
                                     if (file_exists('../../../uploads/' . $filename)) {
                                         if (rename('../../../uploads/' . $filename,'../../../deletedUploads/' . $filename)) {
-                                            //echo "Temp Audio File Deleted";
-                                            $a = Array(
-                                                'maint_table' => $table_name,
-                                                'maint_recs_affected' => 1,
-                                                'maint_comments' => "Deleted audio file '$filename' for file '$file_id'"
-                                            );
-                                            $b = json_encode($a);
-                                            insertMaintenanceAuditLogEntry($con, $b);
+                                            // Update file date modified
+                                            if (touch('../../../deletedUploads/' . $filename)) {
+                                                //echo "Temp Audio File Deleted";
+                                                $a = Array(
+                                                    'maint_table' => $table_name,
+                                                    'maint_recs_affected' => 1,
+                                                    'maint_comments' => "Deleted audio file '$filename' for file '$file_id'"
+                                                );
+                                                $b = json_encode($a);
+                                                insertMaintenanceAuditLogEntry($con, $b);
+                                            } else {
+                                             //echo "Error updating timestamp ";
+                                                $a = Array(
+                                                    'maint_table' => $table_name,
+                                                    'maint_recs_affected' => 1,
+                                                    'maint_comments' => "Error updating audio file timestamp '$filename' for file '$file_id'"
+                                                );
+                                                $b = json_encode($a);
+                                                insertMaintenanceAuditLogEntry($con, $b); 
+                                            }
                                         } else {
                                             //echo "Error deleting temp audio file";
                                             $a = Array(
                                                 'maint_table' => $table_name,
                                                 'maint_recs_affected' => 1,
-                                                'maint_comments' => "Error deleting audio file '$filename' for file '$file_id'"
+                                                'maint_comments' => "Error deleting audio file '$filename' for file '$file_id'. Maybe it is in the deletedUploads folder?"
                                             );
                                             $b = json_encode($a);
                                             insertMaintenanceAuditLogEntry($con, $b);
@@ -334,13 +365,23 @@ if ($stmt = mysqli_prepare($con, $sql)) {
                                         if (file_exists('../../../uploads/' . $file_caption)) {
                                             if (rename('../../../uploads/' . $file_caption,'../../../deletedUploads/' . $file_caption)) {
                                                 //echo "Caption file deleted";
-                                                $a = Array(
-                                                    'maint_table' => $table_name,
-                                                    'maint_recs_affected' => 1,
-                                                    'maint_comments' => "Deleted audio file caption '$file_caption' for file '$file_id'"
-                                                );
-                                                $b = json_encode($a);
-                                                insertMaintenanceAuditLogEntry($con, $b);
+												if (touch('../../../deletedUploads/' . $file_caption)) {
+													$a = Array(
+														'maint_table' => $table_name,
+														'maint_recs_affected' => 1,
+														'maint_comments' => "Deleted audio file caption '$file_caption' for file '$file_id'"
+													);
+													$b = json_encode($a);
+													insertMaintenanceAuditLogEntry($con, $b);
+												} else {
+													$a = Array(
+														'maint_table' => $table_name,
+														'maint_recs_affected' => 1,
+														'maint_comments' => "Unable to update date modified for '$file_caption' for file '$file_id'"
+													);
+													$b = json_encode($a);
+													insertMaintenanceAuditLogEntry($con, $b);
+												}
                                             } else {
                                                 //echo "Error deleting audio caption file";
                                                 $a = Array(
@@ -387,7 +428,7 @@ if ($stmt = mysqli_prepare($con, $sql)) {
                 $a = Array(
                     'maint_table' => $table_name,
                     'maint_recs_affected' => '0',
-                    'maint_comments' => "No records matched purge criteria from '$table_name table."
+                    'maint_comments' => "No records matched purge criteria from '$table_name' table."
                 );
                 $b = json_encode($a);
                 insertMaintenanceAuditLogEntry($con, $b);
