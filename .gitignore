@@ -28,6 +28,7 @@ transcribe/sr/*
 /transcribe/data/scripts/accounts.js
 /transcribe/data/scripts/job_picker.js
 /transcribe/data/scripts/job_upload.js
+/transcribe/data/scripts//settings.js
 /transcribe/data/scripts/login.js
 /transcribe/data/scripts/landing.js
 /transcribe/data/scripts/main.js
