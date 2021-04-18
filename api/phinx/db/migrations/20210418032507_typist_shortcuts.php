@@ -26,7 +26,7 @@ final class TypistShortcuts extends AbstractMigration
     public function up()
     {
 
-        $count = $this->execute('UPDATE users set shortcuts=\'{}\' where shortcuts=\'0\' or shortcuts=\'1\' or shortcuts=\'\' ');
+        $count = $this->execute('UPDATE users set shortcuts=\'[]\' where shortcuts=\'0\' or shortcuts=\'1\' or shortcuts=\'\' or shortcuts=\'{}\' ');
 
         $this->table('users')
             ->changeColumn('shortcuts', 'json',
