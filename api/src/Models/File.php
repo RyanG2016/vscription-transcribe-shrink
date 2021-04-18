@@ -522,6 +522,10 @@ class File extends BaseModel implements BaseModelInterface
      */
     public function getLastAudioPosition(): ?int
     {
+        if($this->last_audio_position<0)
+        {
+            $this->last_audio_position = 0;
+        }
         return $this->last_audio_position;
     }
 
