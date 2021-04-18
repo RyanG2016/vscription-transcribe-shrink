@@ -31,7 +31,7 @@ final class TypistShortcuts extends AbstractMigration
         $this->table('users')
             ->changeColumn('shortcuts', 'json',
                 [
-                    'default'=>'{}'
+                    'default'=>'[]'
                 ]
             )->save();
 
@@ -50,7 +50,7 @@ final class TypistShortcuts extends AbstractMigration
                 ]
             )->save();
 
-        $count = $this->execute('UPDATE users set shortcuts=\'0\' where shortcuts=\'{}\' ');
+        $count = $this->execute('UPDATE users set shortcuts=\'0\' where shortcuts=\'[]\' ');
 
     }
 
