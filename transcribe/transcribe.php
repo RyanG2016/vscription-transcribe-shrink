@@ -141,10 +141,6 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
     <script src="data/main/jquery-ui.js"></script>
     <script src="data/thirdparty/scripts/moment.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-            crossorigin="anonymous"></script>
-
     <!--  MDC Components  -->
 <!--    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">-->
 <!--    <script src="data/libs/node_modules/material-components-web/dist/material-components-web.js"></script>-->
