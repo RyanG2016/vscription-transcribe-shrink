@@ -324,29 +324,31 @@ table, th, td {
     color: white;
 }
 
+.save-button:hover {
+    background-color: hsl(123, 38%, 45%);
+    color: white;
+}
+
 .suspend-button {
     background-color: #FFA726;
+    color: white;
+}
+
+.suspend-button:hover {
+    background-color: hsl(36, 100%, 45%);
     color: white;
 }
 
 .discard-button {
     background-color: #E53935;
     color: white;
-
 }
 
-
-.load-button {
-    background-color: #5bba3f;
+.discard-button:hover {
+    background-color: hsl(1, 77%, 45%);
     color: white;
-
 }
 
-.confirm-button {
-    background-color: #66BB6A;
-    color: white;
-
-}
 
 #rep-tbl button:disabled{
     /*color: black;*/
@@ -503,3 +505,9 @@ select, .dt-search {
 .user-fields{
     display: none;
 }
+
+.dt_toolbar{
+    float: left;
+}
+
+

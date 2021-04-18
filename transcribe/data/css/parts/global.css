@@ -608,3 +608,11 @@ a:visited {
 #getMediaInfoBtn {
     color: lightgray;
 }
+
+/* JQUERY CONTEXT MENU OVERRIDE */
+.context-menu-icon.context-menu-icon--fa5 i, .context-menu-icon.context-menu-icon--fa5 svg {
+    position: absolute;
+    top: .5em;
+    left: .5em;
+    color: #2980b9;
+}
