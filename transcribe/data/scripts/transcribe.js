@@ -28,16 +28,26 @@ const welcomeName = "welcome-"; // DONOT MODIFY
 var compactViewWindow;
 var jobsDT;
 var jobsDTRef;
+
+var shortcutsDT;
+var shortcutsDTRef;
+var shortcutModal;
+
 var demoFields;
 var loadingOv;
 var has_captions = false;
+var refreshShortcuts = true;
+
+var lastShortcutValue = "";
 
 $(document).ready(function () {
     var loadingText = $("#loadingText");
     const backend_url = "data/parts/backend_request.php";
     const files_api = "../api/v1/files/";
+    const shortcuts_end_point = "../api/v1/users/shortcuts";
     const form = document.querySelector("form");
     loadingOv = $("#overlay");
+
 
     var captions = '';
 
@@ -330,6 +340,7 @@ $(document).ready(function () {
 
     let modal = document.getElementById("modal");
     let loading = document.getElementById("modalLoading");
+    shortcutModal = document.getElementById("shortcutsModal");
 
 
     // buttons styling init
@@ -340,6 +351,7 @@ $(document).ready(function () {
     // new mdc.ripple.MDCRipple(document.querySelector("#pop"));
 
     jobsDT = $("#jobs-tbl");
+    shortcutsDT = $("#shortcuts-tbl");
     loadingConfirmBtn = $("#loadingConfirm");
     loadingSub = $("#modalLoading #loadingContent p");
     loadingTitle = $("#modalLoading #loadingContent h2");
@@ -348,9 +360,7 @@ $(document).ready(function () {
     // loading.style.display = "block";
 
     loadingConfirmBtn.on("click", function () {
-        // todo skip reloading if an error has occurred
         loading.style.display = "none";
-        // location.reload();
     });
 
     $(".close").on("click", function () {
@@ -366,6 +376,9 @@ $(document).ready(function () {
     window.onclick = function (event) {
         if (event.target == modal) {
             modal.style.display = "none";
+        }
+        else if (event.target == shortcutModal) {
+            shortcutModal.style.display = "none";
         }
     }
 
@@ -684,6 +697,266 @@ $(document).ready(function () {
 
     $("#discardBtn").click(function () {
         clearWithConfirm();
+    });
+
+
+    /* Shortcuts table load */
+    shortcutsDTRef = shortcutsDT.DataTable({
+        // rowId: 'file_id',
+        "ajax": shortcuts_end_point + '?dt',
+        "dom": '<"dt_toolbar">frtip',
+        "processing": true,
+        lengthChange: false,
+        pageLength: 10,
+        autoWidth: false,
+
+        "columns": [
+            {
+                "title": "Shortcut",
+                "data": "name"
+            },
+            {
+                "title": "Value",
+                "data": "val"
+            }
+
+        ],
+
+        initComplete: function () {
+
+       /*     this.api().columns([0,3,4,6]).every( function () {
+                var that = this;
+
+                $( 'input', this.footer() ).on( 'keyup change clear', function () {
+                    if ( that.search() !== this.value ) {
+                        that
+                            .search( this.value )
+                            .draw();
+                    }
+                } );
+            } );
+
+            this.api().columns([1,2,5]).every(function () {
+                var column = this;
+                var select = $('<select><option value=""></option></select>')
+                    .appendTo($(column.footer()).empty())
+                    .on('change', function () {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+
+                        column
+                            .search(val ? '^' + val + '$' : '', true, false)
+                            .draw();
+                    });
+
+                column.data().unique().sort().each(function (d, j) {
+                    select.append('<option value="' + d + '">' + d + '</option>')
+                });
+            });*/
+        }
+    });
+    $("div.dt_toolbar").html(
+        '<button class="btn btn-sm save-button mt-1 ml-1" id="addShortcut" >\n' +
+        '            <i class="fas fa-plus"></i> Add\n' +
+        '        </button>'
+    );
+
+    $("#addShortcut").on('click', function()
+    {
+        $.confirm({
+            title: '<i class="fas fa-plus-circle" style="color: #66bb6a"></i> Add Shortcut',
+            content: '' +
+                '<form action="" class="formName">' +
+                    '<div class="form-group no-gutters">' +
+                        '<div class="form-row" style="margin: 0 !important; justify-content: center">' +
+                            '<input type="text" placeholder="Shortcut" class="shortcut form-control col-4" required />' +
+                            '<input type="text" placeholder="Value" class="value form-control col-7 ml-2" required />' +
+                        '</div>'+
+                    '</div>'+
+                '</form>',
+            buttons: {
+                formSubmit: {
+                    text: 'Add',
+                    btnClass: 'btn-blue',
+                    action: function () {
+                        let name = this.$content.find('.shortcut').val();
+                        let value = this.$content.find('.value').val();
+                        var formData = new FormData();
+                        formData.append("name", name);
+                        formData.append("val", value);
+
+                        if(name.trim() == "" || value.trim() == "")
+                        {
+                            alert("Check your input");
+                        }
+                        else{
+                            // ajax
+                            $.confirm({
+                                title: 'Please Wait..',
+                                // theme: 'supervan',
+                                columnClass: 'col-6',
+                                content: function(){
+                                    var self = this;
+                                    // self.setContent('Checking callback flow');
+                                    return $.ajax({
+                                        type: 'POST',
+                                        method: 'POST',
+                                        url: shortcuts_end_point,
+                                        data: formData,
+                                        processData: false,
+                                        contentType: false
+                                    }).done(function (response) {
+
+                                        // handle responses
+                                        // -------------
+                                        if(!response.error)
+                                        {
+                                            refreshShortcuts = true;
+
+                                            self.setTitle("Success!");
+                                            self.setType("green");
+                                            self.setContent("Shortcut added");
+
+                                            self.buttons.ok.setText("Ok");
+                                            self.buttons.ok.addClass("btn-green");
+                                            self.buttons.ok.removeClass("btn-default");
+                                            self.buttons.close.hide();
+                                            shortcutsDTRef.ajax.reload();
+                                        }else{
+
+                                            self.setTitle("oops..");
+                                            self.setType("red");
+                                            self.setContent(xhr.responseJSON["msg"]);
+                                            self.buttons.ok.setText("Ok");
+                                            self.buttons.ok.addClass("btn-green");
+                                            // self.buttons.ok
+                                            // self.buttons.ok.btnClass = "btn-green"
+                                            self.buttons.ok.removeClass("btn-default")
+                                            self.buttons.close.hide();
+                                        }
+
+
+                                    }).fail(function(xhr, status, err){
+
+                                        self.setTitle("oops..");
+                                        self.setType("red");
+                                        self.setContent(xhr.responseJSON["msg"]);
+                                        self.buttons.ok.setText("Ok");
+                                        self.buttons.ok.addClass("btn-green");
+                                        // self.buttons.ok
+                                        // self.buttons.ok.btnClass = "btn-green"
+                                        self.buttons.ok.removeClass("btn-default")
+                                        self.buttons.close.hide();
+
+                                    })
+                                }
+                            });
+                        }
+
+                    }
+                },
+                cancel: function () {
+                    //close
+                },
+            },
+            onContentReady: function () {
+                // bind to events
+                var jc = this;
+                this.$content.find('form').on('submit', function (e) {
+                    // if the user submits the form by pressing enter in the field.
+                    e.preventDefault();
+                    jc.$$formSubmit.trigger('click'); // reference the button and click it
+                });
+            }
+        });
+    });
+
+    /* Right click delete menu */
+    $.contextMenu({
+        selector: '#shortcuts-tbl tbody tr',
+        callback: function (key, options) {
+            // var m = "clicked: " + key + "  ";
+            // window.console && console.log(m) ;//|| alert(m);
+            // shortcutsDTRef.row(this).data()["enabled"] == true;
+            var data = shortcutsDTRef.row(this).data();
+            switch (key) {
+                case "delete":
+                    let shortcutName = data.name;
+                    let shortcutValue = data.val;
+
+                    $.confirm({
+                        title: '<i class="fas fa-trash-alt" style="color: #e74c3c"></i> Delete Shortcut?',
+                        content:
+                            // 'Are you sure do you want to revoke access to <b>' +
+                            shortcutName + '<b> → </b>'+shortcutValue+'<br>'
+                        // '<span style="color: red">USE WITH CAUTION THIS WILL DELETE THE access ACCOUNT AND ALL RELATED DATA INCLUDING JOB ENTRIES</span>',
+                        ,buttons: {
+                            confirm: {
+                                text: "yes",
+                                btnClass: 'btn-red',
+                                action: function () {
+
+                                    $.ajax({
+                                        type: 'DELETE',
+                                        url: shortcuts_end_point + '?' + $.param({"name": shortcutName, "val" : shortcutValue}),
+
+                                        processData: false,
+                                        contentType: false,
+                                        success: function (response) {
+                                            shortcutsDTRef.ajax.reload(); // refresh access table
+                                            refreshShortcuts = true;
+                                            $.confirm({
+                                                title: 'Success',
+                                                content: response["msg"],
+                                                buttons: {
+                                                    confirm: {
+                                                        btnClass: 'btn-green',
+                                                        text:'Ok',
+                                                        action: function () {
+                                                            return true;
+                                                        }
+                                                    }
+                                                }
+                                            });
+                                        },
+                                        error: function (err) {
+                                            console.log(err);
+                                            $.confirm({
+                                                title: 'Error',
+                                                content: err.responseJSON["msg"],
+                                                buttons: {
+                                                    confirm: {
+                                                        btnClass: 'btn-red',
+                                                        action: function () {
+                                                            return true;
+                                                        }
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    });
+
+                                    return true;
+                                }
+                            },
+                            cancel:
+                                {
+                                    text: "no",
+                                    btnClass: 'btn-green',
+                                    function() {
+                                        return true;
+                                    }
+                                }
+                        }
+                    });
+                    break;
+            }
+
+        },
+        items: {
+            "delete": {name: "Delete", icon: "fas fa-trash-alt"},
+        }
     });
 
     //***************** Functions ***************//
@@ -1052,11 +1325,14 @@ $(document).ready(function () {
         if (jobDetails.file_status == 2 || jobDetails.file_status == 1) // suspend or being typed
         {
             // seek to last position
-            $("#audio1").attr("data-start-time",jobDetails.last_audio_position - rewindAmountOnPause);
-            AblePlayerInstances[0].media.currentTime = jobDetails.last_audio_position - rewindAmountOnPause;
-            console.log(jobDetails.last_audio_position);
+            let lastPos = jobDetails.last_audio_position - rewindAmountOnPause;
+            if(lastPos < 0) lastPos = 0;
+            $("#audio1").attr("data-start-time", lastPos);
+            AblePlayerInstances[0].media.currentTime = lastPos;
+            // console.log("db last pos: " + jobDetails.last_audio_position);
+            // console.log("seeking to: " + lastPos);
         } else {
-            $("#audio1").attr("data-start-time",0);
+            $("#audio1").attr("data-start-time", 0);
             AblePlayerInstances[0].media.currentTime = 0;
         }
         AblePlayerInstances[0].media.load();
@@ -1293,6 +1569,11 @@ $(function () {
         }
     });
 });
+
+function editUserShortcuts()
+{
+    shortcutModal.style.display = "block";
+}
 
 function htmlEncodeStr(s) {
     return s.replace(/&/g, "&amp;")

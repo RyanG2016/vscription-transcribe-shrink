@@ -145,6 +145,12 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 <!--    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">-->
 <!--    <script src="data/libs/node_modules/material-components-web/dist/material-components-web.js"></script>-->
 
+    <!-- Context Menu -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.ui.position.js"></script>
+
     <!-- BOOTSTRAP -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
             integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
@@ -384,7 +390,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                 <i>connecting to controller please wait...</i>
                             </span>
 
-                                <button class="btn btn-sm load-button" id="loadBtn" name="loadBtn" type="button">
+                                <button class="btn btn-sm save-button" id="loadBtn" name="loadBtn" type="button">
 
                                     <i class="fas fa-cloud-download"></i>
                                     Load
@@ -426,8 +432,13 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                     <!--					 <img id="norm" src="data/images/f248.png" /> <&lt;DRSPELLING>>&nbsp;&nbsp; <img id="norm" src="data/images/f348.png" /> <&lt;PATSPELLING>>&nbsp;&nbsp; -->
                                     <!--					&nbsp;&nbsp; <img id="norm" src="data/images/at.png" /> <php //echo $atShortcut ?>-->
 
-                                    <legend id="tip"><img id="norm" src="data/images/f248.png"/>
-                                        <&lt;INAUDIBLE>> &nbsp;&nbsp; <img id="norm"
+                                    <legend id="tip"><img id="norm1" src="data/images/f148.png"/>
+                                        Insert last used word &nbsp;&nbsp;
+
+                                        <img id="norm" src="data/images/f248.png"/>
+                                        <&lt;INAUDIBLE>> &nbsp;&nbsp;
+
+                                        <img id="norm"
                                                                            src="data/images/slash.png"/> <?php echo $slashShortcut ?>
                                     </legend>
                                 </div>
@@ -485,7 +496,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 
 
         <div style="text-align: right">
-            <button class="btn confirm-button" id="loadingConfirm">
+            <button class="btn save-button" id="loadingConfirm">
                 <i class="fas fa-check"></i>
                 OK
             </button>
@@ -522,7 +533,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                 </button>
             </div>
             <div style="text-align: right" class="mt-2 col-auto justify-content-end align-items-end">
-                <button class="mdc-button mdc-button--unelevated confirm-button" id="capSrcClose">
+                <button class="mdc-button mdc-button--unelevated save-button" id="capSrcClose">
                     <div class="mdc-button__ripple"></div>
                     <!--                <i class="material-icons mdc-button__icon" aria-hidden="true">done_all</i>-->
                     <span class="mdc-button__label">close</span>
@@ -533,6 +544,20 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 
 </div>
 
+<div id="shortcutsModal" class="vtex-modal">
+
+    <!-- Modal content -->
+    <div class="vtex-modal-content" >
+        <h2><i class="fas fa-star" style="color: #f2b01e"></i> User Shortcuts</h2>
+        <p><i>Your shortcuts are saved to your user account.</i></p>
+
+        <div style="overflow-x: hidden" class="vspt-table-div">
+            <table id="shortcuts-tbl" class="table vspt-table hover compact"></table>
+        </div>
+
+    </div>
+
+</div>
 
 <div class="overlay" id="overlay">
     <div class="loading-overlay-text" id="loadingText">Loading Transcribe..</div>
