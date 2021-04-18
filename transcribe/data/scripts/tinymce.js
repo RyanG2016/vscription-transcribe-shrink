@@ -3,7 +3,7 @@ tinymce.init({
     selector: '#report',
     auto_focus: "report",
     branding: false,
-    resize: false,
+    resize: true,
     nanospell_dictionary: "en,en_ca,en_med",
     height: "400",
 
