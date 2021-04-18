@@ -6,7 +6,7 @@ tinymce.init({
     resize: true,
     nanospell_dictionary: "en,en_ca,en_med",
     height: "400",
-    content_style: "body {font-size: 14pt; font-family: Georgia, serif}",
+    content_style: "body {font-size: 14.3pt; font-family: system-ui, Georgia, serif}",
     external_plugins: { "nanospell": "/tinymce/plugins/nanospell/plugin.js" },
     nanospell_server: "php",
     nanospell_autostart: false,

@@ -520,25 +520,23 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
             </div>
         </div>
 
+        <div style="overflow-x: hidden" class="vspt-table-div">
+            <table id="captionsTbl" class="table vspt-table hover compact"></table>
+        </div>
+
 <!--        <div id="captionResult">-->
-            <table id="captionsTbl" class="display" style="width: 100% !important"></table>
+<!--            <table id="captionsTbl" class="display" style="width: 100% !important"></table>-->
 <!--        </div>-->
 
-        <div class="row">
-            <div style="text-align: right" class="mt-2 col justify-content-end align-items-end pr-0">
-                <button class="mdc-button mdc-button--unelevated suspend-button" id="capSrcClear">
-                    <div class="mdc-button__ripple"></div>
-                    <!--                <i class="material-icons mdc-button__icon" aria-hidden="true">done_all</i>-->
-                    <span class="mdc-button__label">clear</span>
-                </button>
-            </div>
-            <div style="text-align: right" class="mt-2 col-auto justify-content-end align-items-end">
-                <button class="mdc-button mdc-button--unelevated save-button" id="capSrcClose">
-                    <div class="mdc-button__ripple"></div>
-                    <!--                <i class="material-icons mdc-button__icon" aria-hidden="true">done_all</i>-->
-                    <span class="mdc-button__label">close</span>
-                </button>
-            </div>
+        <div style="text-align: right" class="mt-2 col-auto justify-content-end align-items-end pr-0">
+            <button class="btn btn-sm btn-info" id="capSrcClear">
+                Clear
+            </button>
+
+
+            <button class="btn btn-sm btn-secondary" id="capSrcClose">
+                Close
+            </button>
         </div>
     </div>
 

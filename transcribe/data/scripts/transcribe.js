@@ -1388,11 +1388,16 @@ $(document).ready(function () {
                 if(currentHighlightedID)
                 {
                     // de-highlight prev
-                    tinymce.activeEditor.dom.select('#' + currentHighlightedID)[0].removeAttribute("style");
+                    try{
+                        tinymce.activeEditor.dom.select('#' + currentHighlightedID)[0].removeAttribute("style");
+                    }catch (e) {}
                 }
                 let id = startTimeToID(start);
                 // console.log("id to highlight: " + id);
-                tinymce.activeEditor.dom.select('#' + id)[0].setAttribute("style", "background-color:#1e79be;color:white");
+                try{
+                    tinymce.activeEditor.dom.select('#' + id)[0].setAttribute("style", "background-color:#1e79be;color:white;padding:6px; border-radius: 10px;");
+                }catch (e) {}
+
                 currentHighlightedID = id;
                 startLimit = start;
                 endLimit = end;
