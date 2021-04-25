@@ -480,8 +480,8 @@ class tokenGateway implements GatewayInterface
         foreach ($_POST as $key => $value) {
 
             // setting all empty params to 0
-            if (empty($input)) {
-                $input = 0;
+            if (empty($value)) {
+                $value = 0;
             }
 
             $fields .= "`$key`";
@@ -586,8 +586,8 @@ class tokenGateway implements GatewayInterface
         foreach ($put as $key => $value) {
 
             // setting all empty params to 0
-            if (empty($input)) {
-                $input = 0;
+            if (empty($value)) {
+                $value = 0;
             }
 
             $valPairs .= "`$key` = ";
