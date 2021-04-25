@@ -7,13 +7,15 @@ tinymce.init({
     nanospell_dictionary: "en,en_ca,en_med",
     height: "400",
     content_style: "body {font-size: 14.3pt; font-family: system-ui, Georgia, serif}",
-    external_plugins: { "nanospell": "/tinymce/plugins/nanospell/plugin.js" },
+
+    external_plugins: { "nanospell": "/tinymce/thirdparty/nanospell/plugin.js" },
     nanospell_server: "php",
     nanospell_autostart: false,
     nanospell_ignore_words_with_numerals: true,
     nanospell_ignore_block_caps: false,
     nanospell_compact_menu: false,
-    toolbar: "nanospell toolbar: 'link unlink | image | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | undo redo | code | formatselect | mybutton",
+
+    toolbar: "nanospell | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | undo redo | code | formatselect | mybutton",
 
     // plugins: "autosave,mention",
     // plugins: "autosave",
