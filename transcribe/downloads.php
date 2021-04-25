@@ -60,12 +60,12 @@ include('data/parts/head.php');
 </head>
 
 <body>
-<div class="container-fluid d-flex h-auto vspt-container-fluid">
+<div class="container-fluid h-100 vspt-container-fluid">
     <div class="row w-100 h-100 vspt-container-fluid-row no-gutters">
 
         <?php include_once "data/parts/nav.php" ?>
 
-        <div class="vspt-page-container vspt-col-auto-fix">
+        <div class="vspt-page-container">
 
             <div class="row">
                 <div class="col">

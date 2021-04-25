@@ -233,12 +233,12 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 <div id="updated_version_bar">There is a newer version (v<span></span>) of the vScription Transcribe Controller
     available -> <a href="" target="_blank">download</a></div>
 
-<div class="container-fluid d-flex h-auto vspt-container-fluid">
-    <div class="row w-100 h-100 vspt-container-fluid-row no-gutters" style="white-space: nowrap">
+<div class="container-fluid h-100 vspt-container-fluid">
+    <div class="w-100 h-100 d-flex flex-nowrap vspt-container-fluid-row">
 
         <?php include_once "data/parts/nav.php"?>
 
-        <div class="vspt-page-container vspt-col-auto-fix">
+        <div class="vspt-page-container">
 
             <div class="vtex-card contents m-0">
                 <button type="button" class="btn btn-primary btn-sm pop-btn float-right" id="pop"><i class="fas fa-external-link-alt"></i></button>
