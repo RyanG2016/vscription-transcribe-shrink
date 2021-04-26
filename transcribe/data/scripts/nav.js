@@ -336,9 +336,10 @@ $(document).ready(function(){
         $('.menu-collapsed').toggleClass('d-none');
         $('.sidebar-submenu').toggleClass('d-none');
         $('.submenu-icon').toggleClass('d-none');
-        $('#sidebar-container').toggleClass('sidebar-expanded sidebar-collapsed col-2 col');
+        // $('#sidebar-container').toggleClass('sidebar-expanded sidebar-collapsed col-2 col');
+        $('#sidebar-container').toggleClass('sidebar-expanded sidebar-collapsed');
         // $('#sidebar-container').toggleClass('sidebar-expanded sidebar-collapsed col-2 col-auto');
-        $(".vspt-page-container").toggleClass("col-10 vspt-col-auto-fix");
+        // $(".vspt-page-container").toggleClass("col-10 vspt-col-auto-fix");
 
         // Treating d-flex/d-none on separators with title
         var SeparatorTitle = $('.sidebar-separator-title');

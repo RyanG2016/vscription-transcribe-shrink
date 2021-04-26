@@ -15,7 +15,7 @@
 </script>
 
 <!-- Sidebar -->
-<div id="sidebar-container" class="sidebar-collapsed vspt-sidebar-container col">
+<div id="sidebar-container" class="sidebar-collapsed vspt-sidebar-container">
     <!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
 
     <div class="branding ml-auto mr-auto">
