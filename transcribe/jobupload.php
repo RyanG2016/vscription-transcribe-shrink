@@ -64,7 +64,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
     <script src="https://kit.fontawesome.com/12f6b99df9.js" crossorigin="anonymous"></script>
 
 
-    <title>vScription Transcribe Pro Dictation Upload</title>
+    <title>vScription Transcribe Dictation Upload</title>
 
     <!--  MDC Components  -->
     <link href="data/libs/node_modules/material-components-web/dist/material-components-web.css" rel="stylesheet">
@@ -121,7 +121,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                 <div class="col align-items-end d-flex">
                     <legend class="page-title mt-auto">
                         <i class="material-icons mdc-button__icon" aria-hidden="true">cloud_upload</i>
-                        vScription Transcribe Pro Dictation Upload
+                        vScription Transcribe Dictation Upload
                     </legend>
                 </div>
                 <div class="col-auto">

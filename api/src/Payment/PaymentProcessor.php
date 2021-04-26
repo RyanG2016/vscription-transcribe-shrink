@@ -174,7 +174,7 @@ class PaymentProcessor
 
         // Create the controller and get the response
         $controller = new AnetController\CreateTransactionController($request);
-        $response = $controller->executeWithApiResponse(ANetEnvironment::SANDBOX);
+        $response = $controller->executeWithApiResponse(ANetEnvironment::PRODUCTION);
 
 
         if ($response != null) {
