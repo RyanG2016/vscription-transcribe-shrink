@@ -42,6 +42,7 @@ var lastShortcutValue = "";
 
 $(document).ready(function () {
     var loadingText = $("#loadingText");
+    var demoDiv = $("#demoDiv");
     const backend_url = "data/parts/backend_request.php";
     const files_api = "../api/v1/files/";
     const shortcuts_end_point = "../api/v1/users/shortcuts";
@@ -323,17 +324,7 @@ $(document).ready(function () {
     //***************** End Websocket data *****************//
 
 
-    $("body").niceScroll({
-        hwacceleration: true,
-        smoothscroll: true,
-        cursorcolor: "white",
-        cursorborder: 0,
-        scrollspeed: 10,
-        mousescrollstep: 20,
-        cursoropacitymax: 0.7
-        //  cursorwidth: 16
 
-    });
     $.ajaxSetup({
         cache: false
     });
@@ -368,10 +359,9 @@ $(document).ready(function () {
     });
 
 
-    $("#loadBtn").on("click", function (e) {
-        modal.style.display = "block";
-        jobsDTRef.ajax.reload();
-    });
+    /*$("#loadBtn").on("click", function (e) {
+        loadNewJob();
+    });*/
 
     window.onclick = function (event) {
         if (event.target == modal) {
@@ -1110,6 +1100,7 @@ $(document).ready(function () {
         document.getElementById('report').value = "";
 		document.getElementById('comments').value = "";		
 		document.getElementById('file_comment').value = "";
+		demoDiv.hide();
         userFields.hide();
         // $('#date').garlic('destroy');
         // //		$( '#dateT' ).garlic( 'destroy' );
@@ -1133,7 +1124,8 @@ $(document).ready(function () {
         $('#saveBtn').attr("disabled", "disabled");
         $('#suspendBtn').attr("disabled", "disabled");
         $('#discardBtn').attr("disabled", "disabled");
-        tinyMCE.activeEditor.setMode("readonly");
+        // tinyMCE.activeEditor.setMode("readonly");
+        tinyMCE.activeEditor.getBody().setAttribute('contenteditable', 'false');
         compactView.show();
 
         return completePlayer();
@@ -1149,7 +1141,7 @@ $(document).ready(function () {
     }
 
     function completePlayer() {
-        var loadBtn = $('#loadBtn');
+        // var loadBtn = $('#loadBtn');
         var completeBtn = $('#completeBtn');
         searchEngine.attr("hidden", "hidden");
         //Delete Temp Audio File
@@ -1164,14 +1156,16 @@ $(document).ready(function () {
         AblePlayerInstances[0].media.removeAttribute('src');
         AblePlayerInstances[0].seekBar.setPosition(0);
         AblePlayerInstances[0].media.load();
+
+        AblePlayerInstances[0].refreshControls('init'); // reset player
         /*setTimeout(function () {
 
             AblePlayerInstances[0].media.load();
         }, 300);*/
 
-        loadBtn.removeClass('noHover');
-        loadBtn.html('<i class="fas fa-cloud-download"></i>&nbsp;Load');
-        loadBtn.find("i").show();
+        // loadBtn.removeClass('noHover');
+        // loadBtn.html('<i class="fas fa-cloud-download"></i>&nbsp;Load');
+        // loadBtn.find("i").show();
         completeBtn.addClass('noHover');
         completeBtn.addClass('button');
         completeBtn.removeClass('button-green');
@@ -1277,7 +1271,7 @@ $(document).ready(function () {
             userFields.hide();
         }
 
-        var $loadBtn = $('#loadBtn');
+        // var $loadBtn = $('#loadBtn');
         var $completeBtn = $('#completeBtn');
 
 
@@ -1294,9 +1288,9 @@ $(document).ready(function () {
         // AblePlayerInstances[0].updateTranscript();
 
 
-        $loadBtn.addClass('noHover');
-        $loadBtn.text(jobDetails.job_id + ' Loaded');
-        $loadBtn.find("i").hide();
+        // $loadBtn.addClass('noHover');
+        // $loadBtn.text(jobDetails.job_id + ' Loaded');
+        // $loadBtn.find("i").hide();
 
         // enable save etc.. buttons
         if(rl == 3)
@@ -1306,6 +1300,8 @@ $(document).ready(function () {
         }
         $('#discardBtn').removeAttr("disabled");
         tinyMCE.activeEditor.setMode("design");
+        tinyMCE.activeEditor.getBody().setAttribute('contenteditable', 'true');
+
 
         // AblePlayerInstances[0].
  /*       AblePlayerInstances[0].onMediaNewSourceLoad = function () {
@@ -1354,6 +1350,7 @@ $(document).ready(function () {
 
         modal.style.display = "none"; //hide modal popup
         changeLoading(false, "Loading transcribe..");
+        demoDiv.slideDown();
     }
 
     window.handleMediaPause = function()
@@ -1480,9 +1477,9 @@ $(document).ready(function () {
 
     //simple config.
 
-    var enjoyhint_script_steps = [	
+    var enjoyhint_script_steps = [
         {
-            "next #loadBtn":"Click here to choose a job to open",
+            "next #mceu_14-button":"Click here to choose a job to open",
         },
 		{
 			"next #demoItems": "Job file information and demographics"
@@ -1538,12 +1535,15 @@ $(document).ready(function () {
 		$("#report").val("Thank you all for taking the time to meet today. I know the weather wasn't favourable and we really appreciate you making it here today");
 		$("#saveBtn").prop('disabled', false);
 		$("#suspendBtn").prop('disabled', false);
-		$("#discardBtn").prop('disabled', false);	
+		$("#discardBtn").prop('disabled', false);
+		demoDiv.show();
         // show tutorial
         setTimeout(function(){enjoyhint_instance.run()},1000);
     }
 
     function tutorialViewed() {
+        //reset view
+
         var formData = new FormData();
         formData.append("page", currentPageName);
 		$.ajax({
@@ -1554,6 +1554,7 @@ $(document).ready(function () {
 			});
 		clear();
     }
+
 });
 
 
@@ -1562,22 +1563,31 @@ $("#jobNo").keypress(function () {
     document.title = $('#jobNo').val();
 });
 
-$(function () {
-    $("#accord").accordion({
-        collapsible: true,
-        header: "h3",
-        //heightStyle: "fill",
-        heightStyle: "content",
-        active: false,
-        activate: function () {
-            $("body").getNiceScroll().resize();
-        }
-    });
-});
 
 function editUserShortcuts()
 {
     shortcutModal.style.display = "block";
+}
+
+function loadNewJob()
+{
+    if(currentFileID !== 0)
+    {
+        $.confirm({
+            title: '<i style=\"color: #f3ca27\" class=\"fas fa-exclamation-triangle\"></i> Warning',
+            content: "Please save/suspend your current work first",
+            type: "orange"
+            ,buttons: {
+                confirm: {
+                    text: "Ok",
+                    // btnClass: 'btn-red',
+                }
+            }
+        });
+        return;
+    }
+    modal.style.display = "block";
+    jobsDTRef.ajax.reload();
 }
 
 function htmlEncodeStr(s) {

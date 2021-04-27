@@ -89,13 +89,6 @@
     /*white-space: nowrap;*/
 }
 
-#norm {
-    vertical-align: middle;
-    /*vertical-align: text-top;*/
-    width: 34px;
-    height: auto;
-}
-
 #accord {
     padding: 0 10px 10px 10px;
     /*width: 440px;*/
@@ -124,16 +117,6 @@
     width: 100%;
 }
 
-#rep-tbl {
-    width: 100%;
-}
-
-#nr {
-
-    width: 1%;
-    white-space: nowrap;
-}
-
 #mainlogo-td {
     /*	 white-space:nowrap;*/
     /*width: 1%;*/
@@ -142,11 +125,9 @@
 }
 
 .audio-col{
-    width: 450px !important;
-    max-width: 450px !important;
-    min-width: 450px !important;
-    margin-top: 22px;
-    margin-left: auto;
+    margin-top: 40px;
+    text-align: center;
+    text-align: -webkit-center;
 }
 
 .audiobtns {
@@ -388,6 +369,7 @@ table, th, td {
     vertical-align: bottom;
     color: #f78d2d;
     font-size: 80%;
+    float: right;
 }
 
 u {
@@ -439,7 +421,7 @@ select, .dt-search {
 .vtex-card {
     background-color: #f4f7f8;
     /*max-width: 90%;*/
-    min-width: 860px;
+    min-width: 950px;
     /*width: 90%;*/
     margin: 10px auto;
     padding: 12px 20px 15px 20px;
@@ -490,7 +472,7 @@ select, .dt-search {
 }
 
 .pop-btn{
-    margin: -8px;
+    /*margin: -8px;*/
 }
 
 .form-control:disabled, .form-control[readonly]{
@@ -510,4 +492,38 @@ select, .dt-search {
     float: left;
 }
 
+.transcribe-shortcuts{
+    font-size: 0.6em;
+    float: right;
+}
 
+.transcribe-shortcuts img{
+    width: 30px;
+    vertical-align: middle;
+    /*vertical-align: text-top;*/
+    height: auto;
+}
+
+/* Fontawesome icons for tinymce */
+.mce-ico.mce-i-fa,
+.mce-ico.mce-i-fas
+{
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    vertical-align: baseline;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/*
+.input-group-prepend,
+.input-group-text{
+    width: 60px;
+    word-break: break-all;
+}*/
+
+.demographics-div{
+    display: none;
+}

@@ -5,7 +5,7 @@ tinymce.init({
     branding: false,
     resize: true,
     nanospell_dictionary: "en,en_ca,en_med",
-    height: "400",
+    height: 700,
     content_style: "body {font-size: 14.3pt; font-family: system-ui, Georgia, serif}",
 
     external_plugins: { "nanospell": "/tinymce/thirdparty/nanospell/plugin.js" },
@@ -15,7 +15,8 @@ tinymce.init({
     nanospell_ignore_block_caps: false,
     nanospell_compact_menu: false,
 
-    toolbar: "nanospell | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | undo redo | code | formatselect | mybutton",
+    toolbar: "nanospell | bold italic underline | alignleft aligncenter alignright alignjustify " +
+        "| bullist numlist outdent indent | undo redo | code | formatselect | shortcuts_editor | load_job",
 
     // plugins: "autosave,mention",
     // plugins: "autosave",
@@ -46,12 +47,21 @@ tinymce.init({
 
         });
 
-        ed.addButton('mybutton', {
+        ed.addButton('shortcuts_editor', {
             text: "Edit Shortcuts",
             icon: 'line',
             tooltip: "Edit (/) expandable shortcuts",
             onclick: function () {
                 editUserShortcuts();
+            }
+        });
+
+        ed.addButton('load_job', {
+            text: 'Load',
+            icon: 'fas fa-cloud-download',
+            tooltip: "Load a job",
+            onclick: function () {
+                loadNewJob();
             }
         });
     },
