@@ -141,6 +141,7 @@ include('data/parts/head.php');
                             </tr>
                             <tr>
                                 <td>
+                                    <strong>vScription Upload Windows Installer </strong><i><br><span
                                             style='font-size:.7rem' ;>For Digital Portable Automatic Uploads and 3rd Party Integrations</span>
                                 </td>
                                 <td>
