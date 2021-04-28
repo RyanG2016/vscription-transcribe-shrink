@@ -122,7 +122,7 @@ include('data/parts/head.php');
                                     164 MB
                                 </td>
                                 <td>
-                                    <a href="/controller_app/windows/vScriptionControllerWin_v1.8.exe">vScriptionControllerWin_v1.8.exe</a>
+                                    <a href="/controller_app/controller/windows/vScriptionControllerWin_v1.8.exe">vScriptionControllerWin_v1.8.exe</a>
                                 </td>
                             </tr>
                             <tr>
@@ -136,9 +136,20 @@ include('data/parts/head.php');
                                     3.88 MB
                                 </td>
                                 <td>
-                                    <a href="/controller_app/jars/vScriptionControllerCrossPlatform_v1.8.jar">vScriptionControllerCrossPlatform_v1.8.jar</a>
+                                    <a href="/controller_app/controller/cross_platform/vScriptionControllerCrossPlatform_v1.8.jar">vScriptionControllerCrossPlatform_v1.8.jar</a>
                                 </td>
                             </tr>
+                            <tr>
+                                <td>
+                                            style='font-size:.7rem' ;>For Digital Portable Automatic Uploads and 3rd Party Integrations</span>
+                                </td>
+                                <td>
+                                    174 MB
+                                </td>
+                                <td>
+                                    <a href="/controller_app/upload_app/cross_platform/vScriptionUpload-v1.1.jar">vScriptionUpload-v1.1.jar</a>
+                                </td>
+                            </tr>                            
                             <tr>
                                 <td>
                                     <strong>vScription Upload Cross Platform Jar </strong><i><br><span
@@ -148,10 +159,10 @@ include('data/parts/head.php');
                                             style='font-size:.7rem' ;>For Digital Portable Automatic Uploads and 3rd Party Integrations</span>
                                 </td>
                                 <td>
-                                    164 MB
+                                    5 MB
                                 </td>
                                 <td>
-                                    <a href="/controller_app/jars/vScriptionUpload-v1.1.jar">vScriptionUpload-v1.1.jar</a>
+                                    <a href="/controller_app/upload_app/cross_platform/vScriptionUpload-v1.1.jar">vScriptionUpload-v1.1.jar</a>
                                 </td>
                             </tr>
 
