@@ -148,7 +148,7 @@ include('data/parts/head.php');
                                     174 MB
                                 </td>
                                 <td>
-                                    <a href="/controller_app/upload_app/cross_platform/vScriptionUpload-v1.1.jar">vScriptionUpload-v1.1.jar</a>
+                                    <a href="/controller_app/upload_app/windows/vScription_upload_setup_v1.1.exe">vScription_upload_setup_v1.1.exe</a>
                                 </td>
                             </tr>                            
                             <tr>
@@ -163,7 +163,7 @@ include('data/parts/head.php');
                                     5 MB
                                 </td>
                                 <td>
-                                    <a href="/controller_app/upload_app/cross_platform/vScriptionUpload-v1.1.jar">vScriptionUpload-v1.1.jar</a>
+                                    <a href="/controller_app/upload_app/cross_platform/vScriptionUpload.zip">vScriptionUpload-v1.1.jar</a>
                                 </td>
                             </tr>
 
