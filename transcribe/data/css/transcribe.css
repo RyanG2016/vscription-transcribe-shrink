@@ -509,6 +509,7 @@ select, .dt-search {
 .mce-ico.mce-i-fas
 {
     display: inline-block;
+    color: white;
     font: normal normal normal 14px/1 FontAwesome;
     font-size: inherit;
     text-rendering: auto;
@@ -526,4 +527,11 @@ select, .dt-search {
 
 .demographics-div{
     display: none;
+}
+
+#mceu_14-button
+{
+    background-color: #1e79be;
+    color: white;
+    border-radius: 3px;
 }
