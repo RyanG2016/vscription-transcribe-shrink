@@ -2,7 +2,7 @@
 
 include('session_settings.php');
 include('zohoASAP.php');
-include('inspectlet.php');
+//include('inspectlet.php');
 require('ping.php');
 
 if(!isset($_SESSION['loggedIn']))
