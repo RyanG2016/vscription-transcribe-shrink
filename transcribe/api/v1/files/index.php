@@ -36,9 +36,9 @@ $fileId = null;
 if (isset($uri[4])) {
     $fileId = (int)$uri[4];
 }
-
+$rawURI = array_slice($uri, 4, count($uri));
 $requestMethod = $_SERVER["REQUEST_METHOD"];
 
 // pass the request method and user ID to the PersonController and process the HTTP request:
-$controller = new FileController($dbConnection, $requestMethod, $fileId);
+$controller = new FileController($dbConnection, $requestMethod, $fileId, $rawURI);
 $controller->processRequest();

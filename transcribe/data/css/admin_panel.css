@@ -116,3 +116,13 @@
     font-size: 5rem !important;
     color: var(--vspt-blue);
 }
+
+.vspt-page-container{
+    overflow-y: visible;
+}
+
+.pie-container
+{
+    width: 500px;
+    height: 500px;
+}

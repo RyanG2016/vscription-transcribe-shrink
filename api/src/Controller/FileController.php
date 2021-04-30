@@ -16,17 +16,19 @@ class FileController
     private $db;
     private $requestMethod;
     private $fileId;
+    private $rawURI;
     private $mailer;
     private $common;
 
     private $fileGateway;
     private $accessGateway;
 
-    public function __construct($db, $requestMethod, $fileId)
+    public function __construct($db, $requestMethod, $fileId, $rawURI)
     {
         $this->db = $db;
         $this->requestMethod = $requestMethod;
         $this->fileId = $fileId;
+        $this->rawURI = $rawURI;
         $this->mailer = new Mailer($db);
         $this->common = new common();
 
@@ -41,9 +43,14 @@ class FileController
                 if (isset($_GET["cancel"])) {
                     $response = $this->cancelUpload();
                 } else {
-                    if ($this->fileId) {
+                    if($this->rawURI[0] == "chart")
+                    {
+                        $response = $this->getChartData();
+                    }
+                    else if ($this->fileId) {
                         $response = $this->getFile($this->fileId);
-                    } else {
+                    }
+                    else {
                         $response = $this->getAllFiles();
                     }
                 }
@@ -87,6 +94,17 @@ class FileController
     private function getFile($id)
     {
         $result = $this->fileGateway->find($id);
+        /*if (! $result) {
+//            return $this->notFoundResponse();
+        }*/
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = json_encode($result);
+        return $response;
+    }
+
+    private function getChartData()
+    {
+        $result = $this->fileGateway->getChartData();
         /*if (! $result) {
 //            return $this->notFoundResponse();
         }*/

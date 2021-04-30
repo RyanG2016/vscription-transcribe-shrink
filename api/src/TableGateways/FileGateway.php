@@ -136,6 +136,40 @@ class FileGateway implements GatewayInterface
         }
     }
 
+    public function getChartData()
+    {
+
+        $statement = "SELECT file_status_ref.j_status_id as 'id', file_status_ref.j_status_name as 'status', COUNT(files.file_status) AS 'count'
+                        FROM files
+                                 RIGHT JOIN file_status_ref ON file_status_ref.j_status_id = files.file_status
+                        GROUP BY file_status_ref.j_status_id;";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute();
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+
+            return array(
+                    "labels" => array_column($result, 'status'),
+                    "data" => array_column($result, 'count')
+            );
+
+            /*if(isset($_GET["tr"]))
+            {
+                // set job start timer
+                $_SESSION['timerStart'] = date("Y-m-d H:i:s");
+                // load tmp file for transcribe.php
+                return $this->loadTmpFile($result);
+            }else{
+                return $result;
+            }*/
+
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+
     /**
      * retrieves file total elapsed time of being typed
      * @param $id int file_id

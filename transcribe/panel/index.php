@@ -32,6 +32,8 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
     <script src="../data/libs/node_modules/@material/linear-progress/dist/mdc.linearProgress.js"></script>
     <script src="https://kit.fontawesome.com/12f6b99df9.js" crossorigin="anonymous"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
             integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
             crossorigin="anonymous"></script>
@@ -40,6 +42,9 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
     <link href="../data/css/admin_panel.css" rel="stylesheet">
+    <script src="../data/scripts/admin_panel.min.js" type="text/javascript"></script>
+<!--    <script src="../data/scripts/admin_panel.min.js" type="text/javascript"></script>-->
+
 </head>
 
 <body>
@@ -47,7 +52,8 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
 <div class="container-fluid h-100 vspt-container-fluid">
         <div class="w-100 h-100 d-flex flex-nowrap vspt-container-fluid-row">
 
-        <?php include_once "../data/parts/nav.php"?>
+
+            <?php include_once "../data/parts/nav.php"?>
 
         <div class="vspt-page-container">
 
@@ -88,6 +94,10 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
                         </td>
                     </tr>
                 </table>
+
+                <div class="pie-container">
+                    <canvas id="filesChart"></canvas>
+                </div>
 
 
             </div>
