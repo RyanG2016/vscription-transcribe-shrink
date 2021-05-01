@@ -95,8 +95,17 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
                     </tr>
                 </table>
 
-                <div class="pie-container">
-                    <canvas id="filesChart"></canvas>
+                <h2 class="mdc-typography--headline4">Charts</h2>
+                <div class="row no-gutters">
+                    <div class="pie-container">
+                        <h3 class="text-center">Files</h3>
+                        <canvas id="filesChart"></canvas>
+                    </div>
+
+                    <div class="pie-container">
+                        <h3 class="text-center">SR Queue</h3>
+                        <canvas id="srqChart"></canvas>
+                    </div>
                 </div>
 
 

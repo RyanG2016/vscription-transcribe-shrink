@@ -1,11 +1,18 @@
 
 $(document).ready(function () {
 
-    /* URLS */
+    /* Constants */
     const filesURL = "../../api/v1/files/chart";
+    const srqURL = "../../api/v1/stt/chart";
+    const colorsArray = [
+        "#1abc9c","#2ecc71","#3498db","#9b59b6","#34495e",
+        "#f39c12","#d35400","#c0392b","#bdc3c7","#7f8c8d",
+        "#fdcb6e","#e17055",
+    ];
 
     /* Canavas */
     var filesCanava = document.getElementById('filesChart').getContext('2d');
+    var srqCanava = document.getElementById('srqChart').getContext('2d');
 
     /* Files */
     $.ajax({
@@ -22,13 +29,25 @@ $(document).ready(function () {
         location.href = "index.php";*/
 
         createPie(filesCanava, response.labels, response.data);
-
     }).fail(function(xhr, status, err){
 
         alert("failed to retrieve files data");
 
-    })
+    });
 
+    /* SRQ */
+    $.ajax({
+        type: 'GET',
+        method: 'GET',
+        url: srqURL,
+        async: false,
+    }).done(function (response) {
+        createPie(srqCanava, response.labels, response.data);
+    }).fail(function(xhr, status, err){
+        alert("failed to retrieve files data");
+    });
+
+    /* Functions */
     function createPie(canava, labelsArr, dataArr)
     {
         new Chart(canava, {
@@ -43,15 +62,20 @@ $(document).ready(function () {
                     //     'rgb(54, 162, 235)',
                     //     'rgb(255, 205, 86)'
                     // ],
-                    backgroundColor:[
-                        "#1abc9c","#2ecc71","#3498db","#9b59b6","#34495e",
-                        "#f39c12","#d35400","#c0392b","#bdc3c7","#7f8c8d",
-                        "#fdcb6e","#e17055",
-                    ],
-                    hoverOffset: 6
+                    backgroundColor: colorsArray.slice(0, dataArr.length),
+                    hoverOffset: 8
                 }]
             },
             options: {
+                layout: {
+                    padding: 15
+                },
+                /*plugins: {
+                    title: {
+                        display: true,
+                        text: 'Custom Chart Title'
+                    }
+                },*/
                 /*scales: {
                     y: {
                         beginAtZero: true
