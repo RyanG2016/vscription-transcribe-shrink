@@ -169,7 +169,7 @@ class FileController
 
             );
 
-            $authorName = $_POST["authorName"];
+            $authorName = ucwords($_POST["authorName"]);
             $jobType = $_POST["jobType"];
             $dictDate = $_POST["dictDate"];
 
