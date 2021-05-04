@@ -58,7 +58,9 @@ $(document).ready(function () {
 
 			$('.cTooltip').tooltipster({
 				animation: 'grow',
+				side: ['bottom', 'right'],
 				theme: 'tooltipster-punk',
+				contentAsHTML: true,
 				arrow: true
 			});
 		}
@@ -78,12 +80,38 @@ $(document).ready(function () {
 				"title": "Job #",
 				"data": "job_id",
 				render: function (data, type, row) {
+
+					var addition = "";
+
+					let fields = ["user_field_1", "user_field_2", "user_field_3", "typist_comments"];
+					/* Additional Popup */
+					fields.forEach(value => {
+						if(row[value] !== null && row[value] !== "")
+						{
+							if(addition !== "")
+							{
+								addition += "<br><br>";
+								// addition += "\n";
+							}
+							addition += `<b>${value}</b>: ${row[value]}`;
+						}
+					});
+					if(addition !== "")
+					{
+						// addition = '<i class=\"fas fa-info-circle custom-info-font-awesome btTooltip float-right\" data-toggle="tooltip" data-html="true"  title="'+addition+'"></i>';
+						// addition = '<i class=\"fad fa-info-square custom-info-font-awesome btTooltip float-right\" data-toggle="tooltip" data-html="true"  title="'+addition+'"></i>';
+						// addition = '<i class=\"fas fa-info-circle custom-info-font-awesome cTooltip float-right\" data-html="true"  title="'+addition+'"></i>';
+						addition = '<i class=\"fad fa-info-square custom-info-font-awesome cTooltip float-right\" data-html="true"  title="'+addition+'"></i>';
+					}
+
 					if (row["file_comment"] != null) {
+
 						return data + " <i class=\"material-icons mdc-button__icon job-comment cTooltip\" aria-hidden=\"true\" title='"
 							+ htmlEncodeStr(row["file_comment"])
-							+ "'>speaker_notes</i>";
+							+ "'>speaker_notes</i>" +
+							addition;
 					} else {
-						return data;
+						return data  + addition;
 					}
 				}
 			},
@@ -213,10 +241,14 @@ $(document).ready(function () {
 			view(file_id);
 		});
 
+		$('.btTooltip').tooltip({"trigger": 'hover focus'});
+
 		if (!$('.cTooltip').hasClass("tooltipstered")) {
 			$('.cTooltip').tooltipster({
 				animation: 'grow',
+				side: ['bottom', 'right'],
 				theme: 'tooltipster-punk',
+				contentAsHTML: true,
 				arrow: true
 			});
 		}	// calculate total jobs duration
