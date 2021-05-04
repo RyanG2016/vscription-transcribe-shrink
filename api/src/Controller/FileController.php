@@ -62,7 +62,7 @@ class FileController
                     if ($this->fileId) {
                         $response = $this->updateFileFromRequest($this->fileId);
                     } else {
-                        $response = $this->uploadFilesFromRequest();
+                        $response = $this->uploadFilesFromRequest(); // used by job uploader and upload app
                     }
 //                    $response = $this->uploadFilesFromRequest();
                 }
