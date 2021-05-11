@@ -226,7 +226,7 @@ $(document).ready(function () {
 
 	refreshJobList.addEventListener('click', e => {
 		// totalDur = 0;
-		jobsDTRef.ajax.reload();
+		jobsDTRef.ajax.reload(dtTableReloadCallback);
 	});
 
 	jobsDT.on( 'draw.dt', function () {
@@ -397,7 +397,7 @@ function download(fileID){
 		// alert('refresh?');
 		// location.reload();
 		// totalDur = 0;
-		jobsDTRef.ajax.reload();
+		jobsDTRef.ajax.reload(dtTableReloadCallback);
 
 	});
 }
@@ -424,7 +424,7 @@ function view(fileID){
 		// alert('refresh?');
 		// location.reload();
 		// totalDur = 0;
-		jobsDTRef.ajax.reload();
+		jobsDTRef.ajax.reload(dtTableReloadCallback);
 
 	});
 }
@@ -456,6 +456,7 @@ function getAutoListRefreshEnabled() {
 				getAutoListRefreshInterval(function(output){
 					// console.log(output);
 					autoListRefreshInterval = output*1000;
+					// autoListRefreshInterval = 1000;
 					$("#jlr").removeClass("jlrd").addClass("jlre");
 					$("#jlr").html("Auto Job List Refresh is Enabled");
 					startRefreshTimer();
@@ -484,7 +485,33 @@ function getAutoListRefreshInterval(handleData) {
 }
 
 function startRefreshTimer() {
-			setInterval(function () {
-			jobsDTRef.ajax.reload();
-		}, autoListRefreshInterval);
+	console.log("starting timer");
+	setInterval(function () {
+		jobsDTRef.ajax.reload(dtTableReloadCallback);
+	}, autoListRefreshInterval);
+}
+
+function dtTableReloadCallback() {
+	// reload custom filters
+	jobsDTRef.columns([1, 2, 6]).every(
+		function () {
+			var column = this;
+			var select = $('<select class="form-control"><option value=""></option></select>')
+				.appendTo($(column.footer()).empty())
+				.on('change', function () {
+					var val = $.fn.dataTable.util.escapeRegex(
+						$(this).val()
+					);
+
+					column
+						.search(val ? '^' + val + '$' : '', true, false)
+						.draw();
+				});
+
+			column.data().unique().sort().each(function (d, j) {
+				select.append('<option value="' + d + '">' + d + '</option>')
+			});
+		}
+	);
+
 }

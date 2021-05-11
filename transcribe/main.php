@@ -100,7 +100,7 @@ else {
     </script>
 	
 	<link rel="stylesheet" href="data/css/main.css">
-	<script src="data/scripts/main.min.js?v=6"></script>
+	<script src="data/scripts/main.min.js?v=7"></script>
 	
 </head>
 
