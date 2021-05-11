@@ -85,7 +85,7 @@ class accessGateway implements GatewayInterface
             INNER JOIN accounts a on access.acc_id = a.acc_id
             INNER JOIN roles r on access.acc_role = r.role_id
             INNER JOIN users u on access.uid = u.id
-            where access.uid = ? and access.acc_role in (1,2,3)
+            where access.uid = ? and access.acc_role in (1,2,3,5)
             and a.enabled = 1
             " . $filter . ";";
 
@@ -153,6 +153,7 @@ class accessGateway implements GatewayInterface
     }
 
 
+    // used by upload -> FileController
     public function checkAccountAccessPermission($acc_id)
     {
 
@@ -177,7 +178,7 @@ class accessGateway implements GatewayInterface
             INNER JOIN users u on access.uid = u.id
             where access.uid = ?
             AND access.acc_id = ?
-            AND access.acc_role in (1,2) 
+            AND access.acc_role in (1,2,5)
             ;";
 
 
@@ -264,7 +265,7 @@ class accessGateway implements GatewayInterface
             INNER JOIN users u on access.uid = u.id
             where access.uid = ?
             AND access.acc_id = ?
-            AND access.acc_role in (1,2,3) 
+            AND access.acc_role in (1,2,3,5) 
             ;";
 
 

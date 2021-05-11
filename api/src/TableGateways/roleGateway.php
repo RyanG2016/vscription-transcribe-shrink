@@ -31,7 +31,7 @@ class roleGateway implements GatewayInterface
                 *
             FROM
                 roles
-            where role_id = 2 or roles.role_id = 3
+            where role_id = 2 or roles.role_id = 3 and roles.role_id = 5
             " . $filter . ";";
 
 

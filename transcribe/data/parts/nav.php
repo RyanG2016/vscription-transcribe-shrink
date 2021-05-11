@@ -56,6 +56,7 @@
             {
                 case 1:
                 case 2:
+                case 5:
                     $homePage = "main.php";
                 break;
                 case 3:
@@ -187,6 +188,17 @@
                             </div>
                         </a>
                        ';
+               break;
+
+
+           case \Src\Enums\ROLES::AUTHOR:
+               echo '
+                        <a href="/main.php" class="bg-dark list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <span class="fas fa-list-alt fa-fw mr-3"></span>
+                                <span class="menu-collapsed d-none">Job Lister</span>
+                            </div>
+                        </a>';
                break;
        }
 

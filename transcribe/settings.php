@@ -235,7 +235,7 @@ include('data/parts/head.php');
 
                     <?php
 
-                    if($roleIsSet && $_SESSION["role"] != 3)
+                    if($roleIsSet && $_SESSION["role"] != 3 && $_SESSION["role"] != 5)
                     {
                     ?>
 
@@ -394,6 +394,8 @@ include('data/parts/head.php');
 
                     <?php
                     }
+                    if($_SESSION["role"] != 5)
+                    {
                     if (!$_SESSION["userData"]["account"]) {
 
                     ?>
@@ -554,7 +556,8 @@ include('data/parts/head.php');
                         <hr>
                     </div>
 
-                    <?php } ?>
+                    <?php }
+                    ?>
 
                     <div class="w-100"></div>
 
@@ -607,6 +610,7 @@ include('data/parts/head.php');
 
                     </div>
 
+                    <?php } ?>
                 </div>
 
             </div>
