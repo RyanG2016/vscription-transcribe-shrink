@@ -1310,8 +1310,7 @@ $(document).ready(function () {
         // $loadBtn.find("i").hide();
 
         // enable save etc.. buttons
-        // if(rl == 3 && jobDetails.file_status != 3)
-        if(rl == 3)
+        if(rl == 3 && jobDetails.file_status != 3)
         {
             $('#saveBtn').removeAttr("disabled");
             $('#suspendBtn').removeAttr("disabled");
