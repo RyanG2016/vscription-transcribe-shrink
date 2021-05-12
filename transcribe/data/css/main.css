@@ -644,3 +644,8 @@ select, .dt-search {
     max-width: 400px !important;
     background-color: #2a2a2a !important;
 }
+
+tbody > tr > td:last-child
+{
+    white-space: nowrap;
+}
