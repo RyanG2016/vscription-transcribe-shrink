@@ -491,6 +491,15 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
         <div style="overflow-x: hidden" class="vspt-table-div">
             <table id="jobs-tbl" class="table vspt-table hover compact"></table>
         </div>
+        <div class="text-right">
+            <button class="btn btn-sm btn-light mb-1 mt-2"
+                    id="showCompBtn"
+                    data-toggle="button"
+                    type="button">
+                <i class="far fa-eye"></i> View Completed
+            </button>
+        </div>
+
     </div>
 
 </div>

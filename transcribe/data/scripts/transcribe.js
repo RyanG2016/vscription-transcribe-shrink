@@ -66,6 +66,8 @@ $(document).ready(function () {
 
     var searchEngine =   $("#searchEngine");
     var compactView =   $("#pop");
+    var showCompBtn =   $("#showCompBtn");
+    var showingCompleted = false;
 
     compactView.popover({
         // html: true,
@@ -78,6 +80,18 @@ $(document).ready(function () {
         modalCapSearch.style.display = "none";
         captionsSearch.val("");
         dt.clear().draw();
+    });
+
+    showCompBtn.on('click', function() {
+        if (!showingCompleted) {
+            showingCompleted = true;
+            $(this).html('<i class="fas fa-eye-slash"></i> Hide Completed')
+            jobsDTRef.ajax.url( 'api/v1/files?dt&file_status[mul]=3,11' ).load();
+        } else {
+            showingCompleted = false;
+            jobsDTRef.ajax.url( 'api/v1/files?dt&file_status[mul]=0,1,2,7,11' ).load();
+            $(this).html('<i class="fas fa-eye-slash"></i> View Completed')
+        }
     });
 
     $("#capSrcClear").on('click', function(){
@@ -1031,6 +1045,9 @@ $(document).ready(function () {
         }else if(currentFileData.file_status == 11)
         {
             new_status == 11;
+        }else if(currentFileData.file_status == 3)
+        {
+            new_status == 3;
         }
 
 
@@ -1098,7 +1115,7 @@ $(document).ready(function () {
         document.getElementById('user_field_2').value = "";
         document.getElementById('user_field_3').value = "";
         document.getElementById('report').value = "";
-		document.getElementById('comments').value = "";		
+		document.getElementById('comments').value = "";
 		document.getElementById('file_comment').value = "";
 		demoDiv.hide();
         userFields.hide();
@@ -1190,7 +1207,7 @@ $(document).ready(function () {
         });
 
     }
- 
+
     function decodeHtml(html) {
         var txt = document.createElement("textarea");
         txt.innerHTML = html;
@@ -1293,6 +1310,7 @@ $(document).ready(function () {
         // $loadBtn.find("i").hide();
 
         // enable save etc.. buttons
+        // if(rl == 3 && jobDetails.file_status != 3)
         if(rl == 3)
         {
             $('#saveBtn').removeAttr("disabled");
@@ -1504,7 +1522,7 @@ $(document).ready(function () {
 		},
 		{
 			"next .pin-collapse-div":"Click here to expand the navigation bar to get access to various pages and settings",
-		},		
+		},
 		{
 			"click #zohohc-asap-web-launcherbox > a":"Click here to access the online help",
 				// shape:"circle",

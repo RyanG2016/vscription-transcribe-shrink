@@ -612,6 +612,7 @@ class FileGateway implements GatewayInterface
         $post_acc_id = null;
         $role = null;
 
+
         if (isset($_POST["set_acc_id"]) && !empty($_POST["set_acc_id"])) {
             $post_acc_id = $_POST["set_acc_id"];
             // curl to check if current user have insert permission to the acc_id passed via the request params
@@ -672,6 +673,11 @@ class FileGateway implements GatewayInterface
         $currentFile = $this->find($id);
         $fields = parseFileUpdateParams($role, $currentFile, $this->db);
         $currentFile = $currentFile[0];
+
+        if($currentFile["file_status"] == 3 ) // lock edits to already completed files
+        {
+            return generateApiResponse("Cannot update completed files", true);
+        }
 
         $statement = "
             UPDATE files
