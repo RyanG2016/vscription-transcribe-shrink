@@ -1,4 +1,7 @@
 <?php
+
+require '../api/vendor/autoload.php';
+
 include('data/parts/session_settings.php');
 include("data/parts/config.php");
 include('data/parts/constants.php');
@@ -16,7 +19,7 @@ if(isset($_SESSION['loggedIn']))
             // User is System Admin
             redirect("panel/");
         }
-        else if ($_SESSION['role'] == "2") {
+        else if ($_SESSION['role'] == "2" || $_SESSION['role'] == \Src\Enums\ROLES::AUTHOR) {
             // User is Client Administrator
             redirect("main.php");
         } else if ($_SESSION['role'] == "3"){
