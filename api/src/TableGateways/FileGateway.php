@@ -136,6 +136,40 @@ class FileGateway implements GatewayInterface
         }
     }
 
+    public function getChartData()
+    {
+
+        $statement = "SELECT file_status_ref.j_status_id as 'id', file_status_ref.j_status_name as 'status', COUNT(files.file_status) AS 'count'
+                        FROM files
+                                 RIGHT JOIN file_status_ref ON file_status_ref.j_status_id = files.file_status
+                        GROUP BY file_status_ref.j_status_id;";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute();
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+
+            return array(
+                    "labels" => array_column($result, 'status'),
+                    "data" => array_column($result, 'count')
+            );
+
+            /*if(isset($_GET["tr"]))
+            {
+                // set job start timer
+                $_SESSION['timerStart'] = date("Y-m-d H:i:s");
+                // load tmp file for transcribe.php
+                return $this->loadTmpFile($result);
+            }else{
+                return $result;
+            }*/
+
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+
     /**
      * retrieves file total elapsed time of being typed
      * @param $id int file_id
@@ -578,6 +612,7 @@ class FileGateway implements GatewayInterface
         $post_acc_id = null;
         $role = null;
 
+
         if (isset($_POST["set_acc_id"]) && !empty($_POST["set_acc_id"])) {
             $post_acc_id = $_POST["set_acc_id"];
             // curl to check if current user have insert permission to the acc_id passed via the request params
@@ -638,6 +673,11 @@ class FileGateway implements GatewayInterface
         $currentFile = $this->find($id);
         $fields = parseFileUpdateParams($role, $currentFile, $this->db);
         $currentFile = $currentFile[0];
+
+        if($currentFile["file_status"] == 3 ) // lock edits to already completed files
+        {
+            return generateApiResponse("Cannot update completed files", true);
+        }
 
         $statement = "
             UPDATE files

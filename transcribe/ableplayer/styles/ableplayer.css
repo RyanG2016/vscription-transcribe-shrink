@@ -269,14 +269,16 @@ div.able-now-playing > changed background color
 /*
   Volume Slider
 */
+/*todo modified top */
 .able-volume-slider {
   width: 34px;
-  height: 50px;
-  background-color: #464646; /* same as .able-controller */
+  height: 70px;
+  /*background-color: #464646; !* same as .able-controller *!*/
+  background-color: #124267; /* same as .able-controller */
   padding: 10px 0;
   position: absolute;
   right: 0;
-  top: -74px;
+  /*top: -74px;*/
   display: block;
   z-index: 9100;
 }

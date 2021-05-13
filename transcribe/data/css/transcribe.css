@@ -89,13 +89,6 @@
     /*white-space: nowrap;*/
 }
 
-#norm {
-    vertical-align: middle;
-    /*vertical-align: text-top;*/
-    width: 34px;
-    height: auto;
-}
-
 #accord {
     padding: 0 10px 10px 10px;
     /*width: 440px;*/
@@ -124,16 +117,6 @@
     width: 100%;
 }
 
-#rep-tbl {
-    width: 100%;
-}
-
-#nr {
-
-    width: 1%;
-    white-space: nowrap;
-}
-
 #mainlogo-td {
     /*	 white-space:nowrap;*/
     /*width: 1%;*/
@@ -142,11 +125,9 @@
 }
 
 .audio-col{
-    width: 450px !important;
-    max-width: 450px !important;
-    min-width: 450px !important;
-    margin-top: 22px;
-    margin-left: auto;
+    margin-top: 40px;
+    text-align: center;
+    text-align: -webkit-center;
 }
 
 .audiobtns {
@@ -324,29 +305,31 @@ table, th, td {
     color: white;
 }
 
+.save-button:hover {
+    background-color: hsl(123, 38%, 45%);
+    color: white;
+}
+
 .suspend-button {
     background-color: #FFA726;
+    color: white;
+}
+
+.suspend-button:hover {
+    background-color: hsl(36, 100%, 45%);
     color: white;
 }
 
 .discard-button {
     background-color: #E53935;
     color: white;
-
 }
 
-
-.load-button {
-    background-color: #5bba3f;
+.discard-button:hover {
+    background-color: hsl(1, 77%, 45%);
     color: white;
-
 }
 
-.confirm-button {
-    background-color: #66BB6A;
-    color: white;
-
-}
 
 #rep-tbl button:disabled{
     /*color: black;*/
@@ -386,6 +369,7 @@ table, th, td {
     vertical-align: bottom;
     color: #f78d2d;
     font-size: 80%;
+    float: right;
 }
 
 u {
@@ -437,7 +421,7 @@ select, .dt-search {
 .vtex-card {
     background-color: #f4f7f8;
     /*max-width: 90%;*/
-    min-width: 860px;
+    min-width: 950px;
     /*width: 90%;*/
     margin: 10px auto;
     padding: 12px 20px 15px 20px;
@@ -488,7 +472,7 @@ select, .dt-search {
 }
 
 .pop-btn{
-    margin: -8px;
+    /*margin: -8px;*/
 }
 
 .form-control:disabled, .form-control[readonly]{
@@ -502,4 +486,57 @@ select, .dt-search {
 
 .user-fields{
     display: none;
+}
+
+.dt_toolbar{
+    float: left;
+}
+
+.transcribe-shortcuts{
+    font-size: 0.6em;
+    float: right;
+}
+
+.transcribe-shortcuts img{
+    width: 30px;
+    vertical-align: middle;
+    /*vertical-align: text-top;*/
+    height: auto;
+}
+
+/* Fontawesome icons for tinymce */
+.mce-ico.mce-i-fa,
+.mce-ico.mce-i-fas
+{
+    display: inline-block;
+    color: white;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    vertical-align: baseline;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/*
+.input-group-prepend,
+.input-group-text{
+    width: 60px;
+    word-break: break-all;
+}*/
+
+.demographics-div{
+    display: none;
+}
+
+#mceu_14-button
+{
+    background-color: #1e79be;
+    color: white;
+    border-radius: 3px;
+}
+
+#mceu_33
+{
+    float:right;
 }

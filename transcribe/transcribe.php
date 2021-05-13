@@ -3,6 +3,7 @@
 
 <?php
 require '../api/vendor/autoload.php';
+
 use Src\Enums\INTERNAL_PAGES;
 
 $vtex_page = INTERNAL_PAGES::TRANSCRIBE;
@@ -47,7 +48,6 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>vScription</title>
     <link rel="shortcut icon" type="image/png" href="data/images/favicon.png"/>
-
 
 
     <script src="https://kit.fontawesome.com/12f6b99df9.js" crossorigin="anonymous"></script>
@@ -137,17 +137,19 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="data/main/jquery-ui.css">
 
-<!--    <script src="data/main/garlic.js"></script>-->
+    <!--    <script src="data/main/garlic.js"></script>-->
     <script src="data/main/jquery-ui.js"></script>
     <script src="data/thirdparty/scripts/moment.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-            crossorigin="anonymous"></script>
-
     <!--  MDC Components  -->
-<!--    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">-->
-<!--    <script src="data/libs/node_modules/material-components-web/dist/material-components-web.js"></script>-->
+    <!--    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">-->
+    <!--    <script src="data/libs/node_modules/material-components-web/dist/material-components-web.js"></script>-->
+
+    <!-- Context Menu -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.ui.position.js"></script>
 
     <!-- BOOTSTRAP -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
@@ -163,15 +165,17 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 
     <!--  Data table Jquery helping libs  -->
     <link rel="stylesheet" type="text/css"
-    href="https://cdnjs.cloudflare.com/ajax/libs/material-components-web/4.0.0/material-components-web.min.css"/>
+          href="https://cdnjs.cloudflare.com/ajax/libs/material-components-web/4.0.0/material-components-web.min.css"/>
 
     <!--  Datatables  -->
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
 
     <!--  css  -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css"
+          crossorigin="anonymous">
 
 
     <script src='tinymce/tinymce.min.js?v=<?php echo $version_control ?>'></script>
@@ -209,16 +213,16 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
           href="data/tooltipster/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-punk.min.css"/>
     <script type="text/javascript" src="data/tooltipster/js/tooltipster.bundle.min.js"></script>
 
-    <link href='data/css/transcribe.css?v=2' type='text/css' rel='stylesheet'/>
+    <link href='data/css/transcribe.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet'/>
 
     <!-- Enjoyhint library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/kineticjs/5.2.0/kinetic.js"> </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/kineticjs/5.2.0/kinetic.js"></script>
     <link href="data/thirdparty/enjoyhint/enjoyhint.css" rel="stylesheet">
     <script src="data/thirdparty/enjoyhint/enjoyhint.min.js"></script>
 
-	<?php $tuts=(isset($_SESSION['tutorials']))?$_SESSION['tutorials']:'{}'; ?>
+    <?php $tuts = (isset($_SESSION['tutorials'])) ? $_SESSION['tutorials'] : '{}'; ?>
     <script type="text/javascript">
-        var tutorials='<?php echo $tuts;?>';
+        var tutorials = '<?php echo $tuts;?>';
     </script>
 
 </head>
@@ -226,234 +230,246 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 <body>
 
 <script src="data/scripts/parts/constants.js" type="text/javascript"></script>
-<script src="data/scripts/transcribe.min.js?v=12"></script>
+<script src="data/scripts/transcribe.min.js?v=<?php echo $version_control ?>"></script>
 
 <div id="updated_version_bar">There is a newer version (v<span></span>) of the vScription Transcribe Controller
     available -> <a href="" target="_blank">download</a></div>
 
-<div class="container-fluid d-flex h-auto vspt-container-fluid">
-    <div class="row w-100 h-100 vspt-container-fluid-row no-gutters" style="white-space: nowrap">
+<div class="container-fluid h-100 vspt-container-fluid">
+    <div class="w-100 h-100 d-flex flex-nowrap vspt-container-fluid-row">
 
-        <?php include_once "data/parts/nav.php"?>
+        <?php include_once "data/parts/nav.php" ?>
 
-        <div class="vspt-page-container vspt-col-auto-fix">
+        <div class="vspt-page-container">
 
             <div class="vtex-card contents m-0">
-                <button type="button" class="btn btn-primary btn-sm pop-btn float-right" id="pop"><i class="fas fa-external-link-alt"></i></button>
 
-                <form class="validate-form" method="post" name="form" id="form" enctype="multipart/form-data">
+                <div class="row ">
+                    <div class="col-8">
+                        <legend id="leg"><span class="number">1</span> Report Body
 
-                    <div class="form-row">
-                        <div class="col-xl col-lg-12 demographics-col">
-                            <div id="demoItems">
-                                <div class="form-row mt-2">
+                            <span class="transcribe-shortcuts">
+                                <img src="data/images/f1_48.png"/> Insert last used word &nbsp;&nbsp;
 
-                                    <div class="input-group mb-3 col-xl-3 col-lg-3 col-md-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="jobNo-addon1">#</span>
-                                        </div>
-                                        <input type="text" class="form-control" id="jobNo" placeholder="Job/File ID"
-                                               name="jobNo" <?php if ($set == 1 && !empty($n1)) {
-                                            echo 'value="' . $n1 . "\"";
-                                        } ?> readonly>
-                                    </div>
+                                <img src="data/images/f2_48.png"/> <&lt;INAUDIBLE>> &nbsp;&nbsp;
 
-                                    <div class="input-group mb-3 col-xl-5 col-lg-6 col-md-6 ">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="authorName-addon1">Author</span>
-                                        </div>
-                                        <input type="text" id="authorName" class="form-control" name="authorName"
-                                               title="Author Name" <?php if ($set == 1 && !empty($n2)) {
-                                            echo 'value="' . $n2 . "\"";
-                                        } ?> readonly>
-                                    </div>
+                                <img src="data/images/slash48.png"/> Expand Word &nbsp;&nbsp;
 
-                                    <div class="input-group mb-3 col-xl-4 col-lg-3 col-md-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="jobType-addon1">Job Type</span>
-                                        </div>
-
-
-                                        <select class="form-control mt-0" id="jobType" name="jobType" disabled>
-                                            <?php
-                                            foreach ($workTypes as $type)
-                                            {
-                                                $type = trim($type);
-                                                echo '<option value="'.strtolower($type).'">'.$type.'</option>';
-                                            }
-
-                                            ?>
-                                        </select>
-
-                                    </div>
-
-                                    <div class="input-group mb-3 col-xl-6 col-lg-6 col-md-6">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="date-addon1"><i class="fas fa-calendar-alt"></i> &nbsp;Dictated</span>
-                                        </div>
-                                        <input type="text" name="DateDic" class="form-control" id="date"
-                                               title="Date Dictated" <?php if ($set == 1 && !empty($dateD)) {
-                                            echo 'value="' . $dateD . "\"";
-                                        } ?> readonly>
-                                    </div>
-
-                                    <div class="input-group mb-3 col-xl-6 col-lg-6 col-md-6">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="dateT-addon1"><i class="fas fa-calendar-alt"></i> &nbsp;Transcribed</span>
-                                        </div>
-                                        <input type="text" name="DateTra" id="dateT" class="form-control"
-                                               title="Date Transcribed" <?php if ($set == 1 && !empty($dateT)) {
-                                            echo 'value="' . $dateT . "\"";
-                                        } else {
-                                            echo date("d-M-Y");
-                                        } ?> readonly>
-                                    </div>
-
-
-                                    <div class="col-12 user-fields" id="userFields">
-                                        <div class="form-row">
-                                            <div class="input-group mb-3 col-xl-4 col-lg-4 col-md-4">
-                                                <div class="input-group-prepend">
-                                                <span class="input-group-text"
-                                                      id="user_field_1-addon1">User Field 1</span>
-                                                </div>
-                                                <input type="text" id="user_field_1" name="user_field_1"
-                                                       class="form-control"
-                                                       title="User Field 1" <?php if ($set == 1 && !empty($uf1)) {
-                                                    echo 'value="' . $uf1 . "\"";
-                                                } ?> readonly>
-                                            </div>
-
-                                            <div class="input-group mb-3 col-xl-4 col-lg-4 col-md-4">
-                                                <div class="input-group-prepend">
-                                                <span class="input-group-text"
-                                                      id="user_field_2-addon1">User Field 2</span>
-                                                </div>
-                                                <input type="text" id="user_field_2" name="user_field_2"
-                                                       class="form-control"
-                                                       title="User Field 2" <?php if ($set == 1 && !empty($uf2)) {
-                                                    echo 'value="' . $uf2 . "\"";
-                                                } ?> readonly>
-                                            </div>
-
-                                            <div class="input-group mb-3 col-xl-4 col-lg-4 col-md-4">
-                                                <div class="input-group-prepend">
-                                                <span class="input-group-text"
-                                                      id="user_field_3-addon1">User Field 3</span>
-                                                </div>
-                                                <input type="text" id="user_field_3" name="user_field_3"
-                                                       class="form-control"
-                                                       title="User Field 3" <?php if ($set == 1 && !empty($uf3)) {
-                                                    echo 'value="' . $uf3 . "\"";
-                                                } ?> readonly>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="input-group mb-3 col-xl-6 col-lg-6 col-md-6">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="comments-addon1"><i class="fas fa-comment-dots"></i> &nbsp;Typist</span>
-                                        </div>
-                                        <input type="text" id="comments" name="comments" class="form-control"
-                                               title="Typist Comments" <?php if ($set == 1 && !empty($ph)) {
-                                            echo 'value="' . $ph . "\"";
-                                        } ?> disabled>
-                                    </div>
-
-                                    <div class="input-group mb-3 col-xl-6 col-lg-6 col-md-6">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="file_comment-addon1"><i class="fas fa-comment-dots"></i> &nbsp;Job</span>
-                                        </div>
-                                        <input type="text" id="file_comment" name="file_comment" class="form-control"
-                                               title="File Comments" <?php if ($set == 1 && !empty($ph)) {
-                                            echo 'value="' . $ph . "\"";
-                                        } ?> readonly>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col audio-col">
-                            <audio id="audio1" width="450" data-able-player preload="auto" data-seek-interval="2" data-transcript-src="transcript">
-                            </audio>
-                        </div>
-                    </div>
-
-                    <table width="100%" style="padding-bottom: 5px" id="demo-tbl">
-                        <tr>
-
-                            <td align="right">
-
-							<span class="controller-status" id="statusTxt">
-                                <i>connecting to controller please wait...</i>
+                                <button type="button" class="btn btn-primary btn-sm pop-btn" id="pop">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </button>
                             </span>
 
-                                <button class="btn btn-sm load-button" id="loadBtn" name="loadBtn" type="button">
+                        </legend>
 
-                                    <i class="fas fa-cloud-download"></i>
-                                    Load
-                                </button>
-                            </td>
 
-                        </tr>
-                    </table>
-
-                    <fieldset>
-                        <table id="rep-tbl">
+                        <div id="divv" class="form-row">
+                            <div class="col">
+                                <textarea id="report" name="report" placeholder="" rows="25" class="area"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <span class="controller-status" id="statusTxt">
+                            <i>connecting to controller please wait...</i>
+                        </span>
+                        <div class="col audio-col">
+                            <audio id="audio1"  data-able-player preload="auto"
+                                   data-skin="2020"
+                                   class="mr-auto ml-auto"
+                                   data-seek-interval="2" data-transcript-src="transcript">
+                            </audio>
+                        </div>
+                        <table width="100%" style="padding-bottom: 5px" id="demo-tbl">
                             <tr>
-                                <td>
-                                    <legend id="leg"><span class="number">1</span> Report Body</legend>
-                                </td>
+                                <td align="right">
 
-                                <td id="nr">
-                                    <button class="btn btn-sm save-button" id="saveBtn" name="saveBtn" type="submit" disabled>
-                                        <i class="fas fa-save"></i> Save and Complete
-                                    </button>
-                                </td>
-                                <td id="nr">
-                                    <button class="btn btn-sm suspend-button" id="suspendBtn" type="submit" name="suspendBtn" disabled>
-                                        <i class="fas fa-pause-circle"></i> Suspend
-                                    </button>
-                                </td>
-                                <td id="nr">
-                                    <button class="btn btn-sm discard-button" id="discardBtn" name="discardBtn" type="button" disabled>
-                                        <i class="fas fa-times" aria-hidden="true"></i>
-                                        Discard
-                                    </button>
+
+                                    <!--<button class="btn btn-sm save-button" id="loadBtn" name="loadBtn"
+                                            type="button">
+
+                                        <i class="fas fa-cloud-download"></i>
+                                        Load
+                                    </button>-->
                                 </td>
                             </tr>
                         </table>
-                        <div class="row no-gutters" style="padding-bottom: 10px">
-                            <div id="accord" class="col pb-0">
-                                <h3>Shortcuts</h3>
-                                <div style="overflow: visible;">
-                                    <!--					 <img id="norm" src="data/images/f248.png" /> <&lt;DRSPELLING>>&nbsp;&nbsp; <img id="norm" src="data/images/f348.png" /> <&lt;PATSPELLING>>&nbsp;&nbsp; -->
-                                    <!--					&nbsp;&nbsp; <img id="norm" src="data/images/at.png" /> <php //echo $atShortcut ?>-->
 
-                                    <legend id="tip"><img id="norm" src="data/images/f248.png"/>
-                                        <&lt;INAUDIBLE>> &nbsp;&nbsp; <img id="norm"
-                                                                           src="data/images/slash.png"/> <?php echo $slashShortcut ?>
-                                    </legend>
+                        <div class="demographics-div" id="demoDiv">
+                            <legend id="leg" class="mt-3"><span class="number">2</span> Demographics</legend>
+
+                            <form class="validate-form" method="post" name="form" id="form" enctype="multipart/form-data">
+
+                                <div class="form-row">
+                                    <div class="col-xl col-lg-12 demographics-col">
+                                        <div id="demoItems">
+                                            <div class="form-row mt-2">
+
+                                                <div class="input-group mb-3 col-4">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text" id="jobNo-addon1">#</span>
+                                                    </div>
+                                                    <input type="text" class="form-control" id="jobNo"
+                                                           placeholder="Job/File ID"
+                                                           name="jobNo" <?php if ($set == 1 && !empty($n1)) {
+                                                        echo 'value="' . $n1 . "\"";
+                                                    } ?> readonly>
+                                                </div>
+
+                                                <div class="input-group mb-3 col-8 ">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text" id="authorName-addon1">Author</span>
+                                                    </div>
+                                                    <input type="text" id="authorName" class="form-control"
+                                                           name="authorName"
+                                                           title="Author Name" <?php if ($set == 1 && !empty($n2)) {
+                                                        echo 'value="' . $n2 . "\"";
+                                                    } ?> readonly>
+                                                </div>
+
+                                                <div class="input-group mb-3 col-12">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text" id="jobType-addon1">Job Type</span>
+                                                    </div>
+
+
+                                                    <select class="form-control mt-0" id="jobType" name="jobType" disabled>
+                                                        <?php
+                                                        foreach ($workTypes as $type) {
+                                                            $type = trim($type);
+                                                            echo '<option value="' . strtolower($type) . '">' . $type . '</option>';
+                                                        }
+
+                                                        ?>
+                                                    </select>
+
+                                                </div>
+
+                                                <div class="input-group mb-3 col-12">
+                                                    <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="date-addon1"><i
+                                                                class="fas fa-calendar-alt"></i> &nbsp;Dictated</span>
+                                                    </div>
+                                                    <input type="text" name="DateDic" class="form-control" id="date"
+                                                           title="Date Dictated" <?php if ($set == 1 && !empty($dateD)) {
+                                                        echo 'value="' . $dateD . "\"";
+                                                    } ?> readonly>
+                                                </div>
+
+                                                <div class="input-group mb-3 col-12">
+                                                    <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="dateT-addon1"><i
+                                                                class="fas fa-calendar-alt"></i> &nbsp;Transcribed</span>
+                                                    </div>
+                                                    <input type="text" name="DateTra" id="dateT" class="form-control"
+                                                           title="Date Transcribed" <?php if ($set == 1 && !empty($dateT)) {
+                                                        echo 'value="' . $dateT . "\"";
+                                                    } else {
+                                                        echo date("d-M-Y");
+                                                    } ?> readonly>
+                                                </div>
+
+
+                                                <div class="col-12 user-fields" id="userFields">
+                                                    <div class="form-row">
+                                                        <div class="input-group mb-3 col-xl-4 col-lg-4 col-md-4">
+                                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"
+                                                      id="user_field_1-addon1">User Field 1</span>
+                                                            </div>
+                                                            <input type="text" id="user_field_1" name="user_field_1"
+                                                                   class="form-control"
+                                                                   title="User Field 1" <?php if ($set == 1 && !empty($uf1)) {
+                                                                echo 'value="' . $uf1 . "\"";
+                                                            } ?> readonly>
+                                                        </div>
+
+                                                        <div class="input-group mb-3 col-xl-4 col-lg-4 col-md-4">
+                                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"
+                                                      id="user_field_2-addon1">User Field 2</span>
+                                                            </div>
+                                                            <input type="text" id="user_field_2" name="user_field_2"
+                                                                   class="form-control"
+                                                                   title="User Field 2" <?php if ($set == 1 && !empty($uf2)) {
+                                                                echo 'value="' . $uf2 . "\"";
+                                                            } ?> readonly>
+                                                        </div>
+
+                                                        <div class="input-group mb-3 col-xl-4 col-lg-4 col-md-4">
+                                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"
+                                                      id="user_field_3-addon1">User Field 3</span>
+                                                            </div>
+                                                            <input type="text" id="user_field_3" name="user_field_3"
+                                                                   class="form-control"
+                                                                   title="User Field 3" <?php if ($set == 1 && !empty($uf3)) {
+                                                                echo 'value="' . $uf3 . "\"";
+                                                            } ?> readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="input-group mb-3 col-12">
+                                                    <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="comments-addon1"><i
+                                                                class="fas fa-comment-dots"></i> &nbsp;Typist</span>
+                                                    </div>
+                                                    <input type="text" id="comments" name="comments" class="form-control"
+                                                           title="Typist Comments" <?php if ($set == 1 && !empty($ph)) {
+                                                        echo 'value="' . $ph . "\"";
+                                                    } ?> disabled>
+                                                </div>
+
+                                                <div class="input-group mb-3 col-12">
+                                                    <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="file_comment-addon1"><i
+                                                                class="fas fa-comment-dots"></i> &nbsp;Job</span>
+                                                    </div>
+                                                    <input type="text" id="file_comment" name="file_comment"
+                                                           class="form-control"
+                                                           title="File Comments" <?php if ($set == 1 && !empty($ph)) {
+                                                        echo 'value="' . $ph . "\"";
+                                                    } ?> readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
-                            </div>
-                            <div class="col-auto">
-                                <button type="button" id="searchEngine" class="btn btn-primary btn-sm h-auto"
-                                        style="margin-top: 2px;" hidden>TEXT SEARCH
-                                    <i class="fas fa-search-plus"
-                                       style="font-size: large"></i>
-                                </button>
-                            </div>
-                            <!--<div class="col-auto mt-auto mb-auto mr-auto pr-4 pl-1" id="searchEngine" hidden>
-                                <i class="hover-expand fab fa-searchengin" style="font-size: x-large; color: var(--vtex-blue)"></i>
-                            </div>-->
+
+                                <fieldset>
+                                    <div class="row mr-0" style="padding-bottom: 10px">
+                                        <div class="col-auto p-1">
+                                            <button class="btn btn-primary btn-sm h-auto" id="searchEngine" type="button" hidden>
+                                                TEXT SEARCH
+                                                <i class="fas fa-search"></i>
+                                            </button>
+                                        </div>
+
+                                        <div class="col p-1 text-right">
+                                                <button class="btn btn-sm save-button mb-1" id="saveBtn" name="saveBtn"
+                                                        type="submit" disabled>
+                                                    <i class="fas fa-save"></i> Save and Complete
+                                                </button>
+
+                                                <button class="btn btn-sm suspend-button mb-1" id="suspendBtn" type="submit"
+                                                        name="suspendBtn" disabled>
+                                                    <i class="fas fa-pause-circle"></i> Suspend
+                                                </button>
+
+                                                <button class="btn btn-sm discard-button mb-1" id="discardBtn" name="discardBtn"
+                                                        type="button" disabled>
+                                                    <i class="fas fa-times" aria-hidden="true"></i>
+                                                    Discard
+                                                </button>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </form>
                         </div>
-                    </fieldset>
-                </form>
-                <div id="divv" class="form-row">
-                    <div class="col">
-                        <textarea id="report" name="report" placeholder="" rows="25" class="area"></textarea>
                     </div>
-                    <!--                    <div class="col-auto justify-content-end align-items-end"><input type="text" id="captionsSearch"/></div>-->
                 </div>
 
 
@@ -475,6 +491,15 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
         <div style="overflow-x: hidden" class="vspt-table-div">
             <table id="jobs-tbl" class="table vspt-table hover compact"></table>
         </div>
+        <div class="text-right">
+            <button class="btn btn-sm btn-light mb-1 mt-2"
+                    id="showCompBtn"
+                    data-toggle="button"
+                    type="button">
+                <i class="far fa-eye"></i> View Completed
+            </button>
+        </div>
+
     </div>
 
 </div>
@@ -489,7 +514,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 
 
         <div style="text-align: right">
-            <button class="btn confirm-button" id="loadingConfirm">
+            <button class="btn save-button" id="loadingConfirm">
                 <i class="fas fa-check"></i>
                 OK
             </button>
@@ -498,7 +523,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 
 </div>
 
-<div id="modalSearchCaptions" class="vtex-modal" >
+<div id="modalSearchCaptions" class="vtex-modal">
 
     <!-- Modal content -->
     <div class="vtex-modal-content" id="loadingContent" style="width: fit-content!important;">
@@ -513,30 +538,42 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
             </div>
         </div>
 
-<!--        <div id="captionResult">-->
-            <table id="captionsTbl" class="display" style="width: 100% !important"></table>
-<!--        </div>-->
+        <div style="overflow-x: hidden" class="vspt-table-div">
+            <table id="captionsTbl" class="table vspt-table hover compact"></table>
+        </div>
 
-        <div class="row">
-            <div style="text-align: right" class="mt-2 col justify-content-end align-items-end pr-0">
-                <button class="mdc-button mdc-button--unelevated suspend-button" id="capSrcClear">
-                    <div class="mdc-button__ripple"></div>
-                    <!--                <i class="material-icons mdc-button__icon" aria-hidden="true">done_all</i>-->
-                    <span class="mdc-button__label">clear</span>
-                </button>
-            </div>
-            <div style="text-align: right" class="mt-2 col-auto justify-content-end align-items-end">
-                <button class="mdc-button mdc-button--unelevated confirm-button" id="capSrcClose">
-                    <div class="mdc-button__ripple"></div>
-                    <!--                <i class="material-icons mdc-button__icon" aria-hidden="true">done_all</i>-->
-                    <span class="mdc-button__label">close</span>
-                </button>
-            </div>
+        <!--        <div id="captionResult">-->
+        <!--            <table id="captionsTbl" class="display" style="width: 100% !important"></table>-->
+        <!--        </div>-->
+
+        <div style="text-align: right" class="mt-2 col-auto justify-content-end align-items-end pr-0">
+            <button class="btn btn-sm btn-info" id="capSrcClear">
+                Clear
+            </button>
+
+
+            <button class="btn btn-sm btn-secondary" id="capSrcClose">
+                Close
+            </button>
         </div>
     </div>
 
 </div>
 
+<div id="shortcutsModal" class="vtex-modal">
+
+    <!-- Modal content -->
+    <div class="vtex-modal-content">
+        <h2><i class="fas fa-star" style="color: #f2b01e"></i> User Shortcuts</h2>
+        <p><i>Your shortcuts are saved to your user account.</i></p>
+
+        <div style="overflow-x: hidden" class="vspt-table-div">
+            <table id="shortcuts-tbl" class="table vspt-table hover compact"></table>
+        </div>
+
+    </div>
+
+</div>
 
 <div class="overlay" id="overlay">
     <div class="loading-overlay-text" id="loadingText">Loading Transcribe..</div>
@@ -547,7 +584,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
     </div>
 </div>
 
-<?php include_once "data/parts/footer.php"?>
+<?php include_once "data/parts/footer.php" ?>
 </body>
 
 </html>

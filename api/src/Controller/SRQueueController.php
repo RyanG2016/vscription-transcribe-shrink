@@ -36,9 +36,11 @@ class SRQueueController {
     public function processRequest()
     {
         switch ($this->requestMethod) {
-//            case 'GET':
-
-//                break;
+            case 'GET':
+                if ($this->page == "chart") {
+                    $response = $this->getChartData();
+                }
+                break;
             case 'POST':
                 if ($this->page == "incoming") {
                     $response = $this->processRevaiNotification();
@@ -61,6 +63,13 @@ class SRQueueController {
         if ($response['body']) {
             echo $response['body'];
         }
+    }
+
+    private function getChartData()
+    {
+        $result = $this->srQueueGateway->getChartData();
+
+        return $this->respond(HTTP_RESPONSE::HTTP_OK, json_encode($result), HTTP_CONTENT_TYPE::JSON);
     }
 
     private function processRevaiNotification()

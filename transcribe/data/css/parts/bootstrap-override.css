@@ -127,3 +127,9 @@ svg {
     margin-bottom: 35px;
     margin-right: 24px;
 }
+
+
+.dataTables_paginate > ul > li:not(.active) > a.page-link
+{
+    color: hsl(206, 73%, 37%) !important;
+}

@@ -51,6 +51,10 @@ class UserController
                 else if ($this->userId == "list-refresh-enabled") {
                     $response = $this->getListRefreshEnabled();
                 }
+                else if($this->userId == "shortcuts")
+                {
+                    $response = $this->getUserShortcuts();
+                }
                 else if ($this->userId) {
                     $response = $this->getUser($this->userId);
                 } else {
@@ -81,6 +85,10 @@ class UserController
                 else if ($this->userId == "update"){
                     $response = $this->userGateway->updateCurrentUser();
                 }
+                else if($this->userId == "shortcuts")
+                {
+                    $response = $this->addUserShortcut();
+                }
                 else if ($this->userId == "invite"){
                     $response = $this->inviteUserToCurrentAccount();
                 }
@@ -94,7 +102,12 @@ class UserController
                 $response = $this->updateUserFromRequest($this->userId);
                 break;
             case 'DELETE':
-                $response = $this->deleteUser($this->userId);
+                if($this->userId != "shortcuts")
+                {
+                    $response = $this->deleteUser($this->userId);
+                }else{
+                    $response = $this->deleteShortcut();
+                }
                 break;
             default:
                 $response = $this->notFoundResponse();
@@ -128,6 +141,10 @@ class UserController
                 else if ($this->userId == "list-refresh-enabled") {
                     $response = $this->getListRefreshEnabled();
                 }
+                else if($this->userId == "shortcuts")
+                {
+                    $response = $this->getUserShortcuts();
+                }
                 else {
 //                    $response = $this->getAllUsers();
                     $response = $this->notFoundResponse();
@@ -152,6 +169,10 @@ class UserController
                 else if ($this->userId == "set-auto-list-refresh-interval") {
                     $response = $this->setAutoListRefreshInterval();
                 }
+                else if($this->userId == "shortcuts")
+                {
+                    $response = $this->addUserShortcut();
+                }
                 else if ($this->userId == "tutorial-viewed") {
                     $response = $this->tutorialViewed();
                 }
@@ -168,9 +189,9 @@ class UserController
 //            case 'PUT':
 //                $response = $this->updateUserFromRequest($this->userId);
 //                break;
-//            case 'DELETE':
-//                $response = $this->deleteUser($this->userId);
-//                break;
+            case 'DELETE':
+                $response = $this->deleteShortcut();
+                break;
             default:
                 $response = $this->notFoundResponse();
                 break;
@@ -309,6 +330,30 @@ class UserController
     private function getAvailableForWork()
     {
         $result = $this->userGateway->getAvailableForWorkAsTypist();
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = $result;
+        return $response;
+    }
+
+    /**
+     * Retrieves user custom transcribe expandable shortcuts
+     * @return array response
+     */
+    private function getUserShortcuts()
+    {
+        $result = $this->userGateway->getUserShortcuts();
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = $result;
+        return $response;
+    }
+
+    /**
+     * Add a new user custom transcribe expandable shortcut
+     * @return array response
+     */
+    private function addUserShortcut()
+    {
+        $result = $this->userGateway->addUserShortcut();
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
         $response['body'] = $result;
         return $response;
@@ -539,6 +584,26 @@ class UserController
             'error' => false,
             'msg' => 'User Deleted.'
         ]);
+        return $response;
+    }
+
+
+    private function deleteShortcut()
+    {
+
+        $success = $this->userGateway->deleteUserShortcut();
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        if ($success) {
+            $response['body'] = json_encode(['error' => false,
+                'msg' => 'Shortcut Deleted.'
+            ]);
+        } else {
+            $response['body'] = json_encode(['error' => true,
+                'msg' => 'Failed to delete shortcut.'
+            ]);
+        }
+
+
         return $response;
     }
 

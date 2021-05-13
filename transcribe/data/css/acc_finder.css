@@ -27,13 +27,6 @@
 
 }
 
-.mdc-data-table__header-cell {
-    color: white !important;
-    font-weight: bold;
-    /*font-size: 0.9rem;*/
-    /*font-family: opensans;*/
-    padding-left: 10px !important;
-}
 
 .data-tbl {
     width: 100%;
@@ -80,4 +73,8 @@ select, .dt-search {
 
 #jobs-tbl > tfoot > tr > th {
     padding: 0 10px 0 5px;
+}
+
+ul.pagination{
+    float: right;
 }

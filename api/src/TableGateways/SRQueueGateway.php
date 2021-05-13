@@ -308,6 +308,40 @@ class SRQueueGateway implements GatewayInterface
         }
     }
 
+    public function getChartData()
+    {
+
+        $statement = "SELECT srq_status_ref.srq_status as 'status' , srq_status_ref.srq_status_desc as 'label', COUNT(sr_queue.srq_status) AS 'count'
+                    FROM sr_queue
+                             RIGHT JOIN srq_status_ref ON srq_status_ref.srq_status = sr_queue.srq_status
+                    GROUP BY srq_status_ref.srq_status;";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute();
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+
+//            return $result;
+            return array(
+                "labels" => array_column($result, 'label'),
+                "data" => array_column($result, 'count')
+            );
+
+            /*if(isset($_GET["tr"]))
+            {
+                // set job start timer
+                $_SESSION['timerStart'] = date("Y-m-d H:i:s");
+                // load tmp file for transcribe.php
+                return $this->loadTmpFile($result);
+            }else{
+                return $result;
+            }*/
+
+        } catch (\PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+
     /**
      * get next file queued for internal processing
      * @return array|null

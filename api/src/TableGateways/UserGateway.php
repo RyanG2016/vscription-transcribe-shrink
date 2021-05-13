@@ -255,6 +255,39 @@ class UserGateway implements GatewayInterface
     }
 
     /**
+     * Retrieves user custom transcribe expandable shortcuts
+     * @return string|array json shortcuts
+     */
+    public function getUserShortcuts()
+    {
+
+        $statement = "
+            SELECT 
+                   users.shortcuts       
+            FROM
+                users
+            WHERE
+                users.id = ?";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($_SESSION["uid"]));
+            $result = $statement->fetch();
+            if($statement->rowCount() > 0)
+            {
+                if(isset($_GET['dt'])){
+                    return '{ "data": '. $result["shortcuts"] .' }';
+                }
+                return $result["shortcuts"];
+            }
+            return "{}";
+        } catch (\PDOException $e) {
+            return "{}";
+//            exit($e->getMessage());
+        }
+    }
+
+    /**
      * Retrieves if the current user -> account is sr enabled
      * @return int
      * 5 if disabled <br>
@@ -1045,6 +1078,70 @@ class UserGateway implements GatewayInterface
         } catch (\PDOException $e) {
             exit($e->getMessage());
         }
+    }
+
+
+    /**
+     * Delete transcribe user shortcut
+     * REQUEST param: name, val
+     * @return mixed
+     */
+    public function deleteUserShortcut()
+    {
+        $shortcutsJson = $this->getUserShortcuts();
+        $shortcutsArr = json_decode($shortcutsJson);
+        $key = array_search($_REQUEST["name"], array_column($shortcutsArr, 'name'));
+        unset($shortcutsArr[$key]);
+
+        $newJson = json_encode(array_values($shortcutsArr));
+        return $this->updateUserShortcuts($newJson);
+    }
+
+    /**
+     * Updates transcribe user shortcuts
+     * @param $shortcutsJsonString
+     * @return mixed
+     */
+    public function updateUserShortcuts($shortcutsJsonString)
+    {
+        $statement = "
+            UPDATE users
+            SET
+                shortcuts = :shortcuts
+            WHERE
+                id = :id;
+        ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array(
+                'shortcuts' => $shortcutsJsonString,
+                'id' => $_SESSION["uid"]
+            ));
+            return $statement->rowCount();
+        } catch (\PDOException $e) {
+            return 0;
+        }
+    }
+
+
+    /**
+     * Add transcribe user shortcut
+     * REQUEST param: name, val
+     * @return mixed
+     */
+    public function addUserShortcut()
+    {
+        $shortcutsJson = $this->getUserShortcuts();
+        $shortcutsArr = json_decode($shortcutsJson);
+        array_push($shortcutsArr,
+            array(
+                "name"=>str_replace(' ', '', $_REQUEST["name"]),
+                "val"=>$_REQUEST["val"],
+                "custom"=>true
+            ));
+        $newJson = json_encode(array_values($shortcutsArr));
+        return $this->updateUserShortcuts($newJson);
     }
 
     public function getNewPasswordWithHash() {

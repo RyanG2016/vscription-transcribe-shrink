@@ -99,19 +99,19 @@ else {
         var tutorials='<?php echo $tuts;?>';
     </script>
 	
-	<link rel="stylesheet" href="data/css/main.css">
-	<script src="data/scripts/main.min.js?v=6"></script>
+	<link rel="stylesheet" href="data/css/main.css?v=1">
+	<script src="data/scripts/main.min.js?v=7"></script>
 	
 </head>
 
 <body>
 
-<div class="container-fluid d-flex h-auto vspt-container-fluid">
-    <div class="row w-100 h-100 vspt-container-fluid-row no-gutters" style="white-space: nowrap">
+<div class="container-fluid h-100 vspt-container-fluid">
+        <div class="w-100 h-100 d-flex flex-nowrap vspt-container-fluid-row">
 
         <?php include_once "data/parts/nav.php"?>
 
-        <div class="vspt-page-container vspt-col-auto-fix">
+        <div class="vspt-page-container">
 
 <!--            <div class="row">-->
 <!--                <div class="col">-->

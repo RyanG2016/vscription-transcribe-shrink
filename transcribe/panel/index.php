@@ -32,6 +32,8 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
     <script src="../data/libs/node_modules/@material/linear-progress/dist/mdc.linearProgress.js"></script>
     <script src="https://kit.fontawesome.com/12f6b99df9.js" crossorigin="anonymous"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
             integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
             crossorigin="anonymous"></script>
@@ -40,16 +42,20 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
     <link href="../data/css/admin_panel.css" rel="stylesheet">
+    <script src="../data/scripts/admin_panel.min.js" type="text/javascript"></script>
+<!--    <script src="../data/scripts/admin_panel.min.js" type="text/javascript"></script>-->
+
 </head>
 
 <body>
 
-<div class="container-fluid d-flex h-auto vspt-container-fluid">
-    <div class="row w-100 h-100 vspt-container-fluid-row no-gutters" style="white-space: nowrap">
+<div class="container-fluid h-100 vspt-container-fluid">
+        <div class="w-100 h-100 d-flex flex-nowrap vspt-container-fluid-row">
 
-        <?php include_once "../data/parts/nav.php"?>
 
-        <div class="vspt-page-container vspt-col-auto-fix">
+            <?php include_once "../data/parts/nav.php"?>
+
+        <div class="vspt-page-container">
 
            <!-- <div class="row">
                 <div class="col">
@@ -88,6 +94,19 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
                         </td>
                     </tr>
                 </table>
+
+                <h2 class="mdc-typography--headline4">Charts</h2>
+                <div class="row no-gutters">
+                    <div class="pie-container">
+                        <h3 class="text-center">Files</h3>
+                        <canvas id="filesChart"></canvas>
+                    </div>
+
+                    <div class="pie-container">
+                        <h3 class="text-center">SR Queue</h3>
+                        <canvas id="srqChart"></canvas>
+                    </div>
+                </div>
 
 
             </div>
