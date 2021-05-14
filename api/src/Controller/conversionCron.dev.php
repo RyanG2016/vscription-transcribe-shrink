@@ -77,9 +77,9 @@ while ($start) {
         $orgFileSize = filesize($orgFile);
         $plainName = pathinfo($fileName, PATHINFO_FILENAME);
         $file_id = $fileEntry["file_id"];
-        $fileStatus = $fileEntry["file_status"];
+        $file_status = $fileEntry["file_status"];
 
-        if($fileStatus != FILE_STATUS::QUEUED_FOR_CONVERSION && $fileStatus != FILE_STATUS::QUEUED_FOR_SR_CONVERSION)
+        if($file_status != FILE_STATUS::QUEUED_FOR_CONVERSION && $file_status != FILE_STATUS::QUEUED_FOR_SR_CONVERSION)
         {
             $conversionsGateway->updateConversionStatusFromParam($file_id ,2); // need review
         }
