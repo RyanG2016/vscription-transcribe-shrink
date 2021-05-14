@@ -590,7 +590,7 @@ class FileGateway implements GatewayInterface
                             try {
                                 $statement = $this->db->prepare($statement);
                                 $statement->execute();
-                                $this->logger->insertAuditLogEntry($this->API_NAME, "File ". $orig_filename ." uploaded");
+                                $this->logger->insertAuditLogEntry($this->API_NAME, "File ". $orig_filename ." uploaded with status code: " . $file_status);
 //                                return $statement->rowCount();
                                 return true;
                             } catch (PDOException $e) {
