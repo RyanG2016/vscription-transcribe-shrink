@@ -624,14 +624,17 @@ class FileGateway implements GatewayInterface
             ));
 
             if ($statement->rowCount()) {
+                $this->logger->insertAuditLogEntry($this->API_NAME, "Updated file id: " . $file_id . " to status: " . $new_status);
                 return true;
 //                return $this->formatResult("Convert Record Updated", false);
             } else {
+                $this->logger->insertAuditLogEntry($this->API_NAME, "Failed to update file: " . $file_id . " to status: " . $new_status . " | no errors given");
                 return false;
 //                return $this->formatResult("Failed to update convert record", true);
             }
 //            return $statement->rowCount();
         } catch (\PDOException $e) {
+            $this->logger->insertAuditLogEntry($this->API_NAME, "Failed to update file: " . $file_id . " to status: " . $new_status . " | Error: " . $e->getMessage());
             return false;
 //            return $this->formatResult("Failed to update convert record (2)", true);
         }
