@@ -17,7 +17,7 @@ require '../api/bootstrap.php';
 use Src\TableGateways\AccountGateway;
 
 if (isset($_SESSION['role'])) {
-    if ($_SESSION['role'] != "2" && $_SESSION['role'] != "1" && $_SESSION['role'] != "5") {
+    if ($_SESSION['role'] != "2" && $_SESSION['role'] != "1" && $_SESSION['role'] != "5" && $_SESSION['role'] != "3") {
         header('location:accessdenied.php');
     }
 } else {
