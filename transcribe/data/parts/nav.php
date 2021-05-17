@@ -181,7 +181,14 @@
                break;
 
            case 3:
-               echo '<a href="/transcribe.php" class="bg-dark list-group-item list-group-item-action">
+               echo '
+					   <a href="/jobupload.php" class="bg-dark list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <span class="fas fa-cloud-upload-alt fa-fw mr-3"></span>
+                                <span class="menu-collapsed d-none">Upload Jobs</span>
+                            </div>
+                        </a>
+						<a href="/transcribe.php" class="bg-dark list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-start align-items-center">
                                 <span class="fas fa-keyboard fa-fw mr-3"></span>
                                 <span class="menu-collapsed d-none">Transcribe</span>
