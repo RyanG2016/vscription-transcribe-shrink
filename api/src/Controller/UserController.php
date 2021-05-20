@@ -456,7 +456,7 @@ class UserController
                 return $response;
             }
 
-            if($_SESSION["role"] == 1 || $_SESSION["role"] == 2)
+            if($_SESSION["role"] == 1 || $_SESSION["role"] == 2 || $_SESSION["role"] == 3 || $_SESSION["role"] == 5)
             {
                 $sr = SR::withAccID($_SESSION["accID"], $this->db);
                 $minutes = $sr->getSrMinutesRemaining();
