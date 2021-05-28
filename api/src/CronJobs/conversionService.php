@@ -111,7 +111,7 @@ class conversionService
 
                 if($this->file_status != FILE_STATUS::QUEUED_FOR_CONVERSION && $this->file_status != FILE_STATUS::QUEUED_FOR_SR_CONVERSION)
                 {
-//                    $this->conversionsGateway->updateConversionStatusFromParam($this->file_id ,2); // need review // todo uncomment
+                    $this->conversionsGateway->updateConversionStatusFromParam($this->file_id ,2); // need review
                 }
 
                 $this->convertDssToMp3($fileName);
@@ -158,7 +158,6 @@ class conversionService
         
         $taskName = "_F" . $this->file_id . "_" . time();
         // escapeshellarg($command);
-        // todo command to shell file
         // generate batch command file
         $this->batchFile = $this->shellDir . "\\" . $taskName . ".bat";
         file_put_contents($this->batchFile, $command.PHP_EOL , LOCK_EX);
