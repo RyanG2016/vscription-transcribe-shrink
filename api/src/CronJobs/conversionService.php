@@ -151,7 +151,7 @@ class conversionService
 //        global $dbConnection;
 
 
-        $command = "'$this->switchPath' -convert ".escapeshellarg($this->orgFile)." -outfolder ".escapeshellarg($this->uploadsDir)." -format $this->conv_ext -overwrite ALWAYS -exit";
+        $command = '"' . $this->switchPath . "\" -convert ".escapeshellarg($this->orgFile)." -outfolder ".escapeshellarg($this->uploadsDir)." -format $this->conv_ext -overwrite ALWAYS -exit";
         // $command = "'$switchPath' -convert '$orgFile' -outfolder '$uploadsDir' -format $conv_ext -overwrite ALWAYS -exit";
         // $command = '"C:\Program Files (x86)\NCH Software\Switch\switch.exe" -convert "D:\tmp\test\dss\d.DS2" -outfolder "D:\tmp\test\dss" -settempfolder "D:\tmp\test\dss\tmp" -format .mp3 -overwrite ALWAYS -hide -exit';
         // $command = '"C:\Program Files (x86)\NCH Software\Switch\switch.exe" -convert "D:\tmp\test\dss\d.DS2" -outfolder "D:\tmp\test\dss" -format .mp3 -overwrite ALWAYS -hide -exit';
