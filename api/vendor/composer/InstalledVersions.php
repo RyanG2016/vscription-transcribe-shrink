@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '2834d44cd2423d3d5d2c5e15f8f7a07a642a67ae',
+    'reference' => 'ee0388be1ed3b0c9642b873cb754d25f0e812e35',
     'name' => 'transcribe/src',
   ),
   'versions' => 
@@ -142,6 +142,15 @@ private static $installed = array (
       array (
       ),
       'reference' => '2c2370ba3df7034f9eb7b8f387c97b52b2ba5ad0',
+    ),
+    'phpstan/phpstan' => 
+    array (
+      'pretty_version' => '0.12.88',
+      'version' => '0.12.88.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '464d1a81af49409c41074aa6640ed0c4cbd9bb68',
     ),
     'psr/container' => 
     array (
@@ -283,7 +292,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '2834d44cd2423d3d5d2c5e15f8f7a07a642a67ae',
+      'reference' => 'ee0388be1ed3b0c9642b873cb754d25f0e812e35',
     ),
     'vlucas/phpdotenv' => 
     array (
