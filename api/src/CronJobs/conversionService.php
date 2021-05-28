@@ -60,6 +60,10 @@ class conversionService
         $this->rootDir = realpath($this->dir . "/../../../");
         $this->uploadsDir = "$this->rootDir\uploads";
         $this->shellDir = "$this->rootDir\convert_shell";
+        if(!file_exists($this->shellDir))
+        {
+            mkdir($this->shellDir);
+        }
         $this->switchPath = "C:\Program Files (x86)\NCH Software\Switch\switch.exe";
 
         $this->conversionsGateway = new conversionGateway($this->db);
