@@ -29,7 +29,11 @@ class AccountController
         switch ($this->requestMethod) {
             case 'GET':
                 if ($this->accountId) {
-                    $response = $this->getAccount($this->accountId);
+                    if (isset($this->uri[1]) && $this->uri[1] == "worktypes") {
+                        $response = $this->getAccountWorkTypes($this->accountId);
+                    } else {
+                        $response = $this->getAccount($this->accountId);
+                    }
                 } else {
                     $response = $this->getAllAccounts();
                 }
@@ -85,7 +89,12 @@ class AccountController
         switch ($this->requestMethod) {
             case 'GET':
                 if ($this->accountId) {
-                    $response = $this->getPublicAccount($this->accountId);
+                    if(isset($this->uri[1]) && $this->uri[1] == "worktypes")
+                    {
+                        $response = $this->getAccountWorkTypes($this->accountId);
+                    }else{
+                        $response = $this->getPublicAccount($this->accountId);
+                    }
                 } else {
                     $response = $this->notFoundResponse();
                 }
@@ -187,6 +196,18 @@ class AccountController
     private function getPublicAccount($id)
     {
         $result = $this->accountGateway->findPubAccount($id);
+        /*if (! $result) {
+//            return $this->notFoundResponse();
+        }*/
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = json_encode($result);
+        return $response;
+    }
+
+
+    private function getAccountWorkTypes($id)
+    {
+        $result = $this->accountGateway->getWorkTypes($id);
         /*if (! $result) {
 //            return $this->notFoundResponse();
         }*/

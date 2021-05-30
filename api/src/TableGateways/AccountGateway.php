@@ -728,6 +728,7 @@ class AccountGateway implements GatewayInterface
      * @param $accID int account ID
      * @return array work types delimited by commas
      * @internal used in transcribe.php
+     * Also used in API endpoint /accounts/{id}/worktypes
      */
     public function getWorkTypes($accID)
     {
