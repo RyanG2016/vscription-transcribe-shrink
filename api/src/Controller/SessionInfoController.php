@@ -39,7 +39,7 @@ class SessionInfoController {
                 "first_name" => $_SESSION["fname"],
                 "last_name" => $_SESSION["lname"],
                 "email" => $_SESSION["uEmail"],
-//                "role" => $_SESSION["role"],
+                "role" => $_SESSION["role"],
                 "account_id" => isset($_SESSION["accID"])?$_SESSION["accID"]:0
             )
         );
