@@ -149,7 +149,7 @@ include('data/parts/head.php');
                                     174 MB
                                 </td>
                                 <td>
-                                    <a href="/controller_app/upload_app/windows/vScription_upload_setup_v1.1.exe">vScription_upload_setup_v1.3.exe</a>
+                                    <a href="/controller_app/upload_app/windows/vScription_upload_setup_v1.3.exe">vScription_upload_setup_v1.3.exe</a>
                                 </td>
                             </tr>                            
                             <tr>
