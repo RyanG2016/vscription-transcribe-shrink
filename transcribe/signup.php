@@ -176,11 +176,11 @@ $hasRef = isset($_GET['ref']) && !empty($_GET['ref']);
                         </div>
                         <div class="col">
                             <!----------------------Confirm Password-------------->
-                            <label for="inputConfirmPassword"><i class="fas fa-key"></i> Confirm Password</label>
+                            <label for="inputConfirmPassword"><i class="fas fa-key"></i> Confirm </label>
                             <input type="password" class="form-control" id="inputConfirmPassword"
                                    placeholder="Confirm Password"
                                    title="Confirm Password"
-                                   data-trigger="focus"
+                                   data-trigger="manual"
                                    required>
                             <!--<div class="valid-feedback">
                                 Looks good!

@@ -213,6 +213,7 @@ $(document).ready(function () {
 
     pwd.popover({
         html: true,
+        placement: "top",
         content: "<ul>\n" +
             "    <li><b>Password length should be between 8 and 60 characters</b></li>\n" +
             "    <li>at least 1 uppercase.</li>\n" +
@@ -724,6 +725,14 @@ $(document).ready(function () {
 
     }
     email.keyup();
+
+    pwd.focusout(function(){
+        if (!checkPassword()) {
+             pwd.popover('show')
+         } else {
+             pwd.popover('hide')
+         }
+    });
 
 /////////////////////////////////////////
 });
