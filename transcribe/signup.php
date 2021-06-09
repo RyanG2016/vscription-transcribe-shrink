@@ -165,7 +165,7 @@ $hasRef = isset($_GET['ref']) && !empty($_GET['ref']);
                             <input type="password" class="form-control" id="inputPassword" placeholder="Password"
                                    name="password"
                                    title="Password Requirements"
-                                   data-trigger="focus"
+                                   data-trigger="manual"
                                    required>
                             <!--<div class="valid-feedback">
                                 Looks good!
@@ -180,7 +180,7 @@ $hasRef = isset($_GET['ref']) && !empty($_GET['ref']);
                             <input type="password" class="form-control" id="inputConfirmPassword"
                                    placeholder="Confirm Password"
                                    title="Confirm Password"
-                                   data-trigger="manual"
+                                   data-trigger="focus"
                                    required>
                             <!--<div class="valid-feedback">
                                 Looks good!
