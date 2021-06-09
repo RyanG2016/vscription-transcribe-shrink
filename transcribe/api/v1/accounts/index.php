@@ -3,7 +3,7 @@
 require '../../../../api/bootstrap.php';
 
 include('../../../data/parts/session_settings.php');
-
+header("Content-Type: application/json; charset=UTF-8");
 require('../../../data/parts/ping.php');
 require "../parts/checkAuth.php"; // <-- checking for basic auth before request & if the user is already logged in
 if(isset($_SESSION['counter']))
@@ -14,7 +14,6 @@ if(isset($_SESSION['counter']))
 use Src\Controller\AccountController;
 
 header("Access-Control-Allow-Origin: *");
-header("Content-Type: application/json; charset=UTF-8");
 //header("Access-Control-Allow-Methods: OPTIONS,GET,POST,PUT,DELETE");
 header("Access-Control-Allow-Methods: POST,GET,DELETE");
 header("Access-Control-Max-Age: 3600");

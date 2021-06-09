@@ -157,7 +157,7 @@ class AccountController
      * Creates a client administrator account for the current logged in user
      * <br> <i>(only allowed once per user account)</i>
      * * @param string acc_name from post request
-     * @return string API response with header
+     * @return array API response with header
      */
     private function createClientAccount()
     {
