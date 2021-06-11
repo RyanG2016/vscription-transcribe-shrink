@@ -159,13 +159,13 @@ $hasRef = isset($_GET['ref']) && !empty($_GET['ref']);
 
                     <div class="form-row m-t-16">
 
-                        <div class="col">
+                        <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                             <!----------------------PASSWORD-------------->
                             <label for="inputPassword"><i class="fas fa-key"></i> Password</label>
                             <input type="password" class="form-control" id="inputPassword" placeholder="Password"
                                    name="password"
                                    title="Password Requirements"
-                                   data-trigger="focus"
+                                   data-trigger="click"
                                    required>
                             <!--<div class="valid-feedback">
                                 Looks good!
@@ -174,9 +174,9 @@ $hasRef = isset($_GET['ref']) && !empty($_GET['ref']);
                                 Please enter a valid password
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                             <!----------------------Confirm Password-------------->
-                            <label for="inputConfirmPassword"><i class="fas fa-key"></i> Confirm Password</label>
+                            <label for="inputConfirmPassword"><i class="fas fa-key"></i> Confirm </label>
                             <input type="password" class="form-control" id="inputConfirmPassword"
                                    placeholder="Confirm Password"
                                    title="Confirm Password"
@@ -226,7 +226,7 @@ $hasRef = isset($_GET['ref']) && !empty($_GET['ref']);
 
                     <!----------------------NAME----------------->
                     <div class="form-row m-t-16">
-                        <div class="col">
+                        <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                             <label for="inputfName"><i class="fas fa-font"></i> First Name</label>
                             <input type="text" class="form-control" id="inputfName" placeholder="" name="fname"
                                    required autofocus>
@@ -237,7 +237,7 @@ $hasRef = isset($_GET['ref']) && !empty($_GET['ref']);
                                 Please enter your name.
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                             <label for="inputlName"><i class="fas fa-bold"></i> Last Name</label>
                             <input type="text" class="form-control" id="inputlName" placeholder="" name="lname"
                                    required>
