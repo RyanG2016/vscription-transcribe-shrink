@@ -1,0 +1,119 @@
+@startuml
+title Signup endpoint
+|POST /api/v1/signup/|
+
+skinparam backgroundColor white
+
+skinparam activity {
+  StartColor #1e79be
+  ArrowColor #1e79be
+  EndColor #1e79be
+  BackgroundColor white
+  SequenceTitleFontColor white
+  BorderColor #1e79be
+  FontName Tahoma
+}
+'|main|
+start
+
+:POST Request
+
+/api/v1/signup/;
+
+note right
+     REQUEST
+     == Required ==
+     * email | valid email string
+     * password | min 8 chars Az$
+     * fname | string
+     * lname | string
+     * country | string
+     == optional ==
+     * ref | referral key from invite email
+     * accname | Client admin account name to be created
+end note
+
+note left
+     == Response ==
+     JSON
+     * error | boolean
+     * msg   | string message
+     * data  | extra data (array) if needed
+     * code  | Integer extra code if needed
+end note
+
+if(required field) then
+    -> missing;
+    :response.error = true
+    response.msg = "Missing required info";
+    stop
+endif
+
+
+
+if(validate fields) then
+
+    -> not valid;
+        :response.error = true
+        response.msg = "<ex: Please enter a valid email>";
+        stop;
+'endif
+else if(user already exists then) then (yes)
+    :response.error = true
+    **response.code = 301**
+    response.msg = "Account already exists, login instead?"
+
+    *should redirect user to login page;
+    stop
+endif
+-> valid;
+
+if(signup) then
+    -> signup failed;
+    :response.error = true
+    response.msg = "Couldn't sign you up, please contact system admin";
+    stop
+endif
+
+-> signup success;
+ #lightgreen:response.error = false
+ response.msg = "Signup Successful, we have sent... **<HTML>**"
+ **response.data.id** = <user ID>;
+|verify\nGET /api/v1/signup/verify|
+
+start
+:GET request
+/api/v1/signup/verify;
+note right
+     REQUEST
+     == Required ==
+     * user | valid email string
+     * token | 6 chars token
+end note
+
+note left
+     == Response ==
+     JSON
+     * error | boolean
+     * msg   | string message
+     * code  | Integer extra code if needed
+end note
+
+if(required field) then
+    -> missing;
+    :response.error = true
+    response.msg = "Bad request";
+    stop
+endif
+
+if(token expired) then (yes)
+    :response.error = true
+    response.msg = "Verification expired or doesn't exist";
+
+    stop
+endif
+#lightgreen:response.error = false
+response.msg = "Account verified, you can now login";
+
+
+@enduml

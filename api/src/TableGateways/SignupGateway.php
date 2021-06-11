@@ -213,6 +213,70 @@ class SignupGateway
 
     }
 
+
+ /**
+     * Verify users from GET request made to signup/verify API endpoint
+     * @return mixed Response with header and body @common.php
+     */
+    public function verifyUser($user, $token)
+    {
+        //check alogrithm
+        $email = strtolower($user);
+        $ct = date("Y-m-d H:i:s");
+//        $sct = strtotime(date("Y-m-d H:i:s")); //current time stamp in seconds
+        $timestamp = strtotime($ct) + 60*60;
+//        $onehourahead = date("Y-m-d H:i:s", $timestamp);
+
+
+        $sql = "SELECT *, DATE_ADD(time, INTERVAL '24:0' HOUR_MINUTE) as expire
+                FROM `tokens` 
+                WHERE identifier=?
+                  AND email = ?
+                  AND used=0 
+                  AND token_type=5 
+                  AND DATE_ADD(time, INTERVAL '24:0' HOUR_MINUTE) > NOW()";
+
+
+        $sql2 = "UPDATE tokens SET used=1 WHERE identifier = ?";
+        $sql3 = "UPDATE users SET account_status=1 WHERE email = ?";
+
+        try {
+                $stmt = $this->db->prepare($sql);
+                $stmt->execute(array($token, $email));
+
+                // Check number of rows in the result set
+                if ($stmt->rowCount() > 0)
+                {
+                    $row = $stmt->fetch();
+                    $_SESSION['uEmail'] = $email;
+//                    $time = $row['time'];
+//                    $stime = strtotime($time);
+                    $used = $row['used'];
+
+                    $stmt2 = $this->db->prepare($sql2);
+                    $stmt3 = $this->db->prepare($sql3);
+                    if($used == 0) {
+
+                        // token available
+                        $stmt2->execute(array($token)); // expire token
+                        $stmt3->execute(array($email)); // verify/enable user account
+
+                        return generateApiHeaderResponse("Account verified, you can now login", false);
+
+                    }else{
+                        return generateApiHeaderResponse("Verification expired or doesn't exist", true);
+                    }
+
+
+                } else{
+                    return generateApiHeaderResponse("Verification expired or doesn't exist", true);
+                }
+        } catch (\PDOException $e) {
+            return generateApiHeaderResponse("Failed to verify account", true);
+        }
+
+    }
+
     /**
      * @internal used by signup function to create and associate Client Admin Account with a newly created user
      * if the accName is present
