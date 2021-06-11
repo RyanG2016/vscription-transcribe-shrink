@@ -99,20 +99,37 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: function (response) {
-                accessDTRef.ajax.reload(); // refresh access table
-                createAccModal.modal('hide');
-                changeLoading(false);
-                $.confirm({
-                    title: 'Success',
-                    content: response["msg"],
-                    buttons: {
-                        confirm: {
-                            text: "Ok",
-                            btnClass: 'btn-green'
+                if(!response.error)
+                {
+                    accessDTRef.ajax.reload(); // refresh access table
+                    createAccModal.modal('hide');
+                    changeLoading(false);
+                    $.confirm({
+                        title: 'Success',
+                        content: response.msg,
+                        buttons: {
+                            confirm: {
+                                text: "Ok",
+                                btnClass: 'btn-green'
+                            }
                         }
-                    }
-                });
-                accountBox.val("");
+                    });
+                    accountBox.val("");
+                }else{
+                    createAccModal.modal('hide');
+                    changeLoading(false);
+                    accountBox.val("");
+                    $.confirm({
+                        title: 'Error',
+                        content: response.msg,
+                        buttons: {
+                            confirm: {
+                                btnClass: 'btn-red',
+                                text: "Ok"
+                            }
+                        }
+                    });
+                }
 
             },
             error: function (err) {

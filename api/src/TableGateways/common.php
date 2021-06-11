@@ -72,7 +72,8 @@ function generateApiHeaderResponse($msg = false, $error = false, $data = false, 
         );
     }
 
-    $response['status_code_header'] = $error ? "HTTP/1.1 422 Unprocessable Entity" : "HTTP/1.1 200 OK";
+//    $response['status_code_header'] = $error ? "HTTP/1.1 422 Unprocessable Entity" : "HTTP/1.1 200 OK";
+    $response['status_code_header'] = "HTTP/1.1 200 OK";
     $response['body'] = json_encode($a);
     return $response;
 }

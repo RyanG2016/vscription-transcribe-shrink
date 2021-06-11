@@ -12,12 +12,14 @@ class SignupController {
     private $option;
     private $signupGateway;
     private $mailer;
+    private $uri;
 
-    public function __construct($db, $requestMethod, $option)
+    public function __construct($db, $requestMethod, $option, $uri)
     {
         $this->db = $db;
         $this->requestMethod = $requestMethod;
         $this->option = $option;
+        $this->uri = $uri;
         $this->mailer = new Mailer($db);
         $this->signupGateway = new SignupGateway($db);
     }
@@ -27,7 +29,14 @@ class SignupController {
         new Throttler("signup", 10, \bandwidthThrottle\tokenBucket\Rate::MINUTE);
         switch ($this->requestMethod) {
 
-//            case 'GET':
+            case 'GET':
+                if($this->option == "verify")
+                {
+                    $response = $this->verifyUserAccount();
+                }else{
+                    $response = $this->notFoundResponse();
+                }
+                break;
                 /*new Throttler("signup", 10, \bandwidthThrottle\tokenBucket\Rate::MINUTE);
                 $response = $this->validateSignup();
                 break;*/
@@ -89,6 +98,19 @@ class SignupController {
     }
 
 
+    private function verifyUserAccount()
+    {
+//        echo "hi";
+        // fname=&lname=&email=hacker2894%40gmail.com&password=Iceman2801&countryID=209&stateID=70&city=
+        if(isset($_GET['token']) && isset($_GET['user'])) {
+            return $this->signupGateway->verifyUser($_GET['user'], $_GET['token']);
+        }else{
+            return generateApiHeaderResponse("Bad request", true);
+        }
+
+    }
+
+
     private function validateAndSignUp()
     {
 //        echo "hi";
@@ -109,13 +131,14 @@ class SignupController {
             empty($_POST["lname"]) ||
             empty($_POST["country"])
         ){
-            return $this->unprocessableEntityResponse();
+//            return $this->unprocessableEntityResponse();
+            return generateApiHeaderResponse("Missing required info", true,false);
         }
 
         // validate user email
         if(!$this->validateEmail($_POST["email"]))
         {
-            return $this->unprocessableEntityResponse();
+            return generateApiHeaderResponse("Please enter a valid Email address", true,false);
         }
 
         // check if user already exists
@@ -147,6 +170,12 @@ class SignupController {
 
     private function validateEmail($email)
     {
+//        $output_array = null;
+//        $ptn = "/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};\':\"\\\\|,. <>\/?]).{8,}/";
+//        $ptn = "/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/";
+//        preg_match($ptn, $email, $output_array);
+
+//        return $output_array != false;
         return filter_var($email, FILTER_VALIDATE_EMAIL);
     }
 

@@ -52,7 +52,8 @@ $option = null;
 if (isset($uri[4])) {
     $option = $uri[4];
 }
+$rawURI = array_slice($uri, 4, count($uri));
 
 // pass the request method and user ID to the PersonController and process the HTTP request:
-$controller = new SignupController($dbConnection, $requestMethod, $option);
+$controller = new SignupController($dbConnection, $requestMethod, $option, $rawURI);
 $controller->processRequest();

@@ -421,54 +421,67 @@ $(document).ready(function () {
 
                         // handle responses
                         // -------------
-                        signedUp = true;
-                        setUIforVerification();
 
-                        self.setTitle("Thanks for Signing Up!");
-                        self.setType("green");
-                        self.setContent(response["msg"]);
+                        if(!response.error)
+                        {
+                            signedUp = true;
+                            setUIforVerification();
 
-                        self.buttons.ok.setText("Ok");
-                        self.buttons.ok.addClass("btn-green");
-                        self.buttons.ok.removeClass("btn-default");
-                        self.buttons.close.hide();
+                            self.setTitle("Thanks for Signing Up!");
+                            self.setType("green");
+                            self.setContent(response["msg"]);
+
+                            self.buttons.ok.setText("Ok");
+                            self.buttons.ok.addClass("btn-green");
+                            self.buttons.ok.removeClass("btn-default");
+                            self.buttons.close.hide();
+                        }else{
+                            if(response.code != null && response.code === 301)
+                            {
+                                // redirect to login screen
+
+                                self.setTitle("oops..");
+                                self.setType("red");
+                                self.setContent(response.msg);
+
+                                self.buttons.ok.setText("Yes");
+                                self.buttons.ok.addClass("btn-green");
+                                self.buttons.ok.removeClass("btn-default");
+
+                                self.buttons.ok.action = function(){
+                                    location.href = "index.php";
+                                };
+
+                                self.buttons.close.setText("No");
+                                self.buttons.close.show();
+
+
+                            }else {
+                                self.setTitle("oops..");
+                                self.setType("red");
+                                self.setContent(response.msg);
+                                self.buttons.ok.setText("Ok");
+                                self.buttons.ok.addClass("btn-green");
+                                // self.buttons.ok
+                                // self.buttons.ok.btnClass = "btn-green"
+                                self.buttons.ok.removeClass("btn-default")
+                                self.buttons.close.hide();
+                            }
+                        }
+
 
                         // self.setContentAppend('<div>Done!</div>');
 
                     }).fail(function(xhr, status, err){
-
-                        if(xhr.responseJSON["code"] != null && xhr.responseJSON["code"] == 301)
-                        {
-                            // redirect to login screen
-
-                            self.setTitle("oops..");
-                            self.setType("red");
-                            self.setContent(xhr.responseJSON["msg"]);
-
-                            self.buttons.ok.setText("Yes");
-                            self.buttons.ok.addClass("btn-green");
-                            self.buttons.ok.removeClass("btn-default");
-
-                            self.buttons.ok.action = function(){
-                                location.href = "index.php";
-                            };
-
-                            self.buttons.close.setText("No");
-                            self.buttons.close.show();
-
-
-                        }else {
-                            self.setTitle("oops..");
-                            self.setType("red");
-                            self.setContent(xhr.responseJSON["msg"]);
-                            self.buttons.ok.setText("Ok");
-                            self.buttons.ok.addClass("btn-green");
-                            // self.buttons.ok
-                            // self.buttons.ok.btnClass = "btn-green"
-                            self.buttons.ok.removeClass("btn-default")
-                            self.buttons.close.hide();
-                        }
-
+                        self.setTitle("oops..");
+                        self.setType("red");
+                        self.setContent(xhr.responseJSON["msg"]);
+                        self.buttons.ok.setText("Ok");
+                        self.buttons.ok.addClass("btn-green");
+                        // self.buttons.ok
+                        // self.buttons.ok.btnClass = "btn-green"
+                        self.buttons.ok.removeClass("btn-default")
+                        self.buttons.close.hide();
                     })
 /*                        .always(function(){
                         // self.setContentAppend('<div>Always!</div>');

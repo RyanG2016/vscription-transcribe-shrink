@@ -369,21 +369,41 @@ function resetpw() {
                     // var ajaxResponse = response;
                     // console.log(response);
 
-                    $.confirm({
-                        title: 'Success',
-                        type: 'green',
-                        content: response["msg"],
-                        buttons: {
-                            confirm: {
-                                text: "OK",
-                                btnClass: 'btn-green',
-                                action: function () {
-                                    showLoginFields();
-                                }
-                            },
+                    if(!response.error)
+                    {
+                        $.confirm({
+                            title: 'Success',
+                            type: 'green',
+                            content: response.msg,
+                            buttons: {
+                                confirm: {
+                                    text: "OK",
+                                    btnClass: 'btn-green',
+                                    action: function () {
+                                        showLoginFields();
+                                    }
+                                },
 
-                        }
-                    });
+                            }
+                        });
+                    }else{
+                        $.confirm({
+                            title: 'oops..',
+                            type: 'red',
+                            content: response.msg,
+                            buttons: {
+                                confirm: {
+                                    text: "OK",
+                                    btnClass: 'btn-green',
+                                    action: function () {
+                                        showLoginFields();
+                                    }
+                                }
+
+                            }
+                        });
+                    }
+
 
                 },
                 error: function (err) {

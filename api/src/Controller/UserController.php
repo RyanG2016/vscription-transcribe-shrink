@@ -521,8 +521,10 @@ class UserController
         if(
             !isset($_POST["email"]) || empty($_POST["email"]) ||
             !isset($_POST["role"]) || empty($_POST["role"]) ||
-            !isset($_SESSION['role']) || ($_SESSION['role'] != 2 && $_SESSION['role'] != 1)
-        ) {
+            !isset($_SESSION['role']) || ($_SESSION['role'] != 2 && $_SESSION['role'] != 1) ||
+            !filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)
+
+    ) {
             return generateApiHeaderResponse("Invalid Input (UC-I1)", true);
         }
         $email = $_POST["email"];
