@@ -1381,6 +1381,12 @@ $(document).ready(function () {
         }
     }
 
+    // window.handleAbleMediaRestart = function()
+    // {
+    //     console.log("restarting playback");
+    //     AblePlayerInstances[0].seekTo(0);
+    // }
+
     window.handleAbleMediaUpdate = function()
     {
         var elapsed = AblePlayerInstances[0].media.currentTime;
