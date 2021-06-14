@@ -1211,7 +1211,9 @@ $(document).ready(function () {
     function decodeHtml(html) {
         var txt = document.createElement("textarea");
         txt.innerHTML = html;
-        return txt.value;
+        txt.remove();
+        // return txt.value.replace(/&/g,'&amp;').replace(/<</g,'&lt;&lt;').replace(/>>/g,'&gt;&gt;');
+        return txt.value.replace(/<</g,'&lt;&lt;').replace(/>>/g,'&gt;&gt;');
     }
 
     /*-----LOAD FROM SERVER VERSUS LOCAL----*/
