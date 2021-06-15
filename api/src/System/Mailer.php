@@ -189,13 +189,14 @@ class Mailer
                     $emHTML = file_get_contents(__DIR__ . '/../../../mail/templates/job_ready_for_typing.html');
 
                     $replace_pairs = array(
-                        '{{year}}'    => date("Y")
+                        '{{year}}'    => date("Y"),
+                        '{{organization}}'=> $account_name
                     );
 
                     $emHTML = strtr($emHTML, $replace_pairs);
                     $emPlain = $emHTML;
 
-                    $sbj = "New Job(s) Ready for Typing";
+                    $sbj = "New Job(s) Ready for Typing for $account_name";
                     $emailsArray = $this->mailingGateway->getCurrentTypistsForJobUpdates();
                     $mailingListSize = sizeof($emailsArray);
                     if($mailingListSize > 0)
