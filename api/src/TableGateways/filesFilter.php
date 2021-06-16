@@ -100,32 +100,32 @@ function parseFileUpdateParams($role, $data = null, $db = null)
             if( isset($_POST["job_document_html"]) && !empty($_POST["job_document_html"]) )
             {
                 $tinyMCE = $_POST["job_document_html"];
-                $initials = strtolower(substr($_SESSION['fname'],0,1)) . strtolower(substr($_SESSION['lname'],0,1));
+//                $initials = strtolower(substr($_SESSION['fname'],0,1)) . strtolower(substr($_SESSION['lname'],0,1));
 
-                $report = '<b>'.'Job Number: ' .'</b>'. $row['job_id'] .'<br/>';
-                $report = $report . '<b>'.'Author Name: ' .'</b>'. $row['file_author'].'<br/>';
-                $report = $report . '<b>'.'Typist Name: ' .'</b>'. $initials .'<br/>';
-                $report = $report . '<b>'.'Job Type: ' .'</b>'.ucfirst($row['file_work_type']).'<br/>';
-                $report = $report . '<b>'.'Job Length: ' .'</b>';
-                if(isset($_POST['audio_length']))
-                {
-                    $report = $report . gmdate("H:i:s", $_POST['audio_length']);
-                }else{
-                    $report = $report .gmdate("H:i:s", $row['audio_length']);
-                }
-                $report .= "<br/>";
-                $report = $report . '<b>'.'Date Dictated: ' .'</b>'.$row['file_date_dict'].'<br/>';
-                $report = $report. '<b>'.'Date Transcribed: ' .'</b>' . $dateTrans .'<br/>';
-                $report = $report . '<b>'.'Comments: ' .'</b>'.$row['typist_comments'].'<br/>';
+//                $report = '<b>'.'Job Number: ' .'</b>'. $row['job_id'] .'<br/>';
+//                $report = $report . '<b>'.'Author Name: ' .'</b>'. $row['file_author'].'<br/>';
+//                $report = $report . '<b>'.'Typist Name: ' .'</b>'. $initials .'<br/>';
+//                $report = $report . '<b>'.'Job Type: ' .'</b>'.ucfirst($row['file_work_type']).'<br/>';
+//                $report = $report . '<b>'.'Job Length: ' .'</b>';
+//                if(isset($_POST['audio_length']))
+//                {
+//                    $report = $report . gmdate("H:i:s", $_POST['audio_length']);
+//                }else{
+//                    $report = $report .gmdate("H:i:s", $row['audio_length']);
+//                }
+//                $report .= "<br/>";
+//                $report = $report . '<b>'.'Date Dictated: ' .'</b>'.$row['file_date_dict'].'<br/>';
+//                $report = $report. '<b>'.'Date Transcribed: ' .'</b>' . $dateTrans .'<br/>';
+//                $report = $report . '<b>'.'Comments: ' .'</b>'.$row['typist_comments'].'<br/>';
 
-                $report = $report.'<br/>';
-                $report = $report.'<br/>';
-                $report = $report . $tinyMCE;
+//                $report = $report.'<br/>';
+//                $report = $report.'<br/>';
+//                $report = $report . $tinyMCE;
 
-                $htmlToRtfConverter = new HtmlToRtf\HtmlToRtf($report);
-                $convertedRTF = trim($htmlToRtfConverter->getRTF());
+//                $htmlToRtfConverter = new HtmlToRtf\HtmlToRtf($report);
+//                $convertedRTF = trim($htmlToRtfConverter->getRTF());
                 $filter .= " , job_document_html = '".htmlentities($tinyMCE, ENT_QUOTES)."'"; // added inside the switch case below
-                $filter .= " , job_document_rtf = '".base64_encode($convertedRTF)."'";
+//                $filter .= " , job_document_rtf = '".base64_encode($convertedRTF)."'";
             }
         }
 
