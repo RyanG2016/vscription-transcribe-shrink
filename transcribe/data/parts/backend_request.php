@@ -176,16 +176,16 @@ if (isset($_REQUEST["reqcode"])) {
 
         // update job status only
         /** @deprecated use POST {api}/files/{file_id}/discard instead */
-        case 16:
-
-            $a = json_decode($args, true);
-//			$job_id = $a['job_id'];
-            $file_id = $a['file_id'];
-            $newStatus = $a['new_status'];
-
-            updateJobStatus($con, $file_id, $newStatus);
-
-            break;
+//        case 16:
+//
+//            $a = json_decode($args, true);
+////			$job_id = $a['job_id'];
+//            $file_id = $a['file_id'];
+//            $newStatus = $a['new_status'];
+//
+//            updateJobStatus($con, $file_id, $newStatus);
+//
+//            break;
 
         // Download file
         case 17:
