@@ -313,9 +313,11 @@ class FileGateway implements GatewayInterface
                 );
 
 
-                if($row['file_status'] == 2 || $row['file_status'] == 0) // if the job was suspended/awaiting update it to being typed status = 1
-                {
-                    $this->directUpdateFileStatus($row['file_id'], 1, $row["filename"]);
+                if ($_SESSION["role"] == ROLES::TYPIST) {
+                    if ($row['file_status'] == FILE_STATUS::SUSPENDED || $row['file_status'] == FILE_STATUS::AWAITING_TRANSCRIPTION) // if the job was suspended/awaiting update it to being typed status = 1
+                    {
+                        $this->directUpdateFileStatus($row['file_id'], FILE_STATUS::BEING_TYPED, $row["filename"]);
+                    }
                 }
 
                 $this->logger->insertAuditLogEntry($this->API_NAME, "Loading file " . $row["file_id"] . " into player");
@@ -638,6 +640,63 @@ class FileGateway implements GatewayInterface
             return false;
 //            return $this->formatResult("Failed to update convert record (2)", true);
         }
+    }
+
+    // used in transcribe/popup
+    public function discardFile($file_id) {
+
+        // check user current role
+
+        $prev_status = $_POST["prev_status"];
+
+        if($_SESSION["role"] == ROLES::TYPIST
+        && $prev_status != FILE_STATUS::AWAITING_TRANSCRIPTION
+            && $prev_status != FILE_STATUS::AWAITING_CORRECTION
+            && $prev_status != FILE_STATUS::SPEECH_TO_TEXT_EDITED
+            && $prev_status != FILE_STATUS::COMPLETED
+        )
+        {
+//            if($prev_status == FILE_STATUS::BEING_TYPED)
+//            {
+//                $new_status = FILE_STATUS::SUSPENDED;
+//            }else{
+//                return false;
+//            }
+
+            $new_status = FILE_STATUS::SUSPENDED;
+
+
+            $statement = "UPDATE files
+                SET file_status = ?
+                WHERE file_id = ?
+                 ";
+
+            try {
+                $statement = $this->db->prepare($statement);
+                $statement->execute(array(
+                    $new_status,
+                    $file_id
+                ));
+
+                if ($statement->rowCount()) {
+                    $this->logger->insertAuditLogEntry($this->API_NAME, "Updated file id: " . $file_id . " to status: " . $new_status);
+                    return true;
+//                return $this->formatResult("Convert Record Updated", false);
+                } else {
+                    $this->logger->insertAuditLogEntry($this->API_NAME, "Failed to update file: " . $file_id . " to status: " . $new_status . " | no errors given");
+                    return false;
+//                return $this->formatResult("Failed to update convert record", true);
+                }
+//            return $statement->rowCount();
+            } catch (\PDOException $e) {
+                $this->logger->insertAuditLogEntry($this->API_NAME, "Failed to update file: " . $file_id . " to status: " . $new_status . " | Error: " . $e->getMessage());
+                return false;
+//            return $this->formatResult("Failed to update convert record (2)", true);
+            }
+        }else{
+            return false;
+        }
+
     }
 
     public function update($id)
