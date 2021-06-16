@@ -39,9 +39,9 @@ tinymce.init({
 
                 e.preventDefault();
                 e.stopPropagation();
-                tinymce.activeEditor.execCommand('mceInsertContent', false, "<<");
+                tinymce.activeEditor.execCommand('mceInsertContent', false, "<-");
                 tinymce.activeEditor.execCommand('mceInsertContent', false, "INAUDIBLE");
-                tinymce.activeEditor.execCommand('mceInsertContent', false, ">>");
+                tinymce.activeEditor.execCommand('mceInsertContent', false, "->");
                 return false;
             }
 

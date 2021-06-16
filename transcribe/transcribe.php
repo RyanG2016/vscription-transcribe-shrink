@@ -180,7 +180,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 
     <script src='tinymce/tinymce.min.js?v=<?php echo $version_control ?>'></script>
 
-    <script src='data/scripts/tinymce.min.js?v=<?php echo $version_control ?>'></script>
+    <script src='data/scripts/tinymce.min.js?v=2'></script>
     <script src="tinymce/plugins/mention/plugin.js?v=<?php echo $version_control ?>"></script>
     <link rel="stylesheet" type="text/css" href="tinymce/plugins/mention/css/autocomplete.css">
     <link rel="stylesheet" type="text/css" href="tinymce/plugins/mention/css/rte-content.css">
@@ -249,11 +249,11 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                         <legend id="leg"><span class="number">1</span> Report Body
 
                             <span class="transcribe-shortcuts">
-                                <img src="data/images/f1_48.png"/> Insert last used word &nbsp;&nbsp;
+                                <img src="data/images/f1_48.png"/> <i>Insert last used word</i> &nbsp;&nbsp;
 
-                                <img src="data/images/f2_48.png"/> <&lt;INAUDIBLE>> &nbsp;&nbsp;
+                                <img src="data/images/f2_48.png"/> <i><-INAUDIBLE-></i> &nbsp;&nbsp;
 
-                                <img src="data/images/slash48.png"/> Expand Word &nbsp;&nbsp;
+                                <img src="data/images/slash48.png"/> <i>Expand Word</i> &nbsp;&nbsp;
 
                                 <button type="button" class="btn btn-primary btn-sm pop-btn" id="pop">
                                     <i class="fas fa-external-link-alt"></i>
