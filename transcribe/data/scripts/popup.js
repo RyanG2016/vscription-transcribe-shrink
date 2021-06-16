@@ -315,29 +315,12 @@ $(document).ready(function () {
 
     function suspendAndClearForDiscard()
     {
-        var new_status = 2;
-        if(currentFileData.file_status == 0){
-            new_status = 0;
-        }
-        else if(currentFileData.file_status == 7)
-        {
-            new_status = 7;
-        }else if(currentFileData.file_status == 11)
-        {
-            new_status == 11;
-        }
 
-
-        var a1 = {
-            file_id: currentFileID,
-            new_status: new_status // suspend or awaiting.
-
-        };
-        $.post("data/parts/backend_request.php", {
-            reqcode: 16,
-            args: JSON.stringify(a1)
-        }).done(function (data) {
-
+        $.post(files_api + currentFileID + "/discard",
+            {
+                prev_status: currentFileData.file_status
+            }).done(function (data) {
+            console.log(data);
         });
 
         clear();

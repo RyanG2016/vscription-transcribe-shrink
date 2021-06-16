@@ -60,7 +60,12 @@ class FileController
                     $response = $this->cancelUpload();
                 } else {
                     if ($this->fileId) {
-                        $response = $this->updateFileFromRequest($this->fileId);
+                        if(isset($this->rawURI[1]) && $this->rawURI[1] == "discard")
+                        {
+                            $response = $this->discardFile($this->fileId);
+                        }else{
+                            $response = $this->updateFileFromRequest($this->fileId);
+                        }
                     } else {
                         $response = $this->uploadFilesFromRequest(); // used by job uploader and upload app
                     }
@@ -420,6 +425,15 @@ class FileController
         }*/
 
         $result = $this->fileGateway->update($id);
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = $result;
+        return $response;
+    }
+
+
+    private function discardFile($id)
+    {
+        $result = $this->fileGateway->discardFile($id);
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
         $response['body'] = $result;
         return $response;
