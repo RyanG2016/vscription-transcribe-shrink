@@ -178,7 +178,9 @@ function generateHTMLReport($html, $row)
 
     $report .= '<br/>';
     $report .= '<br/>';
-    $report .= html_entity_decode($html, ENT_QUOTES);
+    $decodedHTML = html_entity_decode($html, ENT_QUOTES);
+    $decodedHTML = str_replace("&lt;INAUDIBLE&gt;", "-INAUDIBLE-", $decodedHTML);
+    $report .= $decodedHTML;
     $report .= "</body>";
 
     return convertHTMLToRTF($report);
