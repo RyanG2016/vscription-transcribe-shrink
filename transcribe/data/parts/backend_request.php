@@ -175,6 +175,7 @@ if (isset($_REQUEST["reqcode"])) {
             break;
 
         // update job status only
+        /** @deprecated use POST {api}/files/{file_id}/discard instead */
         case 16:
 
             $a = json_decode($args, true);
