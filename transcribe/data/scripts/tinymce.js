@@ -29,7 +29,6 @@ tinymce.init({
         ed.on("KeyDown", function (e) {
 
             if (e.keyCode === 112) { // F1
-
                 e.preventDefault();
                 e.stopPropagation();
                 tinymce.activeEditor.execCommand('mceInsertContent', false, lastShortcutValue);
@@ -39,8 +38,10 @@ tinymce.init({
 
                 e.preventDefault();
                 e.stopPropagation();
+                var curPos = new Date(Math.floor(AblePlayerInstances[0].seekBar.position)*1000).toISOString().substr(11, 8);               
                 tinymce.activeEditor.execCommand('mceInsertContent', false, "<-");
-                tinymce.activeEditor.execCommand('mceInsertContent', false, "INAUDIBLE");
+                //tinymce.activeEditor.execCommand('mceInsertContent', false, "INAUDIBLE");
+                tinymce.activeEditor.execCommand('mceInsertContent', false, "INAUDIBLE (" + curPos + ")");
                 tinymce.activeEditor.execCommand('mceInsertContent', false, "->");
                 return false;
             }
