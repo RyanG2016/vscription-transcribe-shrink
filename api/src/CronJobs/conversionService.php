@@ -54,7 +54,12 @@ class conversionService
 
     public function __construct(
         private $db,
-        private $conv_ext = ".mp3"
+        //private $conv_ext = ".mp3"
+        private $conv_ext = ".wav",
+        private $channels = "1",
+        private $samplesPerSec = "16000",
+        private $bitsPerSec = "8"
+
     )
     {
         $this->rootDir = realpath($this->dir . "/../../../");
@@ -64,7 +69,8 @@ class conversionService
         {
             mkdir($this->shellDir);
         }
-        $this->switchPath = "C:\Program Files (x86)\NCH Software\Switch\switch.exe";
+        //$this->switchPath = "C:\Program Files (x86)\NCH Software\Switch\switch.exe";
+        $this->dssConvPath = "C:\Program Files (x86)\DSSConverter Tool\DSSConverterCLI.exe";
 
         $this->conversionsGateway = new conversionGateway($this->db);
         $this->fileGateway = new FileGateway($this->db);
@@ -118,7 +124,7 @@ class conversionService
                     $this->conversionsGateway->updateConversionStatusFromParam($this->file_id ,2); // need review
                 }
 
-                $this->convertDssToMp3($fileName);
+                $this->convertDssToWav($fileName);
             }else{
 //        vtexEcho("nothing to convert.. waiting\n");
         echo "[" . (new DateTime())->format("y:m:d h:i:s")."] " . "Nothing to convert.. waiting - " . $this->currentIterations . "\n" ;
@@ -137,7 +143,7 @@ class conversionService
 
 
     // functions
-    function convertDssToMp3($fileName)
+    function convertDssToWav($fileName)
     {
 //    global $org_ext;
 //    global $retries;
@@ -155,7 +161,9 @@ class conversionService
 //        global $dbConnection;
 
 
-        $command = '"' . $this->switchPath . "\" -convert ".escapeshellarg($this->orgFile)." -outfolder ".escapeshellarg($this->uploadsDir)." -format $this->conv_ext -overwrite ALWAYS -exit";
+        //$command = '"' . $this->switchPath . "\" -convert ".escapeshellarg($this->orgFile)." -outfolder ".escapeshellarg($this->uploadsDir)." -format $this->conv_ext -overwrite ALWAYS -exit";
+        $command = "@ECHO OFF" .PHP_EOL. '("' . $this->dssConvPath . "\" -convert ".escapeshellarg($this->orgFile)." -outputfolder ".escapeshellarg($this->uploadsDir)." -format $this->conv_ext -overwrite always -channels $this->channels -samplesPerSec $this->samplesPerSec -bitsPerSample $this->bitsPerSec";
+        $command = $command .PHP_EOL.") > nil" .PHP_EOL. "IF %ERRORLEVEL% == 0 (@echo 0" .PHP_EOL. ")else (@echo 1)";
         // $command = "'$switchPath' -convert '$orgFile' -outfolder '$uploadsDir' -format $conv_ext -overwrite ALWAYS -exit";
         // $command = '"C:\Program Files (x86)\NCH Software\Switch\switch.exe" -convert "D:\tmp\test\dss\d.DS2" -outfolder "D:\tmp\test\dss" -settempfolder "D:\tmp\test\dss\tmp" -format .mp3 -overwrite ALWAYS -hide -exit';
         // $command = '"C:\Program Files (x86)\NCH Software\Switch\switch.exe" -convert "D:\tmp\test\dss\d.DS2" -outfolder "D:\tmp\test\dss" -format .mp3 -overwrite ALWAYS -hide -exit';
@@ -166,28 +174,20 @@ class conversionService
         $this->batchFile = $this->shellDir . "\\" . $taskName . ".bat";
         file_put_contents($this->batchFile, $command.PHP_EOL , LOCK_EX);
 
-        $this->vtexEcho(shell_exec('SCHTASKS /F /Create /TN '.$taskName.' /TR "'.$this->batchFile.'" /SC MONTHLY /RU INTERACTIVE'));
-        $this->addSpace();
-        $this->vtexEcho(shell_exec('SCHTASKS /RUN /TN "'.$taskName.'"'));
-        $this->addSpace();
+        $this->vtexEcho(" -- Found file to convert. Waiting for result status -- \n");
+        $convertStartTime = time();
+        $dssConvResult = shell_exec($this->batchFile);
 
         // lets start checking for status for this job
-        $this->vtexEcho(" -- Monitoring convert status -- \n");
-
-        // $statusCommand = "schtasks.exe /query  /tn \"$taskName\"";
         $checking = true;
-        $convertStartTime = time();
         while ($checking) {
-
             echo "\n";
-            sleep(5); // check convert progress intervals of 5 seconds
-            $switchDone = $this->checkSwitchDone();
-
-            if($switchDone) {
-
+            //I don't think we need this since it looks like a synchronous process
+            //sleep(5); // check convert progress intervals of 5 seconds
+            if($dssConvResult == "1") {
+                $this->vtexEcho("-- DSS Conversion program returned Success. Confirming convert status -- \n");
                 // conversion done or failed
                 // check for converted file existence and logical size
-
                 $convertedFile = $this->uploadsDir . "\\" . $this->plainName . $this->conv_ext;
                 $convertedFileExists = file_exists($convertedFile);
                 $this->vtexEcho("File Exists = " . $convertedFileExists . "\n");
@@ -195,11 +195,10 @@ class conversionService
                     // check logical size
                     if (filesize($convertedFile) > $this->orgFileSize) {
                         // conversion OK
-
                         $this->vtexEcho("File converted successfully to " . $this->conv_ext . "\n");
 
                         $diff = time() - $convertStartTime;
-                        $this->vtexEcho("Finish time: " . $diff . " secs\n" );
+                        //$this->vtexEcho("Finish time: " . $diff . " secs\n" );
                         $this->vtexEcho("Finish time: ".$this->formatSecs($diff)." \n" );
 
                         $this->conversionsGateway->updateConversionStatusFromParam($this->file_id, 1);
@@ -225,7 +224,7 @@ class conversionService
                         unlink($convertedFile);
 
                         // clear prev task/shell entries
-                        $this->vtexEcho( shell_exec('SCHTASKS /DELETE /TN "' . $taskName . '" /F') );
+                        //$this->vtexEcho( shell_exec('SCHTASKS /DELETE /TN "' . $taskName . '" /F') );
                         unlink($this->batchFile); // delete task batch file
                         $this->retryConvert();
                         return;
@@ -233,26 +232,28 @@ class conversionService
                 } else {
                     // conversion failed
                     // clear prev task/shell entries
-                    $this->vtexEcho( shell_exec('SCHTASKS /DELETE /TN "' . $taskName . '" /F') );
+                    //$this->vtexEcho( shell_exec('SCHTASKS /DELETE /TN "' . $taskName . '" /F') );
                     unlink($this->batchFile); // delete task batch file
                     $this->retryConvert();
                     return;
                 }
 
                 // Delete the scheduled task for this file
-                $this->vtexEcho("Deleting Job Queue Entry \n");
-                $this->vtexEcho( shell_exec('SCHTASKS /DELETE /TN "' . $taskName . '" /F') );
+                //$this->vtexEcho("Deleting Job Queue Entry \n");
+                //$this->vtexEcho( shell_exec('SCHTASKS /DELETE /TN "' . $taskName . '" /F') );
                 unlink($this->batchFile); // delete task batch file
                 $checking = false;
 
                 $this->addSpace();
             }else{
                 // still converting
-//            vtexEcho("==> X Switch is still running..\n");
-                $diff = time() - $convertStartTime;
-                $this->vtexEcho("File: ($this->file_id) - " . $fileName . "\n");
-                $this->vtexEcho("Elapsed time: " . $diff . " secs\n" );
-                $this->vtexEcho("Elapsed time: ".$this->formatSecs($diff)." \n" );
+//              vtexEcho("==> X Switch is still running..\n");
+                $this->retryConvert();
+                return;
+                //$diff = time() - $convertStartTime;
+                //$this->vtexEcho("File: ($this->file_id) - " . $fileName . "\n");
+                //$this->vtexEcho("Elapsed time: " . $diff . " secs\n" );
+                //$this->vtexEcho("Elapsed time: ".$this->formatSecs($diff)." \n" );
             }
 
             /*0  State = 'Unknown'
@@ -263,9 +264,6 @@ class conversionService
 
         }
 
-
-//    echo shell_exec('SCHTASKS /DELETE /TN "'.$taskName.'" /F');
-//    addSpace();
     }
 
     /** Checks if switch.exe is still running or not
@@ -346,14 +344,14 @@ class conversionService
 //        global $file_id;
 
         if($this->retries >= 2){
-            $this->vtexEcho("Failed to convert file\n");
+            $this->vtexEcho("-- DSS Conversion utility returned failed status. Retry attempts reached. Marking as failed -- \n");
             $this->conversionsGateway->updateConversionStatusFromParam($this->file_id ,3);
         }
         else{
-            $this->vtexEcho("Conversion failed - retrying ($this->retries)");
+            $this->vtexEcho("-- DSS Conversion utility returned failed status. Attempting to convert again ($this->retries)-- \n");
             $this->addSpace();
             $this->retries++;
-            $this->convertDssToMp3($this->fileName);
+            $this->convertDssToWav($this->fileName);
         }
     }
 
