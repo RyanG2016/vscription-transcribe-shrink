@@ -524,29 +524,7 @@ function documentReady() {
     function computeDuration(id, file, status, dssType = 0) {
 
         if (dssType === 2 || file.type == "audio/ds2") {
-            let duration = (file.size / 1024.0) / 3.4584746913; //apprx
-
-            let durationTxt = new Date(duration * 1000).toISOString().substr(11, 8).toString();
-            $("#qfile" + id + " td:nth-child(4)").html("~" + durationTxt);
-            // $("#qfile"+id+" td:nth-child(5)").html(Math.round(duration));
-
-            // increase done files counter
-            duratedFiles++;
-
-            // add duration to upload Que in (secs) for Queued files
-            if (status === 0) // status OK
-            {
-                // filesDur[filesIds.indexOf(id)] = Math.round(duration);// adding duration in the same arrangement as filesArr
-                filesDur[filesIds.indexOf(id)] = duration;// adding duration in the same arrangement as filesArr
-            }
-
-            // check if all files are durated
-            if (duratedFiles === filesCount) {
-
-                // unlock the upload button
-                unlockUploadUI(true);
-            }
-
+            get_dss_duration(file,id,status);
             return;
         }
 
@@ -829,8 +807,40 @@ function documentReady() {
             mediaInfoOutput = `${mediaInfoOutput}\n\nAn error occured:\n${error.stack}`
           })
       }
-      
-      async function genMediaInfo(mediainfo) {
+
+      function get_dss_duration(file,id,status) {
+        let reader = new FileReader();   
+        let seconds = 0; 
+        //Just read in the header data
+        let blob = file.slice(0, 700);
+        reader.readAsText(blob);
+        reader.onload = function() {
+            const dssDurationHHMMSS = `${reader.result.substr(62,2)}:${reader.result.substr(64,2)}:${reader.result.substr(66,2)}`;
+            //console.log(`File length is: ${dssDurationHHMMSS}`);
+            const arr = dssDurationHHMMSS.split(":");
+            seconds = arr[0]*3600+arr[1]*60+(+arr[2]);
+            //console.log(`or ${seconds} seconds`);
+            $("#qfile" + id + " td:nth-child(4)").html(dssDurationHHMMSS); // add computed to duration to UI table
+                       
+            if (status === 0) // status OK
+            {
+                filesDur[filesIds.indexOf(id)] = seconds;// adding duration in the same arrangement as filesArr
+            }
+
+            // check if all files are durated
+            if (duratedFiles === filesCount) {
+                // unlock the upload button
+                unlockUploadUI(true);
+            }
+
+            reader.onerror = function() {
+                console.log(reader.error);
+            }; 
+        };
+        duratedFiles++;
+    }
+
+    async function genMediaInfo(mediainfo) {
         let file
         mediaInfoOutput = ''
         if (filesArr.length >= 2) {
