@@ -661,7 +661,7 @@ if (isset($_REQUEST["reqcode"])) {
 
             break;
 
-        /** This updates the job/file details with new updates as Completed/Suspended job **/
+        /** (Deprecated) This updates the job/file details with new updates as Completed/Suspended job **/
         case 205:
 
             if (isset($_POST)) {
