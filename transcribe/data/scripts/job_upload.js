@@ -129,8 +129,9 @@ function documentReady() {
                 // check type
                 // let invalid = false;
                 for (let i = 0; i < curFiles.length; i++) {
+                    let fileExt = curFiles[i].name.split(".").pop().toLowerCase();
                     if (!validFileType(curFiles[i]) &&
-                        !(curFiles[i].type === "" && curFiles[i].name.substr(curFiles[i].name.length - 3, 3).toLowerCase() === "ds2")
+                        !(curFiles[i].type === "" && (fileExt  === "ds2" || fileExt === "dss"))
                     ) {
                         // invalid = true;
                         // setDropText("Invalid file(s) type added", false);
@@ -523,7 +524,7 @@ function documentReady() {
 
     function computeDuration(id, file, status, dssType = 0) {
 
-        if (dssType === 2 || file.type == "audio/ds2") {
+        if (dssType === 1 || dssType === 2 || file.type == "audio/ds2") {
             get_dss_duration(file,id,status);
             return;
         }
@@ -758,10 +759,12 @@ function documentReady() {
                 // const par = document.createElement('p');
 
                 let fileTypeIsValid = validFileType(file);
+                let fileExt = curFiles[i].name.split(".").pop().toLowerCase();
+
                 if (
 					fileTypeIsValid
                     ||
-                    (file.type === "" && file.name.substr(file.name.length - 3, 3).toLowerCase() === "ds2")
+                    (curFiles[i].type === "" && (fileExt  === "ds2" || fileExt === "dss"))
                 ) {
                     // get file upload criteria
                     let status = getFileUploadStatus(i, file.size, file);
@@ -770,7 +773,7 @@ function documentReady() {
                     tblBody.append(generateTblFileEntry(i, file.name, file.size, status));
 
                     // Get audio duration
-                    computeDuration(i, file, status, fileTypeIsValid ? 0 : 2); // async // 2: ds2
+                    computeDuration(i, file, status, fileTypeIsValid ? 0 : (fileExt === "ds2"?2:1)); // async // 2: ds2 // 1: dss
                 } else {
                     tblBody.append(generateErrTblFileEntry(i, file.name));
                 }
@@ -885,6 +888,8 @@ function documentReady() {
         'audio/ogg',
         'audio/wav',
         'audio/ds2',
+        'audio/dss',
+        'audio/x-dss',
         'audio/vnd.wave',
         'audio/wave',
         'audio/x-wav',

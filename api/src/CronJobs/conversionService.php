@@ -14,7 +14,6 @@ use Src\Enums\PHP_SERVICES_IDS;
 use Src\TableGateways\conversionGateway;
 use Src\TableGateways\FileGateway;
 use Src\Models\SRQueue;
-use Src\Helpers\common;
 use Src\Models\PHPService;
 use DateTime;
 
@@ -29,7 +28,6 @@ class conversionService
     private $uploadsDir;
     private $shellDir;
     private $batchFile;
-    private $switchPath;
     private $plainName;
     private $orgFile;
     private $orgFileSize;
@@ -51,6 +49,7 @@ class conversionService
     // gatways
     private $conversionsGateway;
     private $fileGateway;
+    private string $dssConvPath;
 
     public function __construct(
         private $db,
@@ -98,7 +97,7 @@ class conversionService
 
             if($this->currentIterations >= CronConfiguration::MAX_ITERATIONS)
             {
-                $start = false;
+                $this->start = false;
                 $service->updateStopTime();
                 die("Shutting Down");
             }
@@ -124,7 +123,7 @@ class conversionService
                     $this->conversionsGateway->updateConversionStatusFromParam($this->file_id ,2); // need review
                 }
 
-                $this->convertDssToWav($fileName);
+                $this->convertDssToWav();
             }else{
 //        vtexEcho("nothing to convert.. waiting\n");
         echo "[" . (new DateTime())->format("y:m:d h:i:s")."] " . "Nothing to convert.. waiting - " . $this->currentIterations . "\n" ;
@@ -143,7 +142,7 @@ class conversionService
 
 
     // functions
-    function convertDssToWav($fileName)
+    function convertDssToWav()
     {
 //    global $org_ext;
 //    global $retries;
@@ -265,53 +264,7 @@ class conversionService
         }
 
     }
-
-    /** Checks if switch.exe is still running or not
-     * @return bool true if switch has closed == completed.<br>
-     *              false if switch is still running == converting.
-     */
-    function checkSwitchDone()
-    {
-//    global  $task_list;
-
-        $task_list = array();
-        exec("tasklist 2>NUL", $task_list);
-
-        $switchFound = false;
-        foreach ($task_list AS $task_line)
-        {
-            if (preg_match($this->kill_pattern, $task_line, $out))
-            {
-                $this->vtexEcho("=> Detected: ".$out[1]." - file convert in progress..\n");
-//            $switchFound = true;
-                return false;
-//        exec("taskkill /F /IM ".$out[1].".exe 2>NUL");
-            }
-        }
-        if(!$switchFound)
-        {
-            if(!$this->firstCheckPass){
-                $this->vtexEcho("=> Conversion may be completed.\n");
-                $this->vtexEcho("Checking again in (5)\n");
-                sleep(1);
-                $this->vtexEcho("Checking again in (4)\n");
-                sleep(1);
-                $this->vtexEcho("Checking again in (3)\n");
-                sleep(1);
-                $this->vtexEcho("Checking again in (2)\n");
-                sleep(1);
-                $this->vtexEcho("Checking again in (1)\n");
-                sleep(1);
-                $this->firstCheckPass = true;
-                return $this->checkSwitchDone();
-            }else{
-                $this->vtexEcho("=> NCH convert completed.\n");
-                $this->firstCheckPass = false;
-                return true;
-            }
-        }
-    }
-
+    
     function vtexEcho($msg){
 //        global $rootDir;
         $mainLog = "$this->rootDir\\convert.log";
@@ -351,7 +304,7 @@ class conversionService
             $this->vtexEcho("-- DSS Conversion utility returned failed status. Attempting to convert again ($this->retries)-- \n");
             $this->addSpace();
             $this->retries++;
-            $this->convertDssToWav($this->fileName);
+            $this->convertDssToWav();
         }
     }
 
