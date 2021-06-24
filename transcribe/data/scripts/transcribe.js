@@ -569,7 +569,6 @@ $(document).ready(function () {
             job_transcribed_by=,  // built in API
 
             job_document_html=,
-            job_document_rtf=
             */
 
         var tinymceContent = tinymce.get("report").getContent();
