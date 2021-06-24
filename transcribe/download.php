@@ -5,7 +5,6 @@
 require '../api/bootstrap.php';
 
 use Mnvx\Lowrapper\Converter;
-use Mnvx\Lowrapper\LowrapperException;
 use Mnvx\Lowrapper\LowrapperParameters;
 use Mnvx\Lowrapper\Format;
 
@@ -13,6 +12,7 @@ include('data/parts/head_without_zoho.php');
 include('data/parts/constants.php');
 include('data/parts/config.php');
 include('data/parts/common_functions.php');
+require_once(__DIR__ . '/rtf3/src/HtmlToRtf.php');
 
 if (!isset($_GET['down'])) {
     header("Location: index.php");
@@ -141,7 +141,7 @@ function convertHTMLToRTF($report)
     // Run converter
     try {
         $result = $converter->convert($parameters);
-    } catch (LowrapperException $e) {
+    } catch (\Mnvx\Lowrapper\LowrapperException $e) {
 //        echo $e;
         $result = "Error occurred while generating file, please try again or contact system admin.";
     }

@@ -1,5 +1,6 @@
 <?php
 
+require_once( __DIR__. '/../../../transcribe/rtf3/src/HtmlToRtf.php');
 function parseFilesParams($addWhereClause = false)
 {
     $addedEnum = 0;

@@ -486,7 +486,7 @@ class FileGateway implements GatewayInterface
         $uploadedBy = $_SESSION['uEmail'];
 
         $file_status = 0;
-        if($org_ext == "ds2" || $org_ext == "dss")
+        if($org_ext == "ds2")
         {
             $file_status = 8; // Queued for conversion
         }

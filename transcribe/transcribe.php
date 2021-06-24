@@ -7,11 +7,13 @@ require '../api/vendor/autoload.php';
 use Src\Enums\INTERNAL_PAGES;
 
 $vtex_page = INTERNAL_PAGES::TRANSCRIBE;
+//require_once ('rtf3/src/HtmlToRtf.php');
 require '../api/bootstrap.php';
 
 use Src\TableGateways\AccountGateway;
 
 include('data/parts/head.php');
+include('rtf3/src/HtmlToRtf.php');
 include('data/parts/constants.php');
 
 if (!isset($_SESSION['role']) || ($_SESSION['role'] != "3" && $_SESSION['role'] != "1" && $_SESSION['role'] != "2")) {

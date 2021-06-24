@@ -2,6 +2,7 @@
 <html lang="en">
 
 <?php
+//require_once ('rtf3/src/HtmlToRtf.php');
 require '../api/vendor/autoload.php';
 use Src\Enums\INTERNAL_PAGES;
 
@@ -9,6 +10,7 @@ $vtex_page = INTERNAL_PAGES::JOB_UPLOAD;
 
 
 include('data/parts/head.php');
+include('rtf3/src/HtmlToRtf.php');
 include('data/parts/constants.php');
 require '../api/bootstrap.php';
 
@@ -162,7 +164,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                             <span>
                                                 <a href="#" id="chooseFile">Choose a file</a> or drag it here
                                             </span>
-                                            <div>(wav, mp3, dss, ds2, m4a, mp4, ogg)</div>
+                                            <div>(wav, mp3, ds2, m4a, mp4, ogg)</div>
                                         </div>
 
 
@@ -173,7 +175,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                     </div>
                                     <br>
                                     <input id="filesInput" type="file" name="file[]"
-                                           accept=".wav, .mp3, .m4a, dss, .ds2, .ogg, .mp4" multiple style="display: none" />
+                                           accept=".wav, .mp3, .m4a, .ds2, .ogg, .mp4" multiple style="display: none" />
                                 </label>
 
                                 <h6 class="upload_limits text-muted">&emsp;Maximum 10 files — total files size must be less than 350MB</h6>

@@ -9,6 +9,7 @@ use Src\Enums\INTERNAL_PAGES;
 $vtex_page = INTERNAL_PAGES::JOB_LISTER;
 
 include('data/parts/head.php');
+include('rtf3/src/HtmlToRtf.php');
 include('data/parts/constants.php');
 
 if (isset($_SESSION['role'])) {
