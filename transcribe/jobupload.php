@@ -2,7 +2,6 @@
 <html lang="en">
 
 <?php
-//require_once ('rtf3/src/HtmlToRtf.php');
 require '../api/vendor/autoload.php';
 use Src\Enums\INTERNAL_PAGES;
 
@@ -10,7 +9,6 @@ $vtex_page = INTERNAL_PAGES::JOB_UPLOAD;
 
 
 include('data/parts/head.php');
-include('rtf3/src/HtmlToRtf.php');
 include('data/parts/constants.php');
 require '../api/bootstrap.php';
 

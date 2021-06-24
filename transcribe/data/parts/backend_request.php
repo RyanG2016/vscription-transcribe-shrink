@@ -6,8 +6,6 @@ include("config.php");
 include(__DIR__ . "/../../../mail/mail_init.php");
 include("common_functions.php");
 
-//Should this go into the case statement? It was in the formsave.php file
-require_once('../../rtf3/src/HtmlToRtf.php');
 require_once('../regex.php');
 //////////
 
