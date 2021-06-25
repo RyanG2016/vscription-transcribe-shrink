@@ -7,13 +7,11 @@ require '../api/vendor/autoload.php';
 use Src\Enums\INTERNAL_PAGES;
 
 $vtex_page = INTERNAL_PAGES::TRANSCRIBE;
-//require_once ('rtf3/src/HtmlToRtf.php');
 require '../api/bootstrap.php';
 
 use Src\TableGateways\AccountGateway;
 
 include('data/parts/head.php');
-include('rtf3/src/HtmlToRtf.php');
 include('data/parts/constants.php');
 
 if (!isset($_SESSION['role']) || ($_SESSION['role'] != "3" && $_SESSION['role'] != "1" && $_SESSION['role'] != "2")) {
@@ -180,7 +178,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 
     <script src='tinymce/tinymce.min.js?v=<?php echo $version_control ?>'></script>
 
-    <script src='data/scripts/tinymce.min.js?v=2'></script>
+    <script src='data/scripts/tinymce.min.js?v=3'></script>
     <script src="tinymce/plugins/mention/plugin.js?v=<?php echo $version_control ?>"></script>
     <link rel="stylesheet" type="text/css" href="tinymce/plugins/mention/css/autocomplete.css">
     <link rel="stylesheet" type="text/css" href="tinymce/plugins/mention/css/rte-content.css">
@@ -230,7 +228,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 <body>
 
 <script src="data/scripts/parts/constants.js" type="text/javascript"></script>
-<script src="data/scripts/transcribe.min.js?v=2"></script>
+<script src="data/scripts/transcribe.min.js?v=3"></script>
 
 <div id="updated_version_bar">There is a newer version (v<span></span>) of the vScription Transcribe Controller
     available -> <a href="" target="_blank">download</a></div>
@@ -296,8 +294,8 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                         </table>
 
                         <div class="demographics-div" id="demoDiv">
-                            <legend id="leg" class="mt-3"><span class="number">2</span> Demographics</legend>
-
+                            <legend id="leg" class="mt-3"><span class="number">2</span> Demographics
+                            </legend>
                             <form class="validate-form" method="post" name="form" id="form" enctype="multipart/form-data">
 
                                 <div class="form-row">

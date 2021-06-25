@@ -9,7 +9,6 @@ include('data/parts/head.php');
 include('data/parts/constants.php');
 include('data/parts/config.php');
 include('data/parts/common_functions.php');
-require_once(__DIR__ . '/rtf3/src/HtmlToRtf.php');
 
 
 if (!isset($_GET['down'])) {
