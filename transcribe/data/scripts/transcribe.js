@@ -25,6 +25,7 @@ const greenColor = "#3e943c";
 const orangeColor = "#d34038";
 const versionCheck = "vCheck-"; // DONOT MODIFY
 const welcomeName = "welcome-"; // DONOT MODIFY
+const seekBtn = document.querySelector('#seekBtn');
 var compactViewWindow;
 var jobsDT;
 var jobsDTRef;
@@ -527,6 +528,13 @@ $(document).ready(function () {
         jobLoadLookup(fileID);
     });
 
+    $('#seekBtn').on('click', function() {
+		// console.log("We should be going to the uploader page");
+		console.log(`Button is ready to go`);
+        AblePlayerInstances[0].seekTo(10);
+        AblePlayerInstances[0].seekBar.setPosition(10);
+        AblePlayerInstances[0].media.pause();
+	});
 
     form.addEventListener("submit", e => {
         if (e.which == 13 || e.keyCode == 13) {
