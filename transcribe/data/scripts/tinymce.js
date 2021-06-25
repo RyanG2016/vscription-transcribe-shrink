@@ -69,6 +69,10 @@ tinymce.init({
                 markerLocationHHMMSS = tinymce.activeEditor.selection.getNode().innerHTML.substr(16,8);
                 let a = markerLocationHHMMSS.split(':');
                 let markerLocationSecs = (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2]); 
+                if (markerLocationSecs > 2) {
+                    markerLocationSecs = markerLocationSecs -2;
+                }
+                tinymce.activeEditor.selection.select(tinymce.activeEditor.selection.getNode());
                 gotoInaudiblePosition(markerLocationSecs);
             });
         });
