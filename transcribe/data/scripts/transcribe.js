@@ -569,7 +569,7 @@ $(document).ready(function () {
 
             job_document_html=,
             */
-
+ 
         var tinymceContent = tinymce.get("report").getContent();
         // Get demographics to update job with
 
