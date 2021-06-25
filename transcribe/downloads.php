@@ -137,7 +137,7 @@ include('data/parts/head.php');
                                     3.88 MB
                                 </td>
                                 <td>
-                                    <a href="/controller_app/controller/cross_platform/vScriptionControllerCrossPlatform_v1.8.jar">vScriptionControllerCrossPlatform_v1.8.jar</a>
+                                    <a href="/controller_app/controller/cross_platform/vScriptionControllerCrossPlatform_v1.9.jar">vScriptionControllerCrossPlatform_v1.9.jar</a>
                                 </td>
                             </tr>
                             <tr>
