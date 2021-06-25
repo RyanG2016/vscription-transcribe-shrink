@@ -1230,6 +1230,12 @@ $(document).ready(function () {
             tinymce.get('report').setContent(decodeHtml(jobDetails.suspendedText));
             tinyMCE.activeEditor.selection.select(tinyMCE.activeEditor.getBody(), true);
             tinyMCE.activeEditor.selection.collapse(false);
+
+
+            // var elements = document.getElementsByClassName("iam");
+            // Array.from(elements).forEach(function(element) {
+            //     element.addEventListener('click', seekInaudibleMarker);
+            //   });
         }
 
         if(jobDetails.has_caption == true)
@@ -1621,4 +1627,12 @@ for (const [key, value] of params) {
     searchParams.set(key, value);
 }
 return searchParams;
+}
+
+
+function gotoInaudiblePosition(e) {
+    //console.log(`Jumping to inaudible marker`);
+    AblePlayerInstances[0].seekTo(e);
+    AblePlayerInstances[0].seekBar.setPosition(e);
+    AblePlayerInstances[0].media.pause();
 }

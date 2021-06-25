@@ -38,11 +38,13 @@ tinymce.init({
 
                 e.preventDefault();
                 e.stopPropagation();
-                var curPos = new Date(Math.floor(AblePlayerInstances[0].seekBar.position)*1000).toISOString().substr(11, 8);               
+                var curPos = new Date(Math.floor(AblePlayerInstances[0].seekBar.position)*1000).toISOString().substr(11, 8);   
+                console.log(tinymce.activeEditor.selection.getNode())            
+                tinymce.activeEditor.execCommand('mceInsertContent', false, "<span class=\'ima\' style=\'color:blue\'>");
                 tinymce.activeEditor.execCommand('mceInsertContent', false, "<-");
-                //tinymce.activeEditor.execCommand('mceInsertContent', false, "INAUDIBLE");
                 tinymce.activeEditor.execCommand('mceInsertContent', false, "INAUDIBLE (" + curPos + ")");
                 tinymce.activeEditor.execCommand('mceInsertContent', false, "->");
+                tinymce.activeEditor.execCommand('mceInsertContent', false, "</span>");
                 return false;
             }
 
@@ -64,6 +66,16 @@ tinymce.init({
             onclick: function () {
                 loadNewJob();
             }
+        });
+
+        ed.on('init', function(event) {
+            $(ed.getBody()).on("click", ".ima", function() {
+                console.log(event.target);
+                markerLocationHHMMSS = tinymce.activeEditor.selection.getNode().innerHTML.substr(16,8);
+                let a = markerLocationHHMMSS.split(':');
+                let markerLocationSecs = (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2]); 
+                gotoInaudiblePosition(markerLocationSecs);
+            });
         });
     },
     mentions: {
