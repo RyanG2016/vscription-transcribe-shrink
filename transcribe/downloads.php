@@ -113,60 +113,74 @@ include('data/parts/head.php');
                                 </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>
-                                    <strong>vScription Controller Windows Installer</strong></i><br><span
-                                            style='font-size:.7rem' ;>For USB Foot Control Support
-                            Windows Installer <i>(JDK 14 included)</span>
-                                </td>
-                                <td>
-                                    164 MB
-                                </td>
-                                <td>
-                                    <a href="/controller_app/controller/windows/vScriptionControllerWin_v1.8.exe">vScriptionControllerWin_v1.8.exe</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <strong>vScription Controller Cross Platform Jar</strong><i><br><span
-                                                style='font-size:.8rem' ;>(Requires <a href='https://java.com'
-                                                                                       target='blank'>Java</a> 8 installed)</i><br></span>
-                                    <span style='font-size:.7rem'>For USB Foot Control Support</span>
-                                </td>
-                                <td>
-                                    3.88 MB
-                                </td>
-                                <td>
-                                    <a href="/controller_app/controller/cross_platform/vScriptionControllerCrossPlatform_v1.8.jar">vScriptionControllerCrossPlatform_v1.8.jar</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <strong>vScription Upload Windows Installer </strong><i><br><span
-                                            style='font-size:.7rem' ;>For Digital Portable Automatic Uploads and 3rd Party Integrations</span>
-                                </td>
-                                <td>
-                                    174 MB
-                                </td>
-                                <td>
-                                    <a href="/controller_app/upload_app/windows/vScription_upload_setup_v1.3.exe">vScription_upload_setup_v1.3.exe</a>
-                                </td>
-                            </tr>                            
-                            <tr>
-                                <td>
-                                    <strong>vScription Upload Cross Platform Jar </strong><i><br><span
-                                                style='font-size:.8rem' ;>(Requires <a
-                                                    href='https://www.oracle.com/java/technologies/javase-jdk15-downloads.html'
-                                                    target='blank'>OpenJDK</a> > 14 installed)</i><br></span><span
-                                            style='font-size:.7rem' ;>For Digital Portable Automatic Uploads and 3rd Party Integrations</span>
-                                </td>
-                                <td>
-                                    5 MB
-                                </td>
-                                <td>
-                                    <a href="/controller_app/upload_app/cross_platform/vScriptionUpload.zip">vScriptionUpload.zip</a>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td>
+                                        <strong>vScription Controller Windows Installer</strong> <br>
+                                        <span style='font-size:.7rem'>
+                                            For USB Foot Control Support Windows Installer <i>(JDK 14 included)
+                                        </span>
+                                    </td>
+                                    <td>
+                                        166 MB
+                                    </td>
+                                    <td>
+                                        <a href="/controller_app/controller/windows/vScriptionControllerWin_v1.9.exe">vScriptionControllerWin_v1.9.exe</a>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>vScription Controller Cross Platform Jar</strong> <br>
+                                        <i>
+                                            <span style='font-size:.8rem'>
+                                                (Requires <a href='https://java.com' target='blank'>Java</a> 8 installed)
+                                            </span>
+                                        </i>
+                                        <br>
+                                        <span style='font-size:.7rem'>For USB Foot Control Support</span>
+                                    </td>
+                                    <td>
+                                        3.88 MB
+                                    </td>
+                                    <td>
+                                        <a href="/controller_app/controller/cross_platform/vScriptionControllerCrossPlatform_v1.9.jar">vScriptionControllerCrossPlatform_v1.9.jar</a>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>vScription Upload Windows Installer </strong> <br>
+                                        <i>
+                                            <span style='font-size:.7rem'>
+                                                For Digital Portable Automatic Uploads and 3rd Party Integrations
+                                            </span>
+                                        </i>
+                                    </td>
+                                    <td>
+                                        174 MB
+                                    </td>
+                                    <td>
+                                        <a href="/controller_app/upload_app/windows/vScription_upload_setup_v1.3.exe">vScription_upload_setup_v1.3.exe</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>vScription Upload Cross Platform Jar </strong><br>
+                                        <i>
+                                            <span style='font-size:.8rem'>
+                                                (Requires <a href='https://www.oracle.com/java/technologies/javase-jdk15-downloads.html' target='blank'>OpenJDK</a> > 14 installed)
+                                            </span>
+                                        </i>
+                                        <br>
+                                        <span style='font-size:.7rem'>For Digital Portable Automatic Uploads and 3rd Party Integrations</span>
+                                    </td>
+                                    <td>
+                                        5 MB
+                                    </td>
+                                    <td>
+                                        <a href="/controller_app/upload_app/cross_platform/vScriptionUpload.zip">vScriptionUpload.zip</a>
+                                    </td>
+                                </tr>
 
                             </tbody>
                         </table>
