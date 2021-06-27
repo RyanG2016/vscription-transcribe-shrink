@@ -497,7 +497,7 @@ function startRefreshTimer() {
 			// alert( "success" );
 		})
 			.done(function(response) {
-				console.log("logged in? -> " + response.logged_in)
+				// console.log("logged in? -> " + response.logged_in)
 				if(response.logged_in)
 				{
 					jobsDTRef.ajax.reload(dtTableReloadCallback);
