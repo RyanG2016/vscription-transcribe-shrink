@@ -649,53 +649,44 @@ class FileGateway implements GatewayInterface
 
         $prev_status = $_POST["prev_status"];
 
-        if($_SESSION["role"] == ROLES::TYPIST
-           && $prev_status != FILE_STATUS::AWAITING_TRANSCRIPTION
-           && $prev_status != FILE_STATUS::BEING_TYPED 
-            && $prev_status != FILE_STATUS::AWAITING_CORRECTION
-            && $prev_status != FILE_STATUS::SPEECH_TO_TEXT_EDITED
-            && $prev_status != FILE_STATUS::COMPLETED
-        )
+
+        if($_SESSION["role"] != ROLES::TYPIST)
         {
-//            if($prev_status == FILE_STATUS::BEING_TYPED)
-//            {
-//                $new_status = FILE_STATUS::SUSPENDED;
-//            }else{
-//                return false;
-//            }
+            return false; // not updating file status unless user is a typist
+        }
 
-            $new_status = FILE_STATUS::SUSPENDED;
+        $new_status = match ($prev_status) {
+            FILE_STATUS::BEING_TYPED, FILE_STATUS::SUSPENDED => FILE_STATUS::SUSPENDED,
+            default => $prev_status,
+        };
 
 
-            $statement = "UPDATE files
+        $statement = "UPDATE files
                 SET file_status = ?
                 WHERE file_id = ?
                  ";
 
-            try {
-                $statement = $this->db->prepare($statement);
-                $statement->execute(array(
-                    $new_status,
-                    $file_id
-                ));
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array(
+                $new_status,
+                $file_id
+            ));
 
-                if ($statement->rowCount()) {
-                    $this->logger->insertAuditLogEntry($this->API_NAME, "Updated file id: " . $file_id . " to status: " . $new_status);
-                    return true;
+            if ($statement->rowCount()) {
+                $this->logger->insertAuditLogEntry($this->API_NAME, "Updated file id: " . $file_id . " to status: " . $new_status);
+                return true;
 //                return $this->formatResult("Convert Record Updated", false);
-                } else {
-                    $this->logger->insertAuditLogEntry($this->API_NAME, "Failed to update file: " . $file_id . " to status: " . $new_status . " | no errors given");
-                    return false;
-//                return $this->formatResult("Failed to update convert record", true);
-                }
-//            return $statement->rowCount();
-            } catch (\PDOException $e) {
-                $this->logger->insertAuditLogEntry($this->API_NAME, "Failed to update file: " . $file_id . " to status: " . $new_status . " | Error: " . $e->getMessage());
+            } else {
+                $this->logger->insertAuditLogEntry($this->API_NAME, "Failed to update file: " . $file_id . " to status: " . $new_status . " | no errors given");
                 return false;
-//            return $this->formatResult("Failed to update convert record (2)", true);
+//                return $this->formatResult("Failed to update convert record", true);
             }
-        }else{
+//            return $statement->rowCount();
+        } catch (\PDOException $e) {
+            $this->logger->insertAuditLogEntry($this->API_NAME, "Failed to update file: " . $file_id . " to status: " . $new_status . " | Error: " . $e->getMessage());
             return false;
+//            return $this->formatResult("Failed to update convert record (2)", true);
         }
 
     }
