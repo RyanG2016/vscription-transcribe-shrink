@@ -11,7 +11,8 @@ if(!isset($_SESSION['loggedIn']))
     header("HTTP/1.1 200 OK");
     echo json_encode([
         'error' => false,
-        'msg' => "Not Logged in."
+        'msg' => "Not Logged in.",
+        'logged_in' => false
     ]);
     exit();
 }
