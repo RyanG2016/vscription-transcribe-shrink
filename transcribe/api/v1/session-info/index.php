@@ -9,6 +9,8 @@ require('../../../data/parts/ping.php');
 if(!isset($_SESSION['loggedIn']))
 {
     header("HTTP/1.1 200 OK");
+    header("Content-Type: application/json; charset=UTF-8");
+    
     echo json_encode([
         'error' => false,
         'msg' => "Not Logged in.",
