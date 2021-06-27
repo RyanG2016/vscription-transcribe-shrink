@@ -487,8 +487,22 @@ function getAutoListRefreshInterval(handleData) {
 function startRefreshTimer() {
 	console.log("starting timer");
 	setInterval(function () {
-		jobsDTRef.ajax.reload(dtTableReloadCallback);
+		$.get( "/api/v1/session-info", function() {
+			// alert( "success" );
+		})
+			.done(function(response) {
+				console.log("logged in? -> " + response.logged_in)
+				if(response.logged_in)
+				{
+					jobsDTRef.ajax.reload(dtTableReloadCallback);
+				}
+
+			})
+			.fail(function(error) {
+
+			});
 	}, autoListRefreshInterval);
+	// }, 1500);
 }
 
 function dtTableReloadCallback() {
