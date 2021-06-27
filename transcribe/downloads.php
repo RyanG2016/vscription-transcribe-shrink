@@ -61,7 +61,7 @@ include('data/parts/head.php');
 
 <body>
 <div class="container-fluid h-100 vspt-container-fluid">
-        <div class="w-100 h-100 d-flex flex-nowrap vspt-container-fluid-row">
+    <div class="w-100 h-100 d-flex flex-nowrap vspt-container-fluid-row">
 
 
         <?php include_once "data/parts/nav.php" ?>
@@ -98,89 +98,91 @@ include('data/parts/head.php');
                     <div class="col vspt-table-div mb-4">
                         <h5>Downloads</h5>
                         <table id="downloadsTbl" class="table vspt-table hover compact">
-<!--                        <table id="downloadsTbl" class="table compact table-hover table-bordered">-->
+                            <!--                        <table id="downloadsTbl" class="table compact table-hover table-bordered">-->
                             <thead>
-                                <tr>
-                                    <th>
-                                        Product / File Description
-                                    </th>
-                                    <th>
-                                        File Size
-                                    </th>
-                                    <th>
-                                        Download
-                                    </th>
-                                </tr>
+                            <tr>
+                                <th>
+                                    Product / File Description
+                                </th>
+                                <th>
+                                    File Size
+                                </th>
+                                <th>
+                                    Download
+                                </th>
+                            </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <strong>vScription Controller Windows Installer</strong> <br>
-                                        <span style='font-size:.7rem'>
+                            <tr>
+                                <td>
+                                    <strong>vScription Controller Windows Installer</strong> <br>
+                                    <span style='font-size:.7rem'>
                                             For USB Foot Control Support Windows Installer <i>(JDK 14 included)
                                         </span>
-                                    </td>
-                                    <td>
-                                        166 MB
-                                    </td>
-                                    <td>
-                                        <a href="/controller_app/controller/windows/vScriptionControllerWin_v1.9.exe">vScriptionControllerWin_v1.9.exe</a>
-                                    </td>
-                                </tr>
+                                </td>
+                                <td>
+                                    166 MB
+                                </td>
+                                <td>
+                                    <a href="/controller_app/controller/windows/vScriptionControllerWin_v1.9.exe">vScriptionControllerWin_v1.9.exe</a>
+                                </td>
+                            </tr>
 
-                                <tr>
-                                    <td>
-                                        <strong>vScription Controller Cross Platform Jar</strong> <br>
-                                        <i>
+                            <tr>
+                                <td>
+                                    <strong>vScription Controller Cross Platform Jar</strong> <br>
+                                    <i>
                                             <span style='font-size:.8rem'>
                                                 (Requires <a href='https://java.com' target='blank'>Java</a> 8 installed)
                                             </span>
-                                        </i>
-                                        <br>
-                                        <span style='font-size:.7rem'>For USB Foot Control Support</span>
-                                    </td>
-                                    <td>
-                                        3.88 MB
-                                    </td>
-                                    <td>
-                                        <a href="/controller_app/controller/cross_platform/vScriptionControllerCrossPlatform_v1.9.jar">vScriptionControllerCrossPlatform_v1.9.jar</a>
-                                    </td>
-                                </tr>
+                                    </i>
+                                    <br>
+                                    <span style='font-size:.7rem'>For USB Foot Control Support</span>
+                                </td>
+                                <td>
+                                    3.88 MB
+                                </td>
+                                <td>
+                                    <a href="/controller_app/controller/cross_platform/vScriptionControllerCrossPlatform_v1.9.jar">vScriptionControllerCrossPlatform_v1.9.jar</a>
+                                </td>
+                            </tr>
 
-                                <tr>
-                                    <td>
-                                        <strong>vScription Upload Windows Installer </strong> <br>
-                                        <i>
+                            <tr>
+                                <td>
+                                    <strong>vScription Upload Windows Installer </strong> <br>
+                                    <i>
                                             <span style='font-size:.7rem'>
                                                 For Digital Portable Automatic Uploads and 3rd Party Integrations
                                             </span>
-                                        </i>
-                                    </td>
-                                    <td>
-                                        174 MB
-                                    </td>
-                                    <td>
-                                        <a href="/controller_app/upload_app/windows/vScription_upload_setup_v1.3.exe">vScription_upload_setup_v1.3.exe</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <strong>vScription Upload Cross Platform Jar </strong><br>
-                                        <i>
+                                    </i>
+                                </td>
+                                <td>
+                                    174 MB
+                                </td>
+                                <td>
+                                    <a href="/controller_app/upload_app/windows/vScription_upload_setup_v1.3.exe">vScription_upload_setup_v1.3.exe</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>vScription Upload Cross Platform Jar </strong><br>
+                                    <i>
                                             <span style='font-size:.8rem'>
-                                                (Requires <a href='https://www.oracle.com/java/technologies/javase-jdk15-downloads.html' target='blank'>OpenJDK</a> > 14 installed)
+                                                (Requires <a
+                                                        href='https://www.oracle.com/java/technologies/javase-jdk15-downloads.html'
+                                                        target='blank'>OpenJDK</a> > 14 installed)
                                             </span>
-                                        </i>
-                                        <br>
-                                        <span style='font-size:.7rem'>For Digital Portable Automatic Uploads and 3rd Party Integrations</span>
-                                    </td>
-                                    <td>
-                                        5 MB
-                                    </td>
-                                    <td>
-                                        <a href="/controller_app/upload_app/cross_platform/vScriptionUpload.zip">vScriptionUpload.zip</a>
-                                    </td>
-                                </tr>
+                                    </i>
+                                    <br>
+                                    <span style='font-size:.7rem'>For Digital Portable Automatic Uploads and 3rd Party Integrations</span>
+                                </td>
+                                <td>
+                                    5 MB
+                                </td>
+                                <td>
+                                    <a href="/controller_app/upload_app/cross_platform/vScriptionUpload.zip">vScriptionUpload.zip</a>
+                                </td>
+                            </tr>
 
                             </tbody>
                         </table>
@@ -189,172 +191,166 @@ include('data/parts/head.php');
                         <h5>Compatibility</h5>
                         <table class="table vspt-table hover compact" id="compatTbl">
                             <thead>
-                                <tr>
-                                    <th colspan="2" style="text-align: center; background: #1e79be; color: white">
-                                        <b>Browsers</b>
-                                    </th>
-                                    <th colspan="2" style="text-align: center; background: #1e79be; color: white">
-                                        <b>Operating Systems</b>
-                                    </th>
-                                    <th colspan="2" style="text-align: center; background: #1e79be; color: white">
-                                        <b>USB Foot Controls</b>
-                                    </th>
-                                    <th colspan="2" style="text-align: center; background: #1e79be; color: white">
-                                        <b>Digital Recorders</b>
-                                    </th>
-                                </tr>
+                            <tr>
+                                <th colspan="2" style="text-align: center; background: #1e79be; color: white">
+                                    <b>Browsers</b>
+                                </th>
+                                <th colspan="2" style="text-align: center; background: #1e79be; color: white">
+                                    <b>Operating Systems</b>
+                                </th>
+                                <th colspan="2" style="text-align: center; background: #1e79be; color: white">
+                                    <b>USB Foot Controls</b>
+                                </th>
+                                <th colspan="2" style="text-align: center; background: #1e79be; color: white">
+                                    <b>Digital Recorders</b>
+                                </th>
+                            </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="bold">
-                                        <i class="fab fa-chrome"></i> Chrome
-                                    </td>
-                                    <td class="check">
-                                        <i class="fa fa-check" aria-hidden="true"></i>
-                                    </td>
-                                    <!---->
-                                    <td class="bold">
-                                        <i class="fab fa-windows"></i> Windows
-                                    </td>
-                                    <td class="check">
-                                        <i class="fa fa-check" aria-hidden="true"></i>
-                                    </td>
-
-<!--                                    -->
-                                    <td class="bold">
-                                        VEC IN-USB
-                                    </td>
-                                    <td class="check">
-                                        <i class="fa fa-check" aria-hidden="true"></i>
-                                    </td>
-<!--                                    -->
-
-                                    <td class="bold">
-                                        Philips DPM8000/8100
-                                    </td>
-                                    <td class="check">
-                                        <i class="fa fa-check" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td class="bold">
-                                        <i class="fab fa-firefox-browser"></i> Firefox
-                                    </td>
-                                    <td class="check">
-                                        <i class="fa fa-check" aria-hidden="true"></i>
-                                    </td>
-                                    <!---->
-                                    <td class="bold">
-                                        <i class="fab fa-apple"></i> macOS
-                                    </td>
-                                    <td class="check">
-                                        <i class="fa fa-check" aria-hidden="true"></i>
-                                    </td>
-<!--                                    -->
-                                    <td class="bold">
-                                        VEC IN-USB2
-                                    </td>
-                                    <td class="check">
-                                        <i class="fa fa-check" aria-hidden="true"></i>
-                                    </td>
-<!--                                    -->
-                                    <td class="bold">
-                                        Philips LFH9500/9600
-                                    </td>
-                                    <td class="check">
-                                        <i class="fa fa-check" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td class="bold">
-                                        <i class="fab fa-edge"></i> Edge Chromium
-                                    </td>
-                                    <td class="check">
-                                        <i class="fa fa-check" aria-hidden="true"></i>
-                                    </td>
-
-<!--                                    -->
-
-                                    <td class="bold">
-                                        <i class="fab fa-ubuntu"></i> Linux
-                                    </td>
-                                    <td class="check">
-                                        <i class="fa fa-check" aria-hidden="true"></i>
-                                    </td>
-<!--                                    -->
-
-                                    <td class="bold">
-                                        VEC IN-USB3
-                                    </td>
-                                    <td class="check">
-                                        <i class="fa fa-check" aria-hidden="true"></i>
-                                    </td>
-<!--                                    -->
-                                    <td class="bold">
-                                        Olympus DS-9000/9500
-                                    </td>
-                                    <td class="check">
-                                        <i class="fa fa-check" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td class="bold">
-                                        <i class="fab fa-edge-legacy"></i> Edge Legacy
-                                    </td>
-                                    <td class="check">
-                                        <i class="fa fa-times" aria-hidden="true"></i>
-                                    </td>
-<!--                                    -->
-                                    <td colspan="4"></td>
-                                    <td class="bold">
-                                        Philips ACC2330
-                                    </td>
-                                    <td class="check">
-                                        <i class="fa fa-check" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="bold">
-                                        <i class="fab fa-safari"></i> Safari
-                                    </td>
-                                    <td class="check">
-                                        <i class="fa fa-times" aria-hidden="true"></i>
-                                    </td>
-<!--
--->
-
-<!--                                    -->
-                                    <td colspan="4"></td>
-                                    <td class="bold">
-                                        Olympus DS-3500/7000
-                                    </td>
-                                    <td class="check">
-                                        <i class="fa fa-check" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
                             <tr>
-                                <td colspan="6"></td>
                                 <td class="bold">
-                                    Olympus DS-5000/5500
+                                    <i class="fab fa-chrome"></i> Chrome
+                                </td>
+                                <td class="check">
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                </td>
+                                <!---->
+                                <td class="bold">
+                                    <i class="fab fa-windows"></i> Windows
+                                </td>
+                                <td class="check">
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                </td>
+
+                                <!--                                    -->
+                                <td class="bold">
+                                    VEC IN-USB
+                                </td>
+                                <td class="check">
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                </td>
+                                <!--                                    -->
+
+                                <td class="bold">
+                                    Philips DPM8000/8100
                                 </td>
                                 <td class="check">
                                     <i class="fa fa-check" aria-hidden="true"></i>
                                 </td>
                             </tr>
 
-                                <tr>
-                                <td colspan="6"></td>
-
-                                    <td class="bold">
-                                        Philips ACC2320
-                                    </td>
-                                    <td class="check">
-                                        <i class="fa fa-check" aria-hidden="true"></i>
-                                    </td>
+                            <tr>
+                                <td class="bold">
+                                    <i class="fab fa-firefox-browser"></i> Firefox
+                                </td>
+                                <td class="check">
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                </td>
+                                <!---->
+                                <td class="bold">
+                                    <i class="fab fa-apple"></i> macOS
+                                </td>
+                                <td class="check">
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                </td>
+                                <!--                                    -->
+                                <td class="bold">
+                                    VEC IN-USB2
+                                </td>
+                                <td class="check">
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                </td>
+                                <!--                                    -->
+                                <td class="bold">
+                                    Philips LFH9500/9600
+                                </td>
+                                <td class="check">
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                </td>
                             </tr>
+
+                            <tr>
+                                <td class="bold">
+                                    <i class="fab fa-edge"></i> Edge Chromium
+                                </td>
+                                <td class="check">
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                </td>
+
+                                <!--                                    -->
+
+                                <td class="bold">
+                                    <i class="fab fa-ubuntu"></i> Linux
+                                </td>
+                                <td class="check">
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                </td>
+                                <!--                                    -->
+
+                                <td class="bold">
+                                    VEC IN-USB3
+                                </td>
+                                <td class="check">
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                </td>
+                                <!--                                    -->
+                                <td class="bold">
+                                    Olympus DS-9000/9500
+                                </td>
+                                <td class="check">
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="bold">
+                                    <i class="fab fa-edge-legacy"></i> Edge Legacy
+                                </td>
+                                <td class="check">
+                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                </td>
+                                <!--                                    -->
+                                <td colspan="2"></td>
+                                <td class="bold">
+                                    Philips ACC2330
+                                </td>
+
+                                <td class="check">
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                </td>
+
+                                <td class="bold">
+                                    Olympus DS-3500/7000
+                                </td>
+                                <td class="check">
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td class="bold">
+                                    <i class="fab fa-safari"></i> Safari
+                                </td>
+                                <td class="check">
+                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                </td>
+                                <td colspan="2"></td>
+
+                                <td class="bold">
+                                    Philips ACC2320
+                                </td>
+                                <td class="check">
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                </td>
+                                <td class="bold">
+                                    Olympus DS-5000/5500
+                                </td>
+                                <td class="check">
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                </td>
+
+                            </tr>
+
                             </tbody>
 
                         </table>
