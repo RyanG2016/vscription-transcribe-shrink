@@ -1,0 +1,10 @@
+/*******************************
+     User Global Variables
+*******************************/
+@fontName          : main;
+@emSize   : 16px;
+
+@headerFont        : @fontName, sans-serif, 'Helvetica Neue', Arial, Helvetica;
+@pageFont        : @fontName, sans-serif, 'Helvetica Neue', Arial, Helvetica;
+
+@blue             : #1e79be;
