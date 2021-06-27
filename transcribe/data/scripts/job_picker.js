@@ -21,7 +21,7 @@ $(document).ready(function () {
             });
         }
     } );
-
+    $.fn.dataTable.ext.errMode = 'none';
     jobsDTRef = jobsDT.DataTable( {
         rowId: 'file_id',
         "ajax": 'api/v1/files?dt&file_status[mul]=0,1,2,7,11',
@@ -70,6 +70,11 @@ $(document).ready(function () {
             }
         ]
     } );
+
+    jobsDT.on( 'error.dt', function ( e, settings, techNote, message ) {
+        // console.log( 'An error has been reported by DataTables: ', message );
+        console.log( 'Failed to retrieve data' );
+    } )
 
     jobsDT.on( 'draw.dt', function () {
 

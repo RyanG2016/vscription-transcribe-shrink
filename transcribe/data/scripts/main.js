@@ -65,7 +65,7 @@ $(document).ready(function () {
 			});
 		}
 	} );
-
+	$.fn.dataTable.ext.errMode = 'none';
 	jobsDTRef = jobsDT.DataTable( {
 		rowId: 'file_id',
 		"ajax": 'api/v1/files?dt',
@@ -228,6 +228,11 @@ $(document).ready(function () {
 		// totalDur = 0;
 		jobsDTRef.ajax.reload(dtTableReloadCallback);
 	});
+
+	jobsDT.on( 'error.dt', function ( e, settings, techNote, message ) {
+		// console.log( 'An error has been reported by DataTables: ', message );
+		console.log( 'Failed to retrieve data' );
+	} )
 
 	jobsDT.on( 'draw.dt', function () {
 
@@ -487,6 +492,7 @@ function getAutoListRefreshInterval(handleData) {
 function startRefreshTimer() {
 	console.log("starting timer");
 	setInterval(function () {
+
 		$.get( "/api/v1/session-info", function() {
 			// alert( "success" );
 		})
@@ -496,13 +502,13 @@ function startRefreshTimer() {
 				{
 					jobsDTRef.ajax.reload(dtTableReloadCallback);
 				}
-
 			})
 			.fail(function(error) {
 
 			});
 	}, autoListRefreshInterval);
 	// }, 1500);
+	// }, 100); // stress test to force data failing to be retrieved
 }
 
 function dtTableReloadCallback() {
