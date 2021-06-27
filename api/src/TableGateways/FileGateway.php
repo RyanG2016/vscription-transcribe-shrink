@@ -650,7 +650,8 @@ class FileGateway implements GatewayInterface
         $prev_status = $_POST["prev_status"];
 
         if($_SESSION["role"] == ROLES::TYPIST
-        && $prev_status != FILE_STATUS::AWAITING_TRANSCRIPTION
+           && $prev_status != FILE_STATUS::AWAITING_TRANSCRIPTION
+           && $prev_status != FILE_STATUS::BEING_TYPED 
             && $prev_status != FILE_STATUS::AWAITING_CORRECTION
             && $prev_status != FILE_STATUS::SPEECH_TO_TEXT_EDITED
             && $prev_status != FILE_STATUS::COMPLETED
