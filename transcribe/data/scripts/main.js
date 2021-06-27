@@ -491,7 +491,7 @@ function getAutoListRefreshInterval(handleData) {
 
 function startRefreshTimer() {
 	console.log("starting timer");
-	setInterval(function () {
+	var ping = setInterval(function () {
 
 		$.get( "/api/v1/session-info", function() {
 			// alert( "success" );
@@ -501,6 +501,23 @@ function startRefreshTimer() {
 				if(response.logged_in)
 				{
 					jobsDTRef.ajax.reload(dtTableReloadCallback);
+				}else{
+					clearInterval(ping);
+					$.confirm({
+						title: 'Session Expired',
+						theme: 'supervan',
+						content: 'Your session has expired you will be redirected to the login page',
+						buttons: {
+							confirm:{
+								text: "Ok",
+								action: function () {
+									location.href = 'index.php';
+								}
+							}
+
+						}
+					});
+
 				}
 			})
 			.fail(function(error) {
