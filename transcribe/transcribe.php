@@ -283,12 +283,6 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                 <td align="right">
 
 
-                                    <!--<button class="btn btn-sm save-button" id="loadBtn" name="loadBtn"
-                                            type="button">
-
-                                        <i class="fas fa-cloud-download"></i>
-                                        Load
-                                    </button>-->
                                 </td>
                             </tr>
                         </table>
