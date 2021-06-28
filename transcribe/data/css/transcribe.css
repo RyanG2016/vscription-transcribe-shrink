@@ -563,3 +563,6 @@ select,
     height: 31px;
     vertical-align: middle !important;
 }
+.report-container{
+    width: 100%;
+}

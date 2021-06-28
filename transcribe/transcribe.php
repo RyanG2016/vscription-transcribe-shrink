@@ -268,7 +268,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                         </legend>
 
 
-                        <div id="divv" class="form-row">
+                        <div id="divv" class="form-row report-container">
                             <div class="col">
                                 <textarea id="report" name="report" placeholder="" rows="25" class="area"></textarea>
                             </div>
