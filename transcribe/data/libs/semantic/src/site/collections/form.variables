@@ -1,0 +1,5 @@
+/*******************************
+    User Variable Overrides
+*******************************/
+@inputFontSize: 0.8rem;
+@labelFontSize: 0.9rem;

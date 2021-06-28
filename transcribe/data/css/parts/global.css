@@ -108,6 +108,8 @@
 body {
     background-color: var(--vspt-website-bg-color);
     overflow: auto;
+    /* Allows scroll bar */
+    height: unset !important;
 }
 
 .logout {

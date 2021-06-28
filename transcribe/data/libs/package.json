@@ -4,6 +4,7 @@
   "description": "",
   "main": "like.js",
   "dependencies": {
+    "fomantic-ui": "^2.8.8",
     "material-components-web": "^6.0.0"
   },
   "devDependencies": {},

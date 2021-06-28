@@ -41,7 +41,9 @@ class SessionInfoController {
                 "email" => $_SESSION["uEmail"],
                 "role" => $_SESSION["role"],
                 "account_id" => isset($_SESSION["accID"])?$_SESSION["accID"]:0,
-                "sr_enabled" => isset($_SESSION["sr_enabled"])?$_SESSION["sr_enabled"]:0
+                "sr_enabled" => isset($_SESSION["sr_enabled"])?$_SESSION["sr_enabled"]:0,
+                "logged_in" => true
+
             )
         );
 
