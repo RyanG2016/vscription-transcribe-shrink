@@ -214,7 +214,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
           href="data/tooltipster/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-punk.min.css"/>
     <script type="text/javascript" src="data/tooltipster/js/tooltipster.bundle.min.js"></script>
 
-    <link href='data/css/transcribe.css?v=<?php echo $version_control ?>' type='text/css' rel='stylesheet'/>
+    <link href='data/css/transcribe.css?v=16' type='text/css' rel='stylesheet'/>
 
     <!-- Enjoyhint library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/kineticjs/5.2.0/kinetic.js"></script>
@@ -231,7 +231,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 <body>
 
 <script src="data/scripts/parts/constants.js" type="text/javascript"></script>
-<script src="data/scripts/transcribe.min.js?v=3"></script>
+<script src="data/scripts/transcribe.min.js?v=4"></script>
 
 <div id="updated_version_bar">There is a newer version (v<span></span>) of the vScription Transcribe Controller
     available -> <a href="" target="_blank">download</a></div>
