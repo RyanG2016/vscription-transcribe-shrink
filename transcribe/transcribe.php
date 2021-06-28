@@ -246,7 +246,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
             <div class="vtex-card contents m-0">
 
                 <div class="row ">
-                    <div class="col">
+                    <div class="col report-col">
                         <legend id="leg"><span class="number">1</span> Report Body
 
                             <span class="transcribe-shortcuts">
