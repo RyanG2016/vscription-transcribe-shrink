@@ -465,7 +465,7 @@ body {
   min-width: 320px;
   background: #FFFFFF;
   font-family: main, sans-serif, 'Helvetica Neue', Arial, Helvetica;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.4285em;
   color: rgba(0, 0, 0, 0.87);
 }
@@ -1094,7 +1094,7 @@ body .ui.inverted:not(.dimmer)::-webkit-scrollbar-thumb:hover {
   -ms-flex-align: center;
   align-items: center;
   margin: 0 0 0 -1px !important;
-  font-size: 1em;
+  font-size: 0.8em;
   padding: '';
   border-color: rgba(34, 36, 38, 0.15);
 }
@@ -1461,7 +1461,7 @@ body .ui.inverted:not(.dimmer)::-webkit-scrollbar-thumb:hover {
 .ui.buttons .button,
 .ui.buttons .or,
 .ui.button {
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 
 .ui.mini.buttons .dropdown,
@@ -22836,7 +22836,7 @@ i.flag.zimbabwe:before {
   font-weight: normal;
   padding: 0;
   margin: 0;
-  font-size: 1rem;
+  font-size: 0.8rem;
   line-height: 1.2em;
   color: rgba(0, 0, 0, 0.6);
 }
@@ -22952,7 +22952,7 @@ h3.ui.header {
 }
 
 h3.ui.header .sub.header {
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 
 h4.ui.header {
@@ -22960,7 +22960,7 @@ h4.ui.header {
 }
 
 h4.ui.header .sub.header {
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 
 h5.ui.header {
@@ -23012,7 +23012,7 @@ h6.ui.header .sub.header {
 }
 
 .ui.small.header .sub.header {
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 
 .ui.small.sub.header {
@@ -23040,7 +23040,7 @@ h6.ui.header .sub.header {
 }
 
 .ui.big.sub.header {
-  font-size: 1em;
+  font-size: 0.8em;
 }
 
 .ui.huge.header {
@@ -23053,7 +23053,7 @@ h6.ui.header .sub.header {
 }
 
 .ui.huge.sub.header {
-  font-size: 1em;
+  font-size: 0.8em;
 }
 
 .ui.massive.header {
@@ -23628,7 +23628,7 @@ a.ui.inverted.black.header.header.header:hover {
 
 .ui.block.header {
   background: #F3F4F5;
-  padding: 0.8125rem 1rem;
+  padding: 0.8125rem 0.8rem;
   -webkit-box-shadow: none;
   box-shadow: none;
   border: 1px solid #D4D4D5;
@@ -23636,7 +23636,7 @@ a.ui.inverted.black.header.header.header:hover {
 }
 
 .ui.block.header:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) {
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 
 .ui.mini.block.header {
@@ -23673,7 +23673,7 @@ a.ui.inverted.black.header.header.header:hover {
 
 .ui.attached.header {
   background: #FFFFFF;
-  padding: 0.8125rem 1rem;
+  padding: 0.8125rem 0.8rem;
   margin: 0 -1px 0 -1px;
   -webkit-box-shadow: none;
   box-shadow: none;
@@ -23700,7 +23700,7 @@ a.ui.inverted.black.header.header.header:hover {
 /* Attached Sizes */
 
 .ui.attached.header:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) {
-  font-size: 1em;
+  font-size: 0.8em;
 }
 
 .ui.mini.attached.header {
@@ -33130,7 +33130,7 @@ img.ui.bordered.image {
 .ui.medium.image {
   width: 300px;
   height: auto;
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 
 .ui.mini.images .image,
@@ -33675,7 +33675,7 @@ img.ui.bordered.image {
   -ms-flex: 0 0 auto;
   flex: 0 0 auto;
   margin: 0;
-  font-size: 1em;
+  font-size: 0.8em;
 }
 
 .ui.labeled.input > .label:not(.corner) {
@@ -33987,7 +33987,7 @@ img.ui.bordered.image {
 ---------------------*/
 
 .ui.input {
-  font-size: 1em;
+  font-size: 0.8em;
 }
 
 .ui.mini.input {
@@ -34525,11 +34525,11 @@ a.ui.label {
 /* Inside Table */
 
 .ui.table td > .ui.ribbon.label {
-  left: calc(-1em - 1.2em);
+  left: calc(-0.8em - 1.2em);
 }
 
 .ui.table td > .ui[class*="right ribbon"].label {
-  left: calc(100% + 1em + 1.2em);
+  left: calc(100% + 0.8em + 1.2em);
   padding-left: 0.833em;
 }
 
@@ -36400,7 +36400,7 @@ a.ui.ui.ui.inverted.basic.black.label:hover {
 
 .ui.large.labels .label,
 .ui.large.label {
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 
 .ui.big.labels .label,
@@ -37458,7 +37458,7 @@ ol.ui.suffixed.list li:before,
 --------------------*/
 
 .ui.list {
-  font-size: 1em;
+  font-size: 0.8em;
 }
 
 .ui.mini.list {
@@ -37699,7 +37699,7 @@ ol.ui.suffixed.list li:before,
 .ui.loader {
   width: 2rem;
   height: 2rem;
-  font-size: 1em;
+  font-size: 0.8em;
 }
 
 .ui.loader:before,
@@ -38897,7 +38897,7 @@ ol.ui.suffixed.list li:before,
 ---------------*/
 
 .ui.rail {
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 
 .ui.mini.rail {
@@ -39240,7 +39240,7 @@ ol.ui.suffixed.list li:before,
 ---------------*/
 
 .ui.reveal > .content {
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 
 .ui.mini.reveal > .content {
@@ -40225,7 +40225,7 @@ ol.ui.suffixed.list li:before,
 
 .ui.segments .segment,
 .ui.segment {
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 
 .ui.mini.segments .segment,
@@ -40917,7 +40917,7 @@ ol.ui.suffixed.list li:before,
 
 .ui.steps .step,
 .ui.step {
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 
 .ui.mini.steps .step,
@@ -41314,7 +41314,7 @@ span.ui.massive.text {
 
 .ui.breadcrumb.segment {
   display: inline-block;
-  padding: 0.8125em 1em;
+  padding: 0.8125em 0.8em;
 }
 
 /* Inverted */
@@ -41344,7 +41344,7 @@ span.ui.massive.text {
 *******************************/
 
 .ui.breadcrumb {
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 
 .ui.mini.breadcrumb {
@@ -41441,7 +41441,7 @@ span.ui.massive.text {
   display: block;
   margin: 0 0 0.25rem 0;
   color: rgba(0, 0, 0, 0.87);
-  font-size: 0.9375em;
+  font-size: 0.9rem;
   font-weight: bold;
   text-transform: none;
 }
@@ -41493,7 +41493,7 @@ span.ui.massive.text {
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
   line-height: 1.21428571em;
   padding: 0.58035714em 0.875em;
-  font-size: 1em;
+  font-size: 0.8rem;
   background: #FFFFFF;
   border: 1px solid rgba(34, 36, 38, 0.15);
   color: rgba(0, 0, 0, 0.87);
@@ -41521,7 +41521,7 @@ span.ui.massive.text {
   box-shadow: 0 0 0 0 transparent inset;
   -webkit-transition: color 0.1s ease, border-color 0.1s ease;
   transition: color 0.1s ease, border-color 0.1s ease;
-  font-size: 1em;
+  font-size: 0.8rem;
   font-family: main, sans-serif, 'Helvetica Neue', Arial, Helvetica;
   line-height: 1.2857;
   resize: vertical;
@@ -43040,7 +43040,7 @@ span.ui.massive.text {
 .ui.form .grouped.fields > label {
   margin: 0 0 0.25rem 0;
   color: rgba(0, 0, 0, 0.87);
-  font-size: 0.9375em;
+  font-size: 0.9rem;
   font-weight: bold;
   text-transform: none;
 }
@@ -43262,7 +43262,7 @@ span.ui.massive.text {
   margin-top: 0;
   margin-bottom: 0;
   vertical-align: baseline;
-  font-size: 0.9375em;
+  font-size: 0.9rem;
   font-weight: bold;
   color: rgba(0, 0, 0, 0.87);
   text-transform: none;
@@ -43285,7 +43285,7 @@ span.ui.massive.text {
   margin-top: 0;
   margin-bottom: 0;
   vertical-align: middle;
-  font-size: 1em;
+  font-size: 0.8em;
 }
 
 .ui.form .inline.fields .field .calendar:not(.popup),
@@ -43333,7 +43333,7 @@ span.ui.massive.text {
 .ui.form,
 .ui.form .field .dropdown,
 .ui.form .field .dropdown .menu > .item {
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 
 .ui.mini.form,
@@ -45780,7 +45780,7 @@ span.ui.massive.text {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  margin: 1rem 0;
+  margin: 0.8rem 0;
   font-family: main, sans-serif, 'Helvetica Neue', Arial, Helvetica;
   background: #FFFFFF;
   font-weight: normal;
@@ -45916,7 +45916,7 @@ span.ui.massive.text {
   margin: -0.5em 0;
   padding-bottom: 0.8125em;
   padding-top: 0.8125em;
-  font-size: 1em;
+  font-size: 0.8em;
 }
 
 /*----------------
@@ -45952,7 +45952,7 @@ span.ui.massive.text {
 }
 
 .ui.menu .item > .input input {
-  font-size: 1em;
+  font-size: 0.8em;
   padding-top: 0.5em;
   padding-bottom: 0.5em;
 }
@@ -45971,7 +45971,7 @@ span.ui.massive.text {
 
 .ui.vertical.menu .item > .header:not(.ui) {
   margin: 0 0 0.5em;
-  font-size: 1em;
+  font-size: 0.8em;
   font-weight: bold;
 }
 
@@ -46010,7 +46010,7 @@ span.ui.massive.text {
 .ui.menu .ui.dropdown .menu > .item {
   margin: 0;
   text-align: left;
-  font-size: 1em !important;
+  font-size: 0.8em !important;
   padding: 0.8125em 1.125em !important;
   background: transparent !important;
   color: rgba(0, 0, 0, 0.87) !important;
@@ -46045,7 +46045,7 @@ span.ui.massive.text {
 .ui.menu .ui.dropdown .menu > .item > .icons,
 .ui.menu .ui.dropdown .menu > .item > i.icon:not(.dropdown) {
   display: inline-block;
-  font-size: 1em !important;
+  font-size: 0.8em !important;
   float: none;
   margin: 0 0.75em 0 0 !important;
 }
@@ -46972,7 +46972,7 @@ Floated Menu / Item
   -webkit-box-shadow: none;
   box-shadow: none;
   border: none;
-  margin: 1em -0.4375em;
+  margin: 0.8em -0.4375em;
 }
 
 .ui.text.menu .item {
@@ -47022,7 +47022,7 @@ Floated Menu / Item
 /*--- vertical text ---*/
 
 .ui.vertical.text.menu {
-  margin: 1em 0;
+  margin: 0.8em 0;
 }
 
 .ui.vertical.text.menu:first-child {
@@ -48109,7 +48109,7 @@ Floated Menu / Item
   bottom: 0;
   margin-bottom: 0;
   top: 0;
-  margin-top: 1rem;
+  margin-top: 0.8rem;
   border-radius: 0.25rem 0.25rem 0 0;
 }
 
@@ -48123,7 +48123,7 @@ Floated Menu / Item
   bottom: 0;
   margin-top: 0;
   top: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
   -webkit-box-shadow: 0 1px 2px 0 rgba(34, 36, 38, 0.15), none;
   box-shadow: 0 1px 2px 0 rgba(34, 36, 38, 0.15), none;
   border-radius: 0 0 0.25rem 0.25rem;
@@ -48164,7 +48164,7 @@ Floated Menu / Item
 ---------------*/
 
 .ui.menu {
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 
 .ui.vertical.menu {
@@ -49052,7 +49052,7 @@ Floated Menu / Item
 ---------------*/
 
 .ui.message {
-  font-size: 1em;
+  font-size: 0.8em;
 }
 
 .ui.mini.message {
@@ -49751,7 +49751,7 @@ Floated Menu / Item
   -webkit-box-shadow: '';
   box-shadow: '';
   text-align: '';
-  font-size: 1em;
+  font-size: 0.8em;
   padding-left: '';
   padding-right: '';
 }
@@ -51951,7 +51951,7 @@ Floated Menu / Item
   transform: translateX(-50%) translateY(-50%);
   content: 'Ad';
   color: #FFFFFF;
-  font-size: 1em;
+  font-size: 0.8em;
   font-weight: bold;
 }
 
@@ -52257,7 +52257,7 @@ Floated Menu / Item
 
 .ui.cards > .card .meta,
 .ui.card .meta {
-  font-size: 1em;
+  font-size: 0.8em;
   color: rgba(0, 0, 0, 0.4);
 }
 
@@ -53778,7 +53778,7 @@ a.inverted.ui.card:hover,
 --------------------*/
 
 .ui.comments {
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 
 .ui.mini.comments {
@@ -53972,7 +53972,7 @@ a.inverted.ui.card:hover,
   padding: 0;
   color: rgba(0, 0, 0, 0.4);
   font-weight: normal;
-  font-size: 1em;
+  font-size: 0.8em;
   font-style: normal;
 }
 
@@ -53982,7 +53982,7 @@ a.inverted.ui.card:hover,
 
 .ui.feed > .event > .content .summary {
   margin: 0;
-  font-size: 1em;
+  font-size: 0.8em;
   font-weight: bold;
   color: rgba(0, 0, 0, 0.87);
 }
@@ -54057,7 +54057,7 @@ a.inverted.ui.card:hover,
 .ui.feed > .event > .content .extra.text {
   padding: 0;
   border-left: none;
-  font-size: 1em;
+  font-size: 0.8em;
   max-width: 500px;
   line-height: 1.4285em;
 }
@@ -54140,7 +54140,7 @@ a.inverted.ui.card:hover,
 *******************************/
 
 .ui.feed {
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 
 .ui.mini.feed {
@@ -54701,7 +54701,7 @@ a.inverted.ui.card:hover,
 ---------------*/
 
 .ui.items > .item {
-  font-size: 1em;
+  font-size: 0.8em;
 }
 
 .ui.mini.items > .item {
@@ -54956,7 +54956,7 @@ a.inverted.ui.card:hover,
 .ui.statistics .statistic > .label,
 .ui.statistic > .label {
   font-family: main, sans-serif, 'Helvetica Neue', Arial, Helvetica;
-  font-size: 1em;
+  font-size: 0.8em;
   font-weight: bold;
   color: rgba(0, 0, 0, 0.87);
   text-transform: uppercase;
@@ -56016,7 +56016,7 @@ a.inverted.ui.card:hover,
   vertical-align: baseline;
   font-style: normal;
   min-height: 17px;
-  font-size: 1em;
+  font-size: 0.8em;
   line-height: 17px;
   min-width: 17px;
 }
@@ -56042,7 +56042,7 @@ a.inverted.ui.card:hover,
   display: block;
   padding-left: 1.85714em;
   outline: none;
-  font-size: 1em;
+  font-size: 0.8em;
 }
 
 .ui.checkbox label:before {
@@ -57447,7 +57447,7 @@ body.dimmable > .dimmer {
   margin: 0;
   padding: 0 0;
   background: #FFFFFF;
-  font-size: 1em;
+  font-size: 0.8em;
   text-shadow: none;
   text-align: left;
   -webkit-box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
@@ -57519,7 +57519,7 @@ body.dimmable > .dimmer {
   text-align: left;
   border-top: none;
   line-height: 1em;
-  font-size: 1rem;
+  font-size: 0.8rem !important;
   color: rgba(0, 0, 0, 0.87);
   padding: 0.8125rem 1.125rem !important;
   text-transform: none;
@@ -57581,7 +57581,7 @@ body.dimmable > .dimmer {
 
 .ui.dropdown .menu > .header:not(.ui) {
   color: rgba(0, 0, 0, 0.85);
-  font-size: 0.6875em;
+  font-size: 0.8rem !important;
 }
 
 .ui.dropdown .menu > .divider {
@@ -58313,7 +58313,7 @@ select.ui.dropdown {
 .ui.multiple.dropdown > .label {
   display: inline-block;
   white-space: normal;
-  font-size: 1em;
+  font-size: 0.8em;
   padding: 0.3125em 0.8125em;
   margin: 0.125rem 0.25rem 0.125rem 0;
   -webkit-box-shadow: 0 0 0 1px rgba(34, 36, 38, 0.15) inset;
@@ -59395,7 +59395,7 @@ select.ui.dropdown {
 
 .ui.dropdown,
 .ui.dropdown .menu > .item {
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 
 .ui.mini.dropdown,
@@ -60431,7 +60431,7 @@ select.ui.dropdown {
 ---------------*/
 
 .ui.modal {
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 
 .ui.mini.modal > .header:not(.ui) {
@@ -61170,7 +61170,7 @@ a.ui.nag {
   pointer-events: none;
   position: absolute;
   content: '';
-  font-size: 1rem;
+  font-size: 0.8rem;
   width: 0.625em;
   height: 0.625em;
   background: #FFFFFF;
@@ -61191,7 +61191,7 @@ a.ui.nag {
   text-align: left;
   text-shadow: none;
   white-space: nowrap;
-  font-size: 1rem;
+  font-size: 0.8rem;
   border: 1px solid #D4D4D5;
   line-height: 1.4285em;
   max-width: none;
@@ -61927,7 +61927,7 @@ a.ui.nag {
 ---------------*/
 
 .ui.popup {
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 
 .ui.mini.popup {
@@ -62696,7 +62696,7 @@ a.ui.nag {
 ---------------*/
 
 .ui.progress {
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 
 .ui.progress .bar {
@@ -64439,7 +64439,7 @@ a.ui.nag {
 *******************************/
 
 .ui.rating {
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 
 .ui.mini.rating {
@@ -64505,7 +64505,7 @@ a.ui.nag {
   font-weight: normal;
   line-height: 1.21428571em;
   padding: 0.58035714em 0.875em;
-  font-size: 1em;
+  font-size: 0.8em;
   background: #FFFFFF;
   border: 1px solid rgba(34, 36, 38, 0.15);
   color: rgba(0, 0, 0, 0.87);
@@ -64609,7 +64609,7 @@ a.ui.nag {
   margin: -0.14285714em 0 0;
   font-family: main, sans-serif, 'Helvetica Neue', Arial, Helvetica;
   font-weight: bold;
-  font-size: 1em;
+  font-size: 0.8em;
   color: rgba(0, 0, 0, 0.85);
 }
 
@@ -64634,7 +64634,7 @@ a.ui.nag {
 
 .ui.search > .results > .message .header {
   font-family: main, sans-serif, 'Helvetica Neue', Arial, Helvetica;
-  font-size: 1rem;
+  font-size: 0.8rem;
   font-weight: bold;
   color: rgba(0, 0, 0, 0.87);
 }
@@ -64651,7 +64651,7 @@ a.ui.nag {
   display: block;
   border-top: none;
   background: #F3F4F5;
-  padding: 0.9375em 1em;
+  padding: 0.9375em 0.8em;
   color: rgba(0, 0, 0, 0.87);
   font-weight: bold;
   text-align: center;
@@ -65011,7 +65011,7 @@ a.ui.nag {
 ---------------*/
 
 .ui.search {
-  font-size: 1em;
+  font-size: 0.8em;
 }
 
 .ui.mini.search {

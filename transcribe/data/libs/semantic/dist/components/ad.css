@@ -252,7 +252,7 @@
           transform: translateX(-50%) translateY(-50%);
   content: 'Ad';
   color: #FFFFFF;
-  font-size: 1em;
+  font-size: 0.8em;
   font-weight: bold;
 }
 .ui.mobile.test.ad:after {

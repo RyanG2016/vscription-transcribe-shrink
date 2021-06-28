@@ -41,7 +41,7 @@
   font-weight: normal;
   padding: 0;
   margin: 0;
-  font-size: 1rem;
+  font-size: 0.8rem;
   line-height: 1.2em;
   color: rgba(0, 0, 0, 0.6);
 }
@@ -149,13 +149,13 @@ h3.ui.header {
   font-size: 1.28571429rem;
 }
 h3.ui.header .sub.header {
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 h4.ui.header {
   font-size: 1.07142857rem;
 }
 h4.ui.header .sub.header {
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 h5.ui.header {
   font-size: 1rem;
@@ -196,7 +196,7 @@ h6.ui.header .sub.header {
   font-size: 1.07142857em;
 }
 .ui.small.header .sub.header {
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 .ui.small.sub.header {
   font-size: 0.8125em;
@@ -217,7 +217,7 @@ h6.ui.header .sub.header {
   font-size: 1.125rem;
 }
 .ui.big.sub.header {
-  font-size: 1em;
+  font-size: 0.8em;
 }
 .ui.huge.header {
   font-size: 2em;
@@ -227,7 +227,7 @@ h6.ui.header .sub.header {
   font-size: 1.125rem;
 }
 .ui.huge.sub.header {
-  font-size: 1em;
+  font-size: 0.8em;
 }
 .ui.massive.header {
   font-size: 2.28571429em;
@@ -693,14 +693,14 @@ a.ui.inverted.black.header.header.header:hover {
 
 .ui.block.header {
   background: #F3F4F5;
-  padding: 0.8125rem 1rem;
+  padding: 0.8125rem 0.8rem;
   -webkit-box-shadow: none;
           box-shadow: none;
   border: 1px solid #D4D4D5;
   border-radius: 0.25rem;
 }
 .ui.block.header:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) {
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 .ui.mini.block.header {
   font-size: 0.8125rem;
@@ -730,7 +730,7 @@ a.ui.inverted.black.header.header.header:hover {
 
 .ui.attached.header {
   background: #FFFFFF;
-  padding: 0.8125rem 1rem;
+  padding: 0.8125rem 0.8rem;
   margin: 0 -1px 0 -1px;
   -webkit-box-shadow: none;
           box-shadow: none;
@@ -752,7 +752,7 @@ a.ui.inverted.black.header.header.header:hover {
 
 /* Attached Sizes */
 .ui.attached.header:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) {
-  font-size: 1em;
+  font-size: 0.8em;
 }
 .ui.mini.attached.header {
   font-size: 0.8125em;

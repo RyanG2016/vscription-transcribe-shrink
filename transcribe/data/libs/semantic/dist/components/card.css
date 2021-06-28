@@ -267,7 +267,7 @@
 
 .ui.cards > .card .meta,
 .ui.card .meta {
-  font-size: 1em;
+  font-size: 0.8em;
   color: rgba(0, 0, 0, 0.4);
 }
 .ui.cards > .card .meta *,

@@ -911,7 +911,7 @@ ol.ui.suffixed.list li:before,
 --------------------*/
 
 .ui.list {
-  font-size: 1em;
+  font-size: 0.8em;
 }
 .ui.mini.list {
   font-size: 0.8125em;

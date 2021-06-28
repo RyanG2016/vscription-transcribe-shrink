@@ -115,7 +115,7 @@
 .ui.statistics .statistic > .label,
 .ui.statistic > .label {
   font-family: main, sans-serif, 'Helvetica Neue', Arial, Helvetica;
-  font-size: 1em;
+  font-size: 0.8em;
   font-weight: bold;
   color: rgba(0, 0, 0, 0.87);
   text-transform: uppercase;

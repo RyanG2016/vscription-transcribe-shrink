@@ -52,7 +52,7 @@
   margin: 0;
   padding: 0 0;
   background: #FFFFFF;
-  font-size: 1em;
+  font-size: 0.8em;
   text-shadow: none;
   text-align: left;
   -webkit-box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
@@ -121,7 +121,7 @@
   text-align: left;
   border-top: none;
   line-height: 1em;
-  font-size: 1rem;
+  font-size: 0.8rem !important;
   color: rgba(0, 0, 0, 0.87);
   padding: 0.8125rem 1.125rem !important;
   text-transform: none;
@@ -178,7 +178,7 @@
 }
 .ui.dropdown .menu > .header:not(.ui) {
   color: rgba(0, 0, 0, 0.85);
-  font-size: 0.6875em;
+  font-size: 0.8rem !important;
 }
 .ui.dropdown .menu > .divider {
   border-top: 1px solid rgba(34, 36, 38, 0.1);
@@ -830,7 +830,7 @@ select.ui.dropdown {
 .ui.multiple.dropdown > .label {
   display: inline-block;
   white-space: normal;
-  font-size: 1em;
+  font-size: 0.8em;
   padding: 0.3125em 0.8125em;
   margin: 0.125rem 0.25rem 0.125rem 0;
   -webkit-box-shadow: 0 0 0 1px rgba(34, 36, 38, 0.15) inset;
@@ -1791,7 +1791,7 @@ select.ui.dropdown {
 
 .ui.dropdown,
 .ui.dropdown .menu > .item {
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 .ui.mini.dropdown,
 .ui.mini.dropdown .menu > .item {

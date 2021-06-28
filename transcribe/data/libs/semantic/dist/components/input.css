@@ -407,7 +407,7 @@
       -ms-flex: 0 0 auto;
           flex: 0 0 auto;
   margin: 0;
-  font-size: 1em;
+  font-size: 0.8em;
 }
 .ui.labeled.input > .label:not(.corner) {
   padding-top: 0.6875em;
@@ -674,7 +674,7 @@
 ---------------------*/
 
 .ui.input {
-  font-size: 1em;
+  font-size: 0.8em;
 }
 .ui.mini.input {
   font-size: 0.8125em;

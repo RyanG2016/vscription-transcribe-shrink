@@ -3,6 +3,11 @@
 *******************************/
 @fontName          : main;
 @emSize   : 16px;
+@fontSize : 16px;
+
+/*@mediumRaw       : unit( (round(0.8 * @emSize) / @emSize ));*/
+@mediumRaw       : 0.8em;
+
 
 @headerFont        : @fontName, sans-serif, 'Helvetica Neue', Arial, Helvetica;
 @pageFont        : @fontName, sans-serif, 'Helvetica Neue', Arial, Helvetica;

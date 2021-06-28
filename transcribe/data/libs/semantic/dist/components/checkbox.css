@@ -27,7 +27,7 @@
   vertical-align: baseline;
   font-style: normal;
   min-height: 17px;
-  font-size: 1em;
+  font-size: 0.8em;
   line-height: 17px;
   min-width: 17px;
 }
@@ -51,7 +51,7 @@
   display: block;
   padding-left: 1.85714em;
   outline: none;
-  font-size: 1em;
+  font-size: 0.8em;
 }
 .ui.checkbox label:before {
   position: absolute;

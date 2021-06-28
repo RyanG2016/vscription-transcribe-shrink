@@ -175,6 +175,9 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css"
           crossorigin="anonymous">
 
+    <link rel="stylesheet" type="text/css" href="data/libs/semantic/dist/semantic.min.css">
+    <script src="data/libs/semantic/dist/semantic.min.js"></script>
+
 
     <script src='tinymce/tinymce.min.js?v=<?php echo $version_control ?>'></script>
 
@@ -243,7 +246,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
             <div class="vtex-card contents m-0">
 
                 <div class="row ">
-                    <div class="col-8">
+                    <div class="col">
                         <legend id="leg"><span class="number">1</span> Report Body
 
                             <span class="transcribe-shortcuts">
@@ -267,7 +270,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                             </div>
                         </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-auto player-demo-sidebar">
                         <span class="controller-status" id="statusTxt">
                             <i>connecting to controller please wait...</i>
                         </span>
@@ -278,159 +281,9 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                    data-seek-interval="2" data-transcript-src="transcript">
                             </audio>
                         </div>
-                        <table width="100%" style="padding-bottom: 5px" id="demo-tbl">
-                            <tr>
-                                <td align="right">
 
-
-                                </td>
-                            </tr>
-                        </table>
-
-                        <div class="demographics-div" id="demoDiv">
-                            <legend id="leg" class="mt-3"><span class="number">2</span> Demographics
-                            </legend>
+                        <div class="demographics-div ui equal width form" id="demoDiv">
                             <form class="validate-form" method="post" name="form" id="form" enctype="multipart/form-data">
-
-                                <div class="form-row">
-                                    <div class="col-xl col-lg-12 demographics-col">
-                                        <div id="demoItems">
-                                            <div class="form-row mt-2">
-
-                                                <div class="input-group mb-3 col-4">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text" id="jobNo-addon1">#</span>
-                                                    </div>
-                                                    <input type="text" class="form-control" id="jobNo"
-                                                           placeholder="Job/File ID"
-                                                           name="jobNo" <?php if ($set == 1 && !empty($n1)) {
-                                                        echo 'value="' . $n1 . "\"";
-                                                    } ?> readonly>
-                                                </div>
-
-                                                <div class="input-group mb-3 col-8 ">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text" id="authorName-addon1">Author</span>
-                                                    </div>
-                                                    <input type="text" id="authorName" class="form-control"
-                                                           name="authorName"
-                                                           title="Author Name" <?php if ($set == 1 && !empty($n2)) {
-                                                        echo 'value="' . $n2 . "\"";
-                                                    } ?> readonly>
-                                                </div>
-
-                                                <div class="input-group mb-3 col-12">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text" id="jobType-addon1">Job Type</span>
-                                                    </div>
-
-
-                                                    <select class="form-control mt-0" id="jobType" name="jobType" disabled>
-                                                        <?php
-                                                        foreach ($workTypes as $type) {
-                                                            $type = trim($type);
-                                                            echo '<option value="' . strtolower($type) . '">' . $type . '</option>';
-                                                        }
-
-                                                        ?>
-                                                    </select>
-
-                                                </div>
-
-                                                <div class="input-group mb-3 col-12">
-                                                    <div class="input-group-prepend">
-                                                    <span class="input-group-text" id="date-addon1"><i
-                                                                class="fas fa-calendar-alt"></i> &nbsp;Dictated</span>
-                                                    </div>
-                                                    <input type="text" name="DateDic" class="form-control" id="date"
-                                                           title="Date Dictated" <?php if ($set == 1 && !empty($dateD)) {
-                                                        echo 'value="' . $dateD . "\"";
-                                                    } ?> readonly>
-                                                </div>
-
-                                                <div class="input-group mb-3 col-12">
-                                                    <div class="input-group-prepend">
-                                                    <span class="input-group-text" id="dateT-addon1"><i
-                                                                class="fas fa-calendar-alt"></i> &nbsp;Transcribed</span>
-                                                    </div>
-                                                    <input type="text" name="DateTra" id="dateT" class="form-control"
-                                                           title="Date Transcribed" <?php if ($set == 1 && !empty($dateT)) {
-                                                        echo 'value="' . $dateT . "\"";
-                                                    } else {
-                                                        echo date("d-M-Y");
-                                                    } ?> readonly>
-                                                </div>
-
-
-                                                <div class="col-12 user-fields" id="userFields">
-                                                    <div class="form-row">
-                                                        <div class="input-group mb-3 col-xl-4 col-lg-4 col-md-4">
-                                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"
-                                                      id="user_field_1-addon1">User Field 1</span>
-                                                            </div>
-                                                            <input type="text" id="user_field_1" name="user_field_1"
-                                                                   class="form-control"
-                                                                   title="User Field 1" <?php if ($set == 1 && !empty($uf1)) {
-                                                                echo 'value="' . $uf1 . "\"";
-                                                            } ?> readonly>
-                                                        </div>
-
-                                                        <div class="input-group mb-3 col-xl-4 col-lg-4 col-md-4">
-                                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"
-                                                      id="user_field_2-addon1">User Field 2</span>
-                                                            </div>
-                                                            <input type="text" id="user_field_2" name="user_field_2"
-                                                                   class="form-control"
-                                                                   title="User Field 2" <?php if ($set == 1 && !empty($uf2)) {
-                                                                echo 'value="' . $uf2 . "\"";
-                                                            } ?> readonly>
-                                                        </div>
-
-                                                        <div class="input-group mb-3 col-xl-4 col-lg-4 col-md-4">
-                                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"
-                                                      id="user_field_3-addon1">User Field 3</span>
-                                                            </div>
-                                                            <input type="text" id="user_field_3" name="user_field_3"
-                                                                   class="form-control"
-                                                                   title="User Field 3" <?php if ($set == 1 && !empty($uf3)) {
-                                                                echo 'value="' . $uf3 . "\"";
-                                                            } ?> readonly>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-
-                                                <div class="input-group mb-3 col-12">
-                                                    <div class="input-group-prepend">
-                                                    <span class="input-group-text" id="comments-addon1"><i
-                                                                class="fas fa-comment-dots"></i> &nbsp;Typist</span>
-                                                    </div>
-                                                    <input type="text" id="comments" name="comments" class="form-control"
-                                                           title="Typist Comments" <?php if ($set == 1 && !empty($ph)) {
-                                                        echo 'value="' . $ph . "\"";
-                                                    } ?> disabled>
-                                                </div>
-
-                                                <div class="input-group mb-3 col-12">
-                                                    <div class="input-group-prepend">
-                                                    <span class="input-group-text" id="file_comment-addon1"><i
-                                                                class="fas fa-comment-dots"></i> &nbsp;Job</span>
-                                                    </div>
-                                                    <input type="text" id="file_comment" name="file_comment"
-                                                           class="form-control"
-                                                           title="File Comments" <?php if ($set == 1 && !empty($ph)) {
-                                                        echo 'value="' . $ph . "\"";
-                                                    } ?> readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-
                                 <fieldset>
                                     <div class="row mr-0" style="padding-bottom: 10px">
                                         <div class="col-auto p-1">
@@ -441,24 +294,153 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                         </div>
 
                                         <div class="col p-1 text-right">
-                                                <button class="btn btn-sm save-button mb-1" id="saveBtn" name="saveBtn"
-                                                        type="submit" disabled>
-                                                    <i class="fas fa-save"></i> Save and Complete
-                                                </button>
+                                            <button class="btn btn-sm save-button mb-1" id="saveBtn" name="saveBtn"
+                                                    type="submit" disabled>
+                                                <i class="fas fa-save"></i> Save and Complete
+                                            </button>
 
-                                                <button class="btn btn-sm suspend-button mb-1" id="suspendBtn" type="submit"
-                                                        name="suspendBtn" disabled>
-                                                    <i class="fas fa-pause-circle"></i> Suspend
-                                                </button>
+                                            <button class="btn btn-sm suspend-button mb-1" id="suspendBtn" type="submit"
+                                                    name="suspendBtn" disabled>
+                                                <i class="fas fa-pause-circle"></i> Suspend
+                                            </button>
 
-                                                <button class="btn btn-sm discard-button mb-1" id="discardBtn" name="discardBtn"
-                                                        type="button" disabled>
-                                                    <i class="fas fa-times" aria-hidden="true"></i>
-                                                    Discard
-                                                </button>
+                                            <button class="btn btn-sm discard-button mb-1" id="discardBtn" name="discardBtn"
+                                                    type="button" disabled>
+                                                <i class="fas fa-times" aria-hidden="true"></i>
+                                                Discard
+                                            </button>
                                         </div>
                                     </div>
                                 </fieldset>
+
+                                <legend id="leg" class="mt-1"><span class="number">2</span> Demographics</legend>
+                                <!-- <div class="form-row">-->
+                                <div class="col-xl col-lg-12 mb-3 demographics-col">
+
+                                        <div class="field">
+                                            <label>Job/File ID</label>
+
+                                            <input type="text" class="form-control" id="jobNo"
+                                                   placeholder="Job/File ID"
+                                                   name="jobNo" <?php if ($set == 1 && !empty($n1)) {
+                                                echo 'value="' . $n1 . "\"";
+                                            } ?> readonly>
+                                        </div>
+
+                                        <div class="field">
+                                            <label>Author</label>
+                                            <div class="ui left icon input">
+                                                <input type="text" id="authorName" class="form-control"
+                                                      name="authorName"
+                                                      title="Author Name" <?php if ($set == 1 && !empty($n2)) {
+                                                    echo 'value="' . $n2 . "\"";
+                                                } ?> readonly>
+                                                <i class="user icon"></i>
+                                            </div>
+                                        </div>
+
+                                        <div class="field">
+                                            <label for="jobType">Job Type</label>
+                                            <select class="ui search dropdown" id="jobType" name="jobType" disabled>
+                                                <?php
+                                                foreach ($workTypes as $type) {
+                                                    $type = trim($type);
+                                                    echo '<option value="' . strtolower($type) . '">' . $type . '</option>';
+                                                }
+                                                ?>
+                                            </select>
+
+                                        </div>
+
+                                        <div class="field">
+                                            <label for="date">Dictated Date</label>
+                                            <div class="ui left icon input">
+
+                                                <input type="text" name="DateDic" class="form-control" id="date"
+                                                       title="Date Dictated" <?php if ($set == 1 && !empty($dateD)) {
+                                                    echo 'value="' . $dateD . "\"";
+                                                } ?> readonly>
+                                                <i class="icon fas fa-calendar-alt"></i>
+                                            </div>
+                                        </div>
+
+                                        <div class="field">
+                                            <label for="dateT">Transcribed Date</label>
+                                            <div class="ui left icon input">
+                                                <input type="text" name="DateTra" id="dateT"
+                                                       class="form-control"
+                                                       title="Date Transcribed" <?php if ($set == 1 && !empty($dateT)) {
+                                                    echo 'value="' . $dateT . "\"";
+                                                } else {
+                                                    echo date("d-M-Y");
+                                                } ?> readonly>
+                                                <i class="icon fas fa-calendar-alt"></i>
+                                            </div>
+                                        </div>
+
+                                        <div class="field">
+                                            <label for="user_field_1">User Field 1</label>
+                                            <input type="text" id="user_field_1" name="user_field_1"
+                                                   class="form-control"
+                                                   title="User Field 1" <?php if ($set == 1 && !empty($uf1)) {
+                                                echo 'value="' . $uf1 . "\"";
+                                            } ?> readonly>
+                                        </div>
+
+                                        <div class="field">
+                                            <label for="user_field_2">User Field 2</label>
+                                            <input type="text" id="user_field_2" name="user_field_2"
+                                                   class="form-control"
+                                                   title="User Field 2" <?php if ($set == 1 && !empty($uf2)) {
+                                                echo 'value="' . $uf2 . "\"";
+                                            } ?> readonly>
+                                        </div>
+
+                                        <div class="field">
+                                            <label for="user_field_3">User Field 3</label>
+                                            <input type="text" id="user_field_3" name="user_field_3"
+                                                   class="form-control"
+                                                   title="User Field 3" <?php if ($set == 1 && !empty($uf3)) {
+                                                echo 'value="' . $uf3 . "\"";
+                                            } ?> readonly>
+                                        </div>
+
+                                        <div class="field">
+                                            <label for="comments">Typist comment</label>
+                                            <div class="ui left icon input">
+                                                <textarea type="text" id="comments" name="comments"
+                                                        class="form-control comments-text-area"
+                                                        rows="2"
+                                                        title="Typist Comments"
+                                                        disabled>
+                                                    <?php if ($set == 1 && !empty($ph)) {
+                                                        echo 'value="' . $ph . "\"";
+                                                    } ?>
+                                                </textarea>
+                                                <i class="comment dots icon"></i>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="field">
+                                            <label for="file_comment">Job Comment</label>
+                                            <div class="ui left icon input">
+                                                <textarea type="text" id="file_comment" name="file_comment"
+                                                       class="form-control comments-text-area"
+                                                       rows="2"
+                                                       title="File Comments" readonly>
+                                                    <?php if ($set == 1 && !empty($ph)) {
+                                                        echo 'value="' . $ph . "\"";
+                                                    } ?>
+                                                </textarea>
+                                                <i class="comment dots icon"></i>
+                                            </div>
+                                        </div>
+                                </div>
+
+                                <!-- </div>-->
+
+
                             </form>
                         </div>
                     </div>

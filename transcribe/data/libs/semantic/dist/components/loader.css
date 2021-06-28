@@ -160,7 +160,7 @@
 .ui.loader {
   width: 2rem;
   height: 2rem;
-  font-size: 1em;
+  font-size: 0.8em;
 }
 .ui.loader:before,
 .ui.loader:after {

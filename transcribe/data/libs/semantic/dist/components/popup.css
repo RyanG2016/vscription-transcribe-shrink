@@ -80,7 +80,7 @@
   pointer-events: none;
   position: absolute;
   content: '';
-  font-size: 1rem;
+  font-size: 0.8rem;
   width: 0.625em;
   height: 0.625em;
   background: #FFFFFF;
@@ -100,7 +100,7 @@
   text-align: left;
   text-shadow: none;
   white-space: nowrap;
-  font-size: 1rem;
+  font-size: 0.8rem;
   border: 1px solid #D4D4D5;
   line-height: 1.4285em;
   max-width: none;
@@ -754,7 +754,7 @@
 ---------------*/
 
 .ui.popup {
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 .ui.mini.popup {
   font-size: 0.8125rem;

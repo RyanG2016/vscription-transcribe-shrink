@@ -461,7 +461,7 @@
 ---------------*/
 
 .ui.items > .item {
-  font-size: 1em;
+  font-size: 0.8em;
 }
 .ui.mini.items > .item {
   font-size: 0.8125em;

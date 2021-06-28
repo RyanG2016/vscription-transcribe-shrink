@@ -401,7 +401,7 @@
       -ms-flex-align: center;
           align-items: center;
   margin: 0 0 0 -1px !important;
-  font-size: 1em;
+  font-size: 0.8em;
   padding: '';
   border-color: rgba(34, 36, 38, 0.15);
 }
@@ -726,7 +726,7 @@
 .ui.buttons .button,
 .ui.buttons .or,
 .ui.button {
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 .ui.mini.buttons .dropdown,
 .ui.mini.buttons .dropdown .menu > .item,

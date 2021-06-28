@@ -23,7 +23,7 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  margin: 1rem 0;
+  margin: 0.8rem 0;
   font-family: main, sans-serif, 'Helvetica Neue', Arial, Helvetica;
   background: #FFFFFF;
   font-weight: normal;
@@ -150,7 +150,7 @@
   margin: -0.5em 0;
   padding-bottom: 0.8125em;
   padding-top: 0.8125em;
-  font-size: 1em;
+  font-size: 0.8em;
 }
 
 /*----------------
@@ -184,7 +184,7 @@
   margin: -0.5em 0;
 }
 .ui.menu .item > .input input {
-  font-size: 1em;
+  font-size: 0.8em;
   padding-top: 0.5em;
   padding-bottom: 0.5em;
 }
@@ -202,7 +202,7 @@
 }
 .ui.vertical.menu .item > .header:not(.ui) {
   margin: 0 0 0.5em;
-  font-size: 1em;
+  font-size: 0.8em;
   font-weight: bold;
 }
 
@@ -238,7 +238,7 @@
 .ui.menu .ui.dropdown .menu > .item {
   margin: 0;
   text-align: left;
-  font-size: 1em !important;
+  font-size: 0.8em !important;
   padding: 0.8125em 1.125em !important;
   background: transparent !important;
   color: rgba(0, 0, 0, 0.87) !important;
@@ -268,7 +268,7 @@
 .ui.menu .ui.dropdown .menu > .item > .icons,
 .ui.menu .ui.dropdown .menu > .item > i.icon:not(.dropdown) {
   display: inline-block;
-  font-size: 1em !important;
+  font-size: 0.8em !important;
   float: none;
   margin: 0 0.75em 0 0 !important;
 }
@@ -1104,7 +1104,7 @@ Floated Menu / Item
   -webkit-box-shadow: none;
           box-shadow: none;
   border: none;
-  margin: 1em -0.4375em;
+  margin: 0.8em -0.4375em;
 }
 .ui.text.menu .item {
   border-radius: 0;
@@ -1150,7 +1150,7 @@ Floated Menu / Item
 /*--- vertical text ---*/
 
 .ui.vertical.text.menu {
-  margin: 1em 0;
+  margin: 0.8em 0;
 }
 .ui.vertical.text.menu:first-child {
   margin-top: 0;
@@ -2078,7 +2078,7 @@ Floated Menu / Item
   bottom: 0;
   margin-bottom: 0;
   top: 0;
-  margin-top: 1rem;
+  margin-top: 0.8rem;
   border-radius: 0.25rem 0.25rem 0 0;
 }
 .ui.menu[class*="top attached"]:first-child {
@@ -2090,7 +2090,7 @@ Floated Menu / Item
   bottom: 0;
   margin-top: 0;
   top: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
   -webkit-box-shadow: 0 1px 2px 0 rgba(34, 36, 38, 0.15), none;
           box-shadow: 0 1px 2px 0 rgba(34, 36, 38, 0.15), none;
   border-radius: 0 0 0.25rem 0.25rem;
@@ -2125,7 +2125,7 @@ Floated Menu / Item
 ---------------*/
 
 .ui.menu {
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 .ui.vertical.menu {
   width: 15rem;

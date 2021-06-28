@@ -395,7 +395,8 @@ u {
     display: none !important;
 }
 
-select, .dt-search {
+select,
+.dt-search {
     width: 100%;
     /*padding: 6px 20px;*/
     margin: 8px 0;
@@ -405,6 +406,12 @@ select, .dt-search {
     font-size: 16px;
     font-family: main, sans-serif;
 }
+/*
+
+#jobType{
+    font-size: 0.8rem !important;
+}
+*/
 
 /* Table Search Input position fix for bootstrap */
 
@@ -447,7 +454,7 @@ select, .dt-search {
 }
 
 .vtex-card legend {
-    font-size: 1.2em;
+    font-size: 19px;
     /*    margin-bottom: 10px;*/
     width: 100%;
 }
@@ -480,8 +487,12 @@ select, .dt-search {
 }
 
 .demographics-col{
-    max-width: 900px !important;
     padding-right: 16px !important;
+}
+
+.player-demo-sidebar{
+    min-width: 500px;
+    max-width: 650px;
 }
 
 .user-fields{
@@ -539,4 +550,11 @@ select, .dt-search {
 #mceu_33
 {
     float:right;
+}
+
+.btn{
+    /*font-size: 14px;*/
+}
+.comments-text-area{
+    min-height: 36px;
 }
