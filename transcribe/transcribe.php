@@ -259,17 +259,22 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                 <button type="button" class="btn btn-primary btn-sm pop-btn" id="pop">
                                     <i class="fas fa-external-link-alt"></i>
                                 </button>
-                                <button class="ui right labeled icon grey basic button toggle-demo-bar" id="toggleDemoBar">
-                                  <i class="right left arrow icon"></i>
-                                  Sidebar
-                                </button>
+<!--                                <button class="ui right labeled icon grey basic button toggle-demo-bar" id="toggleDemoBar">-->
+<!--                                  <i class="right left arrow icon"></i>-->
+<!--                                  Sidebar-->
+<!--                                </button>-->
                             </span>
 
                         </legend>
 
 
                         <div id="divv" class="form-row report-container">
+
                             <div class="col">
+                                <button class="circular ui icon blue button toggle-demo-bar" id="toggleDemoBar">
+                                    <i class="angle right left icon"></i>
+                                </button>
+
                                 <textarea id="report" name="report" placeholder="" rows="25" class="area"></textarea>
                             </div>
                         </div>
