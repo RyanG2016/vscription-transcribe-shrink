@@ -576,7 +576,7 @@ select,
 }
 
 .toggle-demo-bar{
-    z-index: 200000;
+    z-index: 5000;
     float: right;
     margin-right: -15px !important;
     position: sticky;
