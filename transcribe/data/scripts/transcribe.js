@@ -43,6 +43,10 @@ var lastShortcutValue = "";
 $(document).ready(function () {
     var loadingText = $("#loadingText");
     var demoDiv = $("#demoDiv");
+    // var demoSideBarShowing = true;
+    var demoSideBar = $("#demoSidebar")
+    var toggleDemoBarBtn = $("#toggleDemoBar");
+
     const backend_url = "data/parts/backend_request.php";
     const files_api = "../api/v1/files/";
     const shortcuts_end_point = "../api/v1/users/shortcuts";
@@ -51,6 +55,12 @@ $(document).ready(function () {
 
 
     var captions = '';
+
+    toggleDemoBarBtn.on("click", function(){
+        toggleDemoBarBtn.children().toggleClass("right"); // toggle arrow
+        demoSideBar.transition('slide left');
+        // demoSideBarShowing = !demoSideBarShowing;
+    })
 
     // highlighting variables
     var currentHighlightedID = null;

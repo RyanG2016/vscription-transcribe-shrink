@@ -259,6 +259,10 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                 <button type="button" class="btn btn-primary btn-sm pop-btn" id="pop">
                                     <i class="fas fa-external-link-alt"></i>
                                 </button>
+                                <button class="ui right labeled icon grey basic button toggle-demo-bar" id="toggleDemoBar">
+                                  <i class="right left arrow icon"></i>
+                                  Sidebar
+                                </button>
                             </span>
 
                         </legend>
@@ -270,7 +274,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                             </div>
                         </div>
                     </div>
-                    <div class="col-auto player-demo-sidebar">
+                    <div class="col-auto player-demo-sidebar" id="demoSidebar">
                         <span class="controller-status" id="statusTxt">
                             <i>connecting to controller please wait...</i>
                         </span>

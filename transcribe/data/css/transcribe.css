@@ -558,3 +558,8 @@ select,
 .comments-text-area{
     min-height: 36px;
 }
+
+.toggle-demo-bar{
+    height: 31px;
+    vertical-align: middle !important;
+}
