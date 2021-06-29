@@ -664,3 +664,8 @@ a:visited {
     /*transition: all 400ms ease;*/
 
 }
+
+.dropdown-item
+{
+    white-space: unset !important;
+}

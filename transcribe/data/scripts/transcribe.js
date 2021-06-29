@@ -71,9 +71,9 @@ $(document).ready(function () {
     var captionsSearch = $('#captionsSearch');
     let userFields = $('#userFields');
     // var captionResult = $('#captionResult');
-    $('.ui.dropdown').dropdown();
-    
+    $('.ui.sdropdown').sdropdown();
 
+    // $("#demoDiv").show()
     let modalCapSearch = document.getElementById("modalSearchCaptions");
 
     var searchEngine =   $("#searchEngine");

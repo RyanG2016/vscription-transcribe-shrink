@@ -48,9 +48,8 @@
     "accordion",
     "checkbox",
     "dimmer",
-    "dropdown",
     "embed",
-
+    "dropdown",
     "nag",
     "popup",
     "progress",
