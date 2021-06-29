@@ -219,6 +219,7 @@ a:visited {
 /* Sidebar sizes when expanded and expanded */
 .vspt-sidebar-container.sidebar-expanded {
     width: 212px;
+    /*width: 70px;*/
 }
 
 .vspt-sidebar-container.sidebar-collapsed {
@@ -646,4 +647,20 @@ a:visited {
 
 #sidebar-container > ul > a:last-child{
     margin-bottom: 100px;
+}
+.vspt-sidebar-container small,
+.menu-collapsed{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.vspt-sidebar-container{
+    -webkit-transition: width 0.3s ease-in-out;
+    -moz-transition: width 0.3s ease-in-out;
+    -o-transition: width 0.3s ease-in-out;
+    transition: width 0.3s ease-in-out;
+    /*transition: all 400ms ease;*/
+
 }
