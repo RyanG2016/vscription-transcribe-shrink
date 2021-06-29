@@ -140,6 +140,7 @@ $(document).ready(function () {
 
     }
 
+    $.fn.dataTable.ext.errMode = 'none';
 
     accessDTRef = accessDT.DataTable({
         rowId: 'access_id',
@@ -160,6 +161,11 @@ $(document).ready(function () {
             // {"data": "access_id"}
         ]
     });
+
+    accessDT.on( 'error.dt', function ( e, settings, techNote, message ) {
+        // console.log( 'An error has been reported by DataTables: ', message );
+        console.log( 'Failed to retrieve data' );
+    } )
 
     $.contextMenu({
         selector: '.access-tbl tbody tr',
