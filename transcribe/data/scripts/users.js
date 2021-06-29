@@ -198,6 +198,8 @@ $(document).ready(function () {
 			hideValidate(this, true);
 		});
 	});
+	$.fn.dataTable.ext.errMode = 'none';
+
 	usersDTRef = usersDT.DataTable( {
 		rowId: 'acc_id',
 		"ajax": '../api/v1/users?dt',
@@ -261,6 +263,11 @@ $(document).ready(function () {
 			}
 		]
 	} );
+
+	usersDT.on( 'error.dt', function ( e, settings, techNote, message ) {
+		// console.log( 'An error has been reported by DataTables: ', message );
+		console.log( 'Failed to retrieve data' );
+	} )
 
 	$.contextMenu({
 		selector: '.users-tbl tbody tr',
