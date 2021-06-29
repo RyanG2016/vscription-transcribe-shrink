@@ -16,7 +16,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
 }
 
 if( !isset($_POST["uid-access"]) || $_POST["uid-access"] <= 0) {
-    header('Location: ' . "access.php");
+    header('Location: ' . "users.php");
     exit();
 }
 
@@ -48,8 +48,8 @@ $uid = $_POST["uid-access"];
 <!--    <script type="text/javascript" src="../data/libs/DataTables/datatables.min.js"></script>-->
 <!--    <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/dataTables.material.min.js"></script>-->
 
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <link rel="stylesheet" href="../data/dialogues/jquery-confirm.min.css">
     <script src="../data/dialogues/jquery-confirm.min.js"></script>
@@ -83,14 +83,15 @@ $uid = $_POST["uid-access"];
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" crossorigin="anonymous">
 
 
-    <script src="../data/scripts/access.min.js"></script>
+    <script src="../data/scripts/access.min.js?v=1"></script>
     <link href="../data/css/access.css" rel="stylesheet">
 </head>
 
 <body>
 
 <div class="container-fluid h-100 vspt-container-fluid">
-        <div class="w-100 h-100 d-flex flex-nowrap vspt-container-fluid-row">
+        <!--        <div class="w-100 h-100 d-flex flex-nowrap vspt-container-fluid-row">-->
+        <div class="vspt-container-fluid-row d-flex">
 
         <?php include_once "../data/parts/nav.php"?>
 

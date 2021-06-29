@@ -506,6 +506,7 @@ select,
 .transcribe-shortcuts{
     font-size: 0.6em;
     float: right;
+    margin-right: 7px;
 }
 
 .transcribe-shortcuts img{
