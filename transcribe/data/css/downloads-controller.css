@@ -21,3 +21,7 @@ a:hover {
 .vspt-table > thead{
     white-space: normal;
 }
+
+.check{
+    text-align: center;
+}
