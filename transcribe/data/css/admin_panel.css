@@ -121,6 +121,10 @@
     overflow-y: visible;
 }
 
+.vtex-card.contents{
+    min-width: 550px;
+}
+
 .pie-container
 {
     width: 500px;

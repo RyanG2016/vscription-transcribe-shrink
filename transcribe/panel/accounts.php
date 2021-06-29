@@ -88,7 +88,8 @@ $vtex_page = INTERNAL_PAGES::ACCOUNTS;
 
 <body>
 <div class="container-fluid h-100 vspt-container-fluid">
-        <div class="w-100 h-100 d-flex flex-nowrap vspt-container-fluid-row">
+        <!--        <div class="w-100 h-100 d-flex flex-nowrap vspt-container-fluid-row">-->
+        <div class="vspt-container-fluid-row d-flex">
 
         <?php include_once "../data/parts/nav.php"?>
 

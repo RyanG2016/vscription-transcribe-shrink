@@ -172,3 +172,9 @@ label {
 .context-menu-item {
     font-family: main, sans-serif !important;
 }
+
+
+/* navbar */
+#createAcc{
+    height: unset !important;
+}

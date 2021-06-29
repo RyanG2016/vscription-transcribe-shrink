@@ -79,11 +79,13 @@ include('data/parts/head.php');
 <body>
 
 <div class="container-fluid h-100 vspt-container-fluid">
-        <div class="w-100 h-100 d-flex flex-nowrap vspt-container-fluid-row">
+<!--        <div class="w-100 h-100 d-flex flex-nowrap vspt-container-fluid-row">-->
+        <div class="vspt-container-fluid-row d-flex">
 
         <?php include_once "data/parts/nav.php"?>
 
         <div class="vspt-page-container">
+<!--        <div class="vspt-page-container col">-->
 
             <div class="row vspt-title-row no-gutters">
                 <div class="col align-items-end d-flex">

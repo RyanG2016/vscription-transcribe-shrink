@@ -83,7 +83,7 @@ $uid = $_POST["uid-access"];
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" crossorigin="anonymous">
 
 
-    <script src="../data/scripts/access.min.js"></script>
+    <script src="../data/scripts/access.min.js?v=1"></script>
     <link href="../data/css/access.css" rel="stylesheet">
 </head>
 

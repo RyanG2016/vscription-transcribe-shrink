@@ -106,7 +106,9 @@
  ===============================
  */
 body {
-    background-color: var(--vspt-website-bg-color);
+    /*background-color: var(--vspt-website-bg-color);*/
+    /*background-color: red;*/
+    background-color: var(--vspt-page-bg);
     overflow: auto;
     /* Allows scroll bar */
     height: unset !important;
@@ -131,7 +133,8 @@ body {
     color: var(--footer-text-color);
     background-color: var(--vspt-website-bg-color);
     text-align: end;
-    padding: 8px;
+    padding: 8px 15px 8px 8px;
+    z-index: 4;
 }
 
 a:hover {
@@ -151,9 +154,13 @@ a:visited {
     /*padding: 0;*/
     /*margin-bottom: var(--footer-height);*/
     /*flex-grow: unset;*/
+
+    /* todo revert if needed */
+    /*background-color: var(--vspt-dark);*/
     flex-grow: 0;
     flex-shrink: 0;
     flex-basis: auto;
+    z-index: 5;
 }
 
 .vspt-page-container {
@@ -161,7 +168,8 @@ a:visited {
     /*margin-bottom: var(--footer-height);*/
     background-color: var(--vspt-page-bg);
     margin-bottom: var(--footer-height);
-    padding: 16px 24px 24px 24px !important;
+    /*padding: 16px 24px 24px 24px !important;*/
+    padding: 16px 24px 35px 24px !important;
     border-radius: 0 0 0 32px;
     /*flex-grow: 1;*/
     /*flex-shrink: 1;*/
@@ -482,6 +490,10 @@ a:visited {
     border-radius: 7px;
 }
 
+.vtex-card.contents{
+    margin-bottom: 20px;
+}
+
 .page-title {
     color: white;
     font-weight: normal;
@@ -630,4 +642,8 @@ a:visited {
     top: .5em;
     left: .5em;
     color: #2980b9;
+}
+
+#sidebar-container > ul > a:last-child{
+    margin-bottom: 100px;
 }
