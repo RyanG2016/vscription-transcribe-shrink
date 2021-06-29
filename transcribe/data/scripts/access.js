@@ -71,18 +71,18 @@ $(document).ready(function () {
         //  cursorwidth: 16
 
     });
-
-    $("body").niceScroll({
-        hwacceleration: true,
-        smoothscroll: true,
-        cursorcolor: "white",
-        cursorborder: 0,
-        scrollspeed: 10,
-        mousescrollstep: 20,
-        cursoropacitymax: 0.7
-        //  cursorwidth: 16
-
-    });
+    //
+    // $("body").niceScroll({
+    //     hwacceleration: true,
+    //     smoothscroll: true,
+    //     cursorcolor: "white",
+    //     cursorborder: 0,
+    //     scrollspeed: 10,
+    //     mousescrollstep: 20,
+    //     cursoropacitymax: 0.7
+    //     //  cursorwidth: 16
+    //
+    // });
 
     $.ajaxSetup({
         cache: false
@@ -174,6 +174,7 @@ $(document).ready(function () {
             hideValidate(this, true);
         });
     });
+    $.fn.dataTable.ext.errMode = 'none';
 
     accessDTRef = accessDT.DataTable({
         rowId: 'acc_id',
@@ -248,6 +249,11 @@ $(document).ready(function () {
         }*/
         ]
     });
+
+    accessDT.on( 'error.dt', function ( e, settings, techNote, message ) {
+        // console.log( 'An error has been reported by DataTables: ', message );
+        console.log( 'Failed to retrieve data' );
+    } )
 
     $.contextMenu({
         selector: '#access-tbl tbody tr',
