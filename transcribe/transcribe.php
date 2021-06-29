@@ -174,7 +174,9 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
           crossorigin="anonymous">
 
     <link rel="stylesheet" type="text/css" href="data/libs/semantic/dist/semantic.min.css">
-    <script src="data/libs/semantic/dist/semantic.min.js"></script>
+<!--    <link rel="stylesheet" type="text/css" href="data/css/parts/semantic.min.css">-->
+<!--    <script src="data/libs/semantic/dist/semantic.min.js"></script>-->
+    <script src="data/scripts/semantic.min.js"></script>
 
 
     <script src='tinymce/tinymce.min.js?v=<?php echo $version_control ?>'></script>
@@ -229,7 +231,8 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 <body>
 
 <script src="data/scripts/parts/constants.js" type="text/javascript"></script>
-<script src="data/scripts/transcribe.min.js?v=4"></script>
+<script src="data/scripts/transcribe.min.js?v=5"></script>
+<!--<script src="data/scripts/transcribe.js?v=5"></script>-->
 
 <div id="updated_version_bar">There is a newer version (v<span></span>) of the vScription Transcribe Controller
     available -> <a href="" target="_blank">download</a></div>
@@ -349,7 +352,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 
                                         <div class="field">
                                             <label for="jobType">Job Type</label>
-                                            <select class="ui search dropdown" id="jobType" name="jobType" disabled>
+                                            <select class="ui search sdropdown" id="jobType" name="jobType" disabled>
                                                 <?php
                                                 foreach ($workTypes as $type) {
                                                     $type = trim($type);
