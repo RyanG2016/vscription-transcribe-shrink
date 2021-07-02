@@ -649,3 +649,7 @@ tbody > tr > td
 {
     white-space: nowrap;
 }
+
+.vtex-card.contents{
+    min-width: 650px;
+}
