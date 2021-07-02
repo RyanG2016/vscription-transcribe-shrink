@@ -319,10 +319,13 @@ class FileGateway implements GatewayInterface
                         $this->directUpdateFileStatus($row['file_id'], FILE_STATUS::BEING_TYPED, $row["filename"]);
                     }
 
-                    $this->logger->insertAuditLogEntry($this->API_NAME, "Loading file " . ($row["file_id"]) . " into player");
                 }else{
-                    $this->incrementDownload($row['file_id']);
+                    if(in_array($row['file_status'], array(FILE_STATUS::COMPLETED, FILE_STATUS::COMPLETED_NO_TEXT, FILE_STATUS::COMPLETED_W_INCOMPLETES)))
+                    {
+                        $this->incrementDownload($row['file_id']);
+                    }
                 }
+                $this->logger->insertAuditLogEntry($this->API_NAME, "Loading file " . ($row["file_id"]) . " into player");
 
 
                 return json_encode($jobDetails);
