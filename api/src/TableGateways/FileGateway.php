@@ -318,9 +318,12 @@ class FileGateway implements GatewayInterface
                     {
                         $this->directUpdateFileStatus($row['file_id'], FILE_STATUS::BEING_TYPED, $row["filename"]);
                     }
+
+                    $this->logger->insertAuditLogEntry($this->API_NAME, "Loading file " . ($row["file_id"]) . " into player");
+                }else{
+                    $this->incrementDownload($row['file_id']);
                 }
 
-                $this->logger->insertAuditLogEntry($this->API_NAME, "Loading file " . $row["file_id"] . " into player");
 
                 return json_encode($jobDetails);
             }
@@ -641,6 +644,44 @@ class FileGateway implements GatewayInterface
 //            return $this->formatResult("Failed to update convert record (2)", true);
         }
     }
+
+
+
+    /**
+     * used in transcribe increments download if file was opened by a non typist
+     */
+    public function incrementDownload($file_id){
+
+        $text_downloaded_date = date("Y-m-d H:i:s");
+
+        $statement = "UPDATE files SET times_text_downloaded_date=times_text_downloaded_date+1, text_downloaded_date=COALESCE(text_downloaded_date, ?)
+       WHERE file_id = ? AND acc_id = ?
+        ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array(
+                $text_downloaded_date,
+                $file_id,
+                $_SESSION["accID"]
+            ));
+
+            if ($statement->rowCount()) {
+                $this->logger->insertAuditLogEntry($this->API_NAME, "File (${file_id}) opened for review (from transcribe) | role: " . $_SESSION["role"]);
+                return true;
+            } else {
+//                $this->logger->insertAuditLogEntry($this->API_NAME, "Failed to update file: " . $file_id . " to status: " . $new_status . " | no errors given");
+                return false;
+//                return $this->formatResult("Failed to update convert record", true);
+            }
+//            return $statement->rowCount();
+        } catch (\PDOException $e) {
+//            $this->logger->insertAuditLogEntry($this->API_NAME, "Failed to update file: " . $file_id . " to status: " . $new_status . " | Error: " . $e->getMessage());
+            return false;
+//            return $this->formatResult("Failed to update convert record (2)", true);
+        }
+    }
+
 
     // used in transcribe/popup
     public function discardFile($file_id) {
