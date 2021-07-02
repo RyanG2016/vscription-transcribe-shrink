@@ -69,12 +69,6 @@ include('data/parts/head.php');
 
         <div class="vspt-page-container">
 
-            <div class="row">
-                <div class="col">
-                    <a class="logbar" href="/"><i class="fas fa-arrow-left"></i> home</a>
-                </div>
-            </div>
-
             <div class="row vspt-title-row no-gutters">
                 <div class="col align-items-end d-flex">
                     <legend class="page-title mt-auto">
