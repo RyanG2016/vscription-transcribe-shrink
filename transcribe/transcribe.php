@@ -231,7 +231,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 <body>
 
 <script src="data/scripts/parts/constants.js" type="text/javascript"></script>
-<script src="data/scripts/transcribe.min.js?v=5"></script>
+<script src="data/scripts/transcribe.min.js?v=6"></script>
 <!--<script src="data/scripts/transcribe.js?v=5"></script>-->
 
 <div id="updated_version_bar">There is a newer version (v<span></span>) of the vScription Transcribe Controller
