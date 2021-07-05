@@ -982,6 +982,12 @@ $(document).ready(function () {
 
     function clearWithConfirm() {
 
+        if (rl != 3)
+        {
+            suspendAndClearForDiscard();
+            return;
+        }
+
         $.confirm({
             title: 'Discard Form?',
             content: 'Are you sure do you want to discard current data?',
