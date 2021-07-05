@@ -320,7 +320,7 @@ class FileGateway implements GatewayInterface
                     }
 
                 }else{
-                    if(in_array($row['file_status'], array(FILE_STATUS::COMPLETED, FILE_STATUS::COMPLETED_NO_TEXT, FILE_STATUS::COMPLETED_W_INCOMPLETES)))
+                    if(in_array($row['file_status'], array(FILE_STATUS::COMPLETED, FILE_STATUS::COMPLETED_NO_TEXT, FILE_STATUS::COMPLETED_W_INCOMPLETES, FILE_STATUS::SPEECH_TO_TEXT_EDITED, FILE_STATUS::AWAITING_CORRECTION)))
                     {
                         $this->incrementDownload($row['file_id']);
                     }
@@ -663,13 +663,13 @@ class FileGateway implements GatewayInterface
 
         try {
             $statement = $this->db->prepare($statement);
-            $statement->execute(array(
+
+
+            if ($statement->execute(array(
                 $text_downloaded_date,
                 $file_id,
                 $_SESSION["accID"]
-            ));
-
-            if ($statement->rowCount()) {
+            ))) {
                 $this->logger->insertAuditLogEntry($this->API_NAME, "File (${file_id}) opened for review (from transcribe) | role: " . $_SESSION["role"]);
                 return true;
             } else {
