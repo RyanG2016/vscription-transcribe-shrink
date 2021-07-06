@@ -566,7 +566,7 @@ $(document).ready(function () {
                 break;
 
             case "suspendBtn":
-                // job status = 2 //suspend
+                // job status = 2 // suspend
                 jobStatus = 2;
                 break;
         }
@@ -609,7 +609,7 @@ $(document).ready(function () {
 
         formData.append("job_document_html", tinymceContent);
         formData.append("file_work_type", $("#jobType").val());
-        formData.append("typist_comments", $("#comments").html());
+        formData.append("typist_comments", $("#comments").val());
         formData.append("set_role", 3);
 
         //Append form data for POST
@@ -1060,7 +1060,7 @@ $(document).ready(function () {
             {
                 prev_status: currentFileData.file_status
             }).done(function (data) {
-            console.log(data);
+            // console.log(data);
         });
 
         clear();
@@ -1115,8 +1115,8 @@ $(document).ready(function () {
         document.getElementById('user_field_2').value = "";
         document.getElementById('user_field_3').value = "";
         document.getElementById('report').value = "";
-		document.getElementById('comments').innerHTML = "";
-		document.getElementById('file_comment').innerHTML ="";
+        $("#comments").val("")
+        $("#file_comment").val("")
 		demoDiv.hide();
         userFields.hide();
         // $('#date').garlic('destroy');
@@ -1281,8 +1281,8 @@ $(document).ready(function () {
 
         var dispDateFormat = moment(jobDetails.file_date_dict).format("DD-MMM-YYYY hh:mm:ss a");
         $('#date').val(dispDateFormat);
-        $('#comments').html(jobDetails.typist_comments);
-        $('#file_comment').html(jobDetails.file_comment);
+        $('#comments').val(jobDetails.typist_comments);
+        $('#file_comment').val(jobDetails.file_comment);
         $("#comments").removeAttr("disabled");
         // console.log("Typist comments: " + jobDetails.typist_comments);
 
@@ -1562,8 +1562,8 @@ $(document).ready(function () {
 		$("#jobType").val("Meeting Notes");
 		$("#user_field_1").val("Conf ID: 2234");
 		$("#dateT").val("23-Jan-2021 11:01:00");
-		$("#comments").html("Jane was speaking very softly. Hard to hear");
-		$("#file_comment").html("Please send a copy to Jeremy");
+		$("#comments").val("Jane was speaking very softly. Hard to hear");
+		$("#file_comment").val("Please send a copy to Jeremy");
 		$("#report").val("Thank you all for taking the time to meet today. I know the weather wasn't favourable and we really appreciate you making it here today");
 		$("#saveBtn").prop('disabled', false);
 		$("#suspendBtn").prop('disabled', false);
