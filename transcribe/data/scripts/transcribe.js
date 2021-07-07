@@ -608,7 +608,7 @@ $(document).ready(function () {
         }
 
         formData.append("job_document_html", tinymceContent);
-        formData.append("file_work_type", $("#jobType").val());
+        formData.append("file_work_type", $("#jobType option:selected").text());
         formData.append("typist_comments", $("#comments").val());
         formData.append("set_role", 3);
 
