@@ -400,7 +400,6 @@ class FileController
             return $response;
 
         } else {
-            // todo no files set for upload
             $response['status_code_header'] = 'HTTP/1.1 200 OK';
             $response['body'] = json_encode([
                 'error' => true,
