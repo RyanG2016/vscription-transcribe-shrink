@@ -98,10 +98,10 @@ $(document).ready(function () {
         if (!showingCompleted) {
             showingCompleted = true;
             $(this).html('<i class="fas fa-eye-slash"></i> Hide Completed')
-            jobsDTRef.ajax.url( 'api/v1/files?dt&file_status[mul]=3,11' ).load();
+            jobsDTRef.ajax.url( 'api/v1/files/completed?dt' ).load(); // &file_status[mul]=3,11
         } else {
             showingCompleted = false;
-            jobsDTRef.ajax.url( 'api/v1/files?dt&file_status[mul]=0,1,2,7,11' ).load();
+            jobsDTRef.ajax.url( 'api/v1/files/pending?dt' ).load(); // &file_status[mul]=0,1,2,7,11
             $(this).html('<i class="fas fa-eye-slash"></i> View Completed')
         }
     });

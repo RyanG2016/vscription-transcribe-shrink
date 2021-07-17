@@ -24,7 +24,7 @@ $(document).ready(function () {
     $.fn.dataTable.ext.errMode = 'none';
     jobsDTRef = jobsDT.DataTable( {
         rowId: 'file_id',
-        "ajax": 'api/v1/files?dt&file_status[mul]=0,1,2,7,11',
+        "ajax": 'api/v1/files?api/v1/files/pending?dt',
         "processing": true,
         lengthChange: false,
         pageLength: maximum_rows_per_page_jobs_list,
