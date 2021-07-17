@@ -47,6 +47,12 @@ class FileController
                     {
                         $response = $this->getChartData();
                     }
+                    else if($this->rawURI[0] == "pending"){
+                        $response = $this->getPendingFiles();
+                    }
+                    else if($this->rawURI[0] == "completed"){
+                        $response = $this->getCompletedFiles();
+                    }
                     else if ($this->fileId) {
                         $response = $this->getFile($this->fileId);
                     }
@@ -91,6 +97,22 @@ class FileController
     private function getAllFiles()
     {
         $result = $this->fileGateway->findAll();
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = json_encode($result);
+        return $response;
+    }
+
+    private function getPendingFiles()
+    {
+        $result = $this->fileGateway->findPending();
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = json_encode($result);
+        return $response;
+    }
+
+    private function getCompletedFiles()
+    {
+        $result = $this->fileGateway->findCompleted();
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
         $response['body'] = json_encode($result);
         return $response;
