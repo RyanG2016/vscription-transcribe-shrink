@@ -152,7 +152,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
                                 </div>
 
                                 <div class="row align-bottom">
-                                    <?php echo number_format($revaiData["balance_seconds"]) . "&nbsp;<b> mins</b>" ?>
+                                    <?php echo number_format($revaiData["balance_seconds"]/60) . "&nbsp;<b> mins</b>" ?>
                                 </div>
                             </div>
                         </div>
