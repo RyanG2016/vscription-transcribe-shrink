@@ -22,7 +22,7 @@ final class BillingModification extends AbstractMigration
         $filesTable->addColumn('billed_date', 'timestamp', ['after' => 'billed', 'null' => true])->update();
 
         $accsTable = $this->table('accounts');
-        $accsTable->addColumn('subscription_type', 'smallinteger', ['after' => 'acc_name', 'default' => 1])->update();
+        $accsTable->addColumn('subscription_type', 'smallinteger', ['after' => 'acc_name', 'default' => 0])->update();
 
     }
 }
