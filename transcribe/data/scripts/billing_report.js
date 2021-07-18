@@ -2,9 +2,6 @@ var findAccWindow;
 var accountID;
 $(document).ready(function () {
 
-    new mdc.ripple.MDCRipple(document.querySelector('#getPrint'));
-    new mdc.ripple.MDCRipple(document.querySelector('#getPDF'));
-    new mdc.ripple.MDCRipple(document.querySelector('#getReport'));
     let today = new Date().toISOString().split('T')[0];
     let tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
@@ -115,12 +112,15 @@ $(document).ready(function () {
     }
 
     $("#findAccBtn").on("click", function () {
-        findAccWindow = findAccWindow || window.open("/acc_finder.php", "modalPicker", "toolbar=yes,scrollbars=yes," +
-            "resizable=yes,top=500,left=500,width=650,height=500");
-        findAccWindow.focus();
-        findAccWindow.onbeforeunload = function () {
-            findAccWindow = null;
-        };
+
+        if(!findAccWindow || findAccWindow.closed)
+        {
+            findAccWindow = window.open("/acc_finder.php", "modalPicker", "toolbar=yes,scrollbars=yes," +
+                "resizable=yes,top=500,left=500,width=650,height=500");
+            findAccWindow.focus();
+        }else{
+            findAccWindow.focus();
+        }
     });
 
 });
