@@ -373,39 +373,39 @@ a:visited {
 }
 
 .vspt-table tr.even:hover {
-    background-color: var(--vspt-table-hover);;
+    /*background-color: var(--vspt-table-hover);;*/
 }
 
 .vspt-table tr.even:hover td.sorting_1 {
-    background-color: var(--vspt-table-hover);;
+    /*background-color: var(--vspt-table-hover);;*/
 }
 
 /*noinspection CssUnusedSymbol*/
 .vspt-table tr.even:hover td.sorting_2 {
-    background-color: var(--vspt-table-hover);;
+    /*background-color: var(--vspt-table-hover);;*/
 }
 
 /*noinspection CssUnusedSymbol*/
 .vspt-table tr.even:hover td.sorting_3 {
-    background-color: var(--vspt-table-hover);;
+    /*background-color: var(--vspt-table-hover);;*/
 }
 
 .vspt-table tr.odd:hover {
-    background-color: var(--vspt-table-hover);;
+    /*background-color: var(--vspt-table-hover);;*/
 }
 
 .vspt-table tr.odd:hover td.sorting_1 {
-    background-color: var(--vspt-table-hover);;
+    /*background-color: var(--vspt-table-hover);;*/
 }
 
 /*noinspection CssUnusedSymbol*/
 .vspt-table tr.odd:hover td.sorting_2 {
-    background-color: var(--vspt-table-hover);;
+    /*background-color: var(--vspt-table-hover);;*/
 }
 
 /*noinspection CssUnusedSymbol*/
 .vspt-table tr.odd:hover td.sorting_3 {
-    background-color: var(--vspt-table-hover);;
+    /*background-color: var(--vspt-table-hover);;*/
 }
 
 
