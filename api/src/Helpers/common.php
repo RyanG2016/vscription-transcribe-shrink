@@ -139,4 +139,15 @@ class common{
     }
 
 
+    function missingRequiredParametersResponse()
+    {
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = json_encode([
+            'error' => true,
+            'msg' => 'Required parameters missing or incorrect'
+
+        ]);
+        return $response;
+    }
+
 }
