@@ -33,5 +33,25 @@ div.row.typ-billing-container label {
 }
 
 .billing-report-options{
-    display: none;
+    /*display: none;*/
+}
+
+.buttons-colvis{
+    background-color: #6c757d;
+}
+
+.dt-button-collection > .dropdown-menu{
+    width: 200px;
+    padding: 0;
+}
+.dt-button-collection .dropdown-item{
+    padding: 8px;
+    border-bottom: solid white 1px;
+}
+.dt-button-collection .dropdown-item:hover {
+    background-color: var(--vspt-blue-dark-hover);
+}
+.dt-button-collection .dropdown-item.active{
+
+    background-color: var(--vspt-blue-dark);
 }

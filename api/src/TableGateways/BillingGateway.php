@@ -5,6 +5,7 @@ namespace Src\TableGateways;
 //require "testsFilter.php";
 
 use Src\Helpers\common;
+use Src\Models\Account;
 use Src\Models\BaseModel;
 
 class BillingGateway implements GatewayInterface
@@ -57,6 +58,8 @@ class BillingGateway implements GatewayInterface
             $returnBilled = "0 or billed = 1";
         }
 
+        $org = Account::withID($orgID,$this->db);
+
         $statement = "
             SELECT 
                 file_id,
@@ -85,6 +88,8 @@ class BillingGateway implements GatewayInterface
 
             if(isset($_GET['dt'])){
                 $json_data = array(
+                    "organization" => $org->getAccName(),
+                    "count" => $statement->rowCount(),
                     "data"            => $result
                 );
                 //        $response['body'] = json_encode($result);

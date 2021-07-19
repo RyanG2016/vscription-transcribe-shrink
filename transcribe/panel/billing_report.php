@@ -57,11 +57,13 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
 <!--    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" crossorigin="anonymous">-->
 
 
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.25/b-1.7.1/b-html5-1.7.1/b-print-1.7.1/sb-1.1.0/sp-1.3.0/sl-1.3.3/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.25/b-1.7.1/b-colvis-1.7.1/b-html5-1.7.1/b-print-1.7.1/r-2.2.9/rr-1.2.8/sl-1.3.3/datatables.min.css"/>
 
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.25/b-1.7.1/b-html5-1.7.1/b-print-1.7.1/sb-1.1.0/sp-1.3.0/sl-1.3.3/datatables.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.72/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.72/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.25/b-1.7.1/b-colvis-1.7.1/b-html5-1.7.1/b-print-1.7.1/r-2.2.9/rr-1.2.8/sl-1.3.3/datatables.min.js"></script>
+
+
 
 
 
@@ -105,6 +107,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
             <div class="vtex-card contents">
                 <div class="row typ-billing-container">
                     <div class="col">
+                        <div class="vtex-table-tools w-100" id="vtexTableTools"></div>
                         <div class="report-grid billing-report-container" id="printableReport">
                             <!--                <div class="billing-report-container"></div>-->
 
@@ -193,13 +196,13 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
                                 <i class="fad fa-file-invoice-dollar"></i> Generate Invoice
                             </button>
 
-                            <button type="button" class="btn btn-secondary w-100 mt-3" id="getPDF" disabled>
-                                <i class="fas fa-file-pdf"></i> PDF
-                            </button>
+<!--                            <button type="button" class="btn btn-secondary w-100 mt-3" id="getPDF" disabled>-->
+<!--                                <i class="fas fa-file-pdf"></i> PDF-->
+<!--                            </button>-->
 
-                            <button type="button" class="btn btn-secondary w-100 mt-3" id="getPrint" disabled>
-                                <i class="fas fa-print"></i> PDF searchable
-                            </button>
+<!--                            <button type="button" class="btn btn-secondary w-100 mt-3" id="getPrint" disabled>-->
+<!--                                <i class="fas fa-print"></i> PDF searchable-->
+<!--                            </button>-->
                         </div>
                     </div>
                 </div>

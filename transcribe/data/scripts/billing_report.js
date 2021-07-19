@@ -24,24 +24,135 @@ $(document).ready(function () {
     let billingDT = $("#billing-tbl");
     let billingDTRef;
 
+    var currentOrganization = ""; // for pdf header
+
     startDate.val(today);
     endDate.val(tomorrow);
 
     $.fn.dataTable.ext.errMode = 'none';
+
+    pdfMake.fonts = {
+        opensans: {
+            normal: 'https://cdn.jsdelivr.net/npm/@typopro/web-open-sans@3.7.5/TypoPRO-OpenSans-Light.ttf',
+            bold: 'https://cdn.jsdelivr.net/npm/@typopro/web-open-sans@3.7.5/TypoPRO-OpenSans-Light.ttf',
+            italics: 'https://cdn.jsdelivr.net/npm/@typopro/web-open-sans@3.7.5/TypoPRO-OpenSans-Light.ttf',
+            bolditalics: 'https://cdn.jsdelivr.net/npm/@typopro/web-open-sans@3.7.5/TypoPRO-OpenSans-Light.ttf'
+        }
+    };
 
     billingDTRef = billingDT.DataTable( {
         rowId: 'file_id',
         // "ajax": '../api/v1/billing/1?dt&startDate=2018-07-19&endDate=2021-07-19',
         "processing": true,
         select: true,
+        searching: false,
         lengthChange: false,
         pageLength: maximum_rows_per_page_jobs_list,
         autoWidth: false,
         order:[[0,"desc"]],
         // dom: 'Blfrtip',
-        // buttons: [
-        //     'copy', 'excel', 'pdf', 'pdfHtml5', 'print'
-        // ],
+        buttons: [
+            // 'copy', 'excel', 'pdfHtml5', 'print'
+            {
+                extend:    'copyHtml5',
+                text:      '<i class="fa fa-files-o"></i>',
+                titleAttr: 'Copy'
+            },
+            {
+                extend:    'excelHtml5',
+                text:      '<i class="fa fa-file-excel-o"></i>',
+                titleAttr: 'Excel'
+            },
+            {
+                extend:    'csvHtml5',
+                text:      '<i class="fa fa-file-text-o"></i>',
+                titleAttr: 'CSV'
+            },
+            {
+                extend: 'pdfHtml5',
+                text: '<i class="fa fa-file-pdf-o"></i>',
+                titleAttr: 'PDF',
+                download: 'open',
+                orientation: 'landscape',
+                pageSize: 'letter',
+                customize: function (pdfMakeObj, buttonConfig, tblRef) {
+                    // let test = 1;
+
+                    pdfMakeObj.defaultStyle.font = 'opensans';
+                    pdfMakeObj.watermark =
+                        { text: 'vScription Billing', color: '#bfced9', opacity: 0.3, bold: false, italics: true };
+
+                    pdfMakeObj.pageSize = 'LETTER';
+                    pdfMakeObj.pageOrientation = 'landscape';
+                    pdfMakeObj.pageMargins = [ 20, 20 ];
+                    pdfMakeObj.title = `testo`;
+                    pdfMakeObj.header = `vScription Transcribe Billing`;
+                    pdfMakeObj.footer= {
+                        columns: [
+                            `${startDate.val()} to ${endDate.val()}`,
+                            {
+                                text: `Generated on: ${new Date().toUTCString()}`,
+                                alignment: 'right'
+                                // margin: 8
+                            }
+                        ]
+                    };
+
+                    // pdfMakeObj.watermark.text = "vScription Billing";
+                    // pdfMakeObj.watermark.opacity = '0.3';
+                    // pdfMakeObj.watermark.italics = 'true';
+                    // pdfMakeObj.content.table= {widths: [ '*' ,'*','*' ,'*','*' ,'*','*' ,'*']};
+
+                    /*pdfMakeObj.content.columns = [
+                    {
+                        // auto-sized columns have their widths based on their content
+                        width: 'auto',
+                        text: 'First column'
+                    },
+                    {
+                        // star-sized columns fill the remaining space
+                        // if there's more than one star-column, available width is divided equally
+                        width: '*',
+                        text: 'Second column'
+                    },
+                    {
+                        // fixed width
+                        width: 100,
+                        text: 'Third column'
+                    },
+                    {
+                        // % width
+                        width: '20%',
+                        text: 'Fourth column'
+                    },
+                    {
+                        // auto-sized columns have their widths based on their content
+                        width: 'auto',
+                        text: 'First column'
+                    },
+                    {
+                        // star-sized columns fill the remaining space
+                        // if there's more than one star-column, available width is divided equally
+                        width: '*',
+                        text: 'Second column'
+                    },
+                    {
+                        // fixed width
+                        width: 100,
+                        text: 'Third column'
+                    },
+                    {
+                        // % width
+                        width: '20%',
+                        text: 'Fourth column'
+                    }
+                ];*/
+
+
+                }
+            },
+            'colvis'
+        ],
 
         "columns": [
             {
@@ -153,6 +264,9 @@ $(document).ready(function () {
 
     } );
 
+    billingDTRef.buttons().container()
+        .appendTo( $('#vtexTableTools'));
+
     billingDT.on( 'error.dt', function ( e, settings, techNote, message ) {
         // console.log( 'An error has been reported by DataTables: ', message );
         dtLoadCallback();
@@ -203,12 +317,14 @@ $(document).ready(function () {
         // getData(arg);
     });
 
-    function dtLoadCallback()
+    function dtLoadCallback(responseJson)
     {
-        if(billingDTRef.data().count())
+        if(responseJson.count)
         {
+            currentOrganization = responseJson.organization;
             reportOptions.slideDown();
         }else{
+            currentOrganization = "";
             reportOptions.slideUp();
         }
     }
@@ -247,27 +363,6 @@ $(document).ready(function () {
         });
         // html2pdf($('.billing-report-container').html(), opt);
     });
-
-
-    function getData(args) {
-        $.post("/data/parts/backend_request.php", {
-            reqcode: 200
-            ,args: JSON.stringify(args)
-        }).done(function (res) {
-            let response = JSON.parse(res);
-            let data = response.data;
-            // let error = res.error;
-            $('.billing-report-container').html(data);
-            if(data !== "No Results Found"){
-                getPDF.removeAttr("disabled");
-                getPrintJS.removeAttr("disabled");
-            }
-            else{
-                getPDF.attr("disabled", "disabled");
-                getPrintJS.attr("disabled", "disabled");
-            }
-        });
-    }
 
     $("#findAccBtn").on("click", function () {
 
