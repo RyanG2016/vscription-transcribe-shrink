@@ -413,11 +413,11 @@ $(document).ready(function () {
                 arrow: true
             });
         }
-    });
+    }); 
     $.fn.dataTable.ext.errMode = 'none';
     jobsDTRef = jobsDT.DataTable({
         rowId: 'file_id',
-        "ajax": 'api/v1/files?dt&file_status[mul]=0,1,2,7,11',
+        "ajax": 'api/v1/files/pending?dt',
         "processing": true,
         lengthChange: false,
         pageLength: maximum_rows_per_page_jobs_list,
@@ -428,17 +428,35 @@ $(document).ready(function () {
                 "title": "Job #",
                 "data": "job_id",
                 render: function (data, type, row) {
+                    var addition = "";
+                    var result = "";
+
+                    let fields = ["user_field_1", "user_field_2", "user_field_3", "typist_comments"];
+                    /* Additional Popup */
+                    fields.forEach(value => {
+                        if(row[value] !== null && row[value] !== "")
+                        {
+                            if(addition !== "")
+                            {
+                                addition += "<br><br>";
+                                // addition += "\n";
+                            }
+                            addition += `<b>${value}</b>: ${row[value]}`;
+                        }
+                    });
                     if (row["file_comment"] != null) {
 
-                        /*return data + " <i class=\"material-icons mdc-button__icon job-comment cTooltip\" aria-hidden=\"true\" title='"
-                            + htmlEncodeStr(row["file_comment"])
-                            + "'>speaker_notes</i>";*/
-
-                        return data +
-                            ' <i class="fas fa-comment-dots job-comment cTooltip" title="'+ htmlEncodeStr(row["file_comment"]) +'"></i>';
-                    } else {
-                        return data;
+                        result = `<i class="fas fa-comment-alt-lines vspt-fa-blue cTooltip" data-html="true"  title="${htmlEncodeStr(row["file_comment"])}"></i>`;
                     }
+                    if(addition !== "")
+                    {
+                        result += `&nbsp;<i class="fas fa-info-square vspt-fa-blue cTooltip" data-html="true"  title="${addition}"></i>`;
+                    }
+                    if(result)
+                    {
+                        result = `<span class="align-middle float-right">${result}</span>`
+                    }
+                    return data + result;
                 }
             },
             {
@@ -531,7 +549,9 @@ $(document).ready(function () {
             if (!$('.cTooltip').hasClass("tooltipstered")) {
                 $('.cTooltip').tooltipster({
                     animation: 'grow',
+                    side: ['bottom', 'right'],
                     theme: 'tooltipster-punk',
+                    contentAsHTML: true,
                     arrow: true
                 });
             }

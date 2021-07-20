@@ -82,6 +82,7 @@ $(document).ready(function () {
 				render: function (data, type, row) {
 
 					var addition = "";
+					var result = "";
 
 					let fields = ["user_field_1", "user_field_2", "user_field_3", "typist_comments"];
 					/* Additional Popup */
@@ -96,23 +97,19 @@ $(document).ready(function () {
 							addition += `<b>${value}</b>: ${row[value]}`;
 						}
 					});
-					if(addition !== "")
-					{
-						// addition = '<i class=\"fas fa-info-circle custom-info-font-awesome btTooltip float-right\" data-toggle="tooltip" data-html="true"  title="'+addition+'"></i>';
-						// addition = '<i class=\"fad fa-info-square custom-info-font-awesome btTooltip float-right\" data-toggle="tooltip" data-html="true"  title="'+addition+'"></i>';
-						// addition = '<i class=\"fas fa-info-circle custom-info-font-awesome cTooltip float-right\" data-html="true"  title="'+addition+'"></i>';
-						addition = '<i class=\"fad fa-info-square custom-info-font-awesome cTooltip float-right\" data-html="true"  title="'+addition+'"></i>';
-					}
-
 					if (row["file_comment"] != null) {
 
-						return data + " <i class=\"material-icons mdc-button__icon job-comment cTooltip\" aria-hidden=\"true\" title='"
-							+ htmlEncodeStr(row["file_comment"])
-							+ "'>speaker_notes</i>" +
-							addition;
-					} else {
-						return data  + addition;
+						result = `<i class="fas fa-comment-alt-lines vspt-fa-blue cTooltip" data-html="true"  title="${htmlEncodeStr(row["file_comment"])}"></i>`;
 					}
+					if(addition !== "")
+					{
+						result += `&nbsp;<i class="fas fa-info-square vspt-fa-blue cTooltip" data-html="true"  title="${addition}"></i>`;
+					}
+					if(result)
+					{
+						result = `<span class="align-middle float-right">${result}</span>`
+					}
+					return data + result;
 				}
 			},
 			{
