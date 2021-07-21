@@ -231,7 +231,7 @@ $(document).ready(function () {
 		console.log( 'Failed to retrieve data' );
 	} )
 
-	jobsDT.on( 'draw.dt', function () {
+	jobsDT.on( 'draw.dt search.dt', function () {
 
 		$('.download-icon').click(function () {
 			let file_id = $(this).parent().parent().attr('id');

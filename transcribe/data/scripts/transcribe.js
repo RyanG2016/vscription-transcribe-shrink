@@ -504,7 +504,7 @@ $(document).ready(function () {
 
             this.api().columns([1,2,5]).every(function () {
                 var column = this;
-                var select = $('<select><option value=""></option></select>')
+                var select = $('<select class="form-control"><option value=""></option></select>')
                     .appendTo($(column.footer()).empty())
                     .on('change', function () {
                         var val = $.fn.dataTable.util.escapeRegex(
@@ -531,7 +531,7 @@ $(document).ready(function () {
     ).each( function () {
         // var title = $(this).text();
         // $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
-        $(this).html( '<input class="dt-search" type="text"/>' );
+        $(this).html( '<input class="dt-search form-control" type="text"/>' );
     } );
 
     jobsDT.on( 'error.dt', function ( e, settings, techNote, message ) {
