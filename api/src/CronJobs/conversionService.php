@@ -54,10 +54,10 @@ class conversionService
     public function __construct(
         private $db,
         //private $conv_ext = ".mp3"
-        private $conv_ext = ".wav",
+        private $conv_ext = ".mp3",
         private $channels = "1",
-        private $samplesPerSec = "16000",
-        private $bitsPerSec = "8"
+        private $samplesPerSec = "44100",
+        private $bitsPerSec = "64"
 
     )
     {
