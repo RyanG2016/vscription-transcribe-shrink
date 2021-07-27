@@ -74,6 +74,7 @@ function downloadFile($con, $fileID, $accID)
     /*------Generate File download ------*/
     $sql = "
     SELECT 
+        (SELECT suppress_header_print FROM accounts WHERE acc_id =?) AS suppress_header_print,
        job_id, 
        file_author,
        file_transcribed_date,
@@ -87,7 +88,7 @@ function downloadFile($con, $fileID, $accID)
             FROM files WHERE file_id=? AND acc_id = ?";
 
     if ($stmt = mysqli_prepare($con, $sql)) {
-        mysqli_stmt_bind_param($stmt, "ii", $fileID, $accID);
+        mysqli_stmt_bind_param($stmt, "iii", $accID, $fileID, $accID);
 
         if (mysqli_stmt_execute($stmt)) {
             $result = mysqli_stmt_get_result($stmt);
@@ -97,7 +98,8 @@ function downloadFile($con, $fileID, $accID)
                 // Fetch result rows as an associative array
                 while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
                     $filename = $row['job_id'];
-                    $rtf = generateHTMLReport($row["job_document_html"], $row);
+                    $suppress_header_print = $row['suppress_header_print'];
+                    $rtf = generateHTMLReport($row["job_document_html"], $row, $suppress_header_print);
 
                     header('Content-Disposition: attachment; filename="' . $filename . '.rtf"');
                     header('Content-Type: text/plain'); # Don't use application/force-download - it's not a real MIME type, and the Content-Disposition header is sufficient
@@ -158,11 +160,12 @@ function convertHTMLToRTF($report)
  * @return string RTF
  */
 
-function generateHTMLReport($html, $row)
+function generateHTMLReport($html, $row, $suppress_print_header)
 {
     $initials = strtolower(substr($_SESSION['fname'], 0, 1)) . strtolower(substr($_SESSION['lname'], 0, 1));
 
     $report = '<body style="font-family: Arial, Helvetica, sans-serif">';
+    if ($suppress_print_header == 0) {
     $report .= '<b>' . 'Job Number: ' . '</b>' . $row['job_id'] . '<br/>';
     $report .= '<b>' . 'Author Name: ' . '</b>' . $row['file_author'] . '<br/>';
     $report .= '<b>' . 'Typist Name: ' . '</b>' . $initials . '<br/>';
@@ -178,6 +181,8 @@ function generateHTMLReport($html, $row)
 
     $report .= '<br/>';
     $report .= '<br/>';
+    }
+
     $decodedHTML = html_entity_decode($html, ENT_QUOTES);
     $decodedHTML = str_replace("&lt;INAUDIBLE&gt;", "-INAUDIBLE-", $decodedHTML);
     $report .= $decodedHTML;
