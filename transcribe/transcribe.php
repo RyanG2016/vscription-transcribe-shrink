@@ -231,7 +231,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 <body>
 
 <script src="data/scripts/parts/constants.js" type="text/javascript"></script>
-<script src="data/scripts/transcribe.min.js?v=8"></script>
+<script src="data/scripts/transcribe.min.js?v=9"></script>
 <!--<script src="data/scripts/transcribe.js?v=5"></script>-->
 
 <div id="updated_version_bar">There is a newer version (v<span></span>) of the vScription Transcribe Controller
@@ -474,7 +474,19 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
         <!--            <p><i>Filtering Jobs with Status of: Awaiting Transcription, In Progress and Suspended.</i></p>-->
 
         <div style="overflow-x: hidden" class="vspt-table-div">
-            <table id="jobs-tbl" class="table vspt-table hover compact"></table>
+            <table id="jobs-tbl" class="table vspt-table hover compact">
+                <tfoot>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </tfoot>
+            </table>
         </div>
         <div class="text-right">
             <button class="btn btn-sm btn-light mb-1 mt-2"

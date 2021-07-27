@@ -1,6 +1,6 @@
 <?php
 //include('../data/parts/head.php');
-require '../../api/vendor/autoload.php';
+require __DIR__ . '/../../api/bootstrap.php';
 use Src\Enums\INTERNAL_PAGES;
 
 $vtex_page = INTERNAL_PAGES::ADMIN_PANEL_INDEX;
@@ -107,7 +107,59 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
                         <h3 class="text-center">SR Queue</h3>
                         <canvas id="srqChart"></canvas>
                     </div>
+
+                    <div class="col"></div>
+
+                    <div class="border-left col-auto pl-3 pr-3"> 
+
+                        <?php
+
+//                        echo 'res: '.   getenv('REVAI_ACCESS_TOKEN')
+
+                        $curl = curl_init();
+
+                        curl_setopt_array($curl, array(
+                            CURLOPT_URL => 'https://api.rev.ai/speechtotext/v1/account',
+                            CURLOPT_RETURNTRANSFER => true,
+                            CURLOPT_ENCODING => '',
+                            CURLOPT_MAXREDIRS => 10,
+                            CURLOPT_TIMEOUT => 0,
+                            CURLOPT_FOLLOWLOCATION => true,
+                            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                            CURLOPT_CUSTOMREQUEST => 'GET',
+                            CURLOPT_HTTPHEADER => array(
+                                'Authorization: Bearer ' .  getenv('REVAI_ACCESS_TOKEN')
+//                                'Authorization: Bearer 02hoK6ac6Ar7wJHXuEY8K88sXH8e5879E3sAHeA4dmeejnaEAW9WfPtUEDtk4BCX4FjHhAr6OXWepMPnR2a_yt7UqLHvE'
+
+                            ),
+                        ));
+
+                        $response = curl_exec($curl);
+
+                        curl_close($curl);
+//                        echo $response;
+                        $revaiData = json_decode($response, true);
+//                        echo json_decode($response, true)["balance_seconds"] . " mins";
+                        ?>
+
+                        <div class="row">
+                            <div class="col-auto">
+                                <img src="../data/images/revai64.png" width="44"/>
+                            </div>
+                            <div class="col">
+                                <div class="row">
+                                    <b> <?php echo $revaiData["email"] ?> </b>
+                                </div>
+
+                                <div class="row align-bottom">
+                                    <?php echo number_format($revaiData["balance_seconds"]/60) . "&nbsp;<b> mins</b>" ?>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
+
 
 
             </div>

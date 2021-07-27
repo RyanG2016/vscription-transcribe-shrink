@@ -99,7 +99,7 @@ else {
     </script>
 	
 	<link rel="stylesheet" href="data/css/main.css?v=1">
-	<script src="data/scripts/main.min.js?v=7"></script>
+	<script src="data/scripts/main.min.js?v=9"></script>
 	
 </head>
 

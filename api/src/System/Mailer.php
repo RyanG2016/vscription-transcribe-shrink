@@ -32,15 +32,15 @@ class Mailer
 
     /**
      * Token is internally generated and inserted to tokens table
-     * @param $mailType int  >4: reset-password <br>&nbsp; 5: verify email
+     * @param $mailType int 4: reset-password <br>&nbsp; 5: verify email
      * <br> &nbsp; 6: typist-invitation
-     * <br> - $extra1: access_id @access_tbl, $extra2: roleID
+     * <br> - $extra1: access_id, $extra2: roleID
      * <br> ----------------------------------------
      * <br>7: signup with typist invitation -> (adds a token to token table and signup link will have ref param with token in it)
      * <br> - $extra1: accID, $extra2: roleID
      * <br> ----------------------------------------
      * <br>10: document-complete
-     * <br>15: job added
+     * <br>15: job(s) added/uploaded
      * <br>16: user-added-via-sys-admin
      * <br>17: SR-package-receipt
      * @param $user_email string user email address

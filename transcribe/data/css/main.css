@@ -624,22 +624,6 @@ select, .dt-search {
     color: gray;
 }
 
-.custom-info-font-awesome{
-    display: inline-block;
-    color: var(--vspt-blue);
-    cursor: pointer;
-    font: normal normal normal 16px/1 FontAwesome;
-    /*font-size: inherit;*/
-    text-rendering: auto;
-    vertical-align: baseline;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-.custom-info-font-awesome:before{
-    vertical-align: middle;
-}
-
 .tooltip-inner{
     max-width: 400px !important;
     background-color: #2a2a2a !important;

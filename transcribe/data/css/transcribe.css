@@ -395,11 +395,13 @@ u {
     display: none !important;
 }
 
-select,
-.dt-search {
-    width: 100%;
-    /*padding: 6px 20px;*/
-    margin: 8px 0;
+select.form-control,
+.dt-search
+{
+    width: -webkit-fill-available;
+    padding: 6px 8px;
+    margin: auto;
+    height: unset !important;
     display: block;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -582,4 +584,10 @@ select,
     margin-right: -15px !important;
     position: sticky;
     top: 400px;
+}
+
+
+#jobs-tbl > tfoot tr th
+{
+    padding: 4px 2px !important;
 }
