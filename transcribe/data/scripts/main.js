@@ -224,6 +224,8 @@ $(document).ready(function () {
 	refreshJobList.addEventListener('click', e => {
 		// totalDur = 0;
 		jobsDTRef.ajax.reload(dtTableReloadCallback);
+		$("#tjd").html("Total Jobs Length: " + new Date(totalDur * 1000).toISOString().substr(11, 8));
+		$("#cbm").html("Current Backlog Minutes: " + new Date(totalTrDur * 1000).toISOString().substr(11, 8));
 	});
 
 	jobsDT.on( 'error.dt', function ( e, settings, techNote, message ) {
@@ -498,6 +500,8 @@ function startRefreshTimer() {
 				if(response.logged_in)
 				{
 					jobsDTRef.ajax.reload(dtTableReloadCallback);
+					$("#tjd").html("Total Jobs Length: " + new Date(totalDur * 1000).toISOString().substr(11, 8));
+					$("#cbm").html("Current Backlog Minutes: " + new Date(totalTrDur * 1000).toISOString().substr(11, 8));
 				}else{
 					clearInterval(ping);
 					$.confirm({
