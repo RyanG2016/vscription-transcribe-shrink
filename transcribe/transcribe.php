@@ -181,7 +181,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 
     <script src='tinymce/tinymce.min.js?v=<?php echo $version_control ?>'></script>
 
-    <script src='data/scripts/tinymce.min.js?v=3'></script>
+    <script src='data/scripts/tinymce.js?v=3'></script>
     <script src="tinymce/plugins/mention/plugin.js?v=<?php echo $version_control ?>"></script>
     <link rel="stylesheet" type="text/css" href="tinymce/plugins/mention/css/autocomplete.css">
     <link rel="stylesheet" type="text/css" href="tinymce/plugins/mention/css/rte-content.css">
@@ -231,7 +231,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 <body>
 
 <script src="data/scripts/parts/constants.js" type="text/javascript"></script>
-<script src="data/scripts/transcribe.min.js?v=9"></script>
+<script src="data/scripts/transcribe.min.js?v=10"></script>
 <!--<script src="data/scripts/transcribe.js?v=5"></script>-->
 
 <div id="updated_version_bar">There is a newer version (v<span></span>) of the vScription Transcribe Controller
@@ -351,6 +351,46 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                         </div>
 
                                         <div class="field">
+                                            <label for="user_field_3">Job Identifier</label>
+                                            <input type="text" id="user_field_3" name="user_field_3"
+                                                   class="form-control"
+                                                   title="User Field 3" <?php if ($set == 1 && !empty($uf3)) {
+                                                echo 'value="' . $uf3 . "\"";
+                                            } ?>>
+                                        </div>
+
+                                        <div class="field">
+                                            <label for="comments">Typist comment</label>
+                                            <div class="ui left icon input">
+                                                <textarea type="text" id="comments" name="comments"
+                                                        class="form-control comments-text-area"
+                                                        rows="2"
+                                                        title="Typist Comments"
+                                                        disabled>
+                                                    <?php if ($set == 1 && !empty($ph)) {
+                                                        echo 'value="' . $ph . "\"";
+                                                    } ?>
+                                                </textarea>
+                                                <i class="comment dots icon"></i>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="field">
+                                            <label for="file_comment">Job Comment</label>
+                                            <div class="ui left icon input">
+                                                <textarea type="text" id="file_comment" name="file_comment"
+                                                       class="form-control comments-text-area"
+                                                       rows="2"
+                                                       title="File Comments" readonly>
+                                                    <?php if ($set == 1 && !empty($ph)) {
+                                                        echo 'value="' . $ph . "\"";
+                                                    } ?>
+                                                </textarea>
+                                                <i class="comment dots icon"></i>
+                                            </div>
+                                        </div>
+                                        <div class="field">
                                             <label for="jobType">Job Type</label>
                                             <select class="ui search sdropdown" id="jobType" name="jobType" disabled>
                                                 <?php
@@ -407,46 +447,6 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                             } ?> readonly>
                                         </div>
 
-                                        <div class="field">
-                                            <label for="user_field_3">User Field 3</label>
-                                            <input type="text" id="user_field_3" name="user_field_3"
-                                                   class="form-control"
-                                                   title="User Field 3" <?php if ($set == 1 && !empty($uf3)) {
-                                                echo 'value="' . $uf3 . "\"";
-                                            } ?> readonly>
-                                        </div>
-
-                                        <div class="field">
-                                            <label for="comments">Typist comment</label>
-                                            <div class="ui left icon input">
-                                                <textarea type="text" id="comments" name="comments"
-                                                        class="form-control comments-text-area"
-                                                        rows="2"
-                                                        title="Typist Comments"
-                                                        disabled>
-                                                    <?php if ($set == 1 && !empty($ph)) {
-                                                        echo 'value="' . $ph . "\"";
-                                                    } ?>
-                                                </textarea>
-                                                <i class="comment dots icon"></i>
-
-                                            </div>
-                                        </div>
-
-                                        <div class="field">
-                                            <label for="file_comment">Job Comment</label>
-                                            <div class="ui left icon input">
-                                                <textarea type="text" id="file_comment" name="file_comment"
-                                                       class="form-control comments-text-area"
-                                                       rows="2"
-                                                       title="File Comments" readonly>
-                                                    <?php if ($set == 1 && !empty($ph)) {
-                                                        echo 'value="' . $ph . "\"";
-                                                    } ?>
-                                                </textarea>
-                                                <i class="comment dots icon"></i>
-                                            </div>
-                                        </div>
                                 </div>
 
                                 <!-- </div>-->

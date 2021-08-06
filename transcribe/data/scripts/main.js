@@ -84,7 +84,7 @@ $(document).ready(function () {
 					var addition = "";
 					var result = "";
 
-					let fields = ["user_field_1", "user_field_2", "user_field_3", "typist_comments"];
+					let fields = ["user_field_1", "user_field_2", "typist_comments"];
 					/* Additional Popup */
 					fields.forEach(value => {
 						if(row[value] !== null && row[value] !== "")
@@ -111,6 +111,10 @@ $(document).ready(function () {
 					}
 					return data + result;
 				}
+			},
+			{
+				"title": "Job Identifier",
+				"data": "user_field_3"
 			},
 			{
 				"title": "Author",
@@ -152,10 +156,10 @@ $(document).ready(function () {
 				"title": "Job Transcribed",
 				"data": "file_transcribed_date"
 			},
-			{
-				"title": "Initial Download",
-				"data": "text_downloaded_date"
-			},
+			// {
+			// 	"title": "Initial Download",
+			// 	"data": "text_downloaded_date"
+			// },
 			{
 				"title": "Actions",
 				"data": "times_text_downloaded_date",

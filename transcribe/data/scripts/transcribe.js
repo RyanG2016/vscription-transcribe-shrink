@@ -631,6 +631,7 @@ $(document).ready(function () {
         formData.append("file_work_type", $("#jobType option:selected").text());
         formData.append("typist_comments", $("#comments").val());
         formData.append("set_role", 3);
+        formData.append("user_field_3", $("#user_field_3").val());
 
         //Append form data for POST
 

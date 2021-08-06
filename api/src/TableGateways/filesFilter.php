@@ -255,7 +255,8 @@ function parseFileUpdateParams($role, $data = null, $db = null)
 //                    case "billed":
 //                    case "user_field_1":
 //                    case "user_field_2":
-//                    case "user_field_3":
+//                  Added the typist ability to edit user_field_3 as this will be used as a "Title" field as per user feedback    
+                    case "user_field_3":
                     case "file_status":
                     case "audio_length":
                     case "last_audio_position":
