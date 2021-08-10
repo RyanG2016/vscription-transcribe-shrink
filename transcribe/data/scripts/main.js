@@ -405,7 +405,7 @@ function download(fileID){
 		// alert('refresh?');
 		// location.reload();
 		// totalDur = 0;
-		jobsDTRef.ajax.reload(dtTableReloadCallback);
+		jobsDTRef.ajax.reload(dtTableReloadCallback, false);
 
 	});
 }
@@ -432,7 +432,7 @@ function view(fileID){
 		// alert('refresh?');
 		// location.reload();
 		// totalDur = 0;
-		jobsDTRef.ajax.reload(dtTableReloadCallback);
+		jobsDTRef.ajax.reload(dtTableReloadCallback, false);
 
 	});
 }
