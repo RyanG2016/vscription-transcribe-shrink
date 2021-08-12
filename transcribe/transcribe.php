@@ -184,7 +184,7 @@ $transRemarks = $currentAccount->getTranscribeRemarks();
 
     <script src='tinymce/tinymce.min.js?v=<?php echo $version_control ?>'></script>
 
-    <script src='data/scripts/tinymce.js?v=3'></script>
+    <script src='data/scripts/tinymce.min.js?v=4'></script>
     <script src="tinymce/plugins/mention/plugin.js?v=<?php echo $version_control ?>"></script>
     <link rel="stylesheet" type="text/css" href="tinymce/plugins/mention/css/autocomplete.css">
     <link rel="stylesheet" type="text/css" href="tinymce/plugins/mention/css/rte-content.css">
