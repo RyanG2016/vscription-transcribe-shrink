@@ -218,7 +218,7 @@ table, th, td {
 }
 
 /* The Close Button */
-.close {
+.close:not(.bs-exclude) {
     color: white;
     float: right;
     font-size: 28px;

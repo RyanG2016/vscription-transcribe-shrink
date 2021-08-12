@@ -90,6 +90,7 @@ class AccountGateway implements GatewayInterface
                 job_prefix,
                 auto_list_refresh,
                 auto_list_refresh_interval,
+                transcribe_remarks,
                 sr.sr_minutes_remaining
             FROM
                 accounts
@@ -163,7 +164,9 @@ class AccountGateway implements GatewayInterface
                 job_prefix,
                 sr_minutes_remaining,
                 auto_list_refresh,
-                auto_list_refresh_interval
+                auto_list_refresh_interval,
+                transcribe_remarks
+
             FROM
                 accounts
             LEFT JOIN speech_recognition sr on accounts.acc_id = sr.account_id
@@ -197,7 +200,10 @@ class AccountGateway implements GatewayInterface
                 act_log_retention_time,
                 job_prefix,
                 auto_list_refresh,
-                auto_list_refresh_interval
+                auto_list_refresh_interval,
+                transcribe_remarks
+                   
+            
             FROM
                 accounts
             INNER JOIN access a on accounts.acc_id = a.acc_id
@@ -772,9 +778,9 @@ class AccountGateway implements GatewayInterface
     {
         $statement = "
             INSERT INTO accounts 
-                (enabled, billable, acc_name, acc_retention_time, acc_creation_date, bill_rate1, bill_rate1_type, bill_rate1_tat, bill_rate1_desc, bill_rate1_min_pay, bill_rate2, bill_rate2_type, bill_rate2_tat, bill_rate2_desc, bill_rate2_min_pay, bill_rate3, bill_rate3_type, bill_rate3_tat, bill_rate3_desc, bill_rate3_min_pay, bill_rate4, bill_rate4_type, bill_rate4_tat, bill_rate4_desc, bill_rate4_min_pay, bill_rate5, bill_rate5_type, bill_rate5_tat, bill_rate5_desc, bill_rate5_min_pay, lifetime_minutes, work_types, next_job_tally, act_log_retention_time, job_prefix, sr_enabled, auto_list_refresh_interval)
+                (enabled, billable, acc_name, acc_retention_time, acc_creation_date, bill_rate1, bill_rate1_type, bill_rate1_tat, bill_rate1_desc, bill_rate1_min_pay, bill_rate2, bill_rate2_type, bill_rate2_tat, bill_rate2_desc, bill_rate2_min_pay, bill_rate3, bill_rate3_type, bill_rate3_tat, bill_rate3_desc, bill_rate3_min_pay, bill_rate4, bill_rate4_type, bill_rate4_tat, bill_rate4_desc, bill_rate4_min_pay, bill_rate5, bill_rate5_type, bill_rate5_tat, bill_rate5_desc, bill_rate5_min_pay, lifetime_minutes, work_types, next_job_tally, act_log_retention_time, job_prefix, sr_enabled, auto_list_refresh_interval, transcribe_remarks)
             VALUES
-                (:enabled, :billable, :acc_name, :acc_retention_time, :acc_creation_date, :bill_rate1, :bill_rate1_type, :bill_rate1_tat, :bill_rate1_desc, :bill_rate1_min_pay, :bill_rate2, :bill_rate2_type, :bill_rate2_tat, :bill_rate2_desc, :bill_rate2_min_pay, :bill_rate3, :bill_rate3_type, :bill_rate3_tat, :bill_rate3_desc, :bill_rate3_min_pay, :bill_rate4, :bill_rate4_type, :bill_rate4_tat, :bill_rate4_desc, :bill_rate4_min_pay, :bill_rate5, :bill_rate5_type, :bill_rate5_tat, :bill_rate5_desc, :bill_rate5_min_pay, :lifetime_minutes, :work_types, :next_job_tally, :act_log_retention_time, :job_prefix, :sr_enabled, :auto_list_refresh_interval)
+                (:enabled, :billable, :acc_name, :acc_retention_time, :acc_creation_date, :bill_rate1, :bill_rate1_type, :bill_rate1_tat, :bill_rate1_desc, :bill_rate1_min_pay, :bill_rate2, :bill_rate2_type, :bill_rate2_tat, :bill_rate2_desc, :bill_rate2_min_pay, :bill_rate3, :bill_rate3_type, :bill_rate3_tat, :bill_rate3_desc, :bill_rate3_min_pay, :bill_rate4, :bill_rate4_type, :bill_rate4_tat, :bill_rate4_desc, :bill_rate4_min_pay, :bill_rate5, :bill_rate5_type, :bill_rate5_tat, :bill_rate5_desc, :bill_rate5_min_pay, :lifetime_minutes, :work_types, :next_job_tally, :act_log_retention_time, :job_prefix, :sr_enabled, :auto_list_refresh_interval, :transcribe_remarks)
         ;";
 
         try {
@@ -816,6 +822,7 @@ class AccountGateway implements GatewayInterface
                 'act_log_retention_time' => $model->getActLogRetentionTime(),
                 'job_prefix' => $model->getJobPrefix(),
                 'sr_enabled' => $model->getSrEnabled(),
+                'transcribe_remarks' => $model->getTranscribeRemarks(),
                 'auto_list_refresh_interval' => $model->getAccJobRefreshInterval()
 
             ));
@@ -871,7 +878,8 @@ class AccountGateway implements GatewayInterface
                 act_log_retention_time = :act_log_retention_time,
                 job_prefix = :job_prefix,
                 sr_enabled = :sr_enabled,
-                auto_list_refresh_interval = :auto_list_refresh_interval
+                auto_list_refresh_interval = :auto_list_refresh_interval,
+                transcribe_remarks = :transcribe_remarks
             WHERE
                 acc_id = :acc_id;
         ";
@@ -917,6 +925,7 @@ class AccountGateway implements GatewayInterface
                 'job_prefix' => $model->getJobPrefix(),
                 'sr_enabled' => $model->getSrEnabled(),
                 'auto_list_refresh_interval' => $model->getAccJobRefreshInterval(),
+                'transcribe_remarks' => $model->getTranscribeRemarks()
             ));
             return $statement->rowCount();
         } catch (\PDOException) {
@@ -985,6 +994,7 @@ class AccountGateway implements GatewayInterface
                    job_prefix,
                    sr_enabled,
                    auto_list_refresh,
+                   transcribe_remarks,
                    auto_list_refresh_interval
                                       
             FROM

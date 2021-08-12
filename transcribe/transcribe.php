@@ -31,6 +31,9 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
 
 $accountGateway = new AccountGateway($dbConnection);
 $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
+// current account data
+$currentAccount = \Src\Models\Account::withID($_SESSION["accID"], $dbConnection);
+$transRemarks = $currentAccount->getTranscribeRemarks();
 
 //$version_control = "1.0";
 ?>
@@ -268,6 +271,25 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                             </span>
 
                         </legend>
+
+                        <?php
+
+                        if($transRemarks)
+                        {
+                            echo "<div class='alert alert-warning mr-2 mb-2' role='alert'>
+                            <b class='typing_notes_header' id='typingNotesHeader'>Typing Notes:</b>
+                            <span id='typingNotesBody' class='typing_notes_body'>$transRemarks</span>
+                            
+                            <button type='button' class='close bs-exclude' data-dismiss='alert' aria-label='Close'>
+                                <span aria-hidden='true'>&times;</span>
+                            </button>
+
+                            </div>
+                            ";
+
+                        }
+                        ?>
+
 
 
                         <div id="divv" class="form-row report-container">
