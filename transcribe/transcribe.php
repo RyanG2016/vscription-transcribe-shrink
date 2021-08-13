@@ -252,8 +252,10 @@ $transRemarks = $currentAccount->getTranscribeRemarks();
 
                 <div class="row ">
                     <div class="col report-col">
-                        <legend id="leg"><span class="number">1</span> Report Body
-
+                        <legend id="leg">
+                            <span class="number">1</span> Report Body
+                        </legend>
+                        <div class="row no-gutters mb-2 d-flex flex-row-reverse">
                             <span class="transcribe-shortcuts">
                                 <img src="data/images/f1_48.png"/> <i>Insert last used word</i> &nbsp;&nbsp;
 
@@ -264,13 +266,8 @@ $transRemarks = $currentAccount->getTranscribeRemarks();
                                 <button type="button" class="btn btn-primary btn-sm pop-btn" id="pop">
                                     <i class="fas fa-external-link-alt"></i>
                                 </button>
-<!--                                <button class="ui right labeled icon grey basic button toggle-demo-bar" id="toggleDemoBar">-->
-<!--                                  <i class="right left arrow icon"></i>-->
-<!--                                  Sidebar-->
-<!--                                </button>-->
                             </span>
-
-                        </legend>
+                        </div>
 
                         <?php
 

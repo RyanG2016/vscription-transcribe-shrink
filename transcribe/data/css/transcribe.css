@@ -506,7 +506,7 @@ select.form-control,
 }
 
 .transcribe-shortcuts{
-    font-size: 0.6em;
+    font-size: 12px;
     float: right;
     margin-right: 7px;
 }
