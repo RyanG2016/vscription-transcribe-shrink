@@ -123,7 +123,34 @@ function documentReady() {
             // console.log("file dropped");
             curFiles = Array.from(e.originalEvent.dataTransfer.files);
             var filesToUpload = [];
-            if (curFiles.length + filesArr.length > 10) {
+
+            // check type
+            // let invalid = false;
+            for (let i = 0; i < curFiles.length; i++) {
+                let fileExt = curFiles[i].name.split(".").pop().toLowerCase();
+                if (!validFileType(curFiles[i]) &&
+                    !(curFiles[i].type === "" && (fileExt  === "ds2" || fileExt === "dss"))
+                ) {
+                    // invalid = true;
+                    // setDropText("Invalid file(s) type added", false);
+                    uploadToastBody.html(`(${curFiles[i].name}) File type is not supported`);
+                    uploadToast.toast('show');
+                    continue;
+                }
+
+                // prevent Dup
+                let arrFilter = filesArr.filter(function (prevFiles) {
+                    return prevFiles.name.includes(curFiles[i].name);
+                });
+
+                if (arrFilter.length === 0) {
+                    filesToUpload.push(curFiles[i]);
+                }
+            }
+            curFiles = filesToUpload;
+            if (curFiles.length > 0) addFilesToUpload();
+
+            /*if (curFiles.length + filesArr.length > 10) {
                 setDropText("Files exceeded maximum limit (10 files)", false, false);
             } else {
                 // check type
@@ -151,7 +178,7 @@ function documentReady() {
                 }
                 curFiles = filesToUpload;
                 if (curFiles.length > 0) addFilesToUpload();
-            }
+            }*/
 
         });
 
@@ -563,11 +590,17 @@ function documentReady() {
                 // filesDur[filesIds.indexOf(id)] = Math.round(duration);// adding duration in the same arrangement as filesArr
             }
 
+            console.log(`computed new file ${file.name} with fileID: ${id} | total computed: ${duratedFiles} | total files now: ${filesCount}`)
             // check if all files are durated
             if (duratedFiles === filesCount) {
 
                 // unlock the upload button
+                console.log("++ unlocked upload ++")
                 unlockUploadUI(true);
+            }else{
+                console.log("-- locked upload -- ")
+
+                unlockUploadUI(false);
             }
 
             audio.remove();
@@ -575,7 +608,7 @@ function documentReady() {
         };
     }
 
-    // 3 -> file count exceeds limit of 20
+    // 3 -> file count exceeds limit of 10
     function getFileUploadStatus(id, size, fileArrElement) { // 0 -> allowed,   1 -> file exceeds limit,     2 -> request exceeds limit
 
         if (qCount <= MAX_FILES_COUNT - 1) // -1 as the qCount++ is performed after the check
@@ -587,7 +620,7 @@ function documentReady() {
                 return 1;
 
             } else { // SINGLE SIZE OK -> CHECK FOR ACCUMULATIVE FILE SIZE
-                if (commSize + size > maxFileSize) { // Check if total uploaded files exceeds 128MB
+                if (commSize + size > maxFileSize) { // Check if total uploaded files exceeds 350MB
                     // remove file from upload queue
                     return 2;
 
@@ -607,10 +640,16 @@ function documentReady() {
     function generateTblFileEntry(id, filename, size, status) {
         // generating a file entry
         const row = document.createElement("tr");
-        row.setAttribute("id", "qfile" + id);
+        if(status === 0) row.setAttribute("id", "qfile" + id);
 
         const data1 = document.createElement("td");
-        data1.innerHTML = id + 1;
+        if(status !== 0)
+        {
+            data1.innerHTML = "-";
+            row.setAttribute("style", "color: slategrey;font-style: italic;")
+        }else{
+            data1.innerHTML = id + 1;
+        }
 
         const data2 = document.createElement("td");
         data2.innerHTML = filename;
@@ -619,7 +658,12 @@ function documentReady() {
         data3.innerHTML = returnFileSize(size);
 
         const data4 = document.createElement("td");
-        data4.appendChild(generateLoadingSpinner());
+        if(status !== 0)
+        {
+            data1.innerHTML = "-";
+        }else{
+            data4.appendChild(generateLoadingSpinner());
+        }
 
         const data6 = document.createElement("td");
 
@@ -629,22 +673,32 @@ function documentReady() {
             case 0: // allowed
                 data6.setAttribute("style", "color: #53a13d;");
                 data6.innerHTML = "Ready to upload.";
+                setDropText(`${filesArr.length}. ${filename} <br>`, true, true);
                 break;
 
             case 1: // file exceeds limit
 
                 data6.setAttribute("style", "color: #B00020;");
-                data6.innerHTML = "File exceeds 128MB - Skipped";
+                data6.innerHTML = "File exceeds 350MB - Skipped";
+
+                uploadToastBody.html(`(${filename}) File exceeds 350MB - Skipped`);
+                uploadToast.toast('show');
                 break;
 
             case 2: //request exceeds limit
                 data6.setAttribute("style", "color: #B00020;");
-                data6.innerHTML = "Total files exceed 128MB - Skipped";
+                data6.innerHTML = "Total files exceed 350MB - Skipped";
+
+                uploadToastBody.html(`(${filename}) Total files exceed 350MB - Skipped`);
+                uploadToast.toast('show');
                 break;
 
             case 3:
                 data6.setAttribute("style", "color: #B00020;");
-                data6.innerHTML = "File count exceeds the limit of " + MAX_FILES_COUNT + " - Skipped";
+                data6.innerHTML = `File count exceeds the limit of ${MAX_FILES_COUNT} - Skipped`;
+
+                uploadToastBody.html(`(${filename}) File count exceeds the limit of ${MAX_FILES_COUNT} - Skipped`);
+                uploadToast.toast('show');
                 break;
         }
 
@@ -744,16 +798,19 @@ function documentReady() {
         } else {
 
             filesCount = curFiles.length + filesArr.length;
-            let currentIteration = filesArr.length;
+            console.log(`adding ${curFiles.length} files to ${filesArr.length}`);
+            // let currentIteration = filesArr.length;
+            let fileID = filesArr.length;
 
-            let dropText = '';
-            for (let i = 0; i < curFiles.length; i++) {
-                dropText += ((currentIteration + i + 1) + ". " + curFiles[i].name + " <br> ");
-            }
+            // let dropText = '';
+            // for (let i = 0; i < curFiles.length; i++) {
+            //     dropText += ((currentIteration + i + 1) + ". " + curFiles[i].name + " <br> ");
+            // }
 
-            setDropText(dropText);
+            // setDropText(dropText);
 
-            let i = currentIteration;
+            // let i = currentIteration;
+            let i = 0;
 
             for (const file of curFiles) {
                 // const par = document.createElement('p');
@@ -767,18 +824,27 @@ function documentReady() {
                     (curFiles[i].type === "" && (fileExt  === "ds2" || fileExt === "dss"))
                 ) {
                     // get file upload criteria
-                    let status = getFileUploadStatus(i, file.size, file);
+                    let status = getFileUploadStatus(fileID, file.size, file);
 
                     // generate a table entry
-                    tblBody.append(generateTblFileEntry(i, file.name, file.size, status));
-
+                    tblBody.append(generateTblFileEntry(fileID, file.name, file.size, status));
                     // Get audio duration
-                    computeDuration(i, file, status, fileTypeIsValid ? 0 : (fileExt === "ds2"?2:1)); // async // 2: ds2 // 1: dss
+                    if(status !== 0)
+                    {
+                        filesCount--;
+                        console.log(`removing 1 file ${file.name} | total now ${filesCount}`);
+                    }
+                    else{
+
+                        computeDuration(fileID, file, status, fileTypeIsValid ? 0 : (fileExt === "ds2"?2:1));
+                    } // async // 2: ds2 // 1: dss
+
                 } else {
-                    tblBody.append(generateErrTblFileEntry(i, file.name));
+                    tblBody.append(generateErrTblFileEntry(fileID, file.name));
                 }
 
                 i++;
+                fileID++;
             }
         }
     }
