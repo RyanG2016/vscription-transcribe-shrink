@@ -276,8 +276,8 @@ $transRemarks = $currentAccount->getTranscribeRemarks();
 
                         if($transRemarks)
                         {
-                            echo "<div class='alert alert-warning mr-2 mb-2' role='alert'>
-                            <b class='typing_notes_header' id='typingNotesHeader'>Typing Notes:</b>
+                            echo "<div class='alert alert-warning typing_notes_alert mr-2 mb-2' role='alert'>
+                            <b class='typing_notes_header' id='typingNotesHeader'>Organization Typing Notes:</b>
                             <span id='typingNotesBody' class='typing_notes_body'>$transRemarks</span>
                             
                             <button type='button' class='close bs-exclude' data-dismiss='alert' aria-label='Close'>

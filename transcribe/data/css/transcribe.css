@@ -591,3 +591,12 @@ select.form-control,
 {
     padding: 4px 2px !important;
 }
+
+
+.typing_notes_header, .typing_notes_body{
+    font-size: 13px;
+}
+
+.typing_notes_alert{
+    padding: 6px 10px;
+}
