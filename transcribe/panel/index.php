@@ -151,9 +151,16 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
                                     <b> <?php echo $revaiData["email"] ?> </b>
                                 </div>
 
-                                <div class="row align-bottom">
-                                    <?php echo number_format($revaiData["balance_seconds"]/60) . "&nbsp;<b> mins</b>" ?>
-                                </div>
+                                <table class="vtex-revai-rem">
+                                    <tr>
+                                        <td><?php echo number_format($revaiData["balance_seconds"]/60); ?></td>
+                                        <td><b> mins</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td><?php echo $revaiData["balance_seconds"] ?></td>
+                                        <td><b>secs</b></td>
+                                    </tr>
+                                </table>
                             </div>
                         </div>
 

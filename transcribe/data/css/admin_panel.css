@@ -130,3 +130,25 @@
     width: 500px;
     height: 550px;
 }
+
+.vtex-revai-rem{
+    width: calc(100% + 30px);
+    margin: 0 -15px;
+    table-layout: auto;
+    border-spacing: 8px;
+    /*background-color: darkgrey;*/
+}
+.vtex-revai-rem tr td{
+    /*border: solid red 1px;*/
+}
+
+.vtex-revai-rem td:last-child{
+    /*width: 1%;*/
+    color: var(--vspt-blue);
+
+}
+.vtex-revai-rem td:first-child{
+    text-align: right;
+    width: 1%;
+    padding-right: 8px;
+}
