@@ -590,15 +590,15 @@ function documentReady() {
                 // filesDur[filesIds.indexOf(id)] = Math.round(duration);// adding duration in the same arrangement as filesArr
             }
 
-            console.log(`computed new file ${file.name} with fileID: ${id} | total computed: ${duratedFiles} | total files now: ${filesCount}`)
+            // console.log(`computed new file ${file.name} with fileID: ${id} | total computed: ${duratedFiles} | total files now: ${filesCount}`)
             // check if all files are durated
             if (duratedFiles === filesCount) {
 
                 // unlock the upload button
-                console.log("++ unlocked upload ++")
+                // console.log("++ unlocked upload ++")
                 unlockUploadUI(true);
             }else{
-                console.log("-- locked upload -- ")
+                // console.log("-- locked upload -- ")
 
                 unlockUploadUI(false);
             }
@@ -798,7 +798,7 @@ function documentReady() {
         } else {
 
             filesCount = curFiles.length + filesArr.length;
-            console.log(`adding ${curFiles.length} files to ${filesArr.length}`);
+            // console.log(`adding ${curFiles.length} files to ${filesArr.length}`);
             // let currentIteration = filesArr.length;
             let fileID = filesArr.length;
 
@@ -832,7 +832,7 @@ function documentReady() {
                     if(status !== 0)
                     {
                         filesCount--;
-                        console.log(`removing 1 file ${file.name} | total now ${filesCount}`);
+                        // console.log(`removing 1 file ${file.name} | total now ${filesCount}`);
                     }
                     else{
 

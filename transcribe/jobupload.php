@@ -92,7 +92,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
         var tutorials='<?php echo $tuts;?>';
     </script>
 
-	 <script src="data/scripts/job_upload.min.js?v=2"></script>
+	 <script src="data/scripts/job_upload.min.js?v=3"></script>
     <link rel="stylesheet" href="data/css/job_upload.css">
 	
 	
