@@ -637,3 +637,12 @@ tbody > tr > td
 .vtex-card.contents{
     min-width: 650px;
 }
+
+table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control, table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control {
+    padding-left: 30px !important;
+}
+
+#jobs-tbl > tbody > tr.child > td
+{
+    background-color: var(--vspt-blue-10);
+}

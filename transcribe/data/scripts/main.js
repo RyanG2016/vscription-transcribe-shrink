@@ -70,6 +70,7 @@ $(document).ready(function () {
 		rowId: 'file_id',
 		"ajax": 'api/v1/files?dt',
 		"processing": true,
+		responsive: true,
 		lengthChange: false,
 		pageLength: maximum_rows_per_page_jobs_list,
 		autoWidth: false,
@@ -78,8 +79,10 @@ $(document).ready(function () {
 		"columns": [
 			{
 				"title": "Job #",
+				"className":"all",
 				"data": "job_id",
 				render: function (data, type, row) {
+					console.log(row);
 
 					var addition = "";
 					var result = "";
@@ -97,7 +100,7 @@ $(document).ready(function () {
 							addition += `<b>${value}</b>: ${row[value]}`;
 						}
 					});
-					if (row["file_comment"] != null) {
+					/*if (row["file_comment"] != null) {
 
 						result = `<i class="fas fa-comment-alt-lines vspt-fa-blue cTooltip" data-html="true"  title="${htmlEncodeStr(row["file_comment"])}"></i>`;
 					}
@@ -108,14 +111,23 @@ $(document).ready(function () {
 					if(result)
 					{
 						result = `<span class="align-middle float-right">${result}</span>`
-					}
-					return data + result;
+					}*/
+					// return data + result + "&nbsp;<span class=\"badge badge-secondary\">New</span>";
+					return data + result ;
 				}
 			},
 			{
 				"title": "Job Identifier",
 				"data": "user_field_3"
 			},
+			/*{
+				"title": "Job user_field_1",
+				"data": "user_field_1"
+			},
+			{
+				"title": "Job user_field_2",
+				"data": "user_field_2"
+			},*/
 			{
 				"title": "Author",
 				"data": "file_author"
@@ -127,10 +139,6 @@ $(document).ready(function () {
 			{
 				"title": "Date Dictated",
 				"data": "file_date_dict"
-			},
-			{
-				"title": "Date Uploaded",
-				"data": "job_upload_date"
 			},
 			{
 				"title": "Job Length",
@@ -152,16 +160,17 @@ $(document).ready(function () {
 				"title": "Job Status",
 				"data": "file_status_ref"
 			},
-			{
+			/*{
 				"title": "Job Transcribed",
 				"data": "file_transcribed_date"
+			},*/
+			{
+				"title": "Initial Download",
+				"data": "text_downloaded_date"
 			},
-			// {
-			// 	"title": "Initial Download",
-			// 	"data": "text_downloaded_date"
-			// },
 			{
 				"title": "Actions",
+				"className":"all",
 				"data": "times_text_downloaded_date",
 				render: function (data, type, row) {
 					if (row["file_status"] == 3 || row["file_status"] == 7) {
@@ -170,7 +179,27 @@ $(document).ready(function () {
 						return "";
 					}
 				}
-			}
+			},
+			{
+				"title": "Completion Date",
+				"className":"none",
+				"data": "job_upload_date"
+			},
+			{
+				"title": "Date Uploaded",
+				"className":"none",
+				"data": "job_upload_date"
+			},
+			{
+				"title": "Uploaded By",
+				"className":"none",
+				"data": "job_uploaded_by"
+			},
+			{
+				"title": "Original filename",
+				"className":"none",
+				"data": "orig_filename"
+			},
 		],
 
 		initComplete: function () {
