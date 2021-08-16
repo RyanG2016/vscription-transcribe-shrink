@@ -328,6 +328,57 @@ if ($stmt = mysqli_prepare($con, $sql)) {
                                                 );
                                                 $b = json_encode($a);
                                                 insertMaintenanceAuditLogEntry($con, $b);
+                                                // Now lets' delete any intermediate files (DSS, DS2 files)
+                                                $int_dss_file = substr($filename, 0, strrpos($filename, ".")) . ".dss";
+                                                $int_ds2_file = substr($filename, 0, strrpos($filename, ".")) . ".ds2";
+                                                if (file_exists('../../../uploads/' . $int_dss_file)) {
+                                                    if (rename('../../../uploads/' . $int_dss_file,'../../../deletedUploads/' . $int_dss_file)) {
+                                                        // Update file date modified
+                                                        if (touch('../../../deletedUploads/' . $int_dss_file)) {
+                                                            //echo "Temp Audio File Deleted";
+                                                            $a = Array(
+                                                                'maint_table' => $table_name,
+                                                                'maint_recs_affected' => 1,
+                                                                'maint_comments' => "Deleted original audio file '$int_dss_file' for file '$file_id'"
+                                                            );
+                                                            $b = json_encode($a);
+                                                            insertMaintenanceAuditLogEntry($con, $b);
+                                                        } else {
+                                                            //echo "Error updating timestamp ";
+                                                               $a = Array(
+                                                                   'maint_table' => $table_name,
+                                                                   'maint_recs_affected' => 1,
+                                                                   'maint_comments' => "Error updating audio file timestamp '$int_dss_file' for file '$file_id'"
+                                                               );
+                                                               $b = json_encode($a);
+                                                               insertMaintenanceAuditLogEntry($con, $b); 
+                                                        }
+                                                    }
+                                                }
+                                                if (file_exists('../../../uploads/' . $int_ds2_file)) {
+                                                    if (rename('../../../uploads/' . $int_ds2_file,'../../../deletedUploads/' . $int_ds2_file)) {
+                                                        // Update file date modified
+                                                        if (touch('../../../deletedUploads/' . $int_ds2_file)) {
+                                                            //echo "Temp Audio File Deleted";
+                                                            $a = Array(
+                                                                'maint_table' => $table_name,
+                                                                'maint_recs_affected' => 1,
+                                                                'maint_comments' => "Deleted original audio file '$int_ds2_file' for file '$file_id'"
+                                                            );
+                                                            $b = json_encode($a);
+                                                            insertMaintenanceAuditLogEntry($con, $b);
+                                                        } else {
+                                                            //echo "Error updating timestamp ";
+                                                               $a = Array(
+                                                                   'maint_table' => $table_name,
+                                                                   'maint_recs_affected' => 1,
+                                                                   'maint_comments' => "Error updating audio file timestamp '$int_ds2_file' for file '$file_id'"
+                                                               );
+                                                               $b = json_encode($a);
+                                                               insertMaintenanceAuditLogEntry($con, $b); 
+                                                        }
+                                                    }
+                                                }
                                             } else {
                                              //echo "Error updating timestamp ";
                                                 $a = Array(
