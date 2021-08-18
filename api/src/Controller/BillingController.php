@@ -62,6 +62,8 @@ class BillingController {
 
     private function getAllBillings()
     {
+        return $this->notFoundResponse();
+
         $result = $this->billingGateway->findAll();
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
         $response['body'] = json_encode($result);

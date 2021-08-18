@@ -9,6 +9,7 @@ $(document).ready(function () {
 
     // let today = new Date().toISOString().split('T')[0];
     let today = (new Date('2001-08-18')).toISOString().split('T')[0];
+
     let tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
     tomorrow = tomorrow.toISOString().split('T')[0];
@@ -86,9 +87,14 @@ $(document).ready(function () {
             {
                 extend: 'pdfHtml5',
                 text: '<i class="fa fa-file-pdf-o"></i>',
-                titleAttr: 'PDF',
                 download: 'open',
-                // download: 'download',
+                // filename: currentOrganization+'_Bill_Report_' +startDate.val().toString()+ '_to_' +endDate.val().toString(), // * is read from host title tag
+                filename: 'file name test',
+                // title: 'current org testo',
+                // title: currentOrganization,
+                // messageTop: 'top msg',
+                // messageBottom: 'bottom msg',
+                titleAttr: 'PDF',
                 orientation: 'landscape',
                 pageSize: 'letter',
                 exportOptions:{
@@ -111,6 +117,10 @@ $(document).ready(function () {
                 customize: function (pdfMakeObj, buttonConfig, tblRef) {
                     // let test = 1;
 
+                    buttonConfig.filename = `${currentOrganization}_Bill_Report_${startDate.val().toString()}_to_${endDate.val().toString()}`;
+                    buttonConfig.title = currentOrganization;
+                    buttonConfig.download = 'open';
+
                     pdfMakeObj.defaultStyle.font = 'opensans';
                     pdfMakeObj.watermark =
                         { text: 'vScription Billing', color: '#bfced9', opacity: 0.3, bold: false, italics: true };
@@ -118,14 +128,24 @@ $(document).ready(function () {
                     pdfMakeObj.pageSize = 'LETTER';
                     pdfMakeObj.pageOrientation = 'landscape';
                     pdfMakeObj.pageMargins = [ 20, 20 ];
-                    pdfMakeObj.title = `testo`;
-                    pdfMakeObj.header = `vScription Transcribe Billing`;
+                    pdfMakeObj.title = currentOrganization;
+                    pdfMakeObj.header = {
+                        text: 'vScription Transcribe Billing',
+                        margin: [8,4,0,0]
+                    };
+                    // pdfMakeObj.content[1].table.widths = [ '*' ,'*','*' ,'*','*' ,'*','*' ,'*'];
+                    pdfMakeObj.content[1].table.widths = [ '*', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', '*'];
                     pdfMakeObj.footer= {
                         columns: [
-                            `${startDate.val()} to ${endDate.val()}`,
                             {
-                                text: `Generated on: ${new Date().toUTCString()}`,
-                                alignment: 'right'
+                                text: `\ \ ${startDate.val()} to ${endDate.val()}`,
+                                alignment: 'left',
+                                margin: [8,0,0,0]
+                            },
+                            {
+                                text: `Generated on: ${new Date().toUTCString()}\ \ `,
+                                alignment: 'right',
+                                margin: [0,0,8,8]
                                 // margin: 8
                             }
                         ]
@@ -405,7 +425,8 @@ $(document).ready(function () {
             start_date: startDate.val(),
             end_date: endDate.val()
         }).toString();
-        document.title = "Bill_report_"+startDate.val()+"_to_" + endDate.val();
+        // todo revert ?
+        // document.title = "Bill_report_"+startDate.val()+"_to_" + endDate.val();
 
         // billingDTRef.ajax.url( '../api/v1/billing/1?dt&startDate=2018-07-19&endDate=2021-07-19').load();
         billingDTRef.ajax.url(`../api/v1/billing/${accountID.val()}?dt&${reqData}`).load(dtLoadCallback);
@@ -423,7 +444,7 @@ $(document).ready(function () {
         totalDur = 0;
         // console.log(responseJson);
         if(responseJson.count)
-        {
+        { 
             currentOrganization = responseJson.organization;
             currentOrgBillRate = responseJson.billrate1;
             BillingRate.html(currentOrgBillRate);
@@ -436,7 +457,8 @@ $(document).ready(function () {
             // total minutes calculation
             calcInvoiceTotal();
 
-
+            // todo check
+            document.title = `${currentOrganization.replaceAll(" ", "_")}_Bill_Report_${startDate.val().toString()}_to_${endDate.val().toString()}`;
 
             reportOptions.slideDown();
         }else{

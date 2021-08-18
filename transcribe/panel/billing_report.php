@@ -67,8 +67,8 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
 
 
 
-<!--    <script src="../data/scripts/billing_report.min.js?v=--><!--"></script>-->
-    <script src="../data/scripts/billing_report.js ?>"></script>
+    <script src="../data/scripts/billing_report.min.js?v=--><!--"></script>
+<!--    <script src="../data/scripts/billing_report.js ?>"></script>-->
     <script src="../data/thirdparty/scripts/html2pdf.bundle.min.js"></script>
     <link href="https://printjs-4de6.kxcdn.com/print.min.css" rel="stylesheet">
     <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
@@ -133,7 +133,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
 
                         </div>
                     </div>
-                    <div class="col-auto pl-3 pr-3 border-left billing-sidebar">
+                    <div class="col-auto pl-3 pr-3 ml-auto mt-md-3 mt-sm-3 border-left billing-sidebar">
 
                         <div class="input-group">
                             <div class="input-group-prepend">
@@ -141,6 +141,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
                                     Organization ID
                                 </span>
                             </div>
+
                             <input type="text" class="form-control" id="accountID" contenteditable="true" size="4" placeholder="1" value="1">
 
                             <div class="input-group-append" data-target="#accountID">
