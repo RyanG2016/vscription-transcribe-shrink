@@ -70,6 +70,16 @@ $(document).ready(function () {
 		rowId: 'file_id',
 		"ajax": 'api/v1/files?dt',
 		"processing": true,
+		// dom: 'Bfrtip',
+		// buttons: [
+		// 	{
+		// 		text: 'My button',
+		// 		action: function ( e, dt, node, config ) {
+		// 			alert( 'Button activated' );
+		// 		}
+		// 	}
+		// ],
+
 		responsive: true,
 		lengthChange: false,
 		pageLength: maximum_rows_per_page_jobs_list,
@@ -220,7 +230,7 @@ $(document).ready(function () {
 		initComplete: function () {
 
 			calculatedIds = []; // freeing resources
-			this.api().columns([0,3,4,5,7,8]).every( function () {
+			this.api().columns([0,1,4,5,7]).every( function () {
 				var that = this;
 
 				$( 'input', this.footer() ).on( 'keyup change clear', function () {
@@ -232,7 +242,7 @@ $(document).ready(function () {
 				} );
 			} );
 
-			this.api().columns([1,2,6]).every(
+			this.api().columns([2,3,6]).every(
 				function () {
 					var column = this;
 					var select = $('<select class="form-control"><option value=""></option></select>')
@@ -258,12 +268,14 @@ $(document).ready(function () {
 		
 	} );
 
+	// jobsDTRef.buttons().container()
+	// 	.appendTo( $('#jobs-tbl_wrapper > div:nth-child(1) > div:nth-child(1)'));
+
 	$(
 		'#jobs-tbl tfoot th:eq(0),' +
-		'#jobs-tbl tfoot th:eq(3),' +
+		'#jobs-tbl tfoot th:eq(1),' +
 		'#jobs-tbl tfoot th:eq(4),' +
 		'#jobs-tbl tfoot th:eq(7),' +
-		'#jobs-tbl tfoot th:eq(8),' +
 		'#jobs-tbl tfoot th:eq(5)'
 	 ).each( function () {
 		$(this).html( '<input class="dt-search form-control" type="text" placeholder="" />' );
