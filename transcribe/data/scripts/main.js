@@ -82,38 +82,38 @@ $(document).ready(function () {
 				"className":"all",
 				"data": "job_id",
 				render: function (data, type, row) {
-					console.log(row);
+					// console.log(row);
 
-					var addition = "";
-					var result = "";
+					// var addition = "";
+					// var result = "";
 
-					let fields = ["user_field_1", "user_field_2", "typist_comments"];
-					/* Additional Popup */
-					fields.forEach(value => {
-						if(row[value] !== null && row[value] !== "")
-						{
-							if(addition !== "")
-							{
-								addition += "<br><br>";
-								// addition += "\n";
-							}
-							addition += `<b>${value}</b>: ${row[value]}`;
-						}
-					});
-					/*if (row["file_comment"] != null) {
-
-						result = `<i class="fas fa-comment-alt-lines vspt-fa-blue cTooltip" data-html="true"  title="${htmlEncodeStr(row["file_comment"])}"></i>`;
+					// let fields = ["user_field_1", "user_field_2", "typist_comments"];
+					// /* Additional Popup */
+					// fields.forEach(value => {
+					// 	if(row[value] !== null && row[value] !== "")
+					// 	{
+					// 		if(addition !== "")
+					// 		{
+					// 			addition += "<br><br>";
+					// 			// addition += "\n";
+					// 		}
+					// 		addition += `<b>${value}</b>: ${row[value]}`;
+					// 	}
+					// });
+					if (row["file_comment"] != null) {
+						return data + "<sup>●</sup>" ;
+						// result = `<i class="fas fa-comment-alt-lines vspt-fa-blue cTooltip" data-html="true"  title="${htmlEncodeStr(row["file_comment"])}"></i>`;
 					}
-					if(addition !== "")
-					{
-						result += `&nbsp;<i class="fas fa-info-square vspt-fa-blue cTooltip" data-html="true"  title="${addition}"></i>`;
-					}
-					if(result)
-					{
-						result = `<span class="align-middle float-right">${result}</span>`
-					}*/
+					// if(addition !== "")
+					// {
+					// 	result += `&nbsp;<i class="fas fa-info-square vspt-fa-blue cTooltip" data-html="true"  title="${addition}"></i>`;
+					// }
+					// if(result)
+					// {
+					// 	result = `<span class="align-middle float-right">${result}</span>`
+					// }
 					// return data + result + "&nbsp;<span class=\"badge badge-info\">New</span>";
-					return data + result ;
+					return data;
 				}
 			},
 			{
@@ -200,6 +200,21 @@ $(document).ready(function () {
 				"className":"none",
 				"data": "orig_filename"
 			},
+			{
+				"title": "User Field 1",
+				"className":"none",
+				"data": "user_field_1"
+			},
+			{
+				"title": "User Field 2",
+				"className":"none",
+				"data": "user_field_2"
+			},
+			{
+				"title": "User Field 3",
+				"className":"none",
+				"data": "user_field_3"
+			}
 		],
 
 		initComplete: function () {

@@ -653,9 +653,16 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before, table.dataT
     font-family: FontAwesome;
     font-size: 12px;
     writing-mode: vertical-lr;
+    background-color: #898b8c;
 }
 
 table.dataTable.dtr-inline.collapsed>tbody>tr.parent>td.dtr-control:before, table.dataTable.dtr-inline.collapsed>tbody>tr.parent>th.dtr-control:before {
     content: "\f0d7";
+    writing-mode: vertical-lr;
     background: var(--vspt-blue);
+}
+
+td > sup{
+    color: var(--vspt-orange);
+    font-size: 12px;
 }
