@@ -4,7 +4,11 @@ let maximum_rows_per_page_jobs_list = 7;
 
 $(document).ready(function () {
 
-    let today = new Date().toISOString().split('T')[0];
+    var calculatedIds = [];
+    var totalDur = 0;
+
+    // let today = new Date().toISOString().split('T')[0];
+    let today = (new Date('2001-08-18')).toISOString().split('T')[0];
     let tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
     tomorrow = tomorrow.toISOString().split('T')[0];
@@ -15,7 +19,16 @@ $(document).ready(function () {
     let getPDF = $ ( "#getPDF" );
     let getPrintJS = $ ( "#getPrint" );
     let reportOptions = $("#reportOptions");
-    let htmlTable = $('.billing-report-container');
+    let billJobs = $("#billJobs");
+    let mabJobs = $("#mabJobs");
+    let totalMins = $("#totalMins");
+    let totalBillMins = $("#totalBillMins");
+    let BillingRate = $("#BillingRate");
+    let invoiceTotal = $("#invoiceTotal");
+
+    let jobsCount = $(".jobs-count");
+
+    // let htmlTable = $('.billing-report-container');
     accountID = $("#accountID");
     $('#startDatePicker').datetimepicker({format: "YYYY-MM-DD"});
     $('#endDatePicker').datetimepicker({format: "YYYY-MM-DD"});
@@ -24,7 +37,8 @@ $(document).ready(function () {
     let billingDT = $("#billing-tbl");
     let billingDTRef;
 
-    var currentOrganization = ""; // for pdf header
+    let currentOrganization = ""; // for pdf header
+    let currentOrgBillRate = 0;
 
     startDate.val(today);
     endDate.val(tomorrow);
@@ -40,11 +54,12 @@ $(document).ready(function () {
         }
     };
 
+
     billingDTRef = billingDT.DataTable( {
         rowId: 'file_id',
         // "ajax": '../api/v1/billing/1?dt&startDate=2018-07-19&endDate=2021-07-19',
         "processing": true,
-        select: true,
+        // select: true,
         searching: false,
         lengthChange: false,
         pageLength: maximum_rows_per_page_jobs_list,
@@ -73,8 +88,26 @@ $(document).ready(function () {
                 text: '<i class="fa fa-file-pdf-o"></i>',
                 titleAttr: 'PDF',
                 download: 'open',
+                // download: 'download',
                 orientation: 'landscape',
                 pageSize: 'letter',
+                exportOptions:{
+                    // columns: [0,1,3],
+                    stripHtml: true,
+                    format: {
+                        body: function (data, row, column, node) {
+                            // Strip $ from salary column to make it numeric
+                            if(column === 0 || column === 1)
+                            {
+                                return node.children[0].children[1].innerHTML;
+                            }
+                            else return data;
+                            // return data;
+                        }
+                    }
+                    // orthogonal: 'export',
+                },
+
                 customize: function (pdfMakeObj, buttonConfig, tblRef) {
                     // let test = 1;
 
@@ -156,6 +189,39 @@ $(document).ready(function () {
 
         "columns": [
             {
+                "title":"Bill",
+                // data: "✓",
+                // data: null,
+                className: "center",
+                // render: function (data, type, row) {
+                //     return `<div>
+                //                     <input type="checkbox" class="include-chk" checked>
+                //                     <label>Yes</label>
+                //                   </div>`;
+                // },
+                defaultContent: `<div>
+                                    <input type="checkbox" class="include-chk" checked>
+                                    <label>Yes</label>
+                                  </div>`
+            },
+            {
+                "title":"MAB",
+                // data: null,
+                // data: "✗",
+                className: "center",
+                "autoWidth": true,
+                // render: function (data, type, row) {
+                //     `<div>
+                //         <input class="mark-as-billed-chk" type="checkbox" checked>
+                //         <label>Yes</label>
+                //     </div>`
+                // }
+                defaultContent: `<div>
+                                    <input class="mark-as-billed-chk" type="checkbox" checked>
+                                    <label>Yes</label>
+                                </div>`
+            },
+            {
                 "title": "Job Number",
                 "data": "job_id",
              /*   render: function (data, type, row) {
@@ -216,14 +282,35 @@ $(document).ready(function () {
             },
             {
                 "title": "Audio Length",
-                "data": "audio_length"
+                "data": "audio_length",
+                render: function (data, type, row) {
+                    if (row["file_id"] != 0 && !calculatedIds.includes(row["file_id"])) {
+                        totalDur += roundToNearestQMinute(parseInt(data));
+
+                        calculatedIds.push(row["file_id"]);
+                        /*console.log(`${calculatedIds.length} | ${billingDTRef.data().length}`);
+                        if(calculatedIds.length == billingDTRef.data().length)
+                        {
+                        }*/
+                        // console.log(`${totalDur} | ${roundToNearestQMinute(parseInt(data))}`);
+                        totalMins.html(totalDur);
+                        totalBillMins.html(totalDur);
+                    }
+
+
+                    return new Date(data * 1000).toISOString().substr(11, 8);
+                }
             },
             {
                 "title": "Comments",
                 "data": "file_comment"
             }
         ],
-
+        // initComplete: function () {
+        //     console.log(calculatedIds);
+        //     console.log(data);
+            // totalMins.html(totalDur);
+        // }
         /*initComplete: function () {
 
             calculatedIds = []; // freeing resources
@@ -264,8 +351,11 @@ $(document).ready(function () {
 
     } );
 
+
+
     billingDTRef.buttons().container()
         .appendTo( $('#vtexTableTools'));
+
 
     billingDT.on( 'error.dt', function ( e, settings, techNote, message ) {
         // console.log( 'An error has been reported by DataTables: ', message );
@@ -275,6 +365,11 @@ $(document).ready(function () {
 
     // get data ↓
 
+    $('#billing-tbl > thead > tr > th:nth-child(2)').tooltip(
+        {
+            title: 'Mark as billed'
+        }
+    );
 
     function checkDates(val, startDateGiven) {
         if(startDateGiven){
@@ -307,8 +402,8 @@ $(document).ready(function () {
 
 
         let reqData = new URLSearchParams({
-            startDate: startDate.val(),
-            endDate: endDate.val()
+            start_date: startDate.val(),
+            end_date: endDate.val()
         }).toString();
         document.title = "Bill_report_"+startDate.val()+"_to_" + endDate.val();
 
@@ -317,17 +412,68 @@ $(document).ready(function () {
         // getData(arg);
     });
 
+    getReport.click();
+
+
     function dtLoadCallback(responseJson)
     {
+        // console.log("callback");
+        // clear total durations
+        calculatedIds.length = 0;
+        totalDur = 0;
+        // console.log(responseJson);
         if(responseJson.count)
         {
             currentOrganization = responseJson.organization;
+            currentOrgBillRate = responseJson.billrate1;
+            BillingRate.html(currentOrgBillRate);
+            jobsCount.each(function(){
+                this.innerHTML = responseJson.count;
+            });
+            mabJobs.html(responseJson.count);
+            billJobs.html(responseJson.count);
+
+            // total minutes calculation
+            calcInvoiceTotal();
+
+
+
             reportOptions.slideDown();
         }else{
             currentOrganization = "";
+            currentOrgBillRate = 0;
+            BillingRate.html('');
             reportOptions.slideUp();
         }
     }
+
+    billingDT.on( 'draw.dt', function () {
+        $('input[type=checkbox].mark-as-billed-chk').off('change').on('change', function () {
+            // console.log("checked: " + this.checked);
+            if(this.checked)
+            {
+                mabJobs.html(parseInt(mabJobs.html()) + 1)
+                $(this).parent().children()[1].innerHTML = 'Yes';
+            }else{
+                mabJobs.html(parseInt(mabJobs.html()) - 1)
+                $(this).parent().children()[1].innerHTML = 'No';
+            }
+        });
+
+        $('input[type=checkbox].include-chk').off('change').on('change', function () {
+            // console.log("checked: " + this.checked);
+            if(this.checked)
+            {
+                billJobs.html(parseInt(billJobs.html()) + 1)
+                $(this).parent().children()[1].innerHTML = 'Yes';
+            }else{
+                billJobs.html(parseInt(billJobs.html()) - 1)
+                $(this).parent().children()[1].innerHTML = 'No';
+            }
+        });
+
+
+    });
 
     getPDF.on("click", function() {
         var opt = {
@@ -375,6 +521,37 @@ $(document).ready(function () {
             findAccWindow.focus();
         }
     });
+
+    function calcInvoiceTotal()
+    {
+        if(currentOrgBillRate !== 0)
+        {
+            invoiceTotal.html(currentOrgBillRate * parseFloat(totalBillMins.html()));
+        }else{
+            invoiceTotal.html('');
+        }
+    }
+
+    function roundToNearestQMinute(seconds)
+    {
+        let minutes = Math.floor(seconds / 60);
+        let remainder = seconds % 60;
+
+        if(remainder <= 15)
+        {
+            minutes += 0.25;
+        }else if(remainder <= 30)
+        {
+            minutes += 0.5;
+        }else if (remainder <= 45)
+        {
+            minutes += 0.75;
+        }else{
+            minutes ++;
+        }
+
+        return minutes;
+    }
 
 });
 

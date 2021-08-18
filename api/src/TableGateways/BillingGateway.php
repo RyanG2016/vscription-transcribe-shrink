@@ -7,6 +7,7 @@ namespace Src\TableGateways;
 use Src\Helpers\common;
 use Src\Models\Account;
 use Src\Models\BaseModel;
+use Src\Models\File;
 
 class BillingGateway implements GatewayInterface
 {
@@ -52,7 +53,7 @@ class BillingGateway implements GatewayInterface
 
     public function find($orgID)
     {
-        $returnBilled = $_GET["returnBilled"] ?? 0;
+        $returnBilled = $_GET["return_billed"] ?? 0;
         if($returnBilled == 1)
         {
             $returnBilled = "0 or billed = 1";
@@ -83,7 +84,78 @@ class BillingGateway implements GatewayInterface
 
         try {
             $statement = $this->db->prepare($statement);
-            $statement->execute(array($orgID, $_GET["startDate"], $_GET["endDate"]));
+            $statement->execute(array($orgID, $_GET["start_date"], $_GET["end_date"]));
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+
+            if(isset($_GET['dt'])){
+                $json_data = array(
+                    "organization" => $org->getAccName(),
+                    "billrate1" => $org->getBillRate1(),
+                    "count" => $statement->rowCount(),
+                    "data"            => $result
+                );
+                //        $response['body'] = json_encode($result);
+                $result = $json_data;
+            }
+            return $result;
+
+        } catch (\PDOException $e) {
+            $this->logger->insertAuditLogEntry($this->API_NAME,
+                "Failed to retrieve billing report for orgID: " . $orgID . " | " . $e->getMessage());
+            if(isset($_GET['dt'])){
+                $json_data = array("data" => []);
+                return $json_data;
+            }
+            return [];
+        }
+    }
+
+    public function billProcessing($orgID)
+    {
+        $org = Account::withID($orgID,$this->db);
+
+        $data = $_POST["data"];
+        $count = $_POST["count"];
+        $invoice_bill = $_POST["invoice_bill"];
+
+        if($count != sizeof($data))
+        {
+            return [];
+        }
+
+        foreach ($data as $job)
+        {
+            if($job->mark_as_billed)
+            {
+                File::withID($job->job_id, $this->db)->updateBilled(1);
+            }
+        }
+
+
+        /*$statement = "
+            SELECT 
+                file_id,
+                job_id, 
+                file_author, 
+                file_work_type, 
+                file_date_dict, 
+                audio_length, 
+                job_upload_date,
+                file_transcribed_date,
+                file_comment
+            FROM 
+                files
+            WHERE 
+                file_status  = '3' AND 
+                isBillable = '1' AND
+                (billed = $returnBilled) AND 
+                acc_id = ? AND
+                file_transcribed_date BETWEEN ? AND ?
+        ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($orgID, $_GET["start_date"], $_GET["end_date"]));
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
 
             if(isset($_GET['dt'])){
@@ -105,7 +177,7 @@ class BillingGateway implements GatewayInterface
                 return $json_data;
             }
             return [];
-        }
+        }*/
     }
 
 

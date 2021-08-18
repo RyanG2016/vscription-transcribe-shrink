@@ -1,6 +1,7 @@
 <?php
 namespace Src\Controller;
 
+use Src\Enums\ROLES;
 use Src\TableGateways\BillingGateway;
 use Src\Helpers\common;
 
@@ -32,11 +33,16 @@ class BillingController {
                 if ($this->options[0]) {
                    $response = $this->getBilling($this->options[0]);
                 } else {
-                    $response = $this->getAllBillings();
+//                    $response = $this->getAllBillings();
+                    $response = $this->notFoundResponse();
                 }
                 break;
             case 'POST':
-                $response = $this->createBillingFromRequest();
+                if ($this->options[0] && $_SESSION["role"] == ROLES::SYSTEM_ADMINISTRATOR) {
+                    $response = $this->billProcess($this->options[0]);
+                }else{
+                    $response = $this->notFoundResponse();
+                }
                 break;
 //            case 'PUT':
 //                $response = $this->updateBillingFromRequest($this->options);
@@ -65,9 +71,9 @@ class BillingController {
     private function getBilling($orgID)
     {
         if(
-            !isset($_GET['startDate'])
+            !isset($_GET['start_date'])
             ||
-            !isset($_GET['endDate'])
+            !isset($_GET['end_date'])
         ){
             return $this->common->missingRequiredParametersResponse();
         }
@@ -80,15 +86,25 @@ class BillingController {
         return $response;
     }
 
-    private function createBillingFromRequest()
+    private function billProcess($orgID)
     {
-        $input = (array) json_decode(billing_get_contents('php://input'), TRUE);
-        if (! $this->validateBilling($input)) {
-            return $this->unprocessableEntityResponse();
+        if(
+            !isset($_GET['start_date'])
+            ||
+            !isset($_GET['end_date'])
+            ||
+            !isset($_GET['data'])
+            ||
+            !isset($_GET['invoice_bill'])
+        ){
+            return $this->common->missingRequiredParametersResponse();
         }
-        $this->billingGateway->insert($input);
-        $response['status_code_header'] = 'HTTP/1.1 201 Created';
-        $response['body'] = null;
+
+        $result = $this->billingGateway->billProcessing($orgID);
+
+
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = json_encode($result);
         return $response;
     }
 

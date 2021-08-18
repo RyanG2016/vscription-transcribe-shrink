@@ -67,7 +67,8 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
 
 
 
-    <script src="../data/scripts/billing_report.min.js?v=<?php echo random_int(0,9) ?>"></script>
+<!--    <script src="../data/scripts/billing_report.min.js?v=--><!--"></script>-->
+    <script src="../data/scripts/billing_report.js ?>"></script>
     <script src="../data/thirdparty/scripts/html2pdf.bundle.min.js"></script>
     <link href="https://printjs-4de6.kxcdn.com/print.min.css" rel="stylesheet">
     <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
@@ -140,7 +141,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
                                     Organization ID
                                 </span>
                             </div>
-                            <input type="text" class="form-control" id="accountID" contenteditable="true" size="4" placeholder="" >
+                            <input type="text" class="form-control" id="accountID" contenteditable="true" size="4" placeholder="1" value="1">
 
                             <div class="input-group-append" data-target="#accountID">
                                 <div class="input-group-text" id="findAccBtn">
@@ -192,7 +193,63 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
                         
                         <div id="reportOptions" class="billing-report-options">
                             <hr/>
-                            <button type="button" class="btn btn-info w-100" id="getInvoice" disabled>
+
+                            <table class="billing-selection-table">
+                                <tr>
+                                    <td colspan="2">Summary</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Billing
+                                    </td>
+                                    <td>
+                                        <span id="billJobs"></span>/<span class="jobs-count"></span> <i>Jobs</i>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Mark as Billed
+                                    </td>
+                                    <td>
+                                        <span id="mabJobs"></span>/<span class="jobs-count"></span> <i>Jobs</i>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Total Minutes
+                                    </td>
+                                    <td>
+                                        <span id="totalMins"></span> <i>mins</i>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Billed Minutes
+                                    </td>
+                                    <td>
+                                        <span id="totalBillMins"></span> <i>mins</i>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        Bill Rate
+                                    </td>
+                                    <td>
+                                        <span id="BillingRate"></span> <i>$CAD/min</i>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Invoice Total
+                                    </td>
+                                    <td>
+                                        <span id="invoiceTotal"></span> <i>$CAD</i>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <button type="button" class="btn btn-info w-100 mt-2" id="getInvoice" disabled>
                                 <i class="fad fa-file-invoice-dollar"></i> Generate Invoice
                             </button>
 

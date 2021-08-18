@@ -29,7 +29,7 @@ div.row.typ-billing-container label {
 }
 
 .billing-sidebar{
-    max-width: 270px;
+    max-width: 300px;
 }
 
 .billing-report-options{
@@ -54,4 +54,37 @@ div.row.typ-billing-container label {
 .dt-button-collection .dropdown-item.active{
 
     background-color: var(--vspt-blue-dark);
+}
+
+tr> td:first-child > div{
+    white-space: nowrap;
+}
+
+.billing-selection-table{
+    width: 100%;
+    /*box-shadow: 0 0 10px rgba(114, 114, 113, 0.5);*/
+
+}
+.billing-selection-table td{
+    padding: 4px 8px;
+}
+
+.billing-selection-table tr:nth-child(odd) > td{
+    background-color: var(--vspt-blue-dark);
+    color: white;
+}
+.billing-selection-table tr:nth-child(even) > td{
+    background-color: #5b7f9a;
+    color: white;
+}
+
+.billing-selection-table td:last-child{
+    text-align: end;
+    color: #212529;
+}
+
+.billing-selection-table tr:first-child > td{
+    border-radius: 12px 12px 0 0;
+    text-align: center;
+    background-color: #394f60;
 }
