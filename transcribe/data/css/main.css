@@ -646,3 +646,16 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control, table.dataTable.dt
 {
     background-color: var(--vspt-blue-10);
 }
+
+/* responsive override */
+table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before, table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control:before {
+    content: "\f0da";
+    font-family: FontAwesome;
+    font-size: 12px;
+    writing-mode: vertical-lr;
+}
+
+table.dataTable.dtr-inline.collapsed>tbody>tr.parent>td.dtr-control:before, table.dataTable.dtr-inline.collapsed>tbody>tr.parent>th.dtr-control:before {
+    content: "\f0d7";
+    background: var(--vspt-blue);
+}

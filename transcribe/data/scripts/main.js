@@ -112,7 +112,7 @@ $(document).ready(function () {
 					{
 						result = `<span class="align-middle float-right">${result}</span>`
 					}*/
-					// return data + result + "&nbsp;<span class=\"badge badge-secondary\">New</span>";
+					// return data + result + "&nbsp;<span class=\"badge badge-info\">New</span>";
 					return data + result ;
 				}
 			},
