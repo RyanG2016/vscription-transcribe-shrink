@@ -93,9 +93,8 @@ $(document).ready(function () {
 				"data": "job_id",
 				render: function (data, type, row) {
 					// console.log(row);
-
 					// var addition = "";
-					// var result = "";
+					var result = data;
 
 					// let fields = ["user_field_1", "user_field_2", "typist_comments"];
 					// /* Additional Popup */
@@ -110,10 +109,17 @@ $(document).ready(function () {
 					// 		addition += `<b>${value}</b>: ${row[value]}`;
 					// 	}
 					// });
+
 					if (row["file_comment"] != null) {
-						return data + "<sup>●</sup>" ;
+						result += "<sup>●</sup>" ;
 						// result = `<i class="fas fa-comment-alt-lines vspt-fa-blue cTooltip" data-html="true"  title="${htmlEncodeStr(row["file_comment"])}"></i>`;
 					}
+
+					if(((new Date() - new Date(row.job_upload_date)) / (1000 * 60 * 60 * 24)) < 3)
+					{
+						result += "&nbsp;<span class=\"badge badge-success\">New</span>";
+					}
+
 					// if(addition !== "")
 					// {
 					// 	result += `&nbsp;<i class="fas fa-info-square vspt-fa-blue cTooltip" data-html="true"  title="${addition}"></i>`;
@@ -123,7 +129,8 @@ $(document).ready(function () {
 					// 	result = `<span class="align-middle float-right">${result}</span>`
 					// }
 					// return data + result + "&nbsp;<span class=\"badge badge-info\">New</span>";
-					return data;
+
+					return result;
 				}
 			},
 			{
