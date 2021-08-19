@@ -198,7 +198,7 @@ $(document).ready(function () {
 				}
 			},
 			{
-				"title": "Completion Date",
+				"title": "Transcribed Date",
 				"className":"none",
 				"data": "job_upload_date"
 			},
