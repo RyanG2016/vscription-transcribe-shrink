@@ -231,6 +231,11 @@ $(document).ready(function () {
 				"title": "User Field 3",
 				"className":"none",
 				"data": "user_field_3"
+			},
+			{
+				"title": "File Comments",
+				"className":"none",
+				"data": "file_comment"
 			}
 		],
 
