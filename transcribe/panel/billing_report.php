@@ -142,7 +142,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
                                 </span>
                             </div>
 
-                            <input type="text" class="form-control" id="accountID" contenteditable="true" size="4" placeholder="1" value="1">
+                            <input type="text" class="form-control" id="accountID" contenteditable="true" size="4">
 
                             <div class="input-group-append" data-target="#accountID">
                                 <div class="input-group-text" id="findAccBtn">
