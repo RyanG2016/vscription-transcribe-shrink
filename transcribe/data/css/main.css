@@ -688,7 +688,7 @@ td > sup{
 
 #jobs-tbl li
 {
-    width: 300px;
+    min-width: 300px;
 }
 
 #jobs-tbl li:not(:last-child){
@@ -700,8 +700,9 @@ td > sup{
 }
 
 #jobs-tbl li > span:last-child{
-    width: 100%;
+    /*width: 100%;*/
     /*display: block;*/
+    margin-left: 12px;
     text-align: end;
     /*background-color: red;*/
 }
