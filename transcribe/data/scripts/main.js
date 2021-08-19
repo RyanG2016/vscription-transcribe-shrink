@@ -236,6 +236,11 @@ $(document).ready(function () {
 				"title": "File Comments",
 				"className":"none",
 				"data": "file_comment"
+			},
+			{
+				"title": "Typist Comments",
+				"className":"none",
+				"data": "typist_comments"
 			}
 		],
 
