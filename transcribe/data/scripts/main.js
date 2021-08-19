@@ -318,6 +318,11 @@ $(document).ready(function () {
 		});
 
 		$('.btTooltip').tooltip({"trigger": 'hover focus'});
+		$('sup').tooltip(
+			{
+				title:'File comments exist. Please review'
+			}
+		);
 
 		if (!$('.cTooltip').hasClass("tooltipstered")) {
 			$('.cTooltip').tooltipster({
