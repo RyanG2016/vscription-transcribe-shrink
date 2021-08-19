@@ -484,14 +484,18 @@ $(document).ready(function () {
 
         $('input[type=checkbox].include-chk').off('change').on('change', function () {
             // console.log("checked: " + this.checked);
+            let audioValue = roundToNearestQMinute(billingDTRef.data()[$(this).closest('tr').index()].audio_length);
             if(this.checked)
             {
                 billJobs.html(parseInt(billJobs.html()) + 1)
                 $(this).parent().children()[1].innerHTML = 'Yes';
+                totalBillMins.html(parseFloat(totalBillMins.html()) + audioValue);
             }else{
                 billJobs.html(parseInt(billJobs.html()) - 1)
                 $(this).parent().children()[1].innerHTML = 'No';
+                totalBillMins.html(parseFloat(totalBillMins.html()) - audioValue);
             }
+            calcInvoiceTotal();
         });
 
 
