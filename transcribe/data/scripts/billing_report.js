@@ -7,8 +7,8 @@ $(document).ready(function () {
     var calculatedIds = [];
     var totalDur = 0;
 
-    // let today = new Date().toISOString().split('T')[0];
-    let today = (new Date('2001-08-18')).toISOString().split('T')[0];
+    let today = new Date().toISOString().split('T')[0];
+    // let today = (new Date('2001-08-18')).toISOString().split('T')[0];
 
     let tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
@@ -433,7 +433,7 @@ $(document).ready(function () {
         // getData(arg);
     });
 
-    getReport.click();
+    // getReport.click();
 
 
     function dtLoadCallback(responseJson)
