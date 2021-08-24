@@ -370,7 +370,7 @@ function documentReady() {
             success: function (data) {
                 srMinutesRemaining = data;
                 srMinutes.html(data);
-                $("#srBalance")[0].style.display = "block";
+                //$("#srBalance")[0].style.display = "block";
             },
             error: function (jqxhr) {
                 // $("#register_area").text(jqxhr.responseText); // @text = response error, it is will be errors: 324, 500, 404 or anythings else
@@ -1119,6 +1119,7 @@ function documentReady() {
                     getSRMinutes();
                     addMinsBtn.attr("onclick", "window.open('/packages.php', '_blank')");
                     addMinsBtn.html('<i class="fas fa-plus-circle" ></i> ADD MINS');
+                    $("#srBalance")[0].style.display = "block";
                 } else {
                     srEnabled = false;
                     speakerTypeDiv.show();
@@ -1126,6 +1127,7 @@ function documentReady() {
                     // change add mins button
                     addMinsBtn.attr("onclick", "window.open('/settings.php#srSwitch', '_blank')");
                     addMinsBtn.html('<i class="fal fa-toggle-on"></i> Enable');
+                    $("#srBalance")[0].style.display = "none";
                 }
             }
         });
