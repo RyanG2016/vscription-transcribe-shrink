@@ -63,3 +63,11 @@ revai.log
 /sql_maintanence/*
 /transcribe/data/scripts/obf_me.js
 /transcribe/data/scripts/obf_me.min.js
+jobs/audit_table_pruning/logs/AuditPruningReport.log
+jobs/check_exceeded_retention/logs/Report.log
+jobs/table_maintenance/logs/SQLMaintenanceReport.log
+transcribe/data/scripts/parts/constants_dev.js
+api/.env.OLD
+api/src/System/Mailer - Copy.php
+transcribe/data/scripts/parts/constants_dev.js
+transcribe/data/scripts/parts/constants_dev.js
