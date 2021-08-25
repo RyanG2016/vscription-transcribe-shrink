@@ -131,24 +131,71 @@
     height: 550px;
 }
 
-.vtex-revai-rem{
-    width: calc(100% + 30px);
-    margin: 0 -15px;
-    table-layout: auto;
-    border-spacing: 8px;
-    /*background-color: darkgrey;*/
-}
-.vtex-revai-rem tr td{
-    /*border: solid red 1px;*/
-}
-
-.vtex-revai-rem td:last-child{
-    /*width: 1%;*/
-    color: var(--vspt-blue);
+.stats-col{
+    grid-area: stats;
+    max-width: 320px;
+    background-color: #343a40;
 
 }
-.vtex-revai-rem td:first-child{
+
+.panel-data
+{
+    grid-area: pdata;
+    padding: 16px;
+}
+
+.vtex-card.contents{
+    display: inline-grid;
+    grid-template: 'stats pdata';
+    grid-template-columns: fit-content(100%) 1fr;
+    padding: 0;
+}
+
+
+table.stats-tbl{
+    border-radius: 7px;
+}
+
+table.stats-tbl td {
+    border-collapse: separate;
+    padding: 4px;
+
+}
+
+.stats-col{
+    background-color: #343a40;
+    /*margin: -16px;*/
+}
+.vtex-revai-rem td:nth-child(2){
     text-align: right;
-    width: 1%;
-    padding-right: 8px;
 }
+
+.stats-tbl td:first-child{
+    vertical-align: center;
+}
+.stats-tbl td:first-child{
+    padding-left: 14px;
+}
+.stats-tbl td:last-child{
+    text-align: right;
+    padding-right: 14px;
+    width: 1%;
+    white-space: nowrap;
+
+}
+
+.fix-access-btn{
+    display: none;
+}
+
+/*
+
+.stats-tbl tr:nth-child(3)
+{
+    !*!*background-color: red;*!*!
+    !*border-bottom: double #454d55 6px;*!
+}
+
+table.stats-tbl, td, th{
+    !*!*border: solid 1px black;*!*!
+}*/

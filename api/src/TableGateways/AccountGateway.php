@@ -3,10 +3,13 @@
 namespace Src\TableGateways;
 
 use PDOException;
+use Src\Enums\ENV;
 use Src\Helpers\common;
+use Src\Models\Access;
 use Src\Models\Account;
 use Src\Models\BaseModel;
 use Src\Models\SR;
+use Src\Models\User;
 use Src\TableGateways\logger;
 use Src\TableGateways\accessGateway;
 use Src\TableGateways\UserGateway;
@@ -482,6 +485,10 @@ class AccountGateway implements GatewayInterface
                         $_SESSION["adminAccLogRetTime"] = $account->getActLogRetentionTime();
                         $_SESSION["adminAccRetTime"] = $account->getAccRetentionTime();
                         $_SESSION["adminJobListRefreshInterval"] = $account->getAccJobRefreshInterval();
+
+                        // give system admin access
+                        (new Access(acc_id: $accountID, uid: ENV::ADMIN_UID, username: User::withID(ENV::ADMIN_UID, $this->db)->getEmail(), acc_role: 1, db: $this->db))->save();
+
                         return $this->oKResponse($accountID, "Account Created");
                     }
                 }
@@ -1014,6 +1021,64 @@ class AccountGateway implements GatewayInterface
             }
         } catch (\PDOException $e) {
             return null;
+        }
+    }
+
+    public function getCount()
+    {
+        $statement = "
+            SELECT 
+                count(acc_id) as 'accounts_count'
+            FROM
+                accounts where enabled = 1;";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute();
+//            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            $result = $statement->fetch();
+            return $result['accounts_count'];
+
+        } catch (\PDOException $e) {
+            return false;
+        }
+    }
+
+    public function getSysAdminAccessCount($adminUID)
+    {
+        $statement = "
+            select count(*) as 'sys_org_access_count' from access where acc_role = 1 and uid = $adminUID
+            ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute();
+//            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            $result = $statement->fetch();
+            return $result['sys_org_access_count'];
+
+        } catch (\PDOException $e) {
+            return false;
+        }
+    }
+
+
+    public function getMissingSysAccessOrgIDs($adminUID)
+    {
+        $statement = "
+            select acc_id from accounts where enabled = 1 and acc_id not in(select access.acc_id from access where acc_role = 1 and uid = $adminUID);
+            ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute();
+            return array_column($statement->fetchAll(\PDO::FETCH_ASSOC), 'acc_id');
+//            $result = $statement->fetch();
+//            return $result['sys_org_access_count'];
+//            return $result;
+
+        } catch (\PDOException $e) {
+            return false;
         }
     }
 

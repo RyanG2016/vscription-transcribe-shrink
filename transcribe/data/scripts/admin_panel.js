@@ -2,8 +2,11 @@
 $(document).ready(function () {
 
     /* Constants */
-    const filesURL = "../../api/v1/files/chart";
-    const srqURL = "../../api/v1/stt/chart";
+    // const filesURL = "../../api/v1/files/chart";
+    // const srqURL = "../../api/v1/stt/chart";
+    let fixAccessBtn = $('#fixAccessBtn');
+    const statsURL = "../../api/v1/admin/statistics";
+    const grantURL = "../../api/v1/admin/grant";
     const colorsArray = [
         "#1abc9c","#2ecc71","#3498db","#9b59b6","#34495e",
         "#f39c12","#d35400","#c0392b","#bdc3c7","#7f8c8d",
@@ -14,37 +17,104 @@ $(document).ready(function () {
     var filesCanava = document.getElementById('filesChart').getContext('2d');
     var srqCanava = document.getElementById('srqChart').getContext('2d');
 
-    /* Files */
     $.ajax({
         type: 'GET',
         method: 'GET',
-        url: filesURL,
+        url: statsURL,
         async: false,
     }).done(function (response) {
-        /*self.setTitle("Success");
-        self.setContent("Logging in, redirecting..");
+        createPie(filesCanava, response.files_chart.labels, response.files_chart.data);
+        createPie(srqCanava, response.sr_chart.labels, response.sr_chart.data);
 
-        self.buttons.ok.hide();
-        self.buttons.close.hide();
-        location.href = "index.php";*/
+        $("#totalFiles").html(response.files_count);
+        $("#totalOrgs").html(response.org_count);
+        $("#totalSysAccess").html(response.sys_org_access_count + " / " + response.org_count);
 
-        createPie(filesCanava, response.labels, response.data);
+        if(response.org_count !== response.sys_org_access_count)
+        {
+            $('#fixAccessBtn').show();
+
+        }
     }).fail(function(xhr, status, err){
 
-        alert("failed to retrieve files data");
+        alert("failed to retrieve stats check console for errors");
+        console.log(`${status} | ${err}`)
 
     });
+    fixAccessBtn.tooltip({title: 'Grant access to all organizations'});
+    fixAccessBtn.on('click', function (){
+        $.confirm({
+            title: 'Signup',
+            theme: 'supervan',
+            columnClass: 'col-8',
+            content: function(){
+                var self = this;
+                // self.setContent('Checking callback flow');
+                return $.ajax({
+                    type: 'POST',
+                    method: 'POST',
+                    url: grantURL,
+                    // data: formData,
+                    processData: false,
+                    contentType: false
+                }).done(function (response) {
 
-    /* SRQ */
-    $.ajax({
-        type: 'GET',
-        method: 'GET',
-        url: srqURL,
-        async: false,
-    }).done(function (response) {
-        createPie(srqCanava, response.labels, response.data);
-    }).fail(function(xhr, status, err){
-        alert("failed to retrieve files data");
+                    // handle responses
+                    // -------------
+
+                    // self.setTitle("Success");
+                    // self.setType("green");
+                    // self.setContent(response["msg"]);
+                    //
+                    // self.buttons.ok.setText("Ok");
+                    // self.buttons.ok.addClass("btn-green");
+                    // self.buttons.ok.removeClass("btn-default");
+                    // self.buttons.close.hide();
+                    // self.buttons.ok.action = function () {
+                    //     location.reload();
+                    // };
+
+                    if(!response.error)
+                    {
+                        self.setTitle("Success");
+                        self.setType("green");
+                        self.setContent(response["msg"]);
+
+                        self.buttons.ok.setText("Ok");
+                        self.buttons.ok.addClass("btn-green");
+                        self.buttons.ok.removeClass("btn-default");
+                        self.buttons.close.hide();
+                    }else{
+                        self.setTitle("oops..");
+                        self.setType("red");
+                        self.setContent(response.msg);
+                        self.buttons.ok.setText("Ok");
+                        self.buttons.ok.addClass("btn-green");
+                        // self.buttons.ok
+                        // self.buttons.ok.btnClass = "btn-green"
+                        self.buttons.ok.removeClass("btn-default")
+                        self.buttons.close.hide();
+                    }
+                    self.buttons.ok.action = function () {
+                        location.reload();
+                    };
+
+
+                    // self.setContentAppend('<div>Done!</div>');
+
+                }).fail(function(xhr, status, err){
+                    self.setTitle("oops..");
+                    self.setType("red");
+                    self.setContent(xhr.responseJSON["msg"]);
+                    self.buttons.ok.setText("Ok");
+                    self.buttons.ok.addClass("btn-green");
+                    // self.buttons.ok
+                    // self.buttons.ok.btnClass = "btn-green"
+                    self.buttons.ok.removeClass("btn-default")
+                    self.buttons.close.hide();
+                })
+            }
+        });
     });
 
     /* Functions */

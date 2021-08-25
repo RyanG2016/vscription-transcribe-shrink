@@ -734,10 +734,10 @@ class accessGateway implements GatewayInterface
         try {
             $statement = $this->db->prepare($statement);
             $statement->execute(array(
-                'access_id' => $model->getAccessId(),
                 'acc_id' => $model->getAccId(),
                 'uid' => $model->getUid(),
                 'username' => $model->getUsername(),
+//                'created_at' => date("Y-m-d H:i:s"), // auto created by db
                 'acc_role' => $model->getAccRole()
             ));
             if($statement->rowCount())
@@ -746,7 +746,7 @@ class accessGateway implements GatewayInterface
             }else{
                 return 0;
             }
-        } catch (\PDOException) {
+        } catch (\PDOException $e) {
             return 0;
         }
     }

@@ -52,6 +52,14 @@ class common{
         );
     }
 
+
+    /**
+     * Should be used mainly in all new api endpoints
+     * @param false $msg
+     * @param false $error
+     * @param false $data
+     * @return false|string
+     */
     function generateApiResponse($msg = false, $error = false, $data = false)
     {
         $a = array(
@@ -66,6 +74,29 @@ class common{
             );
         }
         return json_encode($a);
+    }
+
+    /**
+     * Should be used mainly in all new api endpoints : Array version
+     * @param false $msg
+     * @param false $error
+     * @param false $data
+     * @return false|string
+     */
+    function generateApiResponseArr($msg = false, $error = false, $data = false)
+    {
+        $a = array(
+            'data' => $data,
+            'msg' => $msg,
+            'error' => $error
+        );
+        if (!$data) {
+            $a = array(
+                'msg' => $msg,
+                'error' => $error
+            );
+        }
+        return $a;
     }
 
 // == codes == //
