@@ -85,6 +85,7 @@ class SignupGateway
         $lname = $_POST["lname"];
         $ref = isset($_POST["ref"])?$_POST["ref"]:false;
         $country = $_POST["country"];
+        $subscription_type = $_POST["subscription_type"];
 //        $stateID = $_POST["stateID"]?$_POST["stateID"]:null;
 //        $city = isset($_POST["city"])?$_POST["city"]:null;
 //        $address = $_POST["address"];
@@ -163,7 +164,7 @@ class SignupGateway
 
                 if($accName)
                 {
-                    $this->createClientAdminAccount($accName, $email, $lastInsertedUID);
+                    $this->createClientAdminAccount($accName, $email, $lastInsertedUID, $subscription_type);
                 }
 
                 // check if there's a pending typist invite (ref)
@@ -281,12 +282,12 @@ class SignupGateway
      * @internal used by signup function to create and associate Client Admin Account with a newly created user
      * if the accName is present
      */
-    private function createClientAdminAccount($accName, $email, $uid){
+    private function createClientAdminAccount($accName, $email, $uid, $subType){
         if($accName)
         {
             $_SESSION['uid'] = $uid;
             $_SESSION['uEmail'] = $email;
-            $response = $this->accountGateway->createNewClientAdminAccount($accName);
+            $response = $this->accountGateway->createNewClientAdminAccount($accName, $subType);
             $debugresponse =1;
             return json_decode($response["body"], true)["error"];
         }
