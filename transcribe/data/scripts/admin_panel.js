@@ -2,8 +2,9 @@
 $(document).ready(function () {
 
     /* Constants */
-    const filesURL = "../../api/v1/files/chart";
-    const srqURL = "../../api/v1/stt/chart";
+    // const filesURL = "../../api/v1/files/chart";
+    // const srqURL = "../../api/v1/stt/chart";
+    const statsURL = "../../api/v1/admin/statistics";
     const colorsArray = [
         "#1abc9c","#2ecc71","#3498db","#9b59b6","#34495e",
         "#f39c12","#d35400","#c0392b","#bdc3c7","#7f8c8d",
@@ -14,37 +15,23 @@ $(document).ready(function () {
     var filesCanava = document.getElementById('filesChart').getContext('2d');
     var srqCanava = document.getElementById('srqChart').getContext('2d');
 
-    /* Files */
     $.ajax({
         type: 'GET',
         method: 'GET',
-        url: filesURL,
+        url: statsURL,
         async: false,
     }).done(function (response) {
-        /*self.setTitle("Success");
-        self.setContent("Logging in, redirecting..");
+        createPie(filesCanava, response.files_chart.labels, response.files_chart.data);
+        createPie(srqCanava, response.sr_chart.labels, response.sr_chart.data);
 
-        self.buttons.ok.hide();
-        self.buttons.close.hide();
-        location.href = "index.php";*/
-
-        createPie(filesCanava, response.labels, response.data);
+        $("#totalFiles").html(response.files_count);
+        $("#totalOrgs").html(response.org_count);
+        $("#totalSysAccess").html(response.sys_org_access_count + " / " + response.org_count);
     }).fail(function(xhr, status, err){
 
-        alert("failed to retrieve files data");
+        alert("failed to retrieve stats check console for errors");
+        console.log(`${status} | ${err}`)
 
-    });
-
-    /* SRQ */
-    $.ajax({
-        type: 'GET',
-        method: 'GET',
-        url: srqURL,
-        async: false,
-    }).done(function (response) {
-        createPie(srqCanava, response.labels, response.data);
-    }).fail(function(xhr, status, err){
-        alert("failed to retrieve files data");
     });
 
     /* Functions */

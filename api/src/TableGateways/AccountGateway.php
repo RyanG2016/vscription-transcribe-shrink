@@ -1017,6 +1017,44 @@ class AccountGateway implements GatewayInterface
         }
     }
 
+    public function getCount()
+    {
+        $statement = "
+            SELECT 
+                count(acc_id) as 'accounts_count'
+            FROM
+                accounts;";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute();
+//            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            $result = $statement->fetch();
+            return $result['accounts_count'];
+
+        } catch (\PDOException $e) {
+            return false;
+        }
+    }
+
+    public function getSysAdminAccessCount()
+    {
+        $statement = "
+            select count(*) as 'sys_org_access_count' from access where acc_role = 1 and uid = 3
+            ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute();
+//            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            $result = $statement->fetch();
+            return $result['sys_org_access_count'];
+
+        } catch (\PDOException $e) {
+            return false;
+        }
+    }
+
     public function findAltModel($id): array|null
     {
         return null;
