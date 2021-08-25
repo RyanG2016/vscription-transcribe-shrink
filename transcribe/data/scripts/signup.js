@@ -9,6 +9,7 @@
 
 $(document).ready(function () {
 
+    $('.tooltip').tooltipster();
     // var stateRequest;
     // var stateGroup;
     var signupBtn;
@@ -33,7 +34,7 @@ $(document).ready(function () {
     var signupURL = "../api/v1/signup/";
     var verifyURL = "verify.php";
     var loginURL = "../api/v1/login";
-    let signupType = 0;
+    var signupType = 0;
 
     // var statesJson = false;
     var countriesJson = false;
@@ -67,7 +68,7 @@ $(document).ready(function () {
     var tos = $("#tos");
     var haveAccDiv = $("#haveAccDiv");
     saveSTBtn = $("#saveSTBtn");
-    signupBtn = $("signupBtn");
+    signupBtn = $("#signupBtn");
     email = $("#inputEmail");
     fName = $("#inputfName");
     accName = $("#inputAccName");
@@ -91,8 +92,8 @@ $(document).ready(function () {
 
     let urlParams = new URLSearchParams(window.location.search);
     if (urlParams.has('st')) {
-        signupType  = urlParams.get('st'); 
-        switch (parseInt(signupType)) {
+        signupType = urlParams.get('st'); 
+          switch (parseInt(signupType)) {
             // Platform Service
             case 1:
                 title.text("Platform Services Signup")
@@ -112,6 +113,36 @@ $(document).ready(function () {
     } else if (!urlParams.has('ref')) {
         chooseSignUpModal.modal('show');
     }
+
+    platformServices.tooltipster(
+        {
+            animation: 'grow',
+            theme: 'tooltipster-borderless',
+            delay: 500,
+            trigger: 'hover',
+            side: 'top'
+        }
+    );
+
+    transcriptionServices.tooltipster(
+        {
+            animation: 'grow',
+            theme: 'tooltipster-borderless',
+            delay: 500,
+            trigger: 'hover',
+            side: 'top'
+        }
+    );
+
+    NSTTServices.tooltipster(
+        {
+            animation: 'grow',
+            theme: 'tooltipster-borderless',
+            delay: 500,
+            trigger: 'hover',
+            side: 'top'
+        }
+    );
 
     // carousel settings
     // stop autoplay
@@ -432,25 +463,7 @@ $(document).ready(function () {
             {
                 formData.append("ref", ref);
             }
-            // Check signup Type
-            switch (parseInt(signupType)) {
-                // Platform Service
-                case 1:
-                    console.log(`User signup type 1`);
-                    break;
-                //Transcription Services
-                case 2:
-                    console.log(`User signup type 2`);
-                    break;
-                //Meeting (Speech To Text) Services
-                case 3:
-                    console.log(`User signup type 3`);
-                    break;
-                default:
-                    console.log(`No subscription type parameter set. Most likely an invitation signup or signup parameter not set`);  
-            } 
-            // proceed with signup ajax
-
+            formData.append("subscription_type", signupType);
             $.confirm({
                 title: 'Signup',
                 theme: 'supervan',
@@ -689,23 +702,22 @@ $(document).ready(function () {
         });
 
     }
-    saveSTBtn.on("click", function (e) {
-        console.log(`Here we are going to set the service type based on user selection`);
-        if($("input[id='platformServices']:checked").val()) {
-            title.text("Platform Services Signup");
-            console.log(`You have selected Platform Services!!!`);
-        }
-        if($("input[id='transcriptionServices']:checked").val()) {   
+    platformServices.on("click", function (e) {
+             title.text("Platform Services Signup");
+            signupType = 1;
+            chooseSignUpModal.modal('hide');
+        });
+    transcriptionServices.on("click", function (e) {
             title.text("Transcription Services Signup");
-            console.log(`You have selected Transcription Services. YAY!!!`);
-        }
-        if($("input[id='NSTTServices']:checked").val()) {  
-            title.text("Narrative Speech To Text Services Signup");            
-            console.log(`You have selected Narrative Speech To Text Services. Okie dokie!!!`);
-        }
-        console.log()
-        chooseSignUpModal.modal('hide');
-    });
+            signupType = 2;
+            chooseSignUpModal.modal('hide');
+        });
+    NSTTServices.on("click", function (e) {
+            title.text("Narrative Speech To Text Services Signup");
+            signupType = 3;
+            chooseSignUpModal.modal('hide');
+        });
+
 
     $("#closeSTModal").on("click", function (e) {
         chooseSignUpModal.modal('hide');
