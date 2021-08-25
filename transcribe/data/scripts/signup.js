@@ -463,7 +463,15 @@ $(document).ready(function () {
             {
                 formData.append("ref", ref);
             }
+            // If a user is invited there is no subscription type parameter. A new organization shouldn't be created from an invite
+            // so we will pass the 0 as subscription type instead of making it optional in SignupController
             formData.append("subscription_type", signupType);
+
+            // Display the key/value pairs
+            // for (var pair of formData.entries())
+            // {
+            // console.log(pair[0]+ ', '+ pair[1]); 
+            // }
             $.confirm({
                 title: 'Signup',
                 theme: 'supervan',

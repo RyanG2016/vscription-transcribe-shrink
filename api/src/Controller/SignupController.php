@@ -130,8 +130,8 @@ class SignupController {
             empty($_POST["password"]) ||
             empty($_POST["fname"]) ||
             empty($_POST["lname"]) ||
-            empty($_POST["country"]) ||
-            empty($_POST["subscription_type"])
+            empty($_POST["country"])
+//            empty($_POST["subscription_type"]) // PHP treats 0 as empty so we had to remove this check.
         ){
 //            return $this->unprocessableEntityResponse();
             return generateApiHeaderResponse("Missing required info", true,false);
