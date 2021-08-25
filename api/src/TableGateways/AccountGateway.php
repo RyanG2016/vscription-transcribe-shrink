@@ -1023,7 +1023,7 @@ class AccountGateway implements GatewayInterface
             SELECT 
                 count(acc_id) as 'accounts_count'
             FROM
-                accounts;";
+                accounts where enabled = 1;";
 
         try {
             $statement = $this->db->prepare($statement);

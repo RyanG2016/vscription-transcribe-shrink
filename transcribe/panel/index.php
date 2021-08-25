@@ -143,7 +143,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
 
                         <tr>
                             <td colspan="2">
-                                Total Organizations
+                                Total Orgs (enabled)
                             </td>
                             <td id="totalOrgs">
                             </td>
