@@ -465,7 +465,7 @@ class AccountGateway implements GatewayInterface
 
             if ($statement->rowCount() > 0) {
                 $accountID = $this->db->lastInsertId();
-                $this->logger->insertAuditLogEntry($this->API_NAME, "Account Created: " . $accName . "with subscription type " . $subType);
+                $this->logger->insertAuditLogEntry($this->API_NAME, "Account Created: " . $accName . " with subscription type " . $subType);
                 // add Complementary 30 minutes STT
                 $sr = SR::withAccID($accountID, $this->db);
                 $sr->addToMinutesRemaining(Constants::COMPLEMENTARY_NEW_ACCOUNT_FREE_STT_MINUTES);
