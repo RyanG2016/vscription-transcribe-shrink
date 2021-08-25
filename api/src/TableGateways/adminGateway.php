@@ -5,6 +5,7 @@ namespace Src\TableGateways;
 //use Src\TableGateways\AccountGateway;
 //require "testsFilter.php";
 
+use Src\Enums\ENV;
 use Src\Helpers\common;
 use Src\Models\Access;
 use Src\Models\User;
@@ -17,12 +18,13 @@ class adminGateway
     private $filesGateway;
     private $srQueueGateway;
     private $common;
-    private $adminUID = 4;
+    private $adminUID;
 
     public function __construct($db)
     {
         $this->db = $db;
         $this->accountGateway = new AccountGateway($db);
+        $this->adminUID = ENV::ADMIN_UID;
         $this->common = new common($db);
         $this->filesGateway = new FileGateway($db);
         $this->srQueueGateway = new srQueueGateway($db);

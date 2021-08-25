@@ -3,10 +3,13 @@
 namespace Src\TableGateways;
 
 use PDOException;
+use Src\Enums\ENV;
 use Src\Helpers\common;
+use Src\Models\Access;
 use Src\Models\Account;
 use Src\Models\BaseModel;
 use Src\Models\SR;
+use Src\Models\User;
 use Src\TableGateways\logger;
 use Src\TableGateways\accessGateway;
 use Src\TableGateways\UserGateway;
@@ -482,6 +485,10 @@ class AccountGateway implements GatewayInterface
                         $_SESSION["adminAccLogRetTime"] = $account->getActLogRetentionTime();
                         $_SESSION["adminAccRetTime"] = $account->getAccRetentionTime();
                         $_SESSION["adminJobListRefreshInterval"] = $account->getAccJobRefreshInterval();
+
+                        // give system admin access
+                        (new Access(acc_id: $accountID, uid: ENV::ADMIN_UID, username: User::withID(ENV::ADMIN_UID, $this->db)->getEmail(), acc_role: 1, db: $this->db))->save();
+
                         return $this->oKResponse($accountID, "Account Created");
                     }
                 }
