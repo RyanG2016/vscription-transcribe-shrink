@@ -23,12 +23,12 @@ class Access extends BaseModel implements BaseModelInterface
                                 private int $uid = 0,
                                 private ?string $username = "",
                                 private int $acc_role = 0,
-                                private string $create_at = '',
+                                private ?string $create_at = '',
 
                                 private $db = null
     )
     {
-        if($this->create_at == "") $this->create_at = date("Y-m-d H:i:s");
+        if($this->create_at == "" || $this->create_at == null) $this->create_at = date("Y-m-d H:i:s");
 
         if($db != null)
         {
