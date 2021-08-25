@@ -380,7 +380,7 @@ class AccountGateway implements GatewayInterface
      * @param string $accName from controller
      * @return mixed
      */
-    public function createNewClientAdminAccount($accName)
+    public function createNewClientAdminAccount($accName, $subType)
     {
         $accPrefix = $this->generateNewAccountPrefix($accName);
         if (!$accPrefix) {
@@ -395,6 +395,7 @@ class AccountGateway implements GatewayInterface
                              enabled,
                              billable,
                              acc_name,
+                             subscription_type,
                              acc_retention_time,
                              bill_rate1,
                              bill_rate1_type,
@@ -428,6 +429,7 @@ class AccountGateway implements GatewayInterface
                                 (
                                  ?, ?, ?,
                                  ?,
+                                 ?,
                                  ?, ?, ?, ?,
                                  ?,
                                  ?, ?, ?, ?,
@@ -446,6 +448,7 @@ class AccountGateway implements GatewayInterface
             $statement = $this->db->prepare($statement);
             $statement->execute(array(
                 1, 1, $accName,
+                $subType, //Subscription Type
                 14,// acc_ret,
                 0, 0, 0, 0,// br1, br1type, br1tat , br1 min
                 0, // br1 desc
@@ -462,8 +465,7 @@ class AccountGateway implements GatewayInterface
 
             if ($statement->rowCount() > 0) {
                 $accountID = $this->db->lastInsertId();
-                $this->logger->insertAuditLogEntry($this->API_NAME, "Account Created: " . $accName);
-
+                $this->logger->insertAuditLogEntry($this->API_NAME, "Account Created: " . $accName . "with subscription type " . $subType);
                 // add Complementary 30 minutes STT
                 $sr = SR::withAccID($accountID, $this->db);
                 $sr->addToMinutesRemaining(Constants::COMPLEMENTARY_NEW_ACCOUNT_FREE_STT_MINUTES);
