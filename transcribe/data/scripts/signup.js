@@ -12,9 +12,12 @@ $(document).ready(function () {
     // var stateRequest;
     // var stateGroup;
     var signupBtn;
+    var saveSTBtn;
     var signedUp = false;
     var pwd;
     var confirmPwd;
+    var chooseSignUpModal;
+    chooseSignUpModal = $("#modal");
     // var prevDiv = $(".prev-btn-div");
     // var nextDiv = $(".next-btn-div");
 
@@ -30,6 +33,7 @@ $(document).ready(function () {
     var signupURL = "../api/v1/signup/";
     var verifyURL = "verify.php";
     var loginURL = "../api/v1/login";
+    let signupType = 0;
 
     // var statesJson = false;
     var countriesJson = false;
@@ -62,7 +66,8 @@ $(document).ready(function () {
     var tosDiv = $("#tosDiv");
     var tos = $("#tos");
     var haveAccDiv = $("#haveAccDiv");
-    signupBtn = $("#signupBtn");
+    saveSTBtn = $("#saveSTBtn");
+    signupBtn = $("signupBtn");
     email = $("#inputEmail");
     fName = $("#inputfName");
     accName = $("#inputAccName");
@@ -79,7 +84,34 @@ $(document).ready(function () {
     carousel = $("#signupCarousel");
     pwd = $("#inputPassword");
     confirmPwd = $("#inputConfirmPassword");
+    platformServices = $("#platformServices");
+    transcriptionServices = $("#transcriptionServices");
+    NSTTServices = $("#NSTTServices");
+    title = $("#title");
 
+    let urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('st')) {
+        signupType  = urlParams.get('st'); 
+        switch (parseInt(signupType)) {
+            // Platform Service
+            case 1:
+                title.text("Platform Services Signup")
+                break;
+            //Transcription Services
+            case 2:
+                title.text("Transcription Services Signup")
+                break;
+            //Meeting (Speech To Text) Services
+            case 3:
+                title.text("Narrative Speech To Text Services Signup")
+                break;
+            default:
+                title.text("Signup") 
+        } 
+    // If this isn't an invitation, no service type set to prompt user    
+    } else if (!urlParams.has('ref')) {
+        chooseSignUpModal.modal('show');
+    }
 
     // carousel settings
     // stop autoplay
@@ -400,7 +432,23 @@ $(document).ready(function () {
             {
                 formData.append("ref", ref);
             }
-
+            // Check signup Type
+            switch (parseInt(signupType)) {
+                // Platform Service
+                case 1:
+                    console.log(`User signup type 1`);
+                    break;
+                //Transcription Services
+                case 2:
+                    console.log(`User signup type 2`);
+                    break;
+                //Meeting (Speech To Text) Services
+                case 3:
+                    console.log(`User signup type 3`);
+                    break;
+                default:
+                    console.log(`No subscription type parameter set. Most likely an invitation signup or signup parameter not set`);  
+            } 
             // proceed with signup ajax
 
             $.confirm({
@@ -641,8 +689,27 @@ $(document).ready(function () {
         });
 
     }
+    saveSTBtn.on("click", function (e) {
+        console.log(`Here we are going to set the service type based on user selection`);
+        if($("input[id='platformServices']:checked").val()) {
+            title.text("Platform Services Signup");
+            console.log(`You have selected Platform Services!!!`);
+        }
+        if($("input[id='transcriptionServices']:checked").val()) {   
+            title.text("Transcription Services Signup");
+            console.log(`You have selected Transcription Services. YAY!!!`);
+        }
+        if($("input[id='NSTTServices']:checked").val()) {  
+            title.text("Narrative Speech To Text Services Signup");            
+            console.log(`You have selected Narrative Speech To Text Services. Okie dokie!!!`);
+        }
+        console.log()
+        chooseSignUpModal.modal('hide');
+    });
 
-
+    $("#closeSTModal").on("click", function (e) {
+        chooseSignUpModal.modal('hide');
+    });
 
     $("body").niceScroll({
         hwacceleration: true,

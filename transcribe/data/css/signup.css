@@ -1,5 +1,6 @@
 @import "parts/modal_overlay.css";
 @import "parts/vtex-custom-styles.css";
+@import "parts/bootstrap-override.css";
 @import "parts/global.css";
 
 /*//////////////////////////////////////////////////////////////////
@@ -48,6 +49,20 @@ body {
 
 label {
     color: white;
+}
+
+#modal > div > div > div.modal-body.pb-0 > div.mdc-radio.mdc-radio--touch > div > label {
+    color: black;
+}
+#closeSTModal {
+    --mdc-theme-primary: var(--vspt-red);
+}
+
+#saveSTBtn {
+    --mdc-theme-primary: var(--vspt-green);
+}
+#modal > div > div > div.modal-body.pb-0 > div > label {
+    color: black;
 }
 
 .text-muted {
