@@ -84,6 +84,7 @@ $hasRef = isset($_GET['ref']) && !empty($_GET['ref']);
     <link rel="stylesheet" href="data/dialogues/jquery-confirm.min2.css">
     <script src="data/dialogues/jquery-confirm.min.js"></script>
 
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"
             integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg=="
             crossorigin="anonymous"></script>
@@ -91,12 +92,78 @@ $hasRef = isset($_GET['ref']) && !empty($_GET['ref']);
 
     <script src="https://kit.fontawesome.com/12f6b99df9.js" crossorigin="anonymous"></script>
 
-    <script src="data/scripts/signup.min.js"></script>
+    <script src="data/scripts/signup.js"></script>
 
 </head>
 
 <body>
 
+<div class="modal fade" tabindex="-1" id="modal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 style="color: #1e79be" id="modalHeaderTitle">
+                    <i class="fas fa-concierge-bell"></i>&nbsp;Choose Service Type
+                </h3>
+                <!--                <h5 class="modal-title">Modal title</h5>-->
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><span aria-hidden="true"><i class="fas fa-times"></i></span></span>
+                </button>
+            </div>
+            <div class="modal-body pb-0">
+                    <div class="mdc-radio mdc-radio--touch">
+                        <div class="mdc-radio">
+                            <label>
+                                <input type="radio" class="mdc-radio__native-control" name="radio" id="platformServices" value="1" checked >
+                                Platform Services
+                            </label>
+                        </div>
+                       <div class="mdc-radio">
+                        <label>
+                            <input type="radio" class="mdc-radio__native-control" name="radio" id="transcriptionServices" value="2" >
+                            Transcription Services
+                            </label>
+                        </div>
+                        <div class="mdc-radio">                             
+                            <label>
+                            <input type="radio" class="mdc-radio__native-control" name="radio" id="NSTTServices" value="3" >
+                            Narrative Speech To Text Services
+                            </label> 
+                        </div> 
+                    </div>  
+                     <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <!--<div class="invalid-feedback">
+                        Please enter a valid name.
+                    </div>-->
+                </div>
+                <br>
+
+                <div class="modal-footer pr-0">
+                    <button class="mdc-button mdc-button--unelevated cancel-st-button" id="closeSTModal"
+                            type="button">
+                        <div class="mdc-button__ripple"></div>
+                        <i class="fas fa-times"></i>
+                        <span class="mdc-button__label">&nbsp; Cancel</span>
+                    </button>
+
+                    <button class="mdc-button mdc-button--unelevated ok-st-button" id="saveSTBtn" type="button">
+                        <div class="mdc-button__ripple"></div>
+                        <i class="fas fa-check"></i>
+                        <span class="mdc-button__label">&nbsp; Ok</span>
+                    </button>
+                </div>
+
+                <!--                </form>-->
+            </div>
+            <!--            <div class="modal-footer">-->
+            <!--                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>-->
+            <!--                <button type="button" class="btn btn-primary" id="createAdminAccBtn"><i class="fas fa-plus"></i> &nbsp;Create</button>-->
+            <!--            </div>-->
+        </div>
+    </div>
+</div>
 
 <div class="vtex-signup-container">
     <form class="vtex-signup-form needs-validation" id="signupForm" autocomplete="off" novalidate>
