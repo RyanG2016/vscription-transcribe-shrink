@@ -1040,7 +1040,7 @@ class AccountGateway implements GatewayInterface
     public function getSysAdminAccessCount()
     {
         $statement = "
-            select count(*) as 'sys_org_access_count' from access where acc_role = 1 and uid = 3
+            select count(*) as 'sys_org_access_count' from access where acc_role = 1 and uid = 4
             ";
 
         try {
