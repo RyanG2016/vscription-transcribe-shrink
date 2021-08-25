@@ -170,12 +170,22 @@ table.stats-tbl td {
     text-align: right;
 }
 
+.stats-tbl td:first-child{
+    vertical-align: center;
+}
+.stats-tbl td:first-child{
+    padding-left: 14px;
+}
 .stats-tbl td:last-child{
     text-align: right;
     padding-right: 14px;
     width: 1%;
     white-space: nowrap;
 
+}
+
+.fix-access-btn{
+    display: none;
 }
 
 /*

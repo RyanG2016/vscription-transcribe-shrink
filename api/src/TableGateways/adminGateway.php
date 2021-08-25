@@ -5,6 +5,10 @@ namespace Src\TableGateways;
 //use Src\TableGateways\AccountGateway;
 //require "testsFilter.php";
 
+use Src\Helpers\common;
+use Src\Models\Access;
+use Src\Models\User;
+
 class adminGateway
 {
 
@@ -12,118 +16,18 @@ class adminGateway
     private $accountGateway;
     private $filesGateway;
     private $srQueueGateway;
+    private $common;
+    private $adminUID = 4;
 
     public function __construct($db)
     {
         $this->db = $db;
         $this->accountGateway = new AccountGateway($db);
+        $this->common = new common($db);
         $this->filesGateway = new FileGateway($db);
         $this->srQueueGateway = new srQueueGateway($db);
     }
 
-//        $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-//        $parts = parse_url($actual_link);
-//        parse_str($parts['query'], $query);
-//        echo $query['email'];
-
-    public function findAll()
-    {
-        $filter = parseParams(true);
-
-        $statement = "
-            SELECT 
-                test_id, job_id, acc_id, test_type, original_audio_type, testname, tmp_name, orig_testname, test_author, test_work_type,test_comment,
-                   test_speaker_type, test_date_dict, test_status,audio_length, last_audio_position, job_uploaded_by, text_downloaded_date,                  
-                   times_text_downloaded_date, job_transcribed_by, test_transcribed_date, typist_comments,isBillable, billed
-            FROM
-                tests
-        " . $filter . ";";
-
-        try {
-            $statement = $this->db->query($statement);
-            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
-            return $result;
-        } catch (\PDOException $e) {
-            exit($e->getMessage());
-        }
-    }
-
-    public function find($id)
-    {
-        $filter = parseParams();
-
-        $statement = "
-            SELECT 
-                test_id, job_id, acc_id, test_type, original_audio_type, testname, tmp_name, orig_testname, test_author, test_work_type,test_comment,
-                   test_speaker_type, test_date_dict, test_status,audio_length, last_audio_position, job_uploaded_by, text_downloaded_date,
-                   job_document_html, job_document_rtf,                  
-                   times_text_downloaded_date, job_transcribed_by, test_transcribed_date, typist_comments,isBillable, billed
-            
-            FROM
-                tests
-            WHERE test_id = ?;
-        ";
-
-        try {
-            $statement = $this->db->prepare($statement);
-            $statement->execute(array($id));
-            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
-            return $result;
-        } catch (\PDOException $e) {
-            exit($e->getMessage());
-        }
-    }
-
-
-   /* public function insert(array $input)
-    {
-        $statement = "
-            INSERT INTO tests 
-                (job_id, lastname, firstparent_id, secondparent_id)
-            VALUES
-                (:firstname, :lastname, :firstparent_id, :secondparent_id);
-        ";
-
-        try {
-            $statement = $this->db->prepare($statement);
-            $statement->execute(array(
-                'firstname' => $input['firstname'],
-                'lastname' => $input['lastname'],
-                'firstparent_id' => $input['firstparent_id'] ?? null,
-                'secondparent_id' => $input['secondparent_id'] ?? null,
-            ));
-            return $statement->rowCount();
-        } catch (\PDOException $e) {
-            exit($e->getMessage());
-        }
-    }*/
-
-    /*public function update($id, array $input)
-    {
-        $statement = "
-            UPDATE person
-            SET 
-                firstname = :firstname,
-                lastname  = :lastname,
-                firstparent_id = :firstparent_id,
-                secondparent_id = :secondparent_id
-            WHERE id = :id;
-        ";
-
-        try {
-            $statement = $this->db->prepare($statement);
-            $statement->execute(array(
-                'id' => (int)$id,
-                'firstname' => $input['firstname'],
-                'lastname' => $input['lastname'],
-                'firstparent_id' => $input['firstparent_id'] ?? null,
-                'secondparent_id' => $input['secondparent_id'] ?? null,
-            ));
-            return $statement->rowCount();
-        } catch (\PDOException $e) {
-            exit($e->getMessage());
-        }
-    }*/
 
     public function getStatistics()
     {
@@ -140,31 +44,42 @@ class adminGateway
         $srChart = $this->srQueueGateway->getChartData();
 
         // get access of default account to all orgs count
-        $sysOrgAccessCount = $this->accountGateway->getSysAdminAccessCount();
+        $sysOrgAccessCount = $this->accountGateway->getSysAdminAccessCount($this->adminUID);
+        $missingIDs = $this->accountGateway->getMissingSysAccessOrgIDs($this->adminUID);
+
 
         return array(
             "org_count" => $accounts,
             "sys_org_access_count" => $sysOrgAccessCount,
+            "admin_access_missing_ids" => $missingIDs,
             "files_count" => $files,
             "files_chart" => $filesChart,
-            "sr_chart" => $srChart,
+            "sr_chart" => $srChart
         );
 
     }
 
-    public function delete($id)
+    /**
+     * Grants access with system admin role (1) to system admin user (UID: 4) to all organizations on site
+     * Used under admin panel wrench button
+     * @return array
+     */
+    public function grantAllAccess()
     {
-        $statement = "
-            DELETE FROM tests
-            WHERE test_id = :id;
-        ";
+        $missingIDs = $this->accountGateway->getMissingSysAccessOrgIDs($this->adminUID);
+        $sysAdminUser = User::withID($this->adminUID, $this->db);
 
-        try {
-            $statement = $this->db->prepare($statement);
-            $statement->execute(array('id' => $id));
-            return $statement->rowCount();
-        } catch (\PDOException $e) {
-            exit($e->getMessage());
+        $granted = true;
+
+        foreach ($missingIDs as $ID) {
+            $status = (new Access(acc_id: $ID, uid: $this->adminUID, username: $sysAdminUser->getEmail(), acc_role: 1, db: $this->db))->save();
+            if(!$status) $granted = false;
         }
+
+        return $this->common->generateApiResponseArr($granted?'Access Granted.':'Failed please try again.', !$granted, $missingIDs);
+//        return $this->common->generateApiResponseArr(true?'Access Granted.':'Failed please try again.', !true);
+//        return $missingIDs;
+
     }
+
 }

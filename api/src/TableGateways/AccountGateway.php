@@ -1037,10 +1037,10 @@ class AccountGateway implements GatewayInterface
         }
     }
 
-    public function getSysAdminAccessCount()
+    public function getSysAdminAccessCount($adminUID)
     {
         $statement = "
-            select count(*) as 'sys_org_access_count' from access where acc_role = 1 and uid = 4
+            select count(*) as 'sys_org_access_count' from access where acc_role = 1 and uid = $adminUID
             ";
 
         try {
@@ -1049,6 +1049,26 @@ class AccountGateway implements GatewayInterface
 //            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $result = $statement->fetch();
             return $result['sys_org_access_count'];
+
+        } catch (\PDOException $e) {
+            return false;
+        }
+    }
+
+
+    public function getMissingSysAccessOrgIDs($adminUID)
+    {
+        $statement = "
+            select acc_id from accounts where enabled = 1 and acc_id not in(select access.acc_id from access where acc_role = 1 and uid = $adminUID);
+            ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute();
+            return array_column($statement->fetchAll(\PDO::FETCH_ASSOC), 'acc_id');
+//            $result = $statement->fetch();
+//            return $result['sys_org_access_count'];
+//            return $result;
 
         } catch (\PDOException $e) {
             return false;

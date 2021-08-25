@@ -36,8 +36,12 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+
     <link href="../data/css/admin_panel.css" rel="stylesheet">
     <script src="../data/scripts/admin_panel.min.js" type="text/javascript"></script>
+<!--    <script src="../data/scripts/admin_panel.js" type="text/javascript"></script>-->
 <!--    <script src="../data/scripts/admin_panel.min.js" type="text/javascript"></script>-->
 
 </head>
@@ -151,7 +155,10 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
 
                         <tr>
                             <td colspan="2">
-                                Sys Admin Access
+                                Admin Access
+                                <button type="button" class="btn btn-dark btn-sm fix-access-btn" id="fixAccessBtn">
+                                    <i class="fas fa-wrench"></i>
+                                </button>
                             </td>
                             <td id="totalSysAccess">
                             </td>

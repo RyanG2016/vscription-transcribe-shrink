@@ -41,9 +41,16 @@ class adminController
 
             break;
 
-//            case 'POST':
-//                    $response = $this->createAccessFromRequest();
-//                break;
+            case 'POST':
+                if ($this->requestParameter === 'grant') {
+                    $response = $this->grantAccess();
+                } else {
+//                    $response = $this->getAllaccess();
+                    $response = $this->notFoundResponse();
+
+                }
+
+                break;
 //            case 'PUT':
 //                $response = $this->updateaccessFromRequest($this->requestParameter);
 //                break;
@@ -115,6 +122,20 @@ class adminController
     private function getStatistics()
     {
         $result = $this->adminGateway->getStatistics();
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = json_encode($result);
+        return $response;
+    }
+
+
+    /**
+     * Grants access with system admin role (1) to system admin user (UID: 4) to all organizations on site
+     * Used under admin panel wrench button
+     * @return array
+     */
+    private function grantAccess()
+    {
+        $result = $this->adminGateway->grantAllAccess();
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
         $response['body'] = json_encode($result);
         return $response;

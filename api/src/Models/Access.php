@@ -23,10 +23,13 @@ class Access extends BaseModel implements BaseModelInterface
                                 private int $uid = 0,
                                 private ?string $username = "",
                                 private int $acc_role = 0,
+                                private string $create_at = '',
 
                                 private $db = null
     )
     {
+        if($this->create_at == "") $this->create_at = date("Y-m-d H:i:s");
+
         if($db != null)
         {
             $this->accessGateway = new accessGateway($db);
@@ -82,7 +85,8 @@ class Access extends BaseModel implements BaseModelInterface
 
         }else{
             // insert
-            return $this->insertRecord();
+            $this->access_id = $this->insertRecord();
+            return $this->access_id;
         }
     }
 
@@ -100,6 +104,7 @@ class Access extends BaseModel implements BaseModelInterface
             $this->uid = $row['uid'];
             $this->username = $row['username'];
             $this->acc_role = $row['acc_role'];
+            $this->create_at = $row['create_at'];
         }
     }
 
@@ -181,6 +186,22 @@ class Access extends BaseModel implements BaseModelInterface
     public function setAccRole(int $acc_role): void
     {
         $this->acc_role = $acc_role;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCreateAt(): string
+    {
+        return $this->create_at;
+    }
+
+    /**
+     * @param string $create_at
+     */
+    public function setCreateAt(string $create_at): void
+    {
+        $this->create_at = $create_at;
     }
 
 
