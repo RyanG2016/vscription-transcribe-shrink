@@ -387,6 +387,44 @@ class AccountGateway implements GatewayInterface
             return $this->errorOccurredResponse("Couldn't generate job prefix");
         }
 
+        switch ($subType) {
+            case "1":
+                $br1 = 9.99;
+                $br1Type = 0;
+                $br1TAT = 3;
+                $br1MinPay = 1.25;
+                $br1Desc = "Monthly rate max 1000 minutes";
+                $jobRetention = 45;
+                $srEnabled = 0;
+                break;
+            case "2":
+                $br1 = 1.50;
+                $br1Type = 0;
+                $br1TAT = 3;
+                $br1MinPay = 0;
+                $br1Desc = "Default per minute rate";
+                $jobRetention = 14;
+                $srEnabled = 0;
+                break;
+            case "3":
+                $br1 = 0;
+                $br1Type = 0;
+                $br1TAT = 0;
+                $br1MinPay = 0;
+                $br1Desc = "Prepaid minutes";
+                $jobRetention = 14;
+                $srEnabled = 1;
+                break;
+            default:
+                $br1 = 0;
+                $br1Type = 0;
+                $br1TAT = 0;
+                $br1MinPay = 0;
+                $br1Desc = "Undefined";
+                $jobRetention = 14;
+                $srEnabled = 0;
+        }
+
         // insert to DB //
         $statement = "INSERT
                         INTO 
@@ -423,7 +461,8 @@ class AccountGateway implements GatewayInterface
                              bill_rate5_min_pay, 
                              bill_rate5_desc, 
                              act_log_retention_time,
-                             job_prefix
+                             job_prefix,
+                             sr_enabled
                              ) 
                          VALUES 
                                 (
@@ -440,7 +479,8 @@ class AccountGateway implements GatewayInterface
                                  ?,
                                  ?, ?, ?, ?,
                                  ?,
-                                 ?, ?
+                                 ?, ?,
+                                 ?
                                 )";
 
 
@@ -449,9 +489,9 @@ class AccountGateway implements GatewayInterface
             $statement->execute(array(
                 1, 1, $accName,
                 $subType, //Subscription Type
-                14,// acc_ret,
-                0, 0, 0, 0,// br1, br1type, br1tat , br1 min
-                0, // br1 desc
+                $jobRetention,// acc_ret,
+                $br1, $br1Type, $br1TAT, $br1MinPay, // br1, br1type, br1tat , br1 min
+                $br1Desc, // br1 desc
                 0, 0, 0, 0,// br2, br2type, br2tat , br2 min
                 0, // br2 desc
                 0, 0, 0, 0,// br3, br3type, br3tat , br3 min
@@ -460,7 +500,8 @@ class AccountGateway implements GatewayInterface
                 0, // br4 desc
                 0, 0, 0, 0,// br5, br5type, br5tat , br5 min
                 0, // br5 desc
-                90, $accPrefix// log retention, job prefix
+                90, $accPrefix,// log retention, job prefix
+                $srEnabled //SR Enabled
             ));
 
             if ($statement->rowCount() > 0) {
