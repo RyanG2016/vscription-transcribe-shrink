@@ -12,6 +12,7 @@
 
 
 	<link rel="stylesheet" type="text/css" href="data/login/vendor/bootstrap/css/bootstrap.min.css">
+	<script src="https://kit.fontawesome.com/12f6b99df9.js" crossorigin="anonymous"></script>
 <!--	<link rel="stylesheet" type="text/css" href="data/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">-->
 <!--	<link rel="stylesheet" type="text/css" href="data/login/fonts/iconic/css/material-design-iconic-font.min.css">-->
 <!--	<link rel="stylesheet" type="text/css" href="data/login/vendor/animate/animate.css">-->
@@ -39,7 +40,9 @@
 		<div class="container-login100">
 			<div class="wrap-login100" style="width: 1200px !important;">
 				<form class="login100-form validate-form" method="get">
-					
+					<span class="login100-form-title p-b-5">
+					<p id="printDoc" onclick="window.print()"><i class="fas fa-print" aria-hidden="true"></i>Print This Document</p>
+					</span>					
 					<span class="login100-form-title p-b-5">
 						<img src="data/images/Logo_vScription_Transcribe_Stacked.png" style="height: 110px"/>
 					</span>
