@@ -92,7 +92,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
         var tutorials='<?php echo $tuts;?>';
     </script>
 
-	 <script src="data/scripts/job_upload.min.js?v=1"></script>
+	 <script src="data/scripts/job_upload.min.js?v=3"></script>
     <link rel="stylesheet" href="data/css/job_upload.css">
 	
 	
@@ -161,7 +161,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 
                                         <div id="vsptDropMainContent">
                                             <span>
-                                                <a href="#" id="chooseFile">Choose a file</a> or drag it here
+                                                <a href="#" id="chooseFile">Click to add one or more files</a> or drag them here
                                             </span>
                                             <div>(wav, mp3, dss, ds2, m4a, mp4, ogg)</div>
                                         </div>

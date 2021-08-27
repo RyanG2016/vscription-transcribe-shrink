@@ -56,6 +56,7 @@ class Account extends BaseModel implements BaseModelInterface
         private string $job_prefix = '',
         private int $sr_enabled = 0,
         private int $auto_list_refresh_interval = 0,
+        private string $transcribe_remarks = '',
 
         private $db = null
     )
@@ -65,6 +66,38 @@ class Account extends BaseModel implements BaseModelInterface
             $this->accountGateway = new AccountGateway($db);
             parent::__construct($this->accountGateway);
         }
+    }
+
+    /**
+     * @return int
+     */
+    public function getAutoListRefreshInterval(): int
+    {
+        return $this->auto_list_refresh_interval;
+    }
+
+    /**
+     * @param int $auto_list_refresh_interval
+     */
+    public function setAutoListRefreshInterval(int $auto_list_refresh_interval): void
+    {
+        $this->auto_list_refresh_interval = $auto_list_refresh_interval;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTranscribeRemarks(): string
+    {
+        return $this->transcribe_remarks;
+    }
+
+    /**
+     * @param string $transcribe_remarks
+     */
+    public function setTranscribeRemarks(string $transcribe_remarks): void
+    {
+        $this->transcribe_remarks = $transcribe_remarks;
     }
 
 
@@ -153,6 +186,7 @@ class Account extends BaseModel implements BaseModelInterface
             $this->job_prefix = $row['job_prefix'];
             $this->sr_enabled = $row['sr_enabled'];
             $this->auto_list_refresh_interval = $row['auto_list_refresh_interval'];
+            $this->transcribe_remarks = $row['transcribe_remarks'];
         }
     }
 

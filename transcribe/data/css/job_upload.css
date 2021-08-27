@@ -645,6 +645,7 @@ label.vspt-drop-upload.focus {
 
 .vtex-card.contents{
     min-height: 600px;
+    min-width: 600px;
 }
 
 .input-group-prepend{

@@ -3,10 +3,13 @@
 namespace Src\TableGateways;
 
 use PDOException;
+use Src\Enums\ENV;
 use Src\Helpers\common;
+use Src\Models\Access;
 use Src\Models\Account;
 use Src\Models\BaseModel;
 use Src\Models\SR;
+use Src\Models\User;
 use Src\TableGateways\logger;
 use Src\TableGateways\accessGateway;
 use Src\TableGateways\UserGateway;
@@ -90,6 +93,7 @@ class AccountGateway implements GatewayInterface
                 job_prefix,
                 auto_list_refresh,
                 auto_list_refresh_interval,
+                transcribe_remarks,
                 sr.sr_minutes_remaining
             FROM
                 accounts
@@ -163,7 +167,9 @@ class AccountGateway implements GatewayInterface
                 job_prefix,
                 sr_minutes_remaining,
                 auto_list_refresh,
-                auto_list_refresh_interval
+                auto_list_refresh_interval,
+                transcribe_remarks
+
             FROM
                 accounts
             LEFT JOIN speech_recognition sr on accounts.acc_id = sr.account_id
@@ -197,7 +203,10 @@ class AccountGateway implements GatewayInterface
                 act_log_retention_time,
                 job_prefix,
                 auto_list_refresh,
-                auto_list_refresh_interval
+                auto_list_refresh_interval,
+                transcribe_remarks
+                   
+            
             FROM
                 accounts
             INNER JOIN access a on accounts.acc_id = a.acc_id
@@ -371,11 +380,49 @@ class AccountGateway implements GatewayInterface
      * @param string $accName from controller
      * @return mixed
      */
-    public function createNewClientAdminAccount($accName)
+    public function createNewClientAdminAccount($accName, $subType)
     {
         $accPrefix = $this->generateNewAccountPrefix($accName);
         if (!$accPrefix) {
             return $this->errorOccurredResponse("Couldn't generate job prefix");
+        }
+
+        switch ($subType) {
+            case "1":
+                $br1 = 9.99;
+                $br1Type = 0;
+                $br1TAT = 3;
+                $br1MinPay = 1.25;
+                $br1Desc = "Monthly rate max 1000 minutes";
+                $jobRetention = 45;
+                $srEnabled = 0;
+                break;
+            case "2":
+                $br1 = 1.50;
+                $br1Type = 0;
+                $br1TAT = 3;
+                $br1MinPay = 0;
+                $br1Desc = "Default per minute rate";
+                $jobRetention = 14;
+                $srEnabled = 0;
+                break;
+            case "3":
+                $br1 = 0;
+                $br1Type = 0;
+                $br1TAT = 0;
+                $br1MinPay = 0;
+                $br1Desc = "Prepaid minutes";
+                $jobRetention = 14;
+                $srEnabled = 1;
+                break;
+            default:
+                $br1 = 0;
+                $br1Type = 0;
+                $br1TAT = 0;
+                $br1MinPay = 0;
+                $br1Desc = "Undefined";
+                $jobRetention = 14;
+                $srEnabled = 0;
         }
 
         // insert to DB //
@@ -386,6 +433,7 @@ class AccountGateway implements GatewayInterface
                              enabled,
                              billable,
                              acc_name,
+                             subscription_type,
                              acc_retention_time,
                              bill_rate1,
                              bill_rate1_type,
@@ -413,13 +461,13 @@ class AccountGateway implements GatewayInterface
                              bill_rate5_min_pay, 
                              bill_rate5_desc, 
                              act_log_retention_time,
-                             job_prefix
+                             job_prefix,
+                             sr_enabled
                              ) 
                          VALUES 
                                 (
                                  ?, ?, ?,
                                  ?,
-                                 ?, ?, ?, ?,
                                  ?,
                                  ?, ?, ?, ?,
                                  ?,
@@ -429,7 +477,10 @@ class AccountGateway implements GatewayInterface
                                  ?,
                                  ?, ?, ?, ?,
                                  ?,
-                                 ?, ?
+                                 ?, ?, ?, ?,
+                                 ?,
+                                 ?, ?,
+                                 ?
                                 )";
 
 
@@ -437,9 +488,10 @@ class AccountGateway implements GatewayInterface
             $statement = $this->db->prepare($statement);
             $statement->execute(array(
                 1, 1, $accName,
-                14,// acc_ret,
-                0, 0, 0, 0,// br1, br1type, br1tat , br1 min
-                0, // br1 desc
+                $subType, //Subscription Type
+                $jobRetention,// acc_ret,
+                $br1, $br1Type, $br1TAT, $br1MinPay, // br1, br1type, br1tat , br1 min
+                $br1Desc, // br1 desc
                 0, 0, 0, 0,// br2, br2type, br2tat , br2 min
                 0, // br2 desc
                 0, 0, 0, 0,// br3, br3type, br3tat , br3 min
@@ -448,13 +500,13 @@ class AccountGateway implements GatewayInterface
                 0, // br4 desc
                 0, 0, 0, 0,// br5, br5type, br5tat , br5 min
                 0, // br5 desc
-                90, $accPrefix// log retention, job prefix
+                90, $accPrefix,// log retention, job prefix
+                $srEnabled //SR Enabled
             ));
 
             if ($statement->rowCount() > 0) {
                 $accountID = $this->db->lastInsertId();
-                $this->logger->insertAuditLogEntry($this->API_NAME, "Account Created: " . $accName);
-
+                $this->logger->insertAuditLogEntry($this->API_NAME, "Account Created: " . $accName . " with subscription type " . $subType);
                 // add Complementary 30 minutes STT
                 $sr = SR::withAccID($accountID, $this->db);
                 $sr->addToMinutesRemaining(Constants::COMPLEMENTARY_NEW_ACCOUNT_FREE_STT_MINUTES);
@@ -476,6 +528,10 @@ class AccountGateway implements GatewayInterface
                         $_SESSION["adminAccLogRetTime"] = $account->getActLogRetentionTime();
                         $_SESSION["adminAccRetTime"] = $account->getAccRetentionTime();
                         $_SESSION["adminJobListRefreshInterval"] = $account->getAccJobRefreshInterval();
+
+                        // give system admin access
+                        (new Access(acc_id: $accountID, uid: ENV::ADMIN_UID, username: User::withID(ENV::ADMIN_UID, $this->db)->getEmail(), acc_role: 1, db: $this->db))->save();
+
                         return $this->oKResponse($accountID, "Account Created");
                     }
                 }
@@ -772,9 +828,9 @@ class AccountGateway implements GatewayInterface
     {
         $statement = "
             INSERT INTO accounts 
-                (enabled, billable, acc_name, acc_retention_time, acc_creation_date, bill_rate1, bill_rate1_type, bill_rate1_tat, bill_rate1_desc, bill_rate1_min_pay, bill_rate2, bill_rate2_type, bill_rate2_tat, bill_rate2_desc, bill_rate2_min_pay, bill_rate3, bill_rate3_type, bill_rate3_tat, bill_rate3_desc, bill_rate3_min_pay, bill_rate4, bill_rate4_type, bill_rate4_tat, bill_rate4_desc, bill_rate4_min_pay, bill_rate5, bill_rate5_type, bill_rate5_tat, bill_rate5_desc, bill_rate5_min_pay, lifetime_minutes, work_types, next_job_tally, act_log_retention_time, job_prefix, sr_enabled, auto_list_refresh_interval)
+                (enabled, billable, acc_name, acc_retention_time, acc_creation_date, bill_rate1, bill_rate1_type, bill_rate1_tat, bill_rate1_desc, bill_rate1_min_pay, bill_rate2, bill_rate2_type, bill_rate2_tat, bill_rate2_desc, bill_rate2_min_pay, bill_rate3, bill_rate3_type, bill_rate3_tat, bill_rate3_desc, bill_rate3_min_pay, bill_rate4, bill_rate4_type, bill_rate4_tat, bill_rate4_desc, bill_rate4_min_pay, bill_rate5, bill_rate5_type, bill_rate5_tat, bill_rate5_desc, bill_rate5_min_pay, lifetime_minutes, work_types, next_job_tally, act_log_retention_time, job_prefix, sr_enabled, auto_list_refresh_interval, transcribe_remarks)
             VALUES
-                (:enabled, :billable, :acc_name, :acc_retention_time, :acc_creation_date, :bill_rate1, :bill_rate1_type, :bill_rate1_tat, :bill_rate1_desc, :bill_rate1_min_pay, :bill_rate2, :bill_rate2_type, :bill_rate2_tat, :bill_rate2_desc, :bill_rate2_min_pay, :bill_rate3, :bill_rate3_type, :bill_rate3_tat, :bill_rate3_desc, :bill_rate3_min_pay, :bill_rate4, :bill_rate4_type, :bill_rate4_tat, :bill_rate4_desc, :bill_rate4_min_pay, :bill_rate5, :bill_rate5_type, :bill_rate5_tat, :bill_rate5_desc, :bill_rate5_min_pay, :lifetime_minutes, :work_types, :next_job_tally, :act_log_retention_time, :job_prefix, :sr_enabled, :auto_list_refresh_interval)
+                (:enabled, :billable, :acc_name, :acc_retention_time, :acc_creation_date, :bill_rate1, :bill_rate1_type, :bill_rate1_tat, :bill_rate1_desc, :bill_rate1_min_pay, :bill_rate2, :bill_rate2_type, :bill_rate2_tat, :bill_rate2_desc, :bill_rate2_min_pay, :bill_rate3, :bill_rate3_type, :bill_rate3_tat, :bill_rate3_desc, :bill_rate3_min_pay, :bill_rate4, :bill_rate4_type, :bill_rate4_tat, :bill_rate4_desc, :bill_rate4_min_pay, :bill_rate5, :bill_rate5_type, :bill_rate5_tat, :bill_rate5_desc, :bill_rate5_min_pay, :lifetime_minutes, :work_types, :next_job_tally, :act_log_retention_time, :job_prefix, :sr_enabled, :auto_list_refresh_interval, :transcribe_remarks)
         ;";
 
         try {
@@ -816,6 +872,7 @@ class AccountGateway implements GatewayInterface
                 'act_log_retention_time' => $model->getActLogRetentionTime(),
                 'job_prefix' => $model->getJobPrefix(),
                 'sr_enabled' => $model->getSrEnabled(),
+                'transcribe_remarks' => $model->getTranscribeRemarks(),
                 'auto_list_refresh_interval' => $model->getAccJobRefreshInterval()
 
             ));
@@ -871,7 +928,8 @@ class AccountGateway implements GatewayInterface
                 act_log_retention_time = :act_log_retention_time,
                 job_prefix = :job_prefix,
                 sr_enabled = :sr_enabled,
-                auto_list_refresh_interval = :auto_list_refresh_interval
+                auto_list_refresh_interval = :auto_list_refresh_interval,
+                transcribe_remarks = :transcribe_remarks
             WHERE
                 acc_id = :acc_id;
         ";
@@ -917,6 +975,7 @@ class AccountGateway implements GatewayInterface
                 'job_prefix' => $model->getJobPrefix(),
                 'sr_enabled' => $model->getSrEnabled(),
                 'auto_list_refresh_interval' => $model->getAccJobRefreshInterval(),
+                'transcribe_remarks' => $model->getTranscribeRemarks()
             ));
             return $statement->rowCount();
         } catch (\PDOException) {
@@ -985,6 +1044,7 @@ class AccountGateway implements GatewayInterface
                    job_prefix,
                    sr_enabled,
                    auto_list_refresh,
+                   transcribe_remarks,
                    auto_list_refresh_interval
                                       
             FROM
@@ -1004,6 +1064,64 @@ class AccountGateway implements GatewayInterface
             }
         } catch (\PDOException $e) {
             return null;
+        }
+    }
+
+    public function getCount()
+    {
+        $statement = "
+            SELECT 
+                count(acc_id) as 'accounts_count'
+            FROM
+                accounts where enabled = 1;";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute();
+//            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            $result = $statement->fetch();
+            return $result['accounts_count'];
+
+        } catch (\PDOException $e) {
+            return false;
+        }
+    }
+
+    public function getSysAdminAccessCount($adminUID)
+    {
+        $statement = "
+            select count(*) as 'sys_org_access_count' from access where acc_role = 1 and uid = $adminUID
+            ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute();
+//            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            $result = $statement->fetch();
+            return $result['sys_org_access_count'];
+
+        } catch (\PDOException $e) {
+            return false;
+        }
+    }
+
+
+    public function getMissingSysAccessOrgIDs($adminUID)
+    {
+        $statement = "
+            select acc_id from accounts where enabled = 1 and acc_id not in(select access.acc_id from access where acc_role = 1 and uid = $adminUID);
+            ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute();
+            return array_column($statement->fetchAll(\PDO::FETCH_ASSOC), 'acc_id');
+//            $result = $statement->fetch();
+//            return $result['sys_org_access_count'];
+//            return $result;
+
+        } catch (\PDOException $e) {
+            return false;
         }
     }
 

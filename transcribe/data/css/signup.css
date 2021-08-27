@@ -1,5 +1,6 @@
 @import "parts/modal_overlay.css";
 @import "parts/vtex-custom-styles.css";
+@import "parts/bootstrap-override.css";
 @import "parts/global.css";
 
 /*//////////////////////////////////////////////////////////////////
@@ -45,11 +46,50 @@ body {
     }
 }*/
 
-
 label {
     color: white;
 }
+/* MODAL WINDOW STYLING */
 
+#modal > div > div > div.modal-body.pb-0 > .serviceChoiceBtn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+#platformServices > button {
+    height: 45px;
+    width: 375px;
+    background-color: var(--vspt-blue);
+}
+
+#transcriptionServices > button {
+    height: 45px;
+    width: 375px;
+    background-color: var(--vspt-blue);
+}
+
+#NSTTServices > button {
+    height: 45px;
+    width: 375px;
+    background-color: var(--vspt-blue);
+}
+
+#platformServices > button > i {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+#transcriptionServices > button > i {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+#NSTTServices > button > i {
+    font-size: 24px;
+    margin-right: 10px;
+}
 .text-muted {
     color: #dce4eb !important;
 }

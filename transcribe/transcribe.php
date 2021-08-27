@@ -31,6 +31,9 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
 
 $accountGateway = new AccountGateway($dbConnection);
 $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
+// current account data
+$currentAccount = \Src\Models\Account::withID($_SESSION["accID"], $dbConnection);
+$transRemarks = $currentAccount->getTranscribeRemarks();
 
 //$version_control = "1.0";
 ?>
@@ -181,7 +184,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 
     <script src='tinymce/tinymce.min.js?v=<?php echo $version_control ?>'></script>
 
-    <script src='data/scripts/tinymce.min.js?v=3'></script>
+    <script src='data/scripts/tinymce.min.js?v=4'></script>
     <script src="tinymce/plugins/mention/plugin.js?v=<?php echo $version_control ?>"></script>
     <link rel="stylesheet" type="text/css" href="tinymce/plugins/mention/css/autocomplete.css">
     <link rel="stylesheet" type="text/css" href="tinymce/plugins/mention/css/rte-content.css">
@@ -231,7 +234,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 <body>
 
 <script src="data/scripts/parts/constants.js" type="text/javascript"></script>
-<script src="data/scripts/transcribe.min.js?v=10"></script>
+<script src="data/scripts/transcribe.min.js?v=11"></script>
 <!--<script src="data/scripts/transcribe.js?v=5"></script>-->
 
 <div id="updated_version_bar">There is a newer version (v<span></span>) of the vScription Transcribe Controller
@@ -249,8 +252,10 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 
                 <div class="row ">
                     <div class="col report-col">
-                        <legend id="leg"><span class="number">1</span> Report Body
-
+                        <legend id="leg">
+                            <span class="number">1</span> Report Body
+                        </legend>
+                        <div class="row no-gutters mb-2 d-flex flex-row-reverse">
                             <span class="transcribe-shortcuts">
                                 <img src="data/images/f1_48.png"/> <i>Insert last used word</i> &nbsp;&nbsp;
 
@@ -261,13 +266,27 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                 <button type="button" class="btn btn-primary btn-sm pop-btn" id="pop">
                                     <i class="fas fa-external-link-alt"></i>
                                 </button>
-<!--                                <button class="ui right labeled icon grey basic button toggle-demo-bar" id="toggleDemoBar">-->
-<!--                                  <i class="right left arrow icon"></i>-->
-<!--                                  Sidebar-->
-<!--                                </button>-->
                             </span>
+                        </div>
 
-                        </legend>
+                        <?php
+
+                        if($transRemarks)
+                        {
+                            echo "<div class='alert alert-warning typing_notes_alert mr-2 mb-2' role='alert'>
+                            <b class='typing_notes_header' id='typingNotesHeader'>Organization Typing Notes:</b>
+                            <span id='typingNotesBody' class='typing_notes_body'>$transRemarks</span>
+                            
+                            <button type='button' class='close bs-exclude' data-dismiss='alert' aria-label='Close'>
+                                <span aria-hidden='true'>&times;</span>
+                            </button>
+
+                            </div>
+                            ";
+
+                        }
+                        ?>
+
 
 
                         <div id="divv" class="form-row report-container">

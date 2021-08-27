@@ -3,6 +3,7 @@
 namespace Src\Controller;
 
 use Src\Helpers\common;
+use Src\Models\Account;
 use Src\Models\SR;
 use Src\TableGateways\FileGateway;
 use Src\System\Mailer;
@@ -222,6 +223,7 @@ class FileController
             $acc_id = null;
             $post_acc_id = null;
             $stopUpload = false;
+            $accName = $_SESSION["acc_name"];
 
             if (isset($_POST["set_acc_id"]) && !empty($_POST["set_acc_id"])) {
                 $post_acc_id = $_POST["set_acc_id"];
@@ -236,6 +238,7 @@ class FileController
                         $stopUpload = true; // stop the upload
                     }else{
                         $acc_id = $post_acc_id;
+                        $accName = Account::withID($acc_id, $this->db)->getAccName();
                     }
                 }
 
@@ -392,7 +395,7 @@ class FileController
 //            header('Content-Type: application/json');
 //            echo json_encode(array_values($uploadMsg), JSON_FORCE_OBJECT | JSON_PRETTY_PRINT);
             if($newFilesAvailable){
-                $this->mailer->sendEmail(15,false,$_SESSION["acc_name"]);
+                $this->mailer->sendEmail(15,false, $accName);
             }
 
             $response['status_code_header'] = 'HTTP/1.1 200 OK';

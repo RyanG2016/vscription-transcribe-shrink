@@ -8,12 +8,13 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="shortcut icon" type="image/png" href="data/images/favicon.png"/>
 
-	<title>Terms and Conditions</title>
+	<title>Transcription Services Agreement</title>
 
 
 	<link rel="stylesheet" type="text/css" href="data/login/vendor/bootstrap/css/bootstrap.min.css">
-	<script src="https://kit.fontawesome.com/12f6b99df9.js" crossorigin="anonymous"></script>
-<!--	<link rel="stylesheet" type="text/css" href="data/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">-->
+    <script src="https://kit.fontawesome.com/12f6b99df9.js" crossorigin="anonymous"></script>
+
+	<!-- <link rel="stylesheet" type="text/css" href="data/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css"> -->
 <!--	<link rel="stylesheet" type="text/css" href="data/login/fonts/iconic/css/material-design-iconic-font.min.css">-->
 <!--	<link rel="stylesheet" type="text/css" href="data/login/vendor/animate/animate.css">-->
 <!--	<link rel="stylesheet" type="text/css" href="data/login/vendor/css-hamburgers/hamburgers.min.css">-->
@@ -25,7 +26,7 @@
 	
 <!--	<link rel="stylesheet" type="text/css" href="data/login/vendor/daterangepicker/daterangepicker.css">-->
 	<link rel="stylesheet" type="text/css" href="data/login/css/util.css">
-	<link rel="stylesheet" type="text/css" href="data/css/terms.css">
+	<link rel="stylesheet" type="text/css" href="data/css/ts_terms.css">
 	
 <!--<link rel="stylesheet" href="data/dialogues/jquery-confirm.min2.css">-->
 <!--<script src="data/dialogues/jquery-confirm.min.js"></script>-->
@@ -42,21 +43,20 @@
 				<form class="login100-form validate-form" method="get">
 					<span class="login100-form-title p-b-5">
 					<p id="printDoc" onclick="window.print()"><i class="fas fa-print" aria-hidden="true"></i>Print This Document</p>
-					</span>					
+					</span>
 					<span class="login100-form-title p-b-5">
 						<img src="data/images/Logo_vScription_Transcribe_Stacked.png" style="height: 110px"/>
 					</span>
 					
 					<span class="login100-form-title p-b-26">
-						Terms and Conditions
+					Transcription Services Agreement
 					</span>
-					
 
 					<div style="text-align: justify;text-justify: inter-word;">
 					
 					<!--	Policy 	-->
 					
-					<?php include 'data/parts/terms_template.php';?>
+					<?php include 'data/parts/ts_terms_template.php';?>
 
 					
 					</div>

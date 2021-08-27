@@ -68,7 +68,6 @@ p {
 #printDoc {
     cursor: pointer;
 }
-
 /*---------------------------------------------*/
 
 /*//////////////////////////////////////////////////////////////////
@@ -134,6 +133,7 @@ p {
     line-height: 1.2;
     text-align: center;
 }
+
 .login100-form-title p {
     display: block;
     font-family: main-l, sans-serif;
@@ -151,6 +151,7 @@ p {
     text-align: right;
     padding-right: 5px;
 }
+
 .login100-form-title i {
     font-size: 60px;
 }

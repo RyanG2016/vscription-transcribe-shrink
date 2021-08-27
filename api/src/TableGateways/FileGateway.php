@@ -1343,6 +1343,25 @@ class FileGateway implements GatewayInterface
         }
     }
 
+    public function getCount()
+    {
+        $statement = "
+            SELECT 
+                count(file_id) as 'files_count'
+            FROM
+                files;";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute();
+//            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            $result = $statement->fetch();
+            return $result['files_count'];
+
+        } catch (\PDOException $e) {
+            return false;
+        }
+    }
 
 
     public function findAllModel($page = 1): array|null

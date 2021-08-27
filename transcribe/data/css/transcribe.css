@@ -218,7 +218,7 @@ table, th, td {
 }
 
 /* The Close Button */
-.close {
+.close:not(.bs-exclude) {
     color: white;
     float: right;
     font-size: 28px;
@@ -506,7 +506,7 @@ select.form-control,
 }
 
 .transcribe-shortcuts{
-    font-size: 0.6em;
+    font-size: 12px;
     float: right;
     margin-right: 7px;
 }
@@ -590,4 +590,13 @@ select.form-control,
 #jobs-tbl > tfoot tr th
 {
     padding: 4px 2px !important;
+}
+
+
+.typing_notes_header, .typing_notes_body{
+    font-size: 13px;
+}
+
+.typing_notes_alert{
+    padding: 6px 10px;
 }

@@ -75,10 +75,14 @@ else {
     <!--  Datatables  -->
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap4.min.js"></script>
 
     <!--  css  -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap4.min.css" crossorigin="anonymous">
+
 
 
 
@@ -99,8 +103,9 @@ else {
     </script>
 	
 	<link rel="stylesheet" href="data/css/main.css?v=1">
-	<script src="data/scripts/main.min.js?v=10"></script>
-	
+<!--	<script src="data/scripts/main.js?v=10"></script>-->
+	<script src="data/scripts/main.min.js?v=11"></script>
+
 </head>
 
 <body>
@@ -155,6 +160,7 @@ else {
 
                 <div style="overflow-x: hidden" class="vspt-table-div">
                     <table id="jobs-tbl" class="users-tbl table vspt-table hover compact">
+<!--                    <table id="jobs-tbl" class="users-tbl table vspt-table hover compact responsive nowrap" width="100%">-->
                         <tfoot>
                         <tr>
                             <th></th>
@@ -162,6 +168,17 @@ else {
                             <th></th>
                             <th></th>
                             <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+
+                            <!-- minor -->
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+
                             <th></th>
                             <th></th>
                             <th></th>

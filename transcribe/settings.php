@@ -143,7 +143,7 @@ include('data/parts/head.php');
 
                                     <div class="input-group">
                                         <div class="row w-100 no-gutters">
-                                            <div class="col">
+                                            <div class="col-auto">
                                                 <span class="bs-text">Newsletter</span>
                                                 &emsp;<button id="newsletter" type="button"
                                                               class="btn btn-primary newsletter-button

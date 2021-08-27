@@ -65,6 +65,9 @@ $hasRef = isset($_GET['ref']) && !empty($_GET['ref']);
             integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
             crossorigin="anonymous"></script>
 
+    <link href="data/libs/node_modules/material-components-web/dist/material-components-web.css" rel="stylesheet">
+    <script src="data/libs/node_modules/material-components-web/dist/material-components-web.js"></script>
+
     <link rel="stylesheet" type="text/css" href="data/login/vendor/animate/animate.css">
 
     <link rel="stylesheet" type="text/css" href="data/login/css/util.css?v=<?php echo $version_control ?>">
@@ -73,7 +76,7 @@ $hasRef = isset($_GET['ref']) && !empty($_GET['ref']);
     <!--	Tooltip 	-->
     <link rel="stylesheet" type="text/css" href="data/tooltipster/css/tooltipster.bundle.min.css"/>
     <link rel="stylesheet" type="text/css"
-          href="data/tooltipster/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-shadow.min.css"/>
+          href="data/tooltipster/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-borderless.min.css"/>
     <script type="text/javascript" src="data/tooltipster/js/tooltipster.bundle.min.js"></script>
 
     <!--	Scroll bar  	-->
@@ -83,6 +86,7 @@ $hasRef = isset($_GET['ref']) && !empty($_GET['ref']);
     <!--<link rel="stylesheet" href="data/dialogues/jquery-confirm.min.css">-->
     <link rel="stylesheet" href="data/dialogues/jquery-confirm.min2.css">
     <script src="data/dialogues/jquery-confirm.min.js"></script>
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"
             integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg=="
@@ -97,6 +101,75 @@ $hasRef = isset($_GET['ref']) && !empty($_GET['ref']);
 
 <body>
 
+<div class="modal fade" tabindex="-1" id="modal" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 style="color: #343a40" id="modalHeaderTitle">
+                    <i class="fas fa-concierge-bell"></i>&nbsp;Choose A Service Type
+                </h3>
+                <!--                <h5 class="modal-title">Modal title</h5>-->
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><span aria-hidden="true"><i class="fas fa-times"></i></span></span>
+                </button> -->
+            </div>
+            <div class="modal-body pb-0 justify-content-between">
+                <div class="serviceChoiceBtn" id="platformServices" title="Choose this to use vScription Transcribe as your own dictation system. You provide your own typists">
+                        <button class="mdc-button mdc-button--raised">
+                            <span class="mdc-button__ripple"></span>
+                            <i class="fas fa-microphone"></i>
+                            <span class="mdc-button__label">PLATFORM SERVICES</span>
+                        </button>
+                </div>
+                <div class="serviceChoiceBtn" id="transcriptionServices" title="Choose this to let us do all of your typing for you. All you have to do is send us your files">
+                        <button class="mdc-button mdc-button--raised mdc-button--leading">
+                            <span class="mdc-button__ripple"></span>
+                            <i class="fas fa-typewriter"></i>
+                            <span class="mdc-button__label">TRANSCRIPTION SERVICES</span>
+                        </button>
+                </div>
+                <div class="serviceChoiceBtn" id="NSTTServices" title="Choose this to use our speech to text engine to convert your meetings to text within minutes.">
+                        <button class="mdc-button mdc-button--raised mdc-button--leading">
+                            <span class="mdc-button__ripple"></span>
+                            <i class="fas fa-comment-alt-lines"></i>
+                            <span class="mdc-button__label">NARRATIVE SPEECH TO TEXT SERVICES</span>
+                        </button>
+                </div>
+            </div>
+                    <!-- <div class="mdc-radio mdc-radio--touch">
+                        <div class="mdc-radio">
+                            <label id="lblPlatformServices">
+                                <input type="radio" class="mdc-radio__native-control" name="radio" id="platformServices" value="1" checked >
+                                Platform Services 
+                            </label>
+                        </div>
+                       <div class="mdc-radio">
+                            <label id="lblTranscriptionServices">
+                            <input type="radio" class="mdc-radio__native-control" name="radio" id="transcriptionServices" value="2" >
+                            Transcription Services
+                            </label>
+                        </div>
+                        <div class="mdc-radio">                             
+                            <label id="lblNSTTServices">
+                            <input type="radio" class="mdc-radio__native-control" name="radio" id="NSTTServices" value="3" >
+                            Narrative Speech To Text Services
+                            </label> 
+                        </div> 
+                    </div>   -->
+                <!-- <br> -->
+
+                <div class="modal-footer pr-0">
+                    <!-- <button class="mdc-button mdc-button--unelevated green-btn" id="saveSTBtn" type="button">
+                        <div class="mdc-button__ripple"></div>
+                        <i class="fas fa-check"></i>
+                        <span class="mdc-button__label">&nbsp; Ok</span> -->
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="vtex-signup-container">
     <form class="vtex-signup-form needs-validation" id="signupForm" autocomplete="off" novalidate>
@@ -338,7 +411,7 @@ $hasRef = isset($_GET['ref']) && !empty($_GET['ref']);
                 <label>
                     <input type="checkbox" id="tos"/>
                     <small class="text-sm-right font-italic fs-17"> &nbsp; I have read and agreed to the <span><a
-                                    class="fs-17" href="./terms.php" target="_blank">Terms and Conditions</a> </span></small>
+                                    class="fs-17" id="termsLink" href="./terms.php" target="_blank">Terms and Conditions</a> </span></small>
                 </label>
 
             </div>

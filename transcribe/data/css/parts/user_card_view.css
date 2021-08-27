@@ -68,7 +68,7 @@ body{
 }
 
 img:not(#norm, vtex-skip) {
-    float: right;
+    /*float: right;*/
 }
 
 #tip {
