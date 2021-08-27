@@ -375,7 +375,7 @@ $(document).ready(function () {
 				"next #jobs-tbl_wrapper": "Here is the job list"
 			},
 			{
-				"next td:nth-child(10)": "Here is where you can view or download completed documents",
+				"next td:nth-child(9)": "Here is where you can view or download completed documents",
 			},
 			{
 				"next tfoot":'Use these to filter your job list',
@@ -443,7 +443,7 @@ $(document).ready(function () {
 				times_text_downloaded_date: "5",
 				tmp_name: null,
 				typist_comments: "Welcome to vScription Transcribe!",
-				user_field_1: "",
+				user_field_1: "143445678",
 				user_field_2: "",
 				user_field_3: ""}
 				).draw();
