@@ -1529,11 +1529,11 @@ $(document).ready(function () {
 
     var enjoyhint_script_steps = [
         {
-            "next #mceu_14-button":"Click here to choose a job to open",
+            "next #mceu_14-button":"Click here to choose a job to open"
         },
-		{
-			"next #demoItems": "Job file information and demographics"
-		},
+		// {
+		// 	"next #demoSidebar": "Job file information and demographics"
+		// },
 		{
 			"next #divv": "This is the rich text editor. This is where any speech to text content will show and/or where you will type "
 		},
@@ -1553,7 +1553,7 @@ $(document).ready(function () {
 			"next #pop": "Click here to switch to mini player"
 		},
 		{
-			"next .pin-collapse-div":"Click here to expand the navigation bar to get access to various pages and settings",
+			"next .pin-collapse-div":"Click here to expand the navigation bar to get access to various pages and settings"
 		},
 		{
 			"click #zohohc-asap-web-launcherbox > a":"Click here to access the online help",
