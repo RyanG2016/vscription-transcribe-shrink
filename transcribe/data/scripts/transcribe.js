@@ -1287,18 +1287,15 @@ $(document).ready(function () {
         $("#jobType").removeAttr("disabled");
         $("#jobType").parent().removeClass("disabled");
         // check if value doesn't exist
-
-        if(jobTypeDropDown.find("[value='"+jobDetails.file_work_type.toLowerCase().trim()+"']").length)
-        {
-            jobTypeDropDown.val(jobDetails.file_work_type.toLowerCase().trim());
+        var ddlArray = [...document.querySelector("#jobType").options].map( opt => opt.value );     
+        if(jQuery.inArray(jobDetails.file_work_type.toLowerCase().trim(), ddlArray) !== -1)        {
+            jobTypeDropDown.val(jobDetails.file_work_type.toLowerCase().trim()).change();
         }else{
             // append the option and select it
             var option = '<option value="'+jobDetails.file_work_type.toLowerCase().trim()+'">'+jobDetails.file_work_type+'</option>';
             jobTypeDropDown.html(jobTypeDropDown.html() + option);
-            jobTypeDropDown.val(jobDetails.file_work_type.toLowerCase().trim());
+            jobTypeDropDown.val(jobDetails.file_work_type.toLowerCase().trim()).change();
         }
-
-        // console.log("job type from database : =-----> " + jobDetails.file_work_type);
 
         var dispDateFormat = moment(jobDetails.file_date_dict).format("DD-MMM-YYYY hh:mm:ss a");
         $('#date').val(dispDateFormat);
