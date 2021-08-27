@@ -89,6 +89,7 @@ $(document).ready(function () {
     transcriptionServices = $("#transcriptionServices");
     NSTTServices = $("#NSTTServices");
     title = $("#title");
+    termsLink = $("#termsLink");
 
     let urlParams = new URLSearchParams(window.location.search);
     if (urlParams.has('st')) {
@@ -97,14 +98,17 @@ $(document).ready(function () {
             // Platform Service
             case 1:
                 title.text("Platform Services Signup")
+                termsLink.attr('href', "/terms.php");
                 break;
             //Transcription Services
             case 2:
                 title.text("Transcription Services Signup")
+                termsLink.attr('href', "/ts_terms.php");
                 break;
             //Meeting (Speech To Text) Services
             case 3:
-                title.text("Narrative Speech To Text Services Signup")
+                title.text("Narrative Speech To Text Services Signup");
+                termsLink.attr('href', "/terms.php");
                 break;
             default:
                 title.text("Signup") 
@@ -711,17 +715,20 @@ $(document).ready(function () {
 
     }
     platformServices.on("click", function (e) {
-             title.text("Platform Services Signup");
+            title.text("Platform Services Signup");
+            termsLink.attr('href', "/terms.php");
             signupType = 1;
             chooseSignUpModal.modal('hide');
         });
     transcriptionServices.on("click", function (e) {
             title.text("Transcription Services Signup");
+            termsLink.attr('href', "/ts_terms.php");
             signupType = 2;
             chooseSignUpModal.modal('hide');
         });
     NSTTServices.on("click", function (e) {
             title.text("Narrative Speech To Text Services Signup");
+            termsLink.attr('href', "/terms.php");
             signupType = 3;
             chooseSignUpModal.modal('hide');
         });
