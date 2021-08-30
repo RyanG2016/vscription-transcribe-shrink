@@ -102,9 +102,9 @@ else {
         var tutorials='<?php echo $tuts;?>';
     </script>
 	
-	<link rel="stylesheet" href="data/css/main.css?v=1">
+	<link rel="stylesheet" href="data/css/main.css?v=2">
 <!--	<script src="data/scripts/main.js?v=10"></script>-->
-	<script src="data/scripts/main.min.js?v=11"></script>
+	<script src="data/scripts/main.min.js?v=12"></script>
 
 </head>
 
