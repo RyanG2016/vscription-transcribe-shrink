@@ -10,14 +10,20 @@
     box-sizing: border-box;
 }
 
-body, html {
-    height: 100%;
-    font-family: main, sans-serif;
-}
+body{
+    margin: 0;
+    padding: 0;
+    /* width: 80%; */
+    margin: auto;
+  }
+
+html {
+    height: 100;
+  }
 
 /*---------------------------------------------*/
 a {
-    font-family: main, sans-serif;
+    font-family: main, Calibri;
     font-size: 14px;
     line-height: 1.7;
     color: #ec922f;
@@ -38,13 +44,32 @@ a:hover {
     color: #6a7dfe;
 }
 
-/*---------------------------------------------*/
+/* ---------------------------------------------
 h1, h2, h3, h4, h5, h6 {
     margin: 0px;
     margin-top: 26px !IMPORTANT;
     margin-bottom: 11px !IMPORTANT;
     line-height: 1.4rem;
-}
+} */
+
+h5{
+    font-family: Calibri;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 40px;
+    text-decoration: underline;
+  }
+h6{
+    font-family: Calibri;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 40px;
+  }
+  
+h6 span{
+  margin-right: 15px;
+font-weight: bold;
+  }
 
 .h1, h1 {
     font-size: 1.7rem;
@@ -53,21 +78,143 @@ h1, h2, h3, h4, h5, h6 {
 .h2, h2 {
     font-size: 1.2rem;
 }
-p {
-    font-family: main, opensans;
-    font-size: 14px;
-    line-height: 1.7;
-    /*	color: #666666;*/
-    margin: 0;
+p{
+  font-family: Calibri;
+  font-size: 14px;
+}
+p span{
+  font-weight: bold;
 }
 
-.li, li {
-    font-size: 14px !IMPORTANT;
-}
+ul{
+    padding-left: 0px;
+  }
+ul li{
+    font-family: Calibri;
+    font-size: 14px;
+    list-style: none;
+    padding-top: 15px;
+  }
+ul li span{
+    font-family: Calibri;
+    font-size: 14px;
+    font-weight: bold;
+    margin-left: 50px;
+  }
+ul li a{
+    text-decoration: underline!important;
+  }
 
 #printDoc {
     cursor: pointer;
 }
+
+.sublisting{
+    padding-left: 90px;
+  }
+  #schedule table {
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 80%;
+    margin: auto;
+  }
+  .backgroundcolor{
+   background-color: #dddddd;
+  }
+  #schedule table,tr, th{
+   
+    font-family: Calibri;
+    font-size: 12px;
+  }
+  #schedule table, th, td {
+    border: 1px solid black;
+    font-family: Calibri;
+    font-size: 12px;
+    text-align: center;
+    margin-bottom: 20px;
+    vertical-align: baseline;
+  }
+  .blackbackgroundcolor{
+   background-color: #dddddd;
+   height: 20px;
+  }
+  .priorityissue{
+    table-layout: auto!important;
+  }
+  .priorityissue th, td{
+    text-align: left!important;
+    padding-left: 5px;
+  }
+  .stylelist li{
+    list-style-type: disc;
+  }
+  .priorityissue2{
+    width: 40%!important;
+    table-layout: auto!important;
+  }
+  .softwarerequirements li{
+    list-style-type: disc;
+  }
+  .softwarerequirements{
+    padding-left: 40px!important;
+  }
+  .underline{
+    text-decoration: underline;
+  }
+  .row{
+    display:-ms-flexbox;
+    display:flex;
+    -ms-flex-wrap:wrap;
+    flex-wrap:wrap;
+    margin-right:-15px;
+    margin-left:-15px;
+  }
+  .col-sm-2{
+    -ms-flex:0 0 16.666667%;
+    flex:0 0 16.666667%;
+    max-width:16.666667%;
+  }
+  .col-sm-3{
+    -ms-flex:0 0 25%;
+    flex:0 0 25%;
+    max-width:25%;
+  }
+  .pr-3{
+    padding-right: 1rem!important;
+  }
+  .pt-0{
+    padding-top:0 !important;
+  }
+  .pl-3{
+    padding-left:1rem !important;
+  }
+  .mt-5{
+    margin-top: 3rem!important;
+  }
+  .mt-4{
+    margin-top: 1.5rem!important;
+  }
+  .mt-3{
+    margin-top: 1.0rem!important;
+  }
+  .m-0{
+    margin:0 !important;
+  }
+  .mt-0{
+    margin-top:0!important;
+  }
+  .mb-3{
+    margin-bottom: 1rem !important;
+  }
+  .text-center{
+    text-align :center !important;
+  }
+  .offset-1{
+    margin-left: 8.333333%;
+  }
+  .offset-2{
+    margin-left: 16.666667%;
+  }
 /*---------------------------------------------*/
 
 /*//////////////////////////////////////////////////////////////////

@@ -1,623 +1,1177 @@
-<div>
-    <div style="clear:both;">
-        <p style="margin-top:0pt; margin-bottom:0pt; text-align:center;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    </div>
-    <p style="margin-top:0pt; margin-bottom:0pt; line-height:12pt;"><span style="font-family:Calibri; font-size:10pt;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:12pt;"><span style="font-family:Calibri; font-size:10pt;">This Services Agreement (this &ldquo;Agreement&rdquo;) is entered by and between VTEX Voice Solutions Inc. (&ldquo;VTEX&rdquo;), a Manitoba Corporation You for the vScription Transcribe Platform and Transcription Services. VTEX and You may also each be referred to herein individually as a &ldquo;Party&rdquo; and collectively as the &ldquo;Parties.</span><span style="font-family:Calibri; font-size:10pt;">&nbsp;&nbsp;</span><span style="font-family:Calibri; font-size:10pt; letter-spacing:-0.15pt;">The effective date (the &ldquo;Effective Date&rdquo;) of this Agreement shall be the date on which this Agreement is fully executed by the Parties.</span><span style="font-family:Calibri; font-size:10pt;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:12pt;"><span style="font-family:Calibri; font-size:10pt;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-indent:36pt; text-align:justify; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><strong><span style="font-family:Calibri;">WHEREAS,&nbsp;</span></strong><span style="font-family:Calibri;">VTEX is in the business of providing Internet-based dictation, routing, transcription and document delivery processing services, which Client desires to obtain.</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-indent:36pt; text-align:justify; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><strong><span style="font-family:Calibri;">NOW, THEREFORE,&nbsp;</span></strong><span style="font-family:Calibri;">in consideration of the mutual covenants and promises contained herein, the Parties agree as follows:</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><strong><span style="font-family:Calibri;">1.0</span></strong><span style="width:23.19pt; display:inline-block;">&nbsp;</span><strong><span style="font-family:Calibri;">DEFINITIONS</span></strong><span style="font-family:Calibri;">.</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <h1 style="margin-top:0pt; margin-bottom:12pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri; font-weight:normal;">Wherever used in this Agreement with initial letters capitalized, the following terms (and any conjugations thereof) will have the following specified meanings.&nbsp;</span></h1>
-    <h2 style="margin-top:0pt; margin-left:18pt; margin-bottom:12pt; text-indent:36pt; text-align:justify; font-size:10pt;"><span style="font-family:Arial;">1.1</span><span style="width:4.1pt; font:7pt 'Times New Roman'; display:inline-block;">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Calibri;">&ldquo;Change of Law&rdquo;</span><span style="font-family:Calibri; font-weight:normal;">&nbsp;shall mean (i) any new legislation enacted by the Federal or any provincial government in Canada; (ii) any new law, rule, regulation, guideline, or new development or interpretation passed, issued or promulgated by any federal or provincial governmental agency or by any government, commercial or other third party payor; or (iii) any order or decree issued by any judicial or administrative body.</span></h2>
-    <h2 style="margin-top:0pt; margin-left:18pt; margin-bottom:12pt; text-indent:36pt; text-align:justify; font-size:10pt;"><span style="font-family:Arial;">1.2</span><span style="width:4.1pt; font:7pt 'Times New Roman'; display:inline-block;">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Calibri;">&nbsp;&ldquo;Confidential Information&rdquo;</span><span style="font-family:Calibri; font-weight:normal;">&nbsp;means any information disclosed pursuant to this Agreement, either orally or in written, graphic, machine readable or other tangible form, unless indicated otherwise, including, without limitation, all Voice Files and Transcripts.</span><span style="font-family:Calibri; font-weight:normal;">&nbsp;&nbsp;</span></h2>
-    <h2 style="margin-top:0pt; margin-left:18pt; margin-bottom:12pt; text-indent:36pt; text-align:justify; font-size:10pt;"><span style="font-family:Arial;">1.3</span><span style="width:4.1pt; font:7pt 'Times New Roman'; display:inline-block;">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">&nbsp;</span><span style="font-family:Calibri;">&ldquo;Data Center&rdquo;</span><span style="font-family:Calibri; font-weight:normal;">&nbsp;means the hosted environment managed by VTEX which houses hardware and software that is required to provide You with access to the vScription Transcribe Pro platform.</span></h2>
-    <h2 style="margin-top:0pt; margin-left:18pt; margin-bottom:12pt; text-indent:36pt; text-align:justify; font-size:10pt;"><span style="font-family:Arial;">1.4</span><span style="width:4.1pt; font:7pt 'Times New Roman'; display:inline-block;">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Calibri;">&nbsp;&ldquo;vScription Transcribe Pro&rdquo;</span><span style="font-family:Calibri; font-weight:normal;">&nbsp;means VTEX&rsquo;s</span><span style="font-family:Calibri; font-weight:normal; letter-spacing:-0.15pt;">&nbsp;Web based dictation and transcription management system, the &ldquo;</span><span style="font-family:Calibri; font-weight:normal;">vScription Transcribe Pro&nbsp;</span><span style="font-family:Calibri; font-weight:normal; letter-spacing:-0.15pt;">platform&rdquo; which is hosted at the Data Center.</span></h2>
-    <h2 style="margin-top:0pt; margin-left:18pt; margin-bottom:12pt; text-indent:36pt; font-size:10pt;"><span style="font-family:Arial;">1.5</span><span style="width:4.1pt; font:7pt 'Times New Roman'; display:inline-block;">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Calibri;">&nbsp;&ldquo;User Guide&rdquo;</span><span style="font-family:Calibri; font-weight:normal;">&nbsp;means the vScription Transcribe Pro guide provided by VTEX to Client containing guidance on how to enjoy maximum performance from the Services.&nbsp;</span></h2>
-    <h2 style="margin-top:0pt; margin-left:18pt; margin-bottom:12pt; text-indent:36pt; text-align:justify; font-size:10pt;"><span style="font-family:Arial;">1.6</span><span style="width:4.1pt; font:7pt 'Times New Roman'; display:inline-block;">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Calibri;">&ldquo;Priority&rdquo;</span><span style="font-family:Calibri; font-weight:normal;">&nbsp;means the timeframe in which You desires to process different Voice File categories for its customers.</span><span style="font-family:Calibri; font-weight:normal;">&nbsp;&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">The Priority assigned to a given Voice File governs the Service Level that VTEX agrees to meet for that Voice File.&nbsp;</span></h2>
-    <h2 style="margin-top:0pt; margin-left:18pt; margin-bottom:12pt; text-indent:36pt; text-align:justify; font-size:10pt;"><span style="font-family:Arial;">1.7</span><span style="width:4.1pt; font:7pt 'Times New Roman'; display:inline-block;">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Calibri;">&ldquo;Services&rdquo;</span><span style="font-family:Calibri; font-weight:normal;">&nbsp;means the services for audio recording, routing, transcription and document delivery set forth on&nbsp;</span><u><span style="font-family:Calibri; font-weight:normal;">Schedule A</span></u><span style="font-family:Calibri; font-weight:normal;">&nbsp;of this Agreement.&nbsp;</span></h2>
-    <h2 style="margin-top:0pt; margin-left:18pt; margin-bottom:12pt; text-indent:36pt; text-align:justify; font-size:10pt;"><span style="font-family:Arial;">1.8</span><span style="width:4.1pt; font:7pt 'Times New Roman'; display:inline-block;">&nbsp;&nbsp;&nbsp;</span><span style="font-family:Calibri;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="font-family:Calibri;">&ldquo;Service Levels&rdquo;</span><span style="font-family:Calibri; font-weight:normal;">&nbsp;means the availability, reliability and capacity attributes of the Services that VTEX shall provide to You, as set forth on&nbsp;</span><u><span style="font-family:Calibri; font-weight:normal;">Schedule A</span></u><span style="font-family:Calibri; font-weight:normal;">&nbsp;of this Agreement.</span></h2>
-    <h2 style="margin-top:0pt; margin-left:21.3pt; margin-bottom:12pt; text-indent:35.4pt; text-align:justify; font-size:10pt;"><span style="font-family:Arial;">1.9</span><span style="width:1.4pt; font:7pt 'Times New Roman'; display:inline-block;">&nbsp;</span><span style="font-family:Calibri;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="font-family:Calibri;">&ldquo;Transcript&rdquo;&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">means the file or document that result from the conversion of Voice Files into text or data by personnel of Client or a third party authorized by Client.</span></h2>
-    <h2 style="margin-top:0pt; margin-left:18pt; margin-bottom:12pt; text-indent:36pt; text-align:justify; widows:0; orphans:0; font-size:10pt;"><span style="font-family:Arial;">1.10</span><span style="width:34.54pt; font:7pt 'Times New Roman'; display:inline-block;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="font-family:Calibri;">&ldquo;Users&rdquo;</span><span style="font-family:Calibri; font-weight:normal;">&nbsp;means the transcriptionists, dictators, administrative support staff and customer support staff authorized by Client to access and utilizes the Services.</span><span style="font-family:Calibri; font-weight:normal;">&nbsp;&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">Additionally, &ldquo;Users&rdquo; shall also include any authorized third party that Client provides VTEX with written notice of prior to such authorized party&rsquo;s access to, and utilization of, the Services.</span></h2>
-    <h2 style="margin-top:0pt; margin-left:18pt; margin-bottom:12pt; text-indent:36pt; text-align:justify; widows:0; orphans:0; font-size:10pt;"><span style="font-family:Arial;">1.11</span><span style="width:34.54pt; font:7pt 'Times New Roman'; display:inline-block;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="font-family:Calibri;">&ldquo;Voice File&rdquo;</span><span style="font-family:Calibri; font-weight:normal;">&nbsp;means dictated audio transferred electronically to the vScription for processing into text or data.</span></h2>
-    <h2 style="margin-top:0pt; margin-left:18pt; margin-bottom:12pt; text-indent:36pt; text-align:justify; font-size:10pt;"><span style="font-family:Arial;">1.12</span><span style="width:34.54pt; font:7pt 'Times New Roman'; display:inline-block;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="font-family:Calibri;">&ldquo;Workload&rdquo;</span><span style="font-family:Calibri; font-weight:normal;">&nbsp;means the quantity and characteristics of audio generated by You and its Users.</span></h2>
-    <h2 style="margin-top:0pt; margin-left:18pt; margin-bottom:12pt; text-indent:36pt; text-align:justify; font-size:10pt;"><span style="font-family:Arial;">1.13</span><span style="width:34.54pt; font:7pt 'Times New Roman'; display:inline-block;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="font-family:Calibri;">&ldquo;Scope of Work (SOW)&rdquo;&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">means a document created by VTEX in conjunction with You to quantify and clarify the implementation work to be performed as part of this agreement.</span></h2>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; widows:0; orphans:0; font-size:10pt;"><strong><span style="font-family:Calibri;">2.0&nbsp;</span></strong><span style="width:20.93pt; display:inline-block;">&nbsp;</span><strong><span style="font-family:Calibri;">SERVICES</span></strong></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; widows:0; orphans:0; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-indent:36pt; text-align:justify; widows:0; orphans:0; font-size:10pt;"><strong><span style="font-family:Calibri;">2.1</span></strong><span style="width:23.19pt; text-indent:0pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri;">VTEX covenants and agrees to make available to Client the Services set forth on&nbsp;</span><u><span style="font-family:Calibri;">Schedule A</span></u><span style="font-family:Calibri;">&nbsp;attached to this Agreement.&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; widows:0; orphans:0; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-indent:36pt; text-align:justify; widows:0; orphans:0; font-size:10pt;"><strong><span style="font-family:Calibri;">2.2</span></strong><span style="width:23.19pt; text-indent:0pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri;">As agreed with Client, equipment may be located at VTEX&rsquo;s site, at Client&rsquo;s site, or a third party site selected by VTEX.</span><span style="font-family:Calibri;">&nbsp;&nbsp;</span><span style="font-family:Calibri;">If equipment owned by VTEX is to be located at a Client site, Client hereby grants to VTEX a non-exclusive license to place such machines in agreed upon areas, to enter into Client&rsquo;s site during regular business hours and to place, service or remove such equipment at any time during the term of this Agreement and for a period of thirty (30) days following termination of this Agreement.</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-indent:36pt; text-align:justify; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-indent:36pt; text-align:justify; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><strong><span style="font-family:Calibri; letter-spacing:-0.15pt;">2.3</span></strong><span style="width:23.19pt; text-indent:0pt; display:inline-block;">&nbsp;</span><u><span style="font-family:Calibri; letter-spacing:-0.15pt;">Software as a Service License</span></u><span style="font-family:Calibri; letter-spacing:-0.15pt;">.</span><span style="font-family:Calibri; letter-spacing:-0.15pt;">&nbsp;&nbsp;</span><span style="font-family:Calibri; letter-spacing:-0.15pt;">Through the use of software applications (the &ldquo;Applications&rdquo;) hosted on the&nbsp;</span><span style="font-family:Calibri;">vScription Transcribe Pro platform and made available by means of the Internet, Client</span><span style="font-family:Calibri; letter-spacing:-0.15pt;">&nbsp;shall have the ability to access the vScription Transcribe Pro consistent with the Services described in this Agreement.</span><span style="font-family:Calibri; letter-spacing:-0.15pt;">&nbsp;&nbsp;</span><span style="font-family:Calibri; letter-spacing:-0.15pt;">Subject to the terms and conditions of this Paragraph 2.3 and contingent upon payment by Client of the fees set forth on&nbsp;</span><u><span style="font-family:Calibri; letter-spacing:-0.15pt;">Schedule B</span></u><span style="font-family:Calibri; letter-spacing:-0.15pt;">, VTEX hereby grants to Client for the term of this Agreement a non-transferable, non-exclusive limited right of access to, and use of, the Applications.</span></p>
-    <p style="margin-top:0pt; margin-left:108pt; margin-bottom:0pt; text-indent:-108pt; text-align:justify; page-break-inside:avoid; font-size:10pt;"><span style="font-family:Calibri; letter-spacing:-0.15pt;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-left:108pt; margin-bottom:0pt; text-indent:-36pt; text-align:justify; page-break-inside:avoid; font-size:10pt;"><strong><span style="font-family:Calibri; letter-spacing:-0.15pt;">2.3.1</span></strong><span style="width:15.45pt; text-indent:0pt; display:inline-block;">&nbsp;</span><u><span style="font-family:Calibri; letter-spacing:-0.15pt;">Client&rsquo;s Obligations</span></u><span style="font-family:Calibri; letter-spacing:-0.15pt;">.</span><span style="font-family:Calibri; letter-spacing:-0.15pt;">&nbsp;&nbsp;</span><span style="font-family:Calibri; letter-spacing:-0.15pt;">With respect to its use of the Applications, Client, at its own cost and expense, shall:</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; page-break-inside:avoid; font-size:10pt;"><span style="font-family:Calibri; letter-spacing:-0.15pt;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-left:144pt; margin-bottom:0pt; text-indent:-36pt; text-align:justify; page-break-inside:avoid; font-size:10pt;"><span style="font-family:Calibri; letter-spacing:-0.15pt;">a)</span><span style="width:28.18pt; text-indent:0pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri; letter-spacing:-0.15pt;">not permit any person or entity, other than the authorized personnel of You or a third party authorized by Client, to use or gain access to the Applications and shall provide reasonable security devices to protect against unauthorized usage;</span></p>
-    <p style="margin-top:0pt; margin-left:144pt; margin-bottom:0pt; text-align:justify; page-break-inside:avoid; font-size:10pt;"><span style="font-family:Calibri; letter-spacing:-0.15pt;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-left:144pt; margin-bottom:0pt; text-indent:-36pt; text-align:justify; page-break-inside:avoid; font-size:10pt;"><span style="font-family:Calibri; letter-spacing:-0.15pt;">b)</span><span style="width:27.71pt; text-indent:0pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri; letter-spacing:-0.15pt;">not adapt the Applications in any way or use it to create a derivative work (other than reports that are transcribed or edited using the Applications); and</span></p>
-    <p style="margin-top:0pt; margin-left:144pt; margin-bottom:0pt; text-align:justify; page-break-inside:avoid; font-size:10pt;"><span style="font-family:Calibri; letter-spacing:-0.15pt;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-left:144pt; margin-bottom:0pt; text-indent:-36pt; text-align:justify; page-break-inside:avoid; font-size:10pt;"><span style="font-family:Calibri; letter-spacing:-0.15pt;">c)</span><span style="width:28.74pt; text-indent:0pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri; letter-spacing:-0.15pt;">not remove, obscure, or alter VTEX&rsquo;s proprietary notices, trademarks, or other proprietary rights notices affixed or contained in the Applications.</span></p>
-    <p style="margin-top:0pt; margin-left:144pt; margin-bottom:0pt; text-align:justify; page-break-inside:avoid; font-size:10pt;"><span style="font-family:Calibri; letter-spacing:-0.15pt;">&nbsp;</span></p>
-    <ol class="awlist1" start="2" style="margin:0pt; padding-left:0pt;" type="1">
-        <li style="margin-left:108pt; text-indent:-36pt; text-align:justify; page-break-inside:avoid; font-family:Calibri; font-size:10pt; font-weight:bold; letter-spacing:-0.15pt;"><span style="width:15.45pt; font:7pt 'Times New Roman'; display:inline-block;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><u><span style="font-weight:normal;">Ownership</span></u><span style="font-weight:normal;">.</span><span style="font-weight:normal;">&nbsp;&nbsp;</span><span style="font-weight:normal;">The Applications are the exclusive property of VTEX, which shall retain all right, title and interest in and to the Applications, including, without limitation, the intellectual property rights and any other rights under Canadian and international copyright, patent, trademark, trade secret and other law.</span><span style="font-weight:normal;">&nbsp;&nbsp;</span></li>
-    </ol>
-    <p style="margin-top:0pt; margin-left:72pt; margin-bottom:0pt; text-align:justify; page-break-inside:avoid; font-size:10pt;"><span style="font-family:Calibri; letter-spacing:-0.15pt;">&nbsp;</span></p>
-    <ol class="awlist2" start="3" style="margin:0pt; padding-left:0pt;" type="1">
-        <li style="margin-left:108pt; text-indent:-36pt; text-align:justify; page-break-inside:avoid; font-family:Calibri; font-size:10pt; font-weight:bold; letter-spacing:-0.15pt;"><span style="width:15.45pt; font:7pt 'Times New Roman'; display:inline-block;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><u><span style="font-weight:normal;">Use of Application by Client Personnel or Third Parties Authorized by Client.</span></u><span style="font-weight:normal;">&nbsp;&nbsp;</span><span style="font-weight:normal;">Client acknowledges and agrees that VTEX shall not be liable for the misuse (including but not limited to unauthorized disclosures) of Confidential Information by Client or any authorized third party given access to the Applications by Client.</span></li>
-    </ol>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-indent:36pt; text-align:justify; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><strong><span style="font-family:Calibri;">3.0</span></strong><span style="width:23.19pt; display:inline-block;">&nbsp;</span><strong><span style="font-family:Calibri;">CLIENT RESPONSIBILITIES.</span></strong></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="width:36pt; display:inline-block;">&nbsp;</span><strong><span style="font-family:Calibri;">3.1</span></strong><span style="width:23.19pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri;">Client shall assume primary responsibility for the optional transmission and integration of demographic information into the Services. Client shall communicate to VTEX the method and product(s) which Client intends to use to effect such transmission and integration.</span><span style="font-family:Calibri;">&nbsp;&nbsp;</span><span style="font-family:Calibri;">VTEX, in turn, agrees to publish for You a specification by which admission, discharge, transfer (&ldquo;ADT&rdquo;) information can be transmitted into the Services and by which Transcripts can be up-loaded back into Client&rsquo;s information system(s).</span><span style="font-family:Calibri;">&nbsp;&nbsp;</span><span style="font-family:Calibri;">VTEX will provide such specifications to Client at no charge. If Client requests that VTEX provide additional system integration services, VTEX will provide a price quotation for such work on a job-by-job basis.</span><span style="font-family:Calibri;">&nbsp;&nbsp;</span><span style="font-family:Calibri;">Integration services shall at all times be represented as a separate line item charge, non-inclusive of training and set-up fees and pre-payment of transaction charges.</span><span style="font-family:Calibri;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-indent:36pt; text-align:justify; font-size:10pt;"><strong><span style="font-family:Calibri;">3.2</span></strong><span style="width:23.19pt; text-indent:0pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri;">Client shall provide adequate connectivity bandwidth to permit Users to access the Services.</span><span style="font-family:Calibri;">&nbsp;&nbsp;</span><span style="font-family:Calibri;">Client recognizes and agrees that different connectivity levels will result in different performance levels for end users.</span><span style="font-family:Calibri;">&nbsp;&nbsp;</span><span style="font-family:Calibri;">Client is required to support its own Internet, Intranet, and firewall issues.</span><span style="font-family:Calibri;">&nbsp;&nbsp;</span><span style="font-family:Calibri;">VTEX personnel are only responsible for issues residing in the Data Center or connectivity issues that result from the Data Center.</span><span style="font-family:Calibri;">&nbsp;&nbsp;</span><span style="font-family:Calibri;">VTEX personnel are not required to support Client with general Internet outages or technical issues.&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-indent:36pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-indent:36pt; text-align:justify; font-size:10pt;"><strong><span style="font-family:Calibri;">3.3</span></strong><span style="font-family:Calibri;">&nbsp;</span><span style="width:20.93pt; text-indent:0pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri;">Client shall provide full support for all Client workstations that are utilized by users of the Services.</span><span style="font-family:Calibri;">&nbsp;&nbsp;</span><span style="font-family:Calibri;">VTEX will not support Client hardware or software at any time.</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-indent:36pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-indent:36pt; text-align:justify; font-size:10pt;"><strong><span style="font-family:Calibri;">3.4</span></strong><span style="width:23.19pt; text-indent:0pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri;">Client will provide reasonable access to and cooperation with VTEX to assure a successful implementation of the Services.</span><span style="font-family:Calibri;">&nbsp;&nbsp;</span><span style="font-family:Calibri;">Prior to the commencement of Services, Client and VTEX may be required to enter into a Client Project Plan outlining, among other things, Your implementation plan and Scope of Work depending on the scope of the implementation.&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-indent:36pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-indent:36pt; text-align:justify; font-size:10pt;"><strong><span style="font-family:Calibri;">3.5</span></strong><span style="width:23.19pt; text-indent:0pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri;">VTEX will register all users and, after completion of the implementation phase, VTEX will administer all moves, adds and changes to the Users unless other arrangements have been made.</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-indent:36pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-indent:36pt; text-align:justify; font-size:10pt;"><strong><span style="font-family:Calibri;">3.6</span></strong><span style="width:23.19pt; text-indent:0pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri;">VTEX will maintain all responsibility for managing report turnaround, job tracking and other workflow management or administrative work functions unless other arrangements have been made to have VTEX handle administration. VTEX will both have access to statistics required to reconcile billing as needed.</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-indent:36pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-indent:36pt; text-align:justify; font-size:10pt;"><strong><span style="font-family:Calibri;">3.7</span></strong><span style="width:23.19pt; text-indent:0pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri;">Client will maintain all responsibility for document distribution after completed Transcriptions are awaiting download on vScription Transcribe Pro.</span><span style="font-family:Calibri;">&nbsp;&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-indent:36pt; text-align:justify; font-size:10pt;"><strong><span style="font-family:Calibri;">3.8</span></strong><span style="width:23.19pt; text-indent:0pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri;">Client shall provide its clerical and/or administrative staff with, or ensure that the transcription staff of its authorized third parties have, the minimum standard equipment, as determined by VTEX, to utilize the Services (see&nbsp;</span><u><span style="font-family:Calibri;">Schedule A</span></u><span style="font-family:Calibri;">).&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-indent:36pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-indent:36pt; text-align:justify; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><strong><span style="font-family:Calibri;">3.9</span></strong><span style="width:23.19pt; text-indent:0pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri;">When dictation originates from recording systems residing at Client&rsquo;s site that are approved by VTEX, Client will upload Voice files to the vScription Transcribe Pro platform in accordance with the procedures, specifications, and/or delivery tools that are published by VTEX.</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-indent:36pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-indent:36pt; text-align:justify; font-size:10pt;"><strong><span style="font-family:Calibri;">3.10</span></strong><span style="width:18.12pt; text-indent:0pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri;">Client (or Client&rsquo;s designated representative) will provide First Level Client support to Users of the Services, including transcription staff or the transcription staff of any authorized third party; provided that Client must notify VTEX in writing of any such authorized third party.</span><span style="font-family:Calibri;">&nbsp;&nbsp;</span><span style="font-family:Calibri;">Only authorized technical or managerial staff will have access to Second Level support.</span><span style="font-family:Calibri;">&nbsp;&nbsp;</span><span style="font-family:Calibri;">Client&rsquo;s support staff will be able to interrogate Client data resident on VTEX&apos;s user and job database information through Web-based tools that are provided as part of the Services.</span><span style="font-family:Calibri;">&nbsp;&nbsp;</span><span style="font-family:Calibri;">In the event of complex problems that cannot be answered by a trained Client staff member, Client may invoke VTEX&apos;s Second Level support facilities.</span><strong><span style="font-family:Calibri;">&nbsp;</span></strong></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-indent:36pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-indent:36pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><strong><span style="font-family:Calibri;">4.0</span></strong><span style="width:23.19pt; display:inline-block;">&nbsp;</span><strong><span style="font-family:Calibri;">VTEX OBLIGATIONS.</span></strong></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; widows:0; orphans:0; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; widows:0; orphans:0; font-size:10pt;"><span style="width:36pt; display:inline-block;">&nbsp;</span><strong><span style="font-family:Calibri;">4.1</span></strong><span style="width:23.19pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri;">VTEX shall provide the Services in accordance with the Service Levels for Client&rsquo;s Workload and/or Requirements.</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; widows:0; orphans:0; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; widows:0; orphans:0; font-size:10pt;"><span style="width:36pt; display:inline-block;">&nbsp;</span><strong><span style="font-family:Calibri;">4.2</span></strong><span style="width:23.19pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri;">VTEX shall provide support as needed to You throughout the term of the agreement as set in Schedule A</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; widows:0; orphans:0; font-size:10pt;"><br style="page-break-before:always; clear:both;"></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; widows:0; orphans:0; font-size:10pt;"><strong><span style="font-family:Calibri;">5.0</span></strong><span style="width:23.19pt; display:inline-block;">&nbsp;</span><strong><span style="font-family:Calibri;">PAYMENT.</span></strong></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-indent:36pt; widows:0; orphans:0; font-size:10pt;"><strong><span style="font-family:Calibri;">&nbsp;</span></strong></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-indent:36pt; text-align:justify; widows:0; orphans:0; font-size:10pt;"><strong><span style="font-family:Calibri;">5.1</span></strong><span style="width:23.19pt; text-indent:0pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri;">Client will pay VTEX in accordance with the pricing and payment terms set forth on&nbsp;</span><u><span style="font-family:Calibri;">Schedule B</span></u><span style="font-family:Calibri;">.&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-indent:36pt; text-align:justify; widows:0; orphans:0; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-indent:36pt; text-align:justify; font-size:10pt;"><strong><span style="font-family:Calibri;">5.2</span></strong><span style="width:23.19pt; text-indent:0pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri;">Invoices will be generated and delivered to You bi-monthly and will reflect previous calendar bi-monthly transactions.</span><span style="font-family:Calibri;">&nbsp;&nbsp;</span><span style="font-family:Calibri;">For billing purposes, a calendar month begins at 12:00 a.m. Central Time on the first of the month and ends at 11:59 p.m. Central Time. Bi-monthly periods are from the 1</span><span style="font-family:Calibri; font-size:6.67pt;"><sup>st</sup></span><span style="font-family:Calibri;">&nbsp;of the month to the end of day (23:59) on the 14</span><span style="font-family:Calibri; font-size:6.67pt;"><sup>th</sup></span><span style="font-family:Calibri;">&nbsp;of the month and the from the start of day (00:00) on the 15</span><span style="font-family:Calibri; font-size:6.67pt;"><sup>th</sup></span><span style="font-family:Calibri;">&nbsp;to the end of day of the last day or the month. Invoices shall include a detailed usage report. Exception for this will be if there is less than 100 minutes transcribed in the period. In that case the total will be added to the next billing period.</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-indent:36pt; text-align:justify; font-size:10pt;"><strong><span style="font-family:Calibri;">5.3</span></strong><span style="width:23.19pt; text-indent:0pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri;">Payment is due and payable within thirty (14) days after the invoice date.</span><span style="font-family:Calibri;">&nbsp;&nbsp;</span><span style="font-family:Calibri;">All amounts that are not paid by Client when due shall be subject to a late charge equal to one percent (1%) per month until paid, or, if less, the maximum amount allowed by applicable law.</span><span style="font-family:Calibri;">&nbsp;&nbsp;</span><span style="font-family:Calibri;">In the event that any amount due hereunder is not paid within thirty (30) days after the invoice date, VTEX reserves the right to suspend Services until such delinquency is corrected and may terminate this Agreement upon expiration of the cure period set forth in Section 9.2.</span><span style="font-family:Calibri;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="font-family:Calibri;">Client shall be responsible for any and all costs of collection, including reasonable attorney&apos;s fees and expenses.</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-indent:36pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-indent:36pt; text-align:justify; font-size:10pt;"><strong><span style="font-family:Calibri;">5.4</span></strong><span style="width:23.19pt; text-indent:0pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri;">If, in the event Client terminates this Agreement or is in default of this Agreement for non-payment prior to the end of the Initial Term or any Renewal Term, Client shall be obligated to pay for the use of all Services through the date of termination.</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-indent:36pt; text-align:justify; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-indent:36pt; text-align:justify; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><strong><span style="font-family:Calibri;">5.5</span></strong><span style="width:23.19pt; text-indent:0pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri;">Client covenants and agrees to provide VTEX with a copy of any applicable Client tax exemption certificates.</span><span style="font-family:Calibri;">&nbsp;&nbsp;</span><span style="font-family:Calibri;">In the event that any sales, use or other tax is imposed on the Services, training, system integration or other fees, Client agrees to be responsible for and to bear the burden of all such taxes, including but not limited to any sales tax, transaction tax, excise tax, seller privilege tax, gross receipts tax, Client levy tax, use tax, data processing tax or similar tax or fee.</span><span style="font-family:Calibri;">&nbsp;&nbsp;</span><span style="font-family:Calibri;">In the event that VTEX pays such taxes on Client&apos;s behalf, Client agrees to reimburse VTEX in full for such taxes.</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><br style="page-break-before:always; clear:both;"></p>
-    <h1 style="margin-top:0pt; margin-bottom:12pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">6.0</span><span style="width:23.19pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri;">WARRANTY; DISCLAIMER OF LIABILITY</span></h1>
-    <h2 style="margin-top:0pt; margin-bottom:12pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri; font-weight:normal;">VTEX warrants that the Services will be performed in a professional and workmanlike manner in material compliance with the Service Levels specified on Schedule A.</span><span style="font-family:Calibri; font-weight:normal;">&nbsp;&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">EXCEPT AS EXPRESSLY PROVIDED HEREIN, THE SERVICES ARE PROVIDED &ldquo;AS IS&rdquo; AND VTEX HEREBY DISCLAIMS ALL OTHER WARRANTIES, EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.</span><span style="font-family:Calibri; font-weight:normal;">&nbsp;&nbsp;</span></h2>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span><span style="font-family:Calibri;">VTEX warrants and agrees that any software provided pursuant to the Services will be free of any and all computer viruses and that VTEX has taken all reasonable steps to ensure that such software is free from such viruses.</span><span style="font-family:Calibri;">&nbsp;&nbsp;</span><span style="font-family:Calibri;">In the event VTEX becomes aware of any such viruses and/or destructive routines, VTEX will provide notice to Client and immediately make available assistance and corrections to such software and any affected parts of Client&rsquo;s computer system as a result of such viruses/or destructive routines.</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <h2 style="margin-top:0pt; margin-bottom:12pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri; font-weight:normal;">EXCEPT AS EXPRESSLY PROVIDED IN THIS AGREEMENT, IN NO EVENT SHALL VTEX BE LIABLE FOR ANY CONSEQUENTIAL, SPECIAL, INCIDENTAL, OR INDIRECT DAMAGES, HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, ARISING OUT OF THIS AGREEMENT.</span><span style="font-family:Calibri; font-weight:normal;">&nbsp;&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">THESE LIMITATIONS SHALL APPLY NOTWITHSTANDING ANY FAILURE OF ESSENTIAL PURPOSE OF ANY LIMITED REMEDY.</span><span style="font-family:Calibri; font-weight:normal;">&nbsp;&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">EXCEPT AS EXPRESSLY PROVIDED IN THIS AGREEMENT, IN NO EVENT WILL VTEX&rsquo;S LIABILITY HEREUNDER EXCEED THE PAYMENTS RECEIVED BY VTEX UNDER THIS AGREEMENT DURING THE SIX (6) MONTH PERIOD PRECEDING THE EVENT GIVING RISE TO SUCH LIABILITY.</span></h2>
-    <h1 style="margin-top:0pt; margin-bottom:12pt; text-align:justify; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">7.0</span><span style="width:23.19pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri;">RELATIONSHIP OF THE PARTIES.</span></h1>
-    <h1 style="margin-top:0pt; margin-bottom:12pt; text-indent:36pt; text-align:justify; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">7.1</span><span style="width:23.19pt; text-indent:0pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">The Parties agree that nothing shall prevent VTEX from providing services that are identical or similar to the Services to any other party or entity.</span><span style="font-family:Calibri; font-weight:normal;">&nbsp;&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">Similarly, nothing shall prevent Client from using services from another vendor that are similar to the Services offered by VTEX.</span></h1>
-    <h1 style="margin-top:0pt; margin-bottom:12pt; text-indent:36pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">7.2</span><span style="width:23.19pt; text-indent:0pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">The Parties are independent contractors, and this Agreement will not be construed to create or evidence a partnership, joint venture, agency or franchise relationship between them.</span><span style="font-family:Calibri; font-weight:normal;">&nbsp;&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">Neither Party will represent itself to be a partner, agent or franchisee of the other or enter into an agreement or assume liability on behalf of the other or in the other&apos;s name.</span></h1>
-    <h1 style="margin-top:0pt; margin-bottom:12pt; text-indent:36pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">7.3</span><span style="width:23.19pt; text-indent:0pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">VTEX and/or VTEX&apos;s licensors, as appropriate, retain all right, title, and interest in and to the Services and copyrights and trademarks associated with the Services, but shall not have any right, title or interest in Client&rsquo;s Confidential Information.</span><span style="font-family:Calibri; font-weight:normal;">&nbsp;&nbsp;</span></h1>
-    <h1 style="margin-top:0pt; margin-bottom:12pt; text-indent:36pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">7.4</span><span style="width:23.19pt; text-indent:0pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">Client, and its end user customers, retain all right, title, and interest in and to the Voice Files and the Transcripts. VTEX is entitled to derive and use statistics related to the Voice Files and the Transcripts, including but not limited to, the use of such statistics for improvement of the Services.</span><span style="font-family:Calibri; font-weight:normal;">&nbsp;&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">Such statistics shall not be deemed to be Confidential Information.</span></h1>
-    <h1 style="margin-top:0pt; margin-bottom:12pt; text-indent:36pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">7.5</span><span style="width:23.19pt; text-indent:0pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">All intellectual property rights in the Services, including refinements to the Services made with the active involvement of You, shall vest in VTEX.</span><span style="font-family:Calibri; font-weight:normal;">&nbsp;&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">Except as expressly provided herein, each Party shall retain all rights, title and interest in and to its Confidential Information, patent rights, copyrights, trademarks and trade names, designs, drawings, formulas or other data, photographs, literature, and sales aids of every kind provided or used hereunder, and no licenses to any of the foregoing shall be implied.</span></h1>
-    <h1 style="margin-top:0pt; margin-bottom:12pt; text-indent:36pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">7.6</span><span style="width:23.19pt; text-indent:0pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">Neither party shall have the right to issue press releases or other advertising, marketing or publicity (including without limitation the Internet or any online method) regarding this Agreement or the relationship between the parties without prior written approval of the other Party&rsquo;s official marketing representative, which shall not be unreasonably withheld.&nbsp;</span></h1>
-    <h1 style="margin-top:0pt; margin-bottom:12pt; text-align:justify; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">8.0</span><span style="width:23.19pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri;">CONFIDENTIALITY.&nbsp;</span></h1>
-    <h1 style="margin-top:0pt; margin-bottom:12pt; text-indent:36pt; text-align:justify; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">8.1</span><span style="width:23.19pt; text-indent:0pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">Each Party shall treat as confidential all Confidential Information of the other Party, shall not use such Confidential Information except as set forth herein, and shall use commercially reasonable efforts not to disclose such Confidential Information to any third party, except as permitted under this Agreement.</span><span style="font-family:Calibri; font-weight:normal;">&nbsp;&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">Without limiting the foregoing, each of the parties shall use at least the same degree of care that it uses to prevent the disclosure of its own confidential information of like importance to prevent the disclosure of Confidential Information disclosed to it by the other Party under this Agreement.</span><span style="font-family:Calibri; font-weight:normal;">&nbsp;&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">Each Party shall promptly notify the other Party of any actual or suspected misuse or unauthorized disclosure of the other Party&apos;s Confidential Information.</span><span style="font-family:Calibri; font-weight:normal;">&nbsp;&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">For purposes of this Agreement, all Voice Files and Transcripts shall be deemed to be Confidential Information.</span><span style="font-family:Calibri; font-weight:normal;">&nbsp;&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">Client shall be responsible for ensuring the compliance by all of its personnel, and authorized third parties given access to the Applications by Client, with the confidentiality provisions of this Section 8.</span></h1>
-    <h1 style="margin-top:0pt; margin-bottom:12pt; text-indent:36pt; text-align:justify; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">8.2</span><span style="width:23.19pt; text-indent:0pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">Notwithstanding the foregoing, neither Party shall have liability to the other with regard to any use or disclosure of Confidential Information of the other which the receiving Party can prove: (a) was in the public domain at the time it was disclosed or has entered the public domain through no fault of the receiving Party; (b) was known to the receiving Party, without restriction, at the time of disclosure; (c) is disclosed with the prior written approval of the disclosing Party; (d) was independently developed by the receiving Party without any use of the Confidential Information; (e) became known to the receiving Party, without restriction, from a source other than the disclosing Party, without breach of this Agreement by the receiving Party and otherwise not in violation of the disclosing Party&apos;s rights; (f) is disclosed generally to third parties by the disclosing Party without restrictions similar to those contained in this Agreement; or (g) is disclosed pursuant to the order or require</span><span style="font-family:Calibri; font-weight:normal;">&shy;</span><span style="font-family:Calibri; font-weight:normal;">ment of a court, admin</span><span style="font-family:Calibri; font-weight:normal;">&shy;</span><span style="font-family:Calibri; font-weight:normal;">istrative agency, or other governmental body; provided, however, that the receiving Party shall provide prompt notice thereof to the disclosing Party to enable the disclosing Party to seek a protective order or otherwise prevent or restrict such disclosure.&nbsp;</span></h1>
-    <h1 style="margin-top:0pt; margin-bottom:12pt; text-indent:35.45pt; text-align:justify; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">8.3</span><span style="width:23.74pt; text-indent:0pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">To the extent required by the provisions of any provincial or federal statute or regulations now in force or which may hereafter be in force VTEX agrees to maintain the confidentiality of any Confidential Information obtained from Client, pursuant to this Agreement Client understands and agrees that VTEX provides Internet-based dictation, speech recognition, and transcription processing services and is not in the business of maintaining original records by or for Client and that data maintained by VTEX is a copy only.</span></h1>
-    <h1 style="margin-top:0pt; margin-bottom:12pt; text-indent:36pt; text-align:justify; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">8.4</span><span style="width:23.19pt; text-indent:0pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">Upon expiration or termination of this Agreement, each Party shall return all tangible Confidential Information received from the other Party.&nbsp;</span></h1>
-    <h1 style="margin-top:0pt; margin-bottom:12pt; text-indent:35.45pt; text-align:justify; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">8.5</span><span style="width:23.74pt; text-indent:0pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">VTEX will maintain a log of all activities of access to files uploaded by You as well as any text documents created from those voice files. This log will be maintained for a period of 180 days during an active term and if the agreement is terminated, VTEX will provide the full contents of the log to You. Client will have access to those logs from the vScription Transcribe Pro Administrator.</span></h1>
-    <h1 style="margin-top:0pt; margin-bottom:12pt; text-indent:35.45pt; text-align:justify; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">8.6</span><span style="width:23.74pt; text-indent:0pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">None of the voice files nor created text files will ever reside on an external workstation or storage device of VTEX employees nor it&rsquo;s transcriptionists.&nbsp;</span></h1>
-    <h1 style="margin-top:0pt; margin-bottom:12pt; text-indent:35.45pt; text-align:justify; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">8.7</span><span style="width:23.74pt; text-indent:0pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">Any Administrators or transcriptionist who may access Yours information will have an Information Managers agreement in place with VTEX who will in turn have an Information Managers agreement in place with You.</span></h1>
-    <h1 style="margin-top:0pt; margin-bottom:12pt; text-indent:35.45pt; text-align:justify; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">8.8</span><span style="width:23.74pt; text-indent:0pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">For Quality Assurance, approved employees of VTEX Voice Solutions may review completed documents. Any access to these documents is logged in the activity log and is for quality review only.</span></h1>
-    <h1 style="margin-top:0pt; margin-bottom:12pt; text-align:justify; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">9.0</span><span style="width:23.19pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri;">TERM AND TERMINATION.</span></h1>
-    <h1 style="margin-top:0pt; margin-bottom:12pt; text-indent:36pt; text-align:justify; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">9.1</span><span style="width:23.19pt; text-indent:0pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">This Agreement shall be effective for the Term specified on&nbsp;</span><u><span style="font-family:Calibri; font-weight:normal;">Schedule B</span></u><span style="font-family:Calibri; font-weight:normal;">&nbsp;attached hereto, unless terminated earlier pursuant to the provisions of Section 9.2.</span></h1>
-    <h1 style="margin-top:0pt; margin-bottom:12pt; text-indent:36pt; text-align:justify; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">9.2</span><span style="width:23.19pt; text-indent:0pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">If either Party materially defaults in the performance of any provision of this Agreement, the non-defaulting Party may give written notice to the defaulting Party by providing thirty (30) days to cure the default.</span><span style="font-family:Calibri; font-weight:normal;">&nbsp;&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">If the non-defaulting Party gives such notice and the default is not cured within the thirty (30) day period, the non-defaulting Party, in its sole discretion and in addition to any other rights, may choose to terminate this Agreement at the end of that period.</span></h1>
-    <h2 style="margin-top:0pt; margin-bottom:12pt; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">10.0</span><span style="font-family:Calibri; font-weight:normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="font-family:Calibri;">GENERAL.</span></h2>
-    <h1 style="margin-top:0pt; margin-bottom:12pt; text-indent:36pt; text-align:justify; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">10.1</span><span style="width:18.12pt; text-indent:0pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">This Agreement shall be governed by and interpreted in accordance with the laws of the Province of Manitoba, without reference to conflict of law provisions.&nbsp;</span></h1>
-    <h1 style="margin-top:0pt; margin-bottom:12pt; text-indent:36pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">10.2</span><span style="width:18.12pt; text-indent:0pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">No alteration, amendment, waiver, cancellation or any other change in any term or condition of this Agreement shall be valid or binding on either Party unless the same shall have been mutually assented to in writing by both parties.</span></h1>
-    <h1 style="margin-top:0pt; margin-bottom:12pt; text-indent:36pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">10.3</span><span style="width:18.12pt; text-indent:0pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">This Agreement may not be assigned by Client without the express written consent of VTEX and any attempted assignment without such consent shall be void.</span><span style="font-family:Calibri; font-weight:normal;">&nbsp;&nbsp;</span><span style="font-family:Calibri; font-weight:normal; letter-spacing:-0.15pt;">This Agreement shall be binding upon and shall be for the benefit of the Parties hereto and their respective permitted successors and assigns.</span></h1>
-    <h1 style="margin-top:0pt; margin-bottom:12pt; text-indent:36pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri; letter-spacing:-0.15pt;">10.4</span><span style="width:18.12pt; text-indent:0pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri;">&nbsp;&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">All disputes, claims, and/or requests for specific contractual performance, or other equitable relief, or damages or any other matters in question between the parties arising out of this agreement shall be submitted to binding arbitration, pursuant to provision of&nbsp;</span><em><span style="font-family:Calibri; font-weight:normal;">The Arbitration Act of Manitoba</span></em><span style="font-family:Calibri; font-weight:normal;">, as amended from time to time</span></h1>
-    <h1 style="margin-top:0pt; margin-bottom:12pt; text-indent:36pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">10.5</span><span style="width:18.12pt; text-indent:0pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">Neither party shall be responsible for failure to fulfill its obligations under this Agreement due to causes beyond its reasonable control.</span><span style="font-family:Calibri; font-weight:normal;">&nbsp;&nbsp;</span></h1>
-    <h1 style="margin-top:0pt; margin-bottom:12pt; text-indent:36pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">10.6</span><span style="width:18.12pt; text-indent:0pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">If any of the provisions of this Agreement are held to be invalid under any applicable statute or rule of law, they are, to that extent, deemed omitted.</span></h1>
-    <h1 style="margin-top:0pt; margin-bottom:12pt; text-indent:36pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">10.7</span><span style="width:18.12pt; text-indent:0pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">The waiver of one breach or default or any delay in exercising any rights shall not constitute a waiver of any subsequent breach or default.</span></h1>
-    <h1 style="margin-top:0pt; margin-bottom:12pt; text-indent:36pt; text-align:justify; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">10.8</span><span style="width:18.12pt; text-indent:0pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">Any notice required or permitted by this Agreement shall be in writing and shall be deemed given at the time it is deposited in the Canada Post Mail, postage prepaid, certified or registered mail, return receipt requested, overnight courier or by facsimile transmission addressed to the party to whom it is to be given as follows (or to such other address as either Party may from time to time provide by written notice given in accordance with the provisions of this paragraph):</span></h1>
-    <h2 style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri; font-weight:normal;">&nbsp;</span></h2>
-    <h2 style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="width:63pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">If to VTEX:</span><span style="width:2.99pt; display:inline-block;">&nbsp;</span><span style="width:36pt; display:inline-block;">&nbsp;</span><span style="width:36pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">VTEX Voice Solutions Inc.</span></h2>
-    <h2 style="margin-top:0pt; margin-left:144pt; margin-bottom:0pt; text-indent:36pt; font-size:10pt;"><span style="font-family:Calibri; font-weight:normal;">23-845 Dakota Street, Suite 317</span></h2>
-    <h2 style="margin-top:0pt; margin-left:144pt; margin-bottom:0pt; text-indent:36pt; font-size:10pt;"><span style="font-family:Calibri; font-weight:normal;">Winnipeg, MB, R2M 5M3</span></h2>
-    <h2 style="margin-top:0pt; margin-left:144pt; margin-bottom:0pt; font-size:10pt;"><span style="width:36pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">Fax #: (204) 253-2906</span></h2>
-    <h2 style="margin-top:0pt; margin-left:144pt; margin-bottom:0pt; font-size:10pt;"><span style="width:36pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">Attn:</span><span style="font-family:Calibri; font-weight:normal;">&nbsp;&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">Ryan Gaudet, Managing Director</span></h2>
-    <h2 style="margin-top:0pt; margin-left:144pt; margin-bottom:0pt; font-size:10pt;"><span style="width:36pt; display:inline-block;">&nbsp;</span></h2>
-    <h2 style="margin-top:0pt; margin-bottom:0pt; text-indent:36pt; font-size:10pt;"><span style="width:27pt; text-indent:0pt; display:inline-block;">&nbsp;</span></h2>
-    <h2 style="margin-top:0pt; margin-left:144pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri; font-weight:normal;">&nbsp;</span></h2>
-    <h2 style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri; font-weight:normal;">&nbsp;</span></h2>
-    <h2 style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="width:36pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri;">10.9</span><span style="width:18.12pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">Notwithstanding any other provision in this Agreement, if there occurs any Change of Law involving the transmission, transcription, or use of Confidential Information which results in a material adverse effect on the legitimate expectations of either party at the time such party entered into this Agreement, both parties agree to cooperate in making reasonable revisions to this Agreement to the minimum degree necessary in order to enable this Agreement, as revised, to fulfill, to the maximum extent possible, the legitimate expectations of both parties.</span><span style="font-family:Calibri; font-weight:normal;">&nbsp;&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">If the parties are unable to agree in making such revisions within thirty (30) days, then either party may terminate this Agreement upon giving the other thirty (30) days notice of termination.</span></h2>
-    <h2 style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri; font-weight:normal;">&nbsp;</span></h2>
-    <h2 style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="width:36pt; display:inline-block;">&nbsp;</span></h2>
-    <h2 style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></h2>
-    <h2 style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="width:36pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri;">10.10</span><span style="width:4.06pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">The terms and conditions contained herein, including all schedules and exhibits attached hereto, constitute the entire agreement between the parties and supersede all previous agreements and understandings, whether oral or written, between the parties hereto with respect to the subject matter hereof.</span></h2>
-    <h2 style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri; font-weight:normal;">&nbsp;</span></h2>
-    <h2 style="margin-top:0pt; margin-bottom:0pt; text-align:justify; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="width:36pt; display:inline-block;">&nbsp;</span></h2>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:14pt;"><br style="page-break-before:always; clear:both;"><strong><u><span style="font-family:Calibri;">SCHEDULE A</span></u></strong></p>
-    <h6 style="margin-top:0pt; margin-bottom:0pt; text-align:center; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">TRANSCRIPTION SERVICES</span><u><span style="font-family:Calibri;">&nbsp;</span></u></h6>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">The Services shall comprise:</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; page-break-after:avoid; font-size:10pt;"><strong><span style="font-family:Calibri;">Section 1.0 &ndash; Standard Services</span></strong></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><em><span style="font-family:Calibri;">&nbsp;</span></em></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><em><span style="font-family:Calibri;">a) Work routing</span></em></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">VTEX shall route Voice files to one or more transcriptionists assigned to You.</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><em><span style="font-family:Calibri;">b) Administrative Functionality</span></em></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">VTEX shall provide basic administration and reporting functionality through the vScription Transcribe Pro Administrator and Uploader, which will enable Client to upload voice files, check statuses, download transcribed reports, set-up business processes and report on Client data derived as a result of using Services.</span><span style="font-family:Calibri;">&nbsp;&nbsp;</span><span style="font-family:Calibri;">VTEX will provide the capability for Client to generate various reports, including the following:&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <ul style="margin:0pt; padding-left:0pt;" type="disc">
-        <li style="margin-left:18pt; text-align:justify; font-family:serif; font-size:10pt;"><span style="font-family:Calibri;">Reports permitting calculation of bills&nbsp;</span></li>
-        <li style="margin-left:18pt; text-align:justify; font-family:serif; font-size:10pt;"><span style="font-family:Calibri;">Other user-based reports added from time-to-time</span></li>
-    </ul>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><em><span style="font-family:Calibri;">c) Typing &amp; Editing interface</span></em></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">If at any point You wish to use the technology platform for their own transcription, VTEX will provide client access to one or more transcriptionists for You.</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><em><span style="font-family:Calibri;">d) Document Delivery</span></em></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">Where applicable, Transcripts will be delivered to Client location through the use of HTTPS and SSL/TLS encryption. More comprehensive document routing is available if required.</span><span style="font-family:Calibri;">&nbsp;&nbsp;</span><span style="font-family:Calibri;">Implementation, pricing and additional details for additional document routing will be addressed on&nbsp;</span><u><span style="font-family:Calibri;">Schedule B</span></u><span style="font-family:Calibri;">.&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><em><span style="font-family:Calibri;">e) File Storage</span></em></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">Voice Files and Transcripts can be accessed via vScription Transcribe Pro Administrator for up to</span><span style="font-family:Calibri;">&nbsp;&nbsp;</span><span style="font-family:Calibri;">14</span><span style="font-family:Calibri;">&nbsp;&nbsp;</span><span style="font-family:Calibri;">calendar days following the first time the completed transcription is downloaded or viewed by You.</span><span style="font-family:Calibri;">&nbsp;&nbsp;</span><span style="font-family:Calibri;">Retention time can be adjusted by your organization administrator as needed. Activity logs are retained for a default of 180 days.&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><strong><span style="font-family:Calibri;">&nbsp;</span></strong></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><strong><span style="font-family:Calibri;">Section 2.0 - Service Levels</span></strong></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">VTEX will offer the following service levels to Client:</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <table cellpadding="0" cellspacing="0" style="margin-left:23.4pt; border:0.75pt solid #000000; border-collapse:collapse;">
-        <tbody>
-            <tr>
-                <td style="width:92.7pt; border-right-style:solid; border-right-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; background-color:#e7e6e6;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><strong><span style="font-family:Calibri;">Medical Transcription</span></strong></p>
-                </td>
-                <td style="width:124.2pt; border-right-style:solid; border-right-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; background-color:#e7e6e6;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><strong><span style="font-family:Calibri;">Turnaround Time</span></strong></p>
-                </td>
-                <td style="width:170.05pt; border-left-style:solid; border-left-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; background-color:#e7e6e6;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><strong><span style="font-family:Calibri;">Notes:</span></strong></p>
-                </td>
-            </tr>
-            <tr>
-                <td style="width:92.7pt; border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">Single Speaker</span></p>
-                </td>
-                <td style="width:124.2pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">24-48 hours (1-3 business days)</span></p>
-                </td>
-                <td style="width:170.05pt; border-top-style:solid; border-top-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-                </td>
-            </tr>
-            <tr>
-                <td style="width:92.7pt; border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">Multiple Speakers</span></p>
-                </td>
-                <td style="width:124.2pt; border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">24-72 hours (1-3 business days)</span></p>
-                </td>
-                <td style="width:170.05pt; border-top-style:solid; border-top-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">VTEX reserves the right to exceed this turnaround time for any excessively long dictations or dictations with poor audio quality. We will notify You as soon as possible if this condition arises.</span></p>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <p style="margin-top:0pt; margin-left:18pt; margin-bottom:0pt; text-indent:-18pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><em><span style="font-family:Calibri;">a) Force Majeure</span></em></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">In the event that a national disaster, war, riot, or other Act of God beyond VTEX&rsquo;s reasonable control (&ldquo;force majeure&rdquo;) makes impossible the achievement of these Availability levels, the elapsed period during which such external factors exist shall be excluded from the availability calculations.</span><span style="font-family:Calibri;">&nbsp;&nbsp;</span><span style="font-family:Calibri;">During such periods, VTEX will make reasonable endeavors to attain availability levels that are as close to target service levels as possible.</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><em><span style="font-family:Calibri;">b) System Uptime</span></em></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><em><span style="font-family:Calibri;">&nbsp;</span></em></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">System Uptime is defined as the availability of Services less any scheduled maintenance that is communicated by VTEX to Client.</span><span style="font-family:Calibri;">&nbsp;&nbsp;</span><span style="font-family:Calibri;">When practical, VTEX shall schedule maintenance at non-peak Workload times and with not less than 48 hours notice to Client to minimize the interruption to normal work patterns of Client.</span><span style="font-family:Calibri;">&nbsp;&nbsp;</span><span style="font-family:Calibri;">VTEX shall be permitted to allocate not more than six hours per month for routine system maintenance.</span><span style="font-family:Calibri;">&nbsp;&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">System Uptime shall be segmented between two different categories of Services:</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">- Dictation Availability</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">- Workflow Availability</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">Category definition and downtime measurements are as follows:</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <table cellpadding="0" cellspacing="0" style="margin-left:23.4pt; border:0.75pt solid #000000; border-collapse:collapse;">
-        <tbody>
-            <tr>
-                <td style="width:79.2pt; border-right-style:solid; border-right-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; font-size:10pt;"><strong><span style="font-family:Calibri;">Category</span></strong></p>
-                </td>
-                <td style="width:205.2pt; border-right-style:solid; border-right-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; font-size:10pt;"><strong><span style="font-family:Calibri;">Definition</span></strong></p>
-                </td>
-                <td style="width:97.2pt; border-left-style:solid; border-left-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; font-size:10pt;"><strong><span style="font-family:Calibri;">Service Level Goal</span></strong></p>
-                </td>
-            </tr>
-            <tr>
-                <td style="width:79.2pt; border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">Workflow Availability</span></p>
-                </td>
-                <td style="width:205.2pt; border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">The ability for Client to access, administer and download within Services housed in a Data Center.&nbsp;</span></p>
-                </td>
-                <td style="width:97.2pt; border-top-style:solid; border-top-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; font-size:10pt;"><span style="font-family:Calibri;">99.9%</span></p>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">Latency or limitation of Services wherein Services are still available by definition above shall not be factored into measurements of downtime.</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><em><span style="font-family:Calibri;">c) Capacity</span></em></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">VTEX shall provide adequate storage space and workflow processing capacity to meet Client&rsquo;s Workload needs.</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; page-break-after:avoid; font-size:10pt;"><strong><span style="font-family:Calibri;">Section 3.0 - Second Level Support&nbsp;</span></strong></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">Second Level Support is intended to provide resolution for problems for which fully trained Client&rsquo;s support personnel cannot resolve.</span><span style="font-family:Calibri;">&nbsp;&nbsp;</span><span style="font-family:Calibri;">Client is responsible for First Level Support and support of Client&rsquo;s transcriptionist staff or the transcription staff of any authorized third party or transcription vendor, as well as support of Client&rsquo;s network and on-site hardware/software.</span><span style="font-family:Calibri;">&nbsp;&nbsp;</span><span style="font-family:Calibri;">Only authorized technical or managerial personnel will have access to Second Level Support.</span><span style="font-family:Calibri;">&nbsp;&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">The following procedures have been established for resolution of identified faults.</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><em><span style="font-family:Calibri;">a) Issue Reporting (Ticket Creation)</span></em></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">VTEX will provide designated Client support personnel the ability to report all issues not resolved by You in First Level Support to the VTEX Solutions Support Centre via a toll free telephone line (1-866-992-2994) or via email at support@vtexvsi.com.</span><span style="font-family:Calibri;">&nbsp;&nbsp;</span><span style="font-family:Calibri;">Second Level Support is provided as part of Your transactional price for use of vScription Transcribe Pro Platform.</span><span style="font-family:Calibri;">&nbsp;&nbsp;</span><span style="font-family:Calibri;">First Level Support is the responsibility of You.</span><span style="font-family:Calibri;">&nbsp;&nbsp;</span><span style="font-family:Calibri;">If VTEX receives issues deemed to be First Level Support, VTEX reserves the right to charge You prevailing rates for support services provided.</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">Issue reporting is available for both routine and critical support, 24 hours a day, 365 days a year.</span><span style="font-family:Calibri;">&nbsp;&nbsp;</span><span style="font-family:Calibri;">The VTEX Voice</span><span style="font-family:Calibri;">&nbsp;&nbsp;</span><span style="font-family:Calibri;">Solutions Support Centre will only accept calls or support emails from pre-approved, fully trained Client support representatives.</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><em><span style="font-family:Calibri;">b) Setting Issue priority</span></em></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">VTEX will allocate a priority (see Table 1: Issue designations) to the Fault which, in its judgment, best describes its effect on Your business. You should notify VTEX at the time of incident creation if there is a disagreement of the established and assigned priority.</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">Table 1: Issue designations</span></p>
-    <table cellpadding="0" cellspacing="0" style="width:473.25pt; margin-left:9.9pt; border:0.75pt solid #000000; border-collapse:collapse;">
-        <tbody>
-            <tr>
-                <td style="width:94.8pt; border-right-style:solid; border-right-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; background-color:#000000;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><strong><span style="font-family:Calibri;">Designation</span></strong></p>
-                </td>
-                <td style="width:70.5pt; border-right-style:solid; border-right-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; background-color:#000000;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><strong><span style="font-family:Calibri;">Priority</span></strong></p>
-                </td>
-                <td style="width:274.8pt; border-left-style:solid; border-left-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; background-color:#000000;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><strong><span style="font-family:Calibri;">Description</span></strong></p>
-                </td>
-            </tr>
-            <tr>
-                <td style="width:94.8pt; border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">Critical failure</span></p>
-                </td>
-                <td style="width:70.5pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">System Down</span></p>
-                </td>
-                <td style="width:274.8pt; border-top-style:solid; border-top-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">The service is not operational.&nbsp;</span></p>
-                </td>
-            </tr>
-            <tr>
-                <td style="width:94.8pt; border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">Important failure</span></p>
-                </td>
-                <td style="width:70.5pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">Normal</span></p>
-                </td>
-                <td style="width:274.8pt; border-top-style:solid; border-top-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">The system is impaired but operational.</span></p>
-                </td>
-            </tr>
-            <tr>
-                <td style="width:94.8pt; border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">Non-critical failure</span></p>
-                </td>
-                <td style="width:70.5pt; border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">Low</span></p>
-                </td>
-                <td style="width:274.8pt; border-top-style:solid; border-top-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">Normal working practice is unimpaired.</span></p>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><em><span style="font-family:Calibri;">c) Recording the Issue report</span></em></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">The VTEX support representative will ask for information about the Fault to obtain a clear description of its nature and the circumstances in which it occurred.</span><span style="font-family:Calibri;">&nbsp;&nbsp;</span><span style="font-family:Calibri;">Client representative should be prepared to provide the following information:</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">Company Name</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">Description of Problem</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">Contact Phone Number</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">Alternate Contact Phone Number</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">Address</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">E-Mail Address</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">Extension</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">Job Number(s) (if applicable)</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">Available Hours to Call</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">Details will be read back to the caller as an agreed summary of the problem. A VTEX representative will record the Fault into the VTEX support call tracking system known as &ldquo;Help Desk&rdquo; with the date and time set to the point at which VTEX acknowledged the Issue to You. This will be the time listed as &ldquo;received by&rdquo; on the Help Desk call record screen.</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">The following information will be logged at this point</span></p>
-    <ul style="margin:0pt; padding-left:0pt;" type="disc">
-        <li style="margin-left:9.6pt; padding-left:8.4pt; font-family:serif; font-size:10pt;"><span style="font-family:Calibri;">Date and time of call (Received by)</span></li>
-        <li style="margin-left:9.6pt; padding-left:8.4pt; font-family:serif; font-size:10pt;"><span style="font-family:Calibri;">Call Priority</span></li>
-        <li style="margin-left:9.6pt; padding-left:8.4pt; font-family:serif; font-size:10pt;"><span style="font-family:Calibri;">Details of caller&rsquo;s contact information and issue description</span></li>
-        <li style="margin-left:9.6pt; padding-left:8.4pt; font-family:serif; font-size:10pt;"><span style="font-family:Calibri;">Solutions offered initially</span></li>
-        <li style="margin-left:9.6pt; padding-left:8.4pt; font-family:serif; font-size:10pt;"><span style="font-family:Calibri;">Any other information relevant to the call&nbsp;</span></li>
-        <li style="margin-left:9.6pt; padding-left:8.4pt; font-family:serif; font-size:10pt;"><span style="font-family:Calibri;">Issue initially reported by VTEX</span></li>
-        <li style="margin-left:9.6pt; padding-left:8.4pt; font-family:serif; font-size:10pt;"><span style="font-family:Calibri;">Notification of faults</span></li>
-    </ul>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><em><span style="font-family:Calibri;">d) Issue report handling and escalation</span></em></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">Each Fault will have a Response Time recorded. Faults that are unresolved within the target Response Time will be escalated as shown in Table 3.</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">The Response Time will start as soon as the Fault has been logged. Should the problem recur, the original call will need to be reopened and the Response Time will apply from the time that the call is re-opened.&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; font-size:10pt;"><span style="font-family:Calibri;">Table 2: Issue report priorities &amp; Response times&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <div style="text-align:center;">
-        <table cellpadding="0" cellspacing="0" style="margin-right:auto; margin-left:auto; border:0.75pt solid #000000; border-collapse:collapse;">
-            <tbody>
-                <tr>
-                    <td style="width:75.75pt; border-right-style:solid; border-right-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; background-color:#000000;">
-                        <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><strong><span style="font-family:Calibri;">Priority</span></strong></p>
-                    </td>
-                    <td style="width:124.5pt; border-left-style:solid; border-left-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; background-color:#000000;">
-                        <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><strong><span style="font-family:Calibri;">Response Time</span></strong></p>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="width:75.75pt; border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                        <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">System Down</span></p>
-                    </td>
-                    <td style="width:124.5pt; border-top-style:solid; border-top-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                        <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">Within 1 hour (Usually &lt;10 mins)</span></p>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="width:75.75pt; border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                        <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">Normal</span></p>
-                    </td>
-                    <td style="width:124.5pt; border-top-style:solid; border-top-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                        <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">Within 4 hours</span></p>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="width:75.75pt; border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                        <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">Low</span></p>
-                    </td>
-                    <td style="width:124.5pt; border-top-style:solid; border-top-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                        <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">Within 24 hours</span></p>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="width:36pt; display:inline-block;">&nbsp;</span><span style="width:36pt; display:inline-block;">&nbsp;</span><span style="width:36pt; display:inline-block;">&nbsp;</span><span style="width:36pt; display:inline-block;">&nbsp;</span><span style="width:36pt; display:inline-block;">&nbsp;</span><span style="font-family:Calibri;">Table 3: Issue report escalations</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <div style="text-align:center;">
-        <table cellpadding="0" cellspacing="0" style="margin-right:auto; margin-left:auto; border:0.75pt solid #000000; border-collapse:collapse;">
-            <tbody>
-                <tr>
-                    <td style="width:80.2pt; border-right-style:solid; border-right-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; background-color:#000000;">
-                        <p style="margin-top:0pt; margin-bottom:0pt; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><strong><span style="font-family:Calibri;">Elapsed Time</span></strong></p>
-                    </td>
-                    <td style="width:70.2pt; border-right-style:solid; border-right-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; background-color:#000000;">
-                        <p style="margin-top:0pt; margin-bottom:0pt; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><strong><span style="font-family:Calibri;">Elapsed Time</span></strong></p>
-                    </td>
-                    <td style="width:79.2pt; border-right-style:solid; border-right-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; background-color:#000000;">
-                        <p style="margin-top:0pt; margin-bottom:0pt; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><strong><span style="font-family:Calibri;">Elapsed Time</span></strong></p>
-                    </td>
-                    <td style="width:161.2pt; border-left-style:solid; border-left-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; background-color:#000000;">
-                        <p style="margin-top:0pt; margin-bottom:0pt; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><strong><span style="font-family:Calibri;">Action</span></strong></p>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="width:80.2pt; border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; background-color:#000000;">
-                        <p style="margin-top:0pt; margin-bottom:0pt; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><strong><span style="font-family:Calibri;">System Down</span></strong></p>
-                    </td>
-                    <td style="width:70.2pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; background-color:#000000;">
-                        <p style="margin-top:0pt; margin-bottom:0pt; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><strong><span style="font-family:Calibri;">Normal</span></strong></p>
-                    </td>
-                    <td style="width:79.2pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; background-color:#000000;">
-                        <p style="margin-top:0pt; margin-bottom:0pt; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><strong><span style="font-family:Calibri;">Low</span></strong></p>
-                    </td>
-                    <td style="width:161.2pt; border-top-style:solid; border-top-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; background-color:#000000;">
-                        <p style="margin-top:0pt; margin-bottom:0pt; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><strong><span style="font-family:Calibri;">&nbsp;</span></strong></p>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="width:80.2pt; border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                        <p style="margin-top:0pt; margin-bottom:0pt; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">Start Time</span></p>
-                    </td>
-                    <td style="width:70.2pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                        <p style="margin-top:0pt; margin-bottom:0pt; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-                    </td>
-                    <td style="width:79.2pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                        <p style="margin-top:0pt; margin-bottom:0pt; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">Start Time</span></p>
-                    </td>
-                    <td style="width:161.2pt; border-top-style:solid; border-top-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                        <p style="margin-top:0pt; margin-bottom:0pt; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="width:80.2pt; border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                        <p style="margin-top:0pt; margin-bottom:0pt; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">Within 30 minutes</span></p>
-                    </td>
-                    <td style="width:70.2pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                        <p style="margin-top:0pt; margin-bottom:0pt; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">Within 2 hours</span></p>
-                    </td>
-                    <td style="width:79.2pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                        <p style="margin-top:0pt; margin-bottom:0pt; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">Within 8 Hours</span></p>
-                    </td>
-                    <td style="width:161.2pt; border-top-style:solid; border-top-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                        <p style="margin-top:0pt; margin-bottom:0pt; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">Attempt to troubleshoot and solve.</span></p>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="width:80.2pt; border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                        <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">At 1 Hour</span></p>
-                    </td>
-                    <td style="width:70.2pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                        <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">At 4 Hours</span></p>
-                    </td>
-                    <td style="width:79.2pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                        <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">At 16 Hours</span></p>
-                    </td>
-                    <td style="width:161.2pt; border-top-style:solid; border-top-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                        <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">Technical Support representative is notified of problem and updates operational contact.</span></p>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="width:80.2pt; border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                        <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">At 4 Hours</span></p>
-                    </td>
-                    <td style="width:70.2pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                        <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">At 8 Hours</span></p>
-                    </td>
-                    <td style="width:79.2pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                        <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">At 24 Hours</span></p>
-                    </td>
-                    <td style="width:161.2pt; border-top-style:solid; border-top-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                        <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">Notification to VTEX Technical Support Manager.</span></p>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="width:80.2pt; border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                        <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">At 8 Hours</span></p>
-                    </td>
-                    <td style="width:70.2pt; border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                        <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">At 16 Hours</span></p>
-                    </td>
-                    <td style="width:79.2pt; border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                        <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">At 48 Hours</span></p>
-                    </td>
-                    <td style="width:161.2pt; border-top-style:solid; border-top-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                        <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">Notification to VTEX Technical Support Manager.</span></p>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><em><span style="font-family:Calibri;">e) Mechanism for notification of progress, escalations and resolution</span></em></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">In the event that Your representative cannot be contacted by the standard communications methods that have been agreed between the parties, then VTEX shall at its discretion attempt to use other methods of notification, however this will be on a &lsquo;best effort&rsquo; basis, and shall not place VTEX in a position of liability for failing to provide timely notifications.</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><em><span style="font-family:Calibri;">f) Progress reports</span></em></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">For System Down issues, upon request, Your representative will be updated with progress reports during normal VTEX product support hours. Progress reports, where issued, will not be produced more frequently than every two (2) hours. Yours&rsquo; representative will automatically be notified when a call is escalated by agreed method.</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Calibri;">For Normal and Low Issues, upon request, Your representative will be updated as referenced in Table 2 when a call is escalated by agreed method.</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">For all Issues, Your representative will be notified by agreed method as soon as the Issue is cleared.</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; page-break-after:avoid; font-size:10pt;"><strong><span style="font-family:Calibri;">&nbsp;</span></strong></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; page-break-after:avoid; font-size:10pt;"><strong><span style="font-family:Calibri;">Section 4.0 &ndash; Client Hardware/Software Configurations &amp; Requirements</span></strong></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">In accordance with Paragraph 3.10, in order to utilize the Services, Client must ensure that all transcription staff, including the transcription staff of any authorized third party, have the minimum standard equipment based on the following Hardware and Software Configurations &amp; Requirements:</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><em><span style="font-family:Calibri;">a) Software Requirements</span></em></p>
-    <h1 style="margin-top:0pt; margin-bottom:12pt; font-size:10pt;"><span style="font-family:Calibri; font-weight:normal;">In order for Users to work with vScription Transcribe Pro services,</span><span style="font-family:Calibri; font-weight:normal;">&nbsp;&nbsp;</span><span style="font-family:Calibri; font-weight:normal;">Client must ensure the following system requirements for Users&rsquo; workstations:</span><br><span style="font-family:Calibri; font-weight:normal;">&nbsp;</span></h1>
-    <ul style="margin:0pt; padding-left:0pt;" type="square">
-        <li style="margin-left:45.58pt; padding-left:8.42pt; font-family:serif; font-size:10pt;"><span style="font-family:Calibri;">Microsoft Windows 8.1 or Windows 10</span></li>
-        <li style="margin-left:45.58pt; padding-left:8.42pt; font-family:serif; font-size:10pt;"><span style="font-family:Calibri;">macOS 10.14 or later</span></li>
-        <li style="margin-left:45.58pt; padding-left:8.42pt; font-family:serif; font-size:10pt;"><span style="font-family:Calibri;">A Broadband Internet (ISP) Connection</span></li>
-        <li style="margin-left:45.58pt; padding-left:8.42pt; font-family:serif; font-size:10pt;"><span style="font-family:Calibri;">Microsoft Internet Explorer version 11 or later. Chrome or Firefox preferred</span></li>
-    </ul>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><em><span style="font-family:Calibri;">b) Supported File Formats</span></em></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">vScription Transcribe Pro currently supports the following file formats for upload;</span></p>
-    <ul style="margin:0pt; padding-left:0pt;" type="disc">
-        <li style="margin-left:28.15pt; text-align:justify; page-break-after:avoid; padding-left:7.85pt; font-family:serif; font-size:10pt;"><span style="font-family:Calibri;">.wav (PCM)</span></li>
-        <li style="margin-left:28.15pt; text-align:justify; page-break-after:avoid; padding-left:7.85pt; font-family:serif; font-size:10pt;"><span style="font-family:Calibri;">.mp3</span></li>
-        <li style="margin-left:28.15pt; text-align:justify; page-break-after:avoid; padding-left:7.85pt; font-family:serif; font-size:10pt;"><span style="font-family:Calibri;">.dss (unencrypted)</span></li>
-        <li style="margin-left:28.15pt; text-align:justify; page-break-after:avoid; padding-left:7.85pt; font-family:serif; font-size:10pt;"><span style="font-family:Calibri;">.ds2 (unencrypted)</span></li>
-        <li style="margin-left:28.15pt; text-align:justify; page-break-after:avoid; padding-left:7.85pt; font-family:serif; font-size:10pt;"><span style="font-family:Calibri;">.ogg</span></li>
-        <li style="margin-left:28.15pt; text-align:justify; page-break-after:avoid; padding-left:7.85pt; font-family:serif; font-size:10pt;"><span style="font-family:Calibri;">m4a</span></li>
-        <li style="margin-left:28.15pt; text-align:justify; page-break-after:avoid; padding-left:7.85pt; font-family:serif; font-size:10pt;"><span style="font-family:Calibri;">mp4</span></li>
-    </ul>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">If you are not sure if your device supports one of the supported types VTEX will assist you with either changing the recording format, recommending a sound file conversion application or provide you with information on devices that support one of the supported file formats.&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; font-size:10pt;"><br style="page-break-before:always; clear:both;"><strong><u><span style="font-family:Calibri;">SCHEDULE B</span></u></strong></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; page-break-after:avoid; font-size:10pt;"><strong><span style="font-family:Calibri;">TERM AND PRICING</span></strong></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; font-size:10pt;"><strong><span style="font-family:Calibri;">&nbsp;</span></strong></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><strong><span style="font-family:Calibri;">Section 1.0 - Term</span></strong></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><strong><span style="font-family:Calibri;">&nbsp;</span></strong></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">This Agreement shall be effective commencing on the Effective Date for a term of six (6) months (the &ldquo;Initial Term&rdquo;), unless terminated earlier pursuant to the provisions of Section 9.2.</span><span style="font-family:Calibri;">&nbsp;&nbsp;</span><span style="font-family:Calibri;">At the end of the Initial Term, this Agreement shall automatically renew for additional one six (6) month term (each a &ldquo;Renewal Term&rdquo;) at VTEX&rsquo;s then current rates, unless either Party provides the other Party with prior written notice of such Party&rsquo;s intent not to renew this Agreement at least sixty (60) days prior to the end of such Initial Term or subsequent Renewal Term, if any.</span><span style="font-family:Calibri;">&nbsp;&nbsp;</span><span style="font-family:Calibri;">If there are any changes to the rates, they will be communicated to You no less than two (2) months prior to the end of the term. If VTEX fails to inform You of any rate changes within two months prior to renewal, current rates will automatically remain for the following term.</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">The term start date is effective immediately after agreeing to the terms.</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><strong><span style="font-family:Calibri;">Section 2.0 &ndash; Technology Services and Transcription Services Pricing&nbsp;</span></strong></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><strong><em><span style="font-family:Calibri;">**For pricing on accessories and other input devices (ie: Headsets, Foot Controls, Digital Portables etc&hellip;), visit our online store at https://www.vtexvsi.com**</span></em></strong></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><strong><span style="font-family:Calibri;">&nbsp;</span></strong></p>
-    <table cellpadding="0" cellspacing="0" style="width:481.05pt; border:0.75pt solid #000000; border-collapse:collapse;">
-        <tbody>
-            <tr>
-                <td style="width:48.6pt; border-right-style:solid; border-right-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; background-color:#d9d9d9;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; page-break-after:avoid; widows:0; orphans:0; font-size:10pt;"><strong><span style="font-family:Calibri;">&nbsp;</span></strong></p>
-                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; page-break-after:avoid; widows:0; orphans:0; font-size:10pt;"><strong><span style="font-family:Calibri;">Product ID</span></strong></p>
-                </td>
-                <td style="width:140.75pt; border-right-style:solid; border-right-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; background-color:#d9d9d9;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; page-break-after:avoid; widows:0; orphans:0; font-size:10pt;"><strong><span style="font-family:Calibri;">&nbsp;</span></strong></p>
-                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; page-break-after:avoid; widows:0; orphans:0; font-size:10pt;"><strong><span style="font-family:Calibri;">Description of Services</span></strong></p>
-                </td>
-                <td style="width:61.85pt; border-right-style:solid; border-right-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; background-color:#d9d9d9;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; page-break-after:avoid; widows:0; orphans:0; font-size:10pt;"><strong><span style="font-family:Calibri;">&nbsp;</span></strong></p>
-                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; page-break-after:avoid; widows:0; orphans:0; font-size:10pt;"><strong><span style="font-family:Calibri;">Price&nbsp;</span></strong></p>
-                </td>
-                <td style="width:107.9pt; border-right-style:solid; border-right-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; background-color:#d9d9d9;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; page-break-after:avoid; widows:0; orphans:0; font-size:10pt;"><strong><span style="font-family:Calibri;">&nbsp;</span></strong></p>
-                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; page-break-after:avoid; widows:0; orphans:0; font-size:10pt;"><strong><span style="font-family:Calibri;">Notes</span></strong></p>
-                </td>
-                <td style="width:67.2pt; border-left-style:solid; border-left-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; background-color:#d9d9d9;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; page-break-after:avoid; widows:0; orphans:0; font-size:10pt;"><strong><span style="font-family:Calibri;">&nbsp;</span></strong></p>
-                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; page-break-after:avoid; widows:0; orphans:0; font-size:10pt;"><strong><span style="font-family:Calibri;">Type of Cost</span></strong></p>
-                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; page-break-after:avoid; widows:0; orphans:0; font-size:10pt;"><strong><span style="font-family:Calibri;">Transactional or Purchase&nbsp;</span></strong></p>
-                </td>
-            </tr>
-            <tr>
-                <td style="width:48.6pt; border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; page-break-after:avoid; widows:0; orphans:0; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-                    <p style="margin-top:0pt; margin-bottom:0pt; page-break-after:avoid; widows:0; orphans:0; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-                </td>
-                <td style="width:140.75pt; border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; page-break-after:avoid; widows:0; orphans:0; font-size:10pt;"><strong><span style="font-family:Calibri;">vScription Transcribe Pro Transcription Services &ndash;&nbsp;</span></strong></p>
-                    <p style="margin-top:0pt; margin-bottom:0pt; page-break-after:avoid; widows:0; orphans:0; font-size:10pt;"><strong><span style="font-family:Calibri;">Medical &ndash; Single Speaker</span></strong></p>
-                </td>
-                <td style="width:61.85pt; border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; page-break-after:avoid; widows:0; orphans:0; font-size:10pt;"><span style="font-family:Calibri;">$ 1.50/min</span></p>
-                </td>
-                <td style="width:107.9pt; border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; page-break-after:avoid; widows:0; orphans:0; font-size:10pt;"><span style="font-family:Calibri;">Includes technology charge. User to select the Single Speaker option during upload.</span></p>
-                </td>
-                <td style="width:67.2pt; border-top-style:solid; border-top-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; page-break-after:avoid; widows:0; orphans:0; font-size:10pt;"><span style="font-family:Calibri;">Transactional</span></p>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <p style="margin-top:0pt; margin-left:9pt; margin-bottom:0pt; text-align:justify; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><strong><span style="font-family:Calibri;">&nbsp;</span></strong></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><strong><span style="font-family:Calibri;">Notes:</span></strong></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">The transcriptionists have the ability to change the speaker type if it was entered incorrectly during upload. A note will be made and if there is a discrepancy, a support ticket can be opened for review. Please note that depending on your retention requirements, we only have access to the file for that amount of days after the text file has been downloaded so it is the responsibility of You to contact VTEX within that time period.&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">Also, the Single or Multiple speaker service refers to a single dictation. For example if you have three separate files each with different speakers, this would be considered Single Speaker. If you have a file that has multiple speakers (ie: focus group, interview etc..) that whole dictation is considered a multiple speaker.</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; page-break-inside:avoid; page-break-after:avoid; font-size:10pt;"><span style="font-family:Calibri;">Clients with an active vScription Transcribe Pro Agreement are entitled to discounts on products such as Digital Recorders, conference microphones, headset etc. Please contact us for more information.</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><u><span style="font-family:Calibri;">Minimum Volumes</span></u></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">No minimum volumes are required with the standard packages however if an account is dormant (unused) for a period of 90 days or more, the account will be disabled for security reasons and purged after 120 days or non-usage.</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><span style="font-family:Calibri;">&nbsp;</span></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><strong><span style="font-family:Calibri;">&nbsp;</span></strong></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:10pt;"><strong><span style="font-family:Calibri;">&nbsp;</span></strong></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; page-break-after:avoid; font-size:10pt;"><strong><span style="font-family:Calibri;">&nbsp;</span></strong></p>
-    <div style="clear:both;">
-        <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;"><span style="font-family:Oxygen;">&nbsp;</span></p>
-        <p style="margin-top:0pt; margin-bottom:0pt; font-size:9pt;">&nbsp;<span style="width:213.75pt; display:inline-block;">&nbsp;</span></p>
-    </div>
-</div>
+    <p class="mt-5">
+      This Services Agreement (this “Agreement”) is entered by and between VTEX
+      Voice Solutions Inc. (“VTEX”), a Manitoba Corporation You for the
+      vScription Transcribe Platform and Transcription Services. VTEX and You
+      may also each be referred to herein individually as a “Party” and
+      collectively as the “Parties. The effective date (the “Effective Date”) of
+      this Agreement shall be the date on which this Agreement is fully executed
+      by the Parties.
+    </p>
+    <p class="mt-4">
+      <span>WHEREAS, </span> VTEX is in the business of providing Internet-based
+      dictation, routing, transcription and document delivery processing
+      services, which Client desires to obtain.
+    </p>
+    <p class="mt-4 mb-3">
+      <span>NOW, THEREFORE, </span> in consideration of the mutual covenants and
+      promises contained herein, the Parties agree as follows:
+    </p>
+
+    <section id="section1">
+      <h6><span>1.0 </span> DEFINITIONS</h6>
+      <p>
+        Wherever used in this Agreement with initial letters capitalized, the
+        following terms (and any conjugations thereof) will have the following
+        specified meanings.
+      </p>
+      <ul>
+        <li>
+          <span>1.1 “Change of Law” </span>shall mean (i) any new legislation
+          enacted by the Federal or any provincial government in Canada; (ii)
+          any new law, rule, regulation, guideline, or new development or
+          interpretation passed, issued or promulgated by any federal or
+          provincial governmental agency or by any government, commercial or
+          other third party payor; or (iii) any order or decree issued by any
+          judicial or administrative body.
+        </li>
+
+        <li>
+          <span>1.2 “Confidential Information” </span>means any information
+          disclosed pursuant to this Agreement, either orally or in written,
+          graphic, machine readable or other tangible form, unless indicated
+          otherwise, including, without limitation, all Voice Files and
+          Transcripts.
+        </li>
+
+        <li>
+          <span>1.3 “Data Center” </span> means the hosted environment managed
+          by VTEX which houses hardware and software that is required to provide
+          You with access to the vScription Transcribe Pro platform.
+        </li>
+
+        <li>
+          <span>1.4 “vScription Transcribe Pro” </span>means VTEX’s Web based
+          dictation and transcription management system, the “vScription
+          Transcribe Pro platform” which is hosted at the Data Center.
+        </li>
+
+        <li>
+          <span>1.5 “User Guide”</span> means the vScription Transcribe Pro
+          guide provided by VTEX to Client containing guidance on how to enjoy
+          maximum performance from the Services.
+        </li>
+
+        <li>
+          <span>1.6 “Priority” </span> means the timeframe in which You desires
+          to process different Voice File categories for its customers. The
+          Priority assigned to a given Voice File governs the Service Level that
+          VTEX agrees to meet for that Voice File.
+        </li>
+
+        <li>
+          <span>1.7 “Services”</span> means the services for audio recording,
+          routing, transcription and document delivery set forth on Schedule A
+          of this Agreement.
+        </li>
+
+        <li>
+          <span>1.8 “Service Levels”</span> means the availability, reliability
+          and capacity attributes of the Services that VTEX shall provide to
+          You, as set forth on Schedule A of this Agreement.
+        </li>
+
+        <li>
+          <span>1.9 “Transcript”</span> means the file or document that result
+          from the conversion of Voice Files into text or data by personnel of
+          Client or a third party authorized by Client.
+        </li>
+
+        <li>
+          <span>11.10 “Users”</span> means the transcriptionists, dictators,
+          administrative support staff and customer support staff authorized by
+          Client to access and utilizes the Services. Additionally, “Users”
+          shall also include any authorized third party that Client provides
+          VTEX with written notice of prior to such authorized party’s access
+          to, and utilization of, the Services.
+        </li>
+
+        <li>
+          <span>1.11 “Voice File”</span> means dictated audio transferred
+          electronically to the vScription for processing into text or data.
+        </li>
+
+        <li>
+          <span>1.12 “Workload”</span> means the quantity and characteristics of
+          audio generated by You and its Users.
+        </li>
+
+        <li>
+          <span>1.13 “Scope of Work (SOW)” </span> means a document created by
+          VTEX in conjunction with You to quantify and clarify the
+          implementation work to be performed as part of this agreement.
+        </li>
+      </ul>
+    </section>
+
+    <section id="section2">
+      <h6><span>2.0 </span> SERVICES</h6>
+      <ul>
+        <li>
+          <span class="pr-3">2.1 </span> VTEX covenants and agrees to make
+          available to Client the Services set forth on Schedule A attached to
+          this Agreement.
+        </li>
+        <li>
+          <span class="pr-3"> 2.2</span> As agreed with Client, equipment may be
+          located at VTEX’s site, at Client’s site, or a third party site
+          selected by VTEX. If equipment owned by VTEX is to be located at a
+          Client site, Client hereby grants to VTEX a non-exclusive license to
+          place such machines in agreed upon areas, to enter into Client’s site
+          during regular business hours and to place, service or remove such
+          equipment at any time during the term of this Agreement and for a
+          period of thirty (30) days following termination of this Agreement.
+        </li>
+
+        <li>
+          <span class="pr-3"> 2.3</span>
+          <a>Software as a Service License. </a> Through the use of software
+          applications (the “Applications”) hosted on the vScription Transcribe
+          Pro platform and made available by means of the Internet, Client shall
+          have the ability to access the vScription Transcribe Pro consistent
+          with the Services described in this Agreement. Subject to the terms
+          and conditions of this Paragraph 2.3 and contingent upon payment by
+          Client of the fees set forth on <a>Schedule B </a> , VTEX hereby
+          grants to Client for the term of this Agreement a non-transferable,
+          non-exclusive limited right of access to, and use of, the
+          Applications.
+          <ul>
+            <li>
+              <span class="pr-3"> 2.3.1</span>
+              <a>Client’s Obligations. </a> With respect to its use of the
+              Applications, Client, at its own cost and expense, shall:
+              <ul class="sublisting">
+                <li>
+                  a) not permit any person or entity, other than the authorized
+                  personnel of You or a third party authorized by Client, to use
+                  or gain access to the Applications and shall provide
+                  reasonable security devices to protect against unauthorized
+                  usage;
+                </li>
+                <li>
+                  b) not adapt the Applications in any way or use it to create a
+                  derivative work (other than reports that are transcribed or
+                  edited using the Applications); and
+                </li>
+                <li>
+                  c) not remove, obscure, or alter VTEX’s proprietary notices,
+                  trademarks, or other proprietary rights notices affixed or
+                  contained in the Applications.
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <span class="pr-3"> 2.3.2</span> <a>Ownership. </a> The
+              Applications are the exclusive property of VTEX, which shall
+              retain all right, title and interest in and to the Applications,
+              including, without limitation, the intellectual property rights
+              and any other rights under Canadian and international copyright,
+              patent, trademark, trade secret and other law.
+            </li>
+
+            <li>
+              <span class="pr-3"> 2.3.3</span>
+              <a
+                >Use of Application by Client Personnel or Third Parties
+                Authorized by Client.
+              </a>
+              Client acknowledges and agrees that VTEX shall not be liable for
+              the misuse (including but not limited to unauthorized disclosures)
+              of Confidential Information by Client or any authorized third
+              party given access to the Applications by Client.
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+
+    <section id="section3">
+      <h6><span>3.0 </span> CLIENT RESPONSIBILITIES.</h6>
+
+      <ul>
+        <li>
+          <span class="pr-3">3.1 </span> Client shall assume primary
+          responsibility for the optional transmission and integration of
+          demographic information into the Services. Client shall communicate to
+          VTEX the method and product(s) which Client intends to use to effect
+          such transmission and integration. VTEX, in turn, agrees to publish
+          for You a specification by which admission, discharge, transfer
+          (“ADT”) information can be transmitted into the Services and by which
+          Transcripts can be up-loaded back into Client’s information system(s).
+          VTEX will provide such specifications to Client at no charge. If
+          Client requests that VTEX provide additional system integration
+          services, VTEX will provide a price quotation for such work on a
+          job-by-job basis. Integration services shall at all times be
+          represented as a separate line item charge, non-inclusive of training
+          and set-up fees and pre-payment of transaction charges.
+        </li>
+
+        <li>
+          <span class="pr-3">3.2 </span> Client shall provide adequate
+          connectivity bandwidth to permit Users to access the Services. Client
+          recognizes and agrees that different connectivity levels will result
+          in different performance levels for end users. Client is required to
+          support its own Internet, Intranet, and firewall issues. VTEX
+          personnel are only responsible for issues residing in the Data Center
+          or connectivity issues that result from the Data Center. VTEX
+          personnel are not required to support Client with general Internet
+          outages or technical issues.
+        </li>
+
+        <li>
+          <span class="pr-3">3.3 </span> Client shall provide full support for
+          all Client workstations that are utilized by users of the Services.
+          VTEX will not support Client hardware or software at any time.
+        </li>
+
+        <li>
+          <span class="pr-3">3.4 </span> Client will provide reasonable access
+          to and cooperation with VTEX to assure a successful implementation of
+          the Services. Prior to the commencement of Services, Client and VTEX
+          may be required to enter into a Client Project Plan outlining, among
+          other things, Your implementation plan and Scope of Work depending on
+          the scope of the implementation.
+        </li>
+
+        <li>
+          <span class="pr-3">3.5 </span> VTEX will register all users and, after
+          completion of the implementation phase, VTEX will administer all
+          moves, adds and changes to the Users unless other arrangements have
+          been made.
+        </li>
+
+        <li>
+          <span class="pr-3">3.6 </span> VTEX will maintain all responsibility
+          for managing report turnaround, job tracking and other workflow
+          management or administrative work functions unless other arrangements
+          have been made to have VTEX handle administration. VTEX will both have
+          access to statistics required to reconcile billing as needed.
+        </li>
+
+        <li>
+          <span class="pr-3">3.7 </span> Client will maintain all responsibility
+          for document distribution after completed Transcriptions are awaiting
+          download on vScription Transcribe Pro.
+        </li>
+
+        <li>
+          <span class="pr-3">3.8 </span> Client shall provide its clerical
+          and/or administrative staff with, or ensure that the transcription
+          staff of its authorized third parties have, the minimum standard
+          equipment, as determined by VTEX, to utilize the Services (see
+          <a>Schedule A </a>).
+        </li>
+
+        <li>
+          <span class="pr-3">3.9 </span> When dictation originates from
+          recording systems residing at Client’s site that are approved by VTEX,
+          Client will upload Voice files to the vScription Transcribe Pro
+          platform in accordance with the procedures, specifications, and/or
+          delivery tools that are published by VTEX.
+        </li>
+
+        <li>
+          <span class="pr-3">3.10 </span>Client (or Client’s designated
+          representative) will provide First Level Client support to Users of
+          the Services, including transcription staff or the transcription staff
+          of any authorized third party; provided that Client must notify VTEX
+          in writing of any such authorized third party. Only authorized
+          technical or managerial staff will have access to Second Level
+          support. Client’s support staff will be able to interrogate Client
+          data resident on VTEX's user and job database information through
+          Web-based tools that are provided as part of the Services. In the
+          event of complex problems that cannot be answered by a trained Client
+          staff member, Client may invoke VTEX's Second Level support
+          facilities.
+        </li>
+      </ul>
+    </section>
+
+    <section id="section4">
+      <h6><span>4.0 </span> VTEX OBLIGATIONS.</h6>
+
+      <ul>
+        <li>
+          <span class="pr-3">4.1 </span> VTEX shall provide the Services in
+          accordance with the Service Levels for Client’s Workload and/or
+          Requirements.
+        </li>
+
+        <li>
+          <span class="pr-3">4.2 </span>VTEX shall provide support as needed to
+          You throughout the term of the agreement as set in Schedule A
+        </li>
+      </ul>
+    </section>
+
+    <section id="section5">
+      <h6><span>5.0 </span> PAYMENT.</h6>
+
+      <ul>
+        <li>
+          <span class="pr-3">5.1 </span>Client will pay VTEX in accordance with
+          the pricing and payment terms set forth on <a>Schedule B </a>.
+        </li>
+
+        <li>
+          <span class="pr-3">5.2 </span>Invoices will be generated and delivered
+          to You bi-monthly and will reflect previous calendar bi-monthly
+          transactions. For billing purposes, a calendar month begins at 12:00
+          a.m. Central Time on the first of the month and ends at 11:59 p.m.
+          Central Time. Bi-monthly periods are from the 1st of the month to the
+          end of day (23:59) on the 14th of the month and the from the start of
+          day (00:00) on the 15th to the end of day of the last day or the
+          month. Invoices shall include a detailed usage report. Exception for
+          this will be if there is less than 100 minutes transcribed in the
+          period. In that case the total will be added to the next billing
+          period.
+        </li>
+
+        <li>
+          <span class="pr-3">5.3 </span>Payment is due and payable within thirty
+          (14) days after the invoice date. All amounts that are not paid by
+          Client when due shall be subject to a late charge equal to one percent
+          (1%) per month until paid, or, if less, the maximum amount allowed by
+          applicable law. In the event that any amount due hereunder is not paid
+          within thirty (30) days after the invoice date, VTEX reserves the
+          right to suspend Services until such delinquency is corrected and may
+          terminate this Agreement upon expiration of the cure period set forth
+          in Section 9.2. Client shall be responsible for any and all costs of
+          collection, including reasonable attorney's fees and expenses.
+        </li>
+
+        <li>
+          <span class="pr-3">5.4 </span>If, in the event Client terminates this
+          Agreement or is in default of this Agreement for non-payment prior to
+          the end of the Initial Term or any Renewal Term, Client shall be
+          obligated to pay for the use of all Services through the date of
+          termination.
+        </li>
+
+        <li>
+          <span class="pr-3">5.5 </span> Client covenants and agrees to provide
+          VTEX with a copy of any applicable Client tax exemption certificates.
+          In the event that any sales, use or other tax is imposed on the
+          Services, training, system integration or other fees, Client agrees to
+          be responsible for and to bear the burden of all such taxes, including
+          but not limited to any sales tax, transaction tax, excise tax, seller
+          privilege tax, gross receipts tax, Client levy tax, use tax, data
+          processing tax or similar tax or fee. In the event that VTEX pays such
+          taxes on Client's behalf, Client agrees to reimburse VTEX in full for
+          such taxes.
+        </li>
+      </ul>
+    </section>
+
+    <section id="section6">
+      <h6><span>6.0 </span> WARRANTY; DISCLAIMER OF LIABILITY</h6>
+
+      <p>
+        VTEX warrants that the Services will be performed in a professional and
+        workmanlike manner in material compliance with the Service Levels
+        specified on Schedule A. EXCEPT AS EXPRESSLY PROVIDED HEREIN, THE
+        SERVICES ARE PROVIDED “AS IS” AND VTEX HEREBY DISCLAIMS ALL OTHER
+        WARRANTIES, EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION, ANY
+        WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
+      </p>
+
+      <p>
+        VTEX warrants and agrees that any software provided pursuant to the
+        Services will be free of any and all computer viruses and that VTEX has
+        taken all reasonable steps to ensure that such software is free from
+        such viruses. In the event VTEX becomes aware of any such viruses and/or
+        destructive routines, VTEX will provide notice to Client and immediately
+        make available assistance and corrections to such software and any
+        affected parts of Client’s computer system as a result of such
+        viruses/or destructive routines.
+      </p>
+
+      <p>
+        EXCEPT AS EXPRESSLY PROVIDED IN THIS AGREEMENT, IN NO EVENT SHALL VTEX
+        BE LIABLE FOR ANY CONSEQUENTIAL, SPECIAL, INCIDENTAL, OR INDIRECT
+        DAMAGES, HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, ARISING OUT OF
+        THIS AGREEMENT. THESE LIMITATIONS SHALL APPLY NOTWITHSTANDING ANY
+        FAILURE OF ESSENTIAL PURPOSE OF ANY LIMITED REMEDY. EXCEPT AS EXPRESSLY
+        PROVIDED IN THIS AGREEMENT, IN NO EVENT WILL VTEX’S LIABILITY HEREUNDER
+        EXCEED THE PAYMENTS RECEIVED BY VTEX UNDER THIS AGREEMENT DURING THE SIX
+        (6) MONTH PERIOD PRECEDING THE EVENT GIVING RISE TO SUCH LIABILITY.
+      </p>
+    </section>
+
+    <section id="section7" class="mt-3">
+      <h6><span>7.0 </span> RELATIONSHIP OF THE PARTIES.</h6>
+
+      <ul>
+        <li>
+          <span class="pr-3">7.1 </span>The Parties agree that nothing shall
+          prevent VTEX from providing services that are identical or similar to
+          the Services to any other party or entity. Similarly, nothing shall
+          prevent Client from using services from another vendor that are
+          similar to the Services offered by VTEX.
+        </li>
+
+        <li>
+          <span class="pr-3">7.2 </span>The Parties are independent contractors,
+          and this Agreement will not be construed to create or evidence a
+          partnership, joint venture, agency or franchise relationship between
+          them. Neither Party will represent itself to be a partner, agent or
+          franchisee of the other or enter into an agreement or assume liability
+          on behalf of the other or in the other's name.
+        </li>
+
+        <li>
+          <span class="pr-3">7.3 </span>VTEX and/or VTEX's licensors, as
+          appropriate, retain all right, title, and interest in and to the
+          Services and copyrights and trademarks associated with the Services,
+          but shall not have any right, title or interest in Client’s
+          Confidential Information.
+        </li>
+
+        <li>
+          <span class="pr-3">7.4 </span>Client, and its end user customers,
+          retain all right, title, and interest in and to the Voice Files and
+          the Transcripts. VTEX is entitled to derive and use statistics related
+          to the Voice Files and the Transcripts, including but not limited to,
+          the use of such statistics for improvement of the Services. Such
+          statistics shall not be deemed to be Confidential Information.
+        </li>
+
+        <li>
+          <span class="pr-3">7.5 </span> All intellectual property rights in the
+          Services, including refinements to the Services made with the active
+          involvement of You, shall vest in VTEX. Except as expressly provided
+          herein, each Party shall retain all rights, title and interest in and
+          to its Confidential Information, patent rights, copyrights, trademarks
+          and trade names, designs, drawings, formulas or other data,
+          photographs, literature, and sales aids of every kind provided or used
+          hereunder, and no licenses to any of the foregoing shall be implied.
+        </li>
+
+        <li>
+          <span class="pr-3">7.6 </span> Neither party shall have the right to
+          issue press releases or other advertising, marketing or publicity
+          (including without limitation the Internet or any online method)
+          regarding this Agreement or the relationship between the parties
+          without prior written approval of the other Party’s official marketing
+          representative, which shall not be unreasonably withheld.
+        </li>
+      </ul>
+    </section>
+
+    <section id="section8">
+      <h6><span>8.0 </span> CONFIDENTIALITY.</h6>
+
+      <ul>
+        <li>
+          <span class="pr-3">8.1 </span>Each Party shall treat as confidential
+          all Confidential Information of the other Party, shall not use such
+          Confidential Information except as set forth herein, and shall use
+          commercially reasonable efforts not to disclose such Confidential
+          Information to any third party, except as permitted under this
+          Agreement. Without limiting the foregoing, each of the parties shall
+          use at least the same degree of care that it uses to prevent the
+          disclosure of its own confidential information of like importance to
+          prevent the disclosure of Confidential Information disclosed to it by
+          the other Party under this Agreement. Each Party shall promptly notify
+          the other Party of any actual or suspected misuse or unauthorized
+          disclosure of the other Party's Confidential Information. For purposes
+          of this Agreement, all Voice Files and Transcripts shall be deemed to
+          be Confidential Information. Client shall be responsible for ensuring
+          the compliance by all of its personnel, and authorized third parties
+          given access to the Applications by Client, with the confidentiality
+          provisions of this Section 8.
+        </li>
+
+        <li>
+          <span class="pr-3">8.2 </span>Notwithstanding the foregoing, neither
+          Party shall have liability to the other with regard to any use or
+          disclosure of Confidential Information of the other which the
+          receiving Party can prove: (a) was in the public domain at the time it
+          was disclosed or has entered the public domain through no fault of the
+          receiving Party; (b) was known to the receiving Party, without
+          restriction, at the time of disclosure; (c) is disclosed with the
+          prior written approval of the disclosing Party; (d) was independently
+          developed by the receiving Party without any use of the Confidential
+          Information; (e) became known to the receiving Party, without
+          restriction, from a source other than the disclosing Party, without
+          breach of this Agreement by the receiving Party and otherwise not in
+          violation of the disclosing Party's rights; (f) is disclosed generally
+          to third parties by the disclosing Party without restrictions similar
+          to those contained in this Agreement; or (g) is disclosed pursuant to
+          the order or require¬ment of a court, admin¬istrative agency, or other
+          governmental body; provided, however, that the receiving Party shall
+          provide prompt notice thereof to the disclosing Party to enable the
+          disclosing Party to seek a protective order or otherwise prevent or
+          restrict such disclosure.
+        </li>
+
+        <li>
+          <span class="pr-3">8.3 </span>To the extent required by the provisions
+          of any provincial or federal statute or regulations now in force or
+          which may hereafter be in force VTEX agrees to maintain the
+          confidentiality of any Confidential Information obtained from Client,
+          pursuant to this Agreement Client understands and agrees that VTEX
+          provides Internet-based dictation, speech recognition, and
+          transcription processing services and is not in the business of
+          maintaining original records by or for Client and that data maintained
+          by VTEX is a copy only.
+        </li>
+
+        <li>
+          <span class="pr-3">8.4 </span>Upon expiration or termination of this
+          Agreement, each Party shall return all tangible Confidential
+          Information received from the other Party.
+        </li>
+
+        <li>
+          <span class="pr-3">8.5 </span> VTEX will maintain a log of all
+          activities of access to files uploaded by You as well as any text
+          documents created from those voice files. This log will be maintained
+          for a period of 180 days during an active term and if the agreement is
+          terminated, VTEX will provide the full contents of the log to You.
+          Client will have access to those logs from the vScription Transcribe
+          Pro Administrator.
+        </li>
+
+        <li>
+          <span class="pr-3">8.6 </span>None of the voice files nor created text
+          files will ever reside on an external workstation or storage device of
+          VTEX employees nor it’s transcriptionists.
+        </li>
+
+        <li>
+          <span class="pr-3">8.7 </span>Any Administrators or transcriptionist
+          who may access Yours information will have an Information Managers
+          agreement in place with VTEX who will in turn have an Information
+          Managers agreement in place with You.
+        </li>
+
+        <li>
+          <span class="pr-3">8.8 </span>For Quality Assurance, approved
+          employees of VTEX Voice Solutions may review completed documents. Any
+          access to these documents is logged in the activity log and is for
+          quality review only.
+        </li>
+      </ul>
+    </section>
+
+    <section id="section9">
+      <h6><span>9.0 </span>TERM AND TERMINATION.</h6>
+
+      <ul>
+        <li>
+          <span class="pr-3">9.1 </span>This Agreement shall be effective for
+          the Term specified on Schedule B attached hereto, unless terminated
+          earlier pursuant to the provisions of Section 9.2.
+        </li>
+
+        <li>
+          <span class="pr-3">9.2 </span>If either Party materially defaults in
+          the performance of any provision of this Agreement, the non-defaulting
+          Party may give written notice to the defaulting Party by providing
+          thirty (30) days to cure the default. If the non-defaulting Party
+          gives such notice and the default is not cured within the thirty (30)
+          day period, the non-defaulting Party, in its sole discretion and in
+          addition to any other rights, may choose to terminate this Agreement
+          at the end of that period.
+        </li>
+      </ul>
+    </section>
+
+    <section id="section10">
+      <h6><span>10.0 </span> GENERAL.</h6>
+
+      <ul>
+        <li>
+          <span class="pr-3">10.1 </span>This Agreement shall be governed by and
+          interpreted in accordance with the laws of the Province of Manitoba,
+          without reference to conflict of law provisions.
+        </li>
+
+        <li>
+          <span class="pr-3">10.2 </span>No alteration, amendment, waiver,
+          cancellation or any other change in any term or condition of this
+          Agreement shall be valid or binding on either Party unless the same
+          shall have been mutually assented to in writing by both parties.
+        </li>
+
+        <li>
+          <span class="pr-3">10.3 </span>This Agreement may not be assigned by
+          Client without the express written consent of VTEX and any attempted
+          assignment without such consent shall be void. This Agreement shall be
+          binding upon and shall be for the benefit of the Parties hereto and
+          their respective permitted successors and assigns.
+        </li>
+
+        <li>
+          <span class="pr-3">10.4 </span> All disputes, claims, and/or requests
+          for specific contractual performance, or other equitable relief, or
+          damages or any other matters in question between the parties arising
+          out of this agreement shall be submitted to binding arbitration,
+          pursuant to provision of The Arbitration Act of Manitoba, as amended
+          from time to time
+        </li>
+
+        <li>
+          <span class="pr-3">10.5 </span>Neither party shall be responsible for
+          failure to fulfill its obligations under this Agreement due to causes
+          beyond its reasonable control.
+        </li>
+
+        <li>
+          <span class="pr-3">10.6 </span>If any of the provisions of this
+          Agreement are held to be invalid under any applicable statute or rule
+          of law, they are, to that extent, deemed omitted.
+        </li>
+
+        <li>
+          <span class="pr-3">10.7 </span>The waiver of one breach or default or
+          any delay in exercising any rights shall not constitute a waiver of
+          any subsequent breach or default.
+        </li>
+
+        <li>
+          <span class="pr-3">10.8 </span>Any notice required or permitted by
+          this Agreement shall be in writing and shall be deemed given at the
+          time it is deposited in the Canada Post Mail, postage prepaid,
+          certified or registered mail, return receipt requested, overnight
+          courier or by facsimile transmission addressed to the party to whom it
+          is to be given as follows (or to such other address as either Party
+          may from time to time provide by written notice given in accordance
+          with the provisions of this paragraph):
+
+          <div class="row mt-4">
+            <div class="offset-2 col-sm-2">
+              <p>If to VTEX:</p>
+            </div>
+            <div class="offset-1 col-sm-3">
+              <p>
+                VTEX Voice Solutions Inc. </br> 23-845 Dakota Street, Suite 317 </br>
+                Winnipeg, MB, R2M 5M3 </br>Fax #: (204) 253-2906 </br>Attn: Ryan Gaudet,
+                Managing Director
+              </p>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <span class="pr-3">10.9 </span>Notwithstanding any other provision in
+          this Agreement, if there occurs any Change of Law involving the
+          transmission, transcription, or use of Confidential Information which
+          results in a material adverse effect on the legitimate expectations of
+          either party at the time such party entered into this Agreement, both
+          parties agree to cooperate in making reasonable revisions to this
+          Agreement to the minimum degree necessary in order to enable this
+          Agreement, as revised, to fulfill, to the maximum extent possible, the
+          legitimate expectations of both parties. If the parties are unable to
+          agree in making such revisions within thirty (30) days, then either
+          party may terminate this Agreement upon giving the other thirty (30)
+          days notice of termination.
+        </li>
+
+        <li>
+          <span class="pr-3">10.10 </span>The terms and conditions contained
+          herein, including all schedules and exhibits attached hereto,
+          constitute the entire agreement between the parties and supersede all
+          previous agreements and understandings, whether oral or written,
+          between the parties hereto with respect to the subject matter hereof.
+        </li>
+      </ul>
+    </section>
+
+    <section id="schedule">
+      <h5 class="mb-3">SCHEDULE A</h5>
+      <h6 class="text-center m-0 mt-3">TRANSCRIPTION SERVICES</h6>
+      <p>The Services shall comprise:</p>
+      <h6 class="mt-3 mb-3">Section 1.0 – Standard Services</h6>
+      <p class="mb-3">
+        a) Work routing<br />
+        VTEX shall route Voice files to one or more transcriptionists assigned
+        to You.
+      </p>
+      <p>
+        b) Administrative Functionality<br />
+        VTEX shall provide basic administration and reporting functionality
+        through the vScription Transcribe Pro Administrator and Uploader, which
+        will enable Client to upload voice files, check statuses, download
+        transcribed reports, set-up business processes and report on Client data
+        derived as a result of using Services. VTEX will provide the capability
+        for Client to generate various reports, including the following:
+      </p>
+      <ul>
+        <li class="pt-0">Reports permitting calculation of bills</li>
+        <li class="pt-0">Other user-based reports added from time-to-time</li>
+      </ul>
+
+      <p>
+        c) Typing & Editing interface<br />
+        If at any point You wish to use the technology platform for their own
+        transcription, VTEX will provide client access to one or more
+        transcriptionists for You.
+      </p>
+      <p>
+        d) Document Delivery <br />Where applicable, Transcripts will be
+        delivered to Client location through the use of HTTPS and SSL/TLS
+        encryption. More comprehensive document routing is available if
+        required. Implementation, pricing and additional details for additional
+        document routing will be addressed on Schedule B.
+      </p>
+
+      <p>
+        e) File Storage <br />Voice Files and Transcripts can be accessed via
+        vScription Transcribe Pro Administrator for up to 14 calendar days
+        following the first time the completed transcription is downloaded or
+        viewed by You. Retention time can be adjusted by your organization
+        administrator as needed. Activity logs are retained for a default of 180
+        days.
+      </p>
+
+      <h6 class="mt-3">Section 2.0 - Service Levels</h6>
+      <p>VTEX will offer the following service levels to Client:</p>
+
+      <table>
+        <tr>
+          <th class="backgroundcolor">Medical Transcription</th>
+          <th class="backgroundcolor">Turnaround Time</th>
+          <th class="backgroundcolor">Notes:</th>
+        </tr>
+        <tr>
+          <td>Single Speaker</td>
+          <td>24-48 hours (1-3 business days)</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Multiple Speakers</td>
+          <td>24-72 hours (1-3 business days)</td>
+          <td>
+            VTEX reserves the right to exceed this turnaround time for any
+            excessively long dictations or dictations with poor audio quality.
+            We will notify You as soon as possible if this condition arises.
+          </td>
+        </tr>
+      </table>
+
+      <p>
+        a) Force Majeure<br />
+
+        In the event that a national disaster, war, riot, or other Act of God
+        beyond VTEX’s reasonable control (“force majeure”) makes impossible the
+        achievement of these Availability levels, the elapsed period during
+        which such external factors exist shall be excluded from the
+        availability calculations. During such periods, VTEX will make
+        reasonable endeavors to attain availability levels that are as close to
+        target service levels as possible.
+      </p>
+      <p>
+        b) System Uptime<br />
+
+        System Uptime is defined as the availability of Services less any
+        scheduled maintenance that is communicated by VTEX to Client. When
+        practical, VTEX shall schedule maintenance at non-peak Workload times
+        and with not less than 48 hours notice to Client to minimize the
+        interruption to normal work patterns of Client. VTEX shall be permitted
+        to allocate not more than six hours per month for routine system
+        maintenance.
+      </p>
+
+      <p>
+        System Uptime shall be segmented between two different categories of
+        Services:
+      </p>
+      <ul>
+        <li class="pt-0">Dictation Availability</li>
+        <li class="pt-0">Workflow Availability</li>
+      </ul>
+      <p class="mb-1">Category definition and downtime measurements are as follows:</p>
+
+      <table>
+        <tr>
+          <th class="backgroundcolor">Category</th>
+          <th class="backgroundcolor">Definition</th>
+          <th class="backgroundcolor">Service Level Goal</th>
+        </tr>
+        <tr>
+          <td>Workflow Availability</td>
+          <td>
+            The ability for Client to access, administer and download within
+            Services housed in a Data Center.
+          </td>
+          <td>99.9%</td>
+        </tr>
+      </table>
+
+      <p>
+        Latency or limitation of Services wherein Services are still available
+        by definition above shall not be factored into measurements of downtime.
+      </p>
+      <p>
+        c) Capacity<br />
+        VTEX shall provide adequate storage space and workflow processing
+        capacity to meet Client’s Workload needs.
+      </p>
+
+      <h6 class="mt-3">Section 3.0 - Second Level Support</h6>
+      <p>
+        Second Level Support is intended to provide resolution for problems for
+        which fully trained Client’s support personnel cannot resolve. Client is
+        responsible for First Level Support and support of Client’s
+        transcriptionist staff or the transcription staff of any authorized
+        third party or transcription vendor, as well as support of Client’s
+        network and on-site hardware/software. Only authorized technical or
+        managerial personnel will have access to Second Level Support.
+      </p>
+
+      <p>
+        The following procedures have been established for resolution of
+        identified faults.
+      </p>
+      <p>
+        a) Issue Reporting (Ticket Creation)<br />
+        VTEX will provide designated Client support personnel the ability to
+        report all issues not resolved by You in First Level Support to the VTEX
+        Solutions Support Centre via a toll free telephone line (1-866-992-2994)
+        or via email at support@vtexvsi.com. Second Level Support is provided as
+        part of Your transactional price for use of vScription Transcribe Pro
+        Platform. First Level Support is the responsibility of You. If VTEX
+        receives issues deemed to be First Level Support, VTEX reserves the
+        right to charge You prevailing rates for support services provided.
+      </p>
+      <p>
+        Issue reporting is available for both routine and critical support, 24
+        hours a day, 365 days a year. The VTEX Voice Solutions Support Centre
+        will only accept calls or support emails from pre-approved, fully
+        trained Client support representatives.
+      </p>
+      <p class="mb-3">
+        b) Setting Issue priority<br />
+        VTEX will allocate a priority (see Table 1: Issue designations) to the
+        Fault which, in its judgment, best describes its effect on Your
+        business. You should notify VTEX at the time of incident creation if
+        there is a disagreement of the established and assigned priority.
+      </p>
+
+      <table class="priorityissue">
+        <tr>
+          <th class="blackbackgroundcolor"></th>
+          <th class="blackbackgroundcolor"></th>
+          <th class="blackbackgroundcolor"></th>
+        </tr>
+        <tr>
+          <td>Critical failure</td>
+          <td>System Down</td>
+          <td>The service is not operational.</td>
+        </tr>
+        <tr>
+          <td>Important failure</td>
+          <td>Normal</td>
+          <td>The system is impaired but operational.</td>
+        </tr>
+
+        <tr>
+          <td>Non-critical failure</td>
+          <td>Low</td>
+          <td>Normal working practice is unimpaired.</td>
+        </tr>
+      </table>
+
+      <p>
+        c) Recording the Issue report<br />
+        The VTEX support representative will ask for information about the Fault
+        to obtain a clear description of its nature and the circumstances in
+        which it occurred. Client representative should be prepared to provide
+        the following information:
+      </p>
+
+      <ul class="pl-0">
+        <li class="pt-0">Company Name</li>
+        <li class="pt-0">Description of Problem</li>
+        <li class="pt-0">Contact Phone Number</li>
+        <li class="pt-0">Alternate Contact Phone Number</li>
+        <li class="pt-0">Address</li>
+        <li class="pt-0">E-Mail Address</li>
+        <li class="pt-0">Extension</li>
+        <li class="pt-0">Job Number(s) (if applicable)</li>
+        <li class="pt-0">Available Hours to Call</li>
+      </ul>
+
+      <p>
+        Details will be read back to the caller as an agreed summary of the
+        problem. A VTEX representative will record the Fault into the VTEX
+        support call tracking system known as “Help Desk” with the date and time
+        set to the point at which VTEX acknowledged the Issue to You. This will
+        be the time listed as “received by” on the Help Desk call record screen.
+      </p>
+
+      <p class="m-0">The following information will be logged at this point</p>
+      <ul class="pl-3 stylelist">
+        <li class="pt-0">Date and time of call (Received by)</li>
+        <li class="pt-0">Call Priority</li>
+        <li class="pt-0">
+          Details of caller’s contact information and issue description
+        </li>
+        <li class="pt-0">Solutions offered initially</li>
+        <li class="pt-0">Any other information relevant to the call</li>
+        <li class="pt-0">Issue initially reported by VTEX</li>
+        <li class="pt-0">Notification of faults</li>
+      </ul>
+
+      <p>
+        d) Issue report handling and escalation<br />
+        Each Fault will have a Response Time recorded. Faults that are
+        unresolved within the target Response Time will be escalated as shown in
+        Table 3.
+      </p>
+      <p>
+        The Response Time will start as soon as the Fault has been logged.
+        Should the problem recur, the original call will need to be reopened and
+        the Response Time will apply from the time that the call is re-opened.
+      </p>
+      <p class="text-center">
+        Table 2: Issue report priorities & Response times
+      </p>
+
+      <table class="priorityissue2">
+        <tr>
+          <th class="blackbackgroundcolor">Status</th>
+          <th class="blackbackgroundcolor">Response Time</th>
+        </tr>
+        <tr>
+          <td>System Down</td>
+          <td>Within 1 hour (Usually <10 mins)</td>
+        </tr>
+        <tr>
+          <td>Normal</td>
+          <td>Within 4 hours</td>
+        </tr>
+
+        <tr>
+          <td>Low</td>
+          <td>Within 24 hours</td>
+        </tr>
+      </table>
+
+      <p class="text-center mt-5">Table 3: Issue report escalations</p>
+
+      <table>
+        <tr>
+          <th class="blackbackgroundcolor">System Down</th>
+          <th class="blackbackgroundcolor">Normal</th>
+          <th class="blackbackgroundcolor">Low</th>
+          <th class="blackbackgroundcolor">Activity</th>
+        </tr>
+        <tr>
+          <td>Start Time</td>
+          <td></td>
+          <td>start Time</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Within 30 minutes</td>
+          <td>Within 1 Business Day</td>
+          <td>Within 2 Business Days</td>
+          <td>Attempt to troubleshoot and solve.</td>
+        </tr>
+
+        <tr>
+          <td>At 1 Hour</td>
+          <td>At 8 Hours</td>
+          <td>At 16 Hours</td>
+          <td>
+            Technical Support representative is notified of problem and updates
+            operational contact.
+          </td>
+        </tr>
+        <tr>
+          <td>At 2 Hours</td>
+          <td>At 16 Hours</td>
+          <td>At 24 Hours</td>
+          <td>Notification to VTEX Technical Support Manager.</td>
+        </tr>
+        <tr>
+          <td>At 8 Hour</td>
+          <td>At 16 Hours</td>
+          <td>At 48 Hours</td>
+          <td>Notification to VTEX Technical Support Manager.</td>
+        </tr>
+      </table>
+
+      <p>
+        e) Mechanism for notification of progress, escalations and resolution<br />
+        In the event that Your representative cannot be contacted by the
+        standard communications methods that have been agreed between the
+        parties, then VTEX shall at its discretion attempt to use other methods
+        of notification, however this will be on a ‘best effort’ basis, and
+        shall not place VTEX in a position of liability for failing to provide
+        timely notifications.
+      </p>
+      <p>
+        f) Progress reports<br />
+        For System Down issues, upon request, Your representative will be
+        updated with progress reports during normal VTEX product support hours.
+        Progress reports, where issued, will not be produced more frequently
+        than every two (2) hours. Yours’ representative will automatically be
+        notified when a call is escalated by agreed method.
+      </p>
+      <p>
+        For Normal and Low Issues, upon request, Your representative will be
+        updated as referenced in Table 2 when a call is escalated by agreed
+        method.
+      </p>
+      <p>
+        For all Issues, Your representative will be notified by agreed method as
+        soon as the Issue is cleared.
+      </p>
+
+      <h6 class="mt-4">
+        Section 4.0 – Client Hardware/Software Configurations & Requirements
+      </h6>
+      <p>
+        In accordance with Paragraph 3.10, in order to utilize the Services,
+        Client must ensure that all transcription staff, including the
+        transcription staff of any authorized third party, have the minimum
+        standard equipment based on the following Hardware and Software
+        Configurations & Requirements:
+      </p>
+
+      <p>
+        a) Software Requirements<br />
+        In order for Users to work with vScription Transcribe Pro services,
+        Client must ensure the following system requirements for Users’
+        workstations:
+      </p>
+      <ul class="softwarerequirements">
+        <li class="pt-0">Microsoft Windows 8.1 or Windows 10</li>
+        <li class="pt-0">macOS 10.14 or later</li>
+        <li class="pt-0">A Broadband Internet (ISP) Connection</li>
+        <li class="pt-0">
+          Microsoft Internet Explorer version 11 or later. Chrome or Firefox
+          preferred
+        </li>
+      </ul>
+
+      <p>
+        b) Supported File Formats<br />
+        vScription Transcribe Pro currently supports the following file formats
+        for upload;
+      </p>
+      <ul class="softwarerequirements">
+        <li class="pt-0">.wav (PCM)</li>
+        <li class="pt-0">.mp3</li>
+        <li class="pt-0">.dss (unencrypted)</li>
+        <li class="pt-0">.ds2 (unencrypted)</li>
+        <li class="pt-0">.ogg</li>
+        <li class="pt-0">m4a</li>
+        <li class="pt-0">mp4</li>
+      </ul>
+      <p>
+        If you are not sure if your device supports one of the supported types
+        VTEX will assist you with either changing the recording format,
+        recommending a sound file conversion application or provide you with
+        information on devices that support one of the supported file formats.
+      </p>
+
+      <h6 class="text-center underline mt-3">SCHEDULE B</h6>
+      <h6 class="text-center mt-0">TERM AND PRICING</h6>
+      <h6 class="mt-0">Section 1.0 - Term</h6>
+      <p>
+        This Agreement shall be effective commencing on the Effective Date for a
+        term of six (6) months (the “Initial Term”), unless terminated earlier
+        pursuant to the provisions of Section 9.2. At the end of the Initial
+        Term, this Agreement shall automatically renew for additional one six
+        (6) month term (each a “Renewal Term”) at VTEX’s then current rates,
+        unless either Party provides the other Party with prior written notice
+        of such Party’s intent not to renew this Agreement at least sixty (60)
+        days prior to the end of such Initial Term or subsequent Renewal Term,
+        if any. If there are any changes to the rates, they will be communicated
+        to You no less than two (2) months prior to the end of the term. If VTEX
+        fails to inform You of any rate changes within two months prior to
+        renewal, current rates will automatically remain for the following
+        term.<br />
+      </p>
+      <p>
+        The term start date is effective immediately after agreeing to the
+        terms.
+      </p>
+      <h6 class="mt-3 mb-3">
+        Section 2.0 – Technology Services and Transcription Services Pricing
+        **For pricing on accessories and other input devices (ie: Headsets, Foot
+        Controls, Digital Portables etc…), visit our online store at
+        https://www.vtexvsi.com**
+      </h6>
+
+      <table>
+        <tr>
+          <th class="backgroundcolor">Product ID</th>
+          <th class="backgroundcolor">Description of Services</th>
+          <th class="backgroundcolor">Price</th>
+          <th class="backgroundcolor">Notes</th>
+          <th class="backgroundcolor">
+            Type of Cost Transactional or Purchase
+          </th>
+        </tr>
+        <tr>
+          <td class="text-center">VS-TTS-BT1</td>
+          <td class="text-center">
+            vScription Transcribe Pro Transcription Services – Medical –
+              Single Speaker
+          </td>
+          <td class="text-center">$1.50/min</td>
+          <td class="text-center">
+            Includes technology charge. User to select the Single Speaker option
+            during upload.
+          </td>
+          <td class="text-center">Transactional</td>
+        </tr>
+        <td class="text-center">VS-TTS-BT2</td>
+          <td class="text-center">
+            vScription Transcribe Pro Transcription Services – Medical –
+              Multiple Speakers
+          </td>
+          <td class="text-center">$1.70/min</td>
+          <td class="text-center">
+            Includes technology charge. User to select the Multiple Speaker option
+            during upload.
+          </td>
+          <td class="text-center">Transactional</td>
+        </tr>
+      </table>
+      <h6>Notes:</h6>
+      <p>
+        The transcriptionists have the ability to change the speaker type if it
+        was entered incorrectly during upload. A note will be made and if there
+        is a discrepancy, a support ticket can be opened for review. Please note
+        that depending on your retention requirements, we only have access to
+        the file for that amount of days after the text file has been downloaded
+        so it is the responsibility of You to contact VTEX within that time
+        period.
+      </p>
+      <p>
+        Also, the Single or Multiple speaker service refers to a single
+        dictation. For example if you have three separate files each with
+        different speakers, this would be considered Single Speaker. If you have
+        a file that has multiple speakers (ie: focus group, interview etc..)
+        that whole dictation is considered a multiple speaker.
+      </p>
+      <p>
+        Clients with an active vScription Transcribe Pro Agreement are entitled
+        to discounts on products such as Digital Recorders, conference
+        microphones, headset etc. Please contact us for more information.
+      </p>
+      <h6 class="mt-3">Minimum Volumes</h6>
+      <p>
+        No minimum volumes are required with the standard packages however if an
+        account is dormant (unused) for a period of 90 days or more, the account
+        will be disabled for security reasons and purged after 120 days or
+        non-usage.
+      </p>
+    </section>
