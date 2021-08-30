@@ -15,7 +15,7 @@ var autoListRefreshInterval = 10000;
 
 $(document).ready(function () {
 
-	const maximum_rows_per_page_jobs_list = 10;
+	const maximum_rows_per_page_jobs_list = 15;
 	var calculatedIds = [];
 
 	getAutoListRefreshEnabled();
