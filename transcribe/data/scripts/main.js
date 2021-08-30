@@ -115,7 +115,7 @@ $(document).ready(function () {
 						// result = `<i class="fas fa-comment-alt-lines vspt-fa-blue cTooltip" data-html="true"  title="${htmlEncodeStr(row["file_comment"])}"></i>`;
 					}
 
-					if(((new Date() - new Date(row.job_upload_date)) / (1000 * 60 * 60 * 24)) < 3)
+					if(((new Date() - new Date(row.job_upload_date)) / (1000 * 60 * 60 * 24)) < 1)
 					{
 						result += "&nbsp;<span class=\"badge badge-success\">New</span>";
 					}
