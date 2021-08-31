@@ -219,10 +219,11 @@ $transRemarks = $currentAccount->getTranscribeRemarks();
 
     <link href='data/css/transcribe.css?v=16' type='text/css' rel='stylesheet'/>
 
-    <!-- Enjoyhint library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/kineticjs/5.2.0/kinetic.js"></script>
-    <link href="data/thirdparty/enjoyhint/enjoyhint.css" rel="stylesheet">
-    <script src="data/thirdparty/enjoyhint/enjoyhint.min.js"></script>
+    <!-- Intro.js library -->
+    <link href="data/thirdparty/introjs/introjs.css" rel="stylesheet">
+    <!-- Add Modern template -->
+    <link href="data/thirdparty/introjs/themes/introjs-modern.css" rel="stylesheet">
+    <script src="data/thirdparty/introjs/intro.js"></script>
 
     <?php $tuts = (isset($_SESSION['tutorials'])) ? $_SESSION['tutorials'] : '{}'; ?>
     <script type="text/javascript">
@@ -256,7 +257,7 @@ $transRemarks = $currentAccount->getTranscribeRemarks();
                             <span class="number">1</span> Report Body
                         </legend>
                         <div class="row no-gutters mb-2 d-flex flex-row-reverse">
-                            <span class="transcribe-shortcuts">
+                            <span class="transcribe-shortcuts" id="transcribe-shortcuts">
                                 <img src="data/images/f1_48.png"/> <i>Insert last used word</i> &nbsp;&nbsp;
 
                                 <img src="data/images/f2_48.png"/> <i><-INAUDIBLE-></i> &nbsp;&nbsp;
@@ -287,9 +288,7 @@ $transRemarks = $currentAccount->getTranscribeRemarks();
                         }
                         ?>
 
-
-
-                        <div id="divv" class="form-row report-container">
+                        <div id="divv" class="form-row report-container"'>
 
                             <div class="col">
                                 <button class="circular ui icon blue button toggle-demo-bar" id="toggleDemoBar">
