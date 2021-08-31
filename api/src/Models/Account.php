@@ -24,6 +24,7 @@ class Account extends BaseModel implements BaseModelInterface
         private int $enabled = 1,
         private int $billable = 1,
         private int $acc_retention_time = 14,
+        private int $subscription_type = 0,
         private float $bill_rate1 = 0,
         private int $bill_rate1_type = 0,
         private int $bill_rate1_tat = 0,
@@ -66,6 +67,22 @@ class Account extends BaseModel implements BaseModelInterface
             $this->accountGateway = new AccountGateway($db);
             parent::__construct($this->accountGateway);
         }
+    }
+
+    /**
+     * @return int
+     */
+    public function getSubscriptionType(): int
+    {
+        return $this->subscription_type;
+    }
+
+    /**
+     * @param int $subscription_type
+     */
+    public function setSubscriptionType(int $subscription_type): void
+    {
+        $this->subscription_type = $subscription_type;
     }
 
     /**
@@ -153,6 +170,7 @@ class Account extends BaseModel implements BaseModelInterface
             $this->billable = $row['billable'];
             $this->acc_name = $row['acc_name'];
             $this->acc_retention_time = $row['acc_retention_time'];
+            $this->subscription_type = $row['subscription_type'];
             $this->acc_creation_date = $row['acc_creation_date'];
             $this->bill_rate1 = $row['bill_rate1'];
             $this->bill_rate1_type = $row['bill_rate1_type'];
