@@ -1598,8 +1598,8 @@ $(document).ready(function () {
             },
             {
             title: 'Navigation Bar',
-            element: '.pin-collapse-div',
-            intro: 'Click here to expand the navigation bar to get access to various pages and settings'
+            element: '#sidebar-container',
+            intro: 'Use the navigation bar to get access to various pages and settings'
             },
             {
             title: 'Need Help?',
