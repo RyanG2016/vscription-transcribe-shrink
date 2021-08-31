@@ -235,8 +235,8 @@ $transRemarks = $currentAccount->getTranscribeRemarks();
 <body>
 
 <script src="data/scripts/parts/constants.js" type="text/javascript"></script>
-<script src="data/scripts/transcribe.min.js?v=11"></script>
-<!--<script src="data/scripts/transcribe.js?v=5"></script>-->
+<script src="data/scripts/transcribe.min.js?v=12"></script>
+<!-- <script src="data/scripts/transcribe.js"></script> -->
 
 <div id="updated_version_bar">There is a newer version (v<span></span>) of the vScription Transcribe Controller
     available -> <a href="" target="_blank">download</a></div>
@@ -274,7 +274,7 @@ $transRemarks = $currentAccount->getTranscribeRemarks();
 
                         if($transRemarks)
                         {
-                            echo "<div class='alert alert-warning typing_notes_alert mr-2 mb-2' role='alert'>
+                            echo "<div id='typing_notes_body' class='alert alert-warning typing_notes_alert mr-2 mb-2' role='alert'>
                             <b class='typing_notes_header' id='typingNotesHeader'>Organization Typing Notes:</b>
                             <span id='typingNotesBody' class='typing_notes_body'>$transRemarks</span>
                             

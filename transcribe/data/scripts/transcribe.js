@@ -39,6 +39,7 @@ var has_captions = false;
 var refreshShortcuts = true;
 
 var lastShortcutValue = "";
+var jpTutorialRunOnce = false;
 
 $(document).ready(function () {
     var loadingText = $("#loadingText");
@@ -1535,10 +1536,19 @@ $(document).ready(function () {
 		$("#suspendBtn").prop('disabled', false);
 		$("#discardBtn").prop('disabled', false);
 		demoDiv.show();
+        if ($("#typingNotesHeader").length == 0) {
+            $(`<div id='typ_notes' class='alert alert-warning typing_notes_alert mr-2 mb-2' role='alert'>
+            <b class='typing_notes_header' id='typingNotesHeader'>Organization Typing Notes:</b>
+            <span id='typingNotesBody' class='typing_notes_body'>Please type the dictated patient name into the Job Identifer field.</span>       
+            <button type='button' class='close bs-exclude' data-dismiss='alert' aria-label='Close'>
+                <span aria-hidden='true'>&times;</span>
+            </button>
+            </div>`).insertBefore("#divv");
+        }
 
         // show main tutorial
         // Note: the setTimeout is needed to ensure all of the custom tineMCE items load prior to starting the 
-        // tutorial
+        // tutorial. The filter function will skip any non-existing elements
         setTimeout(function() {
             introJs().setOptions({
             steps: [
@@ -1556,6 +1566,21 @@ $(document).ready(function () {
             element: '#demoSidebar',
             intro: 'Here are all of the job demographics for reference as well as where you enter any job data as needed. You can also see and control the audio from here if you don\'t have a USB Foot Control'
             },
+            {
+            title: 'Collapse Sidebar',
+            element: '#toggleDemoBar',
+            intro: 'Click here to collapse the sidebar to have a larger Document Editor area'
+            },     
+            {
+            title: 'Organization Specific Typing Info',
+            element: '#typ_notes',
+            intro: 'This area will show any specific information that you may need when typing for this organization'
+            },       
+            {
+            title: 'Organization Specific Typing Info',
+            element: '#typing_notes_body',
+            intro: 'This area will show any specific information that you may need when typing for this organization'
+            }, 
             {
             title: 'Document Editor',
             element: '#divv',
@@ -1589,7 +1614,7 @@ $(document).ready(function () {
             {
             title: 'USB Foot Control Status',
             element: '#statusTxt',
-            intro: 'This tells you if your USB foot control is connected'
+            intro: 'This tells you if a USB foot control is connected and ready for use. Although tt is not required, we recommended using one if you plan on typing or editing a lot. </br>If it shows <i style="color:red;">Controller not running</i>, make sure</br>1.You have downloaded and installed the vScription Controller application </br>2. Your foot control is connected to your computer </br>3. The vScription Controller is running.</br></br> For a list of supported foot control, click <a href="https://pro.vscription.com/downloads.php" target="_blank\">here</a>'
             },
             {
             title: 'Shortcut Keys',
@@ -1605,7 +1630,9 @@ $(document).ready(function () {
             title: 'Need Help?',
             element: '#zohohc-asap-web-launcherbox',
             intro: 'Click here to access the online help'
-            }]
+            }].filter(function (obj) {
+                return document.querySelector(obj.element) !== null;
+            })
         }).oncomplete(function() {
             //alert("Tutorial is done");
             tutorialViewed();
@@ -1613,13 +1640,18 @@ $(document).ready(function () {
           .setOption("showStepNumbers", "true")
           .setOption("exitOnOverlayClick", "false")
         //   .setOption("exitOnEsc", "true")
+            .setOption("disableInteraction", true)
+            .setOption("scrollToElement", true)
+            .setOption("scrollPadding", 100)
           .onbeforeexit(function() {
+            if ($('#typ_notes').length) {
+                $( "#typ_notes" ).remove()
+            };
               clear();
           })
         .start(); 
     }, 1000);
 }
-
 
     function tutorialViewed() {
         //reset view
@@ -1631,6 +1663,9 @@ $(document).ready(function () {
 		processData: false,
 		data: convertToSearchParam(formData)
 			});
+        if ($('#typ_notes').length) {
+            $( "#typ_notes" ).remove()
+        };
 		clear();
     }
 
@@ -1651,7 +1686,9 @@ function loadNewJob()
     var tutorialsJson = JSON.parse(tutorials);
     var loadTutorial = false;
     console.log(`tutorialsJson['transcribeJP']`);
-    if(tutorialsJson['transcribeJP'] == undefined || tutorialsJson['transcribeJP'] == 0){
+    if((tutorialsJson['transcribeJP'] == undefined || tutorialsJson['transcribeJP'] == 0) && jpTutorialRunOnce == false){
+        //This is to prevent the tutorial from popping up everytime until the user reloads the page.
+        jpTutorialRunOnce = true;
         loadTutorial = true;
         jobsDTRef.row.add(
             {job_id: "VT-001234",
