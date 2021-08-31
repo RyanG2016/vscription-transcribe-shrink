@@ -459,7 +459,7 @@ $(document).ready(function () {
 				},
 				{
 				title: 'Need Help?',
-				element: '#zohohc-asap-web-launcherbox > a',
+				element: '#zohohc-asap-web-launcherbox',
 				intro: 'Click here to access the online help'
 				}]
 			}).oncomplete(function() {
@@ -476,7 +476,7 @@ $(document).ready(function () {
 				jobsDTRef.row('#0').remove().draw();
 			  })
 			.start(); 
-		}, 1000);
+		}, 1500);
 		}
 
 		function tutorialViewed() {
