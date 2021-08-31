@@ -92,10 +92,11 @@ else {
     <script type="text/javascript" src="data/tooltipster/js/tooltipster.bundle.min.js"></script>
 
 	
-	 <!-- Enjoyhint library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/kineticjs/5.2.0/kinetic.js"> </script>
-    <link href="data/thirdparty/enjoyhint/enjoyhint.css" rel="stylesheet">
-    <script src="data/thirdparty/enjoyhint/enjoyhint.min.js"></script>
+    <!-- Intro.js library -->
+    <link href="data/thirdparty/introjs/introjs.css" rel="stylesheet">
+    <!-- Add Modern template -->
+    <link href="data/thirdparty/introjs/themes/introjs-modern.css" rel="stylesheet">
+    <script src="data/thirdparty/introjs/minified/intro.min.js"></script>
 
 	<?php $tuts=(isset($_SESSION['tutorials']))?$_SESSION['tutorials']:'{}'; ?>
     <script type="text/javascript">
@@ -104,7 +105,7 @@ else {
 	
 	<link rel="stylesheet" href="data/css/main.css?v=2">
 <!--	<script src="data/scripts/main.js?v=10"></script>-->
-	<script src="data/scripts/main.min.js?v=12"></script>
+	<script src="data/scripts/main.min.js?v=13"></script>
 
 </head>
 
@@ -162,7 +163,7 @@ else {
                     <table id="jobs-tbl" class="users-tbl table vspt-table hover compact">
 <!--                    <table id="jobs-tbl" class="users-tbl table vspt-table hover compact responsive nowrap" width="100%">-->
                         <tfoot>
-                        <tr>
+                        <tr data-position="bottom-middle-aligned">
                             <th></th>
                             <th></th>
                             <th></th>

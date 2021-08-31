@@ -338,87 +338,25 @@ $(document).ready(function () {
 				arrow: true
 			});
 		}	// calculate total jobs duration
+		if (tutorialStarted = false) {
 			$("#tjd").html("Total Jobs Length: " + new Date(totalDur * 1000).toISOString().substr(11, 8));
 			$("#cbm").html("Current Backlog Minutes: " + new Date(totalTrDur * 1000).toISOString().substr(11, 8));
 		}
+		}
 		);
 		
-		// Tutorial area
-	
-		/**
-		 * Copy this fold to any JS file for any page and just edit the following
-		 * 1. enjoyhint_script_steps -> steps of the tutorial text and screen items to be highlighted
-		 * 2. tutorialViewed function -> ajax 'url' relative path MAY need to be edited
-		 * finally copy over the following to the page PHP code before the initializing of the JS file
-		 *
-		 <?php $tuts=(isset($_SESSION['tutorials']))?$_SESSION['tutorials']:'{}'; ?>
-		<script type="text/javascript">
-				var tutorials='<?php echo $tuts;?>';
-		</script>
-		 */
-		//initialize instance
-		var enjoyhint_instance
-			= new EnjoyHint({
-			onEnd:function(){
-				tutorialViewed();
-			},
-			onSkip:function(){
-				tutorialViewed();
-			}
-		});
-
-		//simple config.
-		//Only one step - highlighting(with description) "New" button
-		//hide EnjoyHint after a click on the button.
-		var enjoyhint_script_steps = [
-			{
-				"next #jobs-tbl_wrapper": "Here is the job list"
-			},
-			{
-				"next td:nth-child(9)": "Here is where you can view or download completed documents",
-			},
-			{
-				"next tfoot":'Use these to filter your job list',
-			}
-			,
-			{
-				"next #tjd":'Here is the length of all jobs in your account',
-			}
-			,
-			{
-				"next #cbm":'Here is the length of backlog (Jobs awaiting typing) for your account',
-			}
-			,		
-			{
-				"next #newupload_btn > div":'Click here to manually upload new jobs',
-				// shape:"circle",
-			}
-			,
-			{
-				"next #collapse-icon":"Click here to expand the navigation bar to get access to various pages and settings",
-				// shape:"circle",
-			}
-			,		
-			{
-				"click #zohohc-asap-web-launcherbox > a":"Click here to access the online help",
-				// shape:"circle",
-				"skipButton":{text: "Finish"}
-			}
-		];
-
-		//set script config
-		enjoyhint_instance.set(enjoyhint_script_steps);
-
 		// get page name
 		const currentPageName = location.pathname.split("/").slice(-1)[0].replace(".php","");
 		// parse user tutorials data to JSON
 		var tutorialsJson = JSON.parse(tutorials);
+		var tutorialStarted = false;
 		// check if tutorial for the current page isn't viewed before
 		if(tutorialsJson[currentPageName] == undefined || tutorialsJson[currentPageName] == 0){
 			//Insert sample dictation row in case there are not files in the account
+			tutorialStarted = true;
 			jobsDTRef.row.add(
 				{acc_id: "1",
-				audio_length: "60",
+				audio_length: "89",
 				billed: "0",
 				file_author: "Sample Author",
 				file_comment: "Sample file comment",
@@ -447,13 +385,104 @@ $(document).ready(function () {
 				user_field_2: "",
 				user_field_3: ""}
 				).draw();
+				$("#tjd").html("Total Jobs Length: " + new Date(89 * 1000).toISOString().substr(11, 8));
+				$("#cbm").html("Current Backlog Minutes: " + new Date(89 * 1000).toISOString().substr(11, 8));
+
 			// show tutorial
-			enjoyhint_instance.run();
+			setTimeout(function() {
+				introJs().setOptions({
+				steps: [
+				{
+				title: 'Job Lister Page Tutorial',
+				intro: 'Please take a minute to go through this short tutorial to get familiar with the Job Lister page. This is where you will upload, download and view completed documents. You can skip the tutorial for now by pressing ESC on your keyboard or click Next to start'
+				},
+				{
+				title: 'Job List',
+				element: '#jobs-tbl > tbody > tr',
+				intro: 'Here is the job list. By default it loads all jobs but we\'ll show you how to filter them',
+				position: 'top'
+				},
+				{
+				title: 'Additional Job Info',
+				element: 'td:nth-child(1)',
+				intro: 'Click the arrow button to open the job fold to see more job information'
+				},
+				{
+				title: 'Comment Indicator',
+				element: 'td.all.dtr-control.sorting_1 > sup',
+				intro: 'If you see this orange dot, it means there are additional comments you may want to look at. Expand the fold to see them. We went through this on the previous step.'
+				},
+				{
+				title: 'View Completed Job',
+				element: '#view-icon',
+				intro: 'Clicking this icon will open a popup window displaying the document text. </br> <i>Note: You\'ll only see this if the job has been typed or has been converted using speech to text</i>'
+				},
+				{
+				title: 'Download Completed Job',
+				element: 'td:nth-child(9) > a.material-icons.download-icon',
+				intro: 'Clicking this icon will download the completed document text. </br><i>Note: You\'ll only see this if the job has been typed or has been converted using speech to text</i>'
+				},            
+				{
+				title: 'Activity Indicator',
+				element: 'td:nth-child(9) > span',
+				intro: 'This shows you how many times a report has been viewed or downloaded. All activity is logged in the audit table.'
+				},
+				{
+				title: 'Job Filters',
+				element: '#jobs-tbl > tfoot > tr',
+				intro: 'Using these filters, you can filter the list as you need. You can also search and we\'ll show you that too'
+				},
+				{
+				title: 'Total Job Backlog',
+				element: '#tjd',
+				intro: 'This shows you how many of your jobs are awaiting typing'
+				},
+				{
+				title: 'Total Active Jobs',
+				element: '#cbm',
+				intro: 'This tells you how many active jobs you have in the system. '
+				},
+				{
+				title: 'Job List Auto-Refresh',
+				element: '#jlr',
+				intro: 'This tells you whether your job list will auto refresh or not. This can be configured in the settings'
+				},
+				{
+				title: 'Upload New Jobs',
+				element: '#newupload_btn > div',
+				intro: 'Click this button if you want to upload jobs. This will take you to the Job Upload page.'
+				},
+				{
+				title: 'Navigation Bar',
+				element: '#sidebar-container',
+				intro: 'Use the navigation bar to get access to various pages and settings'
+				},
+				{
+				title: 'Need Help?',
+				element: '#zohohc-asap-web-launcherbox > a',
+				intro: 'Click here to access the online help'
+				}]
+			}).oncomplete(function() {
+				//alert("Tutorial is done");
+				tutorialViewed();
+			  })
+			  //.setOption("showStepNumbers", true)
+			  .setOption("exitOnOverlayClick", "false")
+			  .setOption("overlayOpacity", ".75")
+			  .setOption("skipLabel","Skip")
+			  //.setOption("tooltipPosition", "bottom-middle-aligned")
+			//   .setOption("exitOnEsc", "true")
+			  .onbeforeexit(function() {
+				jobsDTRef.row('#0').remove().draw();
+			  })
+			.start(); 
+		}, 1000);
 		}
 
 		function tutorialViewed() {
 			var formData = new FormData();
 			formData.append("page", currentPageName);
+			tutorialStarted = false;
 			jobsDTRef.row('#0').remove().draw();
 			$.ajax({
 				type: 'POST',
@@ -461,6 +490,9 @@ $(document).ready(function () {
 				processData: false,
 				data: convertToSearchParam(formData)
 			});
+			jobsDTRef.ajax.reload(dtTableReloadCallback);
+			$("#tjd").html("Total Jobs Length: " + new Date(totalDur * 1000).toISOString().substr(11, 8));
+			$("#cbm").html("Current Backlog Minutes: " + new Date(totalTrDur * 1000).toISOString().substr(11, 8));			
 		}
 });
 
