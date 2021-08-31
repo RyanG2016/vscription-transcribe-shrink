@@ -428,7 +428,7 @@ select.form-control,
 
 /* VTEX CARD OVERRIDE */
 .vtex-card {
-    background-color: #f4f7f8;
+    /* background-color: #f4f7f8; */
     /*max-width: 90%;*/
     min-width: 950px;
     /*width: 90%;*/
