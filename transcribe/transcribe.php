@@ -223,7 +223,7 @@ $transRemarks = $currentAccount->getTranscribeRemarks();
     <link href="data/thirdparty/introjs/introjs.css" rel="stylesheet">
     <!-- Add Modern template -->
     <link href="data/thirdparty/introjs/themes/introjs-modern.css" rel="stylesheet">
-    <script src="data/thirdparty/introjs/intro.js"></script>
+    <script src="data/thirdparty/introjs/minified/intro.min.js"></script>
 
     <?php $tuts = (isset($_SESSION['tutorials'])) ? $_SESSION['tutorials'] : '{}'; ?>
     <script type="text/javascript">
