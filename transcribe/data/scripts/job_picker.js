@@ -5,6 +5,8 @@ let maximum_rows_per_page_jobs_list = 7;
 $(document).ready(function () {
 
     jobsDT = $("#jobs-tbl");
+    var showingCompleted = false;
+
 
     jobsDT.on( 'init.dt', function () {
         if(!$('.cTooltip').hasClass("tooltipstered"))
@@ -27,6 +29,7 @@ $(document).ready(function () {
         "ajax": 'api/v1/files/pending?dt',
         "processing": true,
         lengthChange: false,
+        responsive: true,
         pageLength: maximum_rows_per_page_jobs_list,
         autoWidth: false,
         /*columnDefs: [
@@ -38,36 +41,21 @@ $(document).ready(function () {
         "columns": [
             {   "title": "Job #",
                  "data": "job_id",
+                "class":"vspt-except",
                 render: function (data, type, row) {
-                    var addition = "";
-                    var result = "";
+                    var result = data;
 
-                    let fields = ["user_field_1", "user_field_2", "user_field_3", "typist_comments"];
-                    /* Additional Popup */
-                    fields.forEach(value => {
-                        if(row[value] !== null && row[value] !== "")
-                        {
-                            if(addition !== "")
-                            {
-                                addition += "<br><br>";
-                                // addition += "\n";
-                            }
-                            addition += `<b>${value}</b>: ${row[value]}`;
-                        }
-                    });
                     if (row["file_comment"] != null) {
+                        result += "<sup>●</sup>" ;
+                        // result = `<i class="fas fa-comment-alt-lines vspt-fa-blue cTooltip" data-html="true"  title="${htmlEncodeStr(row["file_comment"])}"></i>`;
+                    }
 
-                        result = `<i class="fas fa-comment-alt-lines vspt-fa-blue cTooltip" data-html="true"  title="${htmlEncodeStr(row["file_comment"])}"></i>`;
-                    }
-                    if(addition !== "")
+                    if(((new Date() - new Date(row.job_upload_date)) / (1000 * 60 * 60 * 24)) < 1)
                     {
-                        result += `&nbsp;<i class="fas fa-info-square vspt-fa-blue cTooltip" data-html="true"  title="${addition}"></i>`;
+                        result += "&nbsp;<span class=\"badge badge-success\">New</span>";
                     }
-                    if(result)
-                    {
-                        result = `<span class="align-middle float-right">${result}</span>`
-                    }
-                    return data + result;
+
+                    return result;
                 }
             },
             {                "title": "Author",
@@ -85,6 +73,11 @@ $(document).ready(function () {
                 render: function (data) {
                     return new Date(data * 1000).toISOString().substr(11, 8);
                 }
+            },
+            {
+                "title": "File Comments",
+                "className":"none",
+                "data": "file_comment"
             }
         ]
     } );
@@ -101,6 +94,12 @@ $(document).ready(function () {
                 download(file_id);
             });
 
+        $('sup').tooltip(
+            {
+                title:'File comments exist. Please review'
+            }
+        );
+
             if(!$('.cTooltip').hasClass("tooltipstered"))
             {
                 $('.cTooltip').tooltipster({
@@ -114,10 +113,27 @@ $(document).ready(function () {
         }
     );
 
-    $('#jobs-tbl tbody').on('click', 'tr', function () {
-        let fileID = jobsDTRef.row(this).id();
-        postToParent(fileID);
+    $('#jobs-tbl tbody').on('click', 'tr', function (event) {
+
+        if(!$(event.target).hasClass("vspt-except"))
+        {
+            let fileID = jobsDTRef.row(this).id();
+            postToParent(fileID);
+        }
+
     } );
+
+    $("#showCompBtn").on('click', function() {
+        if (!showingCompleted) {
+            showingCompleted = true;
+            $(this).html('<i class="fas fa-eye-slash"></i> Hide Completed')
+            jobsDTRef.ajax.url( 'api/v1/files/completed?dt' ).load(); // &file_status[mul]=3,11
+        } else {
+            showingCompleted = false;
+            jobsDTRef.ajax.url( 'api/v1/files/pending?dt' ).load(); // &file_status[mul]=0,1,2,7,11
+            $(this).html('<i class="fas fa-eye-slash"></i> View Completed')
+        }
+    });
 
 
 });

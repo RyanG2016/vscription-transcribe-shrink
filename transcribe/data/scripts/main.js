@@ -56,6 +56,12 @@ $(document).ready(function () {
 				view(file_id);
 			});
 
+			$('sup').tooltip(
+				{
+					title:'File comments exist. Please review'
+				}
+			);
+
 			$('.cTooltip').tooltipster({
 				animation: 'grow',
 				side: ['bottom', 'right'],
@@ -305,6 +311,18 @@ $(document).ready(function () {
 		$("#cbm").html("Current Backlog Minutes: " + new Date(totalTrDur * 1000).toISOString().substr(11, 8));
 	});
 
+	$("#showCompBtn").on('click', function() {
+		if (!showingCompleted) {
+			showingCompleted = true;
+			$(this).html('<i class="fas fa-eye-slash"></i> Hide Completed')
+			jobsDTRef.ajax.url( 'api/v1/files/completed?dt' ).load(); // &file_status[mul]=3,11
+		} else {
+			showingCompleted = false;
+			jobsDTRef.ajax.url( 'api/v1/files/pending?dt' ).load(); // &file_status[mul]=0,1,2,7,11
+			$(this).html('<i class="fas fa-eye-slash"></i> View Completed')
+		}
+	});
+
 	jobsDT.on( 'error.dt', function ( e, settings, techNote, message ) {
 		// console.log( 'An error has been reported by DataTables: ', message );
 		console.log( 'Failed to retrieve data' );
@@ -323,6 +341,7 @@ $(document).ready(function () {
 		});
 
 		$('.btTooltip').tooltip({"trigger": 'hover focus'});
+
 		$('sup').tooltip(
 			{
 				title:'File comments exist. Please review'
