@@ -1499,6 +1499,7 @@ $(document).ready(function () {
         }
     }
 
+
     changeLoading(false);
     function changeLoading(show, text = false) {
         if(!show){
@@ -1513,59 +1514,6 @@ $(document).ready(function () {
         }
     }
 
-    	// Tutorial area
-		//initialize instance
-		var enjoyhint_instance
-        = new EnjoyHint({
-        onEnd:function(){
-            tutorialViewed();
-        },
-        onSkip:function(){
-            tutorialViewed();
-        }
-    });
-
-    //simple config.
-
-    var enjoyhint_script_steps = [
-        {
-            "next #mceu_14-button":"Click here to choose a job to open"
-        },
-		// {
-		// 	"next #demoSidebar": "Job file information and demographics"
-		// },
-		{
-			"next #divv": "This is the rich text editor. This is where any speech to text content will show and/or where you will type "
-		},
-		{
-			"next #saveBtn": "This saves, finishes and closes the job"
-		},
-		{
-			"next #suspendBtn": "This saves your progress and closes the job. You can continue working on it whenever you want"
-		},
-		{
-			"next #discardBtn": "This closes the job without saving your progress"
-		},
-		{
-			"next #statusTxt": "This tells you if your USB foot control is connected"
-		},
-		{
-			"next #pop": "Click here to switch to mini player"
-		},
-		{
-			"next .pin-collapse-div":"Click here to expand the navigation bar to get access to various pages and settings"
-		},
-		{
-			"click #zohohc-asap-web-launcherbox > a":"Click here to access the online help",
-				// shape:"circle",
-			"skipButton":{text: "Finish"}
-		}
-
-    ];
-
-    //set script config
-    enjoyhint_instance.set(enjoyhint_script_steps);
-
     // get page name
     const currentPageName = location.pathname.split("/").slice(-1)[0].replace(".php","");
     // parse user tutorials data to JSON
@@ -1573,13 +1521,13 @@ $(document).ready(function () {
     // check if tutorial for the current page isn't viewed before
     if(tutorialsJson[currentPageName] == undefined || tutorialsJson[currentPageName] == 0){
         //Insert sample dictation text since there won't be a job loaded
-	//$(".able-duration").html = "/ 5:43";
+	    //$(".able-duration").html = "/ 5:43";
 		$("#jobNo").val("VT-001234");
 		$("#authorName").val("Sample Author");
-		$("#date").val("23-Jan-2021 10:34:00");
+		$("#date").val("18-Aug-2021 10:34:00");
 		$("#jobType").val("Meeting Notes");
 		$("#user_field_1").val("Conf ID: 2234");
-		$("#dateT").val("23-Jan-2021 11:01:00");
+		$("#dateT").val("21-Aug-2021 11:01:00");
 		$("#comments").val("Jane was speaking very softly. Hard to hear");
 		$("#file_comment").val("Please send a copy to Jeremy");
 		$("#report").val("Thank you all for taking the time to meet today. I know the weather wasn't favourable and we really appreciate you making it here today");
@@ -1587,13 +1535,94 @@ $(document).ready(function () {
 		$("#suspendBtn").prop('disabled', false);
 		$("#discardBtn").prop('disabled', false);
 		demoDiv.show();
-        // show tutorial
-        setTimeout(function(){enjoyhint_instance.run()},1000);
-    }
+
+        // show main tutorial
+        // Note: the setTimeout is needed to ensure all of the custom tineMCE items load prior to starting the 
+        // tutorial
+        setTimeout(function() {
+            introJs().setOptions({
+            steps: [
+            {
+            title: 'Transcribe Page Tutorial',
+            intro: 'Please take a minute to go through this short tutorial to get familiar with the Transcribe page. You can skip the tutorial for now by pressing ESC on your keyboard or click Next to start'
+            },
+            {
+            title: 'Start Here',
+            element: 'div#mceu_33',
+            intro: 'Click here to load a job to type'
+            },
+            {
+            title: 'Job Information',
+            element: '#demoSidebar',
+            intro: 'Here are all of the job demographics for reference as well as where you enter any job data as needed. You can also see and control the audio from here if you don\'t have a USB Foot Control'
+            },
+            {
+            title: 'Document Editor',
+            element: '#divv',
+            intro: 'This is the rich text editor where you will type and format your documents.'
+            },
+            {
+            title: 'User Shortcuts',
+            element: '#mceu_13-button',
+            intro: 'Click here to add new shortcuts. Shortcuts are like Word Macros or Auto texts'
+            },
+            {
+            title: 'Spell Checker',
+            element: '#mceu_25',
+            intro: 'Click here to enable spell checking. Dictionaries include medical terms as well as standard English terms'
+            },            
+            {
+            title: 'Save Button',
+            element: '#saveBtn',
+            intro: 'This saves, finishes and closes the job'
+            },
+            {
+            title: 'Suspend Button',
+            element: '#suspendBtn',
+            intro: 'This saves your progress and closes the job. You can continue working on it whenever you want'
+            },
+            {
+            title: 'Discard Changes',
+            element: '#discardBtn',
+            intro: 'This closes the job without saving your progress'
+            },
+            {
+            title: 'USB Foot Control Status',
+            element: '#statusTxt',
+            intro: 'This tells you if your USB foot control is connected'
+            },
+            {
+            title: 'Shortcut Keys',
+            element: '#transcribe-shortcuts',
+            intro: 'This shows the current transcribe shortcut keys. F1 inserts the previously used shortcut, F2 inserts a marker in the document that can be used to easily review inaudible parts of a document. / activates the shortcuts menu and the popout button switches to mini-player mode'
+            },
+            {
+            title: 'Navigation Bar',
+            element: '.pin-collapse-div',
+            intro: 'Click here to expand the navigation bar to get access to various pages and settings'
+            },
+            {
+            title: 'Need Help?',
+            element: '#zohohc-asap-web-launcherbox > a',
+            intro: 'Click here to access the online help'
+            }]
+        }).oncomplete(function() {
+            //alert("Tutorial is done");
+            tutorialViewed();
+          })
+          .setOption("showStepNumbers", "true")
+          .setOption("exitOnOverlayClick", "false")
+        //   .setOption("exitOnEsc", "true")
+          .onbeforeexit(function() {
+              clear();
+          })
+        .start(); 
+    }, 1000);
+}
+
 
     function tutorialViewed() {
         //reset view
-
         var formData = new FormData();
         formData.append("page", currentPageName);
 		$.ajax({
@@ -1607,8 +1636,6 @@ $(document).ready(function () {
 
 });
 
-
-
 $("#jobNo").keypress(function () {
     document.title = $('#jobNo').val();
 });
@@ -1621,6 +1648,68 @@ function editUserShortcuts()
 
 function loadNewJob()
 {
+    var tutorialsJson = JSON.parse(tutorials);
+    var loadTutorial = false;
+    console.log(`tutorialsJson['transcribeJP']`);
+    if(tutorialsJson['transcribeJP'] == undefined || tutorialsJson['transcribeJP'] == 0){
+        loadTutorial = true;
+        jobsDTRef.row.add(
+            {job_id: "VT-001234",
+            user_field_1: "Jane Smithson",
+            file_author: "Jeremy Stone",
+            file_work_type: "Letter",
+            file_date_dict: "2021-09-28 03:50:25",
+            job_upload_date: "2021-09-22 03:50:25",
+            file_status_ref: "Awaiting Typing",
+            audio_length: "229"}
+            ).draw();
+        jobsDTRef.row.add(
+            {job_id: "VT-001235",
+            user_field_1: "Jane Smithson",
+            file_author: "Jeremy Stone",
+            file_work_type: "Correspondence",
+            file_date_dict: "2021-09-28 03:56:25",
+            job_upload_date: "2021-09-22 04:03:25",
+            file_status_ref: "Awaiting Typing",
+            audio_length: "309"}
+            ).draw();
+        setTimeout(function() {
+            introJs().setOptions({
+            steps: [
+            {
+            title: 'Choose a Job',
+            element: '#jobs-tbl > tbody',
+            intro: 'Click a job in the list to open it and begin typing'
+            },
+            {
+            title: 'Job Filter',
+            element: '#jobs-tbl > tfoot > tr',
+            intro: 'Here you can filter your jobs list'
+            },
+            {
+            title: 'Job Search',
+            element: '#jobs-tbl_filter > label > input',
+            intro: 'Here you can search for specific jobs by any ID in the job'
+            },
+            {
+            title: 'Show Completed Jobs',
+            element: '#showCompBtn',
+            intro: 'By default, you will only see jobs awaiting typing. Click this button to show completed jobs that you may need to review.'
+            }]
+        }).oncomplete(function() {
+            //alert('Job Picker Tutorial Is Finished');
+            //tJPTutorialViewed();
+            tJPTutorialViewed();
+        })
+        .setOption("showStepNumbers", "true")
+        .setOption("exitOnOverlayClick", "false")
+        // .setOption("exitOnEsc", "true")
+        .onbeforeexit(function() {
+            jobsDTRef.ajax.reload();
+        })
+        .start(); 
+        }, 1000);
+    }
     if(currentFileID !== 0)
     {
         $.confirm({
@@ -1637,9 +1726,24 @@ function loadNewJob()
         return;
     }
     modal.style.display = "block";
-    jobsDTRef.ajax.reload();
+    if (loadTutorial = false) {
+        jobsDTRef.ajax.reload();
+    }
+
 }
 
+function tJPTutorialViewed() {
+    //reset view
+    var formData = new FormData();
+    formData.append("page", 'transcribeJP');
+    $.ajax({
+    type: 'POST',
+    url: "../api/v1/users/tutorial-viewed/",
+    processData: false,
+    data: convertToSearchParam(formData)
+        });
+    jobsDTRef.ajax.reload();
+}
 function htmlEncodeStr(s) {
     return s.replace(/&/g, "&amp;")
         .replace(/>/g, "&gt;")
