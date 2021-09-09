@@ -100,7 +100,7 @@ if ($_SESSION['role'] != "1") {
                     <div class="col">
 <!--                        <div class="input-group">-->
                             <label for="typist" class="mt-auto mb-auto h-auto">Typist</label>
-                            <select id="typistContainer" class="typist-select selectpicker">
+                            <select id="typistContainer" class="typist-select">
                                 <option value="loading">
                                     Loading..
                                 </option>
