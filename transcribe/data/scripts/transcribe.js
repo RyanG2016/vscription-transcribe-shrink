@@ -408,6 +408,12 @@ $(document).ready(function () {
                 download(file_id);
             });
 
+            $('sup').tooltip(
+                {
+                    title:'File comments exist. Please review'
+                }
+            );
+
             $('.cTooltip').tooltipster({
                 animation: 'grow',
                 theme: 'tooltipster-punk',
@@ -421,6 +427,7 @@ $(document).ready(function () {
         "ajax": 'api/v1/files/pending?dt',
         "processing": true,
         lengthChange: false,
+        responsive: true,
         pageLength: maximum_rows_per_page_jobs_list,
         autoWidth: false,
 
@@ -428,36 +435,21 @@ $(document).ready(function () {
             {
                 "title": "Job #",
                 "data": "job_id",
+                "class":"vspt-except",
                 render: function (data, type, row) {
-                    var addition = "";
-                    var result = "";
+                    var result = data;
 
-                    let fields = ["user_field_1", "user_field_2", "user_field_3", "typist_comments"];
-                    /* Additional Popup */
-                    fields.forEach(value => {
-                        if(row[value] !== null && row[value] !== "")
-                        {
-                            if(addition !== "")
-                            {
-                                addition += "<br><br>";
-                                // addition += "\n";
-                            }
-                            addition += `<b>${value}</b>: ${row[value]}`;
-                        }
-                    });
                     if (row["file_comment"] != null) {
+                        result += "<sup>●</sup>" ;
+                        // result = `<i class="fas fa-comment-alt-lines vspt-fa-blue cTooltip" data-html="true"  title="${htmlEncodeStr(row["file_comment"])}"></i>`;
+                    }
 
-                        result = `<i class="fas fa-comment-alt-lines vspt-fa-blue cTooltip" data-html="true"  title="${htmlEncodeStr(row["file_comment"])}"></i>`;
-                    }
-                    if(addition !== "")
+                    if(((new Date() - new Date(row.job_upload_date)) / (1000 * 60 * 60 * 24)) < 1)
                     {
-                        result += `&nbsp;<i class="fas fa-info-square vspt-fa-blue cTooltip" data-html="true"  title="${addition}"></i>`;
+                        result += "&nbsp;<span class=\"badge badge-success\">New</span>";
                     }
-                    if(result)
-                    {
-                        result = `<span class="align-middle float-right">${result}</span>`
-                    }
-                    return data + result;
+
+                    return result;
                 }
             },
             {
@@ -486,6 +478,11 @@ $(document).ready(function () {
                 render: function (data) {
                     return new Date(data * 1000).toISOString().substr(11, 8);
                 }
+            },
+            {
+                "title": "File Comments",
+                "className":"none",
+                "data": "file_comment"
             }
         ],
 
@@ -547,6 +544,12 @@ $(document).ready(function () {
                 download(file_id);
             });
 
+            $('sup').tooltip(
+                {
+                    title:'File comments exist. Please review'
+                }
+            );
+
             if (!$('.cTooltip').hasClass("tooltipstered")) {
                 $('.cTooltip').tooltipster({
                     animation: 'grow',
@@ -559,10 +562,13 @@ $(document).ready(function () {
         }
     );
 
-    $('#jobs-tbl tbody').on('click', 'tr', function () {
-        let fileID = jobsDTRef.row(this).id();
-        changeLoading(true, "Loading "+ jobsDTRef.row(this).data()["job_id"]);
-        jobLoadLookup(fileID);
+    $('#jobs-tbl tbody').on('click', 'tr', function (event) {
+        if(!$(event.target).hasClass("vspt-except"))
+        {
+            let fileID = jobsDTRef.row(this).id();
+            changeLoading(true, "Loading "+ jobsDTRef.row(this).data()["job_id"]);
+            jobLoadLookup(fileID);
+        }
     });
 
     form.addEventListener("submit", e => {
@@ -1685,7 +1691,7 @@ function loadNewJob()
 {
     var tutorialsJson = JSON.parse(tutorials);
     var loadTutorial = false;
-    console.log(`tutorialsJson['transcribeJP']`);
+    // console.log(`tutorialsJson['transcribeJP']`);
     if((tutorialsJson['transcribeJP'] == undefined || tutorialsJson['transcribeJP'] == 0) && jpTutorialRunOnce == false){
         //This is to prevent the tutorial from popping up everytime until the user reloads the page.
         jpTutorialRunOnce = true;

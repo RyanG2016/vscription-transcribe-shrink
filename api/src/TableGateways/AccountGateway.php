@@ -1011,6 +1011,7 @@ class AccountGateway implements GatewayInterface
                    billable,
                    acc_name,
                    acc_retention_time,
+                   subscription_type,
                    acc_creation_date,
                    bill_rate1,
                    bill_rate1_type,

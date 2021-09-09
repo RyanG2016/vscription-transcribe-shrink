@@ -48,3 +48,62 @@
 {
     color: hsl(206, 73%, 37%) !important;
 }
+
+/* responsive override */
+
+#jobs-tbl > tbody > tr.child > td
+{
+    background-color: var(--vspt-blue-10);
+}
+
+
+table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control, table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control {
+    padding-left: 30px !important;
+}
+
+table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before, table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control:before {
+    content: "\f054";
+    font-family: FontAwesome;
+    font-size: 11px;
+    writing-mode: vertical-lr;
+    justify-content: center;
+
+    color: var(--vspt-blue);
+    background-color: #fff;
+}
+
+table.dataTable.dtr-inline.collapsed>tbody>tr.parent>td.dtr-control:before, table.dataTable.dtr-inline.collapsed>tbody>tr.parent>th.dtr-control:before {
+    content: "\f078";
+    writing-mode: vertical-lr;
+    justify-content: center;
+    color:  var(--vspt-blue);;
+    background: #fff;
+}
+
+/* Responsive styling */
+
+td > sup{
+    color: var(--vspt-orange);
+    font-size: 12px;
+}
+
+#jobs-tbl li
+{
+    min-width: 300px;
+}
+
+#jobs-tbl li:not(:last-child){
+    border-bottom: 1px solid lightgrey;
+}
+#jobs-tbl li{
+    display: flex;
+    justify-content: space-between;
+}
+
+#jobs-tbl li > span:last-child{
+    /*width: 100%;*/
+    /*display: block;*/
+    margin-left: 12px;
+    text-align: end;
+    /*background-color: red;*/
+}

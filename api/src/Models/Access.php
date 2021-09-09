@@ -23,12 +23,12 @@ class Access extends BaseModel implements BaseModelInterface
                                 private int $uid = 0,
                                 private ?string $username = "",
                                 private int $acc_role = 0,
-                                private ?string $create_at = '',
+                                private ?string $created_at = '',
 
                                 private $db = null
     )
     {
-        if($this->create_at == "" || $this->create_at == null) $this->create_at = date("Y-m-d H:i:s");
+        if($this->created_at == "" || $this->created_at == null) $this->created_at = date("Y-m-d H:i:s");
 
         if($db != null)
         {
@@ -104,7 +104,7 @@ class Access extends BaseModel implements BaseModelInterface
             $this->uid = $row['uid'];
             $this->username = $row['username'];
             $this->acc_role = $row['acc_role'];
-            $this->create_at = $row['create_at'];
+            $this->created_at = $row['created_at'];
         }
     }
 
@@ -193,15 +193,15 @@ class Access extends BaseModel implements BaseModelInterface
      */
     public function getCreateAt(): string
     {
-        return $this->create_at;
+        return $this->created_at;
     }
 
     /**
-     * @param string $create_at
+     * @param string $created_at
      */
-    public function setCreateAt(string $create_at): void
+    public function setCreateAt(string $created_at): void
     {
-        $this->create_at = $create_at;
+        $this->created_at = $created_at;
     }
 
 
