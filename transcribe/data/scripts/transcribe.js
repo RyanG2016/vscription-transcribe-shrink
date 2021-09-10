@@ -1036,7 +1036,6 @@ $(document).ready(function () {
     }
 
     function prepareAndOpenPopup() {
-
         var a1 = {
             fileID: currentFileID
         };
@@ -1769,7 +1768,7 @@ function loadNewJob()
         return;
     }
     modal.style.display = "block";
-    if (loadTutorial = false) {
+    if (loadTutorial == false) {
         jobsDTRef.ajax.reload();
     }
 
