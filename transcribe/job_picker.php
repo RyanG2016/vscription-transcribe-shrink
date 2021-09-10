@@ -31,6 +31,16 @@
     <!--  Datatables  -->
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap4.min.js"></script>
+
+    <!--  css  -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap4.min.css" crossorigin="anonymous">
+
 
     <!--	Tooltip 	-->
     <link rel="stylesheet" type="text/css" href="data/tooltipster/css/tooltipster.bundle.min.css" />
@@ -60,7 +70,16 @@
     <div class="vtex-card contents">
 
         <table id="jobs-tbl" class="table vspt-table hover compact"></table>
+        <div class="text-right">
+            <button class="btn btn-sm btn-light mb-1 mt-2"
+                    id="showCompBtn"
+                    data-toggle="button"
+                    type="button">
+                <i class="far fa-eye"></i> View Completed
+            </button>
+        </div>
     </div>
+
 
 </body>
 

@@ -237,48 +237,12 @@ table, th, td {
 /* --- TABLE STYLING  --*/
 /* ---------------------*/
 
-
-.mdc-data-table {
-    width: 100%;
-    font-size: 0.9rem;
-    font-family: main, sans-serif;
-    --mdc-theme-primary: #1e79be;
-    --mdc-theme-on-primary: #1e79be;
-    --mdc-theme-secondary: #1e79be;
-    /*--mdc-theme-background:#1e79be;*/
-    /*--mdc-theme-surface:#1e79be;*/
-    --mdc-theme-on-secondary: #1e79be;
-    /*--mdc-theme-on-surface:#1e79be;*/
-}
-
-.mdc-data-table__row--selected {
-    /*background: rgba(30, 121, 190, 0.1);*/
-    background: rgba(232, 142, 43, 0.1);
-}
-
-.mdc-data-table__header-row {
-    background: rgba(30, 121, 190, 0.9) !important;
-
-}
-
-.mdc-data-table__header-cell {
-    color: white !important;
-    font-weight: bold;
-    /*font-size: 0.9rem;*/
-    /*font-family: opensans;*/
-    padding-left: 10px !important;
-}
-
 .data-tbl {
     width: 100%;
     padding-right: 2.5%;
     padding-left: 2.5%;
     padding-bottom: 2.5%;
 
-}
-
-.mdc-data-table__cell, .mdc-data-table__header-cell {
-    height: 32px !important;
 }
 
 .userinfo {
@@ -428,7 +392,7 @@ select.form-control,
 
 /* VTEX CARD OVERRIDE */
 .vtex-card {
-    background-color: #f4f7f8;
+    /* background-color: #f4f7f8; */
     /*max-width: 90%;*/
     min-width: 950px;
     /*width: 90%;*/
@@ -599,4 +563,64 @@ select.form-control,
 
 .typing_notes_alert{
     padding: 6px 10px;
+}
+
+
+/* responsive override */
+
+#jobs-tbl > tbody > tr.child > td
+{
+    background-color: var(--vspt-blue-10);
+}
+
+
+table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control, table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control {
+    padding-left: 30px !important;
+}
+
+table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before, table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control:before {
+    content: "\f054";
+    font-family: FontAwesome;
+    font-size: 11px;
+    writing-mode: vertical-lr;
+    justify-content: center;
+
+    color: var(--vspt-blue);
+    background-color: #fff;
+}
+
+table.dataTable.dtr-inline.collapsed>tbody>tr.parent>td.dtr-control:before, table.dataTable.dtr-inline.collapsed>tbody>tr.parent>th.dtr-control:before {
+    content: "\f078";
+    writing-mode: vertical-lr;
+    justify-content: center;
+    color:  var(--vspt-blue);;
+    background: #fff;
+}
+
+/* Responsive styling */
+
+td > sup{
+    color: var(--vspt-orange);
+    font-size: 12px;
+}
+
+#jobs-tbl li
+{
+    min-width: 300px;
+}
+
+#jobs-tbl li:not(:last-child){
+    border-bottom: 1px solid lightgrey;
+}
+#jobs-tbl li{
+    display: flex;
+    justify-content: space-between;
+}
+
+#jobs-tbl li > span:last-child{
+    /*width: 100%;*/
+    /*display: block;*/
+    margin-left: 12px;
+    text-align: end;
+    /*background-color: red;*/
 }

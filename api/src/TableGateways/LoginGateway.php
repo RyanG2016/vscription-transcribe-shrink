@@ -132,6 +132,7 @@ class LoginGateway
             $_SESSION['acc_name'] = $row["acc_name"];
             $_SESSION['acc_retention_time'] = $row["acc_retention_time"];
             $_SESSION['act_log_retention_time'] = $row["act_log_retention_time"];
+            $_SESSION['subscription_type'] = $row["subscription_type"];
             $_SESSION["auto_list_refresh_interval"] = $row["auto_list_refresh_interval"];
             $_SESSION['role_desc'] = $row["role_desc"];
             $_SESSION['landed'] = true;
@@ -150,6 +151,7 @@ class LoginGateway
                 $_SESSION['acc_name'] = $account->getAccName();
                 $_SESSION['acc_retention_time'] = $account->getAccRetentionTime();
                 $_SESSION['act_log_retention_time'] = $account->getActLogRetentionTime();
+                $_SESSION['subscription_type'] = $account->getSubscriptionType();
                 $_SESSION["auto_list_refresh_interval"] = $account->getAccJobRefreshInterval();
                 $_SESSION['role_desc'] = $role->getRoleDesc();
                 $_SESSION['landed'] = true;

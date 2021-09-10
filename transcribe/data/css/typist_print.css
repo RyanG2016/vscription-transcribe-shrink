@@ -39,7 +39,8 @@
 }
 
 .report > tbody > tr > td {
-    padding: 10px;
+    padding: 4px;
+    font-size: 11px;
 }
 
 .report tbody {
@@ -71,7 +72,7 @@
 }
 
 .datedict {
-    width: 100px;
+    width: 120px;
 }
 
 .audiolength {
