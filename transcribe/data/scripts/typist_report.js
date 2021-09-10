@@ -77,7 +77,7 @@ $(document).ready(function () {
             margin: 7,
             filename: "Typist_Bill_report_"+startDate.val()+"_to_" + endDate.val()+".pdf",
             image: {type: 'jpeg', quality: 0.98 },
-            html2canvas: {scale: 2},
+            html2canvas: {scale: 1.5},
             jsPDF: {unit: 'mm', format: 'letter', orientation: 'landscape'}
         }
         html2pdf($('.billing-report-container').html(), opt);
