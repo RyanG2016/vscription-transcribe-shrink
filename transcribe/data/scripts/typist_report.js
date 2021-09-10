@@ -60,12 +60,15 @@ $(document).ready(function () {
     getReport.on("click", function() {
         //console.log("Account: " + accountEl.val());
         console.log("Typist: " + $("#typistContainer option:selected").val());
+        console.log(`Start Date ${startDate.val()} 00:00:00`);
+        console.log(`End Date ${endDate.val()} 23:59:50`);
         let arg = {
-            startDate: startDate.val(),
-            endDate: endDate.val(),
+            startDate: startDate.val()+' 00:00:00',
+            endDate: endDate.val()+' 23:59:59',
             typist: $("#typistContainer option:selected").val()
         };
         document.title = "Typist_Bill_report_"+startDate.val()+"_to_" + endDate.val();
+        console.log(arg);
         getData(arg);
     });
 
