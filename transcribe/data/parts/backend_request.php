@@ -492,7 +492,6 @@ if (isset($_REQUEST["reqcode"])) {
 				job_id, 
 				file_author, 
 				file_work_type, 
-				file_date_dict, 
 				audio_length, 
 				file_transcribed_date,
 				files.acc_id,
@@ -530,7 +529,6 @@ if (isset($_REQUEST["reqcode"])) {
                                                 <th class='jobnum'>Job Number</th>
                                                 <th class='author'>Author</th>
                                                 <th class='jobtype'>Job Type</th>
-                                                <th class='datedict'>Date Dictated</th>
                                                 <th class='audiolength'>Audio Length</th>
                                                 <th class='transdate'>Transcribed Date</th>
                                                 <th class='typ_account'>Account</th>
@@ -555,7 +553,6 @@ if (isset($_REQUEST["reqcode"])) {
                                 "<td>" . $row['job_id'] . "</td>" .
                                 "<td class='left'>" . $row['file_author'] . "</td>" .
                                 "<td class='left'>" . $row['file_work_type'] . "</td>" .
-                                "<td class='num'>" . $row['file_date_dict'] . "</td>" .
                                 //"<td class='num'>" . $row['audio_length']. "</td>" .
                                 "<td class='num'>" . $alMinutes . "</td>" .
                                 "<td class='right'>" . $row['file_transcribed_date'] . "</td>" .
@@ -604,7 +601,7 @@ if (isset($_REQUEST["reqcode"])) {
 
         // get all available typist names for typist_billing selector
         case 202:
-            confirmAdminPermission();
+            confirmAdminPermission();           
             $sql = "SELECT 
                    email,
                     first_name,
