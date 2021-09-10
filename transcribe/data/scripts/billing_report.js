@@ -52,8 +52,8 @@ $(document).ready(function () {
 
     getReport.on("click", function() {
         let arg = {
-            startDate: startDate.val(),
-            endDate: endDate.val(),
+            startDate: startDate.val()+' 00:00:00',
+            endDate: endDate.val()+' 23:59:59',
             accID: accountID.val()
         };
         document.title = "Bill_report_"+startDate.val()+"_to_" + endDate.val();
