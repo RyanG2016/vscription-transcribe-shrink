@@ -17,8 +17,6 @@ $(document).ready(function () {
     let startDate = $( "#startDate" );
     let endDate = $( "#endDate" );
     let getReport = $( "#getReport" );
-    let getPDF = $ ( "#getPDF" );
-    let getPrintJS = $ ( "#getPrint" );
     let reportOptions = $("#reportOptions");
     let billJobs = $("#billJobs");
     let mabJobs = $("#mabJobs");
@@ -134,7 +132,7 @@ $(document).ready(function () {
                         margin: [8,4,0,0]
                     };
                     // pdfMakeObj.content[1].table.widths = [ '*' ,'*','*' ,'*','*' ,'*','*' ,'*'];
-                    pdfMakeObj.content[1].table.widths = [ '*', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', '*'];
+                    pdfMakeObj.content[1].table.widths = [ 'auto', 'auto', '*', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', '*'];
                     pdfMakeObj.footer= {
                         columns: [
                             {
@@ -501,40 +499,6 @@ $(document).ready(function () {
 
     });
 
-    getPDF.on("click", function() {
-        var opt = {
-            margin: 7,
-            filename: "Bill_report_"+startDate.val()+"_to_" + endDate.val()+".pdf",
-            image: {type: 'jpeg', quality: 0.98 },
-            html2canvas: {scale: 2},
-            jsPDF: {unit: 'mm', format: 'letter', orientation: 'landscape'}
-        }
-        html2pdf($('.billing-report-container').html(), opt);
-    });
-
-    getPrintJS.on("click", function() {
-        // var opt = {
-        //     margin: 7,
-        //     filename: 'bill_report.pdf',
-        //     image: {type: 'jpeg', quality: 0.98 },
-        //     html2canvas: {scale: 2},
-        //     jsPDF: {unit: 'mm', format: 'letter', orientation: 'landscape'}
-        // }
-
-        // printJS('printableReport', 'html');
-        // printJS({printable: 'printableReport', type: 'html', properties: ['prop1', 'prop2', 'prop3']});
-        printJS({
-            // printable: 'printableReport',
-            printable: 'billing-tbl',
-            type: 'html',
-            showModal: true,
-            scanStyles: true,
-            // css: "../data/css/billing_print.css",
-            css: "https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.25/b-1.7.1/b-html5-1.7.1/b-print-1.7.1/sb-1.1.0/sp-1.3.0/sl-1.3.3/datatables.min.css",
-            style: '@page { size: Letter landscape; }'
-        });
-        // html2pdf($('.billing-report-container').html(), opt);
-    });
 
     $("#findAccBtn").on("click", function () {
 

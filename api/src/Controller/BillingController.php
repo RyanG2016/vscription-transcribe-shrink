@@ -31,7 +31,17 @@ class BillingController {
         switch ($this->requestMethod) {
             case 'GET':
                 if ($this->options[0]) {
-                   $response = $this->getBilling($this->options[0]);
+                    if($this->options[0] == "typist" && $_SESSION["role"] == ROLES::SYSTEM_ADMINISTRATOR)
+                    {
+//                        if($this->options[1])
+//                        {
+                            $response = $this->getTypistBilling();
+//                        }else{
+//                            $response = $this->notFoundResponse();
+//                        }
+                    }else{
+                        $response = $this->getBilling($this->options[0]);
+                    }
                 } else {
 //                    $response = $this->getAllBillings();
                     $response = $this->notFoundResponse();
@@ -81,6 +91,27 @@ class BillingController {
         }
 
         $result = $this->billingGateway->find($orgID);
+
+
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = json_encode($result);
+        return $response;
+    }
+
+
+    private function getTypistBilling()
+    {
+        if(
+            !isset($_GET['start_date'])
+            ||
+            !isset($_GET['end_date'])
+            ||
+            !isset($_GET['typist_email'])
+        ){
+            return $this->common->missingRequiredParametersResponse();
+        }
+
+        $result = $this->billingGateway->findTypistBilling();
 
 
         $response['status_code_header'] = 'HTTP/1.1 200 OK';

@@ -1,10 +1,12 @@
+let maximum_rows_per_page_jobs_list = 10;
 
 $(document).ready(function () {
 
-    new mdc.ripple.MDCRipple(document.querySelector('#getPrint'));
-    new mdc.ripple.MDCRipple(document.querySelector('#getPDF'));
-    new mdc.ripple.MDCRipple(document.querySelector('#getReport'));
-    let today = new Date().toISOString().split('T')[0];
+    let today = new Date();
+    today.setDate(today.getDate() - 30);
+    today = today.toISOString().split('T')[0];
+    // let today = (new Date('2001-08-18')).toISOString().split('T')[0];
+
     let tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
     tomorrow = tomorrow.toISOString().split('T')[0];
@@ -12,10 +14,13 @@ $(document).ready(function () {
     let startDate = $( "#startDate" );
     let endDate = $( "#endDate" );
     let getReport = $( "#getReport" );
-    let getPDF = $ ( "#getPDF" );
-    let getPrintJS = $ ( "#getPrint" );
     let typistContainer = $("#typistContainer");
     let typistEl = $ ( "#demo_job_type");
+
+    let reportOptions = $("#reportOptions");
+    let generatedOn = $("#genOn");
+    let totalLengthField = $("#totalLength");
+    let totalPayableField = $("#totalPayable");
     //let accountEl = $ ("#account");
     let htmlTable = $('.billing-report-container');
     $('#startDatePicker').datetimepicker({format: "YYYY-MM-DD"});
@@ -26,9 +31,25 @@ $(document).ready(function () {
     // typistContainer.html();
     // typistContainer.append(generateLoadingSpinner());
     // typistContainer.appendChild(generateLoadingSpinner());
-    
+
+    // data table
+    let typistDT = $("#typistTbl");
+    let typistDTRef;
+
     startDate.val(today);
     endDate.val(tomorrow);
+
+    $.fn.dataTable.ext.errMode = 'none';
+
+    pdfMake.fonts = {
+        opensans: {
+            normal: 'https://cdn.jsdelivr.net/npm/@typopro/web-open-sans@3.7.5/TypoPRO-OpenSans-Light.ttf',
+            bold: 'https://cdn.jsdelivr.net/npm/@typopro/web-open-sans@3.7.5/TypoPRO-OpenSans-Light.ttf',
+            italics: 'https://cdn.jsdelivr.net/npm/@typopro/web-open-sans@3.7.5/TypoPRO-OpenSans-Light.ttf',
+            bolditalics: 'https://cdn.jsdelivr.net/npm/@typopro/web-open-sans@3.7.5/TypoPRO-OpenSans-Light.ttf'
+        }
+    };
+
 
 
     function checkDates(val, startDateGiven) {
@@ -59,58 +80,34 @@ $(document).ready(function () {
 
     getReport.on("click", function() {
         //console.log("Account: " + accountEl.val());
-        console.log("Typist: " + $("#typistContainer option:selected").val());
-        let arg = {
-            startDate: startDate.val(),
-            endDate: endDate.val(),
-            typist: $("#typistContainer option:selected").val()
-        };
-        document.title = "Typist_Bill_report_"+startDate.val()+"_to_" + endDate.val();
-        getData(arg);
+        // console.log("Typist: " + $("#typistContainer option:selected").val());
+        let args = new URLSearchParams({
+            start_date: startDate.val(),
+            end_date: endDate.val(),
+            typist_email: $("#typistContainer option:selected").val()
+        }).toString();
+        // document.title = "Typist_Bill_report_"+startDate.val()+"_to_" + endDate.val();
+
+        typistDTRef.ajax.url(`../api/v1/billing/typist/?dt&${args}`).load(dtLoadCallback);
+
     });
 
-    getPDF.on("click", function() {
-        var opt = {
-            margin: 7,
-            filename: "Typist_Bill_report_"+startDate.val()+"_to_" + endDate.val()+".pdf",
-            image: {type: 'jpeg', quality: 0.98 },
-            html2canvas: {scale: 2},
-            jsPDF: {unit: 'mm', format: 'letter', orientation: 'landscape'}
+    function dtLoadCallback(responseJson)
+    {
+        if(responseJson.count)
+        {
+            generatedOn.html(responseJson.generated_on);
+            totalLengthField.html(responseJson.total_minutes);
+            totalPayableField.html(responseJson.total_payable);
+            reportOptions.slideDown();
+
+        }else{
+            // currentOrganization = "";
+            // currentOrgBillRate = 0;
+            // BillingRate.html('');
+            reportOptions.slideUp();
         }
-        html2pdf($('.billing-report-container').html(), opt);
-    });
 
-    getPrintJS.on("click", function() {
-        printJS({
-            printable: 'printableReport',
-            type: 'html',
-            showModal: true,
-            scanStyles: true,
-            css: "../data/css/billing_print.css",
-            style: '@page { size: Letter landscape; }'
-        });
-    });
-
-
-
-    function getData(args) {
-        $.post("/data/parts/backend_request.php", {
-            reqcode: 201
-            ,args: JSON.stringify(args)
-        }).done(function (res) {
-            let response = JSON.parse(res);
-            let data = response.data;
-            // let error = res.error;
-            $('.billing-report-container').html(data);
-            if(data !== "No Results Found"){
-                getPDF.removeAttr("disabled");
-                getPrintJS.removeAttr("disabled");
-            }
-            else{
-                getPDF.attr("disabled", "disabled");
-                getPrintJS.attr("disabled", "disabled");
-            }
-        });
     }
 
 
@@ -134,8 +131,282 @@ $(document).ready(function () {
             }
         });
     }
-    
-    
+
+
+
+    /*
+    *
+    *let arg = {
+            startDate: startDate.val(),
+            endDate: endDate.val(),
+            typist: $("#typistContainer option:selected").val() -> typist email in API: typist_email
+        };
+        document.title = "Typist_Bill_report_"+startDate.val()+"_to_" + endDate.val();
+    * */
+
+    typistDTRef = typistDT.DataTable( {
+        rowId: 'file_id',
+        // "ajax": '../api/v1/billing/typist/1?dt&startDate=2018-07-19&endDate=2021-07-19',
+        "processing": true,
+        // select: true,
+        searching: false,
+        lengthChange: false,
+        pageLength: maximum_rows_per_page_jobs_list,
+        autoWidth: false,
+        order:[[0,"desc"]],
+        // dom: 'Blfrtip',
+        buttons: [
+            // 'copy', 'excel', 'pdfHtml5', 'print'
+            {
+                extend:    'copyHtml5',
+                text:      '<i class="fa fa-files-o"></i>',
+                titleAttr: 'Copy'
+            },
+            {
+                extend:    'excelHtml5',
+                text:      '<i class="fa fa-file-excel-o"></i>',
+                titleAttr: 'Excel'
+            },
+            {
+                extend:    'csvHtml5',
+                text:      '<i class="fa fa-file-text-o"></i>',
+                titleAttr: 'CSV'
+            },
+            {
+                extend: 'pdfHtml5',
+                text: '<i class="fa fa-file-pdf-o"></i>',
+                download: 'open',
+                // filename: currentOrganization+'_Bill_Report_' +startDate.val().toString()+ '_to_' +endDate.val().toString(), // * is read from host title tag
+                filename: 'file name test',
+                // title: 'current org testo',
+                // title: currentOrganization,
+                // messageTop: 'top msg',
+                // messageBottom: 'bottom msg',
+                titleAttr: 'PDF',
+                orientation: 'landscape',
+                pageSize: 'letter',
+                exportOptions:{
+                    // columns: [0,1,3],
+                    stripHtml: true,
+                    format: {
+                        body: function (data, row, column, node) {
+                            // Strip $ from salary column to make it numeric
+                            // if(column === 0 || column === 1)
+                            // {
+                            //     return node.children[0].children[1].innerHTML;
+                            // }
+                            // else return data;
+                            return data;
+                        }
+                    }
+                    // orthogonal: 'export',
+                },
+
+                customize: function (pdfMakeObj, buttonConfig, tblRef) {
+                    // let test = 1;
+                    $currentTypist = $("#typistContainer option:selected").val();
+                    buttonConfig.filename = `${$currentTypist}_Bill_Report_${startDate.val().toString()}_to_${endDate.val().toString()}`;
+                    buttonConfig.title = $currentTypist;
+                    buttonConfig.download = 'open';
+
+                    pdfMakeObj.defaultStyle.font = 'opensans';
+                    pdfMakeObj.watermark =
+                        { text: 'vScription Billing', color: '#bfced9', opacity: 0.3, bold: false, italics: true };
+
+                    pdfMakeObj.pageSize = 'LETTER';
+                    pdfMakeObj.pageOrientation = 'landscape';
+                    pdfMakeObj.pageMargins = [ 20, 20 ];
+                    pdfMakeObj.title = $currentTypist;
+                    pdfMakeObj.header = {
+                        text: 'vScription Typist Billing',
+                        margin: [8,4,0,0]
+                    };
+                    // pdfMakeObj.content[1].table.widths = [ '*' ,'*','*' ,'*','*' ,'*','*' ,'*'];
+                    // pdfMakeObj.content[1].table.widths = [ '*', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', '*'];
+                    pdfMakeObj.content[1].table.widths = [ 'auto', 'auto', 'auto', '*', 'auto', '*', '*', 'auto', 'auto', 'auto'];
+                    pdfMakeObj.footer= {
+                        columns: [
+                            {
+                                text: `\ \ ${startDate.val()} to ${endDate.val()}`,
+                                alignment: 'left',
+                                margin: [8,0,0,0]
+                            },
+                            {
+                                text: `Generated on: ${new Date().toUTCString()}\ \ `,
+                                alignment: 'right',
+                                margin: [0,0,8,8]
+                                // margin: 8
+                            }
+                        ]
+                    };
+
+                    // pdfMakeObj.watermark.text = "vScription Billing";
+                    // pdfMakeObj.watermark.opacity = '0.3';
+                    // pdfMakeObj.watermark.italics = 'true';
+                    // pdfMakeObj.content.table= {widths: [ '*' ,'*','*' ,'*','*' ,'*','*' ,'*']};
+
+                    /*pdfMakeObj.content.columns = [
+                    {
+                        // auto-sized columns have their widths based on their content
+                        width: 'auto',
+                        text: 'First column'
+                    },
+                    {
+                        // star-sized columns fill the remaining space
+                        // if there's more than one star-column, available width is divided equally
+                        width: '*',
+                        text: 'Second column'
+                    },
+                    {
+                        // fixed width
+                        width: 100,
+                        text: 'Third column'
+                    },
+                    {
+                        // % width
+                        width: '20%',
+                        text: 'Fourth column'
+                    },
+                    {
+                        // auto-sized columns have their widths based on their content
+                        width: 'auto',
+                        text: 'First column'
+                    },
+                    {
+                        // star-sized columns fill the remaining space
+                        // if there's more than one star-column, available width is divided equally
+                        width: '*',
+                        text: 'Second column'
+                    },
+                    {
+                        // fixed width
+                        width: 100,
+                        text: 'Third column'
+                    },
+                    {
+                        // % width
+                        width: '20%',
+                        text: 'Fourth column'
+                    }
+                ];*/
+
+
+                }
+            },
+            'colvis'
+        ],
+
+        "columns": [
+
+            {
+                "title": "Job Number",
+                className: "center",
+                "data": "job_id"
+            },
+            {
+                "title": "Author",
+                "data": "file_author"
+            },
+            {
+                "title": "Job Type",
+                "data": "file_work_type"
+            },
+            {
+                "title": "Date Dictated",
+                "data": "file_date_dict"
+            },
+            {
+                "title": "Audio Length",
+                "data": "audio_length",
+                render: function (data, type, row) {
+                    return new Date(data * 1000).toISOString().substr(11, 8);
+                }
+            },
+            {
+                "title": "Date Transcribed",
+                "data": "file_transcribed_date"
+            },
+            {
+                "title": "Organization",
+                "data": "acc_name"
+            },
+            {
+                "title": "Bill Rate",
+                "data": "bill_rate1_min_pay",
+                render: function (data) {
+                    return "x" + data;
+                }
+            },
+            {
+                "title": "Bill",
+                "data": "bill",
+                render: function (data) {
+                    return "$" + data;
+                }
+            },
+            {
+                "title": "Comments",
+                "data": "file_comment"
+            }
+        ],
+        // initComplete: function () {
+        //     console.log(calculatedIds);
+        //     console.log(data);
+        // totalMins.html(totalDur);
+        // }
+        /*initComplete: function () {
+
+            calculatedIds = []; // freeing resources
+            this.api().columns([0,3,4,5,7,8]).every( function () {
+                var that = this;
+
+                $( 'input', this.footer() ).on( 'keyup change clear', function () {
+                    if ( that.search() !== this.value ) {
+                        that
+                            .search( this.value )
+                            .draw();
+                    }
+                } );
+            } );
+
+            this.api().columns([1,2,6]).every(
+                function () {
+                    var column = this;
+                    var select = $('<select class="form-control"><option value=""></option></select>')
+                        .appendTo($(column.footer()).empty())
+                        .on('change', function () {
+                            var val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                            );
+
+                            column
+                                .search(val ? '^' + val + '$' : '', true, false)
+                                .draw();
+                        });
+
+                    column.data().unique().sort().each(function (d, j) {
+                        select.append('<option value="' + d + '">' + d + '</option>')
+                    });
+                }
+            );
+
+        }*/
+
+    } );
+
+
+
+    typistDTRef.buttons().container()
+        .appendTo( $('#vtexTableTools'));
+
+
+    typistDTRef.on( 'error.dt', function ( e, settings, techNote, message ) {
+        // console.log( 'An error has been reported by DataTables: ', message );
+        dtLoadCallback();
+        // console.log( 'Failed to retrieve data' );
+    } );
+
+
     // <label for="typist">Typist</label><select id="typist" class="typist-select"><option value="ryangaudet@me.com">Ryan G</option><option value="bonnielhudacek@gmail.com">Bonnie H</option></select>
 
     function generateLoadingSpinner() {
@@ -161,6 +432,28 @@ $(document).ready(function () {
         spinnerDiv.appendChild(bounce3);
 
         return spinnerDiv;
+    }
+
+
+    function roundToNearestQMinute(seconds)
+    {
+        let minutes = Math.floor(seconds / 60);
+        let remainder = seconds % 60;
+
+        if(remainder <= 15)
+        {
+            minutes += 0.25;
+        }else if(remainder <= 30)
+        {
+            minutes += 0.5;
+        }else if (remainder <= 45)
+        {
+            minutes += 0.75;
+        }else{
+            minutes ++;
+        }
+
+        return minutes;
     }
 
 });

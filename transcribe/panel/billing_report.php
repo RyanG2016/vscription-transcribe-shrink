@@ -23,7 +23,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
 <html lang="en">
 
 <head>
-    <title>vScription Billing Reports</title>
+    <title>Client Billing Reports</title>
     <link rel="shortcut icon" type="image/png" href="../data/images/favicon.png"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/12f6b99df9.js" crossorigin="anonymous"></script>
@@ -67,8 +67,8 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
 
 
 
-    <script src="../data/scripts/billing_report.min.js?v=--><!--"></script>
-<!--    <script src="../data/scripts/billing_report.js ?>"></script>-->
+<!--    <script src="../data/scripts/billing_report.min.js?v=--><!--"></script>-->
+    <script src="../data/scripts/billing_report.js"></script>
     <script src="../data/thirdparty/scripts/html2pdf.bundle.min.js"></script>
     <link href="https://printjs-4de6.kxcdn.com/print.min.css" rel="stylesheet">
     <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
@@ -192,7 +192,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
                             <i class="fad fa-file-spreadsheet"></i> Generate Report
                         </button>
                         
-                        <div id="reportOptions" class="billing-report-options">
+                        <div id="reportOptions" class="vspt-summary-report-options">
                             <hr/>
 
                             <table class="billing-selection-table">
@@ -264,8 +264,6 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
                         </div>
                     </div>
                 </div>
-
-
 
 
             </div>

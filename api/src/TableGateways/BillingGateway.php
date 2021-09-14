@@ -101,7 +101,82 @@ class BillingGateway implements GatewayInterface
 
         } catch (\PDOException $e) {
             $this->logger->insertAuditLogEntry($this->API_NAME,
-                "Failed to retrieve billing report for orgID: " . $orgID . " | " . $e->getMessage());
+                "Failed to retrieve client billing report for orgID: " . $orgID . " | " . $e->getMessage());
+            if(isset($_GET['dt'])){
+                $json_data = array("data" => []);
+                return $json_data;
+            }
+            return [];
+        }
+    }
+
+
+    public function findTypistBilling()
+    {
+        // todo return billed
+//        $returnBilled = $_GET["return_billed"] ?? 0;
+//        if($returnBilled == 1)
+//        {
+//            $returnBilled = "0 or billed = 1";
+//        }
+
+//        $org = Account::withID($orgID,$this->db);
+
+        $statement = "
+            SELECT 
+			   	file_id,
+				job_id, 
+				file_author, 
+				file_work_type, 
+				file_date_dict, 
+				audio_length, 
+				file_transcribed_date,
+				files.acc_id,
+                a.bill_rate1_min_pay,
+                a.acc_name,
+				file_comment,
+                ROUND(((audio_length/60) * a.bill_rate1_min_pay), 2) as bill
+			FROM 
+				files
+            INNER JOIN accounts a on files.acc_id = a.acc_id 
+			WHERE 
+				file_status  = '3' AND 
+				isBillable = '1' AND
+				billed = '0' AND 
+				job_transcribed_by = ? AND
+				file_transcribed_date BETWEEN ? AND ? 
+				";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array(
+                $_GET["typist_email"],
+                $_GET["start_date"],
+                $_GET["end_date"],
+
+            ));
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            $seconds = array_sum(array_column($result, "audio_length"));
+            $totalMinutes = number_format($seconds / 60,2);
+            $totalPayable = number_format(array_sum(array_column($result, "bill")), 2);
+//            $totalPayable = $totalMinutes *
+            if(isset($_GET['dt'])){
+                $json_data = array(
+                    "total_payable" => $totalPayable,
+                    "total_minutes" => $totalMinutes,
+                    "generated_on" => date("Y-m-d H:i:s"),
+                    "total_minutes_str" => sprintf('%02d:%02d:%02d', ($seconds / 3600), ($seconds / 60 % 60), $seconds % 60),
+                    "count" => $statement->rowCount(),
+                    "data"            => $result
+                );
+                //        $response['body'] = json_encode($result);
+                $result = $json_data;
+            }
+            return $result;
+
+        } catch (\PDOException $e) {
+            $this->logger->insertAuditLogEntry($this->API_NAME,
+                "Failed to retrieve typist billing report for typist: " . $_GET["typist_email"] . " | " . $e->getMessage());
             if(isset($_GET['dt'])){
                 $json_data = array("data" => []);
                 return $json_data;

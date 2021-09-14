@@ -32,10 +32,6 @@ div.row.typ-billing-container label {
     max-width: 300px;
 }
 
-.billing-report-options{
-    /*display: none;*/
-}
-
 .buttons-colvis{
     background-color: #6c757d;
 }
@@ -87,4 +83,8 @@ tr> td:first-child > div{
     border-radius: 12px 12px 0 0;
     text-align: center;
     background-color: #394f60;
+}
+
+.vspt-summary-report-options{
+    display: none;
 }
