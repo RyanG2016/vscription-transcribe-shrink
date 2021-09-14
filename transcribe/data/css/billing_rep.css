@@ -7,40 +7,6 @@
 @import "billing_print.css";
 @import "parts/global.css";
 
-/* -----------------*/
-/* --BUTTON STYLING --*/
-/* -----------------*/
-
-.joblist {
-    margin-left: 20px;
-}
-
-
-.tools-button {
-    --mdc-theme-primary: #1e79be;
-    width: 100%;
-}
-
-.mdc-text-field {
-    --mdc-theme-primary: #1e79be;
-    --mdc-theme-on-primary: #1e79be;
-    --mdc-theme-secondary: #1e79be;
-    --mdc-theme-background: #1e79be;
-    --mdc-theme-surface: #1e79be;
-    --mdc-theme-on-secondary: #1e79be;
-    --mdc-theme-on-surface: #1e79be;
-}
-
-.mdc-floating-label {
-    --mdc-theme-primary: #1e79be;
-    --mdc-theme-on-primary: #1e79be;
-    --mdc-theme-secondary: #1e79be;
-    --mdc-theme-background: #1e79be;
-    --mdc-theme-surface: #1e79be;
-    --mdc-theme-on-secondary: #1e79be;
-    --mdc-theme-on-surface: #1e79be;
-}
-
 /*-----------------------*/
 /*   Header Styling      */
 /*-----------------------*/
@@ -60,4 +26,65 @@ div.row.typ-billing-container > div {
 
 div.row.typ-billing-container label {
     margin-right: 6px;
+}
+
+.billing-sidebar{
+    max-width: 300px;
+}
+
+.buttons-colvis{
+    background-color: #6c757d;
+}
+
+.dt-button-collection > .dropdown-menu{
+    width: 200px;
+    padding: 0;
+}
+.dt-button-collection .dropdown-item{
+    padding: 8px;
+    border-bottom: solid white 1px;
+}
+.dt-button-collection .dropdown-item:hover {
+    background-color: var(--vspt-blue-dark-hover);
+}
+.dt-button-collection .dropdown-item.active{
+
+    background-color: var(--vspt-blue-dark);
+}
+
+tr> td:first-child > div{
+    white-space: nowrap;
+}
+
+.billing-selection-table{
+    width: 100%;
+    /*box-shadow: 0 0 10px rgba(114, 114, 113, 0.5);*/
+
+}
+.billing-selection-table td{
+    padding: 4px 8px;
+}
+
+.billing-selection-table tr:nth-child(odd) > td{
+    background-color: var(--vspt-blue-dark);
+    color: white;
+}
+.billing-selection-table tr:nth-child(even) > td{
+    background-color: #5b7f9a;
+    color: white;
+}
+
+.billing-selection-table td:last-child{
+    text-align: end;
+    color: #212529;
+}
+
+.billing-selection-table tr:first-child > td{
+    border-radius: 12px 12px 0 0;
+    text-align: center;
+    background-color: #394f60;
+}
+
+.vspt-summary-report-options{
+    display: none;
 }

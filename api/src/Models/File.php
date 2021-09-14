@@ -154,6 +154,12 @@ class File extends BaseModel implements BaseModelInterface
         return $this->fileGateway->directUpdateFileStatus($this->file_id, $this->file_status, $this->filename);
     }
 
+    public function updateBilled($new_billed):bool
+    {
+        $this->billed = $new_billed;
+        return $this->fileGateway->directUpdateBilled($this->file_id, $new_billed);
+    }
+
     public function saveHTML($optional_has_caption = null, $captions = null):int
     {
         return $this->fileGateway->updateFileHTML($this, $optional_has_caption, $captions);
@@ -744,6 +750,7 @@ class File extends BaseModel implements BaseModelInterface
     {
         $this->has_caption = $has_caption;
     }
+
 
 
 }
