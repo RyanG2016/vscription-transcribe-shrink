@@ -8,6 +8,8 @@ var dataTbl;
     items: ":not(#report_ifr,#TypistName, #jobNo, .tooltip)"
 });*/
 
+
+
 var currentFileID = 0;
 var currentFileData;
 var loadingConfirmBtn;
@@ -17,10 +19,10 @@ var isConnected = false;
 var isConnecting = true;
 var firstLaunch = true;
 let statusTxt;
-const not_connected = "<i>Couldn't connect to controller <u id=\"reconnect\">reconnect?</u> <span class='download-controller' id=\"downloadController\">or download here</span></i>";
+const not_connected = "<i><i class=\"fas fa-info-circle\"></i>Couldn't connect to vScription Controller <u id=\"reconnect\">reconnect?</u> <span class='download-controller' id=\"downloadController\">or download here</span></i>";
 const connecting = "<i>connecting to controller please wait...</i>";
 const connected = "<i>Connected to vScription Controller</i>";
-const not_running = "<i>Controller not running. <u id=\"reconnect\">reconnect?</u> <span class='download-controller' id=\"downloadController\">or download here</span></i>";
+const not_running = "<i><i class=\"fas fa-info-circle\"></i>vScription Controller not running. <u id=\"reconnect\">reconnect?</u> <span class='download-controller' id=\"downloadController\">or download here</span></i>";
 const greenColor = "#3e943c";
 const orangeColor = "#d34038";
 const versionCheck = "vCheck-"; // DONOT MODIFY
@@ -53,6 +55,7 @@ $(document).ready(function () {
     const shortcuts_end_point = "../api/v1/users/shortcuts";
     const form = document.querySelector("form");
     loadingOv = $("#overlay");
+
 
 
     var captions = '';
@@ -204,6 +207,7 @@ $(document).ready(function () {
     window.addEventListener("load", connect, false);
     //***************** Websocket Data *****************//
 
+
     var wsocket;
 
     statusTxt = $("#statusTxt");
@@ -323,6 +327,16 @@ $(document).ready(function () {
     let setControllerStatus = function (status, connected = false) {
         // text
         statusTxt.html(status);
+                                    
+        $('.fa-info-circle').tooltipster(
+            {
+                content:'The vScription Controller is used to connect a USB Foot Control to the transcribe app to allow you to control playback with your foot',
+                animation: 'fade',
+                delay: 200,
+                trigger: 'hover',
+                theme: 'tooltipster-controller'
+            }
+        );
 
 
         // text color
@@ -338,12 +352,23 @@ $(document).ready(function () {
                     connect();
                 });
 
-                $("#downloadController").on("click", function (e) {
-                    window.open(
-                        'downloads.php',
-                        '_blank'
-                    );
-                });
+                // $("#downloadController").on("click", function (e) {
+                //     window.open(
+                //         'downloads.php',
+                //         '_blank'
+                //     );
+                // });
+                    
+                $('#downloadController').tooltipster(
+                    {
+                        content:'<a href="/controller_app/controller/windows/vScriptionControllerWin_v1.9.exe"><i class="fab fa-windows"></i>&nbspWindows</a></br></br><a href="/controller_app/controller/cross_platform/vScriptionControllerCrossPlatform_v1.9.jar"><i class="fab fa-linux"></i>&nbspLinux and <i class="fab fa-apple"></i>&nbspMac</a>',
+                        contentAsHTML: true,
+                        interactive: true,
+                        animation: 'fade',
+                        delay: 200,
+                        trigger: 'click'
+                    }
+                );
                 break;
         }
     }

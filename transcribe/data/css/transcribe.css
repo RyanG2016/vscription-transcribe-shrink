@@ -624,3 +624,24 @@ td > sup{
     text-align: end;
     /*background-color: red;*/
 }
+
+.tooltipster-content {
+    border-radius: 5px;
+	font-family: main, sans-serif;
+	font-size: 14px;
+	line-height: 16px;
+	padding: 8px 10px!IMPORTANT;
+    background: rgb(0,0,0);
+	color: #fff;
+    width: 175px;
+}
+
+
+#statusTxt > i > i {
+    color: var(--vspt-blue);
+    font-size: 14px;
+    padding-right: 2px;
+}
+
+
+
