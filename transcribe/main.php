@@ -102,6 +102,11 @@ else {
     <script type="text/javascript">
         var tutorials='<?php echo $tuts;?>';
     </script>
+
+    <?php $trial=(isset($_SESSION['trial']))?$_SESSION['trial']:'ERR'; ?>
+    <script type="text/javascript">
+        var trial='<?php echo $trial;?>';
+    </script>
 	
 	<link rel="stylesheet" href="data/css/main.css?v=2">
 <!--	<script src="data/scripts/main.js?v=10"></script>-->

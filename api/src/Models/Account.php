@@ -56,6 +56,7 @@ class Account extends BaseModel implements BaseModelInterface
         private int $act_log_retention_time = 180,
         private string $job_prefix = '',
         private int $sr_enabled = 0,
+        private int $trial = 0,
         private int $auto_list_refresh_interval = 0,
         private string $transcribe_remarks = '',
 
@@ -67,6 +68,22 @@ class Account extends BaseModel implements BaseModelInterface
             $this->accountGateway = new AccountGateway($db);
             parent::__construct($this->accountGateway);
         }
+    }
+
+    /**
+     * @return int
+     */
+    public function getTrialStatus(): int
+    {
+        return $this->trial;
+    }
+
+    /**
+     * @param int $trial
+     */
+    public function setTrialStatus(int $trial): void
+    {
+        $this->trial = $trial;
     }
 
     /**
@@ -203,6 +220,7 @@ class Account extends BaseModel implements BaseModelInterface
             $this->act_log_retention_time = $row['act_log_retention_time'];
             $this->job_prefix = $row['job_prefix'];
             $this->sr_enabled = $row['sr_enabled'];
+            $this->trial = $row['trial'];
             $this->auto_list_refresh_interval = $row['auto_list_refresh_interval'];
             $this->transcribe_remarks = $row['transcribe_remarks'];
         }
