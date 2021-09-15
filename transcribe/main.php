@@ -103,7 +103,7 @@ else {
         var tutorials='<?php echo $tuts;?>';
     </script>
 
-    <?php $trial=(isset($_SESSION['trial']))?$_SESSION['trial']:'ERR'; ?>
+    <?php $trial=(isset($_SESSION['trial']))?$_SESSION['trial']:'0'; ?>
     <script type="text/javascript">
         var trial='<?php echo $trial;?>';
     </script>
