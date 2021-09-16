@@ -490,6 +490,8 @@ $(document).ready(function () {
                 billJobs.html(parseInt(billJobs.html()) + 1)
                 $(this).parent().children()[1].innerHTML = 'Yes';
                 // console.log(`Adding Pre-rounding value: ${round(parseFloat(totalBillMins.html()) + audioValue)}`);
+                //This is sometimes coming back with crazy precision. Need to round to 2 decimals BUT round up from 3 points ie: 1.308 would be 1.31.
+                //The custom round() function does that but I can't seem to get it to work with the additions
                 totalBillMins.html(parseFloat(totalBillMins.html()) + audioValue);
             }else{
                 billJobs.html(parseInt(billJobs.html()) - 1)
