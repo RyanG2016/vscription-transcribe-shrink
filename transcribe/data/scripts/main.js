@@ -251,7 +251,6 @@ $(document).ready(function () {
 		],
 
 		initComplete: function () {
-
 			calculatedIds = []; // freeing resources
 			this.api().columns([0,1,4,5,7]).every( function () {
 				var that = this;
@@ -285,7 +284,8 @@ $(document).ready(function () {
 					});
 				}
 			);
-
+			$("#tjd").html("Total Jobs Length: " + new Date(totalDur * 1000).toISOString().substr(11, 8));
+			$("#cbm").html("Current Backlog Minutes: " + new Date(totalTrDur * 1000).toISOString().substr(11, 8));
 		}
 
 		
@@ -368,8 +368,8 @@ $(document).ready(function () {
 		const currentPageName = location.pathname.split("/").slice(-1)[0].replace(".php","");
 		// parse user tutorials data to JSON
 		var tutorialsJson = JSON.parse(tutorials);
-		var tutorialStarted = false;
 		// check if tutorial for the current page isn't viewed before
+		var tutorialStarted = false;
 		if(tutorialsJson[currentPageName] == undefined || tutorialsJson[currentPageName] == 0){
 			//Insert sample dictation row in case there are not files in the account
 			tutorialStarted = true;
@@ -453,12 +453,12 @@ $(document).ready(function () {
 				},
 				{
 				title: 'Total Job Backlog',
-				element: '#tjd',
+				element: '#cbm',
 				intro: 'This shows you how many of your jobs are awaiting typing'
 				},
 				{
 				title: 'Total Active Jobs',
-				element: '#cbm',
+				element: '#tjd',
 				intro: 'This tells you how many active jobs you have in the system. '
 				},
 				{
