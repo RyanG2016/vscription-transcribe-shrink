@@ -928,6 +928,7 @@ class AccountGateway implements GatewayInterface
                 act_log_retention_time = :act_log_retention_time,
                 job_prefix = :job_prefix,
                 sr_enabled = :sr_enabled,
+                trial = :trial,
                 auto_list_refresh_interval = :auto_list_refresh_interval,
                 transcribe_remarks = :transcribe_remarks
             WHERE
@@ -974,6 +975,7 @@ class AccountGateway implements GatewayInterface
                 'act_log_retention_time' => $model->getActLogRetentionTime(),
                 'job_prefix' => $model->getJobPrefix(),
                 'sr_enabled' => $model->getSrEnabled(),
+                'trial' => $model->getTrialStatus(),
                 'auto_list_refresh_interval' => $model->getAccJobRefreshInterval(),
                 'transcribe_remarks' => $model->getTranscribeRemarks()
             ));
@@ -1044,6 +1046,7 @@ class AccountGateway implements GatewayInterface
                    act_log_retention_time,
                    job_prefix,
                    sr_enabled,
+                   trial,
                    auto_list_refresh,
                    transcribe_remarks,
                    auto_list_refresh_interval

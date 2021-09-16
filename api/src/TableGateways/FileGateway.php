@@ -779,6 +779,43 @@ class FileGateway implements GatewayInterface
         }
     }
 
+    // used in @this to update status to being transcribe when file is loaded in transcribe.php
+    public function directUpdateBilled($file_id ,$billed){
+        $statement = "UPDATE files
+            SET billed = ?, billed_date = ?
+            WHERE file_id = ?
+        ";
+        $billed_date = null;
+        if($billed)
+        {
+            $billed_date = date("Y-m-d H:i:s");
+        }
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array(
+                $billed,
+                $billed_date,
+                $file_id
+            ));
+
+            if ($statement->rowCount()) {
+//                $this->logger->insertAuditLogEntry($this->API_NAME, "Marked file: " . $file_id . " to status: " . $new_status);
+                return true;
+//                return $this->formatResult("Convert Record Updated", false);
+            } else {
+//                $this->logger->insertAuditLogEntry($this->API_NAME, "Failed to update file: " . $file_id . " to status: " . $new_status . " | no errors given");
+                return false;
+//                return $this->formatResult("Failed to update convert record", true);
+            }
+//            return $statement->rowCount();
+        } catch (\PDOException $e) {
+//            $this->logger->insertAuditLogEntry($this->API_NAME, "Failed to update file: " . $file_id . " to status: " . $new_status . " | Error: " . $e->getMessage());
+            return false;
+//            return $this->formatResult("Failed to update convert record (2)", true);
+        }
+    }
+
     public function directUpdateFileTranscribedBy($file_id, $typist){
         $statement = "UPDATE files
             SET job_transcribed_by = ?

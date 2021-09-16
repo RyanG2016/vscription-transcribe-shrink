@@ -41,6 +41,7 @@
     --vspt-green: #53a13d;
     --vspt-blue: #1e79be;
     --vspt-blue-dark: #4e6d85;
+    --vspt-blue-dark-hover: #bfced9;
     --vspt-page-bg: #2c3e50;
     --vspt-sr-balance: #217904;
     /*--vspt-page-bg: #252d3b;*/
@@ -374,39 +375,39 @@ a:visited {
 }
 
 .vspt-table tr.even:hover {
-    background-color: var(--vspt-table-hover);;
+    /*background-color: var(--vspt-table-hover);;*/
 }
 
 .vspt-table tr.even:hover td.sorting_1 {
-    background-color: var(--vspt-table-hover);;
+    /*background-color: var(--vspt-table-hover);;*/
 }
 
 /*noinspection CssUnusedSymbol*/
 .vspt-table tr.even:hover td.sorting_2 {
-    background-color: var(--vspt-table-hover);;
+    /*background-color: var(--vspt-table-hover);;*/
 }
 
 /*noinspection CssUnusedSymbol*/
 .vspt-table tr.even:hover td.sorting_3 {
-    background-color: var(--vspt-table-hover);;
+    /*background-color: var(--vspt-table-hover);;*/
 }
 
 .vspt-table tr.odd:hover {
-    background-color: var(--vspt-table-hover);;
+    /*background-color: var(--vspt-table-hover);;*/
 }
 
 .vspt-table tr.odd:hover td.sorting_1 {
-    background-color: var(--vspt-table-hover);;
+    /*background-color: var(--vspt-table-hover);;*/
 }
 
 /*noinspection CssUnusedSymbol*/
 .vspt-table tr.odd:hover td.sorting_2 {
-    background-color: var(--vspt-table-hover);;
+    /*background-color: var(--vspt-table-hover);;*/
 }
 
 /*noinspection CssUnusedSymbol*/
 .vspt-table tr.odd:hover td.sorting_3 {
-    background-color: var(--vspt-table-hover);;
+    /*background-color: var(--vspt-table-hover);;*/
 }
 
 

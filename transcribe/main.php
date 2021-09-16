@@ -102,10 +102,15 @@ else {
     <script type="text/javascript">
         var tutorials='<?php echo $tuts;?>';
     </script>
+
+    <?php $trial=(isset($_SESSION['trial']))?$_SESSION['trial']:'0'; ?>
+    <script type="text/javascript">
+        var trial='<?php echo $trial;?>';
+    </script>
 	
 	<link rel="stylesheet" href="data/css/main.css?v=2">
 <!--	<script src="data/scripts/main.js?v=10"></script>-->
-	<script src="data/scripts/main.min.js?v=13"></script>
+	<script src="data/scripts/main.min.js?v=15"></script>
 
 </head>
 

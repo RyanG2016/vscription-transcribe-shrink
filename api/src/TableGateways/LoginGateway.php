@@ -28,7 +28,7 @@ class LoginGateway
                 users.id,first_name, last_name, email, password, address,city, state, account_status, last_login, trials, unlock_time,tutorials,
                 newsletter, email_notification,
                 a2.act_log_retention_time, a2.acc_retention_time, a2.auto_list_refresh_interval, admin.acc_retention_time as adminart, admin.act_log_retention_time as adminalrt,
-                admin.auto_list_refresh_interval AS adminalr, account, def_access_id, users.enabled, a.acc_role, a.acc_id, r.role_desc, a2.acc_name, country, zipcode, a2.sr_enabled as sr_enabled,
+                admin.auto_list_refresh_interval AS adminalr, account, def_access_id, users.enabled, a.acc_role, a.acc_id, r.role_desc, a2.acc_name, country, zipcode, a2.sr_enabled as sr_enabled, a2.trial as trial,
                 IF(account != 0 , (select accounts.acc_name from accounts where accounts.acc_id = account), false) 
                     as 'admin_acc_name'                
             FROM
@@ -133,6 +133,7 @@ class LoginGateway
             $_SESSION['acc_retention_time'] = $row["acc_retention_time"];
             $_SESSION['act_log_retention_time'] = $row["act_log_retention_time"];
             $_SESSION['subscription_type'] = $row["subscription_type"];
+            $_SESSION['trial'] = $row["trial"];
             $_SESSION["auto_list_refresh_interval"] = $row["auto_list_refresh_interval"];
             $_SESSION['role_desc'] = $row["role_desc"];
             $_SESSION['landed'] = true;
@@ -152,6 +153,7 @@ class LoginGateway
                 $_SESSION['acc_retention_time'] = $account->getAccRetentionTime();
                 $_SESSION['act_log_retention_time'] = $account->getActLogRetentionTime();
                 $_SESSION['subscription_type'] = $account->getSubscriptionType();
+                $_SESSION['trial'] = $account->getTrialStatusx();       
                 $_SESSION["auto_list_refresh_interval"] = $account->getAccJobRefreshInterval();
                 $_SESSION['role_desc'] = $role->getRoleDesc();
                 $_SESSION['landed'] = true;
