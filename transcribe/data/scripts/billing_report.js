@@ -303,7 +303,9 @@ $(document).ready(function () {
                 "data": "audio_length",
                 render: function (data, type, row) {
                     if (row["file_id"] != 0 && !calculatedIds.includes(row["file_id"])) {
-                        totalDur += roundToNearestQMinute(parseInt(data));
+                        // console.log(`totalDur: ${totalDur}`);
+                        totalDur += returnMinsAndSecs(parseInt(data));
+                        // totalDur += parseInt(data);
 
                         calculatedIds.push(row["file_id"]);
                         /*console.log(`${calculatedIds.length} | ${billingDTRef.data().length}`);
@@ -482,15 +484,17 @@ $(document).ready(function () {
 
         $('input[type=checkbox].include-chk').off('change').on('change', function () {
             // console.log("checked: " + this.checked);
-            let audioValue = roundToNearestQMinute(billingDTRef.data()[$(this).closest('tr').index()].audio_length);
+            let audioValue = returnMinsAndSecs(billingDTRef.data()[$(this).closest('tr').index()].audio_length);
             if(this.checked)
             {
                 billJobs.html(parseInt(billJobs.html()) + 1)
                 $(this).parent().children()[1].innerHTML = 'Yes';
+                // console.log(`Adding Pre-rounding value: ${round(parseFloat(totalBillMins.html()) + audioValue)}`);
                 totalBillMins.html(parseFloat(totalBillMins.html()) + audioValue);
             }else{
                 billJobs.html(parseInt(billJobs.html()) - 1)
                 $(this).parent().children()[1].innerHTML = 'No';
+                // console.log(`Removing Pre-rounding value: ${round(parseFloat(totalBillMins.html()) - audioValue)}`);
                 totalBillMins.html(parseFloat(totalBillMins.html()) - audioValue);
             }
             calcInvoiceTotal();
@@ -516,31 +520,49 @@ $(document).ready(function () {
     {
         if(currentOrgBillRate !== 0)
         {
-            invoiceTotal.html(currentOrgBillRate * parseFloat(totalBillMins.html()));
+            // console.log(`totalBillMins: ${totalBillMins.html()}`);
+            // invoiceTotal.html(currentOrgBillRate * parseFloat(totalBillMins.html()));
+            // invoiceTotal.html(Math.round((currentOrgBillRate * parseFloat(totalBillMins.html() + Number.EPSILON).toFixed(2) * 100)) / 100);
+            invoiceTotal.html(round((currentOrgBillRate * parseFloat(totalBillMins.html()) * 100)) / 100);
+            
         }else{
             invoiceTotal.html('');
         }
     }
 
-    function roundToNearestQMinute(seconds)
+    // function roundToNearestQMinute(seconds)
+    // {
+    //     let minutes = Math.floor(seconds / 60);
+    //     let remainder = seconds % 60;
+
+    //     if(remainder <= 15)
+    //     {
+    //         minutes += 0.25;
+    //     }else if(remainder <= 30)
+    //     {
+    //         minutes += 0.5;
+    //     }else if (remainder <= 45)
+    //     {
+    //         minutes += 0.75;
+    //     }else{
+    //         minutes ++;
+    //     }
+
+    //     return minutes;
+    // }
+
+    function returnMinsAndSecs(seconds)
     {
         let minutes = Math.floor(seconds / 60);
         let remainder = seconds % 60;
+        let remainderSeconds = remainder / 100;
+        minutes += remainderSeconds;
+         return minutes;
+    }
 
-        if(remainder <= 15)
-        {
-            minutes += 0.25;
-        }else if(remainder <= 30)
-        {
-            minutes += 0.5;
-        }else if (remainder <= 45)
-        {
-            minutes += 0.75;
-        }else{
-            minutes ++;
-        }
-
-        return minutes;
+    function round(num) {
+        console.log(`Incoming num: ${num}`);
+        return Math.round(num,2).toFixed(2);
     }
 
 });
