@@ -68,7 +68,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
 
 
 <!--    <script src="../data/scripts/billing_report.min.js?v=--><!--"></script>-->
-    <script src="../data/scripts/billing_report.js"></script>
+    <script src="../data/scripts/billing_report.min.js"></script>
     <script src="../data/thirdparty/scripts/html2pdf.bundle.min.js"></script>
     <link href="https://printjs-4de6.kxcdn.com/print.min.css" rel="stylesheet">
     <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
