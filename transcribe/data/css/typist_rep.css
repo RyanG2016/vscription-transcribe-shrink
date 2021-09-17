@@ -117,3 +117,30 @@ div.row.typ-billing-container label {
     cursor: pointer;
     color: var(--vspt-orange);
 }
+
+/* Page Grid */
+
+.stats-col{
+    grid-area: stats;
+    max-width: 320px;
+    background-color: #343a40;
+    padding: 16px;
+
+}
+
+.panel-data
+{
+    grid-area: pdata;
+    padding: 16px;
+}
+
+.vtex-card.contents{
+    display: inline-grid;
+    grid-template: 'pdata stats';
+    grid-template-columns: 1fr fit-content(100%);
+    padding: 0;
+}
+
+hr{
+    border-color: var(--vspt-blue-dark);
+}

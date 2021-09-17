@@ -108,9 +108,8 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
                 </div>
             </div>
 
-            <div class="vtex-card contents">
-                <div class="row typ-billing-container">
-                    <div class="col">
+            <div class="vtex-card contents w-100">
+                    <div class="panel-data">
                         <div class="vtex-table-tools w-100" id="vtexTableTools"></div>
                         <div class="report-grid billing-report-container" id="printableReport">
                             <!--                <div class="billing-report-container"></div>-->
@@ -136,7 +135,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
 
                         </div>
                     </div>
-                    <div class="col-auto pl-3 pr-3 ml-auto mt-md-3 mt-sm-3 border-left billing-sidebar">
+                    <div class="stats-col">
 
                         <div class="input-group">
                             <div class="input-group-prepend">
@@ -266,9 +265,6 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
 <!--                            </button>-->
                         </div>
                     </div>
-                </div>
-
-
             </div>
 
         </div>

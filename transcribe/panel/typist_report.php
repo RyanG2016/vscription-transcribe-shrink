@@ -31,7 +31,6 @@ if ($_SESSION['role'] != "1") {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <link href="../data/libs/node_modules/material-components-web/dist/material-components-web.css" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
@@ -99,134 +98,131 @@ if ($_SESSION['role'] != "1") {
                 </div>
             </div>
 
-            <div class="vtex-card contents">
+            <div class="vtex-card contents w-100">
 
-                <div class="row typ-billing-container">
-                    <div class="col">
-                        <div class="vtex-table-tools w-100" id="vtexTableTools"></div>
-                        <div class="report-grid billing-report-container" id="printableReport">
-                            <!--                <div class="billing-report-container"></div>-->
+                <div class="panel-data">
+                    <div class="vtex-table-tools w-100" id="vtexTableTools"></div>
+                    <div class="report-grid billing-report-container" id="printableReport">
+                        <!--                <div class="billing-report-container"></div>-->
 
-                            <div style="overflow-x: hidden" class="vspt-table-div">
-                                <table id="typistTbl" class="typist-tbl table vspt-table hover compact">
-                                    <!--<tfoot>
-                                    <tr>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                    </tr>
-                                    </tfoot>-->
-                                </table>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="col-auto pl-3 pr-3 ml-auto mt-md-3 mt-sm-3 border-left billing-sidebar">
-
-                        <div class="input-group">
-                            <div class="input-group" id="typistName" data-target-input="nearest">
-                                <div class="input-group-prepend">
-                                    <span for="typistContainer" class="mt-auto mb-auto input-group-text">
-                                        Typist
-                                    </span>
-                                </div>
-
-                                <input type="text" class="form-control" id="typistEmail" placeholder="Typist email" contenteditable="true" size="4">
-
-                                <div class="input-group-append" data-target="#typistEmail">
-                                    <div class="input-group-text" id="findTypistBtn">
-                                        <i class="fas fa-search find-acc-icon"></i>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-
-                        <div class="input-group mt-3">
-                            <div class="input-group date" id="startDatePicker" data-target-input="nearest">
-                                <div class="input-group-prepend">
-                                    <span for="startDate" class="mt-auto mb-auto input-group-text">
-                                        Start Date
-                                    </span>
-                                </div>
-                                <input type="text" class="form-control datetimepicker-input" id="startDate"
-                                       data-target="#startDatePicker"/>
-                                <div class="input-group-append" data-target="#startDatePicker"
-                                     data-toggle="datetimepicker">
-                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="input-group mt-3">
-                            <div class="input-group date" id="endDatePicker" data-target-input="nearest">
-                                <div class="input-group-prepend">
-                                    <span for="endDate" class="mt-auto mb-auto input-group-text">
-                                        End Date
-                                    </span>
-                                </div>
-
-                                <input type="text" class="form-control datetimepicker-input" id="endDate"
-                                       data-target="#endDatePicker"/>
-                                <div class="input-group-append" data-target="#endDatePicker"
-                                     data-toggle="datetimepicker">
-                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <button type="button" class="btn btn-primary w-100 mt-3" id="getReport">
-                            <i class="fad fa-file-spreadsheet"></i> Generate Report
-                        </button>
-
-<!--                        <hr>-->
-                        <div id="reportOptions" class="vspt-summary-report-options border-top mt-3">
-                            <table class="vspt-summary-table mt-3">
+                        <div style="overflow-x: hidden" class="vspt-table-div">
+                            <table id="typistTbl" class="typist-tbl table vspt-table hover compact">
+                                <!--<tfoot>
                                 <tr>
-                                    <td colspan="2">Summary</td>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
                                 </tr>
-                                <tr>
-                                    <td>
-                                        Generated On
-                                    </td>
-                                    <td>
-                                        <span id="genOn"></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Total Length
-                                    </td>
-                                    <td>
-                                        <span id="totalLength"></span><i> mins</i>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        Invoice Total
-                                    </td>
-                                    <td>
-                                        <span id="totalPayable"></span> <i> $CAD</i>
-                                    </td>
-                                </tr>
+                                </tfoot>-->
                             </table>
-
                         </div>
 
                     </div>
                 </div>
 
+                <div class="stats-col">
+
+                    <div class="input-group">
+                        <div class="input-group" id="typistName" data-target-input="nearest">
+                            <div class="input-group-prepend">
+                                    <span for="typistContainer" class="mt-auto mb-auto input-group-text">
+                                        Typist
+                                    </span>
+                            </div>
+
+                            <input type="text" class="form-control" id="typistEmail" placeholder="Typist email" contenteditable="true" size="4">
+
+                            <div class="input-group-append" data-target="#typistEmail">
+                                <div class="input-group-text" id="findTypistBtn">
+                                    <i class="fas fa-search find-acc-icon"></i>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="input-group mt-3">
+                        <div class="input-group date" id="startDatePicker" data-target-input="nearest">
+                            <div class="input-group-prepend">
+                                    <span for="startDate" class="mt-auto mb-auto input-group-text">
+                                        Start Date
+                                    </span>
+                            </div>
+                            <input type="text" class="form-control datetimepicker-input" id="startDate"
+                                   data-target="#startDatePicker"/>
+                            <div class="input-group-append" data-target="#startDatePicker"
+                                 data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="input-group mt-3">
+                        <div class="input-group date" id="endDatePicker" data-target-input="nearest">
+                            <div class="input-group-prepend">
+                                    <span for="endDate" class="mt-auto mb-auto input-group-text">
+                                        End Date
+                                    </span>
+                            </div>
+
+                            <input type="text" class="form-control datetimepicker-input" id="endDate"
+                                   data-target="#endDatePicker"/>
+                            <div class="input-group-append" data-target="#endDatePicker"
+                                 data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <button type="button" class="btn btn-primary w-100 mt-3" id="getReport">
+                        <i class="fad fa-file-spreadsheet"></i> Generate Report
+                    </button>
+
+                    <!--                        <hr>-->
+                    <div id="reportOptions" class="vspt-summary-report-options border-top mt-3">
+                        <table class="vspt-summary-table mt-3">
+                            <tr>
+                                <td colspan="2">Summary</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Generated On
+                                </td>
+                                <td>
+                                    <span id="genOn"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Total Length
+                                </td>
+                                <td>
+                                    <span id="totalLength"></span><i> mins</i>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    Invoice Total
+                                </td>
+                                <td>
+                                    <span id="totalPayable"></span> <i> $CAD</i>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+
+                </div>
 
                 <!--<div class="report-grid billing-report-container mt-5" id="printableReport">
 

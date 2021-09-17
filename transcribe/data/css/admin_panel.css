@@ -162,10 +162,6 @@ table.stats-tbl td {
 
 }
 
-.stats-col{
-    background-color: #343a40;
-    /*margin: -16px;*/
-}
 .vtex-revai-rem td:nth-child(2){
     text-align: right;
 }
