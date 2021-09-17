@@ -153,7 +153,7 @@ class LoginGateway
                 $_SESSION['acc_retention_time'] = $account->getAccRetentionTime();
                 $_SESSION['act_log_retention_time'] = $account->getActLogRetentionTime();
                 $_SESSION['subscription_type'] = $account->getSubscriptionType();
-                $_SESSION['trial'] = $account->getTrialStatusx();       
+                $_SESSION['trial'] = $account->getTrialStatus();       
                 $_SESSION["auto_list_refresh_interval"] = $account->getAccJobRefreshInterval();
                 $_SESSION['role_desc'] = $role->getRoleDesc();
                 $_SESSION['landed'] = true;
