@@ -3,6 +3,7 @@
 namespace Src\Controller;
 
 //use PHPMailer\PHPMailer\Exception;
+use Src\Enums\ROLES;
 use Src\Models\SR;
 use Src\Models\User;
 use Src\TableGateways\UserGateway;
@@ -44,6 +45,12 @@ class UserController
                     $response = $this->getSRenabled();
                 }else if ($this->userId == "sr-mins") {
                     $response = $this->getSRmins();
+                }else if ($this->userId == "typists") {
+                    if($_SESSION["role"] == ROLES::SYSTEM_ADMINISTRATOR){
+                        $response = $this->getAllTypists();
+                    }else{
+                        $response = $this->notFoundResponse();
+                    }
                 }
                 else if ($this->userId == "list-refresh-interval") {
                     $response = $this->getListRefreshInterval();
@@ -217,6 +224,18 @@ class UserController
     private function getTypistsForCurAdminAccount()
     {
         $result = $this->userGateway->getTypists();
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = json_encode($result);
+        return $response;
+    }
+
+  /**
+     * Retrieves typists emails for invitation dropdown for client administrators management screen
+     * @return mixed
+     */
+    private function getAllTypists()
+    {
+        $result = $this->userGateway->getAllTypists();
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
         $response['body'] = json_encode($result);
         return $response;

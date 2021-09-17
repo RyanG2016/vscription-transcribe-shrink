@@ -140,6 +140,37 @@ class UserGateway implements GatewayInterface
     }
 
     /**
+     * Retrieves typists emails for invitation dropdown for client administrators management screen
+     * @return mixed
+     */
+    public function getAllTypists()
+    {
+        $statement = "
+            select id, first_name, last_name, email 
+            from users 
+            where typist != 0 and account_status = 1;        
+        ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute();
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            if (isset($_GET['dt'])) {
+                $json_data = array(
+                    "count"    => $statement->rowCount(),
+                    "data" => $result
+                );
+                //        $response['body'] = json_encode($result);
+                $result = $json_data;
+            }
+            return $result;
+        } catch (\PDOException $e) {
+//            exit($e->getMessage());
+            return false;
+        }
+    }
+
+    /**
      * [Mail] [Mailing List] Retrieves current logged in Client Account's typists emails for mailing list for job updates
      * @return mixed
      */
