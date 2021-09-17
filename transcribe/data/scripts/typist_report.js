@@ -510,7 +510,7 @@ $(document).ready(function () {
         {
             col:4,
             row:'id',
-            data:'ID,id,Name,name,Email,email,Jobs(All Time),jobs',
+            data:'ID,id,Name,name,Email,email,Jobs(All Time),all_time_jobs',
             response:'email',
             url:'users/typists'
         }

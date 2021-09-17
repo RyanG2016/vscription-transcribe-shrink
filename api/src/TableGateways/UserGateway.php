@@ -156,7 +156,7 @@ class UserGateway implements GatewayInterface
         ";*/
         $statement = "
             select
-                id, count(job_transcribed_by) as 'jobs',
+                id, count(job_transcribed_by) as 'all_time_jobs',
                 first_name, last_name, email, concat(first_name, ' ', last_name) as 'name'
                     from users
             left join
