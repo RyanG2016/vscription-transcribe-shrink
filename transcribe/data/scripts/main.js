@@ -58,7 +58,7 @@ $(document).ready(function () {
 
 			$('sup').tooltip(
 				{
-					title:'File comments exist. Please review'
+					title:'Job has comments, please review'
 				}
 			);
 
@@ -344,7 +344,7 @@ $(document).ready(function () {
 
 		$('sup').tooltip(
 			{
-				title:'File comments exist. Please review'
+				title:'Job has comments, please review'
 			}
 		);
 
