@@ -1,6 +1,6 @@
 var findAccWindow;
 var accountID;
-let maximum_rows_per_page_jobs_list = 7;
+let maximum_rows_per_page_jobs_list = 30;
 
 $(document).ready(function () {
 
@@ -446,7 +446,7 @@ $(document).ready(function () {
         if(responseJson.count)
         { 
             currentOrganization = responseJson.organization;
-            currentOrgBillRate = responseJson.billrate1;
+            currentOrgBillRate = (responseJson.billrate1).toFixed(2);
             BillingRate.html(currentOrgBillRate);
             jobsCount.each(function(){
                 this.innerHTML = responseJson.count;
@@ -489,20 +489,14 @@ $(document).ready(function () {
             {
                 billJobs.html(parseInt(billJobs.html()) + 1)
                 $(this).parent().children()[1].innerHTML = 'Yes';
-                // console.log(`Adding Pre-rounding value: ${round(parseFloat(totalBillMins.html()) + audioValue)}`);
-                //This is sometimes coming back with crazy precision. Need to round to 2 decimals BUT round up from 3 points ie: 1.308 would be 1.31.
-                //The custom round() function does that but I can't seem to get it to work with the additions
-                totalBillMins.html(parseFloat(totalBillMins.html()) + audioValue);
+                totalBillMins.html((parseFloat(totalBillMins.html()) + parseFloat(audioValue)).toFixed(2));
             }else{
                 billJobs.html(parseInt(billJobs.html()) - 1)
                 $(this).parent().children()[1].innerHTML = 'No';
-                // console.log(`Removing Pre-rounding value: ${round(parseFloat(totalBillMins.html()) - audioValue)}`);
-                totalBillMins.html(parseFloat(totalBillMins.html()) - audioValue);
+                totalBillMins.html((parseFloat(totalBillMins.html()) - parseFloat(audioValue)).toFixed(2));
             }
             calcInvoiceTotal();
         });
-
-
     });
 
 
@@ -522,9 +516,6 @@ $(document).ready(function () {
     {
         if(currentOrgBillRate !== 0)
         {
-            // console.log(`totalBillMins: ${totalBillMins.html()}`);
-            // invoiceTotal.html(currentOrgBillRate * parseFloat(totalBillMins.html()));
-            // invoiceTotal.html(Math.round((currentOrgBillRate * parseFloat(totalBillMins.html() + Number.EPSILON).toFixed(2) * 100)) / 100);
             invoiceTotal.html(round((currentOrgBillRate * parseFloat(totalBillMins.html()) * 100)) / 100);
             
         }else{
@@ -559,13 +550,17 @@ $(document).ready(function () {
         let remainder = seconds % 60;
         let remainderSeconds = remainder / 100;
         minutes += remainderSeconds;
-         return minutes;
+        return minutes;
     }
 
     function round(num) {
-        console.log(`Incoming num: ${num}`);
-        return Math.round(num,2).toFixed(2);
+        return Math.round(num,2).toFixed(10);
     }
+
+    function floatify(number){
+        return parseFloat((number).toFixed(10));
+     }
+ 
 
 });
 
