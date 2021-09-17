@@ -7,15 +7,10 @@ $(document).ready(function () {
     var calculatedIds = [];
     var totalDur = 0;
 
-    let today = new Date().toISOString().split('T')[0];
-    // let today = (new Date('2001-08-18')).toISOString().split('T')[0];
-
-    let tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    tomorrow = tomorrow.toISOString().split('T')[0];
-
     let startDate = $( "#startDate" );
     let endDate = $( "#endDate" );
+    let startDatePicker = $('#startDatePicker');
+    let endDatePicker = $('#endDatePicker');
     let getReport = $( "#getReport" );
     let reportOptions = $("#reportOptions");
     let billJobs = $("#billJobs");
@@ -27,10 +22,56 @@ $(document).ready(function () {
 
     let jobsCount = $(".jobs-count");
 
-    // let htmlTable = $('.billing-report-container');
     accountID = $("#accountID");
-    $('#startDatePicker').datetimepicker({format: "YYYY-MM-DD"});
-    $('#endDatePicker').datetimepicker({format: "YYYY-MM-DD"});
+    startDatePicker.datetimepicker(
+        {
+            format: "YYYY-MM-DD",
+            maxDate: moment()
+        }
+    );
+    startDatePicker.on("change.datetimepicker",function (e) {
+        checkDates(e.date.format('YYYY-MM-DD'), true);
+    });
+
+    endDatePicker.datetimepicker(
+        {
+            format: "YYYY-MM-DD",
+            maxDate: moment()
+        }
+    );
+    endDatePicker.on("change.datetimepicker",function (e) {
+        checkDates(e.date.format('YYYY-MM-DD'), true);
+    });
+
+    function checkDates(val, startDateGiven) {
+        if(startDateGiven){
+
+            let otherDate = endDate.val();
+            if(val > otherDate){
+                endDate.val(val);
+            }
+
+        }else{ // val = current end date
+            let otherDate = startDate.val();
+            if(val < otherDate)
+            {
+                startDate.val(val);
+            }
+        }
+    }
+
+
+    startDate.on("change paste keyup", function() {
+        checkDates($(this).val(), true);
+    });
+
+
+    endDate.on("change paste keyup", function() {
+        checkDates($(this).val(), false);
+    });
+
+    startDate.val(moment().subtract(1, "months").format("YYYY-MM-DD"));
+    endDate.val(moment().format("YYYY-MM-DD"));
 
     // data table
     let billingDT = $("#billing-tbl");
@@ -39,8 +80,6 @@ $(document).ready(function () {
     let currentOrganization = ""; // for pdf header
     let currentOrgBillRate = 0;
 
-    startDate.val(today);
-    endDate.val(tomorrow);
 
     $.fn.dataTable.ext.errMode = 'none';
 
@@ -390,33 +429,6 @@ $(document).ready(function () {
             title: 'Mark as billed'
         }
     );
-
-    function checkDates(val, startDateGiven) {
-        if(startDateGiven){
-
-            let otherDate = endDate.val();
-            if(val > otherDate){
-                endDate.val(val);
-            }
-
-        }else{ // val = current end date
-            let otherDate = startDate.val();
-            if(val < otherDate)
-            {
-                startDate.val(val);
-            }
-        }
-    }
-
-
-    startDate.on("change paste keyup", function() {
-        checkDates($(this).val(), true);
-    });
-
-
-    endDate.on("change paste keyup", function() {
-        checkDates($(this).val(), false);
-    });
 
     getReport.on("click", function() {
 

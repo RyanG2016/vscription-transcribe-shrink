@@ -2,17 +2,20 @@ let maximum_rows_per_page_jobs_list = 10;
 
 $(document).ready(function () {
 
-    let today = new Date();
-    today.setDate(today.getDate() - 30);
-    today = today.toISOString().split('T')[0];
+    // let today = new Date();
+    // today.setDate(today.getDate() - 30);
+    // today = today.toISOString().split('T')[0];
     // let today = (new Date('2001-08-18')).toISOString().split('T')[0];
 
-    let tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    tomorrow = tomorrow.toISOString().split('T')[0];
+    // let tomorrow = new Date();
+    // tomorrow.setDate(tomorrow.getDate() + 1);
+    // tomorrow = tomorrow.toISOString().split('T')[0];
 
     let startDate = $( "#startDate" );
     let endDate = $( "#endDate" );
+    let startDatePicker = $('#startDatePicker');
+    let endDatePicker = $('#endDatePicker');
+
     let getReport = $( "#getReport" );
     let typistContainer = $("#typistContainer");
     let typistEl = $ ( "#demo_job_type");
@@ -22,11 +25,30 @@ $(document).ready(function () {
     let totalLengthField = $("#totalLength");
     let totalPayableField = $("#totalPayable");
     //let accountEl = $ ("#account");
-    let htmlTable = $('.billing-report-container');
-    $('#startDatePicker').datetimepicker({format: "YYYY-MM-DD"});
-    $('#endDatePicker').datetimepicker({format: "YYYY-MM-DD"});
-    // startDate.datepicker({dateFormat: "yy-mm-dd"});
-    // endDate.datepicker({dateFormat: "yy-mm-dd"});
+
+    startDatePicker.datetimepicker(
+        {
+            format: "YYYY-MM-DD",
+            maxDate: moment(),
+            defaultDate: moment().subtract(0.5, 'months')
+        }
+    );
+    startDatePicker.on("change.datetimepicker",function (e) {
+        checkDates(e.date.format('YYYY-MM-DD'), true);
+    });
+
+    endDatePicker.datetimepicker(  {
+            format: "YYYY-MM-DD",
+            maxDate: moment(),
+            defaultDate: moment()
+        }
+    );
+    endDatePicker.on("change.datetimepicker",function (e) {
+        checkDates(e.date.format('YYYY-MM-DD'), true);
+    });
+
+    startDate.val(moment().subtract(15, "days").format("YYYY-MM-DD"));
+    endDate.val(moment().format("YYYY-MM-DD"));
 
     // typistContainer.html();
     // typistContainer.append(generateLoadingSpinner());
@@ -35,9 +57,6 @@ $(document).ready(function () {
     // data table
     let typistDT = $("#typistTbl");
     let typistDTRef;
-
-    startDate.val(today);
-    endDate.val(tomorrow);
 
     $.fn.dataTable.ext.errMode = 'none';
 
