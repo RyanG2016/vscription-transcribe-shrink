@@ -145,14 +145,29 @@ class UserGateway implements GatewayInterface
      */
     public function getAllTypists()
     {
-        $statement = "
+        /*$statement = "
             select id,
                    first_name, 
                    last_name, 
                    email,
-                   concat(first_name, ' ', last_name) as 'name' 
+                   concat(first_name, ' ', last_name) as 'name'
             from users 
             where typist != 0 and account_status = 1;        
+        ";*/
+        $statement = "
+            select
+                id, count(job_transcribed_by) as 'jobs',
+                first_name, last_name, email, concat(first_name, ' ', last_name) as 'name'
+                    from users
+            left join
+                    files u
+                        on users.email = u.job_transcribed_by
+            where
+                  job_transcribed_by is not null 
+              and typist != 0
+              and account_status = 1
+            
+            group by job_transcribed_by;        
         ";
 
         try {

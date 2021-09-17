@@ -33,6 +33,8 @@ if ($_SESSION['role'] != "1") {
 
     <link href="../data/libs/node_modules/material-components-web/dist/material-components-web.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 
     <!-- BOOTSTRAP -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.0/moment.min.js"></script>
@@ -136,7 +138,7 @@ if ($_SESSION['role'] != "1") {
                                         Typist
                                     </span>
                                 </div>
-                                
+
                                 <input type="text" class="form-control" id="typistEmail" placeholder="Typist email" contenteditable="true" size="4">
 
                                 <div class="input-group-append" data-target="#typistEmail">
@@ -183,7 +185,7 @@ if ($_SESSION['role'] != "1") {
                         </div>
 
 
-                        <button type="button" class="btn btn-primary w-100 mt-3" id="getReport" disabled>
+                        <button type="button" class="btn btn-primary w-100 mt-3" id="getReport">
                             <i class="fad fa-file-spreadsheet"></i> Generate Report
                         </button>
 

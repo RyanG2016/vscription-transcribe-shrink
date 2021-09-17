@@ -102,14 +102,31 @@ $(document).ready(function () {
     getReport.on("click", function() {
         //console.log("Account: " + accountEl.val());
         // console.log("Typist: " + $("#typistContainer option:selected").val());
-        let args = new URLSearchParams({
-            start_date: startDate.val(),
-            end_date: endDate.val(),
-            typist_email: $("#typistContainer option:selected").val()
-        }).toString();
-        // document.title = "Typist_Bill_report_"+startDate.val()+"_to_" + endDate.val();
+        let email = $("#typistEmail").val();
+        if(/^[a-z0-9_]+(?:\.[a-z0-9_]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/.test(email))
+        {
+            let args = new URLSearchParams({
+                start_date: startDate.val(),
+                end_date: endDate.val(),
+                typist_email: email
+            }).toString();
+            // document.title = "Typist_Bill_report_"+startDate.val()+"_to_" + endDate.val();
 
-        typistDTRef.ajax.url(`../api/v1/billing/typist/?dt&${args}`).load(dtLoadCallback);
+            typistDTRef.ajax.url(`../api/v1/billing/typist/?dt&${args}`).load(dtLoadCallback);
+        }else{
+            $.confirm({
+                title: 'Error',
+                theme: 'supervan',
+                content: "Please enter a valid email address",
+                buttons: {
+                    confirm: {
+                        text: 'ok'
+                    }
+                }
+            });
+        }
+
+
 
     });
 
@@ -491,9 +508,9 @@ $(document).ready(function () {
 
     let args = new URLSearchParams(
         {
-            col:3,
+            col:4,
             row:'id',
-            data:'ID,id,Name,name,Email,email',
+            data:'ID,id,Name,name,Email,email,Jobs(All Time),jobs',
             response:'email',
             url:'users/typists'
         }
