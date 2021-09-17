@@ -136,13 +136,14 @@ if ($_SESSION['role'] != "1") {
                                         Typist
                                     </span>
                                 </div>
+                                
+                                <input type="text" class="form-control" id="typistEmail" placeholder="Typist email" contenteditable="true" size="4">
 
-
-                                <select id="typistContainer" class="form-control typist-select selectpicker">
-                                    <option value="loading">
-                                        Loading..
-                                    </option>
-                                </select>
+                                <div class="input-group-append" data-target="#typistEmail">
+                                    <div class="input-group-text" id="findTypistBtn">
+                                        <i class="fas fa-search find-acc-icon"></i>
+                                    </div>
+                                </div>
 
                             </div>
                         </div>

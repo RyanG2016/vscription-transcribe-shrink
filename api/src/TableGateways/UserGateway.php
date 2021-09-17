@@ -146,7 +146,11 @@ class UserGateway implements GatewayInterface
     public function getAllTypists()
     {
         $statement = "
-            select id, first_name, last_name, email 
+            select id,
+                   first_name, 
+                   last_name, 
+                   email,
+                   concat(first_name, ' ', last_name) as 'name' 
             from users 
             where typist != 0 and account_status = 1;        
         ";

@@ -5,12 +5,13 @@
 <html lang="en">
 
 <head>
-    <title>Account Finder</title>
+    <title>Finder</title>
     <link rel="shortcut icon" type="image/png" href="data/images/favicon.png"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <!--  $this related  -->
-    <script src="data/scripts/acc_finder.min.js" type="text/javascript"></script>
+    <script src="data/scripts/finder.min.js?v=3" type="text/javascript"></script>
+<!--    <script src="data/scripts/finder.js" type="text/javascript"></script>-->
 
 
     <!--  MDC Components  -->
@@ -35,7 +36,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" crossorigin="anonymous">
 
-    <link href='data/css/acc_finder.css' type='text/css' rel='stylesheet' />
+    <link href='data/css/finder.css' type='text/css' rel='stylesheet' />
 </head>
 
 <body>
@@ -49,11 +50,11 @@
           </tr>
           </thead>-->
         <tfoot>
-        <tr>
-            <th>ID</th>
-            <th>Account</th>
-            <th>Prefix</th>
-        </tr>
+            <tr>
+                <?php if($_GET["col"])
+                    for( $i= 0 ; $i < $_GET["col"] ; $i++ ) echo '<th></th>';
+                    ?>
+            </tr>
         </tfoot>
     </table>
 </div>

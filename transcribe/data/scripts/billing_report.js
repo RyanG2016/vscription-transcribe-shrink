@@ -512,11 +512,21 @@ $(document).ready(function () {
     });
 
 
+    let args = new URLSearchParams(
+        {
+            col:3,
+            row:'acc_id',
+            data:'ID,acc_id,Account,acc_name,Prefix,job_prefix',
+            response:'acc_id',
+            url:'accounts'
+        }
+    ).toString();
     $("#findAccBtn").on("click", function () {
 
         if(!findAccWindow || findAccWindow.closed)
         {
-            findAccWindow = window.open("/acc_finder.php", "modalPicker", "toolbar=yes,scrollbars=yes," +
+            findAccWindow = window.open(`/finder.php?${args}`
+                , "modalPicker", "toolbar=yes,scrollbars=yes," +
                 "resizable=yes,top=500,left=500,width=650,height=500");
             findAccWindow.focus();
         }else{
@@ -576,8 +586,8 @@ $(document).ready(function () {
 
 });
 
-function setAccID(accID)
+function popResponse(response)
 {
-    accountID[0].value = accID;
+    accountID[0].value = response;
     findAccWindow = null;
 }

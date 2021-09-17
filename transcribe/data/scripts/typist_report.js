@@ -1,3 +1,5 @@
+var findAccWindow;
+var typistEm;
 let maximum_rows_per_page_jobs_list = 10;
 
 $(document).ready(function () {
@@ -17,7 +19,7 @@ $(document).ready(function () {
     let endDatePicker = $('#endDatePicker');
 
     let getReport = $( "#getReport" );
-    let typistContainer = $("#typistContainer");
+    typistEm = $("#typistEmail");
     let typistEl = $ ( "#demo_job_type");
 
     let reportOptions = $("#reportOptions");
@@ -130,27 +132,39 @@ $(document).ready(function () {
     }
 
 
-    getTypistsSelect();
+    // getTypistsSelect();
 
-    function getTypistsSelect() {
-        $.post("/data/parts/backend_request.php", {
-            reqcode: 202
-        }).done(function (res) {
-            let response = JSON.parse(res);
-            let data = response.data;
-            let no_result = response.no_result;
-            // let err = response.error;
-            typistContainer.html(data);
-
-            if(no_result){
-                getReport.attr("disabled", "disabled");
-            }
-            else{
-                getReport.removeAttr("disabled");
-            }
-        });
-    }
-
+    // function getTypistsSelect() {
+    //     $.get("../api/v1/users/typists/?dt").done(
+    //         function (res) {
+    //             let response = JSON.parse(res);
+    //             let data = response.data;
+    //             let no_result = response.no_result;
+    //             // let err = response.error;
+    //             typistContainer.html(data);
+    //
+    //             if(no_result){
+    //                 getReport.attr("disabled", "disabled");
+    //             }
+    //             else{
+    //                 getReport.removeAttr("disabled");
+    //             }
+    //         }
+    //     );
+    //
+    //     $.getJSON( "../api/v1/users/typists/?dt", function(data) {
+    //     })
+    //         .done(function(response) {
+    //             if(response.count)
+    //             {
+    //                 typistContainer.html(response.data);
+    //             }
+    //         })
+    //         .fail(function() {
+    //         });
+    //
+    // }
+    //
 
 
     /*
@@ -475,4 +489,33 @@ $(document).ready(function () {
         return minutes;
     }
 
-});
+    let args = new URLSearchParams(
+        {
+            col:3,
+            row:'id',
+            data:'ID,id,Name,name,Email,email',
+            response:'email',
+            url:'users/typists'
+        }
+    ).toString();
+
+    $("#findTypistBtn").on("click", function () {
+
+        if(!findAccWindow || findAccWindow.closed)
+        {
+            findAccWindow = window.open(`/finder.php?${args}`, "modalPicker", "toolbar=yes,scrollbars=yes," +
+                "resizable=yes,top=500,left=500,width=650,height=500");
+            findAccWindow.focus();
+        }else{
+            findAccWindow.focus();
+        }
+    });
+
+
+}); // ready end
+
+function popResponse(response)
+{
+    typistEm[0].value = response;
+    findAccWindow = null;
+}

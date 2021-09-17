@@ -46,7 +46,7 @@ transcribe/sr/*
 /transcribe/data/scripts/typist_report.js
 /transcribe/data/scripts/manage_typists.js
 /transcribe/data/scripts/signup.js
-/transcribe/data/scripts/acc_finder.js
+/transcribe/data/scripts/finder.js
 /api/.env
 /uploads/
 /convert.log

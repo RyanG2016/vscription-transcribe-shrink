@@ -13,9 +13,32 @@ $(document).ready(function () {
     } );
 
 
+    let getParameters = new URLSearchParams(this.location.search);
+
+    if(
+        !getParameters.has("col") ||
+        !getParameters.has("data") ||
+        !getParameters.has("url") ||
+        !getParameters.has("row") ||
+        !getParameters.has("response")
+    )
+    {
+        alert("Data missing, exiting");
+        this.close();
+    }
+
+    let responseKey = getParameters.get("response");
+    let columnsArrData = getParameters.get("data").split(',');
+    let url = getParameters.get("url");
+    let rowID = getParameters.get("row");
+    let columnsDT = [];
+    for (let i = 0; i < columnsArrData.length; i += 2) {
+        columnsDT.push({"title": columnsArrData[i], "data": columnsArrData[i+1]});
+    }
+
     jobsDTRef = jobsDT.DataTable( {
-        rowId: 'acc_id',
-        "ajax": 'api/v1/accounts/?dt',
+        rowId: rowID,
+        "ajax": `api/v1/${url}/?dt`,
         // "ajax": 'api/v1/files?dt&file_status[mul]=0,1,2',
         "processing": true,
         // searching: false,
@@ -23,12 +46,13 @@ $(document).ready(function () {
         pageLength: maximum_rows_per_page_jobs_list,
         autoWidth: false,
 
-        "columns": [
-            { "title" : "ID",
-                "data": "acc_id" },
-            {"title" : "Account", "data": "acc_name" },
-            { "title" : "Prefix", "data": "job_prefix" }
-        ],
+        // "columns": [
+        //     { "title" : "ID",
+        //         "data": "acc_id" },
+        //     {"title" : "Account", "data": "acc_name" },
+        //     { "title" : "Prefix", "data": "job_prefix" }
+        // ],
+        "columns": columnsDT,
         initComplete: function () {
             this.api().columns().every( function () {
                 var that = this;
@@ -44,16 +68,16 @@ $(document).ready(function () {
     } );
 
     $('#jobs-tbl tbody').on('click', 'tr', function () {
-        let accID = jobsDTRef.row(this).id();
-        postToParent(accID);
+        // let accID = jobsDTRef.row(this).id();
+        postToParent(jobsDTRef.row(this).data()[responseKey]);
     } );
 
 
 });
 
-function postToParent(id)
+function postToParent(response)
 {
-    window.opener.setAccID(id);
+    window.opener.popResponse(response);
     this.close();
 }
 

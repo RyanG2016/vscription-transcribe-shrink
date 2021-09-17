@@ -105,3 +105,15 @@ div.row.typ-billing-container label {
 
     background-color: var(--vspt-blue-dark);
 }
+
+
+.find-acc-icon {
+    vertical-align: bottom;
+    color: var(--vspt-blue);
+    float: right;
+}
+
+.find-acc-icon:hover {
+    cursor: pointer;
+    color: var(--vspt-orange);
+}
