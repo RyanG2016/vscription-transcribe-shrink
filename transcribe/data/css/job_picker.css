@@ -44,10 +44,10 @@
 .pagination{
     float: right;
 }
-.dataTables_paginate > ul > li:not(.active) > a.page-link
+`.dataTables_paginate > ul > li:not(.active) > a.page-link
 {
     color: hsl(206, 73%, 37%) !important;
-}
+}`
 
 /* responsive override */
 
