@@ -60,6 +60,18 @@ class BillingGateway implements GatewayInterface
         }
 
         $org = Account::withID($orgID,$this->db);
+        if(!$org)
+        {
+            if(isset($_GET['dt']))
+            {
+                return array(
+                    "count" => 0,
+                    "data"=>[]
+                );
+            }else{
+                return [];
+            }
+        }
 
         $statement = "
             SELECT 
@@ -106,7 +118,15 @@ class BillingGateway implements GatewayInterface
                 $json_data = array("data" => []);
                 return $json_data;
             }
-            return [];
+            if(isset($_GET['dt']))
+            {
+                return array(
+                    "count" => 0,
+                    "data"=>[]
+                );
+            }else{
+                return [];
+            }
         }
     }
 

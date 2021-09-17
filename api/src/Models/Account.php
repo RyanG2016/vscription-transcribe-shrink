@@ -140,7 +140,13 @@ class Account extends BaseModel implements BaseModelInterface
     public static function withID($id, $db) {
         $instance = new self(db: $db);
         $row = $instance->getRecord($id);
-        $instance->fill( $row );
+        if($row)
+        {
+            $instance->fill( $row );
+        }
+        else {
+            return false;
+        }
         return $instance;
     }
 
