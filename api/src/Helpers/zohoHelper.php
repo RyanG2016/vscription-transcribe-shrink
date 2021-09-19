@@ -64,8 +64,8 @@ class zohoHelper{
         ]);
 
         if ($this->refreshCurl->error) {
-            echo 'Error: ' . $this->refreshCurl->errorCode . ': ' . $this->refreshCurl->errorMessage . "\n";
-            echo ("<pre>".print_r($this->refreshCurl->response,true)."</pre>");
+//            echo 'Error: ' . $this->refreshCurl->errorCode . ': ' . $this->refreshCurl->errorMessage . "\n";
+//            echo ("<pre>".print_r($this->refreshCurl->response,true)."</pre>");
 
             $this->logger->insertAuditLogEntry(self::API_NAME, "failed to refresh token | Code: "
                 . $this->refreshCurl->errorCode. " | "
@@ -183,25 +183,32 @@ class zohoHelper{
 
     // ================ POST Functions ===========================
 
-    /* $data sample
-        $data = array(
-            "aid" => "1",
-            "uid" => "4",
-            "zipcode" => "21544",
-            "acc_name" => "test account name SAM",
-            "state"=> "ALEX",
-            "country"=> "EG",
-            "city"=> "Alexandria",
-            "address"=> "address test",
-            "first_name"=> "Hossam",
-            "last_name"=> "Elwahsh",
-            "name"=> "Hossam Elwahsh",
-            "email"=> "test@gmail.com",
-            "admin_fname"=> "a first name",
-            "admin_lname"=> "a last name",
-            "admin_email"=> "admin@vscription.com"
-        );
-    */
+            /*$data = array(
+                "aid" => "1",
+                "uid" => "4",
+                "zipcode" => "21544",
+                "acc_name" => "test account name SAM",
+                "state"=> "ALEX",
+                "country"=> "EG",
+                "city"=> "Alexandria",
+                "address"=> "address test",
+                "first_name"=> "Hossam",
+                "last_name"=> "Elwahsh",
+                "name"=> "Hossam Elwahsh",
+                "email"=> "test@gmail.com",
+                "admins" => array(
+                0 => array(
+                "first_name"=> "a first name",
+                "last_name"=> "a last name",
+                "email"=> "admin@vscription.com"
+                ),
+                1 => array(
+                "first_name"=> "a first name",
+                "last_name"=> "a last name",
+                "email"=> "admin2@vscription.com"
+                )
+                )
+            );*/
 
     function createContact($data)
     {
@@ -240,21 +247,7 @@ class zohoHelper{
 //                            'skype' => 'Zoho',
                             'is_primary_contact' => true,
 //                            'enable_portal' => true,
-                        ),
-                    1 =>
-                        array (
-//                            'salutation' => 'Mr',
-                            'first_name' => $data["admin_fname"],
-                            'last_name' => $data["admin_lname"],
-                            'email' => $data["admin_email"],
-//                            'phone' => '+1-925-921-9201',
-//                            'mobile' => '+1-4054439562',
-//                            'designation' => 'Sales Executive',
-//                            'department' => 'Sales and Marketing',
-//                            'skype' => 'Zoho',
-//                            'is_primary_contact' => false,
-//                            'enable_portal' => true,
-                        ),
+                        )
                 ),
 
             //            'credit_limit' => 1000,
@@ -324,6 +317,11 @@ class zohoHelper{
 //            'twitter' => 'zoho',
         );
 
+        // Fill in System Admins
+        foreach ($data['admins'] as $admin) {
+            array_push($jsonArr['contact_persons'], $admin);
+        }
+
         return $this->handleCurlPost(self::CONTACTS_URL, $data, json_encode($jsonArr));
     }
 
@@ -370,8 +368,8 @@ class zohoHelper{
         );
 
         if ($this->curl->error) {
-            echo 'Error: ' . $this->curl->errorCode . ': ' . $this->curl->errorMessage . "\n";
-            echo ("<pre>".print_r($this->curl->response,true)."</pre>");
+//            echo 'Error: ' . $this->curl->errorCode . ': ' . $this->curl->errorMessage . "\n";
+//            echo ("<pre>".print_r($this->curl->response,true)."</pre>");
 
             if($this->curl->errorCode == 401)
             {
