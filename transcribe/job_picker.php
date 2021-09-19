@@ -49,7 +49,7 @@
 
     <!--  $this related  -->
     <script src="data/scripts/job_picker.min.js?v=4" type="text/javascript"></script>
-    <link href='data/css/job_picker.css' type='text/css' rel='stylesheet' />
+    <link href='data/css/job_picker.css?v=2' type='text/css' rel='stylesheet' />
 </head>
 
 <body>
