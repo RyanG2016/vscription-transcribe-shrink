@@ -14,21 +14,6 @@
 
 }
 
-.mdc-data-table__cell, .mdc-data-table__header-cell {
-    height: 32px !important;
-}
-
-.job-comment {
-    color: var(--vspt-blue);
-    font-size: 18px !important;
-    vertical-align: text-bottom;
-    cursor: pointer;
-}
-
-.mdc-button--colored {
-    color: white !important;
-}
-
 .dataTables_info {
     float: left !important;
 }
@@ -57,3 +42,12 @@ ul.pagination{
     float: right;
 }
 
+/* vspt pagination color */
+.page-item.active .page-link {
+    background-color: hsl(206, 73%, 37%) !important;
+}
+
+.vtex-card.contents{
+    margin-left: 16px;
+    margin-right: 16px;
+}

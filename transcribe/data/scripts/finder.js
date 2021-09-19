@@ -1,6 +1,6 @@
 var jobsDT;
 var jobsDTRef;
-let maximum_rows_per_page_jobs_list = 7;
+let maximum_rows_per_page_jobs_list = 10;
 
 $(document).ready(function () {
 
