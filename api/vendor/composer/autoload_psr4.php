@@ -23,6 +23,7 @@ return array(
     'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
     'Phinx\\' => array($vendorDir . '/robmorgan/phinx/src/Phinx'),
     'PHPMailer\\PHPMailer\\' => array($vendorDir . '/phpmailer/phpmailer/src'),
+    'Noodlehaus\\' => array($vendorDir . '/hassankhan/config/src'),
     'MyCLabs\\Enum\\' => array($vendorDir . '/myclabs/php-enum/src'),
     'Mnvx\\Lowrapper\\' => array($vendorDir . '/iceman2894/lowrapper/src'),
     'Dotenv\\' => array($vendorDir . '/vlucas/phpdotenv/src'),

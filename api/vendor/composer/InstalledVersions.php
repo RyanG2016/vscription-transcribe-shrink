@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'a20e8d99e42e1c1df2db07a61cdf1872d9940c95',
+    'reference' => 'e541d05d6e6f0a4b66e93db95efcd536d3ec73ce',
     'name' => 'transcribe/src',
   ),
   'versions' => 
@@ -88,6 +88,15 @@ private static $installed = array (
       array (
       ),
       'reference' => '37d737eef64f3f09af871b70730a99912248d157',
+    ),
+    'hassankhan/config' => 
+    array (
+      'pretty_version' => '2.2.0',
+      'version' => '2.2.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '62b0fd17540136efa94ab6b39f04044c6dc5e4a7',
     ),
     'iceman2894/lowrapper' => 
     array (
@@ -301,7 +310,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'a20e8d99e42e1c1df2db07a61cdf1872d9940c95',
+      'reference' => 'e541d05d6e6f0a4b66e93db95efcd536d3ec73ce',
     ),
     'vlucas/phpdotenv' => 
     array (
