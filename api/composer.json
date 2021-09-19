@@ -32,7 +32,8 @@
     "authorizenet/authorizenet": "dev-bugfix-remove-parent-call-when-class-does-not-have-parent",
     "myclabs/php-enum": "^1.7",
     "mantas-done/subtitles": "^0.3.9",
-    "robmorgan/phinx": "^0.12.5"
+    "robmorgan/phinx": "^0.12.5",
+    "php-curl-class/php-curl-class": "^9.4"
   },
   "autoload": {
     "psr-4": {

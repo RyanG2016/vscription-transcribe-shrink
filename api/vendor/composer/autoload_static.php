@@ -59,6 +59,7 @@ class ComposerStaticInit6adee100c1c1d6b46b6a0aa11003ed2a
         ),
         'C' => 
         array (
+            'Curl\\' => 5,
             'Cake\\Utility\\' => 13,
             'Cake\\Datasource\\' => 16,
             'Cake\\Database\\' => 14,
@@ -146,6 +147,10 @@ class ComposerStaticInit6adee100c1c1d6b46b6a0aa11003ed2a
         'Dotenv\\' => 
         array (
             0 => __DIR__ . '/..' . '/vlucas/phpdotenv/src',
+        ),
+        'Curl\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-curl-class/php-curl-class/src/Curl',
         ),
         'Cake\\Utility\\' => 
         array (
