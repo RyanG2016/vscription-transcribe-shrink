@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'aeff48ed7d122b8a5f9e1fb4835346854458de9d',
+    'reference' => 'a20e8d99e42e1c1df2db07a61cdf1872d9940c95',
     'name' => 'transcribe/src',
   ),
   'versions' => 
@@ -301,16 +301,16 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'aeff48ed7d122b8a5f9e1fb4835346854458de9d',
+      'reference' => 'a20e8d99e42e1c1df2db07a61cdf1872d9940c95',
     ),
     'vlucas/phpdotenv' => 
     array (
-      'pretty_version' => 'v2.6.6',
-      'version' => '2.6.6.0',
+      'pretty_version' => 'v2.6.7',
+      'version' => '2.6.7.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'e1d57f62db3db00d9139078cbedf262280701479',
+      'reference' => 'b786088918a884258c9e3e27405c6a4cf2ee246e',
     ),
   ),
 );
