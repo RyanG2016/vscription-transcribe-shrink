@@ -99,6 +99,7 @@ $(document).ready(function () {
         "processing": true,
         // select: true,
         searching: false,
+        responsive: true,
         lengthChange: false,
         pageLength: maximum_rows_per_page_jobs_list,
         autoWidth: false,

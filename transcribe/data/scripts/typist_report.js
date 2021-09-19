@@ -201,6 +201,7 @@ $(document).ready(function () {
         // select: true,
         searching: false,
         lengthChange: false,
+        responsive: true,
         pageLength: maximum_rows_per_page_jobs_list,
         autoWidth: false,
         order:[[0,"desc"]],

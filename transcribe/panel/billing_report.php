@@ -66,6 +66,10 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.72/vfs_fonts.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.25/b-1.7.1/b-colvis-1.7.1/b-html5-1.7.1/b-print-1.7.1/r-2.2.9/rr-1.2.8/sl-1.3.3/datatables.min.js"></script>
 
+    <!-- responsive -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap4.min.css" crossorigin="anonymous">
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap4.min.js"></script>
 
 
 
@@ -114,7 +118,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
                         <div class="report-grid billing-report-container" id="printableReport">
                             <!--                <div class="billing-report-container"></div>-->
 
-                            <div style="overflow-x: hidden" class="vspt-table-div">
+                            <div class="vspt-table-div">
                                 <table id="billing-tbl" class="billing-tbl table vspt-table hover compact">
                                     <!--<tfoot>
                                     <tr>
