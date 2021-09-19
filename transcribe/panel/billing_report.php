@@ -188,9 +188,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
                             </div>
                         </div>
 
-                        <hr/>
-
-                        <button type="button" class="btn btn-primary w-100" id="getReport">
+                        <button type="button" class="btn btn-primary w-100 mt-3" id="getReport">
                             <i class="fad fa-file-spreadsheet"></i> Generate Report
                         </button>
                         

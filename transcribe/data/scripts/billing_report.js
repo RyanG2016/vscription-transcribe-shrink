@@ -527,7 +527,7 @@ $(document).ready(function () {
         {
             findAccWindow = window.open(`/finder.php?${args}`
                 , "modalPicker", "toolbar=yes,scrollbars=yes," +
-                "resizable=yes,top=500,left=500,width=650,height=500");
+                "resizable=yes,top=500,left=500,width=650,height=550");
             findAccWindow.focus();
         }else{
             findAccWindow.focus();
