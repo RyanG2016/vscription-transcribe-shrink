@@ -353,8 +353,8 @@ $(document).ready(function () {
                         {
                         }*/
                         // console.log(`${totalDur} | ${roundToNearestQMinute(parseInt(data))}`);
-                        totalMins.html(totalDur);
-                        totalBillMins.html(totalDur);
+                        totalMins.html(totalDur.toFixed(2));
+                        totalBillMins.html(totalDur.toFixed(2));
                     }
 
 
