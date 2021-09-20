@@ -219,13 +219,18 @@ class zohoHelper{
                 )
             );*/
 
-    function createContact($data)
+    /**
+     * @param array $data contact data
+     * @param string $contactType customer|vendor
+     * @return false|int|null
+     */
+    function createContact($data, $contactType)
     {
         $jsonArr = array (
             'contact_name' => $data["acc_name"],
             'company_name' => $data["acc_name"],
 //            'website' => 'www.bowmanfurniture.com',
-            'contact_type' => 'customer',
+            'contact_type' => $contactType,
             'customer_sub_type' => 'business',
             'notes' => 'Created by vScription Transcribe',
             'billing_address' =>
