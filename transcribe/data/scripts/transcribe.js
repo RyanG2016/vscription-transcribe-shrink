@@ -1259,7 +1259,6 @@ $(document).ready(function () {
                         content: "The status of the job you are trying to load has changed.",
                         buttons: {confirm: {btnClass: 'btn-green', text: 'ok'}}
                     });
-                    return;
                 }
             } else {
                 changeLoading(false, "Loading transcribe..");
