@@ -591,8 +591,9 @@ $(document).ready(function () {
         if(!$(event.target).hasClass("vspt-except"))
         {
             let fileID = jobsDTRef.row(this).id();
+            let jpFileStatus = jobsDTRef.row(this).data()["file_status"];
             changeLoading(true, "Loading "+ jobsDTRef.row(this).data()["job_id"]);
-            jobLoadLookup(fileID);
+            jobLoadLookup(fileID, jpFileStatus);
         }
     });
 
@@ -1243,11 +1244,22 @@ $(document).ready(function () {
 
     /*----Lookup job details-----*/
 
-    function jobLoadLookup(fileID) {
+    function jobLoadLookup(fileID, jpFileStatus) {
 
         $.get(files_api + fileID + "?tr").done(function (data) {
             if (data) {
-                loadIntoPlayer(data);
+                const fileObj = JSON.parse(data);
+                if (fileObj["file_status"] == jpFileStatus) {
+                    loadIntoPlayer(data);
+                } else {
+                    changeLoading(false, "Loading transcribe..");
+                    jobsDTRef.ajax.reload();
+                    $.confirm({
+                        title: 'Unable to Load Job',
+                        content: "The status of the job you are trying to load has changed.",
+                        buttons: {confirm: {btnClass: 'btn-green', text: 'ok'}}
+                    });
+                }
             } else {
                 changeLoading(false, "Loading transcribe..");
                 $.confirm({
