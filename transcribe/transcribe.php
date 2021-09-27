@@ -266,7 +266,7 @@ $transRemarks = $currentAccount->getTranscribeRemarks();
 
                                 <img src="data/images/f2_48.png"/> <i><-INAUDIBLE-></i> &nbsp;&nbsp;
 
-                                <img src="data/images/slash48.png"/> <i>Expand Word</i> &nbsp;&nbsp;
+                                <img src="data/images/slash48.png"/> <i>Insert Shortcut</i> &nbsp;&nbsp;
 
                                 <button type="button" class="btn btn-primary btn-sm pop-btn" id="pop">
                                     <i class="fas fa-external-link-alt"></i>
