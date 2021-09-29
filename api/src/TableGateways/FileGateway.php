@@ -208,6 +208,70 @@ class FileGateway implements GatewayInterface
         }
     } //
 
+        /**
+     * used in transcribe.js / job_picker.js
+     * */
+    public function findNext()   // &oldest file_status[mul]=0,1,2,7,11
+    {
+        if(!isset($_SESSION['accID']))
+        {return array("error"=> true, "msg" => "please set an account first");}
+        $filter = parseFilesParams();
+
+        $statement = "
+            SELECT 
+                file_id, job_id, acc_id, file_type, org_ext, filename, tmp_name, orig_filename, file_author,
+                   file_work_type,file_comment, file_speaker_type, file_date_dict, file_status,audio_length,
+                   last_audio_position, job_uploaded_by, job_upload_date, job_transcribed_by, text_downloaded_date,                  
+                   times_text_downloaded_date, job_transcribed_by, file_transcribed_date, typist_comments,isBillable,
+                   user_field_1, user_field_2, user_field_3,
+                   billed,
+                   (SELECT j_status_name 
+                   From file_status_ref 
+                   WHERE file_status_ref.j_status_id=files.file_status ORDER BY file_status LIMIT 1) as file_status_ref
+            FROM
+                files
+            WHERE
+                  acc_id = ? 
+            AND
+              ( 
+                file_status in (0, 7, 11)
+                OR
+                (file_status, job_transcribed_by) in ((1, '{$_SESSION['uEmail']}'), (2, '{$_SESSION['uEmail']}'))
+                  )
+            AND
+                  deleted = 0
+        " . $filter . "ORDER BY 'job_upload_date' LIMIT 1;";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            if ($_SESSION["role"] == ROLES::AUTHOR) {
+                $statement->execute(array($_SESSION['accID'], $_SESSION["uEmail"]));
+            }else{
+                $statement->execute(array($_SESSION['accID']));
+            }
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+            if(isset($_GET['dt'])){
+                $json_data = array(
+                        //            "draw"            => intval( $_REQUEST['draw'] ),
+                        //            "recordsTotal"    => intval( 2 ),
+                        //            "recordsFiltered" => intval( 1 ),
+                    "data"            => $result
+                );
+                //        $response['body'] = json_encode($result);
+                $result = $json_data;
+            }
+            return $result;
+        } catch (PDOException $e) {
+            if(isset($_GET['dt'])) {
+                return array("data" => "");
+            }
+            else{
+                return array();
+            }
+//            exit($e->getMessage());
+        }
+    } //
+
     /**
      * used in transcribe.js / job_picker.js
      * */
@@ -897,11 +961,14 @@ class FileGateway implements GatewayInterface
             return false; // not updating file status unless user is a typist
         }
 
+        //
         $new_status = match ($prev_status) {
-            FILE_STATUS::BEING_TYPED, FILE_STATUS::SUSPENDED => FILE_STATUS::SUSPENDED,
+            // FILE_STATUS::BEING_TYPED => FILE_STATUS::AWAITING_TRANSCRIPTION, 
+            // FILE_STATUS::SUSPENDED => FILE_STATUS::SUSPENDED,
+            '1' => '0', 
+            '2' => '2',            
             default => $prev_status,
         };
-
 
         $statement = "UPDATE files
                 SET file_status = ?

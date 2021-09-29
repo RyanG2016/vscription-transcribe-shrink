@@ -234,12 +234,16 @@ $transRemarks = $currentAccount->getTranscribeRemarks();
         var tutorials = '<?php echo $tuts;?>';
     </script>
 
+    <?php $alj = (isset($_SESSION['auto_load_job'])) ? $_SESSION['auto_load_job'] : '0'; ?>   
+    <script type="text/javascript">
+        var autoLoadJob = '<?php echo $alj;?>';
+    </script>
 </head>
 
 <body>
 
 <script src="data/scripts/parts/constants.js" type="text/javascript"></script>
-<script src="data/scripts/transcribe.min.js?v=13"></script>
+<script src="data/scripts/transcribe.min.js?v=14"></script>
 <!-- <script src="data/scripts/transcribe.js"></script> -->
 
 <div id="updated_version_bar">There is a newer version (v<span></span>) of the vScription Transcribe Controller

@@ -19,6 +19,9 @@ var isConnected = false;
 var isConnecting = true;
 var firstLaunch = true;
 let statusTxt;
+var getOldestJob;
+var loadJPJob;
+var loadingScreen;
 const not_connected = "<i><i class=\"fas fa-info-circle\"></i>Couldn't connect to vScription Controller <u id=\"reconnect\">reconnect?</u> <span class='download-controller' id=\"downloadController\">or download here</span></i>";
 const connecting = "<i>connecting to controller please wait...</i>";
 const connected = "<i>Connected to vScription Controller</i>";
@@ -169,7 +172,7 @@ $(document).ready(function () {
         tinymce.activeEditor.selection.select( tinymce.activeEditor.dom.select('#' + dt.row(this).id())[0] );
         tinymce.activeEditor.selection.getNode().scrollIntoView(true);
         seekFromID(dt.row(this).id());
-        // changeLoading(true, "Loading "+ jobsDTRef.row(this).data()["job_id"]);
+        // loadingScreen(true, "Loading "+ jobsDTRef.row(this).data()["job_id"]);
         // jobLoadLookup(fileID);
     });
 
@@ -592,8 +595,8 @@ $(document).ready(function () {
         {
             let fileID = jobsDTRef.row(this).id();
             let jpFileStatus = jobsDTRef.row(this).data()["file_status"];
-            changeLoading(true, "Loading "+ jobsDTRef.row(this).data()["job_id"]);
-            jobLoadLookup(fileID, jpFileStatus);
+            loadingScreen(true, "Loading "+ jobsDTRef.row(this).data()["job_id"]);
+            loadJPJob(fileID, jpFileStatus, 0);
         }
     });
 
@@ -1043,8 +1046,8 @@ $(document).ready(function () {
         }
 
         $.confirm({
-            title: 'Discard Form?',
-            content: 'Are you sure do you want to discard current data?',
+            title: 'Discard Job?',
+            content: 'All changes will be discarded. Are you sure? ',
             buttons: {
                 confirm: {
                     btnClass: 'btn-red',
@@ -1108,12 +1111,11 @@ $(document).ready(function () {
     }
 
     function suspendAndClearForDiscard() {
-
         $.post(files_api + currentFileID + "/discard",
             {
                 prev_status: currentFileData.file_status
             }).done(function (data) {
-            // console.log(data);
+            console.log(data);
         });
 
         clear();
@@ -1242,17 +1244,38 @@ $(document).ready(function () {
         return true;
     }
 
+    /*----Load oldest Job Automatically----*/
+
+     getOldestJob = function loadOldestJobID(loadJob) {
+        $.get(files_api + "getnext").done(function (jobData) {
+            if (jobData) {
+                // I'm not sure why I have to access the data using [0] here but not in the jobLoadLookup function.
+                // Also, not sure why I have to stringify the jobData here and not in the jobLoadLookup
+                const textData = JSON.stringify(jobData);
+                const nextFileObj = JSON.parse(textData);
+                fileID = nextFileObj[0].file_id;
+                prevStatus = nextFileObj[0].file_status;
+                loadJob(fileID, prevStatus,1);
+            } else {
+                $.confirm({
+                    title: 'No Job',
+                    content: "NO more jobs waiting for typing for this account",
+                    buttons: {confirm: {btnClass: 'btn-green', text: 'ok'}}
+                });
+            }
+        }); 
+    }
+
     /*----Lookup job details-----*/
 
-    function jobLoadLookup(fileID, jpFileStatus) {
-
+    loadJPJob = function jobLoadLookup(fileID, jpFileStatus, autoLoaded) {
         $.get(files_api + fileID + "?tr").done(function (data) {
             if (data) {
                 const fileObj = JSON.parse(data);
-                if (fileObj["file_status"] == jpFileStatus) {
+                if (fileObj["file_status"] == jpFileStatus || autoLoaded == 1) {
                     loadIntoPlayer(data);
                 } else {
-                    changeLoading(false, "Loading transcribe..");
+                    loadingScreen(false, "Loading transcribe..");
                     jobsDTRef.ajax.reload();
                     $.confirm({
                         title: 'Unable to Load Job',
@@ -1261,7 +1284,7 @@ $(document).ready(function () {
                     });
                 }
             } else {
-                changeLoading(false, "Loading transcribe..");
+                loadingScreen(false, "Loading transcribe..");
                 $.confirm({
                     title: 'Error',
                     content: "Job doesn't exist or you don't have permission to access it.",
@@ -1436,7 +1459,7 @@ $(document).ready(function () {
 
 
         modal.style.display = "none"; //hide modal popup
-        changeLoading(false, "Loading transcribe..");
+        loadingScreen(false, "Loading transcribe..");
         demoDiv.slideDown();
     }
 
@@ -1542,9 +1565,7 @@ $(document).ready(function () {
         }
     }
 
-
-    changeLoading(false);
-    function changeLoading(show, text = false) {
+    loadingScreen = function changeLoading(show, text = false) {
         if(!show){
             loadingOv[0].style.display = "none";
             // loadingOv.fadeOut();
@@ -1556,6 +1577,8 @@ $(document).ready(function () {
             // loading.fadeIn();
         }
     }
+
+    loadingScreen(false);
 
     // get page name
     const currentPageName = location.pathname.split("/").slice(-1)[0].replace(".php","");
@@ -1725,90 +1748,94 @@ function editUserShortcuts()
 
 function loadNewJob()
 {
-    var tutorialsJson = JSON.parse(tutorials);
-    var loadTutorial = false;
-    // console.log(`tutorialsJson['transcribeJP']`);
-    if((tutorialsJson['transcribeJP'] == undefined || tutorialsJson['transcribeJP'] == 0) && jpTutorialRunOnce == false){
-        //This is to prevent the tutorial from popping up everytime until the user reloads the page.
-        jpTutorialRunOnce = true;
-        loadTutorial = true;
-        jobsDTRef.row.add(
-            {job_id: "VT-001234",
-            user_field_1: "Jane Smithson",
-            file_author: "Jeremy Stone",
-            file_work_type: "Letter",
-            file_date_dict: "2021-09-28 03:50:25",
-            job_upload_date: "2021-09-22 03:50:25",
-            file_status_ref: "Awaiting Typing",
-            audio_length: "229"}
-            ).draw();
-        jobsDTRef.row.add(
-            {job_id: "VT-001235",
-            user_field_1: "Jane Smithson",
-            file_author: "Jeremy Stone",
-            file_work_type: "Correspondence",
-            file_date_dict: "2021-09-28 03:56:25",
-            job_upload_date: "2021-09-22 04:03:25",
-            file_status_ref: "Awaiting Typing",
-            audio_length: "309"}
-            ).draw();
-        setTimeout(function() {
-            introJs().setOptions({
-            steps: [
-            {
-            title: 'Choose a Job',
-            element: '#jobs-tbl > tbody',
-            intro: 'Click a job in the list to open it and begin typing'
-            },
-            {
-            title: 'Job Filter',
-            element: '#jobs-tbl > tfoot > tr',
-            intro: 'Here you can filter your jobs list'
-            },
-            {
-            title: 'Job Search',
-            element: '#jobs-tbl_filter > label > input',
-            intro: 'Here you can search for specific jobs by any ID in the job'
-            },
-            {
-            title: 'Show Completed Jobs',
-            element: '#showCompBtn',
-            intro: 'By default, you will only see jobs awaiting typing. Click this button to show completed jobs that you may need to review.'
-            }]
-        }).oncomplete(function() {
-            //alert('Job Picker Tutorial Is Finished');
-            //tJPTutorialViewed();
-            tJPTutorialViewed();
-        })
-        .setOption("showStepNumbers", "true")
-        .setOption("exitOnOverlayClick", "false")
-        // .setOption("exitOnEsc", "true")
-        .onbeforeexit(function() {
-            jobsDTRef.ajax.reload();
-        })
-        .start(); 
-        }, 1000);
-    }
-    if(currentFileID !== 0)
-    {
-        $.confirm({
-            title: '<i style=\"color: #f3ca27\" class=\"fas fa-exclamation-triangle\"></i> Warning',
-            content: "Please save/suspend your current work first",
-            type: "orange"
-            ,buttons: {
-                confirm: {
-                    text: "Ok",
-                    // btnClass: 'btn-red',
+    if (autoLoadJob == 0) {
+        var tutorialsJson = JSON.parse(tutorials);
+        var loadTutorial = false;
+        // console.log(`tutorialsJson['transcribeJP']`);
+        if((tutorialsJson['transcribeJP'] == undefined || tutorialsJson['transcribeJP'] == 0) && jpTutorialRunOnce == false){
+            //This is to prevent the tutorial from popping up everytime until the user reloads the page.
+            jpTutorialRunOnce = true;
+            loadTutorial = true;
+            jobsDTRef.row.add(
+                {job_id: "VT-001234",
+                user_field_1: "Jane Smithson",
+                file_author: "Jeremy Stone",
+                file_work_type: "Letter",
+                file_date_dict: "2021-09-28 03:50:25",
+                job_upload_date: "2021-09-22 03:50:25",
+                file_status_ref: "Awaiting Typing",
+                audio_length: "229"}
+                ).draw();
+            jobsDTRef.row.add(
+                {job_id: "VT-001235",
+                user_field_1: "Jane Smithson",
+                file_author: "Jeremy Stone",
+                file_work_type: "Correspondence",
+                file_date_dict: "2021-09-28 03:56:25",
+                job_upload_date: "2021-09-22 04:03:25",
+                file_status_ref: "Awaiting Typing",
+                audio_length: "309"}
+                ).draw();
+            setTimeout(function() {
+                introJs().setOptions({
+                steps: [
+                {
+                title: 'Choose a Job',
+                element: '#jobs-tbl > tbody',
+                intro: 'Click a job in the list to open it and begin typing'
+                },
+                {
+                title: 'Job Filter',
+                element: '#jobs-tbl > tfoot > tr',
+                intro: 'Here you can filter your jobs list'
+                },
+                {
+                title: 'Job Search',
+                element: '#jobs-tbl_filter > label > input',
+                intro: 'Here you can search for specific jobs by any ID in the job'
+                },
+                {
+                title: 'Show Completed Jobs',
+                element: '#showCompBtn',
+                intro: 'By default, you will only see jobs awaiting typing. Click this button to show completed jobs that you may need to review.'
+                }]
+            }).oncomplete(function() {
+                //alert('Job Picker Tutorial Is Finished');
+                //tJPTutorialViewed();
+                tJPTutorialViewed();
+            })
+            .setOption("showStepNumbers", "true")
+            .setOption("exitOnOverlayClick", "false")
+            // .setOption("exitOnEsc", "true")
+            .onbeforeexit(function() {
+                jobsDTRef.ajax.reload();
+            })
+            .start(); 
+            }, 1000);
+        }
+        if(currentFileID !== 0)
+        {
+            $.confirm({
+                title: '<i style=\"color: #f3ca27\" class=\"fas fa-exclamation-triangle\"></i> Warning',
+                content: "Please save/suspend your current work first",
+                type: "orange"
+                ,buttons: {
+                    confirm: {
+                        text: "Ok",
+                        // btnClass: 'btn-red',
+                    }
                 }
-            }
-        });
-        return;
+            });
+            return;
+        }
+        modal.style.display = "block";
+        if (loadTutorial == false) {
+            jobsDTRef.ajax.reload();
+        }
+    } else {
+        loadingScreen(true, "Loading Job...");
+        getOldestJob(loadJPJob);
     }
-    modal.style.display = "block";
-    if (loadTutorial == false) {
-        jobsDTRef.ajax.reload();
-    }
-
 }
 
 function tJPTutorialViewed() {
@@ -1823,6 +1850,7 @@ function tJPTutorialViewed() {
         });
     jobsDTRef.ajax.reload();
 }
+
 function htmlEncodeStr(s) {
     return s.replace(/&/g, "&amp;")
         .replace(/>/g, "&gt;")
