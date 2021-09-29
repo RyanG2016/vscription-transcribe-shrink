@@ -5,6 +5,9 @@ $(document).ready(function () {
     // const filesURL = "../../api/v1/files/chart";
     // const srqURL = "../../api/v1/stt/chart";
     let fixAccessBtn = $('#fixAccessBtn');
+    let copyTokenBtn = $('#copyTokenBtn');
+    let zohoToken = $('#zohoToken');
+    let zohoTokenValue = "";
     const statsURL = "../../api/v1/admin/statistics";
     const grantURL = "../../api/v1/admin/grant";
     const colorsArray = [
@@ -17,6 +20,10 @@ $(document).ready(function () {
     var filesCanava = document.getElementById('filesChart').getContext('2d');
     var srqCanava = document.getElementById('srqChart').getContext('2d');
 
+    copyTokenBtn.on('click', function (){
+        navigator.clipboard.writeText(zohoTokenValue);
+    });
+
     $.ajax({
         type: 'GET',
         method: 'GET',
@@ -28,6 +35,16 @@ $(document).ready(function () {
 
         $("#totalFiles").html(response.files_count);
         $("#totalOrgs").html(response.org_count);
+        if(response.zoho_auth_token)
+        {
+            zohoTokenValue = response.zoho_auth_token;
+            zohoToken.text("<token>");
+            copyTokenBtn.show();
+        }else{
+            zohoTokenValue = '';
+            zohoToken.text("<failed to retrieve>");
+            copyTokenBtn.hide();
+        }
         $("#totalSysAccess").html(response.sys_org_access_count + " / " + response.org_count);
 
         if(response.org_count !== response.sys_org_access_count)
@@ -42,6 +59,7 @@ $(document).ready(function () {
 
     });
     fixAccessBtn.tooltip({title: 'Grant access to all organizations'});
+
     fixAccessBtn.on('click', function (){
         $.confirm({
             title: 'Signup',

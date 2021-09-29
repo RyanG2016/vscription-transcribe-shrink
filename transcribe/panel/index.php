@@ -163,6 +163,20 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
                             <td id="totalSysAccess">
                             </td>
                         </tr>
+                        <tr class="bg-info">
+                            <td colspan="3" class="text-center">Zoho</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                Auth Token
+                                <button type="button" class="btn btn-dark btn-sm copy-btn" id="copyTokenBtn">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </td>
+                            <td id="zohoToken" class="zoho-token">
+
+                            </td>
+                        </tr>
                     </table>
 
 

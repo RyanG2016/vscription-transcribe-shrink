@@ -195,3 +195,9 @@ table.stats-tbl td {
 table.stats-tbl, td, th{
     !*!*border: solid 1px black;*!*!
 }*/
+
+
+.zoho-token{
+    font-style: italic;
+    color: #919191;
+}
