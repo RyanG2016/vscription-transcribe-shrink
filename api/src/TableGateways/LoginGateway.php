@@ -108,6 +108,7 @@ class LoginGateway
             }
 
         } catch (\PDOException $e) {
+            $this->insertAuditLogEntry(0, "Failed login - PDO | " . $e->getMessage());
             return array("error" => true, "msg" => "We couldn't log you in please contact system admin");
 //            exit($e->getMessage());
         }
