@@ -168,6 +168,14 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
                         </tr>
                         <tr>
                             <td colspan="2">
+                                Org ID
+                            </td>
+                            <td>
+                                <?php echo $_ENV["ORG_ID"] ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
                                 Auth Token
                                 <button type="button" class="btn btn-dark btn-sm copy-btn" id="copyTokenBtn">
                                     <i class="fas fa-copy"></i>
