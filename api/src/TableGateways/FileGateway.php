@@ -962,13 +962,18 @@ class FileGateway implements GatewayInterface
         }
 
         //
-        $new_status = match ($prev_status) {
-            // FILE_STATUS::BEING_TYPED => FILE_STATUS::AWAITING_TRANSCRIPTION, 
-            // FILE_STATUS::SUSPENDED => FILE_STATUS::SUSPENDED,
-            '1' => '0', 
-            '2' => '2',            
-            default => $prev_status,
-        };
+        switch($prev_status)
+        {
+            case FILE_STATUS::BEING_TYPED:
+                $new_status = FILE_STATUS::AWAITING_TRANSCRIPTION;
+                break;
+            case FILE_STATUS::SUSPENDED:
+                $new_status = FILE_STATUS::SUSPENDED;
+                break;
+            default:
+                $new_status = $prev_status;
+                break;
+        }
 
         $statement = "UPDATE files
                 SET file_status = ?
