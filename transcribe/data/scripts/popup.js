@@ -192,7 +192,11 @@ $(document).ready(function () {
 
     
     $("#loadBtn").on("click", function() {
-        chooseJob();
+        if (autoLoadJob == 0) {
+            chooseJob();
+        } else {
+            loadOldestJobID(loadID);
+        }       
     });
 
     $("#switchBackBtn").click(function () {
@@ -320,7 +324,7 @@ $(document).ready(function () {
             {
                 prev_status: currentFileData.file_status
             }).done(function (data) {
-            console.log(data);
+            // console.log(data);
         });
 
         clear();
@@ -352,6 +356,7 @@ $(document).ready(function () {
         AblePlayerInstances[0].media.pause();
 
         AblePlayerInstances[0].media.removeAttribute("src");
+        AblePlayerInstances[0].seekBar.setPosition(0);
         AblePlayerInstances[0].media.load();
         return true;
     }
@@ -507,7 +512,15 @@ $(document).ready(function () {
                 switchUI(false);
             }
             else{
-                loadID(data);
+                if (autoLoadJob == 0) {
+                    const textData = JSON.stringify(data);
+                    const nextFileObj = JSON.parse(textData);
+                    fileID = nextFileObj[0].file_id;
+                    prevStatus = nextFileObj[0].file_status;
+                    loadID(data, prevStatus, 0);
+                } else {
+                    loadOldestJobID(loadID);
+                }
             }
         }
         else{
@@ -516,10 +529,31 @@ $(document).ready(function () {
     });
 
 });
+    /*----Load oldest Job Automatically----*/
+
+    function loadOldestJobID(callback) {
+        $.get(files_api + "getnext").done(function (jobData) {
+            if (jobData) {
+                // I'm not sure why I have to access the data using [0] here but not in the loadID function.
+                // Also, not sure why I have to stringify the jobData here and not in the loadID
+                const textData = JSON.stringify(jobData);
+                const nextFileObj = JSON.parse(textData);
+                fileID = nextFileObj[0].file_id;
+                prevStatus = nextFileObj[0].file_status;
+                callback(fileID, prevStatus,1);
+            } else {
+                $.confirm({
+                    title: 'No Job',
+                    content: "No more jobs waiting for typing for this account",
+                    buttons: {confirm: {btnClass: 'btn-green', text: 'ok'}}
+                });
+            }
+        }); 
+    }
 
 /*----Lookup job details-----*/
 
-function loadID(fileID) {
+function loadID(fileID, jpFileStatus, autoLoaded) {
     // console.log("ID to load: " + fileID);
     $(".overlay").css("display", "");
 
@@ -528,19 +562,25 @@ function loadID(fileID) {
         jobPickerWindow.close();
     }
 
-
     $.get(files_api + fileID + "?tr", {
     }).done(function (data) {
-        if(data)
-        {
-            loadIntoPlayer(data);
-        }
-        else{
-            switchUI(false);
+        if (data) {
+            const fileObj = JSON.parse(data);
+            if (fileObj.file_status == jpFileStatus) {
+                loadIntoPlayer(data);
+            } else {
+                $.confirm({
+                    title: 'Unable to Load Job',
+                    content: "The status of the job you are trying to load has changed.",
+                    buttons: {confirm: {btnClass: 'btn-green', text: 'ok'}}
+                });
+                switchUI(false);
+            }
+        } else {
             $.confirm({
                 title: 'Error',
                 content: "Job doesn't exist or you don't have permission to access it.",
-                buttons: { confirm: {btnClass: 'btn-green', text: 'ok'} }
+                buttons: {confirm: {btnClass: 'btn-green', text: 'ok'}}
             });
         }
     });

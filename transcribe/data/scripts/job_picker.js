@@ -118,7 +118,8 @@ $(document).ready(function () {
         if(!$(event.target).hasClass("vspt-except"))
         {
             let fileID = jobsDTRef.row(this).id();
-            postToParent(fileID);
+            let jpFileStatus = jobsDTRef.row(this).data()["file_status"];
+            postToParent(fileID, jpFileStatus,0);
         }
 
     } );
@@ -138,9 +139,9 @@ $(document).ready(function () {
 
 });
 
-function postToParent(id)
+function postToParent(id, ps, alj)
 {
-    window.opener.loadID(id);
+    window.opener.loadID(id, ps, alj);
 }
 
 function htmlEncodeStr(s)
