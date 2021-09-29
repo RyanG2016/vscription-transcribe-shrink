@@ -69,5 +69,4 @@ jobs/table_maintenance/logs/SQLMaintenanceReport.log
 transcribe/data/scripts/parts/constants_dev.js
 api/.env.OLD
 api/src/System/Mailer - Copy.php
-transcribe/data/scripts/parts/constants_dev.js
-transcribe/data/scripts/parts/constants_dev.js
+!/api/config.json
