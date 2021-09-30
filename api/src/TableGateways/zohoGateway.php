@@ -234,13 +234,15 @@ class zohoGateway
                 (
                     zoho_id,
                     invoice_number,
-                    invoice_data
+                    invoice_data,
+                    zoho_invoice_data
                 )
             VALUES
                 (
                  :zoho_id,
                  :invoice_number,
-                 :invoice_data
+                 :invoice_data,
+                 :zoho_invoice_data
                 )
         ;";
 
@@ -249,7 +251,8 @@ class zohoGateway
             $statement->execute(array(
                 'zoho_id' => $model->getZohoId(),
                 'invoice_number' => $model->getInvoiceNumber(),
-                'invoice_data' => $model->getInvoiceData()
+                'invoice_data' => $model->getInvoiceData(),
+                'zoho_invoice_data' => $model->getZohoInvoiceData()
             ));
             if($statement->rowCount())
             {
@@ -267,7 +270,8 @@ class zohoGateway
             UPDATE zoho_invoices
             SET
                 invoice_number = :invoice_number,
-                invoice_data = :invoice_data
+                invoice_data = :invoice_data,
+                zoho_invoice_data = :zoho_invoice_data
             WHERE
                 zoho_id = :zoho_id;
         ";
@@ -277,7 +281,8 @@ class zohoGateway
             $statement->execute(array(
                 'zoho_id' => $model->getZohoId(),
                 'invoice_number' => $model->getInvoiceNumber(),
-                'invoice_data' => $model->getInvoiceData()
+                'invoice_data' => $model->getInvoiceData(),
+                'zoho_invoice_data' => $model->getZohoInvoiceData()
             ));
             return $statement->rowCount();
         } catch (\PDOException $e) {

@@ -22,6 +22,7 @@ class ZohoInvoice implements BaseModelInterface
                                 private int $zoho_id = 0,
                                 private string $invoice_number = '',
                                 private ?string $invoice_data = null,
+                                private ?string $zoho_invoice_data = null,
                                 private string $created_at = '',
 
                                 private $db = null
@@ -91,6 +92,7 @@ class ZohoInvoice implements BaseModelInterface
             $this->zoho_id = $row['zoho_id'];
             $this->invoice_number = $row['invoice_number'];
             $this->invoice_data = $row['invoice_data'];
+            $this->zoho_invoice_data = $row['zoho_invoice_data'];
             $this->created_at = $row['created_at'];
         }
     }
@@ -174,6 +176,23 @@ class ZohoInvoice implements BaseModelInterface
     {
         $this->created_at = $created_at;
     }
+
+    /**
+     * @return string|null
+     */
+    public function getZohoInvoiceData(): ?string
+    {
+        return $this->zoho_invoice_data;
+    }
+
+    /**
+     * @param string|null $zoho_invoice_data
+     */
+    public function setZohoInvoiceData(?string $zoho_invoice_data): void
+    {
+        $this->zoho_invoice_data = $zoho_invoice_data;
+    }
+
 
 
 }
