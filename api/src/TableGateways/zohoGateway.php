@@ -289,16 +289,16 @@ class zohoGateway
             return 0;
         }
     }
-    public function deleteZohoInvoice(int $invoice_number): int
+    public function deleteZohoInvoice(int $zoho_invoice_id): int
     {
         $statement = "
             DELETE FROM zoho_invoices
-            WHERE invoice_number = :invoice_number;
+            WHERE zoho_invoice_id = :zoho_invoice_id;
         ";
 
         try {
             $statement = $this->db->prepare($statement);
-            $statement->execute(array('invoice_number' => $invoice_number));
+            $statement->execute(array('zoho_invoice_id' => $zoho_invoice_id));
             return $statement->rowCount();
         } catch (\PDOException) {
             return 0;

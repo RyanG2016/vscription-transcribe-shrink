@@ -20,6 +20,7 @@ class ZohoInvoice implements BaseModelInterface
     public function __construct(
                                 private int $id = 0,
                                 private int $zoho_id = 0,
+                                private int $zoho_invoice_id = 0,
                                 private string $invoice_number = '',
                                 private ?string $invoice_data = null,
                                 private ?string $zoho_invoice_data = null,
@@ -34,6 +35,22 @@ class ZohoInvoice implements BaseModelInterface
         {
             $this->zohoGateway = new zohoGateway($db);
         }
+    }
+
+    /**
+     * @return int
+     */
+    public function getZohoInvoiceId(): int
+    {
+        return $this->zoho_invoice_id;
+    }
+
+    /**
+     * @param int $zoho_invoice_id
+     */
+    public function setZohoInvoiceId(int $zoho_invoice_id): void
+    {
+        $this->zoho_invoice_id = $zoho_invoice_id;
     }
 
 
@@ -67,21 +84,21 @@ class ZohoInvoice implements BaseModelInterface
 
     public function save():int{
 
-        if($this->zoho_id != 0)
+        if($this->id != 0)
         {
             // update
             return $this->zohoGateway->updateZohoInvoice($this);
 
         }else{
             // insert
-            $this->zoho_id = $this->zohoGateway->insertZohoInvoice($this);
-            return $this->zoho_id;
+            $this->id = $this->zohoGateway->insertZohoInvoice($this);
+            return $this->id;
         }
     }
 
     public function delete():int
     {
-        return $this->zohoGateway->deleteZohoInvoice($this->zoho_id);
+        return $this->zohoGateway->deleteZohoInvoice($this->zoho_invoice_id);
     }
 
     public function fill(bool|array $row) {
@@ -90,6 +107,7 @@ class ZohoInvoice implements BaseModelInterface
         {
             $this->id = $row['id'];
             $this->zoho_id = $row['zoho_id'];
+            $this->zoho_invoice_id = $row['zoho_invoice_id'];
             $this->invoice_number = $row['invoice_number'];
             $this->invoice_data = $row['invoice_data'];
             $this->zoho_invoice_data = $row['zoho_invoice_data'];

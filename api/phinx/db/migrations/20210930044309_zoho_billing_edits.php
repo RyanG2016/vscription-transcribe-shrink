@@ -28,6 +28,9 @@ final class ZohoBillingEdits extends AbstractMigration
             ->addColumn('zoho_invoice_data', 'json',
                 ['after' => 'invoice_data', 'null'=>true, 'comment'=>'Zoho json response of invoice creation'])
 
+            ->addColumn('zoho_invoice_id', 'integer',
+                ['after' => 'id', 'limit'=>100, 'default' => 0])
+
             ->changeColumn('invoice_data', 'json',
                 ['null' => true,'comment' => 'Data send from billing page used to create invoice'])
             ->update();
@@ -51,6 +54,9 @@ final class ZohoBillingEdits extends AbstractMigration
             ['default' => 0,'comment' => 'clientAdmin(0), systemAdmin(1), typist(2)'])
             ->save();
 
-        $zohoInvoices->removeColumn('zoho_invoice_data')->save();
+        $zohoInvoices
+            ->removeColumn('zoho_invoice_data')
+            ->removeColumn('zoho_invoice_id')
+            ->save();
     }
 }
