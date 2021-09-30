@@ -4,7 +4,7 @@ namespace Src\Helpers;
 require_once __DIR__ . "/../../bootstrap.php";
 use Curl\Curl;
 //use Symfony\Component\Config;
-use CURLFile;
+//use CURLFile;
 use Noodlehaus\Config;
 use Src\TableGateways\logger;
 
