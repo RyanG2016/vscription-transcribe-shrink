@@ -234,6 +234,7 @@ class zohoGateway
                 (
                     zoho_id,
                     invoice_number,
+                    zoho_invoice_id,
                     invoice_data,
                     zoho_invoice_data
                 )
@@ -241,6 +242,7 @@ class zohoGateway
                 (
                  :zoho_id,
                  :invoice_number,
+                 :zoho_invoice_id,
                  :invoice_data,
                  :zoho_invoice_data
                 )
@@ -251,6 +253,7 @@ class zohoGateway
             $statement->execute(array(
                 'zoho_id' => $model->getZohoId(),
                 'invoice_number' => $model->getInvoiceNumber(),
+                'zoho_invoice_id' => $model->getZohoInvoiceId(),
                 'invoice_data' => $model->getInvoiceData(),
                 'zoho_invoice_data' => $model->getZohoInvoiceData()
             ));
@@ -271,6 +274,7 @@ class zohoGateway
             SET
                 invoice_number = :invoice_number,
                 invoice_data = :invoice_data,
+                zoho_invoice_id = :zoho_invoice_id,
                 zoho_invoice_data = :zoho_invoice_data
             WHERE
                 zoho_id = :zoho_id;
@@ -282,6 +286,7 @@ class zohoGateway
                 'zoho_id' => $model->getZohoId(),
                 'invoice_number' => $model->getInvoiceNumber(),
                 'invoice_data' => $model->getInvoiceData(),
+                'zoho_invoice_id' => $model->getZohoInvoiceId(),
                 'zoho_invoice_data' => $model->getZohoInvoiceData()
             ));
             return $statement->rowCount();
