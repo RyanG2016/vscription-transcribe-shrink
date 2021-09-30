@@ -160,7 +160,8 @@ class SignupGateway
             $count =  $statement->rowCount();
             if($count != 0)
             {
-                $this->mailer->sendEmail(5, $email);
+                //Original was 5 but I am trying an alternate for users who signup via API and won't be presented with a Verify page
+                $this->mailer->sendEmail(8, $email);
 
                 if($accName)
                 {

@@ -153,6 +153,30 @@ class Mailer
                     $sbj = "vScription Invitation";
                     $mail->addBCC("sales@vtexvsi.com");
                     break;
+                
+                case 8:
+                    $mailingListSize = 1;
+                    $token = $this->generateToken($user_email, $mailType);
+                    if(!$token) return false;
+                    $link = "$cbaselink/verify.php?token=$token&user=$user_email";
+
+
+                    $emHTML = file_get_contents(__DIR__ . '/../../../mail/templates/verify_your_email_alt.html');
+
+                    $replace_pairs = array(
+                        '{{year}}'    => date("Y"),
+                        '{{code}}'=> $token,
+                        '{{url}}' => $link
+                    );
+
+                    $emHTML = strtr($emHTML, $replace_pairs);
+                    $emPlain = $emHTML;
+
+
+
+                    $sbj = "Account Verification";
+                    $mail->addBCC("sales@vtexvsi.com");
+                    break;
 
                 case 10:
 
