@@ -43,7 +43,6 @@ $(document).ready(function () {
     let totalBillMins = $("#totalBillMins");
     let BillingRate = $("#BillingRate");
     let invoiceTotal = $("#invoiceTotal");
-
     let jobsCount = $(".jobs-count");
 
     accountID = $("#accountID");
@@ -132,7 +131,7 @@ $(document).ready(function () {
             bold: 'Roboto-Medium.ttf',
             italics: 'Roboto-Italic.ttf',
             bolditalics: 'Roboto-MediumItalic.ttf'
-        },
+        }
     };
 
 
@@ -170,7 +169,7 @@ $(document).ready(function () {
                 text: '<i class="fa fa-file-pdf-o"></i>',
                 download: 'open',
                 // filename: currentOrganization+'_Bill_Report_' +startDate.val().toString()+ '_to_' +endDate.val().toString(), // * is read from host title tag
-                filename: 'file name test',
+                // filename: '',
                 // title: 'current org testo',
                 // title: currentOrganization,
                 // messageTop: 'top msg',
@@ -1166,8 +1165,9 @@ $(document).ready(function () {
     {
         if(currentOrgBillRate !== 0)
         {
-            invoiceTotal.html(round((currentOrgBillRate * parseFloat(totalBillMins.html()) * 100)) / 100);
-            
+            // invoiceTotal.html(round((currentOrgBillRate * parseFloat(totalBillMins.html()) * 100)) / 100);
+            invoiceTotal.html(fix2(parseFloat(totalBillMins.html()) * currentOrgBillRate));
+
         }else{
             invoiceTotal.html('');
         }
@@ -1203,14 +1203,10 @@ $(document).ready(function () {
         return minutes;
     }
 
-    function round(num) {
-        return Math.round(num,2).toFixed(10);
+    function fix2(num) {
+        return num.toFixed(2);
+        // return Math.round(num, 2).toFixed(2);
     }
-
-    function floatify(number){
-        return parseFloat((number).toFixed(10));
-     }
- 
 
 });
 
