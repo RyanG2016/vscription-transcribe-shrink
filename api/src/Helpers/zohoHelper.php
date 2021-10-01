@@ -654,6 +654,7 @@ class zohoHelper{
         $this->invoiceStep5MAB($invoiceData['data']);
 
 
+        $this->logger->insertAuditLogEntry(self::API_NAME, "#".$zohoInvoice->getInvoiceNumber()." Invoice Successfully Created by " . $_SESSION['uEmail']);
         return $this->common->generatePHPArrayResponse("Invoice Successfully Created | #" . $zohoInvoice->getInvoiceNumber());
     }
 
