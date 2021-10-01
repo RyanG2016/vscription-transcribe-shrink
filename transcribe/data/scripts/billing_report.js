@@ -53,8 +53,14 @@ $(document).ready(function () {
             maxDate: moment()
         }
     );
-    startDatePicker.on("change.datetimepicker",function (e) {
-        checkDates(e.date.format('YYYY-MM-DD'), true);
+    // startDatePicker.on("change.datetimepicker",function (e) {
+    //     checkDates(e.date.format('YYYY-MM-DD'), true);
+    // });
+
+    startDatePicker.on("change.datetimepicker", ({date, oldDate}) => {
+        if(date){
+            checkDates(date.format('YYYY-MM-DD'), true)
+        }
     });
 
     endDatePicker.datetimepicker(
@@ -63,8 +69,12 @@ $(document).ready(function () {
             maxDate: moment()
         }
     );
-    endDatePicker.on("change.datetimepicker",function (e) {
-        checkDates(e.date.format('YYYY-MM-DD'), true);
+
+    // endDatePicker.on("change.datetimepicker",function (e) {
+    endDatePicker.on("change.datetimepicker", ({date, oldDate}) => {
+        if(date){
+            checkDates(date.format('YYYY-MM-DD'), true)
+        }
     });
 
     function checkDates(val, startDateGiven) {
