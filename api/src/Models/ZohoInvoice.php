@@ -39,21 +39,20 @@ class ZohoInvoice implements BaseModelInterface
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getZohoInvoiceId(): int
+    public function getZohoInvoiceId(): string
     {
         return $this->zoho_invoice_id;
     }
 
     /**
-     * @param int $zoho_invoice_id
+     * @param string $zoho_invoice_id
      */
-    public function setZohoInvoiceId(int $zoho_invoice_id): void
+    public function setZohoInvoiceId(string $zoho_invoice_id): void
     {
         $this->zoho_invoice_id = $zoho_invoice_id;
     }
-
 
     // Custom Constructors //
 

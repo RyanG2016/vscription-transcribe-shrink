@@ -17,10 +17,22 @@ class ZohoUser implements BaseModelInterface
     private zohoGateway $zohoGateway;
 
 
+    /**
+     * @param int $id
+     * @param string $zoho_id zoho contact-person id
+     * @param string $zoho_contact_id zoho contact id of org not contact-person id
+     * @param int $uid
+     * @param int|null $acc_id
+     * @param int $type systemAdmin(1), clientAdmin(2), typist(3)
+     * @param int $primary_contact
+     * @param string|null $user_data
+     * @param string $created_at
+     * @param null $db
+     */
     public function __construct(
                                 private int $id = 0,
                                 private string $zoho_id = '',
-                                private int $zoho_contact_id = 0,
+                                private string $zoho_contact_id = '',
                                 private int $uid = 0,
                                 private ?int $acc_id = null,
                                 private int $type = 0,
@@ -56,20 +68,22 @@ class ZohoUser implements BaseModelInterface
     }
 
     /**
-     * @return string
+     * @return int|string
      */
-    public function getZohoContactId(): string
+    public function getZohoContactId(): int|string
     {
         return $this->zoho_contact_id;
     }
 
     /**
-     * @param string $zoho_contact_id
+     * @param int|string $zoho_contact_id
      */
-    public function setZohoContactId(string $zoho_contact_id): void
+    public function setZohoContactId(int|string $zoho_contact_id): void
     {
         $this->zoho_contact_id = $zoho_contact_id;
     }
+
+
 
 
     // Custom Constructors //
@@ -85,9 +99,9 @@ class ZohoUser implements BaseModelInterface
         return $instance;
     }
 
-    public static function withAccID($acc_id, $db) {
+    public static function primaryWithAccID($acc_id, $db) {
         $instance = new self(db: $db);
-        $row = $instance->zohoGateway->findZohoUserWithAccID($acc_id);
+        $row = $instance->zohoGateway->findPrimaryZohoUserWithAccID($acc_id);
         if(!$row)
         {
             return null;
@@ -112,15 +126,15 @@ class ZohoUser implements BaseModelInterface
 
     public function save():int{
 
-        if($this->zoho_id != 0)
+        if($this->id != 0)
         {
             // update
             return $this->zohoGateway->updateZohoUser($this);
 
         }else{
             // insert
-            $this->zoho_id = $this->zohoGateway->insertZohoUser($this);
-            return $this->zoho_id;
+            $this->id = $this->zohoGateway->insertZohoUser($this);
+            return $this->id;
         }
     }
 

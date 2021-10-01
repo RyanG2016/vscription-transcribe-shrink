@@ -83,7 +83,7 @@ class zohoGateway
         }
     }
 
-    public function findZohoUserWithAccID($accId): array|null
+    public function findPrimaryZohoUserWithAccID($accId): array|null
     {
 
         $statement = "
@@ -91,7 +91,7 @@ class zohoGateway
                 *
             FROM
                 zoho_users
-            WHERE acc_id = ?;
+            WHERE acc_id = ? and primary_contact = 1;
         ";
 
         try {
@@ -108,15 +108,37 @@ class zohoGateway
         }
     }
 
+    public function findAllZohoUsers($accId): array|null
+    {
+
+        $statement = "
+            SELECT 
+                *
+            FROM
+                zoho_users
+            WHERE acc_id = ?;
+        ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($accId));
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            if(!$result)
+            {
+                return array();
+            }return $result;
+        } catch (\PDOException $e) {
+            return null;
+//            exit($e->getMessage());
+        }
+    }
+
     public function findMainClientAdminOfOrg($orgID): User|null
     {
 
         $statement = "
             SELECT 
-                id,
-                first_name,
-                last_name,
-                email
+                *
             FROM
                 users
             WHERE account = ?;
@@ -254,6 +276,7 @@ class zohoGateway
         $statement = "
             UPDATE zoho_users
             SET
+                zoho_id = :zoho_id,
                 zoho_contact_id = :zoho_contact_id,
                 uid = :uid,
                 acc_id = :acc_id,
@@ -261,7 +284,7 @@ class zohoGateway
                 primary_contact = :primary_contact,
                 user_data = :user_data
             WHERE
-                zoho_id = :zoho_id;
+                id = :id;
         ";
 
         try {
@@ -273,8 +296,10 @@ class zohoGateway
                 'type' => $model->getType(),
                 'primary_contact' => $model->getPrimaryContact(),
                 'user_data' => $model->getUserData(),
+                'zoho_id' => $model->getZohoId(),
 
-                'zoho_id' => $model->getZohoId()
+                'id' => $model->getId()
+
             ));
             return $statement->rowCount();
         } catch (\PDOException $e) {
@@ -441,6 +466,33 @@ class zohoGateway
         }
     }
 
+    /**
+     * @param string $fileIds
+     * Model example: file_id_1, file_id_2, ...
+     * @param int $billed tiny int (0: not billed, 1: billed)
+     * @return bool success | failed
+     */
+    public function markAsBilled(string $fileIds, int $billed): bool
+    {
+        $statement = "
+            UPDATE files
+            SET               
+                billed = :billed,
+                billed_date = :billed_date
+            WHERE 
+                  file_id in ($fileIds);
+        ";
 
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array(
+                'billed' => $billed,
+                'billed_date' => $billed?date("Y-m-d H:i:s"):null
+            ));
+            return $statement->rowCount();
+        } catch (\PDOException $e) {
+            return 0;
+        }
+    }
 
 }

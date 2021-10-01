@@ -3,6 +3,8 @@
 namespace Src\Controller;
 
 use PHPMailer\PHPMailer\Exception;
+use Src\Helpers\common;
+use Src\Helpers\zohoHelper;
 use Src\TableGateways\zohoGateway;
 
 class zohoController
@@ -12,7 +14,9 @@ class zohoController
     private $requestMethod;
     private $uri;
 
-    private $zohosGateway;
+    private $zohoGateway;
+    private $zohoHelper;
+    private $common;
 
     public function __construct($db, $requestMethod, $uri)
     {
@@ -20,7 +24,10 @@ class zohoController
         $this->requestMethod = $requestMethod;
         $this->uri = $uri;
 
-        $this->zohosGateway = new zohoGateway($db);
+//        $this->zohoGateway = new zohoGateway($db);
+        $this->zohoHelper = new zohoHelper($db);
+        $this->zohoGateway = $this->zohoHelper->zohoGateway;
+        $this->common = new common();
     }
 
     public function processRequest()
@@ -58,14 +65,33 @@ class zohoController
                 }
 
                 break;
-//            case 'POST':
-//                    $response = $this->uploadzohosFromRequest();
-//                break;
+            case 'POST':
+                if ($this->uri) {
+                    switch ($this->uri[0])
+                    {
+                        case 'invoice':
+                            // create new invoice
+                            $response = $this->generateInvoice();
+//                            $response = $this->saveInvoicePDF();
+                            break;
+/*
+                            case 'attach':
+                            $response = $this->saveInvoicePDF();
+                            break;*/
+
+                        default:
+                            $response = $this->notFoundResponse();
+                            break;
+                    }
+                } else {
+                    $response = $this->notFoundResponse();
+                }
+                break;
 //            case 'PUT':
-//                $response = $this->updatezohosFromRequest($this->zohosId);
+//                $response = $this->saveInvoicePDF();
 //                break;
 //            case 'DELETE':
-//                $response = $this->deletezohos($this->zohosId);
+//                $response = $this->deletezoho($this->zohoId);
 //                break;
             default:
                 $response = $this->notFoundResponse();
@@ -79,7 +105,7 @@ class zohoController
 
     private function getAllInvoices()
     {
-        $result = $this->zohosGateway->findAllInvoices();
+        $result = $this->zohoGateway->findAllInvoices();
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
         $response['body'] = json_encode($result);
         return $response;
@@ -87,7 +113,7 @@ class zohoController
 
     private function getInvoice($invoice_number)
     {
-        $result = $this->zohosGateway->findZohoInvoice($invoice_number);
+        $result = $this->zohoGateway->findZohoInvoice($invoice_number);
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
         $response['body'] = json_encode($result);
         return $response;
@@ -95,7 +121,7 @@ class zohoController
 
     private function getUser($zoho_id)
     {
-        $result = $this->zohosGateway->findZohoUser($zoho_id);
+        $result = $this->zohoGateway->findZohoUser($zoho_id);
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
         $response['body'] = json_encode($result);
         return $response;
@@ -103,15 +129,15 @@ class zohoController
 
     private function getAllUsers()
     {
-        $result = $this->zohosGateway->findAllUsers();
+        $result = $this->zohoGateway->findAllUsers();
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
         $response['body'] = json_encode($result);
         return $response;
     }
 
-    private function getzohos($id)
+    private function getzoho($id)
     {
-        $result = $this->zohosGateway->find($id);
+        $result = $this->zohoGateway->find($id);
         /*if (! $result) {
 //            return $this->notFoundResponse();
         }*/
@@ -120,70 +146,85 @@ class zohoController
         return $response;
     }
 
-    private function createzohosFromRequest()
+    private function generateInvoice()
     {
-        $input = (array)json_decode(zohos_get_contents('php://input'), TRUE);
-        if (!$this->validatezohos($input)) {
-            return $this->unprocessableEntityResponse();
+
+        if(
+            !isset($_POST['invoiceData']) ||
+            !isset($_POST['pdfName']) ||
+            !isset($_FILES['pdf'])
+        ){
+            return $this->common->missingRequiredParametersResponse();
         }
-        $this->zohosGateway->insert($input);
-        $response['status_code_header'] = 'HTTP/1.1 201 Created';
-        $response['body'] = null;
-        return $response;
-    }
+//        return $this->common->missingRequiredParametersResponse();
 
-    private function cancelUpload()
-    {
-        $suffix = "job_upload";
-        $key = ini_get("session.upload_progress.prefix") . $suffix;
-        $_SESSION[$key]["cancel_upload"] = true;
+        $result = $this->zohoHelper->generateInvoiceBill(json_decode($_POST['invoiceData'],1));
+
+
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
-        $response['body'] = json_encode(array(
-            "msg" => "upload cancelled",
-            "error" => false
-        ));
+        $response['body'] = json_encode($result);
         return $response;
     }
+/*
+    private function saveInvoicePDF()
+    {
+
+        $testo = 'pause';
+//        $_FILES['pdf'];
+//        if(
+//            !isset($_POST['invoiceData'])
+//        ){
+//            return $this->common->missingRequiredParametersResponse();
+//        }
+        return $this->common->missingRequiredParametersResponse();
+
+//        $result = $this->zohoHelper->generateInvoiceBill(json_decode($_POST['invoiceData'],1));
 
 
-    private function formatzohosResult($zohosName, $status, $error)
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = json_encode($result);
+        return $response;
+    }*/
+
+
+    private function formatzohoResult($zohoName, $status, $error)
     {
         return array(
-            "zohos_name" => $zohosName,
+            "zoho_name" => $zohoName,
             "status" => $status,
             "error" => $error
         );
     }
 
-    private function updatezohosFromRequest($id)
+    private function updatezohoFromRequest($id)
     {
-        $result = $this->zohosGateway->find($id);
+        $result = $this->zohoGateway->find($id);
         if (!$result) {
             return $this->notFoundResponse();
         }
-        $input = (array)json_decode(zohos_get_contents('php://input'), TRUE);
-        if (!$this->validatezohos($input)) {
+        $input = (array)json_decode(zoho_get_contents('php://input'), TRUE);
+        if (!$this->validatezoho($input)) {
             return $this->unprocessableEntityResponse();
         }
-        $this->zohosGateway->update($id, $input);
+        $this->zohoGateway->update($id, $input);
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
         $response['body'] = null;
         return $response;
     }
 
-    private function deletezohos($id)
+    private function deletezoho($id)
     {
-        $result = $this->zohosGateway->find($id);
+        $result = $this->zohoGateway->find($id);
         if (!$result) {
             return $this->notFoundResponse();
         }
-        $this->zohosGateway->delete($id);
+        $this->zohoGateway->delete($id);
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
         $response['body'] = null;
         return $response;
     }
 
-    private function validatezohos($input)
+    private function validatezoho($input)
     {
         if (!isset($input['firstname'])) {
             return false;

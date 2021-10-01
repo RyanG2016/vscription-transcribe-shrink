@@ -101,6 +101,9 @@ class BillingGateway implements GatewayInterface
 
             if(isset($_GET['dt'])){
                 $json_data = array(
+                    "end_date" => $_GET["end_date"],
+                    "start_date" => $_GET["start_date"],
+                    "org_id" => $org->getAccId(),
                     "organization" => $org->getAccName(),
                     "billrate1" => $org->getBillRate1(),
                     "count" => $statement->rowCount(),

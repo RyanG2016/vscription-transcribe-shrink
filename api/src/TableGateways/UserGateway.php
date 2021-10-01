@@ -1228,6 +1228,7 @@ class UserGateway implements GatewayInterface
                 state = :state,
                 email_notification = :email_notification,
                 account_status = :account_status,
+                account = :account,
                 typist = :typist,
                 newsletter = :newsletter,
                 address = :address
@@ -1248,6 +1249,7 @@ class UserGateway implements GatewayInterface
                 'zipcode' => $model ->getZipcode()  ,
                 'state' => $model ->getState()  ,
                 'account_status' => $model ->getAccountStatus()  ,
+                'account' => $model ->getAccount()  ,
                 'typist' => $model ->getTypist()  ,
                 'email_notification' => $model ->getEmailNotification()  ,
                 'newsletter' => $model ->getNewsletter() ,
@@ -1261,6 +1263,7 @@ class UserGateway implements GatewayInterface
             $_SESSION['userData']['zipcode'] = $model->getZipcode();
             $_SESSION['userData']['newsletter'] = $model->getNewsletter();
             $_SESSION['userData']['email_notification'] = $model->getEmailNotification();
+            $_SESSION['userData']['account'] = $model->getAccount();
 
             $_SESSION['userData']['first_name'] = $model->getFirstName();
             $_SESSION['fname'] = $model->getFirstName();
@@ -1311,7 +1314,8 @@ class UserGateway implements GatewayInterface
                 email_notification,
                 newsletter,
                 account_status,
-               typist,
+                account,
+                typist,
                 state,
                 address
                                       
@@ -1352,6 +1356,7 @@ class UserGateway implements GatewayInterface
                 email_notification,
                 newsletter,
                 account_status,
+                account,
                 state,
                 typist,
                 address

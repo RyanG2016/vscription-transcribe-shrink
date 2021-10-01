@@ -4,14 +4,38 @@ let maximum_rows_per_page_jobs_list = 30;
 
 $(document).ready(function () {
 
-    var calculatedIds = [];
     var totalDur = 0;
+    var invoiceData = [];
+
+    var confirmDialog = $.confirm({
+        icon: 'fa fa-spinner fa-spin',
+        title: 'Please wait',
+        draggable: false,
+        backgroundDismiss: false,
+        lazyOpen: true,
+        content: 'Sit back, we are processing your PDF.',
+        buttons: {
+            /*tryAgain: {
+                text: 'Try again',
+                btnClass: 'btn-red',
+                action: function(){
+                }
+            },*/
+            close: {
+                text: 'close',
+                isHidden: true
+            }
+        }
+    });
+
+    const invoiceURL = '/api/v1/zoho/invoice';
 
     let startDate = $( "#startDate" );
     let endDate = $( "#endDate" );
     let startDatePicker = $('#startDatePicker');
     let endDatePicker = $('#endDatePicker');
     let getReport = $( "#getReport" );
+    let generateInvoiceBtn = $( "#generateInvoiceBtn" );
     let reportOptions = $("#reportOptions");
     let billJobs = $("#billJobs");
     let mabJobs = $("#mabJobs");
@@ -70,8 +94,10 @@ $(document).ready(function () {
         checkDates($(this).val(), false);
     });
 
+
     startDate.val(moment().subtract(1, "months").format("YYYY-MM-DD"));
     endDate.val(moment().format("YYYY-MM-DD"));
+
 
     // data table
     let billingDT = $("#billing-tbl");
@@ -89,7 +115,13 @@ $(document).ready(function () {
             bold: 'https://cdn.jsdelivr.net/npm/@typopro/web-open-sans@3.7.5/TypoPRO-OpenSans-Light.ttf',
             italics: 'https://cdn.jsdelivr.net/npm/@typopro/web-open-sans@3.7.5/TypoPRO-OpenSans-Light.ttf',
             bolditalics: 'https://cdn.jsdelivr.net/npm/@typopro/web-open-sans@3.7.5/TypoPRO-OpenSans-Light.ttf'
-        }
+        },
+        Roboto: {
+            normal: 'Roboto-Regular.ttf',
+            bold: 'Roboto-Medium.ttf',
+            italics: 'Roboto-Italic.ttf',
+            bolditalics: 'Roboto-MediumItalic.ttf'
+        },
     };
 
 
@@ -141,7 +173,7 @@ $(document).ready(function () {
                     format: {
                         body: function (data, row, column, node) {
                             // Strip $ from salary column to make it numeric
-                            if(column === 0 || column === 1)
+                            if(column === 1 || column === 2)
                             {
                                 return node.children[0].children[1].innerHTML;
                             }
@@ -172,7 +204,7 @@ $(document).ready(function () {
                         margin: [8,4,0,0]
                     };
                     // pdfMakeObj.content[1].table.widths = [ '*' ,'*','*' ,'*','*' ,'*','*' ,'*'];
-                    pdfMakeObj.content[1].table.widths = [ 'auto', 'auto', '*', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', '*'];
+                    pdfMakeObj.content[1].table.widths = [ 'auto','auto', 'auto', '*', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', '*'];
                     pdfMakeObj.footer= {
                         columns: [
                             {
@@ -188,7 +220,7 @@ $(document).ready(function () {
                             }
                         ]
                     };
-
+                    var debug = true;
                     // pdfMakeObj.watermark.text = "vScription Billing";
                     // pdfMakeObj.watermark.opacity = '0.3';
                     // pdfMakeObj.watermark.italics = 'true';
@@ -246,6 +278,17 @@ $(document).ready(function () {
         ],
 
         "columns": [
+            {
+                "title":"",
+                // data: "",
+                data: null,
+                orderable: false,
+                // className: "center",
+                render: function (data, type, row) {
+                    return '';
+                },
+
+            },
             {
                 "title":"Bill",
                 // data: "✓",
@@ -342,20 +385,21 @@ $(document).ready(function () {
                 "title": "Audio Length",
                 "data": "audio_length",
                 render: function (data, type, row) {
-                    if (row["file_id"] != 0 && !calculatedIds.includes(row["file_id"])) {
+                    // if (row["file_id"] != 0 && !calculatedIds.includes(row["file_id"])) {
                         // console.log(`totalDur: ${totalDur}`);
-                        totalDur += returnMinsAndSecs(parseInt(data));
+                        // totalDur += returnMinsAndSecs(parseInt(data));
                         // totalDur += parseInt(data);
 
-                        calculatedIds.push(row["file_id"]);
+                        // calculatedIds.push(row["file_id"]);
                         /*console.log(`${calculatedIds.length} | ${billingDTRef.data().length}`);
                         if(calculatedIds.length == billingDTRef.data().length)
                         {
                         }*/
                         // console.log(`${totalDur} | ${roundToNearestQMinute(parseInt(data))}`);
-                        totalMins.html(totalDur.toFixed(2));
-                        totalBillMins.html(totalDur.toFixed(2));
-                    }
+
+                        // totalMins.html(totalDur.toFixed(2));
+                        // totalBillMins.html(totalDur.toFixed(2));
+                    // }
 
 
                     return new Date(data * 1000).toISOString().substr(11, 8);
@@ -411,8 +455,6 @@ $(document).ready(function () {
 
     } );
 
-
-
     billingDTRef.buttons().container()
         .appendTo( $('#vtexTableTools'));
 
@@ -425,11 +467,529 @@ $(document).ready(function () {
 
     // get data ↓
 
-    $('#billing-tbl > thead > tr > th:nth-child(2)').tooltip(
+    $('#billing-tbl > thead > tr > th:nth-child(3)').tooltip(
         {
             title: 'Mark as billed'
         }
     );
+
+    // generateInvoiceBtn.on("click", function() {
+    //     createPDFBase64();
+    // });
+    generateInvoiceBtn.on("click", function() {
+        confirmDialog.open();
+
+        createPDFBase64();
+
+    });
+
+    function requestNewInvoice(pdfBlob)
+    {
+        let ajaxData = billingDTRef.ajax.json();
+        invoiceData.length = 0; // clear array
+        invoiceData.data = [];
+        invoiceData.organization = ajaxData.organization;
+        invoiceData.bill_rate = ajaxData.billrate1;
+        invoiceData.org_id = ajaxData.org_id;
+        invoiceData.start_date = ajaxData.start_date;
+        invoiceData.end_date = ajaxData.end_date;
+
+        invoiceData.contact_type    = 'customer';
+        invoiceData.quantity = parseInt(billJobs.text());
+        invoiceData.total    = invoiceTotal.text();
+
+
+        for (let [key, value] of Object.entries(ajaxData.data) ) {
+
+            let item = {
+                file_id: value.file_id,
+                mab: billingDTRef.cell(`#${value.file_id}`, 2).node().children[0].children[1].innerHTML === "Yes",
+                bill: billingDTRef.cell(`#${value.file_id}`, 1).node().children[0].children[1].innerHTML === "Yes"
+            };
+
+            invoiceData.data.push(item);
+        }
+
+        // $.post("", {
+        //     invoiceData:
+        // });
+        // $.ajax({
+        //     type: "POST",
+        //     url: url,
+        //     data: JSON.stringify(data),
+        //     contentType: "application/json; charset=utf-8",
+        //     dataType: "json",
+        //     error: function() {
+        //         alert("Error");
+        //     },
+        //     success: function() {
+        //         alert("OK");
+        //     }
+        // });
+
+        var formData = new FormData();
+        formData.append('invoiceData', JSON.stringify({...invoiceData}));
+        formData.append('pdf', pdfBlob);
+        formData.append('pdfName', accountID.val() + "_Bill_"+`${startDate.val().toString()}_to_${endDate.val().toString()}`);
+
+        $.confirm({
+            title: 'Signup',
+            theme: 'supervan',
+            columnClass: 'col-8',
+            content: function(){
+                var self = this;
+                // self.setContent('Checking callback flow');
+                return $.ajax({
+                    type: 'POST',
+                    method: 'POST',
+                    url: invoiceURL,
+                    data: formData,
+                    processData: false,
+                    contentType: false
+                    // contentType: "application/json; charset=utf-8"
+                })
+                    .done(function (response) {
+
+                        // handle responses
+                        // -------------
+
+                        // self.setTitle("Success");
+                        // self.setType("green");
+                        // self.setContent(response["msg"]);
+                        //
+                        // self.buttons.ok.setText("Ok");
+                        // self.buttons.ok.addClass("btn-green");
+                        // self.buttons.ok.removeClass("btn-default");
+                        // self.buttons.close.hide();
+                        // self.buttons.ok.action = function () {
+                        //     location.reload();
+                        // };
+                        billingDTRef.ajax.reload(dtLoadCallback);
+                        if(!response.error)
+                        {
+                            self.setTitle("Success");
+                            self.setType("green");
+                            self.setContent(response.msg);
+
+                            self.buttons.ok.setText("Ok");
+                            self.buttons.ok.addClass("btn-green");
+                            self.buttons.ok.removeClass("btn-default");
+                            self.buttons.close.hide();
+                        }else{
+                            self.setTitle("oops..");
+                            self.setType("red");
+                            self.setContent(response.msg);
+                            self.buttons.ok.setText("Ok");
+                            self.buttons.ok.addClass("btn-green");
+                            // self.buttons.ok
+                            // self.buttons.ok.btnClass = "btn-green"
+                            self.buttons.ok.removeClass("btn-default")
+                            self.buttons.close.hide();
+                        }
+                        // self.buttons.ok.action = function () {
+                        //     location.reload();
+                        // };
+
+
+                        // self.setContentAppend('<div>Done!</div>');
+
+                    }).fail(function(xhr, status, err){
+                        self.setTitle("oops..");
+                        self.setType("red");
+                        self.setContent(xhr.responseJSON["msg"]);
+                        self.buttons.ok.setText("Ok");
+                        self.buttons.ok.addClass("btn-green");
+                        // self.buttons.ok
+                        // self.buttons.ok.btnClass = "btn-green"
+                        self.buttons.ok.removeClass("btn-default");
+                        self.buttons.close.hide();
+                    })
+            }
+        });
+
+        /*
+        * $.post(invoiceURL, {
+                    invoiceData: JSON.stringify({...invoiceData}),
+                    pdf: pdfBlob,
+                    pdf_file_name: accountID.val() + "_Bill_"+`${startDate.val().toString()}_to_${endDate.val().toString()}`
+                })
+                    .done(function (response) {
+
+                        // handle responses
+                        // -------------
+
+                        // self.setTitle("Success");
+                        // self.setType("green");
+                        // self.setContent(response["msg"]);
+                        //
+                        // self.buttons.ok.setText("Ok");
+                        // self.buttons.ok.addClass("btn-green");
+                        // self.buttons.ok.removeClass("btn-default");
+                        // self.buttons.close.hide();
+                        // self.buttons.ok.action = function () {
+                        //     location.reload();
+                        // };
+
+                        if(!response.error)
+                        {
+                            self.setTitle("Success");
+                            self.setType("green");
+                            self.setContent(response["msg"]);
+
+                            self.buttons.ok.setText("Ok");
+                            self.buttons.ok.addClass("btn-green");
+                            self.buttons.ok.removeClass("btn-default");
+                            self.buttons.close.hide();
+                        }else{
+                            self.setTitle("oops..");
+                            self.setType("red");
+                            self.setContent(response.msg);
+                            self.buttons.ok.setText("Ok");
+                            self.buttons.ok.addClass("btn-green");
+                            // self.buttons.ok
+                            // self.buttons.ok.btnClass = "btn-green"
+                            self.buttons.ok.removeClass("btn-default")
+                            self.buttons.close.hide();
+                        }
+                        // self.buttons.ok.action = function () {
+                        //     location.reload();
+                        // };
+
+
+                        // self.setContentAppend('<div>Done!</div>');
+
+                    }).fail(function(xhr, status, err){
+                        self.setTitle("oops..");
+                        self.setType("red");
+                        self.setContent(xhr.responseJSON["msg"]);
+                        self.buttons.ok.setText("Ok");
+                        self.buttons.ok.addClass("btn-green");
+                        // self.buttons.ok
+                        // self.buttons.ok.btnClass = "btn-green"
+                        self.buttons.ok.removeClass("btn-default")
+                        self.buttons.close.hide();
+                    })
+        * */
+
+        // ajax trick
+        // use json_decode(file_get_contents('php://input'),1);
+        /*    $.confirm({
+                title: 'Signup',
+                theme: 'supervan',
+                columnClass: 'col-8',
+                content: function(){
+                    var self = this;
+                    // self.setContent('Checking callback flow');
+                    return $.ajax({
+                        type: 'POST',
+                        method: 'POST',
+                        url: invoiceURL,
+                        data: JSON.stringify({...invoiceData}),
+                        processData: false,
+                        contentType: false
+                        // contentType: "application/json; charset=utf-8"
+                    }).done(function (response) {
+
+                        // handle responses
+                        // -------------
+
+                        // self.setTitle("Success");
+                        // self.setType("green");
+                        // self.setContent(response["msg"]);
+                        //
+                        // self.buttons.ok.setText("Ok");
+                        // self.buttons.ok.addClass("btn-green");
+                        // self.buttons.ok.removeClass("btn-default");
+                        // self.buttons.close.hide();
+                        // self.buttons.ok.action = function () {
+                        //     location.reload();
+                        // };
+
+                        if(!response.error)
+                        {
+                            self.setTitle("Success");
+                            self.setType("green");
+                            self.setContent(response["msg"]);
+
+                            self.buttons.ok.setText("Ok");
+                            self.buttons.ok.addClass("btn-green");
+                            self.buttons.ok.removeClass("btn-default");
+                            self.buttons.close.hide();
+                        }else{
+                            self.setTitle("oops..");
+                            self.setType("red");
+                            self.setContent(response.msg);
+                            self.buttons.ok.setText("Ok");
+                            self.buttons.ok.addClass("btn-green");
+                            // self.buttons.ok
+                            // self.buttons.ok.btnClass = "btn-green"
+                            self.buttons.ok.removeClass("btn-default")
+                            self.buttons.close.hide();
+                        }
+                        // self.buttons.ok.action = function () {
+                        //     location.reload();
+                        // };
+
+
+                        // self.setContentAppend('<div>Done!</div>');
+
+                    }).fail(function(xhr, status, err){
+                        self.setTitle("oops..");
+                        self.setType("red");
+                        self.setContent(xhr.responseJSON["msg"]);
+                        self.buttons.ok.setText("Ok");
+                        self.buttons.ok.addClass("btn-green");
+                        // self.buttons.ok
+                        // self.buttons.ok.btnClass = "btn-green"
+                        self.buttons.ok.removeClass("btn-default")
+                        self.buttons.close.hide();
+                    })
+                }
+            });*/
+
+
+        /*$.ajax({
+            type: "POST",
+            url: '/api/v1/zoho/invoice',
+            data: JSON.stringify({...invoiceData}),
+            // data: invoiceData,
+            processData: false,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            error: function() {
+                // alert("Error");
+            },
+            success: function() {
+                // alert("OK");
+            }
+        });*/
+        // console.log("data to record: " + invoiceData);
+
+
+
+        // console.log("data to record: " + `{${JSON.stringify({...invoiceData})}`);
+        // console.log(JSON.stringify({...invoiceData}));
+    }
+
+    function createPDFBase64(){
+        var config = {
+            extend: 'pdfHtml5',
+            text: '<i class="fa fa-file-pdf-o"></i>',
+            download: 'open',
+            header: true,
+            footer: false,
+            filename: currentOrganization+'_Bill_Report_' +startDate.val().toString()+ '_to_' +endDate.val().toString(), // * is read from host title tag
+            title: currentOrganization+'_Bill_Report_' +startDate.val().toString()+ '_to_' +endDate.val().toString(), // * is read from host title tag
+            // filename: 'file name test',
+            // title: 'current org testo',
+            // title: currentOrganization,
+            // messageTop: 'top msg',
+            // messageBottom: 'bottom msg',
+            titleAttr: 'PDF',
+            orientation: 'landscape',
+            pageSize: 'letter',
+            exportOptions:{
+                // columns: [0,1,3],
+                stripHtml: true,
+                format: {
+                    body: function (data, row, column, node) {
+                        // Strip $ from salary column to make it numeric
+                        if(column === 1 || column === 2)
+                        {
+                            return node.children[0].children[1].innerHTML;
+                        }
+                        else return data;
+                        // return data;
+                    }
+                }
+                // orthogonal: 'export',
+            },
+
+            customize: function (pdfMakeObj, buttonConfig, tblRef) {
+                // let test = 1;
+
+                buttonConfig.filename = `${currentOrganization}_Bill_Report_${startDate.val().toString()}_to_${endDate.val().toString()}`;
+                buttonConfig.title = currentOrganization;
+                buttonConfig.download = 'open';
+
+                pdfMakeObj.defaultStyle.font = 'opensans';
+                pdfMakeObj.watermark =
+                    { text: 'vScription Billing', color: '#bfced9', opacity: 0.3, bold: false, italics: true };
+
+                pdfMakeObj.pageSize = 'LETTER';
+                pdfMakeObj.pageOrientation = 'landscape';
+                pdfMakeObj.pageMargins = [ 20, 20 ];
+                pdfMakeObj.title = currentOrganization;
+                pdfMakeObj.header = {
+                    text: 'vScription Transcribe Billing',
+                    margin: [8,4,0,0]
+                };
+                // pdfMakeObj.content[1].table.widths = [ '*' ,'*','*' ,'*','*' ,'*','*' ,'*'];
+                // pdfMakeObj.content[0].table.widths = [ 'auto','auto', 'auto', '*', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', '*'];
+                pdfMakeObj.content[1].table.widths = [ 'auto','auto', 'auto', '*', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', '*'];
+                pdfMakeObj.footer= {
+                    columns: [
+                        {
+                            text: `\ \ ${startDate.val()} to ${endDate.val()}`,
+                            alignment: 'left',
+                            margin: [8,0,0,0]
+                        },
+                        {
+                            text: `Generated on: ${new Date().toUTCString()}\ \ `,
+                            alignment: 'right',
+                            margin: [0,0,8,8]
+                            // margin: 8
+                        }
+                    ]
+                };
+                var debug = true;
+
+            }
+        };
+        var data = billingDTRef.buttons.exportData( config.exportOptions);
+        var info = billingDTRef.buttons.exportInfo( config );
+        var rows = [];
+
+        if ( config.header ) {
+            rows.push( $.map( data.header, function ( d ) {
+                return {
+                    text: typeof d === 'string' ? d : d+'',
+                    style: 'tableHeader'
+                };
+            } ) );
+        }
+
+        for ( var i=0, ien=data.body.length ; i<ien ; i++ ) {
+            rows.push( $.map( data.body[i], function ( d ) {
+                if ( d === null || d === undefined ) {
+                    d = '';
+                }
+                return {
+                    text: typeof d === 'string' ? d : d+'',
+                    style: i % 2 ? 'tableBodyEven' : 'tableBodyOdd'
+                };
+            } ) );
+        }
+
+        if ( config.footer && data.footer) {
+            rows.push( $.map( data.footer, function ( d ) {
+                return {
+                    text: typeof d === 'string' ? d : d+'',
+                    style: 'tableFooter'
+                };
+            } ) );
+        }
+
+        var doc = {
+            pageSize: config.pageSize,
+            pageOrientation: config.orientation,
+            content: [
+                {
+                    table: {
+                        headerRows: 1,
+                        body: rows
+                    },
+                    layout: 'noBorders'
+                }
+            ],
+            styles: {
+                tableHeader: {
+                    bold: true,
+                    fontSize: 11,
+                    color: 'white',
+                    fillColor: '#2d4154',
+                    alignment: 'center'
+                },
+                tableBodyEven: {},
+                tableBodyOdd: {
+                    fillColor: '#f3f3f3'
+                },
+                tableFooter: {
+                    bold: true,
+                    fontSize: 11,
+                    color: 'white',
+                    fillColor: '#2d4154'
+                },
+                title: {
+                    alignment: 'center',
+                    fontSize: 15
+                },
+                message: {}
+            },
+            defaultStyle: {
+                fontSize: 10
+            }
+        };
+
+        if ( info.messageTop ) {
+            doc.content.unshift( {
+                text: info.messageTop,
+                style: 'message',
+                margin: [ 0, 0, 0, 12 ]
+            } );
+        }
+
+        if ( info.messageBottom ) {
+            doc.content.push( {
+                text: info.messageBottom,
+                style: 'message',
+                margin: [ 0, 0, 0, 12 ]
+            } );
+        }
+
+        if ( info.title ) {
+            doc.content.unshift( {
+                text: info.title,
+                style: 'title',
+                margin: [ 0, 0, 0, 12 ]
+            } );
+        }
+
+        // customizations
+        /* ============================ */
+
+        if ( config.customize ) {
+            config.customize( doc, config, billingDT );
+        }
+
+        /* ============================ */
+
+        var pdf = pdfMake.createPdf( doc );
+
+        // if ( config.download === 'open' && ! _isDuffSafari() ) {
+        /*pdf.getBase64((data) => {
+            console.log(data);
+            // send and save to server then fetch URL
+
+        });*/
+        pdf.getBlob((blob) => {
+            // console.log(blob);
+
+            confirmDialog.close();
+            requestNewInvoice(blob);
+
+            /*$.ajax({
+                url: "../api/v1/zoho/attach/",
+                type: "POST",
+                method: "POST",
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: formData
+            })
+                .done(function(e){
+                    console.log("ajax done");
+                });*/
+
+
+        });
+
+        // pdf.open();
+        // }
+        // else {
+        //     pdf.download( info.filename );
+        // }
+    }
 
     getReport.on("click", function() {
 
@@ -438,7 +998,6 @@ $(document).ready(function () {
             start_date: startDate.val()+' 00:00:00',
             end_date: endDate.val()+' 23:59:59'
         }).toString();
-        // todo revert ?
         // document.title = "Bill_report_"+startDate.val()+"_to_" + endDate.val();
 
         // billingDTRef.ajax.url( '../api/v1/billing/1?dt&startDate=2018-07-19&endDate=2021-07-19').load();
@@ -446,14 +1005,12 @@ $(document).ready(function () {
         // getData(arg);
     });
 
-    // getReport.click();
-
 
     function dtLoadCallback(responseJson)
     {
         // console.log("callback");
         // clear total durations
-        calculatedIds.length = 0;
+        // calculatedIds.length = 0;
         totalDur = 0;
         // console.log(responseJson);
         if(responseJson.count)
@@ -467,13 +1024,24 @@ $(document).ready(function () {
             mabJobs.html(responseJson.count);
             billJobs.html(responseJson.count);
 
+            // calculate total minutes
+            var data = billingDTRef.data().toArray();
+            for (const key in data) {
+
+                totalDur += returnMinsAndSecs(parseInt(data[key]['audio_length']));
+            }
+
+            totalMins.html(totalDur.toFixed(2));
+            totalBillMins.html(totalDur.toFixed(2));
+
             // total minutes calculation
             calcInvoiceTotal();
 
-            // todo check
-            document.title = `${currentOrganization.replaceAll(" ", "_")}_Bill_Report_${startDate.val().toString()}_to_${endDate.val().toString()}`;
+            // document.title = `${currentOrganization.replaceAll(" ", "_")}_Bill_Report_${startDate.val().toString()}_to_${endDate.val().toString()}`;
 
             reportOptions.slideDown();
+
+            // generateInvoiceBtn.click();
         }else{
             currentOrganization = "";
             currentOrgBillRate = 0;

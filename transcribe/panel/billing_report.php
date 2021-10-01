@@ -49,6 +49,8 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/css/tempusdominus-bootstrap-4.min.css" integrity="sha512-3JRrEUwaCkFUBLK1N8HehwQgu8e23jTH4np5NHOmQOobuC4ROQxFwFgBLTnhcnQRMs84muMh0PnnwXlPq5MGjg==" crossorigin="anonymous" />
 
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 
 
     <!--  Datatables  -->
@@ -74,8 +76,8 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
 
 
 
-<!--    <script src="../data/scripts/billing_report.min.js"></script>-->
-    <script src="../data/scripts/billing_report.min.js?v=7"></script>
+<!--    <script src="../data/scripts/billing_report.js"></script>-->
+    <script src="../data/scripts/billing_report.min.js?v=8"></script>
     <script src="../data/thirdparty/scripts/html2pdf.bundle.min.js"></script>
     <link href="https://printjs-4de6.kxcdn.com/print.min.css" rel="stylesheet">
     <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
@@ -254,7 +256,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
                                 </tr>
                             </table>
 
-                            <button type="button" class="btn btn-info w-100 mt-2" id="getInvoice" disabled>
+                            <button type="button" class="btn btn-info w-100 mt-2" id="generateInvoiceBtn">
                                 <i class="fad fa-file-invoice-dollar"></i> Generate Invoice
                             </button>
 
