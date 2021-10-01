@@ -1074,7 +1074,7 @@ $(document).ready(function () {
         if(responseJson.count)
         { 
             currentOrganization = responseJson.organization;
-            currentOrgBillRate = (responseJson.billrate1).toFixed(2);
+            currentOrgBillRate = fix2(responseJson.billrate1);
             BillingRate.html(currentOrgBillRate);
             jobsCount.each(function(){
                 this.innerHTML = responseJson.count;
@@ -1086,11 +1086,11 @@ $(document).ready(function () {
             var data = billingDTRef.data().toArray();
             for (const key in data) {
 
-                totalDur += returnMinsAndSecs(parseInt(data[key]['audio_length']));
+                totalDur += getMinsFloat(data[key]['audio_length']);
             }
 
-            totalMins.html(totalDur.toFixed(2));
-            totalBillMins.html(totalDur.toFixed(2));
+            totalMins.html(fix2(totalDur));
+            totalBillMins.html(fix2(totalDur));
 
             // total minutes calculation
             calcInvoiceTotal();
@@ -1123,16 +1123,16 @@ $(document).ready(function () {
 
         $('input[type=checkbox].include-chk').off('change').on('change', function () {
             // console.log("checked: " + this.checked);
-            let audioValue = returnMinsAndSecs(billingDTRef.data()[$(this).closest('tr').index()].audio_length);
+            let audioValue = getMinsFloat(billingDTRef.data()[$(this).closest('tr').index()].audio_length);
             if(this.checked)
             {
                 billJobs.html(parseInt(billJobs.html()) + 1)
                 $(this).parent().children()[1].innerHTML = 'Yes';
-                totalBillMins.html((parseFloat(totalBillMins.html()) + parseFloat(audioValue)).toFixed(2));
+                totalBillMins.html(fix2(parseFloat(totalBillMins.html()) + audioValue));
             }else{
                 billJobs.html(parseInt(billJobs.html()) - 1)
                 $(this).parent().children()[1].innerHTML = 'No';
-                totalBillMins.html((parseFloat(totalBillMins.html()) - parseFloat(audioValue)).toFixed(2));
+                totalBillMins.html(fix2(parseFloat(totalBillMins.html()) - audioValue));
             }
             calcInvoiceTotal();
         });
@@ -1194,18 +1194,28 @@ $(document).ready(function () {
     //     return minutes;
     // }
 
-    function returnMinsAndSecs(seconds)
+    /*function returnMinsAndSecs(seconds)
     {
         let minutes = Math.floor(seconds / 60);
         let remainder = seconds % 60;
         let remainderSeconds = remainder / 100;
         minutes += remainderSeconds;
         return minutes;
-    }
+    }*/
 
     function fix2(num) {
         return num.toFixed(2);
         // return Math.round(num, 2).toFixed(2);
+    }
+
+    function getMinsFloat(numStr)
+    {
+        return parseFloat(fix2(parseFloat(numStr)/60));
+    }
+
+    function getMinsStr(num)
+    {
+        return getMinsFloat(num).toString();
     }
 
 });
