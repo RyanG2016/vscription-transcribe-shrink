@@ -1008,7 +1008,7 @@ $(document).ready(function () {
             start_date: startDate.val()+' 00:00:00',
             end_date: endDate.val()+' 23:59:59'
         }).toString();
-        // document.title = "Bill_report_"+startDate.val()+"_to_" + endDate.val();
+        document.title = "Bill_report_"+startDate.val()+"_to_" + endDate.val();
 
         // billingDTRef.ajax.url( '../api/v1/billing/1?dt&startDate=2018-07-19&endDate=2021-07-19').load();
         billingDTRef.ajax.url(`../api/v1/billing/${accountID.val()}?dt&${reqData}`).load(dtLoadCallback);
