@@ -201,30 +201,58 @@ if ($_SESSION['role'] != "1") {
                             </tr>
                             <tr>
                                 <td>
-                                    Generated On
+                                    Billing
                                 </td>
                                 <td>
-                                    <span id="genOn"></span>
+                                    <span id="billJobs"></span>/<span class="jobs-count"></span> <i>Jobs</i>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    Total Length
+                                    Mark as Billed
                                 </td>
                                 <td>
-                                    <span id="totalLength"></span><i> mins</i>
+                                    <span id="mabJobs"></span>/<span class="jobs-count"></span> <i>Jobs</i>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Total Minutes
+                                </td>
+                                <td>
+                                    <span id="totalMins"></span> <i>mins</i>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Billed Minutes
+                                </td>
+                                <td>
+                                    <span id="totalBillMins"></span> <i>mins</i>
                                 </td>
                             </tr>
 
+<!--                            <tr>-->
+<!--                                <td>-->
+<!--                                    Bill Rate-->
+<!--                                </td>-->
+<!--                                <td>-->
+<!--                                    <span id="BillingRate"></span> <i>$CAD/min</i>-->
+<!--                                </td>-->
+<!--                            </tr>-->
                             <tr>
                                 <td>
                                     Invoice Total
                                 </td>
                                 <td>
-                                    <span id="totalPayable"></span> <i> $CAD</i>
+                                    <span id="invoiceTotal"></span> <i>$CAD</i>
                                 </td>
                             </tr>
                         </table>
+
+                        <button type="button" class="btn btn-info w-100 mt-2" id="generateInvoiceBtn">
+                            <i class="fad fa-file-invoice-dollar"></i> Generate Invoice
+                        </button>
 
                     </div>
 
