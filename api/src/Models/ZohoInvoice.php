@@ -19,10 +19,11 @@ class ZohoInvoice implements BaseModelInterface
 
     public function __construct(
                                 private int $id = 0,
-                                private int $zoho_id = 0,
-                                private int $zoho_invoice_id = 0,
+//                                private int $zoho_id = 0,
                                 private string $invoice_number = '',
-                                private ?string $invoice_data = null,
+                                private int $zoho_contact_id = 0,
+                                private string $zoho_invoice_id = '',
+                                private ?string $local_invoice_data = null,
                                 private ?string $zoho_invoice_data = null,
                                 private string $created_at = '',
 
@@ -106,10 +107,11 @@ class ZohoInvoice implements BaseModelInterface
         if($row)
         {
             $this->id = $row['id'];
-            $this->zoho_id = $row['zoho_id'];
-            $this->zoho_invoice_id = $row['zoho_invoice_id'];
+//            $this->zoho_id = $row['zoho_id'];
             $this->invoice_number = $row['invoice_number'];
-            $this->invoice_data = $row['invoice_data'];
+            $this->zoho_contact_id = $row['zoho_contact_id'];
+            $this->zoho_invoice_id = $row['zoho_invoice_id'];
+            $this->local_invoice_data = $row['local_invoice_data'];
             $this->zoho_invoice_data = $row['zoho_invoice_data'];
             $this->created_at = $row['created_at'];
         }
@@ -131,21 +133,6 @@ class ZohoInvoice implements BaseModelInterface
         $this->id = $id;
     }
 
-    /**
-     * @return int
-     */
-    public function getZohoId(): int
-    {
-        return $this->zoho_id;
-    }
-
-    /**
-     * @param int $zoho_id
-     */
-    public function setZohoId(int $zoho_id): void
-    {
-        $this->zoho_id = $zoho_id;
-    }
 
     /**
      * @return string
@@ -166,18 +153,35 @@ class ZohoInvoice implements BaseModelInterface
     /**
      * @return string|null
      */
-    public function getInvoiceData(): ?string
+    public function getLocalInvoiceData(): ?string
     {
-        return $this->invoice_data;
+        return $this->local_invoice_data;
     }
 
     /**
-     * @param string|null $invoice_data
+     * @param string|null $local_invoice_data
      */
-    public function setInvoiceData(?string $invoice_data): void
+    public function setLocalInvoiceData(?string $local_invoice_data): void
     {
-        $this->invoice_data = $invoice_data;
+        $this->local_invoice_data = $local_invoice_data;
     }
+
+    /**
+     * @return int
+     */
+    public function getZohoContactId(): int
+    {
+        return $this->zoho_contact_id;
+    }
+
+    /**
+     * @param int $zoho_contact_id
+     */
+    public function setZohoContactId(int $zoho_contact_id): void
+    {
+        $this->zoho_contact_id = $zoho_contact_id;
+    }
+
 
     /**
      * @return string

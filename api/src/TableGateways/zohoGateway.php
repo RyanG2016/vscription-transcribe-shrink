@@ -2,8 +2,10 @@
 
 namespace Src\TableGateways;
 
+use Src\Enums\ROLES;
 use Src\Helpers\common;
 use Src\Models\BaseModel;
+use Src\Models\User;
 use Src\Models\ZohoInvoice;
 use Src\Models\ZohoUser;
 
@@ -80,6 +82,125 @@ class zohoGateway
 //            exit($e->getMessage());
         }
     }
+
+    public function findZohoUserWithAccID($accId): array|null
+    {
+
+        $statement = "
+            SELECT 
+                *
+            FROM
+                zoho_users
+            WHERE acc_id = ?;
+        ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($accId));
+            $result = $statement->fetch(\PDO::FETCH_ASSOC);
+            if(!$result)
+            {
+                return array();
+            }return $result;
+        } catch (\PDOException $e) {
+            return null;
+//            exit($e->getMessage());
+        }
+    }
+
+    public function findMainClientAdminOfOrg($orgID): User|null
+    {
+
+        $statement = "
+            SELECT 
+                id,
+                first_name,
+                last_name,
+                email
+            FROM
+                users
+            WHERE account = ?;
+        ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($orgID));
+            $result = $statement->fetch(\PDO::FETCH_ASSOC);
+            if(!$result)
+            {
+                return null;
+            }
+            return User::withRow($result);
+        } catch (\PDOException $e) {
+            return null;
+//            exit($e->getMessage());
+        }
+    }
+
+
+    public function findAllSubClientAdminsOfOrg($orgID): array|null
+    {
+
+        $statement = "
+            select 
+                u.id,
+                u.first_name,
+                u.last_name,
+                u.email
+            from access
+            left join users u on access.uid = u.id
+            
+            where acc_role = 2 and acc_id = ? and u.id not in (select id from users where account = acc_id);
+        ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($orgID));
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            if(!$result)
+            {
+                return null;
+            }
+            return $result;
+        } catch (\PDOException $e) {
+            return null;
+        }
+    }
+
+    public function findSystemAdmins(): array|null
+    {
+
+        $statement = "select 
+       
+            u.id, 
+            u.first_name,
+            u.last_name,
+            u.email
+
+            from access
+            left join users u on access.uid = u.id
+            
+            where acc_role = ".ROLES::SYSTEM_ADMINISTRATOR."
+            
+            group by uid
+        ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute();
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+
+            if(!$result)
+            {
+                return null;
+            }
+            return $result;
+        } catch (\PDOException $e) {
+            return null;
+//            exit($e->getMessage());
+        }
+    }
+
     public function insertZohoUser(BaseModel|ZohoUser $model): int
     {
 
@@ -87,17 +208,21 @@ class zohoGateway
             INSERT into zoho_users
                 (
                     zoho_id,
+                    zoho_contact_id,
                     uid,
                     acc_id,
                     type,
+                    primary_contact,
                     user_data
                 )
             VALUES
                 (
                     :zoho_id,
+                    :zoho_contact_id,
                     :uid,
                     :acc_id,
                     :type,
+                    :primary_contact,
                     :user_data
                 )
         ;";
@@ -107,9 +232,11 @@ class zohoGateway
             $statement->execute(array(
 //                'id' => $model->getId(),
                 'zoho_id' => $model->getZohoId(),
+                'zoho_contact_id' => $model->getZohoContactId(),
                 'uid' => $model->getUid(),
                 'acc_id' => $model->getAccId(),
                 'type' => $model->getType(),
+                'primary_contact' => $model->getPrimaryContact(),
                 'user_data' => $model->getUserData()
             ));
             if($statement->rowCount())
@@ -127,9 +254,11 @@ class zohoGateway
         $statement = "
             UPDATE zoho_users
             SET
+                zoho_contact_id = :zoho_contact_id,
                 uid = :uid,
                 acc_id = :acc_id,
                 type = :type,
+                primary_contact = :primary_contact,
                 user_data = :user_data
             WHERE
                 zoho_id = :zoho_id;
@@ -138,9 +267,11 @@ class zohoGateway
         try {
             $statement = $this->db->prepare($statement);
             $statement->execute(array(
+                'zoho_contact_id' => $model->getZohoContactId(),
                 'uid' => $model->getUid(),
                 'acc_id' => $model->getAccId(),
                 'type' => $model->getType(),
+                'primary_contact' => $model->getPrimaryContact(),
                 'user_data' => $model->getUserData(),
 
                 'zoho_id' => $model->getZohoId()
@@ -232,18 +363,18 @@ class zohoGateway
         $statement = "
             INSERT INTO zoho_invoices 
                 (
-                    zoho_id,
                     invoice_number,
+                    zoho_contact_id,       
                     zoho_invoice_id,
-                    invoice_data,
+                    local_invoice_data,
                     zoho_invoice_data
                 )
             VALUES
                 (
-                 :zoho_id,
                  :invoice_number,
+                 :zoho_contact_id,
                  :zoho_invoice_id,
-                 :invoice_data,
+                 :local_invoice_data,
                  :zoho_invoice_data
                 )
         ;";
@@ -251,10 +382,10 @@ class zohoGateway
         try {
             $statement = $this->db->prepare($statement);
             $statement->execute(array(
-                'zoho_id' => $model->getZohoId(),
                 'invoice_number' => $model->getInvoiceNumber(),
+                'zoho_contact_id' => $model->getZohoContactId(),
                 'zoho_invoice_id' => $model->getZohoInvoiceId(),
-                'invoice_data' => $model->getInvoiceData(),
+                'local_invoice_data' => $model->getLocalInvoiceData(),
                 'zoho_invoice_data' => $model->getZohoInvoiceData()
             ));
             if($statement->rowCount())
@@ -271,23 +402,23 @@ class zohoGateway
     {
         $statement = "
             UPDATE zoho_invoices
-            SET
+            SET               
                 invoice_number = :invoice_number,
-                invoice_data = :invoice_data,
-                zoho_invoice_id = :zoho_invoice_id,
+                zoho_contact_id = :zoho_contact_id,
+                local_invoice_data = :local_invoice_data,
                 zoho_invoice_data = :zoho_invoice_data
             WHERE
-                zoho_id = :zoho_id;
+                zoho_invoice_id = :zoho_invoice_id;
         ";
 
         try {
             $statement = $this->db->prepare($statement);
             $statement->execute(array(
-                'zoho_id' => $model->getZohoId(),
                 'invoice_number' => $model->getInvoiceNumber(),
-                'invoice_data' => $model->getInvoiceData(),
-                'zoho_invoice_id' => $model->getZohoInvoiceId(),
-                'zoho_invoice_data' => $model->getZohoInvoiceData()
+                'zoho_contact_id' => $model->getZohoContactId(),
+                'local_invoice_data' => $model->getLocalInvoiceData(),
+                'zoho_invoice_data' => $model->getZohoInvoiceData(),
+                'zoho_invoice_id' => $model->getZohoInvoiceId()
             ));
             return $statement->rowCount();
         } catch (\PDOException $e) {
