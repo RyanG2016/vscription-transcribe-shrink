@@ -105,6 +105,7 @@ $(document).ready(function () {
     });
 
 
+    // startDate.val(moment().subtract(48, "months").format("YYYY-MM-DD"));
     startDate.val(moment().subtract(1, "months").format("YYYY-MM-DD"));
     endDate.val(moment().format("YYYY-MM-DD"));
 
@@ -230,7 +231,38 @@ $(document).ready(function () {
                             }
                         ]
                     };
-                    var debug = true;
+
+                    /* add summary table */
+                    pdfMakeObj.content.push(
+                        // [{text: 'Summary', pageBreak: 'before', style: 'subheader'},
+                        {
+                            // layout: 'lightHorizontalLines', // optional
+                            layout: {
+                                fillColor: function (rowIndex, node, columnIndex) {
+                                    return (rowIndex % 2 === 0) ? '#f3f3f3': null;
+                                }
+                            },
+                            pageBreak: 'before',
+                            table: {
+                                // headers are automatically repeated if the table spans over multiple pages
+                                // you can declare how many rows should be treated as headers
+                                headerRows: 1,
+                                // widths: [ '*', 'auto', 100, '*' ],
+                                widths: [ 'auto', 150],
+
+                                body: [
+                                    [{text: 'Summary', style: 'tableHeader', colSpan: 2, alignment: 'center'}, {}],
+                                    [ 'Billing',        {text:($('.billing-selection-table tr:nth-child(2) td:nth-child(2)').text()).trim(), alignment: 'right'}  ],
+                                    [ 'Mark as Billed', {text:($('.billing-selection-table tr:nth-child(3) td:nth-child(2)').text()).trim(), alignment: 'right'}  ],
+                                    [ 'Total Minutes',  {text:($('.billing-selection-table tr:nth-child(4) td:nth-child(2)').text()).trim(), alignment: 'right'}  ],
+                                    [ 'Billed Minutes', {text:($('.billing-selection-table tr:nth-child(5) td:nth-child(2)').text()).trim(), alignment: 'right'}  ],
+                                    [ 'Bill Rate',      {text:($('.billing-selection-table tr:nth-child(6) td:nth-child(2)').text()).trim(), alignment: 'right'}  ],
+                                    [ 'Invoice Total',  {text:($('.billing-selection-table tr:nth-child(7) td:nth-child(2)').text()).trim(), alignment: 'right'}  ]
+                                ]
+                            }
+                        });
+
+
                     // pdfMakeObj.watermark.text = "vScription Billing";
                     // pdfMakeObj.watermark.opacity = '0.3';
                     // pdfMakeObj.watermark.italics = 'true';
@@ -957,10 +989,42 @@ $(document).ready(function () {
 
         // customizations
         /* ============================ */
-
         if ( config.customize ) {
             config.customize( doc, config, billingDT );
         }
+        /* ============================ */
+
+
+        // add summary table
+        /* ============================ */
+        doc.content.push(
+            // [{text: 'Summary', pageBreak: 'before', style: 'subheader'},
+            {
+            // layout: 'lightHorizontalLines', // optional
+            layout: {
+                fillColor: function (rowIndex, node, columnIndex) {
+                    return (rowIndex % 2 === 0) ? '#f3f3f3': null;
+                }
+            },
+            pageBreak: 'before',
+            table: {
+                // headers are automatically repeated if the table spans over multiple pages
+                // you can declare how many rows should be treated as headers
+                headerRows: 1,
+                // widths: [ '*', 'auto', 100, '*' ],
+                widths: [ 'auto', 150],
+
+                body: [
+                    [{text: 'Summary', style: 'tableHeader', colSpan: 2, alignment: 'center'}, {}],
+                    [ 'Billing',        {text:($('.billing-selection-table tr:nth-child(2) td:nth-child(2)').text()).trim(), alignment: 'right'}  ],
+                    [ 'Mark as Billed', {text:($('.billing-selection-table tr:nth-child(3) td:nth-child(2)').text()).trim(), alignment: 'right'}  ],
+                    [ 'Total Minutes',  {text:($('.billing-selection-table tr:nth-child(4) td:nth-child(2)').text()).trim(), alignment: 'right'}  ],
+                    [ 'Billed Minutes', {text:($('.billing-selection-table tr:nth-child(5) td:nth-child(2)').text()).trim(), alignment: 'right'}  ],
+                    [ 'Bill Rate',      {text:($('.billing-selection-table tr:nth-child(6) td:nth-child(2)').text()).trim(), alignment: 'right'}  ],
+                    [ 'Invoice Total',  {text:($('.billing-selection-table tr:nth-child(7) td:nth-child(2)').text()).trim(), alignment: 'right'}  ]
+                ]
+            }
+        });
 
         /* ============================ */
 
@@ -974,24 +1038,8 @@ $(document).ready(function () {
         });*/
         pdf.getBlob((blob) => {
             // console.log(blob);
-
             confirmDialog.close();
             requestNewInvoice(blob);
-
-            /*$.ajax({
-                url: "../api/v1/zoho/attach/",
-                type: "POST",
-                method: "POST",
-                cache: false,
-                contentType: false,
-                processData: false,
-                data: formData
-            })
-                .done(function(e){
-                    console.log("ajax done");
-                });*/
-
-
         });
 
         // pdf.open();
@@ -1015,6 +1063,7 @@ $(document).ready(function () {
         // getData(arg);
     });
 
+    // getReport.click();
 
     function dtLoadCallback(responseJson)
     {
