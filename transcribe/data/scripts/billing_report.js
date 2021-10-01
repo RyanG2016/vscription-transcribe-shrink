@@ -536,7 +536,7 @@ $(document).ready(function () {
         invoiceData.end_date = ajaxData.end_date;
 
         invoiceData.contact_type    = 'customer';
-        invoiceData.quantity = parseInt(billJobs.text());
+        invoiceData.quantity = parseInt(totalBillMins.text());
         invoiceData.total    = invoiceTotal.text();
 
 
