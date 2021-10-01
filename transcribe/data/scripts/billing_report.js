@@ -536,7 +536,7 @@ $(document).ready(function () {
         invoiceData.end_date = ajaxData.end_date;
 
         invoiceData.contact_type    = 'customer';
-        invoiceData.quantity = parseInt(totalBillMins.text());
+        invoiceData.quantity = parseFloat(totalBillMins.text());
         invoiceData.total    = invoiceTotal.text();
 
 
@@ -1211,6 +1211,11 @@ $(document).ready(function () {
     function getMinsFloat(numStr)
     {
         return parseFloat(fix2(parseFloat(numStr)/60));
+    }
+
+    function fix2Float(num)
+    {
+        return parseFloat(fix2(num));
     }
 
     function getMinsStr(num)
