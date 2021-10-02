@@ -68,21 +68,20 @@ class ZohoUser implements BaseModelInterface
     }
 
     /**
-     * @return int|string
+     * @return string
      */
-    public function getZohoContactId(): int|string
+    public function getZohoContactId(): string
     {
         return $this->zoho_contact_id;
     }
 
     /**
-     * @param int|string $zoho_contact_id
+     * @param string $zoho_contact_id
      */
-    public function setZohoContactId(int|string $zoho_contact_id): void
+    public function setZohoContactId(string $zoho_contact_id): void
     {
         $this->zoho_contact_id = $zoho_contact_id;
     }
-
 
 
 

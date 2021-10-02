@@ -21,7 +21,7 @@ class ZohoInvoice implements BaseModelInterface
                                 private int $id = 0,
 //                                private int $zoho_id = 0,
                                 private string $invoice_number = '',
-                                private int $zoho_contact_id = 0,
+                                private string $zoho_contact_id = '',
                                 private string $zoho_invoice_id = '',
                                 private ?string $local_invoice_data = null,
                                 private ?string $zoho_invoice_data = null,
@@ -166,20 +166,21 @@ class ZohoInvoice implements BaseModelInterface
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getZohoContactId(): int
+    public function getZohoContactId(): string
     {
         return $this->zoho_contact_id;
     }
 
     /**
-     * @param int $zoho_contact_id
+     * @param string $zoho_contact_id
      */
-    public function setZohoContactId(int $zoho_contact_id): void
+    public function setZohoContactId(string $zoho_contact_id): void
     {
         $this->zoho_contact_id = $zoho_contact_id;
     }
+
 
 
     /**
