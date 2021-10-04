@@ -19,9 +19,8 @@ class ZohoBill implements BaseModelInterface
 
     public function __construct(
                                 private int $id = 0,
-//                                private int $zoho_id = 0,
                                 private string $bill_number = '',
-                                private int $zoho_vendor_id = 0,
+                                private string $zoho_contact_id = '',
                                 private string $zoho_bill_id = '',
                                 private ?string $local_bill_data = null,
                                 private ?string $zoho_bill_data = null,
@@ -108,7 +107,7 @@ class ZohoBill implements BaseModelInterface
             $this->id = $row['id'];
 //            $this->zoho_id = $row['zoho_id'];
             $this->bill_number = $row['bill_number'];
-            $this->zoho_vendor_id = $row['zoho_vendor_id'];
+            $this->zoho_contact_id = $row['zoho_contact_id'];
             $this->zoho_bill_id = $row['zoho_bill_id'];
             $this->local_bill_data = $row['local_bill_data'];
             $this->zoho_bill_data = $row['zoho_bill_data'];
@@ -166,21 +165,20 @@ class ZohoBill implements BaseModelInterface
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getZohoVendorId(): int
+    public function getZohoContactId(): string
     {
-        return $this->zoho_vendor_id;
+        return $this->zoho_contact_id;
     }
 
     /**
-     * @param int $zoho_vendor_id
+     * @param string $zoho_contact_id
      */
-    public function setZohoVendorId(int $zoho_vendor_id): void
+    public function setZohoContactId(string $zoho_contact_id): void
     {
-        $this->zoho_vendor_id = $zoho_vendor_id;
+        $this->zoho_contact_id = $zoho_contact_id;
     }
-
 
     /**
      * @return string

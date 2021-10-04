@@ -8,6 +8,8 @@ use Curl\Curl;
 use Noodlehaus\Config;
 use Src\Enums\ENV;
 use Src\Enums\ROLES;
+use Src\Models\User;
+use Src\Models\ZohoBill;
 use Src\Models\ZohoInvoice;
 use Src\Models\ZohoUser;
 use Src\TableGateways\logger;
@@ -19,10 +21,12 @@ class zohoHelper{
     const API_NAME = "Zoho_Helper";
 
     // request sources
+    const BILL_CREATE = 31;
     const INVOICE = 52;
 
     // URLS
     const INVOICES_URL = "https://books.zoho.com/api/v3/invoices";
+    const BILLS_URL = "https://books.zoho.com/api/v3/bills";
     const TOKEN_URL = "https://accounts.zoho.com/oauth/v2/token";
     const CONTACTS_URL = "https://books.zoho.com/api/v3/contacts";
     const CONTACTPERSON_URL = "https://books.zoho.com/api/v3/contacts/contactpersons";
@@ -389,7 +393,6 @@ class zohoHelper{
                 $postData, '');
     }
 
-
     function emailInvoice($invoiceID)
     {
 //        $curlFile = new CURLFILE($data["file_path"],"application/pdf", basename($data["file_path"]));
@@ -400,7 +403,17 @@ class zohoHelper{
 
 
     /**
-     * @param $data
+     * @param $data array Model:
+     *  $data = array (
+            "fail_msg" => ,
+            "fail_ref" => ,
+            "aid" => ,
+            "zoho_contact_id" => ,
+            "uid" => ,
+            "bill_rate1" => ,
+            "minutes" => ,
+            "admin_ids" => array()
+        );
      * returns false if failed
      * returns response mixed string if success
      */
@@ -503,8 +516,114 @@ class zohoHelper{
             , reqSrc: self::INVOICE);
     }
 
+    /**
+     * @param $data array Model:
+     *  $data = array (
+            "fail_msg" => "Failed to create bill",
+            "fail_ref" => "step2",
+            "zoho_contact_id" => $zohoPrimaryUser->getZohoContactId(),
+            "uid" => $zohoPrimaryUser->getUid(),
+            "quantity" => $billData['quantity'],
+            "attachment" => $billData['attachment']
+        );
+     * returns false if failed
+     * returns response mixed string if success
+     */
+    function createBill($data) : mixed
+    {
+
+        $jsonArr = array(
+            'vendor_id' => $data["zoho_contact_id"],
+            'bill_number' => $this->zohoGateway->getNextBillNumber(),
+            'date' => date("Y-m-d"),
+            //            'invoice_number' => 'INV-00003',
+            //            'reference_number' => ' ',
+            'notes' => 'Created by vScription Transcribe.',
+            'terms' => 'Terms & Conditions apply',
+            'line_items' =>
+                array (
+                    0 =>
+                        array (
+                            'item_id' => $this->zohoClientItemId,
+//                            'product_type' => 'services',
+                            //  'description' => '500GB, USB 2.0 interface 1400 rpm, protective hard case.',
+                            //  'item_order' => 1,
+//                              'bcy_rate' => 120,
+                            'rate' => $data["total_payment"],
+                            'quantity' => $data["quantity"]
+//                            'unit' => 'minute',
+                            //  'discount_amount' => 0,
+                            //  'discount' => 0
+                        ),
+                ),
+        );
+
+        /* PDF File Creation */
+        $file_tmp = $_FILES['pdf']['tmp_name'];
+        $targetDir = "../../data/bills/";
+        if(!is_dir($targetDir))
+        {
+            mkdir($targetDir, 0777, true);
+        }
+        $pdfTarget = $targetDir . $_POST['pdfName']. time() . ".pdf";
+        move_uploaded_file($file_tmp, $pdfTarget);
+
+//        unlink($pdfTarget); // delete file from server
+
+        // PDF END ================================
+
+
+//        $curlFile = curl_file_create($data["attachment"],"application/pdf", basename($data["attachment"]));
+        $curlFile = curl_file_create($pdfTarget,"application/pdf", basename($pdfTarget));
+
+
+//        $postData = array(
+//            'JSONString' => json_encode($jsonArr),
+////            'can_send_in_mail' => 'true',
+//            'attachment' => $curlFile
+//        );
+
+//        $postData = array('JSONString' => json_encode($jsonArr));
+        $postData = array('JSONString' => json_encode($jsonArr),
+            'attachment' => $curlFile
+        );
+
+        $result = $this->handleCurlPost(self::BILLS_URL, $data,
+            $postData, 'Type:application/json;charset=UTF-8',
+            reqSrc: self::BILL_CREATE);
+
+        unlink($pdfTarget);
+
+        return $result;
+//            , self::BILL_CREATE);
+    }
+
+    function attachToBill($data)
+    {
+//        $curlFile = new CURLFILE($data["file_path"],"application/pdf", basename($data["file_path"]));
+        $curlFile = curl_file_create($data["file_path"],"application/pdf", basename($data["file_path"]));
+        $postData = array(
+//            'can_send_in_mail' => 'true',
+            'attachment' => $curlFile
+        );
+
+
+        return $this->handleCurlPost(self::BILLS_URL."/".$data["bill_id"]."/attachment", $data,
+            $postData, '');
+    }
+    function emailBill($billID)
+    {
+//        $curlFile = new CURLFILE($data["file_path"],"application/pdf", basename($data["file_path"]));
+
+        return $this->handleCurlPost(self::BILLS_URL."/".$billID."/email",null,
+            array(), '');
+    }
+
+
     function handleCurlPost($url, $dataArr, array $postData, $contentType = 'Content-Type: application/x-www-form-urlencoded;charset=UTF-8', $reqSrc = 0)
     {
+//        $this->refreshZohoToken();
+
         $result = $this->curlPost($url, $dataArr, $postData, $contentType, $reqSrc);
 
         if($result)
@@ -580,6 +699,16 @@ class zohoHelper{
                         db: $this->db
                     ))->save();
                 }
+                else if($req_src === self::BILL_CREATE ){
+                    (new ZohoBill(
+                        id: 0,
+                        bill_number: 'FAIL',
+                        zoho_contact_id: $dataArr['zoho_contact_id'],
+                        local_bill_data: json_encode(array('local'=>$dataArr, 'formatted'=> json_decode($postData['JSONString']))),
+                        zoho_bill_data: json_encode($this->curl->response),
+                        db: $this->db
+                    ))->save();
+                }
                 return false;
             }
 
@@ -651,11 +780,18 @@ class zohoHelper{
         }
 
         // if all good mark as billed/bill
-        $this->invoiceStep5MAB($invoiceData['data']);
+        $extraResponse = '';
+        $marked = $this->invoiceStep5MAB($invoiceData['data']);
+        if(!$marked){
+            // failed and logged to actlog | Code is which step has failed
+            $this->logger->insertAuditLogEntry(self::API_NAME, "Failed to MAB (client-billing-5) | Bill #".$zohoInvoice->getInvoiceNumber());
+            $extraResponse = ' | Failed to mark files as billed, file ids can be retrieved from ZohoBill record';
+//            return $this->common->generatePHPArrayResponse("Failed to create zoho bill. (5-Bill-MAIL)",true, 4);
+        }
 
 
         $this->logger->insertAuditLogEntry(self::API_NAME, "#".$zohoInvoice->getInvoiceNumber()." Invoice Successfully Created by " . $_SESSION['uEmail']);
-        return $this->common->generatePHPArrayResponse("Invoice Successfully Created | #" . $zohoInvoice->getInvoiceNumber());
+        return $this->common->generatePHPArrayResponse("Invoice Successfully Created | Invoice #" . $zohoInvoice->getInvoiceNumber() . $extraResponse);
     }
 
 
@@ -752,7 +888,6 @@ class zohoHelper{
                 }
             }
 
-            $debug = true;
             return $zohoPrimaryUser;
 
 
@@ -879,6 +1014,256 @@ class zohoHelper{
         // implode to string
         $mabIdsStr = implode(",", $mabIds);
         return $this->zohoGateway->markAsBilled($mabIdsStr, 1); // reversible
+
+    }
+
+
+    // ===================== Bill Functions =========================== //
+
+    /** Create Bill from typists billing reports page request
+     * <br>
+     *  <b>Step 1:</b> check for user zoho_id if not exist -> createZohoContact (type: vendor) -> save zoho_id locally
+     *  <br><b>Step 2:</b>
+     *  <br><b>Step x:</b>
+     */
+    function generateBill($billData)
+    {
+        // Step 1 - contact check
+//        $orgId = $invoiceData['org_id'];
+//        $orgName = $invoiceData['organization'];
+//        $contactType = $invoiceData['contact_type'];
+//        $uid = $billData['email'];
+        $email = $billData['email'];
+        $typist = User::withEmail($email, $this->db);
+//        return $this->common->generatePHPArrayResponse("Failed to create zoho invoice. (3-PDF)",true, 3);
+
+//        return false;
+
+        $zohoUser = $this->billStep1Contact($typist->getId(), $typist, $billData['contact_type']);
+        if(!$zohoUser){
+            // failed and logged to actlog | Code is which step has failed
+            return $this->common->generatePHPArrayResponse("Failed to create zoho contact. (1-user-vendor)",true, 1);
+        }
+//        echo $zohoUser->toString();
+        // create bill
+        $zohoBill = $this->billStep2Bill($billData, $zohoUser);
+        if(!$zohoBill){
+            // failed and logged to actlog | Code is which step has failed
+            return $this->common->generatePHPArrayResponse("Failed to create zoho bill. (2-Bill)",true, 2);
+        }
+
+//        return;
+
+        /*
+        // attach pdf to invoice
+        $attached = $this->billStep3AttachPdf($zohoInvoice, $zohoUser);
+        if(!$attached){
+            // failed and logged to actlog | Code is which step has failed
+            return $this->common->generatePHPArrayResponse("Failed to create zoho bill. (3-Bill-PDF)",true, 3);
+        }*/
+
+        // send invoice mail
+        $mailed = $this->billStep4SendMail($zohoBill);
+        if(!$mailed){
+            // failed and logged to actlog | Code is which step has failed
+            return $this->common->generatePHPArrayResponse("Failed to create zoho bill. (4-Bill-MAIL)",true, 4);
+        }
+
+        // if all good mark as billed/bill
+        $extraResponse = '';
+        $marked = $this->billStep5MAB($billData['data']);
+        if(!$marked){
+            // failed and logged to actlog | Code is which step has failed
+            $this->logger->insertAuditLogEntry(self::API_NAME, "Failed to MAB (typist-billing-5) | Bill #".$zohoBill->getBillNumber());
+            $extraResponse = ' | Failed to mark files as billed, file ids can be retrieved from ZohoBill record';
+//            return $this->common->generatePHPArrayResponse("Failed to create zoho bill. (5-Bill-MAIL)",true, 4);
+        }
+
+
+        $this->logger->insertAuditLogEntry(self::API_NAME, "#".$zohoBill->getBillNumber()." Bill Successfully Created by " . $_SESSION['uEmail']);
+        return $this->common->generatePHPArrayResponse("Bill Successfully Created | Bill #" . $zohoBill->getBillNumber().$extraResponse);
+    }
+
+    function billStep1Contact($uid, User $primaryUser, $contactType) : ZohoUser|bool
+    {
+        $zohoUser = ZohoUser::typistVendorWithUid($uid, $this->db);
+        if(!$zohoUser)
+        {
+            // Get Client Admin of Org
+            // create contact
+            $data = array(
+                "fail_msg" => "Failed to create bill",
+                "fail_ref" => "uid",
+//                "aid" => $primaryUser->getAccount(),
+                "uid" => $primaryUser->getId(),
+                "zipcode" => $primaryUser->getZipcode(),
+                "acc_name" => $primaryUser->getFullName(), // zoho contact name
+                "state"=> $primaryUser->getState(),
+                "country"=> $primaryUser->getCountry(),
+                "city"=> $primaryUser->getCity(),
+                "address"=> $primaryUser->getAddress(),
+                "first_name"=> $primaryUser->getFirstName(),
+                "last_name"=> $primaryUser->getLastName(),
+                "name"=> $primaryUser->getFullName(),
+                "email"=> $primaryUser->getEmail(),
+//                "client_admins" => $this->zohoGateway->findSystemAdmins()
+                "client_admins" => array(
+                        0 => array(
+                            "first_name" => $primaryUser->getFirstName(),
+                            "last_name" => $primaryUser->getLastName(),
+                            "email" => $primaryUser->getEmail(),
+                            'is_primary_contact' => true // main client admin (who created the org)
+                        )
+                    )
+                );
+
+
+            $response = $this->createContact($data, $contactType);
+            if(!$response)
+            {
+                // failed to create contact/vendor - exit
+                $this->logger->insertAuditLogEntry(self::API_NAME,
+                    "Failed to create bill | on step 1: first time zoho contact/vendor creation | please check prev log record for details");
+                return false;
+            }
+            // else
+            // save zoho ids of contact to db
+
+            // client admin (primary)
+            $zohoPrimaryUser = new ZohoUser(
+                    id: 0,
+                    zoho_id: $response->contact->contact_persons[0]->contact_person_id,
+                    zoho_contact_id: $response->contact->contact_id,
+                    uid: $primaryUser->getId(),
+                    acc_id: null,
+                    type: ROLES::TYPIST,
+                    primary_contact: 1,
+                    user_data: json_encode($response),
+                    db: $this->db
+                );
+            $zohoPrimaryUser->save();
+
+            return $zohoPrimaryUser;
+
+
+        }else{
+            return $zohoUser;
+        }
+    }
+    function billStep2Bill($billData, ZohoUser $zohoPrimaryUser) : ZohoBill|bool
+    {
+        $data = array (
+            "fail_msg" => "Failed to create bill",
+            "fail_ref" => "step2",
+            "zoho_contact_id" => $zohoPrimaryUser->getZohoContactId(),
+            "uid" => $zohoPrimaryUser->getUid(),
+            "quantity" => $billData['quantity'], // always 1 for now
+            "total_payment" => $billData['total_payment'] // hardcoded in rate for now
+//            "attachment" => $billData['attachment']
+        );
+        $response = $this->createBill($data);
+        if(!$response)
+        {
+            // failed to create contact - exit
+            $this->logger->insertAuditLogEntry(self::API_NAME,
+                "Failed to create bill | on step 2: bill creation | please check prev log record for details");
+            return false;
+        }
+        // else
+        // save invoice id
+//        $responseArr = json_decode($response, true);
+
+        $bill = new ZohoBill(
+            id: 0,
+            bill_number: $response->bill->bill_number,
+            zoho_contact_id: $zohoPrimaryUser->getZohoContactId(),
+            zoho_bill_id: $response->bill->bill_id,
+            local_bill_data: json_encode($billData),
+            zoho_bill_data: json_encode($response),
+            db: $this->db
+        );
+        $bill->save();
+
+        return $bill;
+    }
+    function billStep3AttachPdf(ZohoBill $bill) : bool
+    {
+
+        $file_tmp = $_FILES['pdf']['tmp_name'];
+        $targetDir = "../../data/bills/";
+        if(!is_dir($targetDir))
+        {
+            mkdir($targetDir, 0777, true);
+        }
+        $pdfTarget = $targetDir . $_POST['pdfName']. time() . ".pdf";
+        move_uploaded_file($file_tmp, $pdfTarget);
+//        unlink($file_tmp); // delete uploaded tmp file
+
+
+        $data = array(
+            "fail_msg" => "Failed to attach file to invoice",
+            "fail_ref" => $bill->getZohoBillId() . " with " . $pdfTarget,
+            "bill_id" => $bill->getZohoBillId(),
+            "file_path" => $pdfTarget
+//            "file_path" => "C:/Users/Hossam/Downloads/Documents/newattach.pdf"
+        );
+
+        $response = $this->attachToBill($data);
+        if(!$response)
+        {
+            // failed to create contact - exit
+            $this->logger->insertAuditLogEntry(self::API_NAME,
+                "Failed to create bill | on step 3: bill pdf attach | please check prev log record for details");
+            return false;
+        }
+
+        unlink($pdfTarget); // delete file from server
+
+        return true;
+    }
+    function billStep4SendMail(ZohoBill $bill) : bool
+    {
+
+        if(ENV::AUTO_EMAIL_ZOHO_BILLS){
+            $response = $this->emailBill($bill->getZohoBillId());
+            if (!$response) {
+                // failed to create contact - exit
+                $this->logger->insertAuditLogEntry(self::API_NAME,
+                    "Failed to create bill | on step 4: bill mail | please check prev log record for details");
+                return false;
+            }
+            return true;
+        }
+        return true;
+    }
+
+    /**
+     * @param $files
+     * Model example: Array<br>
+                    (
+                        [0] => Array
+                            (
+                                [file_id] => 68
+                                [mab] => 1
+                                [bill] => 1
+                            )
+                            ...
+                    )
+     * @return bool success|fail
+     */
+    function billStep5MAB($files) : bool
+    {
+        // filter get only MAB=1 files
+        $mab = array_filter($files, function($v, $k) {
+            return $v['mab'] == 1;
+        }, ARRAY_FILTER_USE_BOTH);
+
+        // get file ids only
+        $mabIds = array_column($mab, "file_id");
+
+        // implode to string
+        $mabIdsStr = implode(",", $mabIds);
+        return $this->zohoGateway->markAsTypistBilled($mabIdsStr, 1); // reversible
 
     }
 

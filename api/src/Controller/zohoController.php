@@ -74,6 +74,12 @@ class zohoController
                             $response = $this->generateInvoice();
 //                            $response = $this->saveInvoicePDF();
                             break;
+
+                            case 'bill':
+                            // create new invoice
+                            $response = $this->generateBill();
+//                            $response = $this->saveInvoicePDF();
+                            break;
 /*
                             case 'attach':
                             $response = $this->saveInvoicePDF();
@@ -159,6 +165,26 @@ class zohoController
 //        return $this->common->missingRequiredParametersResponse();
 
         $result = $this->zohoHelper->generateInvoiceBill(json_decode($_POST['invoiceData'],1));
+
+
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = json_encode($result);
+        return $response;
+    }
+
+    private function generateBill()
+    {
+
+        if(
+            !isset($_POST['billData']) ||
+            !isset($_POST['pdfName']) ||
+            !isset($_FILES['pdf'])
+        ){
+            return $this->common->missingRequiredParametersResponse();
+        }
+//        return $this->common->missingRequiredParametersResponse();
+
+        $result = $this->zohoHelper->generateBill(json_decode($_POST['billData'],1));
 
 
         $response['status_code_header'] = 'HTTP/1.1 200 OK';

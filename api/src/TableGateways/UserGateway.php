@@ -3,6 +3,7 @@
 namespace Src\TableGateways;
 
 use PDOException;
+use Src\Enums\FILE_STATUS;
 use Src\Enums\USER_ACCOUNT_STATUS;
 use Src\Models\BaseModel;
 use Src\Models\User;
@@ -141,6 +142,7 @@ class UserGateway implements GatewayInterface
 
     /**
      * Retrieves typists emails for invitation dropdown for client administrators management screen
+     * Also for typist billing
      * @return mixed
      */
     public function getAllTypists()
@@ -156,18 +158,23 @@ class UserGateway implements GatewayInterface
         ";*/
         $statement = "
             select
-                id, count(job_transcribed_by) as 'all_time_jobs',
+                id, count(f.job_transcribed_by) as 'all_time_jobs',
+                   count(case when f.typ_billed = 0 then 1 end) as 'unbilled',
                 first_name, last_name, email, concat(first_name, ' ', last_name) as 'name'
-                    from users
+            from users
             left join
-                    files u
-                        on users.email = u.job_transcribed_by
+                 files f
+                 on users.email = f.job_transcribed_by
+            
+            
             where
-                  job_transcribed_by is not null 
+                f.job_transcribed_by is not null
               and typist != 0
+              and f.file_status in (".FILE_STATUS::COMPLETED.")
+              and f.isBillable = 1
               and account_status = 1
             
-            group by job_transcribed_by;        
+            group by job_transcribed_by;
         ";
 
         try {

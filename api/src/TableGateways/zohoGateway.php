@@ -6,6 +6,7 @@ use Src\Enums\ROLES;
 use Src\Helpers\common;
 use Src\Models\BaseModel;
 use Src\Models\User;
+use Src\Models\ZohoBill;
 use Src\Models\ZohoInvoice;
 use Src\Models\ZohoUser;
 
@@ -97,6 +98,31 @@ class zohoGateway
         try {
             $statement = $this->db->prepare($statement);
             $statement->execute(array($accId));
+            $result = $statement->fetch(\PDO::FETCH_ASSOC);
+            if(!$result)
+            {
+                return array();
+            }return $result;
+        } catch (\PDOException $e) {
+            return null;
+//            exit($e->getMessage());
+        }
+    }
+
+    public function findTypistVendorZohoUserWithUserID($uid): array|null
+    {
+
+        $statement = "
+            SELECT 
+                *
+            FROM
+                zoho_users
+            WHERE uid = ? and type = ".ROLES::TYPIST." and primary_contact = 1;
+        ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($uid));
             $result = $statement->fetch(\PDO::FETCH_ASSOC);
             if(!$result)
             {
@@ -466,6 +492,117 @@ class zohoGateway
         }
     }
 
+
+    public function findZohoBill($bill_number): array|null
+    {
+
+        $statement = "
+            SELECT 
+                *            
+            FROM
+                zoho_bills
+            WHERE bill_number = ?;
+        ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($bill_number));
+            $result = $statement->fetch(\PDO::FETCH_ASSOC);
+            if(!$result)
+            {
+                return array();
+            }return $result;
+        } catch (\PDOException $e) {
+            return null;
+//            exit($e->getMessage());
+        }
+    }
+
+    public function insertZohoBill(BaseModel|ZohoBill $model): int
+    {
+
+        $statement = "
+                    INSERT INTO zoho_bills
+                    (
+                    bill_number,
+                    zoho_contact_id,
+                    zoho_bill_id,
+                    local_bill_data,
+                    zoho_bill_data
+                    )
+                    VALUES
+                    (
+                    :bill_number,
+                    :zoho_contact_id,
+                    :zoho_bill_id,
+                    :local_bill_data,
+                    :zoho_bill_data
+                    )
+                ;";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array(
+                'bill_number' => $model->getBillNumber(),
+                'zoho_contact_id' => $model->getZohoContactId(),
+                'zoho_bill_id' => $model->getZohoBillId(),
+                'local_bill_data' => $model->getLocalBillData(),
+                'zoho_bill_data' => $model->getZohoBillData()
+            ));
+            if ($statement->rowCount()) {
+                return $this->db->lastInsertId();
+            } else {
+                return 0;
+            }
+        } catch (\PDOException) {
+            return 0;
+        }
+    }
+
+    public function updateZohoBill(BaseModel|ZohoBill $model): int
+    {
+        $statement = "
+            UPDATE zoho_bills
+            SET
+            bill_number = :bill_number,
+            zoho_contact_id = :zoho_contact_id,
+            local_bill_data = :local_bill_data,
+            zoho_bill_data = :zoho_bill_data
+            WHERE
+            zoho_bill_id = :zoho_bill_id;
+        ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array(
+                'bill_number' => $model->getBillNumber(),
+                'zoho_contact_id' => $model->getZohoContactId(),
+                'local_bill_data' => $model->getLocalBillData(),
+                'zoho_bill_data' => $model->getZohoBillData(),
+                'zoho_bill_id' => $model->getZohoBillId()
+            ));
+            return $statement->rowCount();
+        } catch (\PDOException $e) {
+            return 0;
+        }
+    }
+
+    public function deleteZohoBill(int $zoho_bill_id): int
+    {
+        $statement = "
+                    DELETE FROM zoho_bills
+                    WHERE zoho_bill_id = :zoho_bill_id;
+";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array('zoho_bill_id' => $zoho_bill_id));
+            return $statement->rowCount();
+        } catch (\PDOException) {
+            return 0;
+        }
+    }
+
     /**
      * @param string $fileIds
      * Model example: file_id_1, file_id_2, ...
@@ -492,6 +629,52 @@ class zohoGateway
             return $statement->rowCount();
         } catch (\PDOException $e) {
             return 0;
+        }
+    }
+
+    /**
+     * @param string $fileIds
+     * Model example: file_id_1, file_id_2, ...
+     * @param int $billed tiny int (0: not billed, 1: billed)
+     * @return bool success | failed
+     */
+    public function markAsTypistBilled(string $fileIds, int $billed): bool
+    {
+        $statement = "
+            UPDATE files
+            SET               
+                typ_billed = :billed
+            WHERE 
+                  file_id in ($fileIds);
+        ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array(
+                'billed' => $billed
+//                'billed_date' => $billed?date("Y-m-d H:i:s"):null
+            ));
+            return $statement->rowCount();
+        } catch (\PDOException $e) {
+            return 0;
+        }
+    }
+
+    public function getNextBillNumber():string
+    {
+        $statement = "show table status where name = 'zoho_bills';";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute();
+            $result = $statement->fetch(\PDO::FETCH_ASSOC);
+            if(!$result)
+            {
+                return '0';
+            }return $result['Auto_increment'];
+        } catch (\PDOException $e) {
+            return '0';
+//            exit($e->getMessage());
         }
     }
 

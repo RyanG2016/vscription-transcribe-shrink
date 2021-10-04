@@ -158,10 +158,19 @@ class User extends BaseModel implements BaseModelInterface
     /**
      * @return string
      */
+    public function getFullName(): string
+    {
+        return $this->first_name . " " . $this->last_name;
+    }
+
+    /**
+     * @return string
+     */
     public function getFirstName(): string
     {
         return $this->first_name;
     }
+
 
     /**
      * @param string $first_name

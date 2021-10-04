@@ -109,6 +109,17 @@ class ZohoUser implements BaseModelInterface
         return $instance;
     }
 
+    public static function typistVendorWithUid($uid, $db) {
+        $instance = new self(db: $db);
+        $row = $instance->zohoGateway->findTypistVendorZohoUserWithUserID($uid);
+        if(!$row)
+        {
+            return null;
+        }
+        $instance->fill( $row );
+        return $instance;
+    }
+
     public static function withRow( ?array $row, $db = null ) {
         if($row)
         {

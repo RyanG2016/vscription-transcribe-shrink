@@ -165,7 +165,7 @@ class BillingGateway implements GatewayInterface
 			WHERE 
 				file_status  = '3' AND 
 				isBillable = '1' AND
-				billed = '0' AND 
+				typ_billed = '0' AND 
 				job_transcribed_by = ? AND
 				file_transcribed_date BETWEEN ? AND ? 
 				";
