@@ -637,7 +637,12 @@ $(document).ready(function () {
                     }).fail(function(xhr, status, err){
                         self.setTitle("oops..");
                         self.setType("red");
-                        self.setContent(xhr.responseJSON["msg"]);
+                        if(xhr.responseJSON && xhr.responseJSON.has("msg"))
+                        {
+                            self.setContent(xhr.responseJSON["msg"]);
+                        }else{
+                            self.setContent('failed, no error given');
+                        }
                         self.buttons.ok.setText("Ok");
                         self.buttons.ok.addClass("btn-green");
                         // self.buttons.ok
