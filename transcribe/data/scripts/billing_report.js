@@ -202,8 +202,8 @@ $(document).ready(function () {
                     buttonConfig.download = 'open';
 
                     pdfMakeObj.defaultStyle.font = 'opensans';
-                    pdfMakeObj.watermark =
-                        { text: 'vScription Billing', color: '#bfced9', opacity: 0.3, bold: false, italics: true };
+                    // pdfMakeObj.watermark =
+                    //     { text: 'vScription Billing', color: '#bfced9', opacity: 0.3, bold: false, italics: true };
 
                     pdfMakeObj.pageSize = 'LETTER';
                     pdfMakeObj.pageOrientation = 'landscape';
@@ -854,8 +854,8 @@ $(document).ready(function () {
                 buttonConfig.download = 'open';
 
                 pdfMakeObj.defaultStyle.font = 'opensans';
-                pdfMakeObj.watermark =
-                    { text: 'vScription Billing', color: '#bfced9', opacity: 0.3, bold: false, italics: true };
+                // pdfMakeObj.watermark =
+                //     { text: 'vScription Billing', color: '#bfced9', opacity: 0.3, bold: false, italics: true };
 
                 pdfMakeObj.pageSize = 'LETTER';
                 pdfMakeObj.pageOrientation = 'landscape';
