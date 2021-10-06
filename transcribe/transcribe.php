@@ -234,12 +234,16 @@ $transRemarks = $currentAccount->getTranscribeRemarks();
         var tutorials = '<?php echo $tuts;?>';
     </script>
 
+    <?php $alj = (isset($_SESSION['auto_load_job'])) ? $_SESSION['auto_load_job'] : '0'; ?>   
+    <script type="text/javascript">
+        var autoLoadJob = '<?php echo $alj;?>';
+    </script>
 </head>
 
 <body>
 
 <script src="data/scripts/parts/constants.js" type="text/javascript"></script>
-<script src="data/scripts/transcribe.min.js?v=13"></script>
+<script src="data/scripts/transcribe.min.js?v=14"></script>
 <!-- <script src="data/scripts/transcribe.js"></script> -->
 
 <div id="updated_version_bar">There is a newer version (v<span></span>) of the vScription Transcribe Controller
@@ -266,7 +270,7 @@ $transRemarks = $currentAccount->getTranscribeRemarks();
 
                                 <img src="data/images/f2_48.png"/> <i><-INAUDIBLE-></i> &nbsp;&nbsp;
 
-                                <img src="data/images/slash48.png"/> <i>Expand Word</i> &nbsp;&nbsp;
+                                <img src="data/images/slash48.png"/> <i>Insert Shortcut</i> &nbsp;&nbsp;
 
                                 <button type="button" class="btn btn-primary btn-sm pop-btn" id="pop">
                                     <i class="fas fa-external-link-alt"></i>

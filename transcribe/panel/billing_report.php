@@ -49,6 +49,8 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/css/tempusdominus-bootstrap-4.min.css" integrity="sha512-3JRrEUwaCkFUBLK1N8HehwQgu8e23jTH4np5NHOmQOobuC4ROQxFwFgBLTnhcnQRMs84muMh0PnnwXlPq5MGjg==" crossorigin="anonymous" />
 
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 
 
     <!--  Datatables  -->
@@ -66,12 +68,16 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.72/vfs_fonts.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.25/b-1.7.1/b-colvis-1.7.1/b-html5-1.7.1/b-print-1.7.1/r-2.2.9/rr-1.2.8/sl-1.3.3/datatables.min.js"></script>
 
+    <!-- responsive -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap4.min.css" crossorigin="anonymous">
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap4.min.js"></script>
 
 
 
 
-<!--    <script src="../data/scripts/billing_report.min.js?v=--><!--"></script>-->
-    <script src="../data/scripts/billing_report.min.js"></script>
+<!--    <script src="../data/scripts/billing_report.js"></script>-->
+    <script src="../data/scripts/billing_report.min.js?v=10"></script>
     <script src="../data/thirdparty/scripts/html2pdf.bundle.min.js"></script>
     <link href="https://printjs-4de6.kxcdn.com/print.min.css" rel="stylesheet">
     <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
@@ -108,14 +114,13 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
                 </div>
             </div>
 
-            <div class="vtex-card contents">
-                <div class="row typ-billing-container">
-                    <div class="col">
+            <div class="vtex-card contents w-100">
+                    <div class="panel-data">
                         <div class="vtex-table-tools w-100" id="vtexTableTools"></div>
                         <div class="report-grid billing-report-container" id="printableReport">
                             <!--                <div class="billing-report-container"></div>-->
 
-                            <div style="overflow-x: hidden" class="vspt-table-div">
+                            <div class="vspt-table-div">
                                 <table id="billing-tbl" class="billing-tbl table vspt-table hover compact">
                                     <!--<tfoot>
                                     <tr>
@@ -136,7 +141,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
 
                         </div>
                     </div>
-                    <div class="col-auto pl-3 pr-3 ml-auto mt-md-3 mt-sm-3 border-left billing-sidebar">
+                    <div class="stats-col">
 
                         <div class="input-group">
                             <div class="input-group-prepend">
@@ -189,9 +194,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
                             </div>
                         </div>
 
-                        <hr/>
-
-                        <button type="button" class="btn btn-primary w-100" id="getReport">
+                        <button type="button" class="btn btn-primary w-100 mt-3" id="getReport">
                             <i class="fad fa-file-spreadsheet"></i> Generate Report
                         </button>
                         
@@ -253,7 +256,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
                                 </tr>
                             </table>
 
-                            <button type="button" class="btn btn-info w-100 mt-2" id="getInvoice" disabled>
+                            <button type="button" class="btn btn-info w-100 mt-2" id="generateInvoiceBtn">
                                 <i class="fad fa-file-invoice-dollar"></i> Generate Invoice
                             </button>
 
@@ -266,9 +269,6 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
 <!--                            </button>-->
                         </div>
                     </div>
-                </div>
-
-
             </div>
 
         </div>

@@ -32,6 +32,7 @@ class User extends BaseModel implements BaseModelInterface
                                 public int $email_notification = 1,
                                 public int $newsletter = 0,
                                 public int $account_status = 5,
+                                public int $account = 0,
                                 public int $typist = 0,
 
                                 private $db = null
@@ -157,10 +158,19 @@ class User extends BaseModel implements BaseModelInterface
     /**
      * @return string
      */
+    public function getFullName(): string
+    {
+        return $this->first_name . " " . $this->last_name;
+    }
+
+    /**
+     * @return string
+     */
     public function getFirstName(): string
     {
         return $this->first_name;
     }
+
 
     /**
      * @param string $first_name
@@ -365,9 +375,25 @@ class User extends BaseModel implements BaseModelInterface
 //            $this->dictionary = $row['dictionary'];
             $this->email_notification = $row['email_notification'];
 //            $this->enabled = $row['enabled'];
-//            $this->account = $row['account'];
+            $this->account = $row['account'];
 //            $this->tutorials = $row['tutorials'];
         }
+    }
+
+    /**
+     * @return int
+     */
+    public function getAccount(): int
+    {
+        return $this->account;
+    }
+
+    /**
+     * @param int $account
+     */
+    public function setAccount(int $account): void
+    {
+        $this->account = $account;
     }
 
 

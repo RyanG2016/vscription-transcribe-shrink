@@ -480,6 +480,7 @@ row_format set the table row format
 engine     define table engine *(defaults to ``InnoDB``)*
 collation  define table collation *(defaults to ``utf8_general_ci``)*
 signed     whether the primary key is ``signed``  *(defaults to ``true``)*
+limit      set the maximum length for the primary key
 ========== ===========
 
 By default the primary key is ``signed``.
@@ -798,9 +799,12 @@ update   set an action to be triggered when the row is updated (use with ``CURRE
 timezone enable or disable the ``with time zone`` option for ``time`` and ``timestamp`` columns *(only applies to Postgres)*
 ======== ===========
 
-You can add ``created_at`` and ``updated_at`` timestamps to a table using the ``addTimestamps()`` method. This method also
-allows you to supply alternative names. The optional third argument allows you to change the ``timezone`` option for the
-columns being added. Additionally, you can use the ``addTimestampsWithTimezone()`` method, which is an alias to
+You can add ``created_at`` and ``updated_at`` timestamps to a table using the ``addTimestamps()`` method. This method accepts
+three arguments, where the first two allow setting alternative names for the columns while the third argument allows you to
+enable the ``timezone`` option for the columns. The defaults for these arguments are ``created_at``, ``updated_at``, and ``true``
+respectively. For the first and second argument, if you provide ``null``, then the default name will be used, and if you provide
+``false``, then that column will not be created. Please note that attempting to set both to ``false`` will throw a
+``\RuntimeException``. Additionally, you can use the ``addTimestampsWithTimezone()`` method, which is an alias to
 ``addTimestamps()`` that will always set the third argument to ``true`` (see examples below). The ``created_at`` column will
 have a default set to ``CURRENT_TIMESTAMP``. For MySQL only, ``update_at`` column will have update set to
 ``CURRENT_TIMESTAMP``.
@@ -830,6 +834,12 @@ have a default set to ``CURRENT_TIMESTAMP``. For MySQL only, ``update_at`` colum
                 // The two lines below do the same, the second one is simply cleaner.
                 $table = $this->table('books')->addTimestamps(null, 'amended_at', true)->create();
                 $table = $this->table('users')->addTimestampsWithTimezone(null, 'amended_at')->create();
+
+                // Only add the created_at column to the table
+                $table = $this->table('books')->addTimestamps(null, false);
+                // Only add the updated_at column to the table
+                $table = $this->table('users')->addTimestamps(false);
+                // Note, setting both false will throw a \RuntimeError
             }
         }
 
@@ -1273,7 +1283,7 @@ By default Phinx instructs the database adapter to create a normal index. We
 can pass an additional parameter ``unique`` to the ``addIndex()`` method to
 specify a unique index. We can also explicitly specify a name for the index
 using the ``name`` parameter, the index columns sort order can also be specified using
-the ``order`` parameter. The order parameter takes an array of column names and sort order key/value pairs. 
+the ``order`` parameter. The order parameter takes an array of column names and sort order key/value pairs.
 
 .. code-block:: php
 
@@ -1352,7 +1362,7 @@ The single column index can define its index length with or without defining col
             }
         }
 
-The SQL Server and PostgreSQL adapters also supports ``include`` (non-key) columns on indexes. 
+The SQL Server and PostgreSQL adapters also supports ``include`` (non-key) columns on indexes.
 
 .. code-block:: php
 

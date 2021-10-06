@@ -3,6 +3,7 @@
 namespace Src\TableGateways;
 
 use PDOException;
+use Src\Enums\FILE_STATUS;
 use Src\Enums\USER_ACCOUNT_STATUS;
 use Src\Models\BaseModel;
 use Src\Models\User;
@@ -136,6 +137,62 @@ class UserGateway implements GatewayInterface
             return $result;
         } catch (\PDOException $e) {
             exit($e->getMessage());
+        }
+    }
+
+    /**
+     * Retrieves typists emails for invitation dropdown for client administrators management screen
+     * Also for typist billing
+     * @return mixed
+     */
+    public function getAllTypists()
+    {
+        /*$statement = "
+            select id,
+                   first_name, 
+                   last_name, 
+                   email,
+                   concat(first_name, ' ', last_name) as 'name'
+            from users 
+            where typist != 0 and account_status = 1;        
+        ";*/
+        $statement = "
+            select
+                id, count(f.job_transcribed_by) as 'all_time_jobs',
+                   count(case when f.typ_billed = 0 then 1 end) as 'unbilled',
+                first_name, last_name, email, concat(first_name, ' ', last_name) as 'name'
+            from users
+            left join
+                 files f
+                 on users.email = f.job_transcribed_by
+            
+            
+            where
+                f.job_transcribed_by is not null
+              and typist != 0
+              and f.file_status in (".FILE_STATUS::COMPLETED.")
+              and f.isBillable = 1
+              and account_status = 1
+            
+            group by job_transcribed_by;
+        ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute();
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            if (isset($_GET['dt'])) {
+                $json_data = array(
+                    "count"    => $statement->rowCount(),
+                    "data" => $result
+                );
+                //        $response['body'] = json_encode($result);
+                $result = $json_data;
+            }
+            return $result;
+        } catch (\PDOException $e) {
+//            exit($e->getMessage());
+            return false;
         }
     }
 
@@ -1178,6 +1235,7 @@ class UserGateway implements GatewayInterface
                 state = :state,
                 email_notification = :email_notification,
                 account_status = :account_status,
+                account = :account,
                 typist = :typist,
                 newsletter = :newsletter,
                 address = :address
@@ -1198,6 +1256,7 @@ class UserGateway implements GatewayInterface
                 'zipcode' => $model ->getZipcode()  ,
                 'state' => $model ->getState()  ,
                 'account_status' => $model ->getAccountStatus()  ,
+                'account' => $model ->getAccount()  ,
                 'typist' => $model ->getTypist()  ,
                 'email_notification' => $model ->getEmailNotification()  ,
                 'newsletter' => $model ->getNewsletter() ,
@@ -1211,6 +1270,7 @@ class UserGateway implements GatewayInterface
             $_SESSION['userData']['zipcode'] = $model->getZipcode();
             $_SESSION['userData']['newsletter'] = $model->getNewsletter();
             $_SESSION['userData']['email_notification'] = $model->getEmailNotification();
+            $_SESSION['userData']['account'] = $model->getAccount();
 
             $_SESSION['userData']['first_name'] = $model->getFirstName();
             $_SESSION['fname'] = $model->getFirstName();
@@ -1261,7 +1321,8 @@ class UserGateway implements GatewayInterface
                 email_notification,
                 newsletter,
                 account_status,
-               typist,
+                account,
+                typist,
                 state,
                 address
                                       
@@ -1302,6 +1363,7 @@ class UserGateway implements GatewayInterface
                 email_notification,
                 newsletter,
                 account_status,
+                account,
                 state,
                 typist,
                 address

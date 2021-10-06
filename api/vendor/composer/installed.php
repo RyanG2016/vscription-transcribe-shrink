@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'ee0388be1ed3b0c9642b873cb754d25f0e812e35',
+    'reference' => '8390ccc51bb1d1934f952b207548a186a281069c',
     'name' => 'transcribe/src',
   ),
   'versions' => 
@@ -65,6 +65,15 @@
       ),
       'reference' => '37d737eef64f3f09af871b70730a99912248d157',
     ),
+    'hassankhan/config' => 
+    array (
+      'pretty_version' => '2.2.0',
+      'version' => '2.2.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '62b0fd17540136efa94ab6b39f04044c6dc5e4a7',
+    ),
     'iceman2894/lowrapper' => 
     array (
       'pretty_version' => '1.0.3',
@@ -109,6 +118,15 @@
       array (
       ),
       'reference' => '446fc9faa5c2a9ddf65eb7121c0af7e857295241',
+    ),
+    'php-curl-class/php-curl-class' => 
+    array (
+      'pretty_version' => '9.4.0',
+      'version' => '9.4.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'e6de01c8c3755d2b015195d671d22a3c71020d15',
     ),
     'phpmailer/phpmailer' => 
     array (
@@ -164,12 +182,12 @@
     ),
     'robmorgan/phinx' => 
     array (
-      'pretty_version' => '0.12.5',
-      'version' => '0.12.5.0',
+      'pretty_version' => '0.12.8',
+      'version' => '0.12.8.0',
       'aliases' => 
       array (
       ),
-      'reference' => '9457e3879b0abc02a4022941a6a535141889432e',
+      'reference' => 'd2ed1b452cc90f4cae4ea6b5976b94fb9e5ed2a2',
     ),
     'symfony/config' => 
     array (
@@ -268,16 +286,16 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'ee0388be1ed3b0c9642b873cb754d25f0e812e35',
+      'reference' => '8390ccc51bb1d1934f952b207548a186a281069c',
     ),
     'vlucas/phpdotenv' => 
     array (
-      'pretty_version' => 'v2.6.6',
-      'version' => '2.6.6.0',
+      'pretty_version' => 'v2.6.7',
+      'version' => '2.6.7.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'e1d57f62db3db00d9139078cbedf262280701479',
+      'reference' => 'b786088918a884258c9e3e27405c6a4cf2ee246e',
     ),
   ),
 );

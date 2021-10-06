@@ -51,6 +51,9 @@ class FileController
                     else if($this->rawURI[0] == "pending"){
                         $response = $this->getPendingFiles();
                     }
+                    else if($this->rawURI[0] == "getnext"){
+                        $response = $this->getNextFile();
+                    }
                     else if($this->rawURI[0] == "completed"){
                         $response = $this->getCompletedFiles();
                     }
@@ -106,6 +109,14 @@ class FileController
     private function getPendingFiles()
     {
         $result = $this->fileGateway->findPending();
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = json_encode($result);
+        return $response;
+    }
+
+    private function getNextFile()
+    {
+        $result = $this->fileGateway->findNext();
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
         $response['body'] = json_encode($result);
         return $response;

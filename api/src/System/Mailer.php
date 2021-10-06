@@ -93,7 +93,8 @@ class Mailer
                     $link = "$cbaselink/verify.php?token=$token&user=$user_email";
 
 
-                    $emHTML = file_get_contents(__DIR__ . '/../../../mail/templates/verify_your_email.html');
+                    $emHTML = file_get_contents(__DIR__ . '/../../../mail/templates/verify_your_email_alt.html');
+                    // $emHTML = file_get_contents(__DIR__ . '/../../../mail/templates/verify_your_email.html');     
 
                     $replace_pairs = array(
                         '{{year}}'    => date("Y"),
