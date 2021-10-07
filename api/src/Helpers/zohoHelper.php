@@ -18,6 +18,7 @@ use Src\TableGateways\zohoGateway;
 class zohoHelper{
 
     const CONFIG_URI = __DIR__ . "/../../config.json";
+    const CONFIG_EX = __DIR__ . "/../../config.json.example";
     const API_NAME = "Zoho_Helper";
 
     // request sources
@@ -48,6 +49,7 @@ class zohoHelper{
         $this->zohoGateway = new zohoGateway($db);
         $this->logger = new logger($db);
         $this->common = new common();
+        if(!is_file(self::CONFIG_URI)) copy(self::CONFIG_EX, self::CONFIG_URI);
         $this->config = Config::load(self::CONFIG_URI);
 
         $this->zohoClientItemId = $this->config->get("zoho_client_billing_item_id");
