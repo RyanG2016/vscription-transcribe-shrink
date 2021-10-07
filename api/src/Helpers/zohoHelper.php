@@ -354,6 +354,30 @@ class zohoHelper{
         );
     }
 
+
+    function updateContact($data, ZohoUser $oldContact)
+    {
+        $jsonArr = array (
+            'billing_address' =>
+                array (
+                    'attention' => $data["name"],
+                    'address' => $data["address"],
+                    //  'street2' => 'Suite 310',
+                    //  'state_code' => 'CA',
+                    'city' => $data["city"],
+                    'state' => $data["state"],
+                    'zip' => $data["zipcode"],
+                    'country' => $data["country"]
+                    //  'fax' => '+1-925-924-9600',
+                    //  'phone' => '+1-925-921-9201',
+                )
+        );
+
+        return $this->handleCurlPut(self::CONTACTS_URL, $data,
+            array('JSONString' => json_encode($jsonArr))
+        );
+    }
+
     function createContactPerson($personData)
     {
         $jsonArr =array (
@@ -642,6 +666,28 @@ class zohoHelper{
         return $result;
     }
 
+    function handleCurlPut($url, $dataArr, array $postData, $contentType = 'Content-Type: application/x-www-form-urlencoded;charset=UTF-8', $reqSrc = 0)
+    {
+//        $this->refreshZohoToken();
+
+        $result = $this->curlPut($url, $dataArr, $postData, $contentType, $reqSrc);
+
+        if($result)
+        {
+            if(is_integer($result) && $result == 401)
+            {
+                $this->refreshZohoToken();
+                $result = $this->curlPut($url, $dataArr, $postData, $contentType, $reqSrc);
+                if($result === 401)
+                {
+                    $this->logger->insertAuditLogEntry(self::API_NAME, "Zoho auth refresh failed.");
+                    $result = false;
+                }
+            }
+        }
+        return $result;
+    }
+
     // for create requests
     function curlPost($url, $dataArr, array $postData, $contentType, $req_src = 0){
         $this->curl->setOpts(array(
@@ -709,6 +755,74 @@ class zohoHelper{
                         db: $this->db
                     ))->save();
                 }
+                return false;
+            }
+
+        } else {
+            if($this->curl->httpStatusCode == 201) // contact created :)
+            {
+                //
+            }
+            else if($this->curl->httpStatusCode == 200) // file attached etc.
+            {
+
+            }
+            //  echo 'Response:' . "\n";
+            //  print_r($this->curl->response);
+            //  json_decode($this->curl->response);
+            //  echo ("<pre>".print_r($this->curl->response,true)."</pre>");
+            //  echo ("<pre>".print_r($this->curl->response,true)."</pre>");
+
+            return $this->curl->response;
+        }
+    }
+
+    function curlPut($url, $dataArr, array $postData, $contentType, $req_src = 0){
+        $this->curl->setOpts(array(
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+//            CURLOPT_CUSTOMREQUEST => 'POST',
+
+            CURLOPT_HTTPHEADER => array(
+                "Authorization: Bearer $this->authToken",
+                $contentType
+            //  'Content-Type: application/json;charset=UTF-8'
+            //  'Content-Type: application/form-data;charset=UTF-8'
+            //  'Content-Type: multipart/form-data;charset=UTF-8'
+            )));
+
+
+//        echo $jsonStr;
+//        echo ("<pre>".print_r($postData)."</pre>");
+
+
+        $this->curl->put("$url?organization_id=".$_ENV["ORG_ID"],
+//            array('JSONString' => $jsonStr)
+            $postData
+        );
+
+//        echo ("<pre>".print_r($jsonStr,true)."</pre>");
+//        echo ("<pre>".print_r(json_decode($jsonStr, true),true)."</pre>");
+
+        if ($this->curl->error) {
+//            echo 'Error: ' . $this->curl->errorCode . ': ' . $this->curl->errorMessage . "\n";
+//            echo ("<pre>".print_r($this->curl->response,true)."</pre>");
+
+            if($this->curl->errorCode == 401)
+            {
+                return 401;
+            }else{
+                // log error
+                // $this->curl->rawResponse; // raw string
+                // $this->curl->response; // array obj
+                $this->logger->insertAuditLogEntry(self::API_NAME,
+                    $dataArr["fail_msg"] . " | ref: " . $dataArr["fail_ref"] .
+                    " | Code: ". $this->curl->errorCode. " | "
+                    . $this->curl->rawResponse);
                 return false;
             }
 
