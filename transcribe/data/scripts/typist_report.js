@@ -971,8 +971,8 @@ $(document).ready(function () {
         if(/^[a-z0-9_]+(?:\.[a-z0-9_]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/.test(email))
         {
             let args = new URLSearchParams({
-                start_date: startDate.val(),
-                end_date: endDate.val(),
+                start_date: startDate.val() + ' 00:00:00',
+                end_date: endDate.val() +' 23:59:59',
                 typist_email: email
             }).toString();
             // document.title = "Typist_Bill_report_"+startDate.val()+"_to_" + endDate.val();
