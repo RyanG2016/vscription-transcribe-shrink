@@ -450,8 +450,8 @@ class zohoHelper{
             'date' => date("Y-m-d"),
             //            'invoice_number' => 'INV-00003',
             //            'reference_number' => ' ',
-            'notes' => 'Created by vScription Transcribe.',
-            'terms' => 'Terms & Conditions apply',
+            'notes' => 'Created by vScription Transcribe. See attached report for details',
+            'terms' => 'All claims for shortages must be reported at once. Please be sure to review our Terms and Conditions which can be found at https://www.vtexvsi.com/terms-and-conditions/',
             'line_items' =>
                 array (
                     0 =>
