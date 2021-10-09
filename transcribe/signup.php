@@ -1,13 +1,12 @@
 <?php
-include('data/parts/session_settings.php');
+include_once('data/parts/session_settings.php');
 include("data/parts/config.php");
 include('data/parts/constants.php');
 include('data/parts/ping.php');
 
 
 if (isset($_SESSION['loggedIn'])) {
-    unset($_SESSION['counter']);
-    session_regenerate_id(true);
+//    session_regenerate_id(true);
     //redirect to main
     if (isset($_SESSION['role'])) {
 

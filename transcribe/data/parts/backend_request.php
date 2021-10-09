@@ -9,7 +9,7 @@ include("common_functions.php");
 require_once('../regex.php');
 //////////
 
-include('session_settings.php');
+include_once('session_settings.php');
 include('constants.php');
 $lang2 = 'en';
 

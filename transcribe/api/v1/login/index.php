@@ -2,7 +2,7 @@
 
 require '../../../../api/bootstrap.php';
 
-include('../../../data/parts/session_settings.php');
+include_once('../../../data/parts/session_settings.php');
 
 require('../../../data/parts/ping.php');
 
@@ -15,10 +15,6 @@ if(isset($_SESSION['loggedIn']))
         'msg' => "Already LoggedIn"
     ]);
     exit();
-}
-if(isset($_SESSION['counter']))
-{
-    unset($_SESSION['counter']);
 }
 
 use Src\Controller\LoginController;

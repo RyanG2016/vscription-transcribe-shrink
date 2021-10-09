@@ -24,8 +24,10 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
 <head>
     <title>vScription Admin Panel</title>
     <link rel="shortcut icon" type="image/png" href="../data/images/favicon.png"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/12f6b99df9.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.33/moment-timezone-with-data-1970-2030.min.js" integrity="sha512-FOmgceoy0+6TMqXphk6oiZ6OkbF0yKaapTE6TSFwixidHNPt3yVnR3IRIxJR60+JWHzsx4cSpYutBosZ8iBA1g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -39,6 +41,8 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 
+
+    <script src="../data/scripts/parts/ping.min.js" type="text/javascript"></script>
     <link href="../data/css/admin_panel.css" rel="stylesheet">
     <script src="../data/scripts/admin_panel.min.js" type="text/javascript"></script>
 <!--    <script src="../data/scripts/admin_panel.js" type="text/javascript"></script>-->

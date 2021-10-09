@@ -2,7 +2,7 @@
 
 require '../api/vendor/autoload.php';
 
-include('data/parts/session_settings.php');
+include_once('data/parts/session_settings.php');
 include("data/parts/config.php");
 include('data/parts/constants.php');
 include('data/parts/ping.php');
@@ -10,8 +10,7 @@ include('data/parts/ping.php');
 
 if(isset($_SESSION['loggedIn']))
 {
-	unset($_SESSION['counter']);
-    session_regenerate_id(true);
+//    session_regenerate_id(true);
 	//redirect to main
     if( isset($_SESSION['role']) ) {
 
@@ -61,13 +60,12 @@ isset($_SESSION['uEmail'])?$uEmail = $_SESSION['uEmail']:$uEmail = "";
 	<link rel="stylesheet" type="text/css" href="data/login/vendor/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="data/login/vendor/animate/animate.css">
 
-	<link rel="stylesheet" type="text/css" href="data/login/vendor/select2/select2.min.css">
 	<link rel="stylesheet" type="text/css" href="data/login/css/util.css?v=<?php echo $version_control ?>">
 	<link rel="stylesheet" type="text/css" href="data/login/css/main.css?v=<?php echo $version_control ?>">
 
-	<script src="data/login/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-	<!--	Tooltip 	-->
+    <!--	Tooltip 	-->
     <link rel="stylesheet" type="text/css" href="data/tooltipster/css/tooltipster.bundle.min.css" />
     <link rel="stylesheet" type="text/css" href="data/tooltipster/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-shadow.min.css" />
 	<script type="text/javascript" src="data/tooltipster/js/tooltipster.bundle.min.js"></script>
@@ -77,8 +75,8 @@ isset($_SESSION['uEmail'])?$uEmail = $_SESSION['uEmail']:$uEmail = "";
 
 
 	<!--<link rel="stylesheet" href="data/dialogues/jquery-confirm.min.css">-->
-	<link rel="stylesheet" href="data/dialogues/jquery-confirm.min2.css">
-	<script src="data/dialogues/jquery-confirm.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 
     <script src="https://kit.fontawesome.com/12f6b99df9.js" crossorigin="anonymous"></script>
 
@@ -100,36 +98,6 @@ isset($_SESSION['uEmail'])?$uEmail = $_SESSION['uEmail']:$uEmail = "";
 						<img src="data/images/Logo_vScription_Transcribe_Stacked.png" style="height: 110px" />
 					</span>
 
-					<!--<span id="title" class="login100-form-title p-b-26">
-						Welcome
-					</span>-->
-
-					<!----------------------NAME----------------->
-					<table>
-						<tr>
-
-							<td>
-
-								<div class="wrap-input100 validate-input" data-validate="First Name is required." id="fnamediv" style="display: none">
-									<input class="input100" type="text" name="fname">
-									<span class="focus-input100" data-placeholder="First Name"></span>
-								</div>
-
-							</td>
-							<td width="3px">
-							</td>
-							<td>
-
-								<div class="wrap-input100 validate-input" data-validate="Last Name is required." id="lnamediv" style="display: none">
-									<input class="input100" type="text" name="lname">
-									<span class="focus-input100" data-placeholder="Last Name"></span>
-								</div>
-
-							</td>
-
-						</tr>
-
-					</table>
 
 					<!----------------------EMAIL----------------->
 					<div class="wrap-input100 validate-input" id="em" data-validate="Valid email is: a@b.c" style="margin-bottom: 2px">
@@ -161,54 +129,6 @@ isset($_SESSION['uEmail'])?$uEmail = $_SESSION['uEmail']:$uEmail = "";
 						</a>
 					</div>
 
-					<!----------------------Country----------------->
-					<div class="wrap-input100 validate-input" id="countryDiv" data-validate="Country is required" style="display: none">
-						<select class="select100" id="country" name="country">
-						</select>
-						<input class="input100" type="text" id="countryIp" name="countryIp" style="display: none">
-
-						<span class="focus-input100"></span>
-
-					</div>
-
-					<!----------------------State----------------->
-					<div class="wrap-input100 validate-input" id="stateDiv" data-validate="Province/State is required" style="display: none">
-						<select class="select100" id="state" name="state">
-							<option></option>
-							<option>2</option>
-							<option>3</option>
-						</select>
-
-						<input class="input100" type="text" id="stateIp" name="stateIp" style="display: none">
-
-						<span class="focus-input100"></span>
-
-					</div>
-
-
-					<!----------------------city----------------->
-					<div class="wrap-input100 validate-input" data-validate="City is required." id="cityDiv" style="display: none">
-						<input class="input100" type="text" name="city">
-						<span class="focus-input100" data-placeholder="City"></span>
-					</div>
-
-					<!----------------------Industry----------------->
-					<div class="wrap-input100 validate-input" id="industryDiv" data-validate="Industry is required" style="display: none">
-						<select class="select100" id="industry" name="industry">
-							<option></option>
-							<option>Healthcare</option>
-							<option>Legal</option>
-							<option>Financial Services</option>
-							<option>Insurance</option>
-							<option>Law Enforcement</option>
-							<option>Other</option>
-						</select>
-
-						<input class="input100" type="text" id="industryIp" name="industryIp" style="display: none">
-
-						<span class="focus-input100"></span>
-
-					</div>
 
                     <button type="submit" class="btn btn-primary btn-lg mt-4" id="loginBtn">Login</button>
                     <!--<button class="login-btn">

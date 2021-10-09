@@ -2,7 +2,7 @@
 
 require '../../../../api/bootstrap.php';
 
-include('../../../data/parts/session_settings.php');
+include_once('../../../data/parts/session_settings.php');
 
 require('../../../data/parts/ping.php');
 

@@ -20,7 +20,7 @@ use Src\Payment\PaymentProcessor;
 <head>
     <title>Processing payment...</title>
     <link rel="shortcut icon" type="image/png" href="data/images/favicon.png"/>
-<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+<!--    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
 <!--    <link href="data/libs/node_modules/material-components-web/dist/material-components-web.css" rel="stylesheet">-->
 <!--    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">-->
 <!--    <script src="data/libs/node_modules/material-components-web/dist/material-components-web.js"></script>-->
