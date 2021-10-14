@@ -602,6 +602,7 @@ $(document).ready(function () {
 
     form.addEventListener("submit", e => {
         if (e.which == 13 || e.keyCode == 13) {
+            console.log(`This has been triggered but shouldn't do anything.....`);
             e.preventDefault();
             return false;
         }
@@ -937,13 +938,13 @@ $(document).ready(function () {
                 },
             },
             onContentReady: function () {
-                // bind to events
-                var jc = this;
-                this.$content.find('form').on('submit', function (e) {
-                    // if the user submits the form by pressing enter in the field.
-                    e.preventDefault();
-                    jc.$$formSubmit.trigger('click'); // reference the button and click it
-                });
+                // // bind to events
+                // var jc = this;
+                // this.$content.find('form').on('submit', function (e) {
+                //     // if the user submits the form by pressing enter in the field.
+                //     e.preventDefault();
+                //     jc.$$formSubmit.trigger('click'); // reference the button and click it
+                // });
             }
         });
     });
@@ -1405,7 +1406,7 @@ $(document).ready(function () {
         // enable save etc.. buttons
         if(rl == 3 && jobDetails.file_status != 3)
         {
-            $('#saveBtn').removeAttr("disabled");
+            // $('#saveBtn').removeAttr("disabled");
             $('#suspendBtn').removeAttr("disabled");
         }
         $('#discardBtn').removeAttr("disabled");
@@ -1465,6 +1466,12 @@ $(document).ready(function () {
 
     window.handleMediaPause = function()
     {
+        // This has been added to prevent users from accidentally completing a job before they get to the end.
+        // They can't just drag gthe seekbar though. They need to listen for a second as this function only runs when
+        // The media is paused.
+        if (AblePlayerInstances[0].seekBar.position >= (Math.round(AblePlayerInstances[0].seekBar.duration) - 10)) {
+            $('#saveBtn').removeAttr("disabled");
+        }
         if (AblePlayerInstances[0].seekBar.position - rewindAmountOnPause > 0) {
             AblePlayerInstances[0].seekTo(AblePlayerInstances[0].seekBar.position - rewindAmountOnPause);
         } else {
