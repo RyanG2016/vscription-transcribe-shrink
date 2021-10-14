@@ -128,7 +128,7 @@ $(document).ready(function () {
                             content: `Your session will expire in ${getExpireIn(time_left, notifyBefore, true)} minutes.`,
                             buttons: {
                                 extend: {
-                                    text: '+1 Hour?',
+                                    text: 'Extend',
                                     btnClass: 'btn-blue',
                                     action: function(){
                                         // ajax extend current session
@@ -202,8 +202,8 @@ $(document).ready(function () {
                                     }
                                 },
                                 close: {
-                                    text: 'close'
-                                    // isHidden: true
+                                    text: 'close',
+                                    isHidden: true
                                 }
                             }
                         });
