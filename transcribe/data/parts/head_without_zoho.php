@@ -1,6 +1,6 @@
 <?php
 
-include('session_settings.php');
+include_once('session_settings.php');
 require('ping.php');
 
 if(!isset($_SESSION['loggedIn']))
@@ -18,10 +18,8 @@ else if((!isset($_SESSION['landed']) || $_SESSION['landed'] == false ) && $vtex_
     header('location:settings.php');
     exit();
 }
-if(isset($_SESSION['counter']))
-{
-	unset($_SESSION['counter']);
-}
+
+
 
 /*
 else {

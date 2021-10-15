@@ -10,7 +10,7 @@ use Src\Controller\SRQueueController;
 
 require '../../../../api/bootstrap.php';
 
-include('../../../data/parts/session_settings.php');
+include_once('../../../data/parts/session_settings.php');
 
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");

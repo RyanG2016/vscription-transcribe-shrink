@@ -14,7 +14,7 @@ include('data/parts/head.php');
 <head>
     <title>vScription Settings</title>
     <link rel="shortcut icon" type="image/png" href="data/images/favicon.png"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="data/libs/node_modules/material-components-web/dist/material-components-web.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="data/libs/node_modules/material-components-web/dist/material-components-web.js"></script>
@@ -23,9 +23,12 @@ include('data/parts/head.php');
     <script src="data/libs/node_modules/@material/switch/dist/mdc.switch.js"></script>
     <script src="https://kit.fontawesome.com/12f6b99df9.js" crossorigin="anonymous"></script>
 
-    <!--    Jquery confirm  -->
-    <link rel="stylesheet" href="data/dialogues/jquery-confirm.min.css">
-    <script src="data/dialogues/jquery-confirm.min.js"></script>
+    <!--    Moment + Jquery confirm  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.33/moment-timezone-with-data-1970-2030.min.js" integrity="sha512-FOmgceoy0+6TMqXphk6oiZ6OkbF0yKaapTE6TSFwixidHNPt3yVnR3IRIxJR60+JWHzsx4cSpYutBosZ8iBA1g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 
     <!-- BOOTSTRAP -->
 
@@ -70,6 +73,8 @@ include('data/parts/head.php');
     <script src="data/thirdparty/typeahead/typeahead.bundle.min.js" type="text/javascript"></script>
     <script src="data/thirdparty/parsley/parsley.min.js" type="text/javascript"></script>
     <link href="data/css/parts/parsleyjs.css" rel="stylesheet">
+
+    <script src="data/scripts/parts/ping.min.js" type="text/javascript"></script>
 
     <link href="data/css/settings.css?v=2" rel="stylesheet">
     <script src="data/scripts/settings.min.js?v=5" type="text/javascript"></script>

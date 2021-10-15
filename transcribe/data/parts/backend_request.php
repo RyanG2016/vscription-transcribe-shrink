@@ -9,7 +9,7 @@ include("common_functions.php");
 require_once('../regex.php');
 //////////
 
-include('session_settings.php');
+include_once('session_settings.php');
 include('constants.php');
 $lang2 = 'en';
 
@@ -190,11 +190,12 @@ if (isset($_REQUEST["reqcode"])) {
 
             $a = json_decode($args, true);
             $file_id = $a['file_id'];
-            $currentAccID = $_SESSION['accID']; // to prevent downloading other files belonging to another account
+            $currentAccID = $_SESSION['accID'] ?? false; // to prevent downloading other files belonging to another account
+            if(!$currentAccID) return false;
+
             $res = downloadJob($con, $file_id, $currentAccID); // true if permission granted and hash is generated (return is the hash val) - false if denied
 
             echo $res;
-            $debug = 1;
             break;
 
         //CLEAR TEMP AUDIO FILE//

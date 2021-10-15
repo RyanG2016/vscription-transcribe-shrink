@@ -1,25 +1,25 @@
 <?php
 
 namespace Src\TableGateways;
+use Src\Enums\SESSION_SRC;
 use Src\Models\Access;
 use Src\Models\Account;
 use Src\Models\Role;
-use Src\TableGateways\CityGateway;
+use Src\Models\Session;
+
 include_once "common.php";
 
 class LoginGateway
 {
 
     private $db = null;
-    private $cityGateway = null;
 
     public function __construct($db)
     {
         $this->db = $db;
-        $this->cityGateway = new CityGateway($db);
     }
 
-    public function find($email, $pass)
+    public function find($email, $pass, $apiLogin)
     {
         $cTime = strtotime(date("Y-m-d H:i:s"));
 
@@ -57,7 +57,7 @@ class LoginGateway
                     if ($user['account_status'] == 1) { // Active
                         if ($verified) {
                             $this->unlockUserAccount($user["id"]);          // to reset trials upon successful login
-                            $this->sessionLogin($user);                     // set session variables as logged in + log inside
+                            $this->sessionLogin($user, $apiLogin);                     // set session variables as logged in + log inside
                             return array("error" => false, "msg" => "Logged In");
                         } else {
                             $this->increaseTrials($user);
@@ -86,7 +86,7 @@ class LoginGateway
                                     $this->insertAuditLogEntry($user["id"], "User account unlocked.");
                                     // check for password
                                     if ($verified) {
-                                        $this->sessionLogin($user); // set session variables as logged in + audit log inside
+                                        $this->sessionLogin($user, $apiLogin); // set session variables as logged in + audit log inside
 
                                     } else {
                                         return array("error" => true, "msg" => "Incorrect Password"); // first incorrect attempt after account unlock
@@ -115,8 +115,32 @@ class LoginGateway
         return array("error" => true, "msg" => "Incorrect Password");
     }
 
-    public function sessionLogin($row)
+    public function recordSessionLogin($uid, $apiLogin)
     {
+        // refresh session id
+        session_regenerate_id(true); // one and only
+        $sess = new Session(
+            uid: $uid,
+            php_sess_id: session_id(),
+            src: $apiLogin?SESSION_SRC::API:SESSION_SRC::WEBSITE,
+            ip_address: getIP(),
+            db: $this->db
+        );
+
+        $sess->save();
+        return $sess;
+    }
+
+    public function sessionLogin($row, $apiLogin)
+    {
+        // save session to DB
+        $sess = $this->recordSessionLogin($row['id'], $apiLogin);
+
+        $_SESSION['sess_expire_at'] = $sess->getExpireTime();
+
+        // clear kick data
+        unset($_SESSION['kicked'], $_SESSION['kick_src'], $_SESSION['kick_msg']);
+
         $_SESSION['uid'] = $row['id'];
         $_SESSION['fname'] = $row['first_name'];
         $_SESSION['lname'] = $row['last_name'];

@@ -9,14 +9,10 @@
 
 require '../../../../api/bootstrap.php';
 
-include('../../../data/parts/session_settings.php');
+include_once('../../../data/parts/session_settings.php');
 
 require('../../../data/parts/ping.php');
 require "../parts/checkAuth.php"; // <-- checking for basic auth before request & if the user is already logged in
-if(isset($_SESSION['counter']))
-{
-    unset($_SESSION['counter']);
-}
 
 
 use Src\Controller\UserController;

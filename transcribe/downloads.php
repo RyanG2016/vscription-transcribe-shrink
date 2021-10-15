@@ -14,7 +14,7 @@ include('data/parts/head.php');
 <head>
     <title>vScription Pro Transcribe Downloads</title>
     <link rel="shortcut icon" type="image/png" href="data/images/favicon.png"/>
-    <!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+    <!--    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
     <!--    <link href="data/libs/node_modules/material-components-web/dist/material-components-web.css" rel="stylesheet">-->
     <!--    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">-->
     <!--    <script src="data/libs/node_modules/material-components-web/dist/material-components-web.js"></script>-->
@@ -22,7 +22,7 @@ include('data/parts/head.php');
     <!--    <script src="data/libs/node_modules/@material/linear-progress/dist/mdc.linearProgress.js"></script>-->
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.33/moment-timezone-with-data-1970-2030.min.js" integrity="sha512-FOmgceoy0+6TMqXphk6oiZ6OkbF0yKaapTE6TSFwixidHNPt3yVnR3IRIxJR60+JWHzsx4cSpYutBosZ8iBA1g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
             integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
@@ -37,6 +37,13 @@ include('data/parts/head.php');
     <!--    <script src="https://kit.fontawesome.com/00895b9561.js" crossorigin="anonymous"></script>-->
     <script src="https://kit.fontawesome.com/12f6b99df9.js" crossorigin="anonymous"></script>
 
+
+    <!--    Moment + Jquery confirm  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.33/moment-timezone-with-data-1970-2030.min.js" integrity="sha512-FOmgceoy0+6TMqXphk6oiZ6OkbF0yKaapTE6TSFwixidHNPt3yVnR3IRIxJR60+JWHzsx4cSpYutBosZ8iBA1g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 
     <!--  Datatables  -->
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
@@ -54,6 +61,7 @@ include('data/parts/head.php');
     <!--    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">-->
     <!--    <script src="data/libs/node_modules/material-components-web/dist/material-components-web.js"></script>-->
     <!--    <script src="data/libs/node_modules/@material/textfield/dist/mdc.textfield.js"></script>-->
+    <script src="data/scripts/parts/ping.min.js" type="text/javascript"></script>
 
     <link href="data/css/downloads-controller.css" rel="stylesheet">
 

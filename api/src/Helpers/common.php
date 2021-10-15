@@ -169,6 +169,27 @@ class common{
         return  uniqid($prefix);
     }
 
+    /*function logout()
+    {
+
+        $uemail = $_SESSION['uEmail'];
+
+
+        $rmb = false;
+        if(isset( $_SESSION['remember'] ) )
+        {
+            $rmb = $_SESSION['remember'];
+        }
+        session_unset();
+        if($rmb)
+        {
+            $_SESSION['remember'] = true;
+            $_SESSION['uEmail'] = $uemail;
+        }
+        session_regenerate_id(true);
+
+    }*/
+
 
     function missingRequiredParametersResponse()
     {

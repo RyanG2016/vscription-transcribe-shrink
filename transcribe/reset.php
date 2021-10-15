@@ -1,5 +1,5 @@
 <?php
-include('data/parts/session_settings.php');
+include_once('data/parts/session_settings.php');
 include("data/parts/config.php");
 include('data/parts/constants.php');
 

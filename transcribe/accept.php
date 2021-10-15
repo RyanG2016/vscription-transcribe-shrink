@@ -3,7 +3,7 @@
 use Src\TableGateways\tokenGateway;
 
 require __DIR__. '/../api/bootstrap.php';
-include('data/parts/session_settings.php');
+include_once('data/parts/session_settings.php');
 include('data/parts/constants.php');
 
 $_SESSION['lastPing'] = date("Y-m-d H:i:s");
@@ -43,7 +43,7 @@ else{ //token isn't set
 	<link rel="stylesheet" type="text/css" href="data/login/css/util.css">
 	<link rel="stylesheet" type="text/css" href="data/login/css/main.css">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <link rel="stylesheet" href="data/css/parts/modal_overlay.css">
     <link rel="stylesheet" href="data/css/parts/global.css">

@@ -35,6 +35,7 @@ class LogoutGateway
                 $_SESSION['remember'] = true;
                 $_SESSION['uEmail'] = $uemail;
             }
+//            session_regenerate_id(true); // tp
 
             $_SESSION['msg'] = "Please login to continue";
             return array("error" => false, "msg" => "Logged out successfully.");

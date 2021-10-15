@@ -43,7 +43,8 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
     <link rel="shortcut icon" type="image/png" href="data/images/favicon.png"/>
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.33/moment-timezone-with-data-1970-2030.min.js" integrity="sha512-FOmgceoy0+6TMqXphk6oiZ6OkbF0yKaapTE6TSFwixidHNPt3yVnR3IRIxJR60+JWHzsx4cSpYutBosZ8iBA1g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
             integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
@@ -73,8 +74,12 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
     <!--	Scroll Bar Dependencies    -->
     <script src="data/scrollbar/jquery.nicescroll.js"></script>
 
-    <link rel="stylesheet" href="data/dialogues/jquery-confirm.min.css">
-    <script src="data/dialogues/jquery-confirm.min.js"></script>
+    <!--    Moment + Jquery confirm  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.33/moment-timezone-with-data-1970-2030.min.js" integrity="sha512-FOmgceoy0+6TMqXphk6oiZ6OkbF0yKaapTE6TSFwixidHNPt3yVnR3IRIxJR60+JWHzsx4cSpYutBosZ8iBA1g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 	
 	<!-- Enjoyhint library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/kineticjs/5.2.0/kinetic.js"> </script>
@@ -91,7 +96,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
     <script type="text/javascript">
         var tutorials='<?php echo $tuts;?>';
     </script>
-
+    <script src="data/scripts/parts/ping.min.js" type="text/javascript"></script>
 	 <script src="data/scripts/job_upload.min.js?v=3"></script>
     <link rel="stylesheet" href="data/css/job_upload.css">
 	

@@ -59,12 +59,9 @@ class SRGateway implements GatewayInterface
 
         try {
             $statement = $this->db->prepare($statement);
-            $statement->execute(
-                array(
-                    'limit' => $this->limit,
-                    'offset' => $offset
-                )
-            );
+            $statement->bindParam(':limit', $this->limit, \PDO::PARAM_INT);
+            $statement->bindParam(':offset', $offset, \PDO::PARAM_INT);
+            $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             return $result;
         } catch (\PDOException $e) {

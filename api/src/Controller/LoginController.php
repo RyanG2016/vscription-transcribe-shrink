@@ -67,13 +67,13 @@ class LoginController {
         exit();
     }
 
-    public function processSilentRequest()
+    public function processSilentRequest() // API Endpoints login
     {
         new Throttler("silent_login", 20, \bandwidthThrottle\tokenBucket\Rate::MINUTE);
         switch ($this->requestMethod) {
             case 'POST':
             case 'GET':
-                $response = $this->validateLogin();
+                $response = $this->validateLogin(true);
                 break;
 
             default:
@@ -84,7 +84,7 @@ class LoginController {
         return $response; // pass response to the requester
     }
 
-    private function validateLogin()
+    private function validateLogin($apiLogin = false)
     {
         $email = $_SERVER["PHP_AUTH_USER"];
         $pass = $_SERVER["PHP_AUTH_PW"];
@@ -100,7 +100,7 @@ class LoginController {
         }
 
         // logUserIn
-        $result = $this->loginGateway->find($email, $pass);
+        $result = $this->loginGateway->find($email, $pass, $apiLogin);
         if($result["error"] == true){
             return $this -> AuthenticationFailed($result);
         }
