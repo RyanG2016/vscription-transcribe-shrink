@@ -197,7 +197,7 @@ include('data/parts/head.php');
                                             </span>
                                     </i> -->
                                     <br>
-                                    <span style='font-size:.7rem'>Use vScription Mobile to create dictations on your iPhone and upload them instantly. Scan the image to the right with your iPhone to get the app.</span>
+                                    <span style='font-size:.7rem'>Use vScription Mobile to create dictations on your iPhone and upload them instantly. Scan the QR Code to the right with your iPhone camera to get the app.</span>
                                 </td>
                                 <td>                             
                                 </td>
