@@ -186,6 +186,27 @@ include('data/parts/head.php');
                                     <a href="/controller_app/upload_app/cross_platform/vScriptionUpload.zip">vScriptionUpload.zip</a>
                                 </td>
                             </tr>
+                            <tr>
+                                <td>
+                                    <strong>vScription Mobile iPhone App </strong><br>
+                                    <!-- <i>
+                                            <span style='font-size:.8rem'>
+                                                (Requires <a
+                                                        href='https://www.oracle.com/java/technologies/javase-jdk15-downloads.html'
+                                                        target='blank'>OpenJDK</a> > 14 installed)
+                                            </span>
+                                    </i> -->
+                                    <br>
+                                    <span style='font-size:.7rem'>Use vScription Mobile to create dictations on your iPhone and upload them instantly. Scan the image to the right with your iPhone to get the app.</span>
+                                </td>
+                                <td>                             
+                                </td>
+                                <td style="text-align: center;">
+                                    <a href="https://apps.apple.com/us/app/vscription-mobile/id1570912761">
+                                        <img src="https://test.vscription.com/data/images/vScription_Mobile.svg" style="width: 125px;" alt="app store download">
+                                    </a>
+                                </td>
+                            </tr>
 
                             </tbody>
                         </table>
