@@ -884,7 +884,7 @@ $(document).ready(function () {
     function validAccName() {
         if (accNameInput.val() === "" ||
             accNameInput.val().length >= 50 ||
-            accNameInput.val().search(/[!@#$%^&*)(+=._-]+/g) !== -1) {
+            accNameInput.val().search(/[!@#$%^*+=]+/g) !== -1) {
             accNameInput.addClass("is-invalid");
             accNameInput.removeClass("is-valid");
             return false;

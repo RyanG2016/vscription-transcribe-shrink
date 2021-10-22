@@ -1469,7 +1469,7 @@ $(document).ready(function () {
         // This has been added to prevent users from accidentally completing a job before they get to the end.
         // They can't just drag gthe seekbar though. They need to listen for a second as this function only runs when
         // The media is paused.
-        if (AblePlayerInstances[0].seekBar.position >= (Math.round(AblePlayerInstances[0].seekBar.duration) - 10)) {
+        if (AblePlayerInstances[0].seekBar.position >= (Math.round(AblePlayerInstances[0].seekBar.duration) - 10) & rl == 3) {
             $('#saveBtn').removeAttr("disabled");
         }
         if (AblePlayerInstances[0].seekBar.position - rewindAmountOnPause > 0) {
