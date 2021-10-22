@@ -1004,7 +1004,7 @@ class UserGateway implements GatewayInterface
             {
                 case 'first_name':
                 case 'last_name':
-                    if(!preg_match("/^[a-z ]{2,50}$/i", $valuePost))
+                    if(!preg_match("/^[a-z '\-]{2,50}$/i", $valuePost))
                     {
                         return $this->errorOccurredResponse("Invalid Input (VSPT-U201)");
                     }

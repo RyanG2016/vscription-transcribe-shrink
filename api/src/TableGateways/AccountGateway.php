@@ -632,7 +632,7 @@ class AccountGateway implements GatewayInterface
             switch ($keyPost)
             {
                 case 'organization_name':
-                    if(!preg_match("/^[a-z][a-z0-9_ ]{2,255}$/i", $valuePost))
+                    if(!preg_match("/^[a-z]{1}[a-z0-9_ '()\-&]{2,255}$/i", $valuePost))
                     {
                         return $this->errorOccurredResponse("Invalid Input (VSPT-OR101)");
                     }
