@@ -130,7 +130,7 @@ include('data/parts/head.php');
                                         </div>
                                         <input type="text" class="form-control" id="fname" name="first_name" placeholder=""
                                                aria-describedby="inputGroupPrepend"
-                                               data-parsley-pattern="/^[a-z ]{2,50}$/i"
+                                               data-parsley-pattern="/^[a-z '\-]{2,50}$/i"
                                                data-parsley-error-message="<?php echo CUSTOM_FIELD_ERRORS::NAME ?>"
                                                value="<?php echo $_SESSION['userData']['first_name'] ?>" required>
                                     </div>
@@ -141,7 +141,7 @@ include('data/parts/head.php');
                                         </div>
                                         <input type="text" class="form-control" id="lname" name="last_name" placeholder=""
                                                aria-describedby="inputGroupPrepend"
-                                               data-parsley-pattern="/^[a-z]{1}[a-z0-9_ ]{2,50}$/i"
+                                               data-parsley-pattern="/^[a-z]{1}[a-z0-9_ '\-]{2,50}$/i"
                                                data-parsley-error-message="<?php echo CUSTOM_FIELD_ERRORS::NAME ?>"
                                                value="<?php echo $_SESSION['userData']['last_name'] ?>" required>
                                     </div>
@@ -266,7 +266,7 @@ include('data/parts/head.php');
                                             </div>
                                             <input type="text" class="form-control" id="orgName"
                                                    name="organization_name"
-                                                   data-parsley-pattern="/^[a-z]{1}[a-z0-9_ ]{2,255}$/i"
+                                                   data-parsley-pattern="/^[a-z]{1}[a-z0-9_ '()\-&]{2,255}$/i"
                                                    data-parsley-error-message="<?php echo CUSTOM_FIELD_ERRORS::ORG ?>"
                                                    placeholder="" aria-describedby="inputGroupPrepend" value="<?php echo $_SESSION['acc_name'] ?>" required>
                                         </div>
