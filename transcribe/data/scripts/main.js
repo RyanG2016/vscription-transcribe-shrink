@@ -206,7 +206,7 @@ $(document).ready(function () {
 			{
 				"title": "Transcribed Date",
 				"className":"none",
-				"data": "job_upload_date"
+				"data": "file_transcribed_date"
 			},
 			{
 				"title": "Date Uploaded",
