@@ -20,13 +20,12 @@ CREATE TABLE IF NOT EXISTS `access` (
   `username` varchar(255) DEFAULT NULL,
   `acc_role` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `file_id` int(11) NOT NULL,
   PRIMARY KEY (`access_id`),
   KEY `access_accounts_acc_id_fk` (`acc_id`),
   KEY `access_roles_role_id_fk` (`acc_role`),
   KEY `access_users_id_fk` (`uid`),
-  CONSTRAINT `access_accounts_acc_id_fk` FOREIGN KEY (`acc_id`) REFERENCES `accounts` (`acc_id`),
-  CONSTRAINT `access_roles_role_id_fk` FOREIGN KEY (`acc_role`) REFERENCES `roles` (`role_id`),
-  CONSTRAINT `access_users_id_fk` FOREIGN KEY (`uid`) REFERENCES `users` (`id`)
+  KEY `conversion_files_file_id_fk` (`file_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8mb4;
 
 -- Data exporting was unselected.
@@ -81,12 +80,7 @@ CREATE TABLE IF NOT EXISTS `accounts` (
   KEY `accounts_file_speaker_type_id_fk_2` (`bill_rate2_type`),
   KEY `accounts_file_speaker_type_id_fk_3` (`bill_rate3_type`),
   KEY `accounts_file_speaker_type_id_fk_4` (`bill_rate4_type`),
-  KEY `accounts_file_speaker_type_id_fk_5` (`bill_rate5_type`),
-  CONSTRAINT `accounts_file_speaker_type_id_fk` FOREIGN KEY (`bill_rate1_type`) REFERENCES `file_speaker_type` (`id`),
-  CONSTRAINT `accounts_file_speaker_type_id_fk_2` FOREIGN KEY (`bill_rate2_type`) REFERENCES `file_speaker_type` (`id`),
-  CONSTRAINT `accounts_file_speaker_type_id_fk_3` FOREIGN KEY (`bill_rate3_type`) REFERENCES `file_speaker_type` (`id`),
-  CONSTRAINT `accounts_file_speaker_type_id_fk_4` FOREIGN KEY (`bill_rate4_type`) REFERENCES `file_speaker_type` (`id`),
-  CONSTRAINT `accounts_file_speaker_type_id_fk_5` FOREIGN KEY (`bill_rate5_type`) REFERENCES `file_speaker_type` (`id`)
+  KEY `accounts_file_speaker_type_id_fk_5` (`bill_rate5_type`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
 
 -- Data exporting was unselected.
@@ -111,8 +105,7 @@ CREATE TABLE IF NOT EXISTS `conversion` (
   `file_id` int(11) NOT NULL,
   `status` int(11) NOT NULL DEFAULT 0 COMMENT '0: pending, 1: done, 2: need manual review, 3: failed',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `conversion_file_id_uindex` (`file_id`),
-  CONSTRAINT `conversion_files_file_id_fk` FOREIGN KEY (`file_id`) REFERENCES `files` (`file_id`)
+  UNIQUE KEY `conversion_file_id_uindex` (`file_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2443 DEFAULT CHARSET=utf8mb4;
 
 -- Data exporting was unselected.
@@ -171,7 +164,7 @@ CREATE TABLE IF NOT EXISTS `files` (
   `deleted_date` datetime DEFAULT NULL,
   `audio_deleted_date` datetime DEFAULT NULL,
   `audio_file_deleted_date` timestamp NULL DEFAULT NULL COMMENT 'For maintenance',
-  UNIQUE KEY `key` (`file_id`),
+  PRIMARY KEY (`file_id`),
   KEY `files_accounts_acc_id_fk` (`acc_id`),
   CONSTRAINT `files_accounts_acc_id_fk` FOREIGN KEY (`acc_id`) REFERENCES `accounts` (`acc_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2557 DEFAULT CHARSET=utf8mb4;
@@ -222,9 +215,7 @@ CREATE TABLE IF NOT EXISTS `payments` (
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`payment_id`),
   KEY `payments_sr_packages_srp_id_fk` (`pkg_id`),
-  KEY `payments_users_id_fk` (`user_id`),
-  CONSTRAINT `payments_sr_packages_srp_id_fk` FOREIGN KEY (`pkg_id`) REFERENCES `sr_packages` (`srp_id`),
-  CONSTRAINT `payments_users_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+  KEY `payments_users_id_fk` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
 
 -- Data exporting was unselected.
@@ -293,9 +284,7 @@ CREATE TABLE IF NOT EXISTS `sessions` (
   `ip_address` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `uid` (`uid`),
-  KEY `src` (`src`),
-  CONSTRAINT `sessions_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `sessions_ibfk_2` FOREIGN KEY (`src`) REFERENCES `sessions_source_ref` (`src`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `src` (`src`)
 ) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb3;
 
 -- Data exporting was unselected.
@@ -344,8 +333,7 @@ CREATE TABLE IF NOT EXISTS `sr_log` (
   `srqlog_msg` mediumtext DEFAULT NULL,
   `srlog_timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`srlog_id`),
-  KEY `sr_log_sr_queue_srq_id_fk` (`srq_id`),
-  CONSTRAINT `sr_log_sr_queue_srq_id_fk` FOREIGN KEY (`srq_id`) REFERENCES `sr_queue` (`srq_id`)
+  KEY `sr_log_sr_queue_srq_id_fk` (`srq_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=191 DEFAULT CHARSET=utf8mb3;
 
 -- Data exporting was unselected.
@@ -488,3 +476,22 @@ CREATE TABLE IF NOT EXISTS `zoho_users` (
 /*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
+
+ALTER TABLE `access` ADD CONSTRAINT `access_accounts_acc_id_fk` FOREIGN KEY (`acc_id`) REFERENCES `accounts` (`acc_id`);
+ALTER TABLE `access` ADD CONSTRAINT `access_roles_role_id_fk` FOREIGN KEY (`acc_role`) REFERENCES `roles` (`role_id`);
+ALTER TABLE `access` ADD CONSTRAINT `access_users_id_fk` FOREIGN KEY (`uid`) REFERENCES `users` (`id`);
+ALTER TABLE `access` ADD CONSTRAINT `conversion_files_file_id_fk` FOREIGN KEY (`file_id`) REFERENCES `files` (`file_id`);
+
+ALTER TABLE `accounts` ADD CONSTRAINT `accounts_file_speaker_type_id_fk` FOREIGN KEY (`bill_rate1_type`) REFERENCES `file_speaker_type` (`id`);
+ALTER TABLE `accounts` ADD CONSTRAINT `accounts_file_speaker_type_id_fk_2` FOREIGN KEY (`bill_rate2_type`) REFERENCES `file_speaker_type` (`id`);
+ALTER TABLE `accounts` ADD CONSTRAINT `accounts_file_speaker_type_id_fk_3` FOREIGN KEY (`bill_rate3_type`) REFERENCES `file_speaker_type` (`id`);
+ALTER TABLE `accounts` ADD CONSTRAINT `accounts_file_speaker_type_id_fk_4` FOREIGN KEY (`bill_rate4_type`) REFERENCES `file_speaker_type` (`id`);
+ALTER TABLE `accounts` ADD CONSTRAINT `accounts_file_speaker_type_id_fk_5` FOREIGN KEY (`bill_rate5_type`) REFERENCES `file_speaker_type` (`id`);
+
+ALTER TABLE `payments` ADD CONSTRAINT `payments_sr_packages_srp_id_fk` FOREIGN KEY (`pkg_id`) REFERENCES `sr_packages` (`srp_id`);
+ALTER TABLE `payments` ADD CONSTRAINT `payments_users_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+ALTER TABLE `sessions` ADD CONSTRAINT `sessions_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `sessions` ADD CONSTRAINT `sessions_ibfk_2` FOREIGN KEY (`src`) REFERENCES `sessions_source_ref` (`src`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER TABLE `sr_log` ADD CONSTRAINT `sr_log_sr_queue_srq_id_fk` FOREIGN KEY (`srq_id`) REFERENCES `sr_queue` (`srq_id`);
