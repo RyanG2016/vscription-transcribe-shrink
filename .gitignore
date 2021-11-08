@@ -10,7 +10,7 @@ data/parts/error_log
 ../uploads
 main_scratch.php
 test*
-workingTemp/
+workingTemp/*
 transcribe/sr/*
 *.pem
 /deletedUploads/*
@@ -48,7 +48,7 @@ transcribe/sr/*
 /transcribe/data/scripts/signup.js
 /transcribe/data/scripts/finder.js
 /api/.env
-/uploads/
+/uploads/*
 /convert.log
 /api/src/Controller/conversionCron.php
 /logs/*
