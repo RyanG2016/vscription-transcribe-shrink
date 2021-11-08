@@ -13,6 +13,7 @@ test*
 transcribe/workingTemp/*
 transcribe/sr/*
 *.pem
+!cacert.pem
 /deletedUploads/*
 /api/phinx/phinx.php
 
