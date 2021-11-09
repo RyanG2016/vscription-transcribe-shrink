@@ -16,6 +16,7 @@ transcribe/sr/*
 *.pem
 /deletedUploads/*
 /api/phinx/phinx.php
+gaTrackingCode.php
 
 /api/.env
 /uploads/
