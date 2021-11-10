@@ -10,7 +10,7 @@ data/parts/error_log
 ../uploads
 main_scratch.php
 test*
-workingTemp/
+workingTemp/*
 
 /data/parts/config.php
 /data/scripts/parts/constants.js
@@ -19,7 +19,6 @@ workingTemp/
 /data/libs/node_modules/.bin/
 /data/libs/node_modules/commander/
 /data/libs/closure-compiler-v20200614.jar
-.htaccess
 #/data/scripts/admin_tools.js
 #/data/scripts/job_upload.js
 #/data/scripts/login.js
