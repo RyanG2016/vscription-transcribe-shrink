@@ -5,7 +5,7 @@ use Src\Enums\INTERNAL_PAGES;
 use Src\Enums\CUSTOM_FIELD_ERRORS;
 
 $vtex_page = INTERNAL_PAGES::SETTINGS;
-include('data/parts/head.php');
+include ('data/parts/head.php');
 
 ?>
 
@@ -46,27 +46,27 @@ include('data/parts/head.php');
 
     <script type="text/javascript">
         <?php
-            $roleIsSet = (!isset($_SESSION['role']) && !isset($_SESSION['accID']))?0:true;
-            $hasOwnOrg = (isset($_SESSION["userData"]["account"]) && $_SESSION["userData"]["account"] != 0);
-            $ownMatchesCurrent = false;
-            if($roleIsSet && $hasOwnOrg && ($_SESSION["accID"] == $_SESSION["userData"]["account"]))
-            {
-                $ownMatchesCurrent = true;
-            }
-        ?>
+$roleIsSet = (!isset($_SESSION['role']) && !isset($_SESSION['accID'])) ? 0 : true;
+$hasOwnOrg = (isset($_SESSION["userData"]["account"]) && $_SESSION["userData"]["account"] != 0);
+$ownMatchesCurrent = false;
+if ($roleIsSet && $hasOwnOrg && ($_SESSION["accID"] == $_SESSION["userData"]["account"]))
+{
+    $ownMatchesCurrent = true;
+}
+?>
         var roleIsset = <?php echo $roleIsSet ?>;
-        var redirectID = <?php echo $roleIsSet? $_SESSION['role']:"0" ?>;
-        var hasOwnOrg = <?php echo $hasOwnOrg?"1":"0" ?>;
-        var ownMatchesCurrent = <?php echo $ownMatchesCurrent?"1":"0" ?>;
+        var redirectID = <?php echo $roleIsSet ? $_SESSION['role'] : "0" ?>;
+        var hasOwnOrg = <?php echo $hasOwnOrg ? "1" : "0" ?>;
+        var ownMatchesCurrent = <?php echo $ownMatchesCurrent ? "1" : "0" ?>;
     </script>
 
     <!-- Enjoyhint library -->
 <!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/kineticjs/5.2.0/kinetic.js"></script>-->
 <!--    <script src="data/thirdparty/enjoyhint/enjoyhint.min.js"></script>-->
 
-    <?php $tuts=(isset($_SESSION['tutorials']))?$_SESSION['tutorials']:'{}'; ?>
+    <?php $tuts = (isset($_SESSION['tutorials'])) ? $_SESSION['tutorials'] : '{}'; ?>
     <script type="text/javascript">
-        var tutorials='<?php echo $tuts;?>';
+        var tutorials='<?php echo $tuts; ?>';
     </script>
 
     <link href="data/thirdparty/typeahead/typehead.css" rel="stylesheet">
@@ -77,7 +77,7 @@ include('data/parts/head.php');
     <script src="data/scripts/parts/ping.min.js" type="text/javascript"></script>
 
     <link href="data/css/settings.css?v=2" rel="stylesheet">
-    <script src="data/scripts/settings.min.js?v=5" type="text/javascript"></script>
+    <script src="data/scripts/settings.js?v=5" type="text/javascript"></script>
 
 </head>
 
@@ -87,7 +87,7 @@ include('data/parts/head.php');
 <!--        <div class="w-100 h-100 d-flex flex-nowrap vspt-container-fluid-row">-->
         <div class="vspt-container-fluid-row d-flex">
 
-        <?php include_once "data/parts/nav.php"?>
+        <?php include_once "data/parts/nav.php" ?>
 
         <div class="vspt-page-container">
 <!--        <div class="vspt-page-container col">-->
@@ -152,8 +152,8 @@ include('data/parts/head.php');
                                                 <span class="bs-text">Newsletter</span>
                                                 &emsp;<button id="newsletter" type="button"
                                                               class="btn btn-primary newsletter-button
-                                                              <?php echo (isset($_SESSION['userData']['newsletter']) && $_SESSION['userData']['newsletter'] == 1)? 'active':'' ?> "
-                                                              data-toggle="button" aria-pressed="<?php echo (isset($_SESSION['userData']['newsletter']) && $_SESSION['userData']['newsletter'] == 1)? 'true':'false'  ?>">
+                                                              <?php echo (isset($_SESSION['userData']['newsletter']) && $_SESSION['userData']['newsletter'] == 1) ? 'active' : '' ?> "
+                                                              data-toggle="button" aria-pressed="<?php echo (isset($_SESSION['userData']['newsletter']) && $_SESSION['userData']['newsletter'] == 1) ? 'true' : 'false' ?>">
                                                     <span class="vspt-check-toggle-icon"></span>
                                                 </button>
                                             </div>
@@ -161,14 +161,53 @@ include('data/parts/head.php');
                                             <div class="col text-right">
                                                 <span class="bs-text">Receive Job Notifications</span>
                                                 &emsp;<button id="emailTranscript" type="button"
-                                                              class="btn btn-primary newsletter-button <?php echo (isset($_SESSION['userData']['email_notification']) && $_SESSION['userData']['email_notification'] == 1)? 'active':''  ?>"
-                                                              data-toggle="button" aria-pressed="<?php echo (isset($_SESSION['userData']['email_notification']) && $_SESSION['userData']['email_notification'] == 1)?'true':'false' ?>">
+                                                              class="btn btn-primary newsletter-button <?php echo (isset($_SESSION['userData']['email_notification']) && $_SESSION['userData']['email_notification'] == 1) ? 'active' : '' ?>"
+                                                              data-toggle="button" aria-pressed="<?php echo (isset($_SESSION['userData']['email_notification']) && $_SESSION['userData']['email_notification'] == 1) ? 'true' : 'false' ?>">
                                                     <span class="vspt-check-toggle-icon"></span>
                                                 </button>
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Card Number</span>
+                                        </div>
+                                        <input type="text" class="form-control" id="ownOrgName"
+                                               name="card_number"
+                                               data-parsley-pattern="/[0-9]/i"
+                                               data-parsley-error-message="<?php echo CUSTOM_FIELD_ERRORS::ORG ?>"
+                                               placeholder="" aria-describedby="inputGroupPrepend" value="<?php echo $_SESSION['card_number'] ?>" required>
+                                    </div>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Expiration (mm/yy)</span>
+                                        </div>
+                                        <input type="text" class="form-control" id="ownOrgRetTime"
+                                               placeholder=""
+                                               format 
+                                               inputmode="numeric"
+                                               name="expiration_date"
+                                               aria-describedby="inputGroupPrepend"
+                                               value="<?php echo $_SESSION['expiration_date'] ?>"
+                                               data-parsley-pattern="/[0-9]/i"
+                                               data-parsley-error-message="<?php echo CUSTOM_FIELD_ERRORS::RETENTION_TIME ?>"
+                                               required>
+                                    </div>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Security Code</span>
+                                        </div>
 
+                                        <input type="number" class="form-control" id="ownOrgLogTime"
+                                               placeholder=""
+                                               max="180"
+                                               data-parsley-error-message="<?php echo CUSTOM_FIELD_ERRORS::LOG_RETENTION_TIME ?>"
+                                               min="1"
+                                               name="security_code"
+                                               aria-describedby="inputGroupPrepend"
+                                               value="<?php echo $_SESSION['security_code'] ?>"
+                                               required>
+                                    </div>
                                     <button class="btn btn-primary vspt-small-btn float-right" type="submit"
                                             id="updateUser">
                                         <i class="fas fa-save"></i> Save
@@ -230,6 +269,7 @@ include('data/parts/head.php');
                                                aria-describedby="inputGroupPrepend"
                                                value="<?php echo $_SESSION['userData']['country'] ?>" required>
                                     </div>
+
                                 </div>
                             </div>
                         </form>
@@ -241,21 +281,22 @@ include('data/parts/head.php');
                     </div>
 
                     <?php
-
-                    if($roleIsSet && $_SESSION["role"] != 3 && $_SESSION["role"] != 5)
-                    {
-                    ?>
+if ($roleIsSet && $_SESSION["role"] != 3 && $_SESSION["role"] != 5)
+{
+?>
 
                         <div id="orgCard" class="col">
 
                             <?php
-                            if(($hasOwnOrg && $ownMatchesCurrent) || ($hasOwnOrg && !$roleIsSet))
-                            {
-                                echo '<h5 class="mb-3"><i class="fas fa-laptop-house"></i> My Organization</h5>';
-                            }else{
-                                echo '<h5 class="mb-3"><i class="fas fa-building"></i> Current Organization</h5>';
-                            }
-                            ?>
+    if (($hasOwnOrg && $ownMatchesCurrent) || ($hasOwnOrg && !$roleIsSet))
+    {
+        echo '<h5 class="mb-3"><i class="fas fa-laptop-house"></i> My Organization</h5>';
+    }
+    else
+    {
+        echo '<h5 class="mb-3"><i class="fas fa-building"></i> Current Organization</h5>';
+    }
+?>
 
                             <form id="orgForm">
                                 <div class="row">
@@ -400,12 +441,13 @@ include('data/parts/head.php');
 
 
                     <?php
-                    }
-                    if($_SESSION["role"] != 5)
-                    {
-                    if (!$_SESSION["userData"]["account"]) {
+}
+if ($_SESSION["role"] != 5)
+{
+    if (!$_SESSION["userData"]["account"])
+    {
 
-                    ?>
+?>
 
                     <div id="ownOrgCard" class="border-left col">
                         <h5 class="mb-3"><i class="fas fa-laptop-house"></i> My Organization</h5>
@@ -418,10 +460,11 @@ include('data/parts/head.php');
                     </div>
 
                     <?php
-                    }
-                    else if(!$ownMatchesCurrent){
+    }
+    else if (!$ownMatchesCurrent)
+    {
 
-                    ?>
+?>
 
                     <div id="ownOrgCard" class="border-left col">
                         <h5 class="mb-3"><i class="fas fa-user"></i> My Organization</h5>
@@ -563,9 +606,73 @@ include('data/parts/head.php');
                         <hr>
                     </div>
 
-                    <?php }
-                    ?>
+                    <?php
+    }
+?>
+   <div id="ownOrgCard" class="border-left col">
+                        <h5 class="mb-3"><i class="fas fa-user"></i> Payment Details</h5>
 
+                        <form id="paymentForm">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Card Number</span>
+                                        </div>
+                                        <input type="text" class="form-control" id="ownOrgName"
+                                               name="card_number"
+                                               data-parsley-pattern="/[0-9]/i"
+                                               data-parsley-error-message="<?php echo CUSTOM_FIELD_ERRORS::ORG ?>"
+                                               placeholder="" aria-describedby="inputGroupPrepend" value="<?php echo $_SESSION['card_number'] ?>" required>
+                                    </div>
+
+                                    <div class="row no-gutters w-100 ret">
+                                        <div class="col">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">Expiration (mm/yy)</span>
+                                                </div>
+                                                <input type="text" class="form-control" id="ownOrgRetTime"
+                                                       placeholder=""
+                                                       format 
+                                                       inputmode="numeric"
+                                                       name="expiration_date"
+                                                       aria-describedby="inputGroupPrepend"
+                                                       value="<?php echo $_SESSION['expiration_date'] ?>"
+                                                       data-parsley-pattern="/[0-9]/i"
+                                                       data-parsley-error-message="<?php echo CUSTOM_FIELD_ERRORS::RETENTION_TIME ?>"
+                                                       required>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">Security Code</span>
+                                                </div>
+
+                                                <input type="number" class="form-control" id="ownOrgLogTime"
+                                                       placeholder=""
+                                                       max="180"
+                                                       data-parsley-error-message="<?php echo CUSTOM_FIELD_ERRORS::LOG_RETENTION_TIME ?>"
+                                                       min="1"
+                                                       name="security_code"
+                                                       aria-describedby="inputGroupPrepend"
+                                                       value="<?php echo $_SESSION['security_code'] ?>"
+                                                       required>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <button class="btn btn-primary vspt-small-btn float-right" type="submit" id="UpdatePayment">
+                                        <i class="fas fa-save"></i> Save
+                                    </button>
+
+                                </div>
+                            </div>
+                        </form>
+
+                        <hr>
+                    </div>
                     <div class="w-100"></div>
 
                     <div id="typistCard" class="col">
@@ -617,7 +724,8 @@ include('data/parts/head.php');
 
                     </div>
 
-                    <?php } ?>
+                    <?php
+} ?>
                 </div>
 
             </div>
@@ -669,7 +777,7 @@ include('data/parts/head.php');
     </div>
 </div>
 
-<?php include_once "data/parts/footer.php"?>
+<?php include_once "data/parts/footer.php" ?>
 </body>
 
 </html>
