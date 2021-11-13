@@ -149,32 +149,30 @@ if($lastPayment != null)
                         <div class="col-lg-4 col-md-3 col-sm-3 ">
                             <h5>Order Summary</h5>
                             <hr>
-
-                            <?php
-
+                            <?php                
                             echo '
                                     <div class="row">
                                         <div class="col"><b>Package Details</b></div>
                                     </div>
                                     <div class="row">
                                         <div class="col-auto">Package</div>
-                                        <div class="col text-right"> ' . $pkg->getSrpName() . '</div>
+                                        <div class="col text-right"> ' . ($pkg->getSrpName()) . '</div>
                                     </div>
                                     <div class="row">
                                         <div class="col-auto">Minutes</div>
-                                        <div class="col text-right">' . $pkg->getSrpMins() . '</div>
+                                        <div class="col text-right">' .($paymentJson["pkg_name"]=="prepay"?$paymentJson["pkg_minutes"]:$pkg->getSrpMins())  . '</div>
                                     </div>
                                     <div class="row">
                                         <div class="col-auto">Price</div>
-                                        <div class="col text-right">$' . number_format($pkg->getSrpPrice(), 2) . ' CAD</div>
+                                        <div class="col text-right">$' . ($paymentJson["pkg_name"]=="prepay"?$paymentJson["pkg_price"]:number_format($pkg->getSrpPrice(), 2)) . ' CAD</div>
                                     </div>
                                     <hr>
                                     ';
-
                             foreach ($paymentJson["taxes"] as $tax) {
+
                                 echo '<div class="row">
                                         <div class="col-auto">Taxes ('.$tax["code"].'-' . floatval($tax["tax"] )*100 .'%)</div>
-                                        <div class="col text-right">$' . number_format(( $pkg->getSrpPrice() * $tax["tax"] ),2) . ' CAD</div>
+                                        <div class="col text-right">$' . ($paymentJson["pkg_name"]=="prepay"?number_format(( $paymentJson["pkg_price"] * $tax["tax"] ),2):number_format(( $pkg->getSrpPrice() * $tax["tax"] ),2)) . ' CAD</div>
                                 </div>';
                             }
 
