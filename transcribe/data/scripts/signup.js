@@ -493,7 +493,7 @@ $(document).ready(function () {
                         processData: false,
                         contentType: false
                     }).done(function (response) {
-
+                        console.log(response)
                         // handle responses
                         // -------------
 

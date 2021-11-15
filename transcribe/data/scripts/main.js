@@ -43,7 +43,7 @@ $(document).ready(function () {
 	});
 
 	jobsDT.on( 'init.dt', function () {
-		// alert("initiating");
+
 		if(!$('.cTooltip').hasClass("tooltipstered"))
 		{
 			$('.download-icon').click(function() {
@@ -325,7 +325,7 @@ $(document).ready(function () {
 
 	jobsDT.on( 'error.dt', function ( e, settings, techNote, message ) {
 		// console.log( 'An error has been reported by DataTables: ', message );
-		console.log( 'Failed to retrieve data' );
+		console.log( techNote, message );
 	} )
 
 	jobsDT.on( 'draw.dt search.dt', function () {
@@ -658,6 +658,8 @@ function startRefreshTimer() {
 
 			});
 	}, autoListRefreshInterval);
+	console.log('console.error();')
+
 	// }, 1500);
 	// }, 100); // stress test to force data failing to be retrieved
 }

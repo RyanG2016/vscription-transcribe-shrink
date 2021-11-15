@@ -3,9 +3,10 @@
 })(jQuery);
 
 var uploadAjax;
-
+var prepayStatus = $("#prepay_status").val();
+var lifetime_minutes = $("#lifetime_minutes").val();
+var promo = $("#promo").val();
 function documentReady() {
-
     const NO_FILES_TBL_ROW = "<tr><td colspan=\"5\" style=\"text-align: center\">No files currently selected for upload</td></tr>";
 
     const input = document.getElementById('filesInput');
@@ -180,6 +181,7 @@ function documentReady() {
                 if (curFiles.length > 0) addFilesToUpload();
             }*/
 
+
         });
 
 
@@ -257,15 +259,44 @@ function documentReady() {
     // progress timer
     var timer;
     var uploadForm = $("#upload_form");
-
+    var totalDur;
 
     uploadForm.on('submit', function (event) {
+
         event.preventDefault();
-
+        if(prepayStatus){
+            var comp_mins = $("#comp_mins").val()?$("#comp_mins").val():0;
+            if(lifetime_minutes == 0 && promo == 1){
+                if((calculateTotalSRminutes()-10-comp_mins)>0){
+                    $("#total_mins").val(calculateTotalSRminutes()-10-comp_mins);
+                    $("#prepayForm").submit();
+                    var prepayRequest = setInterval(() => {
+                        if(localStorage.getItem("prepay_upload")){
+                            localStorage.removeItem("prepay_upload");
+                            prepayFileUpload();
+                            clearInterval(prepayRequest);
+                        }
+                    }, 3000);
+                }else{
+                    prepayFileUpload();
+                }
+            }else{
+                $("#total_mins").val(calculateTotalSRminutes()-comp_mins);
+                $("#prepayForm").submit();
+                var prepayRequest = setInterval(() => {
+                    if(localStorage.getItem("prepay_upload")){
+                        localStorage.removeItem("prepay_upload");
+                        prepayFileUpload();
+                        clearInterval(prepayRequest);
+                    }
+                }, 3000);
+            }
+        }else{
+            prepayFileUpload();
+        }
+    });
+    function prepayFileUpload(){
         uploadForm.addClass('was-validated');
-        // uploadForm.addClass('was-validated');
-
-        // if (validateFields()) {
         if (uploadForm[0].checkValidity() === true) {
             modal.style.display = "block"; // show the upload progress window
             let formData = new FormData();
@@ -293,7 +324,6 @@ function documentReady() {
             if ($('#demo_comments').val() !== "") {
                 formData.append("comments", $('#demo_comments').val());
             }
-
 
             // CHECK UPLOADED FILES AND SAVE IT TO DB
             uploadAjax = $.ajax({
@@ -358,10 +388,8 @@ function documentReady() {
             // MOVE CODE HERE //
         } else {
             event.stopPropagation();
-            // alert("Please fill in required fields");
         }
-    });
-
+    }
     function getSRMinutes() {
         $.ajax({
             url: "../api/v1/users/sr-mins/",
@@ -548,8 +576,8 @@ function documentReady() {
     function secsToMin($seconds) {
         return ($seconds / 60);
     }
-
     function computeDuration(id, file, status, dssType = 0) {
+        let total_duration = 0;
 
         if (dssType === 1 || dssType === 2 || file.type == "audio/ds2") {
             get_dss_duration(file,id,status);
@@ -569,7 +597,6 @@ function documentReady() {
 
             // Obtain the duration in seconds of the audio file (with milliseconds as well, a float value)
             let duration = audio.duration;
-
             // example 12.3234 seconds
             // console.log("The duration of file ("+id+") is of: " + duration + " seconds");
             // Alternatively, just display the integer value with
@@ -604,7 +631,7 @@ function documentReady() {
             }
 
             audio.remove();
-
+            console.log(audio)
         };
     }
 
@@ -656,7 +683,6 @@ function documentReady() {
 
         const data3 = document.createElement("td");
         data3.innerHTML = returnFileSize(size);
-
         const data4 = document.createElement("td");
         if(status !== 0)
         {
@@ -664,7 +690,7 @@ function documentReady() {
         }else{
             data4.appendChild(generateLoadingSpinner());
         }
-
+        console.log(generateLoadingSpinner());
         const data6 = document.createElement("td");
 
 

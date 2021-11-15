@@ -223,8 +223,8 @@ $(document).ready(function () {
 
         return false; // Don't submit form
     });
-
     function updateUserInfo(formData, reload = false){
+        console.log(formData)
         $.confirm({
             title: 'Updating User Info',
             theme: 'supervan',

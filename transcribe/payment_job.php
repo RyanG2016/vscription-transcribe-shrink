@@ -29,6 +29,7 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
 }
 $accountGateway = new AccountGateway($dbConnection);
 $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
+
 //$version_control = "1.0";
 ?>
 
@@ -63,6 +64,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 
 
     <title>vScription Transcribe Dictation Upload</title>
+
     <!--  MDC Components  -->
     <link href="data/libs/node_modules/material-components-web/dist/material-components-web.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -95,6 +97,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
         var tutorials='<?php echo $tuts;?>';
     </script>
     <script src="data/scripts/parts/ping.min.js" type="text/javascript"></script>
+	 <script src="data/scripts/job_upload.js?v=3"></script>
     <link rel="stylesheet" href="data/css/job_upload.css">
 	
 	
@@ -109,6 +112,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
         <div class="vspt-container-fluid-row d-flex">
 
         <?php include_once "data/parts/nav.php"?>
+
         <div class="vspt-page-container">
 
             <div class="row">
@@ -434,11 +438,6 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                 <span class="mdc-button__label">Cancel</span>
             </button>
         </div>
-        <input type="hidden" value = "<?php echo $_SESSION["userData"]["pre_pay"];?>" id="prepay_status">
-        <input type="hidden" value = "<?php echo $_SESSION["userData"]["lifetime_minutes"];?>" id="lifetime_minutes">
-        <input type="hidden" value = "<?php echo $_SESSION["userData"]["promo"];?>" id="promo">
-        <input type="hidden" value = "<?php echo $_SESSION["userData"]["comp_mins"];?>" id="comp_mins">
-
 <!--        <div class="mdc-data-table">-->
 
 <!--            <table class="mdc-data-table__table jobs_tbl" aria-label="Jobs List">-->
@@ -460,11 +459,3 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 </body>
 
 </html>
-<script src="data/scripts/job_upload.js?v=3"></script>
-<form action="prepayment.php" method="post" class="hidden" style="display:none" id="prepayForm" target="_blank">
-    <input type="text" name="package" id="package" value = "3">
-    <input type="text" name="prepay" id="prepay" value = "3">
-    <input type="text" name="total_mins" id="total_mins" value = "3">
-    <input type="text" name="comp_price" id="comp_price" value = "3">
-    <input type="text" name="total_price" id="total_price" value = "3">
-</form>
