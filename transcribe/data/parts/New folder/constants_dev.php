@@ -1,6 +1,6 @@
 <?php
 
-$DEBUG = false; // todo turn off on production
+$DEBUG = true; // todo turn off on production
 global $cbaselink;
 $_SESSION['data']['lang'] = 'en';
 

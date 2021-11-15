@@ -791,7 +791,7 @@ class accessGateway implements GatewayInterface
             $statement = $this->db->prepare($statement);
             $statement->execute(array('id' => $id));
             return $statement->rowCount();
-        } catch (\PDOException) {
+        } catch (\PDOException $e) {
             return 0;
         }
     }

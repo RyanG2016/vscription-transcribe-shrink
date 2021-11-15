@@ -930,7 +930,8 @@ class AccountGateway implements GatewayInterface
                 sr_enabled = :sr_enabled,
                 trial = :trial,
                 auto_list_refresh_interval = :auto_list_refresh_interval,
-                transcribe_remarks = :transcribe_remarks
+                transcribe_remarks = :transcribe_remarks,
+                comp_mins = :comp_mins
             WHERE
                 acc_id = :acc_id;
         ";
@@ -977,7 +978,8 @@ class AccountGateway implements GatewayInterface
                 'sr_enabled' => $model->getSrEnabled(),
                 'trial' => $model->getTrialStatus(),
                 'auto_list_refresh_interval' => $model->getAccJobRefreshInterval(),
-                'transcribe_remarks' => $model->getTranscribeRemarks()
+                'transcribe_remarks' => $model->getTranscribeRemarks(),
+                'comp_mins' => $model->getCompMins()
             ));
             return $statement->rowCount();
         } catch (\PDOException) {

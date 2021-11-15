@@ -28,13 +28,15 @@ class User extends BaseModel implements BaseModelInterface
 
                                 public ?string $state = null,
                                 public string $address = '',
+                                public string $card_number = '',
+                                public string $expiration_date ='',
+                                public string $security_code = '',
 
                                 public int $email_notification = 1,
                                 public int $newsletter = 0,
                                 public int $account_status = 5,
                                 public int $account = 0,
                                 public int $typist = 0,
-
                                 private $db = null
     )
     {
@@ -179,7 +181,32 @@ class User extends BaseModel implements BaseModelInterface
     {
         $this->first_name = $first_name;
     }
+    public function setCardNumber(string $card_number): void
+    {
+        $this->card_number = $card_number;
+    }
+    public function getCardNumber(): string
+    {
+        return $this->card_number;
+    }
 
+    public function setExpirationDate(string $expiration_date): void
+    {
+        $this->expiration_date = $expiration_date;
+    }
+    public function getExpirationDate(): string
+    {
+        return $this->expiration_date;
+    }
+
+    public function setSecurityCode(string $security_code): void
+    {
+        $this->security_code = $security_code;
+    }
+    public function getSecurityCode(): string
+    {
+        return $this->security_code;
+    }
     /**
      * @return string
      */
@@ -376,6 +403,9 @@ class User extends BaseModel implements BaseModelInterface
             $this->email_notification = $row['email_notification'];
 //            $this->enabled = $row['enabled'];
             $this->account = $row['account'];
+            $this->card_number = $row['card_number'];
+            $this->expiration_date = $row['expiration_date'];
+            $this->security_code = $row['security_code'];
 //            $this->tutorials = $row['tutorials'];
         }
     }
