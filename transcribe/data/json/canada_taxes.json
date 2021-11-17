@@ -1,0 +1,164 @@
+[
+	{
+		"name": "Alberta",
+		"code": "AB",
+		"taxes": [
+			{
+				"code": "GST",
+				"name": "Goods and Services Tax",
+				"type": "federal",
+				"tax": 0.05
+			}
+		]
+	},
+	{
+		"name": "British Columbia",
+		"code": "BC",
+		"taxes": [
+			{
+				"code": "GST",
+				"name": "Goods and Services Tax",
+				"type": "federal",
+				"tax": 0.05
+			}
+		]
+	},
+	{
+		"name": "Manitoba",
+		"code": "MB",
+		"taxes": [
+			{
+				"code": "GST",
+				"name": "Goods and Services Tax",
+				"type": "federal",
+				"tax": 0.05
+			},
+			{
+				"code": "PST",
+				"name": "Provincial sales tax",
+				"type": "provincial",
+				"tax": 0.07
+			}
+		]
+	},
+	{
+		"name": "New Brunswick",
+		"code": "NB",
+		"taxes": [
+			{
+				"code": "HST",
+				"name": "Harmonized Sales Tax",
+				"type": "harmonized",
+				"tax": 0.15
+			}
+		]
+	},
+	{
+		"name": "Newfoundland and Labrador",
+		"code": "NL",
+		"taxes": [
+			{
+				"code": "HST",
+				"name": "Harmonized Sales Tax",
+				"type": "harmonized",
+				"tax": 0.15
+			}
+		]
+	},
+	{
+		"name": "Nova Scotia",
+		"code": "NS",
+		"taxes": [
+			{
+				"code": "HST",
+				"name": "Harmonized Sales Tax",
+				"type": "harmonized",
+				"tax": 0.15
+			}
+		]
+	},
+	{
+		"name": "Northwest Territories",
+		"code": "NT",
+		"taxes": [
+			{
+				"code": "GST",
+				"name": "Goods and Services Tax",
+				"type": "federal",
+				"tax": 0.05
+			}
+		]
+	},
+	{
+		"name": "Nunavut",
+		"code": "NU",
+		"taxes": [
+			{
+				"code": "GST",
+				"name": "Goods and Services Tax",
+				"type": "federal",
+				"tax": 0.05
+			}
+		]
+	},
+	{
+		"name": "Ontario",
+		"code": "ON",
+		"taxes": [
+			{
+				"code": "HST",
+				"name": "Harmonized Sales Tax",
+				"type": "harmonized",
+				"tax": 0.13
+			}
+		]
+	},
+	{
+		"name": "Prince Edward Island",
+		"code": "PE",
+		"taxes": [
+			{
+				"code": "HST",
+				"name": "Harmonized Sales Tax",
+				"type": "harmonized",
+				"tax": 0.14
+			}
+		]
+	},
+	{
+		"name": "Québec",
+		"code": "QC",
+		"taxes": [
+			{
+				"code": "GST",
+				"name": "Goods and Services Tax",
+				"type": "federal",
+				"tax": 0.05
+			}
+		]
+	},
+	{
+		"name": "Saskatchewan",
+		"code": "SK",
+		"taxes": [
+			{
+				"code": "GST",
+				"name": "Goods and Services Tax",
+				"type": "federal",
+				"tax": 0.05
+			}
+		]
+	},
+	{
+		"name": "Yukon",
+		"code": "YT",
+		"taxes": [
+			{
+				"code": "GST",
+				"name": "Goods and Services Tax",
+				"type": "federal",
+				"tax": 0.05
+			}
+		]
+	}
+]

@@ -1,0 +1,42 @@
+@import "parts/admin_card_view.css";
+@import "parts/global.css";
+
+/* -----------------*/
+/* --BUTTON STYLING --*/
+/* -----------------*/
+
+.joblist {
+    margin-left: 20px;
+}
+
+
+#hashPwd {
+    --mdc-theme-primary: #1e79be;
+}
+
+.mdc-text-field {
+    --mdc-theme-primary: #1e79be;
+    --mdc-theme-on-primary: #1e79be;
+    --mdc-theme-secondary: #1e79be;
+    --mdc-theme-background: #1e79be;
+    --mdc-theme-surface: #1e79be;
+    --mdc-theme-on-secondary: #1e79be;
+    --mdc-theme-on-surface: #1e79be;
+}
+
+.mdc-floating-label {
+    --mdc-theme-primary: #1e79be;
+    --mdc-theme-on-primary: #1e79be;
+    --mdc-theme-secondary: #1e79be;
+    --mdc-theme-background: #1e79be;
+    --mdc-theme-surface: #1e79be;
+    --mdc-theme-on-secondary: #1e79be;
+    --mdc-theme-on-surface: #1e79be;
+}
+
+/*-----------------------*/
+/*   Header Styling      */
+/*-----------------------*/
+#navbtn {
+    font-size: 0.9em;
+}

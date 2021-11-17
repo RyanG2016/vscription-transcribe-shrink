@@ -1,0 +1,141 @@
+@startuml
+
+title Speech Recognition Sending Queue
+
+skinparam backgroundColor white
+skinparam noteFontSize 23
+'skinparam handwritten true
+
+skinparam activity {
+  StartColor #1e79be
+  ArrowColor #1e79be
+  EndColor #1e79be
+  BackgroundColor white
+  SequenceTitleFontColor white
+  BorderColor #1e79be
+  FontName Tahoma
+  FontSize 23
+  DiamondFontSize 23
+  ArrowFontSize 22
+
+}
+
+
+|run|
+start
+
+partition startup {
+:**Set Vars**\nstartTimestamp = CURRENT_TIMESTAMP\nrequestsCount = 0\nretries = 0;
+}
+#b19cd9:(B)
+while (Get Queued File)
+-> No Files;
+:wait 10 seconds;
+end while
+-> File present;
+
+
+:Copy to temp directory;
+:Generate DDL URL;
+
+:Compare file duration with \nduration calculated on upload;
+
+        if (duration match) is (Yes) then
+            : To rev.ai;
+            :<img:https://www.rev.ai/content/curve/img/revai/favicon.png>;
+            #cyan:(D)
+            : requestsCount++/
+
+            if (requestsCount) is (less than 10k) then
+
+                |run|
+                if(send request) is (success 200) then
+
+                    :retries = 0/
+
+                    :* file_status = recognition_in_progress **(6)**
+                    * file_queue_status = Processing **(1)**
+                    * srq_revai_id = id_from_response to **sr_queue_tbl**|
+
+                else (failed)
+                    while (retries < 3)
+                    -> yes;
+                        :retries++/
+                        #cyan:(D)
+                    end while
+                    -> No;
+                    :* file_status = awaiting trans. **(0)**
+                    * file_queue_status = rev.ai respond failed after retries **(7)**
+                    * add minutes back to user account
+                    * //add fail note to sr_queue_tbl//|
+
+                endif
+                #b19cd9:(B)
+                detach
+
+
+            else (more than 10k)
+                |#honeyDew|wait|
+                ':wait chain;
+                while (currentTimestamp - startTimestamp < 10 m)
+                    -> yes;
+                    :wait till remaining of 10 min;
+                end while
+                -> no (10 minutes passed);
+                :==Reset Variables
+                ----
+                * startTimestamp = currentTimestamp
+                * requestsCount = 0|
+                :resume request/
+                #cyan:(D)
+                detach
+            endif
+
+
+        else
+        -> No;
+        |#azure|duration fix|
+            :==__Workaround__ /
+            note left:=Need Ideas
+'            #red:(X)
+
+            split
+                #lightGreen:new duration < old (upload);
+                :==refund and proceed
+                ----
+                * refund difference to user minutes
+                * set the correct minutes to SRQueue table/
+
+
+            split again
+                #LightPink:new duration > old (upload);
+                :calc the difference;
+                if (remaining_minutes\n has balance) is (Yes) then
+                    #Lavender:==deduct and proceed
+                    ----
+                    * deduce difference from user acc minutes
+                    * set the correct minutes to SRQueue table|
+                else (No)
+                    #LightPink:Fail File;
+                    :==Refund and skip
+                    ----
+                    * refund old minutes to user acc remaining_minutes
+                    * file_status = awaiting trans (0)
+                    * sr_queue_status = insufficient balance (6)|
+                    #b19cd9:(B)
+                    detach
+                endif
+
+            end split
+            :proceed with the request>
+            #cyan:(D)
+            detach
+        endif
+
+'label rev;
+'label rev;
+'#32CD32:(A)
+
+
+
+@enduml

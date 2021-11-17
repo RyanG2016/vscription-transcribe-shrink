@@ -1,0 +1,131 @@
+/*@import "parts/user_card_view.css";*/
+@import "parts/modal_overlay.css";
+@import "parts/data-tbl.css";
+@import "parts/vtex-custom-styles.css";
+@import "parts/material-override.css";
+@import "parts/util.css";
+@import "parts/global.css";
+
+/* -----------------*/
+/* --BUTTON STYLING --*/
+/* -----------------*/
+
+.joblist {
+    margin-left: 20px;
+}
+
+/*
+
+a {
+    text-decoration    : none;
+    cursor: pointer;
+    color              : rgb(0,155,194);
+    -webkit-transition : color 0.2s;
+    -moz-transition    : color 0.2s;
+    -o-transition      : color 0.2s;
+    transition         : color 0.2s;
+}
+*/
+
+/*a:hover {
+    color: rgb(83, 192, 235);
+}*/
+
+.cancel-acc-button {
+    --mdc-theme-primary: var(--vspt-red);
+}
+
+.tools-button {
+    /*--mdc-theme-primary: #8bc34a;*/
+    --mdc-theme-primary: #fff;
+    display: block;
+    width: 100%;
+    margin: 8px 0;
+
+}
+
+.tools-label {
+    /*--mdc-theme-primary: #8bc34a;*/
+    --mdc-theme-primary: #fff;
+    display: block;
+    width: 100%;
+    margin: 8px 0;
+    cursor: default !important;
+
+}
+
+
+.nav-header {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+    width: 100%;
+}
+
+.nav-btns-div {
+    padding: 0 5px;
+}
+
+.mdc-text-field {
+    --mdc-theme-primary: #1e79be;
+    --mdc-theme-on-primary: #1e79be;
+    --mdc-theme-secondary: #1e79be;
+    --mdc-theme-background: #1e79be;
+    --mdc-theme-surface: #1e79be;
+    --mdc-theme-on-secondary: #1e79be;
+    --mdc-theme-on-surface: #1e79be;
+}
+
+.mdc-floating-label {
+    --mdc-theme-primary: #1e79be;
+    --mdc-theme-on-primary: #1e79be;
+    --mdc-theme-secondary: #1e79be;
+    --mdc-theme-background: #1e79be;
+    --mdc-theme-surface: #1e79be;
+    --mdc-theme-on-secondary: #1e79be;
+    --mdc-theme-on-surface: #1e79be;
+}
+
+/*-----------------------*/
+/*   Header Styling      */
+/*-----------------------*/
+#navbtn {
+    font-size: 0.9em;
+}
+
+
+/*-----------------------*/
+/*      Grid Layout      */
+/*-----------------------*/
+
+/*.root { grid-area: root; }*/
+.nav-bar {
+    grid-area: nav;
+    max-width: 270px;
+}
+
+.tools-label {
+    display: block;
+    word-wrap: break-word;
+
+}
+
+.mdc-button__label {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.contents {
+    grid-area: content;
+}
+
+/* Contents Styling */
+.welcome {
+    margin: auto;
+}
+
+.welcome-icon {
+    font-size: 5rem !important;
+    color: var(--vspt-blue-dark);
+}

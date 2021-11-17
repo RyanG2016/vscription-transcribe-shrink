@@ -1,0 +1,699 @@
+/*
+* Unifying website design
+*/
+
+@import "bootstrap-override.css";
+@import "modal_overlay.css";
+
+/*
+ ===============================
+            Main Font
+ ===============================
+ */
+
+@font-face {
+    font-family: main;
+    src: url("../../Fonts/OpenSans-Regular.ttf");
+}
+
+@font-face {
+    font-family: main-b;
+    src: url("../../Fonts/OpenSans-Bold.ttf");
+}
+
+@font-face {
+    font-family: main-l;
+    src: url("../../Fonts/OpenSans-Light.ttf");
+}
+
+*, body {
+    font-family: main, sans-serif;
+}
+
+/*
+ ===============================
+            Variables
+ ===============================
+ */
+
+:root {
+    --vspt-red: #D32F2F;
+    --vspt-green: #53a13d;
+    --vspt-blue: #1e79be;
+    --vspt-blue-dark: #4e6d85;
+    --vspt-blue-dark-hover: #bfced9;
+    --vspt-page-bg: #2c3e50;
+    --vspt-sr-balance: #217904;
+    /*--vspt-page-bg: #252d3b;*/
+    --vspt-dark: #343a40;
+    --vspt-website-bg-color: #343a40;
+
+    --vspt-dark-90: rgba(52, 58, 64, 0.9);
+    --vspt-blue-hover: #1b6dab;
+    --vspt-blue-10: rgba(30, 121, 190, 0.1);
+    --vspt-blue-20: rgba(30, 121, 190, 0.2);
+    --vspt-blue-30: rgba(30, 121, 190, 0.3);
+    --vspt-orange: #f5862c;
+    --vspt-orange-30: rgba(245, 134, 44, 0.30);
+
+    /* --- Tutorials Variables --- */
+    --vspt-hint-border-color: #f5862c;
+    --vspt-hint-text-color: white;
+    --vspt-hint-buttons-font: normal normal normal 16px/40px main, sans-serif;
+    --vspt-hint-label-font:  normal normal normal 20px main, sans-serif;
+
+
+    --vspt-table-hover: rgb(245, 245, 245);
+    --vspt-topbar-hyperlink-fs: 12px;
+
+    --footer-text-color: #babfc3;
+    --footer-height: 35px;
+
+    /* Nav Sidebar */
+
+    --vspt-sidebar-title-bg: var(--vspt-blue);
+    --vspt-sidebar-title-color: white;
+    --vspt-sidebar-toggle-btn: var(--vspt-dark);
+    --vspt-sidebar-toggle-btn-active: #239bd6;
+    --vspt-sidebar-actions-bg: hsl(107, 45%, 33%);
+    --vspt-sidebar-actions-bg-hover: hsl(107, 45%, 20%);
+
+    /***** Buttons ******/
+    /* > MDC */
+    --vspt-btn-green: #53a13d;
+    --vspt-btn-blue: #1e79be;
+    --vspt-btn-red: #D32F2F;
+
+    /* > Bootstrap */
+    --vspt-primary-bootstrap-btn: #1e79be;
+
+    --vspt-popup-header: #1e79be;
+
+    /* Zoho */
+    --zohohc_asap_web_fontfamily: main, sans-serif !important;
+
+    /* Job upload */
+    --vspt-upload-tbl-header-bg: #e9ecef;
+    --vspt-upload-tbl-stroke: #CED4DA;
+    --vspt-upload-tbl-hover: rgba(233, 236, 239, 0.5);
+
+
+
+}
+
+/*
+ ===============================
+        Main Page Parts
+ ===============================
+ */
+body {
+    /*background-color: var(--vspt-website-bg-color);*/
+    /*background-color: red;*/
+    background-color: var(--vspt-page-bg);
+    overflow: auto;
+    /* Allows scroll bar */
+    height: unset !important;
+}
+
+.logout {
+    font-size: var(--vspt-topbar-hyperlink-fs);
+    color: #d4edff;
+    text-decoration: underline;
+}
+
+.logbar {
+    font-size: var(--vspt-topbar-hyperlink-fs);
+    color: whitesmoke;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: var(--footer-text-color);
+    background-color: var(--vspt-website-bg-color);
+    text-align: end;
+    padding: 8px 15px 8px 8px;
+    z-index: 4;
+}
+
+a:hover {
+    color: var(--vspt-orange);
+}
+
+a:link {
+    /*color: #2dace1;*/
+}
+
+/* visited link */
+a:visited {
+    /*color: #2dace1;*/
+}
+
+.vspt-sidebar-container {
+    /*padding: 0;*/
+    /*margin-bottom: var(--footer-height);*/
+    /*flex-grow: unset;*/
+
+    /* todo revert if needed */
+    /*background-color: var(--vspt-dark);*/
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: auto;
+    z-index: 5;
+}
+
+.vspt-page-container {
+    /*padding: 15px 15px var(--footer-height) 15px;*/
+    /*margin-bottom: var(--footer-height);*/
+    background-color: var(--vspt-page-bg);
+    margin-bottom: var(--footer-height);
+    /*padding: 16px 24px 24px 24px !important;*/
+    padding: 16px 24px 35px 24px !important;
+    border-radius: 0 0 0 32px;
+    /*flex-grow: 1;*/
+    /*flex-shrink: 1;*/
+    /*flex-basis: auto;*/
+    flex: 1 4 auto;
+    /*min-width: 900px;*/
+    overflow: hidden;
+}
+
+.vspt-col-auto-fix {
+    flex: 0 0 calc(100% - 60px);
+    max-width: calc(100% - 60px);
+}
+
+.vspt-container-fluid {
+    padding: 0;
+    /*margin-bottom: var(--footer-height);*/
+    /*background-color: var(--vspt-dark);*/
+}
+
+.vspt-nav-sidebar {
+    /*padding: 8px 8px var(--footer-height);*/
+    /*width: 50px;*/
+}
+
+.vspt-title-row {
+    margin-top: 24px;
+}
+
+/*
+ ===============================
+            Side Bar
+ ===============================
+ */
+
+#body-row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+#sidebar-container {
+    min-height: 100vh;
+    /*background-color: #333;*/
+    padding: 0;
+}
+
+/* Sidebar sizes when expanded and expanded */
+.vspt-sidebar-container.sidebar-expanded {
+    width: 212px;
+    /*width: 70px;*/
+}
+
+.vspt-sidebar-container.sidebar-collapsed {
+    width: 60px;
+}
+
+.navbar-brand{
+    background-color: var(--vspt-dark);
+}
+
+
+/* Menu item*/
+#sidebar-container .list-group a {
+    height: 45px;
+    color: var(--vspt-sidebar-title-color);
+}
+
+/* Submenu item*/
+#sidebar-container .list-group .sidebar-submenu a {
+    height: 45px;
+    padding-left: 30px;
+}
+
+.sidebar-submenu {
+    font-size: 0.9rem;
+}
+
+#sidebar-container a {
+    font-size: 15px;
+}
+
+/* Separators */
+.sidebar-separator-title > small {
+    color: var(--vspt-sidebar-title-color);
+}
+
+.sidebar-separator-title {
+    background-color: var(--vspt-sidebar-title-bg);
+    height: 35px;
+}
+
+.sidebar-separator {
+    background-color: var(--vspt-dark);
+    height: 25px;
+}
+
+.logo-separator {
+    /*background-color: #333;*/
+    height: 60px;
+}
+
+/* Closed submenu icon */
+#sidebar-container .list-group .list-group-item[aria-expanded="false"] .submenu-icon::after {
+    content: " \f0da";
+    /*noinspection CssNoGenericFontName*/
+    font-family: FontAwesome;
+    display: inline;
+    text-align: right;
+    padding-left: 10px;
+}
+
+/* Opened submenu icon */
+/*noinspection CssNoGenericFontName*/
+#sidebar-container .list-group .list-group-item[aria-expanded="true"] .submenu-icon::after {
+    content: " \f0d7";
+    font-family: FontAwesome;
+    display: inline;
+    text-align: right;
+    padding-left: 10px;
+}
+
+.fa-rotate-45 {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+.fa-rotate-315 {
+    -webkit-transform: rotate(315deg);
+    -moz-transform: rotate(315deg);
+    -ms-transform: rotate(315deg);
+    -o-transform: rotate(315deg);
+    transform: rotate(315deg);
+}
+
+/* Actions when collapsed */
+
+.sidebar-collapsed ul .vspt-actions {
+    background-color: var(--vspt-sidebar-actions-bg) !important;
+}
+
+.sidebar-collapsed ul .vspt-actions:hover {
+    background-color: var(--vspt-sidebar-actions-bg-hover) !important;
+}
+
+.vspt-sidebar-container ul .fa-fw{
+    line-height: 20px;
+}
+
+#collapse-icon{
+    font-size: 18px;
+}
+
+/*
+ ===============================
+            Table
+ ===============================
+ */
+
+.vspt-table {
+    width: 100% !important;
+    margin: 3px;
+    overflow-x: hidden;
+}
+
+.vspt-table > thead {
+    white-space: nowrap;
+    border-radius: 16px;
+    background-color: var(--vspt-blue);
+    color: white;
+}
+
+.vspt-table-div .page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: var(--vspt-blue);
+    border-color: var(--vspt-blue);
+}
+
+
+.vspt-table tr {
+    font-size: .875rem;
+    line-height: 1.4rem;
+}
+
+.vspt-table td {
+    padding: 6px 12px !important;
+}
+
+
+.vspt-table > thead > tr > th {
+    font-family: main-b, sans-serif;
+}
+
+.vspt-table tbody tr.even:hover, .vspt-table tbody tr.even td.highlighted {
+    background-color: var(--vspt-table-hover);;
+}
+
+.vspt-table tbody tr.odd:hover, .vspt-table tbody tr.odd td.highlighted {
+    background-color: var(--vspt-table-hover);;
+}
+
+.vspt-table tr.even:hover {
+    /*background-color: var(--vspt-table-hover);;*/
+}
+
+.vspt-table tr.even:hover td.sorting_1 {
+    /*background-color: var(--vspt-table-hover);;*/
+}
+
+/*noinspection CssUnusedSymbol*/
+.vspt-table tr.even:hover td.sorting_2 {
+    /*background-color: var(--vspt-table-hover);;*/
+}
+
+/*noinspection CssUnusedSymbol*/
+.vspt-table tr.even:hover td.sorting_3 {
+    /*background-color: var(--vspt-table-hover);;*/
+}
+
+.vspt-table tr.odd:hover {
+    /*background-color: var(--vspt-table-hover);;*/
+}
+
+.vspt-table tr.odd:hover td.sorting_1 {
+    /*background-color: var(--vspt-table-hover);;*/
+}
+
+/*noinspection CssUnusedSymbol*/
+.vspt-table tr.odd:hover td.sorting_2 {
+    /*background-color: var(--vspt-table-hover);;*/
+}
+
+/*noinspection CssUnusedSymbol*/
+.vspt-table tr.odd:hover td.sorting_3 {
+    /*background-color: var(--vspt-table-hover);;*/
+}
+
+
+/*
+ ===============================
+      SPINNER CSS STYLING
+ ===============================
+*/
+
+.spinner {
+    width: 70px;
+    text-align: center;
+}
+
+.spinner > div {
+    width: 12px;
+    height: 12px;
+    border-radius: 100%;
+    display: inline-block;
+    -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+    animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+}
+
+.spinner .bounce1 {
+    -webkit-animation-delay: -0.32s;
+    animation-delay: -0.32s;
+    background-color: var(--vspt-blue);
+}
+
+.spinner .bounce2 {
+    background-color: #f5862c;
+    -webkit-animation-delay: -0.16s;
+    animation-delay: -0.16s;
+}
+
+.spinner .bounce3 {
+    background-color: #53a13d;
+}
+
+@-webkit-keyframes sk-bouncedelay {
+    0%, 80%, 100% {
+        -webkit-transform: scale(0)
+    }
+    40% {
+        -webkit-transform: scale(1.0)
+    }
+}
+
+@keyframes sk-bouncedelay {
+    0%, 80%, 100% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+    }
+    40% {
+        -webkit-transform: scale(1.0);
+        transform: scale(1.0);
+    }
+}
+
+/* ---------------- */
+/* JQUERY OVERRIDE  */
+/* ---------------- */
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover {
+    border: 1px solid #1e79be;
+    background: #1e79be;
+    font-weight: normal;
+    color: #ffffff;
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active {
+    background: white;
+}
+
+
+/* ---------------- */
+/* VTEX CARD LAYOUT */
+/* ---------------- */
+
+.vtex-card {
+    box-shadow: 0 0 5px #262626;
+    background: white;
+    padding: 7px 0;
+    border-radius: 7px;
+}
+
+.vtex-card.contents{
+    margin-bottom: 20px;
+}
+
+.page-title {
+    color: white;
+    font-weight: normal;
+}
+
+.vtex-card:not(.first) {
+    margin-top: 20px;
+}
+
+.contents {
+    padding: 16px;
+}
+
+.vtex-input {
+    display: block;
+    font-size: 1.0rem;
+    padding: 5px 10px;
+    background-color: rgba(255, 255, 255, 0);
+    height: 36px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    color: #202020;
+    width: 100%;
+    margin: 7px 0 20px;
+}
+
+.vtex-input-no-padding {
+    /*display: block;*/
+    font-size: 1.0rem;
+    padding: 5px 5px;
+    background-color: rgba(255, 255, 255, 0);
+    /*height: 36px;*/
+    border: 1px solid rgba(255, 255, 255, 0);
+    border-radius: 4px;
+    /*color: #202020;*/
+    width: 80%;
+    /*margin: 7px 0 20px;*/
+}
+
+.vtex-input:focus, .vtex-input-no-padding:focus {
+    border: 1px inset #1e79be !important;
+    outline-color: #1e79be !important;
+    /*border-style: inset;*/
+}
+
+.vtex-form_lbl {
+
+}
+
+.vtex-fieldset {
+    border: none;
+    padding: 0 0 10px 0;
+}
+
+.vtex-fieldset-light {
+    border: 0.6px solid #ced4da;
+    margin: 0 0 20px 0;
+    padding: 10px;
+}
+
+.vtex-fieldset-light > legend {
+    width: auto;
+    font-size: 18px;
+}
+
+.green-btn {
+    --mdc-theme-primary: var(--vspt-btn-green);
+    background-color: var(--vspt-btn-green) !important;
+    border-color:  var(--vspt-btn-green) !important;
+}
+
+.blue-btn {
+    --mdc-theme-primary: var(--vspt-btn-blue);
+}
+
+.vtex-spinner-4-digits {
+    width: 60px;
+}
+
+.vtex-validate-error {
+    border: medium dashed var(--vspt-red);
+}
+
+.vtex-cursor-pointer {
+    cursor: pointer;
+}
+
+.pin-button.btn-primary {
+    background-color: var(--vspt-sidebar-toggle-btn) !important;
+    border-color: var(--vspt-sidebar-toggle-btn) !important;
+    margin-left: 8px;
+}
+
+
+.pin-button,
+.pin-button:focus {
+    outline: 0 !important;
+    box-shadow: none !important;
+}
+
+/*.pin-button.btn-primary.active {
+
+}*/
+
+.pin-icon.active{
+    color: var(--vspt-sidebar-toggle-btn-active) !important;
+}
+
+.noHover {
+    pointer-events: none;
+}
+
+.add-mins-btn:focus,
+.add-mins-btn{
+    font-size: small;
+    padding: 3px 8px;
+    margin-left: 20px;
+    border-radius: 6px;
+    background-color: var(--vspt-btn-green) !important;
+    border-color: hsl(107, 45%, 40%) !important;
+}
+
+
+.vspt-small-btn:focus,
+.vspt-small-btn{
+    font-size: small;
+    padding: 3px 8px;
+    border-radius: 6px;
+}
+
+.sr-balance-div > span{
+    vertical-align: middle;
+}
+
+/* ---------------- */
+/* GET MEDIA INFO BUTTON STYLING */
+/* ---------------- */
+
+#getMediaInfoBtn {
+    color: lightgray;
+}
+
+/* JQUERY CONTEXT MENU OVERRIDE */
+.context-menu-icon.context-menu-icon--fa5 i, .context-menu-icon.context-menu-icon--fa5 svg {
+    position: absolute;
+    top: .5em;
+    left: .5em;
+    color: #2980b9;
+}
+
+#sidebar-container > ul > a:last-child{
+    margin-bottom: 100px;
+}
+.vspt-sidebar-container small,
+.menu-collapsed{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.vspt-sidebar-container{
+    -webkit-transition: width 0.3s ease-in-out;
+    -moz-transition: width 0.3s ease-in-out;
+    -o-transition: width 0.3s ease-in-out;
+    transition: width 0.3s ease-in-out;
+    /*transition: all 400ms ease;*/
+
+}
+
+.dropdown-item
+{
+    white-space: unset !important;
+}
+
+/*.vspt-fa-blue{
+    color: var(--vspt-blue);
+}*/
+
+
+.vspt-fa-blue{
+    display: inline-block;
+    color: var(--vspt-blue);
+    cursor: pointer;
+    /*font: normal normal normal 16px/1 FontAwesome;*/
+    /*font-size: inherit;*/
+    text-rendering: auto;
+    vertical-align: baseline;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.vspt-fa-blue{
+
+    /*vertical-align: middle;*/
+    /*position: relative;*/
+    /*top: 50%;*/
+    /*left: 50%;*/
+    /*transform: translate(-50%, -50%);*/
+}

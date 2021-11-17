@@ -1,0 +1,17 @@
+{
+  "name": "libs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "like.js",
+  "dependencies": {
+    "fomantic-ui": "^2.8.8",
+    "material-components-web": "^6.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

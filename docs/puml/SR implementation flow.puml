@@ -1,0 +1,55 @@
+@startuml
+title SR implementation flow
+
+skinparam backgroundColor #EEEBDC
+
+skinparam activity {
+  StartColor #1e79be
+  ArrowColor #1e79be
+  EndColor #1e79be
+  BackgroundColor white
+  SequenceTitleFontColor white
+  BorderColor #1e79be
+  FontName Tahoma
+}
+
+|Main|
+start
+
+:Job Upload Page;
+|#white|Job upload page|
+
+partition (frontend) #lightBlue {
+    :Redesign UI;
+    :Add remaining minutes calculations;
+}
+
+partition (backend) #grey {
+    :Check account SR enabled/
+    :Add SR files to SR queue tbl/
+    :==**API**
+    ----
+    * Modify API to have override SR opt
+    * Prevent SR by default from
+        transfer app calls<
+}
+
+|Main|
+:SR Queue;
+|#pink|SR Queue|
+:===//SR Queue send.puml//;
+:===//SR Queue receive.puml//;
+:Test queue>
+
+|Main|
+:Payment Page;
+|#skyblue|Payment|
+:Payment Page Design;
+:===//payment.puml//;
+:payment test cases>
+
+|Main|
+:Retest the whole flow>
+
+
+@enduml

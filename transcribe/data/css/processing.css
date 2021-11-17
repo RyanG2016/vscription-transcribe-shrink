@@ -1,0 +1,8 @@
+@import "parts/modal_overlay.css";
+@import "parts/global.css";
+
+
+.text-muted {
+    color: #868e96 !important;
+    font-family: main-l, sans-serif;
+}

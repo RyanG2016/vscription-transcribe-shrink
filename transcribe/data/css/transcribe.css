@@ -1,0 +1,647 @@
+/* --------------------------------*/
+/* vScription Transcribe Modal Box */
+/* --------------------------------*/
+
+@import "parts/modal_popup.css";
+@import "parts/modal_overlay.css";
+@import "parts/vtex-custom-styles.css";
+@import "parts/global.css";
+
+/* Modal loading edits */
+#modalLoading .modal-content h2 {
+    text-align: center;
+}
+
+#modalLoading .modal-content {
+    width: fit-content;
+    min-width: 300px;
+}
+
+#loading_confirm {
+    display: none;
+}
+
+#report {
+    resize: both;
+    overflow: auto;
+    width: 60%;
+}
+
+/*body{
+    !*    background-color: #193f54;*!
+    !*    background-color: #1d7ec1;*!
+
+    margin: 0 0 8px 0;
+    !*	Between Night And Sky   *!
+    background: #2c3e50;  !* fallback for old browsers *!
+    background: -webkit-linear-gradient(to right, #3498db, #2c3e50);  !* Chrome 10-25, Safari 5.1-6 *!
+    background: linear-gradient(to right, #3498db, #2c3e50); !* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ *!
+
+
+    !*background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);*!
+    !*background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);*!
+    !*background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);*!
+    !*background-image: linear-gradient(270deg, #fff1eb 0%, #ace0f9 100%);*!
+    !*background-image: linear-gradient(to bottom, #fff1eb 0%, #ace0f9 100%);*!
+}*/
+
+.form-style-5 input[type="submit"],
+.form-style-5 input[type="button"] {
+    position: relative;
+    /*display: block;*/
+    padding: 19px 39px 18px 39px;
+    color: #FFF;
+    margin: 0 auto;
+    /*background: #eaaa3e;*/
+    background: #4892cc;
+    font-size: 18px;
+    text-align: center;
+    font-style: normal;
+    width: 49%;
+    /*border: 1px solid #dfa84d;*/
+    border-width: 1px 1px 3px;
+    margin-bottom: 10px;
+
+}
+
+#save {
+    margin-left: 1%;
+}
+
+.form-style-5 input[type="submit"]:hover,
+.form-style-5 input[type="button"]:hover {
+    background: #6eb051;
+    /*background: #d8a859;*/
+}
+
+#report {
+    resize: both;
+    overflow: auto;
+    width: 100%;
+    /*min-height: 30%;*/
+}
+
+#tip {
+    font-size: 0.9em;
+
+    font-family: main, sans-serif !important;
+    display: inline;
+    /*white-space: nowrap;*/
+}
+
+#accord {
+    padding: 0 10px 10px 10px;
+    /*width: 440px;*/
+    width: auto;
+    /*height: 220px;*/
+    /*!*float: right;*!border: 1px solid #5f3f3f;*/
+    /*display:inline;*/
+    /*float: right;*/
+}
+
+#leg {
+    /*border: 1px solid #5f3f3f;*/
+    width: auto;
+    display: inline;
+}
+
+#mainlogo {
+    float: none !important;
+    height: 50px;
+
+}
+
+#header-tbl, #demo-tbl {
+    padding-inline-start: 0.75em;
+    padding-inline-end: 0.75em;
+    width: 100%;
+}
+
+#mainlogo-td {
+    /*	 white-space:nowrap;*/
+    /*width: 1%;*/
+    vertical-align: top;
+    /*padding-top: 27px;*/
+}
+
+.audio-col{
+    margin-top: 40px;
+    text-align: center;
+    text-align: -webkit-center;
+}
+
+.audiobtns {
+    width: 150px !important;
+    padding: 6px !important;
+    font-size: 15px !important;
+    font-family: main, sans-serif !important;
+}
+
+legend, h3, button {
+    font-family: main, sans-serif !important;
+}
+
+.noHover {
+    pointer-events: none;
+}
+
+.alert-validate {
+    background-color: #efdfdf !important;
+}
+
+#help {
+    color: #2dace1;
+    font-family: main-l, sans-serif;
+}
+
+.top-links a:link {
+    color: #2dace1;
+}
+
+/* visited link */
+.top-links a:visited {
+    color: #2dace1;
+    font-family: main-l, sans-serif;
+}
+
+/* mouse over link */
+.top-links a:hover {
+    color: #ec9433;
+}
+
+/* selected link */
+.top-links a:active {
+    color: hotpink;
+}
+
+table, th, td {
+    /*  border: 1px solid black;*/
+}
+
+#updated_version_bar {
+    display: none;
+    padding: 5px;
+    width: 100%;
+    background: #f5862c;
+    text-align: center;
+    vertical-align: center;
+    font-family: main, sans-serif;
+    color: white;
+}
+
+#updated_version_bar a {
+    color: white;
+}
+
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {
+        top: -300px;
+        opacity: 0
+    }
+    to {
+        top: 0;
+        opacity: 1
+    }
+}
+
+@keyframes animatetop {
+    from {
+        top: -300px;
+        opacity: 0
+    }
+    to {
+        top: 0;
+        opacity: 1
+    }
+}
+
+/* The Close Button */
+.close:not(.bs-exclude) {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+/* ---------------------*/
+/* --- TABLE STYLING  --*/
+/* ---------------------*/
+
+.data-tbl {
+    width: 100%;
+    padding-right: 2.5%;
+    padding-left: 2.5%;
+    padding-bottom: 2.5%;
+
+}
+
+.userinfo {
+    display: inline;
+    font-size: 12px;
+    /*text-align:right;*/
+}
+
+.userinfo .userinfolbl {
+    float: right;
+    margin: auto;
+    content: attr(data-ln-first);
+}
+
+.userinfo .typistemail {
+    color: blue;
+    float: right;
+    content: attr(data-ln-last);
+}
+
+/* BUTTONS STYLING */
+.save-button {
+    background-color: #66bb6a;
+    color: white;
+}
+
+.save-button:hover {
+    background-color: hsl(123, 38%, 45%);
+    color: white;
+}
+
+.suspend-button {
+    background-color: #FFA726;
+    color: white;
+}
+
+.suspend-button:hover {
+    background-color: hsl(36, 100%, 45%);
+    color: white;
+}
+
+.discard-button {
+    background-color: #E53935;
+    color: white;
+}
+
+.discard-button:hover {
+    background-color: hsl(1, 77%, 45%);
+    color: white;
+}
+
+
+#rep-tbl button:disabled{
+    /*color: black;*/
+    /*background-color: grey;*/
+}
+
+.mdc-button {
+    padding: 20px !important;
+}
+
+.textarea-holder textarea {
+    min-width: 170px !important;
+    /*max-width: 170px !important;*/
+    width: 100% !important;
+    white-space: nowrap;
+    min-height: 30px !important;
+    padding: 3px !important;
+    outline: none;
+    resize: none;
+    border-color: Transparent !important;
+    font-family: main, sans-serif !important;
+    font-size: 0.875rem;
+    vertical-align: center;
+}
+
+
+.job-comment {
+    color: var(--vspt-blue);
+    font-size: 18px !important;
+    vertical-align: text-bottom;
+    cursor: pointer;
+}
+
+.controller-status {
+    font-family: main, sans-serif;
+    margin-right: 15px;
+    vertical-align: bottom;
+    color: #f78d2d;
+    font-size: 80%;
+    float: right;
+}
+
+u {
+    cursor: pointer;
+}
+
+.mdc-button--colored {
+    color: white !important;
+}
+
+.compact-view-btn, .logout-btn {
+    -webkit-appearance: none;
+    --mdc-theme-primary: #2dace1;
+    height: 27px !important;
+}
+
+.download-controller {
+    color: #0022f5;
+    cursor: pointer;
+}
+
+.able-button-handler-preferences {
+    display: none !important;
+}
+
+select.form-control,
+.dt-search
+{
+    width: -webkit-fill-available;
+    padding: 6px 8px;
+    margin: auto;
+    height: unset !important;
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    font-family: main, sans-serif;
+}
+/*
+
+#jobType{
+    font-size: 0.8rem !important;
+}
+*/
+
+/* Table Search Input position fix for bootstrap */
+
+#jobs-tbl_filter > label {
+    display: inline-flex;
+}
+
+
+#jobs-tbl_wrapper > div.mdc-layout-grid.dt-table {
+    width: inherit;
+}
+
+/* VTEX CARD OVERRIDE */
+.vtex-card {
+    /* background-color: #f4f7f8; */
+    /*max-width: 90%;*/
+    min-width: 950px;
+    /*width: 90%;*/
+    margin: 10px auto;
+    padding: 12px 20px 15px 20px;
+    border-radius: 8px;
+    /*font-family: 'OpenSans', serif  !important;*/
+    -webkit-transition: width 1s;
+    transition: width 1s;
+}
+
+.vtex-card .number {
+    background: #4892cc;
+    /*background: #eaaa3e;*/
+    color: #fff;
+    height: 30px;
+    width: 30px;
+    display: inline-block;
+    font-size: 0.8em;
+    margin-right: 4px;
+    line-height: 30px;
+    text-align: center;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
+    border-radius: 15px 15px 15px 0;
+}
+
+.vtex-card legend {
+    font-size: 19px;
+    /*    margin-bottom: 10px;*/
+    width: 100%;
+}
+
+
+.vtex-card label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.vtex-glow:hover {
+    color: var(--vspt-green);
+    cursor: pointer;
+}
+
+.mdc-layout-grid .dt-table {
+    width: 100%;
+}
+
+.dt-table {
+    width: 100%;
+}
+
+.pop-btn{
+    /*margin: -8px;*/
+}
+
+.form-control:disabled, .form-control[readonly]{
+    background-color: #fff;
+}
+
+.demographics-col{
+    padding-right: 16px !important;
+}
+
+.player-demo-sidebar{
+    min-width: 500px;
+    max-width: 650px;
+}
+
+.user-fields{
+    display: none;
+}
+
+.dt_toolbar{
+    float: left;
+}
+
+.transcribe-shortcuts{
+    font-size: 12px;
+    float: right;
+    margin-right: 7px;
+}
+
+.transcribe-shortcuts img{
+    width: 30px;
+    vertical-align: middle;
+    /*vertical-align: text-top;*/
+    height: auto;
+}
+
+/* Fontawesome icons for tinymce */
+.mce-ico.mce-i-fa,
+.mce-ico.mce-i-fas
+{
+    display: inline-block;
+    color: white;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    vertical-align: baseline;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/*
+.input-group-prepend,
+.input-group-text{
+    width: 60px;
+    word-break: break-all;
+}*/
+
+.demographics-div{
+    display: none;
+}
+
+#mceu_14-button
+{
+    background-color: #1e79be;
+    color: white;
+    border-radius: 3px;
+}
+
+#mceu_33
+{
+    float:right;
+}
+
+.btn{
+    /*font-size: 14px;*/
+}
+.comments-text-area{
+    min-height: 36px;
+}
+
+.toggle-demo-bar{
+    height: 31px;
+    vertical-align: middle !important;
+}
+.report-container{
+    width: 100%;
+}
+.col{
+    flex-grow: 1;
+    -webkit-transition: max-width 0.1s ease-in-out;
+    -moz-transition: max-width 0.1s ease-in-out;
+    -o-transition: max-width 0.1s ease-in-out;
+    transition: max-width 0.1s ease-in-out;
+    transition: all 400ms ease;
+}
+
+.toggle-demo-bar{
+    z-index: 5000;
+    float: right;
+    margin-right: -15px !important;
+    position: sticky;
+    top: 400px;
+}
+
+
+#jobs-tbl > tfoot tr th
+{
+    padding: 4px 2px !important;
+}
+
+
+.typing_notes_header, .typing_notes_body{
+    font-size: 13px;
+}
+
+.typing_notes_alert{
+    padding: 6px 10px;
+}
+
+
+/* responsive override */
+
+#jobs-tbl > tbody > tr.child > td
+{
+    background-color: var(--vspt-blue-10);
+}
+
+
+table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control, table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control {
+    padding-left: 30px !important;
+}
+
+table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before, table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control:before {
+    content: "\f054";
+    font-family: FontAwesome;
+    font-size: 11px;
+    writing-mode: vertical-lr;
+    justify-content: center;
+
+    color: var(--vspt-blue);
+    background-color: #fff;
+}
+
+table.dataTable.dtr-inline.collapsed>tbody>tr.parent>td.dtr-control:before, table.dataTable.dtr-inline.collapsed>tbody>tr.parent>th.dtr-control:before {
+    content: "\f078";
+    writing-mode: vertical-lr;
+    justify-content: center;
+    color:  var(--vspt-blue);;
+    background: #fff;
+}
+
+/* Responsive styling */
+
+td > sup{
+    color: var(--vspt-orange);
+    font-size: 12px;
+}
+
+#jobs-tbl li
+{
+    min-width: 300px;
+}
+
+#jobs-tbl li:not(:last-child){
+    border-bottom: 1px solid lightgrey;
+}
+#jobs-tbl li{
+    display: flex;
+    justify-content: space-between;
+}
+
+#jobs-tbl li > span:last-child{
+    /*width: 100%;*/
+    /*display: block;*/
+    margin-left: 12px;
+    text-align: end;
+    /*background-color: red;*/
+}
+
+.tooltipster-content {
+    border-radius: 5px;
+	font-family: main, sans-serif;
+	font-size: 14px;
+	line-height: 16px;
+	padding: 8px 10px!IMPORTANT;
+    background: rgb(0,0,0);
+	color: #fff;
+    width: 175px;
+}
+
+
+#statusTxt > i > i {
+    color: var(--vspt-blue);
+    font-size: 14px;
+    padding-right: 2px;
+}
+
+
+

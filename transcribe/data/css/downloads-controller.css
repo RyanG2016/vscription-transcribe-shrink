@@ -1,0 +1,27 @@
+/*@import "parts/card_view.css";
+@import "parts/global.css";*/
+
+@import "parts/vtex-custom-styles.css";
+@import "parts/modal_popup.css";
+@import "parts/bootstrap-override.css";
+@import "parts/global.css";
+
+a {
+    color: #f5862c;
+}
+
+a:visited {
+    color: #f5862c;
+}
+
+a:hover {
+    color: #53a13d;
+}
+
+.vspt-table > thead{
+    white-space: normal;
+}
+
+.check{
+    text-align: center;
+}

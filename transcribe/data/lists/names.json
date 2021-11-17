@@ -1,0 +1,8 @@
+[
+{ "name" : "1s", "val" : "<-Speaker 1->"}, 
+{ "name" : "2s", "val" : "<-Speaker 2->"},
+{ "name" : "3s", "val" : "<-Speaker 3->"},  
+{ "name" : "4s", "val" : "<-Speaker 4->"}, 
+{ "name" : "5s", "val" : "<-Speaker 5->"}, 
+{ "name" : "vtex", "val" : "VTEX Voice Solutions Inc."}
+  ]

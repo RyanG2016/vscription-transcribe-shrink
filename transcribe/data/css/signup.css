@@ -1,0 +1,418 @@
+@import "parts/modal_overlay.css";
+@import "parts/vtex-custom-styles.css";
+@import "parts/bootstrap-override.css";
+@import "parts/global.css";
+
+/*//////////////////////////////////////////////////////////////////
+[ RESTYLE TAG ]*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    font-family: main, sans-serif;
+}
+
+.login100-form-btn {
+    text-transform: capitalize !important;
+}
+
+body {
+    width: 100%;
+    margin-bottom: 100px;
+    /*background-color: #2c3e50;*/
+    overflow: hidden !important;
+}
+
+/*body
+{
+    background-color: black;
+
+    animation: 3s infinite alternate ease-out breathing-color--dark;
+}
+
+@keyframes breathing-color--dark {
+    from
+    {
+        background-color: #2c3e50;
+    }
+    to
+    {
+        background-color: #2c504e;
+    }
+}*/
+
+label {
+    color: white;
+}
+/* MODAL WINDOW STYLING */
+
+#modal > div > div > div.modal-body.pb-0 > .serviceChoiceBtn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+#platformServices > button {
+    height: 45px;
+    width: 375px;
+    background-color: var(--vspt-blue);
+}
+
+#transcriptionServices > button {
+    height: 45px;
+    width: 375px;
+    background-color: var(--vspt-blue);
+}
+
+#NSTTServices > button {
+    height: 45px;
+    width: 375px;
+    background-color: var(--vspt-blue);
+}
+
+#platformServices > button > i {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+#transcriptionServices > button > i {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+#NSTTServices > button > i {
+    font-size: 24px;
+    margin-right: 10px;
+}
+.text-muted {
+    color: #dce4eb !important;
+}
+
+/*---------------------------------------------*/
+a {
+    font-family: main, sans-serif;
+    font-size: 14px;
+    line-height: 1.7;
+    /*color: #666666;*/
+    color: #dce4eb;
+    margin: 0;
+    transition: all 0.4s;
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+}
+
+a:focus {
+    outline: none !important;
+}
+
+a:hover {
+    text-decoration: none;
+    color: var(--vspt-orange);
+    /*color: -webkit-linear-gradient(left, #21d4fd, #b721ff);
+    color: -o-linear-gradient(left, #21d4fd, #b721ff);
+    color: -moz-linear-gradient(left, #21d4fd, #b721ff);
+    color: linear-gradient(left, #21d4fd, #b721ff);*/
+}
+
+/*---------------------------------------------*/
+
+p {
+    font-family: main, sans-serif;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #666666;
+    margin: 0;
+}
+
+ul, li {
+    margin: 0;
+    list-style-type: none;
+}
+
+
+/*---------------------------------------------*/
+.wrap-login100-form-btn {
+    border-radius: 0 !important;
+}
+
+button {
+    outline: none !important;
+    border: none;
+    background: transparent;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+iframe {
+    border: none !important;
+}
+
+/*//////////////////////////////////////////////////////////////////
+[ Signup ]*/
+
+
+body{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+}
+
+
+.vtex-signup-container {
+    margin: auto;
+    align-self: center;
+
+    width: 650px;
+    background: rgba(255, 255, 255, 0);
+    border-radius: 10px;
+    /*border: 3px groove rgba(30, 121, 190, 0.37);*/
+    overflow: hidden;
+    padding: 40px 55px 33px 55px;
+    /*margin-bottom: 15px;*/
+
+    /*box-shadow: 0 5px 10px 0px rgba(38,38,38,1);*/
+    /*  box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);*/
+    /*	#bfbfbf*/
+
+    /*-moz-box-shadow: 0 5px 10px 0px rgba(38,38,38,1);*/
+    /*-webkit-box-shadow: 0 5px 10px 0px rgba(38,38,38,1);*/
+    /*-o-box-shadow: 0 5px 10px 0px rgba(38,38,38,1);*/
+    /*-ms-box-shadow: 0 5px 10px 0px rgba(38,38,38,1);*/
+
+    -webkit-transition: width 1s; /* For Safari 3.1 to 6.0 */
+    transition: width 1s;
+
+    /*
+        -webkit-transition: height 2s;
+      transition: height 2s;
+    */
+}
+
+/*------------------------------------------------------------------
+[ Form ]*/
+
+.vtex-signup-form {
+    width: 100%;
+}
+
+.login100-form-title {
+    display: block;
+    /*font-family: opensans-l, sans-serif;*/
+    font-size: 30px;
+    color: white;
+    line-height: 1.2;
+    text-align: center;
+    font-family: main-l, sans-serif;
+}
+
+.login100-form-title i {
+    font-size: 60px;
+}
+
+/*------------------------------------------------------------------
+[ Input ]*/
+/* Change the white to any color ;) */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+
+/*------------------------------------------------------------------
+ [ Button ]*/
+.container-login100-form-btn, .verify-btn-container {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-top: 13px;
+    margin-top: 5px;
+}
+
+.wrap-login100-form-btn {
+    width: 100%;
+    display: block;
+    position: relative;
+    z-index: 1;
+    border-radius: 25px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+/*.login100-form-bgbtn {
+    position: absolute;
+    z-index: -1;
+    width: 300%;
+    height: 100%;
+    background: #a64bf4;
+    background: -webkit-linear-gradient(right, #21d4fd, #b721ff, #21d4fd, #b721ff);
+    background: -o-linear-gradient(right, #21d4fd, #b721ff, #21d4fd, #b721ff);
+    background: -moz-linear-gradient(right, #21d4fd, #b721ff, #21d4fd, #b721ff);
+    background: linear-gradient(right, #21d4fd, #b721ff, #21d4fd, #b721ff);
+    !*	background: -webkit-linear-gradient(to left, #ffd194, #70e1f5, #ffd194, #70e1f5);*!
+    background: -webkit-linear-gradient(to left, #fcb63a, #249fd9, #249fd9, #70e1f5);
+    background: linear-gradient(to left, #fcb63a, #249fd9, #fcb63a, #249fd9);
+    !*	background: linear-gradient(to left, #ffd194, #70e1f5, #ffd194, #70e1f5);*!
+    top: 0;
+    left: -100%;
+
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+}*/
+
+.login100-form-btn {
+    font-family: main, sans-serif;
+    font-size: 15px;
+    color: #fff;
+    line-height: 1.2;
+    text-transform: uppercase;
+
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    width: 100%;
+    height: 50px;
+}
+
+.wrap-login100-form-btn:hover .login100-form-bgbtn {
+    left: 0;
+}
+
+/* custom bootstrap override */
+.invalid-feedback {
+    color: #ffde75;
+}
+
+.valid-feedback {
+    color: #4fff78;
+}
+
+.country-box, .state-box {
+    display: none;
+}
+
+.progress-bar {
+    /*-webkit-transition: none !important;*/
+    /*transition: none !important;*/
+    transition-duration: 1s;
+}
+
+
+.btn-primary,
+.btn-primary:focus {
+    background-color: var(--vspt-blue);
+    border-color: var(--vspt-blue);
+    border-radius: 0;
+    transition: width 2s;
+}
+
+.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show > .btn-primary.dropdown-toggle {
+    color: #fff;
+    background-color: var(--vspt-blue-hover);
+    border-color: var(--vspt-blue-hover);
+}
+
+.btn-primary.disabled, .btn-primary:disabled {
+    color: #fff;
+    background-color: grey;
+    border-color: grey;
+}
+
+.btn-primary:hover:not(:disabled) {
+    color: #fff;
+    background-color: var(--vspt-blue-hover);
+    border-color: var(--vspt-blue-hover);
+}
+
+.btn-primary:hover:disabled {
+    color: #fff;
+    background-color: grey;
+    border-color: grey;
+}
+
+#signupBtn, .progress {
+    border-radius: 0;
+}
+
+#signupBtn {
+    width: 100%;
+    font-family: 'main-l', sans-serif;
+}
+
+.progress-bar {
+    background-color: var(--vspt-blue-hover);
+}
+
+.progress {
+    height: 5px;
+}
+
+.col, .col-auto {
+    padding: 0;
+}
+
+.prev-btn-div {
+    display: none;
+}
+
+.carousel-inner > .item {
+    height: 100%;
+
+}
+
+.carousel-page-title {
+    color: whitesmoke;
+}
+
+.carousel-item {
+    padding: 5px;
+}
+
+/* bootstrap fix button keeps in focus after clicking - at least on chrome vtex-fix*/
+.btn:focus {
+    box-shadow: none;
+}
+
+h5 {
+    font-family: main-l, sans-serif;
+}
+
+#code::placeholder,
+#code {
+    text-align: center;
+}
+
+#code:focus {
+    box-shadow: none;
+    outline: none !important;
+}
+
+hr {
+    background-color: silver;
+}
+
+a.terms {
+    font-size: 15px !important;
+}

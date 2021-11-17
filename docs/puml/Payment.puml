@@ -1,0 +1,62 @@
+@startuml
+title Payment
+
+skinparam backgroundColor white
+
+skinparam activity {
+  StartColor #1e79be
+  ArrowColor #1e79be
+  EndColor #1e79be
+  BackgroundColor white
+  SequenceTitleFontColor white
+  BorderColor #1e79be
+  FontName Tahoma
+}
+'|main|
+start
+
+:Choose package;
+
+note right
+     ==Vars==
+     * package price $
+     *  package minutes
+end note
+
+
+: **Load User Data**
+----
+* Full Address
+* Country
+* City
+* State
+* //**Zip Code ????**//|
+
+
+while (address)
+'|test2|
+-> No;
+:enter address/
+-> save address to DB;
+end while
+
+'|main|
+->Yes;
+:pay;
+
+:* Card Number
+* CVV
+* package price $|
+-> Transaction request;
+
+note right: ==prevent page refresh
+
+if (result) is (Ok) then
+    :Add **minutes** to account;
+else (Error)
+    :""Error occurred: **errorText**"";
+endif
+
+stop
+
+@enduml

@@ -1,0 +1,180 @@
+@import "parts/modal_popup.css";
+@import "parts/admin_card_view.css";
+@import "parts/data-tbl.css";
+@import "parts/bootstrap-override.css";
+@import "parts/global.css";
+
+
+/* ---------------- */
+/* CREATE ACC MODAL */
+/* ---------------- */
+.modal-content {
+    width: 60%;
+    min-width: 650px;
+}
+
+.cancel-acc-button {
+    --mdc-theme-primary: var(--vspt-red);
+}
+
+.ui-state-active.vtex-jq-lbl-check,
+.ui-state-active:hover.vtex-jq-lbl-check,
+.ui-button:active.vtex-jq-lbl-check {
+    border: 1px solid #53a13d;
+    background: #53a13d;
+}
+
+.ui-state-active.vtex-jq-lbl-cross,
+.ui-state-active:hover.vtex-jq-lbl-cross,
+.ui-button:active.vtex-jq-lbl-cross {
+    border: 1px solid var(--vspt-red);
+    background: var(--vspt-red);
+}
+
+.ui-autocomplete {
+    z-index: 9501 !important;
+}
+
+/* COMBO BOX STYLING */
+.custom-combobox {
+    position: relative;
+    display: inline-block;
+}
+
+.custom-combobox-toggle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin-left: -1px;
+    padding: 0;
+}
+
+.custom-combobox-input {
+    margin: 0;
+    padding: 5px 10px;
+}
+
+/* -----------------*/
+/* --BUTTON STYLING --*/
+/* -----------------*/
+
+.joblist {
+    margin-left: 20px;
+}
+
+
+.tools-button {
+    /*--mdc-theme-primary: #8bc34a;*/
+    --mdc-theme-primary: #fff;
+    display: block;
+    width: 100%;
+    margin: 8px 0;
+
+}
+
+
+.nav-header {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+    width: 100%;
+}
+
+.nav-btns-div {
+    padding: 0 5px;
+}
+
+.mdc-text-field {
+    --mdc-theme-primary: #1e79be;
+    --mdc-theme-on-primary: #1e79be;
+    --mdc-theme-secondary: #1e79be;
+    --mdc-theme-background: #1e79be;
+    --mdc-theme-surface: #1e79be;
+    --mdc-theme-on-secondary: #1e79be;
+    --mdc-theme-on-surface: #1e79be;
+}
+
+.mdc-floating-label {
+    --mdc-theme-primary: #1e79be;
+    --mdc-theme-on-primary: #1e79be;
+    --mdc-theme-secondary: #1e79be;
+    --mdc-theme-background: #1e79be;
+    --mdc-theme-surface: #1e79be;
+    --mdc-theme-on-secondary: #1e79be;
+    --mdc-theme-on-surface: #1e79be;
+}
+
+/*-----------------------*/
+/*   Header Styling      */
+/*-----------------------*/
+#navbtn {
+    font-size: 0.9em;
+}
+
+
+/*-----------------------*/
+/*      Grid Layout      */
+/*-----------------------*/
+
+.nav-bar {
+    grid-area: nav;
+}
+
+.contents {
+    grid-area: content;
+}
+
+.accounts-tbl-title {
+    grid-area: tbl-title;
+}
+
+.refresh-button {
+    grid-area: refresh;
+}
+
+.vtex-top-bar {
+    display: inline-grid;
+    grid-template-areas:
+    'tbl-title refresh';
+    grid-gap: 20px;
+    width: 100%;
+    grid-template-columns: 1fr min-content;
+}
+
+
+/* Contents Styling */
+.welcome {
+    /*text-align: center;*/
+    /*align-content: center;*/
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.welcome-icon {
+    font-size: 5rem !important;
+    color: var(--vspt-blue);
+}
+
+.accounts-tbl-title {
+    margin: 0 0 15px 0;
+}
+
+.refresh-button {
+    --mdc-theme-primary: #1e79be;
+}
+
+label {
+    font-size: 16px;
+    color: #4c4c4c;
+    font-weight: bold;
+}
+
+.context-menu-item {
+    font-family: main, sans-serif !important;
+}
+
+
+/* navbar */
+#createAcc{
+    height: unset !important;
+}
