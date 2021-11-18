@@ -59,8 +59,4 @@ transcribe/data/libs/closure-compiler-v20200614.jar
 /transcribe/data/libs/closure-compiler-v20200614.jar
 
 
-/transcribe/data/scripts/*.js
-!/transcribe/data/scripts/*.min.js
 
-transcribe/data/scripts/parts/constants.js
-/transcribe/data/scripts/obf_me.min.js
