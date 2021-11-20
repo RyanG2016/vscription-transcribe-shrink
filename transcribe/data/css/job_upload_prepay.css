@@ -475,7 +475,7 @@ table {
 }
 .vspt-step-progressbar li {
     list-style-type: none;
-    width: calc(100%/4);
+    width: calc(100%/3);
     float: left;
     font-size: 12px;
     position: relative;

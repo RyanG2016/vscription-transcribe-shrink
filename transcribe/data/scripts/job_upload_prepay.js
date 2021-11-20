@@ -96,6 +96,8 @@ function documentReady() {
         	if((calculateTotalSRminutes()-10-comp_mins) <0){
         		$("#total_mins_charge").text(0);
         		$("#total_charge").text(0);
+    			$("#mdc-button__label").text("Upload File(s)");
+
         	}
         }else{
             $("#total_mins_charge").text((calculateTotalSRminutes()-comp_mins));
@@ -103,6 +105,8 @@ function documentReady() {
         	if((calculateTotalSRminutes()-comp_mins) <0){
         		$("#total_mins_charge").text(0);
         		$("#total_charge").text(0);
+				$("#mdc-button__label").text("Upload File(s)");
+
         	}
         }
         console.log(calculateTotalSRminutes())
@@ -111,19 +115,17 @@ function documentReady() {
     prevBtn.on("click", function () {
         uploadCarousel.carousel(0);
     });
-    payNextBtn.on("click", function () {
-    	if(lifetime_minutes ==0 && promo == 1){
-    		if(eval(calculateTotalSRminutes()-10-comp_mins) < 0){
-    			$("#mdc-button__label").text("Upload File(s)");
-    		}
-    	}else{
-			if(eval(calculateTotalSRminutes()-comp_mins) <0){
-    			$("#mdc-button__label").text("Upload File(s)");
-    		}
+   //  payNextBtn.on("click", function () {
+   //  	if(lifetime_minutes ==0 && promo == 1){
+   //  		if(eval(calculateTotalSRminutes()-10-comp_mins) < 0){
+   //  		}
+   //  	}else{
+			// if(eval(calculateTotalSRminutes()-comp_mins) <0){
+   //  		}
 
-    	}
-        uploadCarousel.carousel(3);
-    });
+   //  	}
+   //      uploadCarousel.carousel(3);
+   //  });
     payBackBtn.on("click", function () {
         uploadCarousel.carousel(1);
     });
@@ -139,9 +141,9 @@ function documentReady() {
 
     p3bBtn.on("click", function () {
 
-        uploadCarousel.carousel(2);
+        uploadCarousel.carousel(1);
 
-    });
+    });	
 
     dropZone.on('drag dragstart dragend dragover dragenter dragleave drop', function (e) {
         e.preventDefault();

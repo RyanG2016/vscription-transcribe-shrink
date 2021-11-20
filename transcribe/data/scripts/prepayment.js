@@ -379,6 +379,7 @@ $(document).ready(function () {
 
     function calculateTaxes()
     {
+        console.log(121321,caTaxes)
         taxesListDom.empty();
         if(country.typeahead('val') === "Canada" || country.typeahead('val') === "Canada")
         {

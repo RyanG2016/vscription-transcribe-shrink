@@ -450,7 +450,6 @@ $(document).ready(function () {
 
     function validatePaymentFields()
     {
-        console.log(expCheck,nameCheck,cvvCheck,cardCheck)
         // console.log(expCheck + "\n" + nameCheck + "\n" +cvvCheck + "\n" +cardCheck);
         if(expCheck && nameCheck && cvvCheck && cardCheck &&
             $(".vtex-err-border").length === 0

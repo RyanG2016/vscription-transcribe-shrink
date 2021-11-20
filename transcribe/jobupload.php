@@ -136,10 +136,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                     <ul class="vspt-step-progressbar" id="vsptProgressList">
                         <li class="active">Add Files</li>
                         <li>Add info</li>
-                        <?php if($_SESSION["userData"]["pre_pay"] ==1):?>
-                        <li>Payment</li>
-                        <?php endif;?>
-                        <li>Upload</li>
+                        <li>Pay/Upload</li>
                     </ul>
                 </div>
                 <form class="upload needs-validation" id="upload_form" method="post" enctype="multipart/form-data" novalidate>
@@ -321,7 +318,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                 </div>
                             </div>
                             <?php if($_SESSION["userData"]["pre_pay"] ==1):?>
-                            <div class="carousel-item">
+                           <!--  <div class="carousel-item">
 
                                 <div class="carousel-inner-container">
                                     <div class="row">
@@ -345,11 +342,10 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                     <button class="btn btn-primary" id="payNextBtn" type="button">
                                         Next
                                     </button>
-                                </div>
-                            </div>
+                                </div> -->
+                            <!-- </div> -->
                             <?php endif;?>
                             <div class="carousel-item">
-
                                 <div class="page3-container">
 
                                     <div class="preview">
@@ -376,7 +372,11 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                         <div id="srBar"></div>
 
                                     </div>
-
+                                    <?php if($_SESSION["userData"]["pre_pay"] ==1):?>
+                                    <p style="font-size: 12px;font-style: italic;font-weight: 900;">
+                                      Total to be charged: Total minutes to be changed(<span id="total_mins_charge"></span>mins) X billrate_1(<span><?php echo $_SESSION["userData"]["bill_rate1"]?></span>) = Total Amount to be billed(<span id="total_charge"></span>) (Plus applicable taxes)
+                                    </p>
+                                    <?php endif;?>
                                     <div class="carousel-nav">
                                         <button class="btn btn-primary" id="p3Bbtn" type="button">
                                             Back
