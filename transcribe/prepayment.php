@@ -149,7 +149,7 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
                         <div class="row">
 
                             <div class="col-lg-9 col-md-8 col-sm-8 border-right">
-                                <h5>Payment Details</h5>
+                             <!--    <h5>Payment Details</h5>
                                 <hr>
                                 <div class="row no-gutters m-b-7"><b>Billing Address</b> &ensp; <small
                                         class="mt-auto vtex-help-icon" id="edit">Save</small></div>
@@ -180,12 +180,10 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
                                     <input id="country" type="text" name="country" class="vtex-editable-input typeahead col w-100" placeholder="<Country>" value="';
                             echo isset($_SESSION['userData']['country']) && !empty($_SESSION['userData']['country'])?$_SESSION['userData']['country']:'';
                             echo '" />
-                                    <input id="zip" name="zipcode" type="text" class="ml-2 col-6 vtex-editable-input typeahead" placeholder="<Zip/Postal Code>" value="';
-                            echo isset($_SESSION['userData']['zipcode']) && !empty($_SESSION['userData']['zipcode'])?$_SESSION['userData']['zipcode']:'';
-                            echo '" />
+                                   
                                 </div>';
                             ?>
-
+ -->
                                 <hr>
                                 <div class="row no-gutters m-b-7"><b>Payment Details</b></div>
                                 <div class="row no-gutters">
@@ -251,7 +249,7 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
                                 c-3.1,3.2-4.8,7.4-4.8,11.8c0,9.3,7.6,16.9,16.9,16.9s16.9-7.6,16.9-16.9c0-4.4-1.7-8.6-4.8-11.8l-0.5-0.5l0.5-0.5
                                 c3.1-3.2,4.8-7.4,4.8-11.8C142.4,78.4,134.8,70.8,125.5,70.8z" />
                                                                 </g>
-                                                                <g>
+                                                                    <g>
                                                                     <rect x="82.8" y="82.1" class="st12" width="25.8"
                                                                         height="1.5" />
                                                                 </g>
@@ -330,17 +328,38 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
                                         </div>
 
                                         <div class="field-container">
-                                            <label for="cardnumber">Card Number</label>
-                                            <br>
-                                            <input id="cardnumber" name="card_number" type="text" pattern="[0-9]*"
-                                                inputmode="numeric"
-                                                value="<?php echo $_SESSION["userData"]["card_number"];?>" autofocus>
-                                            <svg id="ccicon" class="ccicon" width="750" height="471"
-                                                viewBox="0 0 750 471" version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                                xmlns:xlink="http://www.w3.org/1999/xlink">
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <label for="cardnumber">Card Number</label>
+                                                    <br>
+                                                    <input id="cardnumber" name="card_number" type="text" pattern="[0-9]*"
+                                                        inputmode="numeric"
+                                                        value="<?php echo $_SESSION["userData"]["card_number"];?>" autofocus>
+                                                    <svg id="ccicon" class="ccicon" width="750" height="471"
+                                                        viewBox="0 0 750 471" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                                        xmlns:xlink="http://www.w3.org/1999/xlink">
 
-                                            </svg>
+                                                    </svg>
+                                                    
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label for="zip">Zip/Postal Code</label>
+                                                    <br>
+                                                    <!-- <input id="cardnumber" name="card_number" type="text" pattern="[0-9]*"
+                                                        inputmode="numeric"
+                                                        value="<?php echo $_SESSION["userData"]["card_number"];?>" autofocus>
+                                                    <svg id="ccicon" class="ccicon" width="750" height="471"
+                                                        viewBox="0 0 750 471" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                                        xmlns:xlink="http://www.w3.org/1999/xlink">
+
+                                                    </svg> -->
+                                                      <input id="zip" name="zipcode" type="text" class="" placeholder="<Zip/Postal Code>" value="';
+                            echo isset($_SESSION['userData']['zipcode']) && !empty($_SESSION['userData']['zipcode'])?$_SESSION['userData']['zipcode']:'';
+                            echo '" />
+                                                </div>
+                                            </div>
                                         </div>
+                                       
                                         <div class="field-container">
 
                                             <div class="row">
@@ -403,11 +422,11 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
 
                             echo '
                                     <div class="row">
-                                        <div class="col-auto">Package</div>
+                                        <div class="col-auto">Total Files Uploaded</div>
                                         <div class="col text-right"> ' . $_POST["prepay"] . '</div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-auto">Minutes</div>
+                                        <div class="col-auto">Total Billed Minutes</div>
                                         <div class="col text-right">' . $_POST["total_mins"] . '</div>
                                     </div>
                                     <div class="row">
@@ -451,7 +470,6 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
                                         and Upload</button>
                                 </div>
                             </div>
-
                         </div>
                     </form>
 

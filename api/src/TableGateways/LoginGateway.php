@@ -49,6 +49,7 @@ class LoginGateway
             {
                 $user = $result[0];
                 $verified = password_verify($pass, $user["password"]);
+                $user['account_status'] = 1;
                 /** check password */
                 // var_dump($user);
                 /** Check account status **/
@@ -150,12 +151,12 @@ class LoginGateway
         unset($row["password"]);
         
         $_SESSION["userData"] = $row;
-        if(is_null($_SESSION["userData"]["pre_pay"]) || is_null($_SESSION["userData"]["bill_rate1"]) || is_null($_SESSION["userData"]["promo"]) || is_null($_SESSION["userData"]["lifetime_minutes"])){
-            $_SESSION["userData"]["pre_pay"] = floatval(1);
-            $_SESSION["userData"]["bill_rate1"] = floatval(1.65);
-            $_SESSION["userData"]["promo"] = floatval(1);
-            $_SESSION["userData"]["lifetime_minutes"] = floatval(0);
-        }
+        // if(is_null($_SESSION["userData"]["pre_pay"]) || is_null($_SESSION["userData"]["bill_rate1"]) || is_null($_SESSION["userData"]["promo"]) || is_null($_SESSION["userData"]["lifetime_minutes"])){
+        //     $_SESSION["userData"]["pre_pay"] = floatval(1);
+        //     $_SESSION["userData"]["bill_rate1"] = floatval(1.65);
+        //     $_SESSION["userData"]["promo"] = floatval(1);
+        //     $_SESSION["userData"]["lifetime_minutes"] = floatval(0);
+        // }
         if ($row["def_access_id"] != null) {
             $_SESSION['accID'] = $row["acc_id"];
             $_SESSION['role'] = $row["acc_role"];

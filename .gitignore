@@ -6,7 +6,6 @@
 /build
 .vs/*
 
-uploads/*
 data/parts/error_log
 /uploads
 main_scratch.php
@@ -19,7 +18,6 @@ transcribe/sr/*
 gaTrackingCode.php
 
 /api/.env
-/uploads/
 /convert.log
 /api/src/Controller/conversionCron.php
 /logs/*

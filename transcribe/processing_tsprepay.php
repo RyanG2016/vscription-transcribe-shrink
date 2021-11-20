@@ -16,7 +16,7 @@ include('data/parts/head.php');
 use Src\Models\Package;
 use Src\Models\SR;
 use Src\Models\Account;
-use Src\Payment\PaymentProcessor;
+use Src\Payment\PrepayPaymentProcessor;
 // User Setting
 
 
@@ -82,12 +82,12 @@ use Src\Payment\PaymentProcessor;
             $pkg->setSrpName("prepay");
             $pkg->setSrpMinutes($_POST["total_mins"]);
             // Process
-            $processor = new PaymentProcessor(
-                    $_POST['fname'], $_POST['lname'],
-                    $_POST['address'],
-                    $_POST['city'],
-                    $_POST['state'],
-                    $_POST['country'],
+            $processor = new PrepayPaymentProcessor(
+                    // $_POST['fname'], $_POST['lname'],
+                    // $_POST['address'],
+                    // $_POST['city'],
+                    // $_POST['state'],
+                    // $_POST['country'],
                     $_POST['zipcode'],
                     $_POST['name_on_card'],
                     $_POST['card_number'],

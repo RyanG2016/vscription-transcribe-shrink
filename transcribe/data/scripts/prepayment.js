@@ -457,10 +457,10 @@ $(document).ready(function () {
             )
         {
             // enable
-            if(country.val().toLowerCase().trim() === "canada")
-            {
-                let wait = calculateTaxes();
-            }
+            // if(country.val().toLowerCase().trim() === "canada")
+            // {
+            //     let wait = calculateTaxes();
+            // }
             payBtn.removeAttr("disabled");
             return true;
         }
