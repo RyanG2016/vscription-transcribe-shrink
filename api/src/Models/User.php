@@ -185,7 +185,7 @@ class User extends BaseModel implements BaseModelInterface
     {
         $this->card_number = $card_number;
     }
-    public function getCardNumber(): string
+    public function getCardNumber(): ?string
     {
         return $this->card_number;
     }
@@ -194,7 +194,7 @@ class User extends BaseModel implements BaseModelInterface
     {
         $this->expiration_date = $expiration_date;
     }
-    public function getExpirationDate(): string
+    public function getExpirationDate(): ?string
     {
         return $this->expiration_date;
     }
@@ -203,7 +203,7 @@ class User extends BaseModel implements BaseModelInterface
     {
         $this->security_code = $security_code;
     }
-    public function getSecurityCode(): string
+     public function getSecurityCode(): ?string
     {
         return $this->security_code;
     }
