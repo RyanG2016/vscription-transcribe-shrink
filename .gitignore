@@ -17,7 +17,6 @@ transcribe/sr/*
 /api/phinx/phinx.php
 gaTrackingCode.php
 
-/api/.env
 /convert.log
 /api/src/Controller/conversionCron.php
 /logs/*

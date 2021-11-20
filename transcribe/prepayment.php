@@ -353,9 +353,7 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
                                                         xmlns:xlink="http://www.w3.org/1999/xlink">
 
                                                     </svg> -->
-                                                      <input id="zip" name="zipcode" type="text" class="" placeholder="<Zip/Postal Code>" value="';
-                            echo isset($_SESSION['userData']['zipcode']) && !empty($_SESSION['userData']['zipcode'])?$_SESSION['userData']['zipcode']:'';
-                            echo '" />
+                                                      <input id="zip" name="zipcode" type="text" class="" placeholder="<Zip/Postal Code>" value="<?php echo isset($_SESSION['userData']['zipcode']) && !empty($_SESSION['userData']['zipcode'])?$_SESSION['userData']['zipcode']:'';?>" />
                                                 </div>
                                             </div>
                                         </div>
