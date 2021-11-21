@@ -1,5 +1,4 @@
 .gradle
-.htaccess
 /local.properties
 /.idea/*
 .DS_Store
@@ -7,7 +6,7 @@
 .vs/*
 
 data/parts/error_log
-/uploads
+uploads/*
 main_scratch.php
 test*
 transcribe/workingTemp/
@@ -29,6 +28,7 @@ revai.log
 /logs/
 /uploads.LARGEDATA/*
 /sql_maintanence/*
+api/.env
 
 
 
@@ -36,24 +36,20 @@ revai.log
 # transcribe
 transcribe/.vs/*
 transcribe/.idea/*
+transcribe/workingTemp/*
 
 transcribe/data/parts/config.php
 transcribe/data/parts/constants.php
+transcribe/data/scripts/parts/constants.js
 transcribe/data/libs/node_modules/uglify-js/
 transcribe/data/libs/node_modules/.bin/
 transcribe/data/libs/node_modules/commander/
 transcribe/data/libs/closure-compiler-v20200614.jar
 
 
-/transcribe/data/parts/error_log
-/transcribe/main_scratch.php
+transcribe/data/parts/error_log
+transcribe/main_scratch.php
 
-/transcribe/data/parts/config.php
-/transcribe/data/parts/constants.php
-/transcribe/data/libs/node_modules/uglify-js/
-/transcribe/data/libs/node_modules/.bin/
-/transcribe/data/libs/node_modules/commander/
-/transcribe/data/libs/closure-compiler-v20200614.jar
 
 
 
