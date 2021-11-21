@@ -29,10 +29,8 @@ if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
 }
 $accountGateway = new AccountGateway($dbConnection);
 $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
-
 //$version_control = "1.0";
 ?>
-
 <head>
     <?php include_once("gaTrackingCode.php");?>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -64,14 +62,13 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 
 
     <title>vScription Transcribe Dictation Upload</title>
-
     <!--  MDC Components  -->
     <link href="data/libs/node_modules/material-components-web/dist/material-components-web.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="data/libs/node_modules/material-components-web/dist/material-components-web.js"></script>
     <script src="data/libs/node_modules/@material/textfield/dist/mdc.textfield.js"></script>
 
-    <!--	Scroll Bar Dependencies    -->
+    <!--    Scroll Bar Dependencies    -->
     <script src="data/scrollbar/jquery.nicescroll.js"></script>
 
     <!--    Moment + Jquery confirm  -->
@@ -80,8 +77,8 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
-	
-	<!-- Enjoyhint library -->
+    
+    <!-- Enjoyhint library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/kineticjs/5.2.0/kinetic.js"> </script>
     <link href="data/thirdparty/enjoyhint/enjoyhint.css" rel="stylesheet">
     <script src="data/thirdparty/enjoyhint/enjoyhint.min.js"></script>
@@ -92,15 +89,17 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
       src="https://unpkg.com/mediainfo.js/dist/mediainfo.min.js"
     ></script>
 
-	<?php $tuts=(isset($_SESSION['tutorials']))?$_SESSION['tutorials']:'{}'; ?>
+    <?php $tuts=(isset($_SESSION['tutorials']))?$_SESSION['tutorials']:'{}'; ?>
     <script type="text/javascript">
         var tutorials='<?php echo $tuts;?>';
     </script>
     <script src="data/scripts/parts/ping.min.js" type="text/javascript"></script>
-	 <script src="data/scripts/job_upload.min.js?v=3"></script>
+    <?php if($_SESSION['userData']['pre_pay'] == 1):?>
+    <link rel="stylesheet" href="data/css/job_upload_prepay.css">
+    <?php else:?>
     <link rel="stylesheet" href="data/css/job_upload.css">
-	
-	
+    <?php endif;?>
+    <?php echo $_SESSION['userData']['pre_pay'];?>
 
 </head>
 
@@ -112,7 +111,6 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
         <div class="vspt-container-fluid-row d-flex">
 
         <?php include_once "data/parts/nav.php"?>
-
         <div class="vspt-page-container">
 
             <div class="row">
@@ -138,7 +136,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                     <ul class="vspt-step-progressbar" id="vsptProgressList">
                         <li class="active">Add Files</li>
                         <li>Add info</li>
-                        <li>Upload</li>
+                        <li>Pay/Upload</li>
                     </ul>
                 </div>
                 <form class="upload needs-validation" id="upload_form" method="post" enctype="multipart/form-data" novalidate>
@@ -191,9 +189,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                         Next
                                     </button>
                                 </div>
-
                             </div>
-
                             <div class="carousel-item">
 
                                 <div class="carousel-inner-container">
@@ -298,7 +294,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 
                                         <div class="input-group col mb-3">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text" for="demo_comments">Comments</span>
+                                                <span class="input-group-text" for="demo_comments">ComAdments</span>
                                             </div>
                                             <textarea name="demo_comments" class="form-control" id="demo_comments" rows="4"
                                                       placeholder="(optional)"></textarea>
@@ -321,9 +317,35 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                     </button>
                                 </div>
                             </div>
+                            <?php if($_SESSION["userData"]["pre_pay"] ==1):?>
+                           <!--  <div class="carousel-item">
 
+                                <div class="carousel-inner-container">
+                                    <div class="row">
+                                        <div class="col-md-6 justify-content-center d-flex">
+                                            <p>Total Billed Minutes: 
+                                                <span id="total_mins_charge"></span>
+                                            </p>
+                                        </div>
+                                        <div class="col-md-6 justify-content-center d-flex">                                        
+                                            <span>Total Price: </span>
+                                            <span id="total_charge"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="carousel-nav">
+                                    <button class="btn btn-primary" id="payBackBtn" type="button">
+                                        Back
+                                    </button>
+
+                                    <button class="btn btn-primary" id="payNextBtn" type="button">
+                                        Next
+                                    </button>
+                                </div> -->
+                            <!-- </div> -->
+                            <?php endif;?>
                             <div class="carousel-item">
-
                                 <div class="page3-container">
 
                                     <div class="preview">
@@ -350,7 +372,11 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                         <div id="srBar"></div>
 
                                     </div>
-
+                                    <?php if($_SESSION["userData"]["pre_pay"] ==1):?>
+                                    <p style="font-size: 12px;font-style: italic;font-weight: 900;">
+                                      Total to be charged: Total minutes to be changed(<span id="total_mins_charge"></span>mins) X billrate_1(<span><?php echo $_SESSION["userData"]["bill_rate1"]?></span>) = Total Amount to be billed(<span id="total_charge"></span>) (Plus applicable taxes)
+                                    </p>
+                                    <?php endif;?>
                                     <div class="carousel-nav">
                                         <button class="btn btn-primary" id="p3Bbtn" type="button">
                                             Back
@@ -362,14 +388,13 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                             <i class="material-icons mdc-button__icon" aria-hidden="true"
                                             >cloud_upload</i
                                             >
-                                            <span class="mdc-button__label">Upload File(s)</span>
+                                            <span class="mdc-button__label" id="mdc-button__label"><?php echo $_SESSION["userData"]["pre_pay"] == 1 ? "Pay and Upload":"Upload File(s)";?></span>
                                         </button>
                                     </div>
 
                                 </div>
 
                             </div>
-
                         </div>
 
                     </div>
@@ -438,6 +463,12 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                 <span class="mdc-button__label">Cancel</span>
             </button>
         </div>
+        <input type="hidden" value = "<?php echo $_SESSION["userData"]["pre_pay"];?>" id="prepay_status">
+        <input type="hidden" value = "<?php echo is_null($_SESSION["userData"]["lifetime_minutes"])?0:$_SESSION["userData"]["lifetime_minutes"];?>" id="lifetime_minutes">
+        <input type="hidden" value = "<?php echo $_SESSION["userData"]["promo"];?>" id="promo">
+        <input type="hidden" value = "<?php echo $_SESSION["userData"]["comp_mins"];?>" id="comp_mins">
+        <input type="hidden" value = "<?php echo $_SESSION["userData"]["bill_rate1"];?>" id="bill_rate1">
+
 <!--        <div class="mdc-data-table">-->
 
 <!--            <table class="mdc-data-table__table jobs_tbl" aria-label="Jobs List">-->
@@ -459,3 +490,15 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 </body>
 
 </html>
+<?php if($_SESSION["userData"]["pre_pay"] == 1):?>
+<script src="data/scripts/job_upload_prepay.js?v=3"></script>
+<?php else:?>
+<script src="data/scripts/job_upload.js?v=3"></script>
+<?php endif;?>
+<form action="prepayment.php" method="post" class="hidden" style="display:none" id="prepayForm" target="_blank">
+    <input type="text" name="package" id="package" value = "3">
+    <input type="text" name="prepay" id="prepay" value = "3">
+    <input type="text" name="total_mins" id="total_mins" value = "3">
+    <input type="text" name="comp_price" id="comp_price" value = "3">
+    <input type="text" name="total_price" id="total_price" value = "3">
+</form>

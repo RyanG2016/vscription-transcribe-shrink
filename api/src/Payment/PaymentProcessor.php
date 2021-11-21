@@ -85,6 +85,8 @@ class PaymentProcessor
         $user->setState($this->state);
         $user->setZipcode($this->zip);
         $user->setCountry($this->country);
+        $user->setCardNumber($this->cardNumber);
+        $user->setExpirationDate($this->cardExpiryMMSlYY);
 
         $user->save();
 
@@ -174,7 +176,7 @@ class PaymentProcessor
 
         // Create the controller and get the response
         $controller = new AnetController\CreateTransactionController($request);
-        $response = $controller->executeWithApiResponse(ANetEnvironment::PRODUCTION);
+        $response = $controller->executeWithApiResponse(ANetEnvironment::SANDBOX);
 
 
         if ($response != null) {

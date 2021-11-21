@@ -325,7 +325,7 @@ $(document).ready(function () {
 
 	jobsDT.on( 'error.dt', function ( e, settings, techNote, message ) {
 		// console.log( 'An error has been reported by DataTables: ', message );
-		console.log( 'Failed to retrieve data' );
+		console.log(message);
 	} )
 
 	jobsDT.on( 'draw.dt search.dt', function () {

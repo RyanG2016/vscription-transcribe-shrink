@@ -59,6 +59,8 @@ class Account extends BaseModel implements BaseModelInterface
         private int $trial = 0,
         private int $auto_list_refresh_interval = 0,
         private string $transcribe_remarks = '',
+        private float $comp_mins = 0,
+
 
         private $db = null
     )
@@ -835,5 +837,19 @@ class Account extends BaseModel implements BaseModelInterface
     {
         $this->sr_enabled = $sr_enabled;
     }
+    /**
+     * @return float
+     */
+    public function getCompMins(): float
+    {
+        return $this->comp_mins;
+    }
 
+    /**
+     * @param int $comp_mins
+     */
+    public function setCompMins(float $comp_mins): void
+    {
+        $this->comp_mins = $comp_mins;
+    }
 }

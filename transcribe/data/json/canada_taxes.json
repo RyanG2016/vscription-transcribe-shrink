@@ -1,7 +1,7 @@
 [
 	{
 		"name": "Alberta",
-		"code": "AB",
+		"code": "T",
 		"taxes": [
 			{
 				"code": "GST",
@@ -13,7 +13,7 @@
 	},
 	{
 		"name": "British Columbia",
-		"code": "BC",
+		"code": "V",
 		"taxes": [
 			{
 				"code": "GST",
@@ -25,7 +25,7 @@
 	},
 	{
 		"name": "Manitoba",
-		"code": "MB",
+		"code": "R",
 		"taxes": [
 			{
 				"code": "GST",
@@ -43,7 +43,7 @@
 	},
 	{
 		"name": "New Brunswick",
-		"code": "NB",
+		"code": "E",
 		"taxes": [
 			{
 				"code": "HST",
@@ -55,7 +55,7 @@
 	},
 	{
 		"name": "Newfoundland and Labrador",
-		"code": "NL",
+		"code": "A",
 		"taxes": [
 			{
 				"code": "HST",
@@ -67,7 +67,7 @@
 	},
 	{
 		"name": "Nova Scotia",
-		"code": "NS",
+		"code": "B",
 		"taxes": [
 			{
 				"code": "HST",
@@ -79,7 +79,7 @@
 	},
 	{
 		"name": "Northwest Territories",
-		"code": "NT",
+		"code": "X",
 		"taxes": [
 			{
 				"code": "GST",
@@ -91,7 +91,7 @@
 	},
 	{
 		"name": "Nunavut",
-		"code": "NU",
+		"code": "X",
 		"taxes": [
 			{
 				"code": "GST",
@@ -102,8 +102,44 @@
 		]
 	},
 	{
-		"name": "Ontario",
-		"code": "ON",
+		"name": "Ontario 1",
+		"code": "P",
+		"taxes": [
+			{
+				"code": "HST",
+				"name": "Harmonized Sales Tax",
+				"type": "harmonized",
+				"tax": 0.13
+			}
+		]
+	},
+	{
+		"name": "Ontario 2",
+		"code": "N",
+		"taxes": [
+			{
+				"code": "HST",
+				"name": "Harmonized Sales Tax",
+				"type": "harmonized",
+				"tax": 0.13
+			}
+		]
+	},
+	{
+		"name": "Ontario 3",
+		"code": "M",
+		"taxes": [
+			{
+				"code": "HST",
+				"name": "Harmonized Sales Tax",
+				"type": "harmonized",
+				"tax": 0.13
+			}
+		]
+	},
+	{
+		"name": "Ontario 4",
+		"code": "L",
 		"taxes": [
 			{
 				"code": "HST",
@@ -126,8 +162,20 @@
 		]
 	},
 	{
-		"name": "Québec",
-		"code": "QC",
+		"name": "Québec 1",
+		"code": "J",
+		"taxes": [
+			{
+				"code": "GST",
+				"name": "Goods and Services Tax",
+				"type": "federal",
+				"tax": 0.05
+			}
+		]
+	},
+	{
+		"name": "Québec 2",
+		"code": "G",
 		"taxes": [
 			{
 				"code": "GST",
@@ -139,7 +187,7 @@
 	},
 	{
 		"name": "Saskatchewan",
-		"code": "SK",
+		"code": "S",
 		"taxes": [
 			{
 				"code": "GST",
@@ -151,7 +199,7 @@
 	},
 	{
 		"name": "Yukon",
-		"code": "YT",
+		"code": "Y",
 		"taxes": [
 			{
 				"code": "GST",

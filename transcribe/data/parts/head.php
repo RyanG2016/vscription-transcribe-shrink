@@ -2,7 +2,6 @@
 
 include_once('session_settings.php');
 include('zohoASAP.php');
-//include('inspectlet.php');
 require_once('ping.php');
 
 if(!isset($_SESSION['loggedIn']))
