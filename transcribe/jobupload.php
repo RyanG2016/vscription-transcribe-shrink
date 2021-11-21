@@ -94,12 +94,9 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
         var tutorials='<?php echo $tuts;?>';
     </script>
     <script src="data/scripts/parts/ping.min.js" type="text/javascript"></script>
-<<<<<<< HEAD
     <?php if($_SESSION['userData']['pre_pay'] == 1):?>
     <link rel="stylesheet" href="data/css/job_upload_prepay.css">
     <?php else:?>
-=======
->>>>>>> 2f8cc4abb12dfe0b4721f8935ee2c7704207c5b5
     <link rel="stylesheet" href="data/css/job_upload.css">
     <?php endif;?>
     <?php echo $_SESSION['userData']['pre_pay'];?>
@@ -467,16 +464,10 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
             </button>
         </div>
         <input type="hidden" value = "<?php echo $_SESSION["userData"]["pre_pay"];?>" id="prepay_status">
-<<<<<<< HEAD
         <input type="hidden" value = "<?php echo is_null($_SESSION["userData"]["lifetime_minutes"])?0:$_SESSION["userData"]["lifetime_minutes"];?>" id="lifetime_minutes">
         <input type="hidden" value = "<?php echo $_SESSION["userData"]["promo"];?>" id="promo">
         <input type="hidden" value = "<?php echo $_SESSION["userData"]["comp_mins"];?>" id="comp_mins">
         <input type="hidden" value = "<?php echo $_SESSION["userData"]["bill_rate1"];?>" id="bill_rate1">
-=======
-        <input type="hidden" value = "<?php echo $_SESSION["userData"]["lifetime_minutes"];?>" id="lifetime_minutes">
-        <input type="hidden" value = "<?php echo $_SESSION["userData"]["promo"];?>" id="promo">
-        <input type="hidden" value = "<?php echo $_SESSION["userData"]["comp_mins"];?>" id="comp_mins">
->>>>>>> 2f8cc4abb12dfe0b4721f8935ee2c7704207c5b5
 
 <!--        <div class="mdc-data-table">-->
 
@@ -499,15 +490,11 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 </body>
 
 </html>
-<<<<<<< HEAD
 <?php if($_SESSION["userData"]["pre_pay"] == 1):?>
 <script src="data/scripts/job_upload_prepay.js?v=3"></script>
 <?php else:?>
 <script src="data/scripts/job_upload.js?v=3"></script>
 <?php endif;?>
-=======
-<script src="data/scripts/job_upload.js?v=3"></script>
->>>>>>> 2f8cc4abb12dfe0b4721f8935ee2c7704207c5b5
 <form action="prepayment.php" method="post" class="hidden" style="display:none" id="prepayForm" target="_blank">
     <input type="text" name="package" id="package" value = "3">
     <input type="text" name="prepay" id="prepay" value = "3">

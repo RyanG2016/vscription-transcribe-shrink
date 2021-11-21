@@ -16,11 +16,7 @@ include('data/parts/head.php');
 use Src\Models\Package;
 use Src\Models\SR;
 use Src\Models\Account;
-<<<<<<< HEAD
 use Src\Payment\PrepayPaymentProcessor;
-=======
-use Src\Payment\PaymentProcessor;
->>>>>>> 2f8cc4abb12dfe0b4721f8935ee2c7704207c5b5
 // User Setting
 
 
@@ -86,21 +82,12 @@ use Src\Payment\PaymentProcessor;
             $pkg->setSrpName("prepay");
             $pkg->setSrpMinutes($_POST["total_mins"]);
             // Process
-<<<<<<< HEAD
             $processor = new PrepayPaymentProcessor(
                     $_SESSION['fname'], $_SESSION['lname'],
                     // $_POST['address'],
                     // $_POST['city'],
                     // $_POST['state'],
                     // $_POST['country'],
-=======
-            $processor = new PaymentProcessor(
-                    $_POST['fname'], $_POST['lname'],
-                    $_POST['address'],
-                    $_POST['city'],
-                    $_POST['state'],
-                    $_POST['country'],
->>>>>>> 2f8cc4abb12dfe0b4721f8935ee2c7704207c5b5
                     $_POST['zipcode'],
                     $_POST['name_on_card'],
                     $_POST['card_number'],
@@ -128,13 +115,9 @@ use Src\Payment\PaymentProcessor;
                     $sr = SR::withAccID($accID, $dbConnection);
                     $sr->addToMinutesRemaining($pkg->getSrpMins());
                     $sr->save();
-                    $account = Account::withID($accID, $dbConnection);
-                    $account->setCompMins(0);
-                    $account->save();
                     $currentAccount = \Src\Models\Account::withID($accID, $dbConnection);
                     $currentAccount->setCompMins(0);
                     $currentAccount->save();
-                    // $_SESSION["userData"]["promo"] =2;
                     echo "<script>localStorage.setItem('prepay_upload',true)</script>";
                     echo "<script>window.close();</script>";
                     // header("Location: main.php");
