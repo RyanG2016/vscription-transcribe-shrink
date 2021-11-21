@@ -15,7 +15,6 @@ class DatabaseConnector {
         $db   = getenv('DB_DATABASE');
         $user = getenv('DB_USERNAME');
         $pass = getenv('DB_PASSWORD');
-
         try {
             $this->dbConnection = new PDO(
                 "mysql:host=$host;port=$port;charset=utf8mb4;dbname=$db",
@@ -27,7 +26,7 @@ class DatabaseConnector {
             //                             set @@global.time_zone = 'America/Winnipeg';
             //                             SET time_zone = 'America/Winnipeg';");
         } catch (PDOException $e) {
-//            exit($e->getMessage());
+           exit($e->getMessage());
             exit("Failed to connect (VS4772");
         }
     }

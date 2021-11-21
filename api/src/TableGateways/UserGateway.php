@@ -1047,6 +1047,7 @@ class UserGateway implements GatewayInterface
                         return $this->errorOccurredResponse("Invalid Input (VSPT-U205)");
                     }
                     break;
+<<<<<<< HEAD
                 case 'card_number':
                         if(!preg_match("/[0-9]/i", $valuePost))
                         {
@@ -1066,6 +1067,27 @@ class UserGateway implements GatewayInterface
                         return $this->errorOccurredResponse("Invalid Input (VSPT-U208)");
                     }
                     break;
+=======
+                // case 'card_number':
+                //         if(!preg_match("/[0-9]/i", $valuePost))
+                //         {
+                //             return $this->errorOccurredResponse("Invalid Input (VSPT-U206)");
+                //         }
+                //         break;
+
+                // case 'expiration_date':
+                //     if(!preg_match("/[0-9]/i", $valuePost))
+                //     {
+                //         return $this->errorOccurredResponse("Invalid Input (VSPT-U207)");
+                //     }
+                //     break;
+                // case 'security_code':
+                //     if(!preg_match("/[0-9]/i", $valuePost))
+                //     {
+                //         return $this->errorOccurredResponse("Invalid Input (VSPT-U208)");
+                //     }
+                //     break;
+>>>>>>> 2f8cc4abb12dfe0b4721f8935ee2c7704207c5b5
 
                 case 'newsletter':
                 case 'email_notification':

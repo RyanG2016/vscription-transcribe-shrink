@@ -98,7 +98,11 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
     <script src="data/scripts/parts/ping.min.js" type="text/javascript"></script>
 
     <link href="data/css/payment.css?v=2" rel="stylesheet">
+<<<<<<< HEAD
     <script src="data/scripts/prepayment.js?v=3" type="text/javascript"></script>
+=======
+    <script src="data/scripts/payment.js?v=3" type="text/javascript"></script>
+>>>>>>> 2f8cc4abb12dfe0b4721f8935ee2c7704207c5b5
 
 </head>
 
@@ -149,7 +153,11 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
                         <div class="row">
 
                             <div class="col-lg-9 col-md-8 col-sm-8 border-right">
+<<<<<<< HEAD
                              <!--    <h5>Payment Details</h5>
+=======
+                                <h5>Payment Details</h5>
+>>>>>>> 2f8cc4abb12dfe0b4721f8935ee2c7704207c5b5
                                 <hr>
                                 <div class="row no-gutters m-b-7"><b>Billing Address</b> &ensp; <small
                                         class="mt-auto vtex-help-icon" id="edit">Save</small></div>
@@ -180,10 +188,19 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
                                     <input id="country" type="text" name="country" class="vtex-editable-input typeahead col w-100" placeholder="<Country>" value="';
                             echo isset($_SESSION['userData']['country']) && !empty($_SESSION['userData']['country'])?$_SESSION['userData']['country']:'';
                             echo '" />
+<<<<<<< HEAD
                                    
                                 </div>';
                             ?>
  -->
+=======
+                                    <input id="zip" name="zipcode" type="text" class="ml-2 col-6 vtex-editable-input typeahead" placeholder="<Zip/Postal Code>" value="';
+                            echo isset($_SESSION['userData']['zipcode']) && !empty($_SESSION['userData']['zipcode'])?$_SESSION['userData']['zipcode']:'';
+                            echo '" />
+                                </div>';
+                            ?>
+
+>>>>>>> 2f8cc4abb12dfe0b4721f8935ee2c7704207c5b5
                                 <hr>
                                 <div class="row no-gutters m-b-7"><b>Payment Details</b></div>
                                 <div class="row no-gutters">
@@ -249,7 +266,11 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
                                 c-3.1,3.2-4.8,7.4-4.8,11.8c0,9.3,7.6,16.9,16.9,16.9s16.9-7.6,16.9-16.9c0-4.4-1.7-8.6-4.8-11.8l-0.5-0.5l0.5-0.5
                                 c3.1-3.2,4.8-7.4,4.8-11.8C142.4,78.4,134.8,70.8,125.5,70.8z" />
                                                                 </g>
+<<<<<<< HEAD
                                                                     <g>
+=======
+                                                                <g>
+>>>>>>> 2f8cc4abb12dfe0b4721f8935ee2c7704207c5b5
                                                                     <rect x="82.8" y="82.1" class="st12" width="25.8"
                                                                         height="1.5" />
                                                                 </g>
@@ -328,6 +349,7 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
                                         </div>
 
                                         <div class="field-container">
+<<<<<<< HEAD
                                             <div class="row">
                                                 <div class="col-md-8">
                                                     <label for="cardnumber">Card Number</label>
@@ -358,6 +380,19 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
                                             </div>
                                         </div>
                                        
+=======
+                                            <label for="cardnumber">Card Number</label>
+                                            <br>
+                                            <input id="cardnumber" name="card_number" type="text" pattern="[0-9]*"
+                                                inputmode="numeric"
+                                                value="<?php echo $_SESSION["userData"]["card_number"];?>" autofocus>
+                                            <svg id="ccicon" class="ccicon" width="750" height="471"
+                                                viewBox="0 0 750 471" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                                xmlns:xlink="http://www.w3.org/1999/xlink">
+
+                                            </svg>
+                                        </div>
+>>>>>>> 2f8cc4abb12dfe0b4721f8935ee2c7704207c5b5
                                         <div class="field-container">
 
                                             <div class="row">
@@ -420,15 +455,24 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
 
                             echo '
                                     <div class="row">
+<<<<<<< HEAD
                                         <div class="col-auto">Total Files Uploaded</div>
                                         <div class="col text-right"> ' . $_POST["prepay"] . '</div>
                                     </div>
                                     <div class="row">
                                         <div class="col-auto">Total Billed Minutes</div>
+=======
+                                        <div class="col-auto">Package</div>
+                                        <div class="col text-right"> ' . $_POST["prepay"] . '</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-auto">Minutes</div>
+>>>>>>> 2f8cc4abb12dfe0b4721f8935ee2c7704207c5b5
                                         <div class="col text-right">' . $_POST["total_mins"] . '</div>
                                     </div>
                                     <div class="row">
                                         <div class="col-auto">Price</div>
+<<<<<<< HEAD
                                         <div class="col text-right">$' . '<span id="pkgPrice">'.round(floatval($_SESSION["userData"]["bill_rate1"])*floatval($_POST["total_mins"]),2).'</span>' . ' CAD</div>
                                     </div>
                                     <hr>
@@ -437,11 +481,25 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
                                         <div class="row">
                                             <div class="col-auto">Taxes</div>
                                             <div class="col text-right"><span id="price_fee">5</span>%</div>
+=======
+                                        <div class="col text-right">$' . round(floatval($_SESSION["userData"]["bill_rate1"])*floatval($_POST["total_mins"]),2) . ' CAD</div>
+                                    </div>
+                                    <hr>
+                                    
+                                    <span id="">
+                                        <div class="row">
+                                            <div class="col-auto">Taxes</div>
+                                            <div class="col text-right"><span id="">5</span>%</div>
+>>>>>>> 2f8cc4abb12dfe0b4721f8935ee2c7704207c5b5
                                         </div>
                                     </span>
                                     <div class="row mt-3">
                                         <div class="col-auto">Total (incl tax.)</div>
+<<<<<<< HEAD
                                         <div class="col text-right" id="total">$' . round(round(floatval($_SESSION["userData"]["bill_rate1"])*floatval($_POST["total_mins"]),2)+round(floatval($_SESSION["userData"]["bill_rate1"])*floatval($_POST["total_mins"]),2)*(floatval(0.05)),2)  . ' CAD</div>
+=======
+                                        <div class="col text-right" id="">$' . round(round(floatval($_SESSION["userData"]["bill_rate1"])*floatval($_POST["total_mins"]),2)+round(floatval($_SESSION["userData"]["bill_rate1"])*floatval($_POST["total_mins"]),2)*(floatval(0.05)),2)  . ' CAD</div>
+>>>>>>> 2f8cc4abb12dfe0b4721f8935ee2c7704207c5b5
                                         <input type="hidden" name="total_mins" value="'.$_POST["total_mins"].'">
                                     </div>
                                     <hr>
@@ -468,6 +526,10 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
                                         and Upload</button>
                                 </div>
                             </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2f8cc4abb12dfe0b4721f8935ee2c7704207c5b5
                         </div>
                     </form>
 
@@ -478,7 +540,10 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
         </div>
     </div>
 
+<<<<<<< HEAD
 <input type="hidden" id="country_name" name="" value='<?php echo $_SESSION["userData"]["country"]?>'>
+=======
+>>>>>>> 2f8cc4abb12dfe0b4721f8935ee2c7704207c5b5
 
 
     <div class="overlay" id="overlay" style="display: none">
@@ -493,4 +558,8 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
 
     <?php include_once "data/parts/footer.php"?>
 </body>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2f8cc4abb12dfe0b4721f8935ee2c7704207c5b5
 </html>

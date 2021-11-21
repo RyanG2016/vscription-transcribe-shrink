@@ -118,12 +118,18 @@ else {
 
 
     <link rel="stylesheet" href="data/css/main.css?v=2">
+<<<<<<< HEAD
 	<script src="data/scripts/main.js?v=10"></script>
 	<!-- <script src="data/scripts/main.min.js?v=16"></script> -->
+=======
+<!--	<script src="data/scripts/main.js?v=10"></script>-->
+	<script src="data/scripts/main.js?v=16"></script>
+>>>>>>> 2f8cc4abb12dfe0b4721f8935ee2c7704207c5b5
 
 </head>
 
 <body>
+<?php var_dump($_SESSION);?>
 
 <div class="container-fluid h-100 vspt-container-fluid">
         <!--        <div class="w-100 h-100 d-flex flex-nowrap vspt-container-fluid-row">-->
@@ -171,7 +177,6 @@ else {
                         <span class="mdc-button__label">Refresh</span>
                     </button>
                 </div>
-
 
                 <div style="overflow-x: hidden" class="vspt-table-div">
                     <table id="jobs-tbl" class="users-tbl table vspt-table hover compact">

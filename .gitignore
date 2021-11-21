@@ -6,6 +6,10 @@
 /build
 .vs/*
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2f8cc4abb12dfe0b4721f8935ee2c7704207c5b5
 data/parts/error_log
 /uploads
 main_scratch.php
@@ -17,6 +21,11 @@ transcribe/sr/*
 /api/phinx/phinx.php
 gaTrackingCode.php
 
+<<<<<<< HEAD
+=======
+/api/.env
+/uploads/
+>>>>>>> 2f8cc4abb12dfe0b4721f8935ee2c7704207c5b5
 /convert.log
 /api/src/Controller/conversionCron.php
 /logs/*
@@ -56,4 +65,12 @@ transcribe/data/libs/closure-compiler-v20200614.jar
 /transcribe/data/libs/closure-compiler-v20200614.jar
 
 
+<<<<<<< HEAD
+=======
+!/transcribe/data/scripts/*.js
+!/transcribe/data/scripts/*.min.js
+
+transcribe/data/scripts/parts/constants.js
+/transcribe/data/scripts/obf_me.min.js
+>>>>>>> 2f8cc4abb12dfe0b4721f8935ee2c7704207c5b5
 

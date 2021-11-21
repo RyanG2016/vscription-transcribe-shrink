@@ -28,9 +28,15 @@ class User extends BaseModel implements BaseModelInterface
 
                                 public ?string $state = null,
                                 public string $address = '',
+<<<<<<< HEAD
                                 public ?string $card_number = null,
                                 public ?string $expiration_date =null,
                                 public ?string $security_code = null,
+=======
+                                public string $card_number = '',
+                                public string $expiration_date ='',
+                                public string $security_code = '',
+>>>>>>> 2f8cc4abb12dfe0b4721f8935ee2c7704207c5b5
 
                                 public int $email_notification = 1,
                                 public int $newsletter = 0,
@@ -185,7 +191,11 @@ class User extends BaseModel implements BaseModelInterface
     {
         $this->card_number = $card_number;
     }
+<<<<<<< HEAD
     public function getCardNumber(): ?string
+=======
+    public function getCardNumber(): string
+>>>>>>> 2f8cc4abb12dfe0b4721f8935ee2c7704207c5b5
     {
         return $this->card_number;
     }
@@ -194,7 +204,11 @@ class User extends BaseModel implements BaseModelInterface
     {
         $this->expiration_date = $expiration_date;
     }
+<<<<<<< HEAD
     public function getExpirationDate(): ?string
+=======
+    public function getExpirationDate(): string
+>>>>>>> 2f8cc4abb12dfe0b4721f8935ee2c7704207c5b5
     {
         return $this->expiration_date;
     }
@@ -203,7 +217,11 @@ class User extends BaseModel implements BaseModelInterface
     {
         $this->security_code = $security_code;
     }
+<<<<<<< HEAD
      public function getSecurityCode(): ?string
+=======
+    public function getSecurityCode(): string
+>>>>>>> 2f8cc4abb12dfe0b4721f8935ee2c7704207c5b5
     {
         return $this->security_code;
     }

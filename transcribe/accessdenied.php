@@ -35,7 +35,7 @@
 					<span id="title" class="denied100-form-title p-b-26">
 						<h1>ACCESS DENIED</h1>
 						<p>You don't have access to that page. Contact your system administrator.</p>
-					</span>
+					</span>	
 				<div class="text-right p-t-10" id="back">
 					<a class="txt3" href="index.php" id="btmtxt2" target="_blank">
 						 Back To Home Page

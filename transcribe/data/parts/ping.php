@@ -4,6 +4,7 @@ use Src\Helpers\sessionHelper;
 
 require_once __DIR__ . "/../../../api/bootstrap.php";
 
+
 //$ctime = $_SERVER['REQUEST_TIME'];
 //echo date("Y-m-d H:i:s");
 //echo date_default_timezone_get();
@@ -34,7 +35,7 @@ $_SESSION['lastPing'] = date("Y-m-d H:i:s");
 //		echo $_SESSION['cleared'];
 		
 	}*/
-
+ 
     if(!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn'] != 1)
     {
 

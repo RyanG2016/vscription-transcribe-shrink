@@ -164,7 +164,11 @@ $(document).ready(function () {
     let state = $("#state");
     let userForm = $("#userForm");
     let orgForm = $("#orgForm");
+<<<<<<< HEAD
     // let paymentForm = $("#paymentForm");
+=======
+    let paymentForm = $("#paymentForm");
+>>>>>>> 2f8cc4abb12dfe0b4721f8935ee2c7704207c5b5
     let ownOrgForm = $("#ownOrgForm");
     let country = $("#country");
     let newsletter = $("#newsletter");
@@ -243,6 +247,7 @@ $(document).ready(function () {
 
         return false; // Don't submit form
     });
+<<<<<<< HEAD
     // paymentForm.parsley().on('form:submit', function () {
 
     //     var formData = new FormData(paymentForm[0]);
@@ -275,6 +280,40 @@ $(document).ready(function () {
 
     //     return false; // Don't submit form
     // });
+=======
+    paymentForm.parsley().on('form:submit', function () {
+
+        var formData = new FormData(paymentForm[0]);
+        formData.append("newsletter", newsletter.hasClass("active") ? "1" : "0");
+        formData.append("email_notification", jobUpdates.hasClass("active") ? "1" : "0");
+
+        if(email.val() !== currentEmail)
+        {
+            // inform user of a possible logout
+            $.confirm({
+                title: 'Important!',
+                // theme: 'bootstrap',
+                type: 'orange',
+                columnClass: 'col-6',
+                content: 'By changing your email address you will be logged out until your account is verified by visiting the link mailed to you.',
+                buttons: {
+                    confirm: function () {
+                        // $.alert('Confirmed!');
+                        // proceed
+                        updateUserInfo(formData, true);
+                    },
+                    cancel: function () {
+                        return true;
+                    }
+                }
+            });
+        }else{
+            updateUserInfo(formData);
+        }
+
+        return false; // Don't submit form
+    });
+>>>>>>> 2f8cc4abb12dfe0b4721f8935ee2c7704207c5b5
     function updateUserInfo(formData, reload = false){
         console.log(formData)
         $.confirm({
