@@ -931,7 +931,7 @@ class AccountGateway implements GatewayInterface
                 trial = :trial,
                 auto_list_refresh_interval = :auto_list_refresh_interval,
                 transcribe_remarks = :transcribe_remarks,
-                comp_mins = :comp_mins
+                comp_mins =:comp_mins
             WHERE
                 acc_id = :acc_id;
         ";

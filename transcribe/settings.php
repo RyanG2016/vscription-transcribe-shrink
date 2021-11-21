@@ -157,11 +157,7 @@ if ($roleIsSet && $hasOwnOrg && ($_SESSION["accID"] == $_SESSION["userData"]["ac
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text w-auto">Card Number</span>
                                             </div>
-<<<<<<< HEAD
                                             <input type="text" class="form-control" id="card_number" name="card_number"
-=======
-                                            <input type="text" class="form-control" id="ownOrgName" name="card_number"
->>>>>>> 2f8cc4abb12dfe0b4721f8935ee2c7704207c5b5
                                                 data-parsley-pattern="/[0-9]/i"
                                                 data-parsley-error-message="<?php echo CUSTOM_FIELD_ERRORS::ORG ?>"
                                                 placeholder="" aria-describedby="inputGroupPrepend"
@@ -172,11 +168,7 @@ if ($roleIsSet && $hasOwnOrg && ($_SESSION["accID"] == $_SESSION["userData"]["ac
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text w-auto">Expiration (mm/yy)</span>
                                             </div>
-<<<<<<< HEAD
                                             <input type="text" class="form-control" id="expiration_date" placeholder=""
-=======
-                                            <input type="text" class="form-control" id="ownOrgRetTime" placeholder=""
->>>>>>> 2f8cc4abb12dfe0b4721f8935ee2c7704207c5b5
                                                 format inputmode="numeric" name="expiration_date"
                                                 aria-describedby="inputGroupPrepend"
                                                 value="<?php echo $_SESSION['userData']['expiration_date'] ?>"
@@ -189,13 +181,8 @@ if ($roleIsSet && $hasOwnOrg && ($_SESSION["accID"] == $_SESSION["userData"]["ac
                                                 <span class="input-group-text w-auto">Security Code</span>
                                             </div>
 
-<<<<<<< HEAD
                                             <input type="number" class="form-control" id="security_code" placeholder=""
                                                 max="9999"
-=======
-                                            <input type="number" class="form-control" id="ownOrgLogTime" placeholder=""
-                                                max="180"
->>>>>>> 2f8cc4abb12dfe0b4721f8935ee2c7704207c5b5
                                                 data-parsley-error-message="<?php echo CUSTOM_FIELD_ERRORS::LOG_RETENTION_TIME ?>"
                                                 min="1" name="security_code" aria-describedby="inputGroupPrepend"
                                                 value="<?php echo $_SESSION['userData']['security_code'] ?>" required>

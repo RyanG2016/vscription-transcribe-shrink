@@ -39,13 +39,11 @@ class FileController
 
     public function processRequest()
     {
-        
         switch ($this->requestMethod) {
             case 'GET':
                 if (isset($_GET["cancel"])) {
                     $response = $this->cancelUpload();
                 } else {
-<<<<<<< HEAD
                     if(isset($rawURI[0]) && $this->rawURI[0] == "chart")
                     {
                         $response = $this->getChartData();
@@ -57,19 +55,6 @@ class FileController
                         $response = $this->getNextFile();
                     }
                     else if(isset($rawURI[0]) && $this->rawURI[0] == "completed"){
-=======
-                    if(isset($this->rawURI[0]) && $this->rawURI[0] == "chart")
-                    {
-                        $response = $this->getChartData();
-                    }
-                    else if(isset($this->rawURI[0]) && $this->rawURI[0] == "pending"){
-                        $response = $this->getPendingFiles();
-                    }
-                    else if(isset($this->rawURI[0]) && $this->rawURI[0] == "getnext"){
-                        $response = $this->getNextFile();
-                    }
-                    else if(isset($this->rawURI[0]) && $this->rawURI[0] == "completed"){
->>>>>>> 2f8cc4abb12dfe0b4721f8935ee2c7704207c5b5
                         $response = $this->getCompletedFiles();
                     }
                     else if ($this->fileId) {

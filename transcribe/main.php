@@ -44,7 +44,7 @@ else {
     <title>vScription Job Lister</title>
     <link rel="shortcut icon" type="image/png" href="data/images/favicon.png"/>
 
-    <!--    Scroll Bar Dependencies    -->
+    <!--	Scroll Bar Dependencies    -->
 
 <!--    <script src="data/scrollbar/jquery.nicescroll.js"></script>-->
 
@@ -65,7 +65,7 @@ else {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.ui.position.js"></script>
 
 
-    <!--    ///// End of scrollbar depdns   /////-->
+    <!--	///// End of scrollbar depdns   /////-->
 
 
     <!-- BOOTSTRAP -->
@@ -92,19 +92,19 @@ else {
 
 
 
-    <!--    Tooltip     -->
+    <!--	Tooltip 	-->
     <link rel="stylesheet" type="text/css" href="data/tooltipster/css/tooltipster.bundle.min.css" />
     <link rel="stylesheet" type="text/css" href="data/tooltipster/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-punk.min.css" />
     <script type="text/javascript" src="data/tooltipster/js/tooltipster.bundle.min.js"></script>
 
-    
+	
     <!-- Intro.js library -->
     <link href="data/thirdparty/introjs/introjs.css" rel="stylesheet">
     <!-- Add Modern template -->
     <link href="data/thirdparty/introjs/themes/introjs-modern.css" rel="stylesheet">
     <script src="data/thirdparty/introjs/minified/intro.min.js"></script>
 
-    <?php $tuts=(isset($_SESSION['tutorials']))?$_SESSION['tutorials']:'{}'; ?>
+	<?php $tuts=(isset($_SESSION['tutorials']))?$_SESSION['tutorials']:'{}'; ?>
     <script type="text/javascript">
         var tutorials='<?php echo $tuts;?>';
     </script>
@@ -118,8 +118,8 @@ else {
 
 
     <link rel="stylesheet" href="data/css/main.css?v=2">
-    <script src="data/scripts/main.js?v=10"></script>
-    <!-- <script src="data/scripts/main.min.js?v=16"></script> -->
+	<script src="data/scripts/main.js?v=10"></script>
+	<!-- <script src="data/scripts/main.min.js?v=16"></script> -->
 
 </head>
 

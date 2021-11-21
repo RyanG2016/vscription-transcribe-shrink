@@ -206,7 +206,7 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
                                 <text transform="matrix(1 0 0 1 574.4219 433.8095)" id="svgexpire" class="st2 st5 st9"><?php echo $_SESSION["userData"]["expiration_date"]?></text>
                                 <text transform="matrix(1 0 0 1 479.3848 417.0097)" class="st2 st10 st11">VALID</text>
                                 <text transform="matrix(1 0 0 1 479.3848 435.6762)" class="st2 st10 st11">THRU</text>
-                                <polygon class="st2" points="554.5,421 540.4,414.2 540.4,427.9      " />
+                                <polygon class="st2" points="554.5,421 540.4,414.2 540.4,427.9 		" />
                             </g>
                             <g id="cchip">
                                 <g>
