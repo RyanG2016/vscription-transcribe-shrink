@@ -144,7 +144,7 @@ function convertHTMLToRTF($report)
     try {
         $result = $converter->convert($parameters);
     } catch (LowrapperException $e) {
-       echo $e;
+//        echo $e;
         $result = "Error occurred while generating file, please try again or contact system admin.";
     }
 

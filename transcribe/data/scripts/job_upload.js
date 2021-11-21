@@ -265,16 +265,12 @@ function documentReady() {
 
     uploadForm.on('submit', function (event) {
         event.preventDefault();
-<<<<<<< HEAD
 	if(prepayStatus == 1){ 
         if (!confirm("Are you sure to prepay now?")) {
             return false;
         }else{
             submitUploadBtn.setAttribute("disabled",true);
         }
-=======
-	if(prepayStatus == 1){
->>>>>>> 2f8cc4abb12dfe0b4721f8935ee2c7704207c5b5
 	  if(lifetime_minutes ==0 && promo ==1 && (calculateTotalSRminutes()-10-comp_mins)>0){
 	  	$("#total_mins").val(calculateTotalSRminutes()-10-comp_mins);
 		  $("#prepayForm").submit();

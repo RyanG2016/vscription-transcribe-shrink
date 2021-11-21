@@ -156,7 +156,6 @@ class SignupGateway
                 "last_ip_address" => getIP(),
                 "address" => ""
             ));
-
             $lastInsertedUID = $this->db->lastInsertId();
             $count =  $statement->rowCount();
             if($count != 0)
@@ -171,7 +170,7 @@ class SignupGateway
 
                 // check if there's a pending typist invite (ref)
                 if($ref)
-                {    
+                {
                     // get accID
                     $tokenData = $this->tokenGateway->find($ref);
                     if($tokenData)

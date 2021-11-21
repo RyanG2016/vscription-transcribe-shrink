@@ -1010,7 +1010,7 @@ $(document).ready(function () {
 function convertToSearchParam(params) {
     const searchParams = new URLSearchParams();
     // for (const prop in params) {
-    //  searchParams.set(prop, params[prop]);
+    // 	searchParams.set(prop, params[prop]);
     // }
 
     for (const [key, value] of params) {
