@@ -31,8 +31,8 @@ class PrepayPaymentProcessor
     private $mailer;
 
     public function __construct(
-        // private $fname,
-        // private $lname,
+        private $fname,
+        private $lname,
         // private $address,
         // private $city,
         // private $state,
@@ -295,7 +295,7 @@ class PrepayPaymentProcessor
     function calculateTotalPrice()
     {
         $this->totalPrice = $this->amount;
-        if(strtolower($this->country) == "canada")
+        if(isset($this->zip) && strlen($this->zip) !=0)
         {
             $contents = file_get_contents(__DIR__."/../../../transcribe/data/json/canada_taxes.json");
             $json = json_decode($contents, true);
@@ -303,7 +303,7 @@ class PrepayPaymentProcessor
             $totalTaxePercentage = 0;
 
             foreach ($json as $caStateEntry) {
-                if(strtolower($caStateEntry["name"]) === strtolower($this->state))
+                if(strtolower($caStateEntry["code"]) === strtolower(substr($this->zip, 0,1)))
                 {
                     $stateTaxProfile = $caStateEntry;
 
@@ -319,6 +319,7 @@ class PrepayPaymentProcessor
                     break;
                 }
             }
+
         }
 
         return $this->totalPrice;

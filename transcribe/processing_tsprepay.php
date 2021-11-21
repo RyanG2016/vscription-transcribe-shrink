@@ -83,7 +83,7 @@ use Src\Payment\PrepayPaymentProcessor;
             $pkg->setSrpMinutes($_POST["total_mins"]);
             // Process
             $processor = new PrepayPaymentProcessor(
-                    // $_POST['fname'], $_POST['lname'],
+                    $_SESSION['fname'], $_SESSION['lname'],
                     // $_POST['address'],
                     // $_POST['city'],
                     // $_POST['state'],

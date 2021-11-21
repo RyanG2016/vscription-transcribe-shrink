@@ -429,19 +429,19 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
                                     </div>
                                     <div class="row">
                                         <div class="col-auto">Price</div>
-                                        <div class="col text-right">$' . round(floatval($_SESSION["userData"]["bill_rate1"])*floatval($_POST["total_mins"]),2) . ' CAD</div>
+                                        <div class="col text-right">$' . '<span id="pkgPrice">'.round(floatval($_SESSION["userData"]["bill_rate1"])*floatval($_POST["total_mins"]),2).'</span>' . ' CAD</div>
                                     </div>
                                     <hr>
                                     
-                                    <span id="">
+                                    <span id="taxesList">
                                         <div class="row">
                                             <div class="col-auto">Taxes</div>
-                                            <div class="col text-right"><span id="">5</span>%</div>
+                                            <div class="col text-right"><span id="price_fee">5</span>%</div>
                                         </div>
                                     </span>
                                     <div class="row mt-3">
                                         <div class="col-auto">Total (incl tax.)</div>
-                                        <div class="col text-right" id="">$' . round(round(floatval($_SESSION["userData"]["bill_rate1"])*floatval($_POST["total_mins"]),2)+round(floatval($_SESSION["userData"]["bill_rate1"])*floatval($_POST["total_mins"]),2)*(floatval(0.05)),2)  . ' CAD</div>
+                                        <div class="col text-right" id="total">$' . round(round(floatval($_SESSION["userData"]["bill_rate1"])*floatval($_POST["total_mins"]),2)+round(floatval($_SESSION["userData"]["bill_rate1"])*floatval($_POST["total_mins"]),2)*(floatval(0.05)),2)  . ' CAD</div>
                                         <input type="hidden" name="total_mins" value="'.$_POST["total_mins"].'">
                                     </div>
                                     <hr>
@@ -478,6 +478,7 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
         </div>
     </div>
 
+<input type="hidden" id="country_name" name="" value='<?php echo $_SESSION["userData"]["country"]?>'>
 
 
     <div class="overlay" id="overlay" style="display: none">
@@ -492,5 +493,4 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
 
     <?php include_once "data/parts/footer.php"?>
 </body>
-
 </html>

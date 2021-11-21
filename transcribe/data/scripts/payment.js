@@ -52,9 +52,9 @@ $(document).ready(function () {
 
     })
         .done(function(data) {
+            
             caTaxes = data;
             calculateTaxes();
-            // console.log(data);
         })
         .fail(function() {
             caTaxes = false;
