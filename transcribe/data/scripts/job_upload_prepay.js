@@ -89,7 +89,7 @@ function documentReady() {
     });
 
     nextBtn.on("click", function () {
-    	console.log(comp_mins);
+    	// console.log(comp_mins);
         if(lifetime_minutes ==0 && promo ==1){
             $("#total_mins_charge").text((calculateTotalSRminutes()-10-comp_mins));
             $("#total_charge").text(((calculateTotalSRminutes()-10-comp_mins)*bill_rate1+(calculateTotalSRminutes()-10-comp_mins)*bill_rate1*0.05).toFixed(2));
@@ -109,7 +109,7 @@ function documentReady() {
 
         	}
         }
-        console.log(calculateTotalSRminutes())
+        // console.log(calculateTotalSRminutes())
         uploadCarousel.carousel(2);
     });
     prevBtn.on("click", function () {
@@ -223,7 +223,7 @@ function documentReady() {
 
 
     uploadCarousel.on('slide.bs.carousel', function (e) {
-        console.log(e.to + 1)
+        // console.log(e.to + 1)
         /*  
             e.direction     // The direction in which the carousel is sliding (either "left" or "right").
             e.relatedTarget // The DOM element that is being slid into place as the active item.
@@ -616,9 +616,13 @@ function documentReady() {
                     });
                 }
                 if (prepayStatus == 1) {
-                    console.log(`We should be putting shite in here now`);
-                    $("#totals").html(
-                        `Total amount to be charged: ${totalMinutes} mins - $${comp_mins} X $${bill_rate1} = $${((totalMinutes-comp_mins)*bill_rate1).toFixed(2)} (Plus applicable taxes)`)
+                    // $("#totals").html(
+                    //     `Total amount to be charged: ${totalMinutes} mins - $${comp_mins} X $${bill_rate1} = $${((totalMinutes-comp_mins)*bill_rate1).toFixed(2)} (Plus applicable taxes)`)
+                    $("#sum_sub").html(`${(totalMinutes).toFixed(2)}`);
+                    $("#sum_comp").html(`-${comp_mins}`);
+                    $("#sum_br").html(`$${bill_rate1}`);
+                    var displayTotalMins = ((totalMinutes-comp_mins)*bill_rate1) >0 ? ((totalMinutes-comp_mins)*bill_rate1).toFixed(2) : "0.00";
+                    $("#sum_gt").html(`$${displayTotalMins}`);
                 }
                 submitUploadBtn.removeAttribute("disabled");
             }

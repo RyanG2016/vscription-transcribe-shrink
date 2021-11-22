@@ -372,6 +372,51 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                         <div id="srBar"></div>
 
                                     </div>
+                                    <div class="preview-totals">
+                                        <table class="que-files">
+                                            <tbody id="queFilesTotals">
+                                            <tr>
+                                                <td colspan="2" style="text-align: right" class="totals-col col-label">
+                                                Total Minutes:
+                                                </td>
+                                                <td id="sum_sub">
+                                                    $0.00
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2" style="text-align: right" class="totals-col col-label">
+                                                Comp Minutes:
+                                                </td>
+                                                <td id="sum_comp" class="comp-mins">
+                                                    -$0.00
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2" style="text-align: right" class="totals-col col-label">
+                                                Bill Rate:
+                                                </td>
+                                                <td id="sum_br" >
+                                                    $0.00
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2" style="text-align: right" class="totals-col grand-total-label">
+                                                Total To Bill:
+                                                </td>
+                                                <td id="sum_gt" class="grand-total">
+                                                    $0.00
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td class="totals-col plus-tax-label">
+                                                (Plus applicable taxes)
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
                                     <?php if($_SESSION["userData"]["pre_pay"] ==1):?>
                                     <p id="totals" style="font-size: 14px;font-weight: 600;text-align: center">
                                     <!-- Upload Totals will go here-->
