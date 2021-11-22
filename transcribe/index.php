@@ -1,10 +1,6 @@
 <?php
 $zip = "";
 if(strlen($zip) == 0){
-
-var_dump(isset($zip) , strlen($zip) == true);
-}
-die();
 require '../api/vendor/autoload.php';
 
 include_once('data/parts/session_settings.php');
