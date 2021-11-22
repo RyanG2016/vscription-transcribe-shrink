@@ -373,8 +373,8 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 
                                     </div>
                                     <?php if($_SESSION["userData"]["pre_pay"] ==1):?>
-                                    <p style="font-size: 12px;font-style: italic;font-weight: 900;">
-                                      Total to be charged: Total minutes to be changed(<span id="total_mins_charge"></span>mins) X billrate_1(<span><?php echo $_SESSION["userData"]["bill_rate1"]?></span>) = Total Amount to be billed(<span id="total_charge"></span>) (Plus applicable taxes)
+                                    <p id="totals" style="font-size: 14px;font-weight: 600;text-align: center">
+                                    <!-- Upload Totals will go here-->
                                     </p>
                                     <?php endif;?>
                                     <div class="carousel-nav">

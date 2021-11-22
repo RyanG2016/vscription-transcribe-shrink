@@ -576,10 +576,11 @@ function documentReady() {
     function unlockUploadUI(unlock) {
         if (unlock) {
             if (filesArr.length > 0) {
+                //We are using this elsewhere so need to calculate even if no SR
+                var totalMinutes = calculateTotalSRminutes();
                 // check for SR
                 if (srEnabled) {
                     // check for total minutes length and sufficient balance
-                    var totalMinutes = calculateTotalSRminutes();
                     // totalMinutes = 60;
                     let balanceAfterUpload = srMinutesRemaining - totalMinutes;
                     if (balanceAfterUpload < 0) {
@@ -614,7 +615,11 @@ function documentReady() {
                         submitUploadBtn.removeAttribute("disabled");
                     });
                 }
-
+                if (prepayStatus == 1) {
+                    console.log(`We should be putting shite in here now`);
+                    $("#totals").html(
+                        `Total amount to be charged: ${totalMinutes} mins - $${comp_mins} X $${bill_rate1} = $${((totalMinutes-comp_mins)*bill_rate1).toFixed(2)} (Plus applicable taxes)`)
+                }
                 submitUploadBtn.removeAttribute("disabled");
             }
         } else {
