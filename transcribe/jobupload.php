@@ -294,7 +294,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 
                                         <div class="input-group col mb-3">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text" for="demo_comments">ComAdments</span>
+                                                <span class="input-group-text" for="demo_comments">Comments</span>
                                             </div>
                                             <textarea name="demo_comments" class="form-control" id="demo_comments" rows="4"
                                                       placeholder="(optional)"></textarea>
