@@ -36,6 +36,10 @@ final class UploadBillingMods extends AbstractMigration
         {        
             $accountTable->changeColumn('bill_rate1', 'decimal' , ['null'=>false, 'default'=>1.65, 'precision'=>'10','scale'=>'2'])->update();
         }
+        if($accountTable->getColumn("lifetime_minutes") != null)
+        {        
+            $accountTable->changeColumn('lifetime_minutes', 'decimal' , ['null'=>false, 'default'=>0, 'precision'=>'10','scale'=>'2'])->update();
+        }
     }
 
     public function down()
@@ -57,6 +61,10 @@ final class UploadBillingMods extends AbstractMigration
         if($accountTable->getColumn("bill_rate1") != null)
         {
             $accountTable->changeColumn('bill_rate1', 'decimal' , ['null'=>false, 'default'=>2, 'precision'=>'10','scale'=>'2'])->update();
+        }
+        if($accountTable->getColumn("lifetime_minutes") != null)
+        {        
+            $accountTable->changeColumn('lifetime_minutes', 'integer' , ['null'=>true, 'default'=>0])->update();
         }
     }
 }
