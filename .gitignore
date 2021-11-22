@@ -1,5 +1,5 @@
 .gradle
-.htaccess
+#.htaccess
 /local.properties
 /.idea/*
 .DS_Store
@@ -31,6 +31,7 @@ revai.log
 /logs/
 /uploads.LARGEDATA/*
 /sql_maintanence/*
+mail/mail_init.php
 
 # transcribe
 transcribe/.vs/*
@@ -38,6 +39,7 @@ transcribe/.idea/*
 
 transcribe/data/parts/config.php
 transcribe/data/parts/constants.php
+transcribe/data/script/parts/constants.js
 transcribe/data/libs/node_modules/uglify-js/
 transcribe/data/libs/node_modules/.bin/
 transcribe/data/libs/node_modules/commander/
