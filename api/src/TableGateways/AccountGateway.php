@@ -398,7 +398,7 @@ class AccountGateway implements GatewayInterface
                 $srEnabled = 0;
                 break;
             case "2":
-                $br1 = 1.50;
+                $br1 = 1.65;
                 $br1Type = 0;
                 $br1TAT = 3;
                 $br1MinPay = 0;
