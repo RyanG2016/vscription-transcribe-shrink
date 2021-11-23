@@ -374,9 +374,14 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                     </div>
                                     <div class="preview-totals">
                                         <table class="que-files">
+                                            <thead>
+                                                <tr>
+                                                    <th colspan="2" class="preview-header-label">Totals</th>
+                                                </tr>
+                                            </thead>
                                             <tbody id="queFilesTotals">
                                             <tr>
-                                                <td colspan="2" style="text-align: right" class="totals-col col-label">
+                                                <td style="text-align: right" class="totals-col col-label">
                                                 Total Minutes:
                                                 </td>
                                                 <td id="sum_sub">
@@ -384,7 +389,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td colspan="2" style="text-align: right" class="totals-col col-label">
+                                                <td style="text-align: right" class="totals-col col-label">
                                                 Comp Minutes:
                                                 </td>
                                                 <td id="sum_comp" class="comp-mins">
@@ -392,7 +397,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td colspan="2" style="text-align: right" class="totals-col col-label">
+                                                <td style="text-align: right" class="totals-col col-label">
                                                 Bill Rate:
                                                 </td>
                                                 <td id="sum_br" >
@@ -400,7 +405,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td colspan="2" style="text-align: right" class="totals-col grand-total-label">
+                                                <td style="text-align: right" class="totals-col grand-total-label">
                                                 Total To Bill:
                                                 </td>
                                                 <td id="sum_gt" class="grand-total">
@@ -408,8 +413,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td></td>
-                                                <td class="totals-col plus-tax-label">
+                                                <td colspan="2" class="totals-col plus-tax-label">
                                                 (Plus applicable taxes)
                                                 </td>
                                             </tr>

@@ -140,6 +140,17 @@ table, th, td {
     width: 45%;
     margin-right: 0;
     margin-left: auto;
+    border-collapse: separate;
+    padding-top: 3px;
+}
+
+.preview-totals-heading {
+    background-color: var(--vspt-upload-tbl-header-bg);
+    border-collapse: separate;
+}
+
+#uploadCarousel > div > div.carousel-item.active > div > div.preview-totals > table > thead > tr > th {
+    font-weight: 600;
 }
 
 .totals-col {
