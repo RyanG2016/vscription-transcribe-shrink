@@ -1,6 +1,4 @@
 <?php
-$zip = "";
-if(strlen($zip) == 0){
 require '../api/vendor/autoload.php';
 
 include_once('data/parts/session_settings.php');
