@@ -84,10 +84,6 @@ use Src\Payment\PrepayPaymentProcessor;
             // Process
             $processor = new PrepayPaymentProcessor(
                     $_SESSION['fname'], $_SESSION['lname'],
-                    // $_POST['address'],
-                    // $_POST['city'],
-                    // $_POST['state'],
-                    // $_POST['country'],
                     $_POST['zipcode'],
                     $_POST['name_on_card'],
                     $_POST['card_number'],
@@ -98,6 +94,7 @@ use Src\Payment\PrepayPaymentProcessor;
                     isset($_POST["self"]),
                     $dbConnection
             );
+            
             $processor->saveUserAddress();
             $error = $processor->chargeCreditCardNow();
                 if(!$error)
@@ -117,19 +114,21 @@ use Src\Payment\PrepayPaymentProcessor;
                     $sr->save();
                     $currentAccount = \Src\Models\Account::withID($accID, $dbConnection);
                     $currentAccount->setCompMins(0);
+                    if(isset($_POST["credit_card_status"])){
+                        $response = $processor->createCustomerProfile($_SESSION["userData"]["email"]);
+                        $currentAccount->setProfileId($response->getCustomerProfileId());
+                        $currentAccount->setPaymentId($response->getCustomerPaymentProfileIdList()[0]);
+                        $_SESSION["userData"]["profile_id"] = $response->getCustomerProfileId();
+                        $_SESSION["userData"]["payment_id"] = $response->getCustomerPaymentProfileIdList()[0];
+                    }
                     $currentAccount->save();
+                    $_SESSION["userData"]["comp_mins"] = 0;
                     echo "<script>localStorage.setItem('prepay_upload',true)</script>";
-                    // echo "<script>window.close();</script>";
+                    echo "<script>window.close();</script>";
                     // header("Location: main.php");
                 }else{
                     echo 'Payment Failed! <i class="far fa-frown"></i> redirecting..';
                 }
-               ob_flush();
-               flush();
-               sleep(2);
-                header("HTTP/1.1 303 See Other");
-                header("Location: payment-details.php");
-               ob_end_flush();
 
             ?>
         </small>
