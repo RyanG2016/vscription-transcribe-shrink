@@ -1,5 +1,4 @@
 <?php
-
 require '../api/vendor/autoload.php';
 
 include_once('data/parts/session_settings.php');

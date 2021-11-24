@@ -17,7 +17,7 @@ $(document).ready(function () {
     var city = $("#city");
     var state = $("#state");
     var address = $("#address");
-    var country = $("#country");
+    var country = $("#country_name");
     var paymentForm = $("#paymentForm");
     var payBtn = $("#payBtn");
     var overlay = $("#overlay");
@@ -26,8 +26,7 @@ $(document).ready(function () {
     var taxesListDom = $("#taxesList");
     var totalPrice = $("#total");
     var lastZipRequested = "";
-
-        console.log(cardnumber_mask,12312)
+    var pkgPrice = parseFloat($("#pkgPrice").text());
 
     //  validation //
     // > billing addres
@@ -48,6 +47,18 @@ $(document).ready(function () {
     var totalTaxesPercent = 0;
 
     // load CA taxes
+    $("body").on("click","#backBtn",function(){
+        window.close();
+    })
+    $("body").on("click","#trashBtn",function(){
+        $("#paymentForm input").each(function(index,input){
+            if($(input).attr("type") == "checkbox"){
+                $(input)[0].checked = false
+            }else{
+                $(input).val('');
+            }
+        })
+    })
     $.getJSON( "/data/json/canada_taxes.json", function(data) {
 
     })
@@ -77,7 +88,9 @@ $(document).ready(function () {
     address.keyup(function () {
         regexCheck($(this), ADDRESS_REGEX);
     });
-
+    zip.keyup(function(){
+        calculateTaxes();
+    })
     function regexCheck(item, regx){
         if(regx.test(item.val()))
         {
@@ -379,15 +392,15 @@ $(document).ready(function () {
 
     function calculateTaxes()
     {
-        console.log(121321,caTaxes)
         taxesListDom.empty();
         if(country.typeahead('val') === "Canada" || country.typeahead('val') === "Canada")
         {
             totalTaxesPercent = 0;
             let match = false;
             let taxID = false;
+            var firstLetter = zip.val().substr(0,1);
             for (const key in caTaxes) {
-                if(caTaxes[key].name.toLowerCase() === state.val().toLowerCase().trim()) {
+                if((caTaxes[key]["code"]).toUpperCase() === firstLetter.trim()) {
                     // console.log("Match found for: " + caTaxes[key].name + " | indx: " + key);
                     taxID = key;
                     match = true;
@@ -419,6 +432,17 @@ $(document).ready(function () {
 
     }
 
+    function calculateWithZipcode(){
+        caTaxes;
+        if(zip.val() !== ''){
+            var firstLetter = zip.val().substr(0,1);
+            for(var i in caTaxes){
+                if((caTaxes[i]["code"]).toUpperCase() === firstLetter.trim()){
+                    totalPrice
+                }
+            }
+       }
+    }
     function addTaxEntry(code, perc)
     {
         /*<div class="row">

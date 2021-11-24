@@ -50,6 +50,12 @@ transcribe/data/libs/closure-compiler-v20200614.jar
 transcribe/data/parts/error_log
 transcribe/main_scratch.php
 
-
+/transcribe/data/parts/config.php
+/transcribe/data/parts/constants.php
+/transcribe/data/libs/node_modules/uglify-js/
+/transcribe/data/libs/node_modules/.bin/
+/transcribe/data/libs/node_modules/commander/
+/transcribe/data/libs/closure-compiler-v20200614.jar
+New folder.rar
 
 
