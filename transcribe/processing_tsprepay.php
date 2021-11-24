@@ -119,17 +119,17 @@ use Src\Payment\PrepayPaymentProcessor;
                     $currentAccount->setCompMins(0);
                     $currentAccount->save();
                     echo "<script>localStorage.setItem('prepay_upload',true)</script>";
-                    echo "<script>window.close();</script>";
+                    // echo "<script>window.close();</script>";
                     // header("Location: main.php");
                 }else{
                     echo 'Payment Failed! <i class="far fa-frown"></i> redirecting..';
                 }
-            //    ob_flush();
-            //    flush();
-            //    sleep(2);
-                // header("HTTP/1.1 303 See Other");
-                // header("Location: payment-details.php");
-            //    ob_end_flush();
+               ob_flush();
+               flush();
+               sleep(2);
+                header("HTTP/1.1 303 See Other");
+                header("Location: payment-details.php");
+               ob_end_flush();
 
             ?>
         </small>
