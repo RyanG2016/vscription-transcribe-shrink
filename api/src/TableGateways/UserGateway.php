@@ -999,10 +999,7 @@ class UserGateway implements GatewayInterface
             !isset($_POST["city"]) ||
             !isset($_POST["state"]) ||
             !isset($_POST["address"]) ||
-            !isset($_POST["zip"]) ||
-            !isset($_POST["card_number"]) ||
-            !isset($_POST["expiration_date"]) ||
-            !isset($_POST["security_code"])
+            !isset($_POST["zip"])
         ) {
             return $this->errorOccurredResponse("Invalid Input, required fields missing (VSPT-U400)");
         }
@@ -1047,25 +1044,25 @@ class UserGateway implements GatewayInterface
                         return $this->errorOccurredResponse("Invalid Input (VSPT-U205)");
                     }
                     break;
-                case 'card_number':
-                        if(!preg_match("/[0-9]/i", $valuePost))
-                        {
-                            return $this->errorOccurredResponse("Invalid Input (VSPT-U206)");
-                        }
-                        break;
+                // case 'card_number':
+                //         if(!preg_match("/[0-9]/i", $valuePost))
+                //         {
+                //             return $this->errorOccurredResponse("Invalid Input (VSPT-U206)");
+                //         }
+                //         break;
 
-                case 'expiration_date':
-                    if(!preg_match("/[0-9]/i", $valuePost))
-                    {
-                        return $this->errorOccurredResponse("Invalid Input (VSPT-U207)");
-                    }
-                    break;
-                case 'security_code':
-                    if(!preg_match("/[0-9]/i", $valuePost))
-                    {
-                        return $this->errorOccurredResponse("Invalid Input (VSPT-U208)");
-                    }
-                    break;
+                // case 'expiration_date':
+                //     if(!preg_match("/[0-9]/i", $valuePost))
+                //     {
+                //         return $this->errorOccurredResponse("Invalid Input (VSPT-U207)");
+                //     }
+                //     break;
+                // case 'security_code':
+                //     if(!preg_match("/[0-9]/i", $valuePost))
+                //     {
+                //         return $this->errorOccurredResponse("Invalid Input (VSPT-U208)");
+                //     }
+                //     break;
 
                 case 'newsletter':
                 case 'email_notification':
@@ -1098,9 +1095,9 @@ class UserGateway implements GatewayInterface
         $user->setNewsletter($_POST["newsletter"]);
         $user->setEmailNotification($_POST["email_notification"]);
 
-        $user->setCardNumber($_POST["card_number"]);
-        $user->setExpirationDate($_POST["expiration_date"]);
-        $user->setSecurityCode($_POST["security_code"]);
+        // $user->setCardNumber($_POST["card_number"]);
+        // $user->setExpirationDate($_POST["expiration_date"]);
+        // $user->setSecurityCode($_POST["security_code"]);
         
         if(isset($_POST["typist"]))
         {
@@ -1300,9 +1297,9 @@ class UserGateway implements GatewayInterface
                 'email_notification' => $model ->getEmailNotification()  ,
                 'newsletter' => $model ->getNewsletter() ,
                 'address' => $model ->getAddress(),
-                'card_number' => $model->getCardNumber(),
-                'security_code' => $model->getSecurityCode(),
-                'expiration_date' => $model->getExpirationDate(),
+                // 'card_number' => $model->getCardNumber(),
+                // 'security_code' => $model->getSecurityCode(),
+                // 'expiration_date' => $model->getExpirationDate(),
 
             ));
             // setting session variables
@@ -1314,9 +1311,9 @@ class UserGateway implements GatewayInterface
             $_SESSION['userData']['newsletter'] = $model->getNewsletter();
             $_SESSION['userData']['email_notification'] = $model->getEmailNotification();
             $_SESSION['userData']['account'] = $model->getAccount();
-            $_SESSION['userData']['card_number'] = $model->getCardNumber();
-            $_SESSION['userData']['security_code'] = $model->getSecurityCode();
-            $_SESSION['userData']['expiration_date'] = $model->getExpirationDate();
+            // $_SESSION['userData']['card_number'] = $model->getCardNumber();
+            // $_SESSION['userData']['security_code'] = $model->getSecurityCode();
+            // $_SESSION['userData']['expiration_date'] = $model->getExpirationDate();
 
 
             $_SESSION['userData']['first_name'] = $model->getFirstName();

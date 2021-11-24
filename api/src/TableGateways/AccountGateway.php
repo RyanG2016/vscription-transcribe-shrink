@@ -931,7 +931,9 @@ class AccountGateway implements GatewayInterface
                 trial = :trial,
                 auto_list_refresh_interval = :auto_list_refresh_interval,
                 transcribe_remarks = :transcribe_remarks,
-                comp_mins =:comp_mins
+                comp_mins =:comp_mins,
+                profile_id=:profile_id,
+                payment_id=:payment_id
             WHERE
                 acc_id = :acc_id;
         ";
@@ -979,7 +981,9 @@ class AccountGateway implements GatewayInterface
                 'trial' => $model->getTrialStatus(),
                 'auto_list_refresh_interval' => $model->getAccJobRefreshInterval(),
                 'transcribe_remarks' => $model->getTranscribeRemarks(),
-                'comp_mins' => $model->getCompMins()
+                'comp_mins' => $model->getCompMins(),
+                'payment_id'=>$model->getPaymentId(),
+                'profile_id'=>$model->getProfileId()
             ));
             return $statement->rowCount();
         } catch (\PDOException) {

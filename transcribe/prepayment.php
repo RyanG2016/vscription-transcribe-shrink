@@ -19,12 +19,32 @@ header("Expires: 0"); // Now
 //     ob_end_flush();
 //     die();
 // }
+use Src\Payment\PrepayPaymentProcessor;
 use Src\Models\Package;
 //use Src\TableGateways\PackageGateway;
 
 //$pkgGateway = new PackageGateway($dbConnection);
 $pkg = Package::withID($_POST["package"], $dbConnection);
 // User Setting
+if(isset($_SESSION["userData"]["profile_id"]) && isset($_SESSION["userData"]["payment_id"])){
+    $processor = new PrepayPaymentProcessor(
+        $_SESSION['fname'], $_SESSION['lname'],
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        $pkg,
+        '',
+        $dbConnection
+    );
+
+    $getPaymentDetails = $processor->getCustomerPaymentProfile($_SESSION["userData"]["profile_id"],$_SESSION["userData"]["payment_id"]);
+    $_SESSION["userData"]["zipcode"] = $getPaymentDetails->getPaymentProfile()->getbillTo()->getzip();
+    $_SESSION["userData"]["card_number"] = $getPaymentDetails->getPaymentProfile()->getPayment()->getCreditCard()->getCardNumber();
+    $_SESSION["userData"]["expiration_date"] = $getPaymentDetails->getPaymentProfile()->getPayment()->getCreditCard()->getExpirationDate();
+}
 ?>
 
 <html lang="en">
@@ -137,7 +157,15 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
                     <!--        CONTENTS GOES HERE        -->
 
                     <!--                <span class="payment-title">Details for your order</span>-->
-                    <h3>Order Details</h3>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h3>Order Details</h3>
+                        </div>
+                        <div class="col-md-8 d-flex justify-content-end">
+                            <button class="btn btn-primary" id="backBtn">Back</button>
+                            <button class="btn btn-success" id="trashBtn">Trash</button>
+                        </div>
+                    </div>
                     <hr>
                     <form id="paymentForm" method="post" action="processing_tsprepay.php" enctype="multipart/form-data"
                         novalidate>
@@ -208,7 +236,7 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
                                                                 d="M750,431V193.2c-217.6-57.5-556.4-13.5-750,24.9V431c0,22.1,17.9,40,40,40h670C732.1,471,750,453.1,750,431z" />
                                                         </g>
                                                         <text transform="matrix(1 0 0 1 60.106 295.0121)" id="svgnumber"
-                                                            class="st2 st3 st4"><?php echo $_SESSION["userData"]["card_number"]?></text>
+                                                            class="st2 st3 st4"><?php echo isset($_SESSION["userData"]["card_number"])?$_SESSION["userData"]["card_number"]:''?></text>
                                                         <text transform="matrix(1 0 0 1 54.1064 428.1723)" id="svgname"
                                                             class="st2 st5 st6"><?php echo $_SESSION["fname"] . " " . $_SESSION["lname"]?></text>
                                                         <text transform="matrix(1 0 0 1 54.1074 389.8793)"
@@ -220,7 +248,7 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
                                                         <g>
                                                             <text transform="matrix(1 0 0 1 574.4219 433.8095)"
                                                                 id="svgexpire"
-                                                                class="st2 st5 st9"><?php echo $_SESSION["userData"]["expiration_date"]?></text>
+                                                                class="st2 st5 st9"><?php echo isset($_SESSION["userData"]["expiration_date"])?$_SESSION["userData"]["expiration_date"]:''?></text>
                                                             <text transform="matrix(1 0 0 1 479.3848 417.0097)"
                                                                 class="st2 st10 st11">VALID</text>
                                                             <text transform="matrix(1 0 0 1 479.3848 435.6762)"
@@ -300,7 +328,7 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
                                                         </g>
                                                         <text transform="matrix(1 0 0 1 621.999 227.2734)"
                                                             id="svgsecurity"
-                                                            class="st6 st7"><?php echo $_SESSION["userData"]["security_code"]?></text>
+                                                            class="st6 st7"><?php echo isset($_SESSION["userData"]["security_code"])?$_SESSION["userData"]["security_code"]:''?></text>
                                                         <g class="st8">
                                                             <text transform="matrix(1 0 0 1 518.083 280.0879)"
                                                                 class="st9 st6 st10">security code</text>
@@ -334,7 +362,7 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
                                                     <br>
                                                     <input id="cardnumber" name="card_number" type="text" pattern="[0-9]*"
                                                         inputmode="numeric"
-                                                        value="<?php echo $_SESSION["userData"]["card_number"];?>" autofocus>
+                                                        value="<?php echo isset($_SESSION["userData"]["card_number"])?$_SESSION["userData"]["card_number"]:'';?>" autofocus>
                                                     <svg id="ccicon" class="ccicon" width="750" height="471"
                                                         viewBox="0 0 750 471" version="1.1" xmlns="http://www.w3.org/2000/svg"
                                                         xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -365,7 +393,7 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
                                                     <label for="expirationdate">Expiration (mm/yy)</label> <br>
                                                     <input id="expirationdate" name="expiry_date" type="text"
                                                         pattern="[0-9]*" inputmode="numeric"
-                                                        value="<?php echo $_SESSION["userData"]["expiration_date"];?>"
+                                                        value="<?php echo isset($_SESSION["userData"]["expiration_date"])?$_SESSION["userData"]["expiration_date"]:'';?>"
                                                         autofocus>
                                                 </div>
 
@@ -373,7 +401,7 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
                                                     <label for="securitycode">Security Code</label> <br>
                                                     <input id="securitycode" name="cvv" type="text" pattern="[0-9]*"
                                                         inputmode="numeric"
-                                                        value="<?php echo $_SESSION["userData"]["security_code"];?>"
+                                                        value="<?php echo isset($_SESSION["userData"]["security_code"])?$_SESSION["userData"]["security_code"]:'';?>"
                                                         autofocus>
                                                 </div>
                                             </div>
@@ -459,6 +487,14 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
                                             <small class="text-sm-right font-italic fs-17"> &nbsp; I accept the <span><a
                                                         class="fs-17" id="termsLink" href="./terms.php"
                                                         target="_blank">Terms and Conditions</a> </span></small>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="checkbox justify-content-center m-t-10" >
+                                    <div class="form-inline justify-content-center">
+                                        <label>
+                                            <input type="checkbox" name="credit_card_status" value="11" class="w-auto" id="credit_card_status" />
+                                            <small class="text-sm-right font-italic fs-17">Save credit card for future transactions <span></span></small>
                                         </label>
 
                                     </div>

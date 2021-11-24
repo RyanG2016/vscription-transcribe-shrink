@@ -171,9 +171,9 @@ $(document).ready(function () {
     let jobUpdates = $("#emailTranscript");
     let email = $("#email");
     let lastZipRequested = "";
-    let card_number = $("#card_number")[0];
-    let security_code = $("#security_code")[0];
-    let expiration_date = $("#expiration_date")[0];
+    // let card_number = $("#card_number")[0];
+    // let security_code = $("#security_code")[0];
+    // let expiration_date = $("#expiration_date")[0];
 
     let currentEmail = email.val();
     let jlSwitch = $("#jlSwitch");
@@ -181,20 +181,20 @@ $(document).ready(function () {
     let jlOwnSwitch = $("#jlOwnSwitch");
     let ownOrgJobListRefreshInterval = $("#ownOrgJobListRefreshInterval");
 
-    var securitycode_mask = new IMask(security_code, {
-        mask: '0000',
-    });
-    var expiration_date_mask = new IMask(expiration_date, {
-        mask: 'MM{/}YY',
-        groups: {
-            YY: new IMask.MaskedPattern.Group.Range([0, 99]),
-            MM: new IMask.MaskedPattern.Group.Range([1, 12]),
-        }
-    });
-    var card_number_mask = new IMask(card_number, {
-          mask: '0000 0000 0000 0000',
-            regex: '^4\\d{0,15}',
-    });
+    // var securitycode_mask = new IMask(security_code, {
+    //     mask: '0000',
+    // });
+    // var expiration_date_mask = new IMask(expiration_date, {
+    //     mask: 'MM{/}YY',
+    //     groups: {
+    //         YY: new IMask.MaskedPattern.Group.Range([0, 99]),
+    //         MM: new IMask.MaskedPattern.Group.Range([1, 12]),
+    //     }
+    // });
+    // var card_number_mask = new IMask(card_number, {
+    //       mask: '0000 0000 0000 0000',
+    //         regex: '^4\\d{0,15}',
+    // });
 
     /*    userForm.parsley({
             /!*errorsWrapper: '<br><ul class="parsley-error-list"></ul>'*!/

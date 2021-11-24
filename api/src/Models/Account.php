@@ -60,6 +60,8 @@ class Account extends BaseModel implements BaseModelInterface
         private int $auto_list_refresh_interval = 0,
         private string $transcribe_remarks = '',
         private float $comp_mins = 0,
+        private ?string $profile_id = '',
+        private ?string $payment_id = '',
 
 
         private $db = null
@@ -851,5 +853,24 @@ class Account extends BaseModel implements BaseModelInterface
     public function setCompMins(float $comp_mins): void
     {
         $this->comp_mins = $comp_mins;
+    }
+    public function getProfileId(): ?string
+    {
+        return $this->profile_id;
+    }
+
+    public function setProfileId(string $profile_id): void
+    {
+        $this->profile_id = $profile_id;
+    }
+
+    public function getPaymentId(): ?string
+    {
+        return $this->payment_id;
+    }
+
+    public function setPaymentId(string $payment_id): void
+    {
+        $this->payment_id = $payment_id;
     }
 }

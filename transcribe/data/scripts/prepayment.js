@@ -47,6 +47,18 @@ $(document).ready(function () {
     var totalTaxesPercent = 0;
 
     // load CA taxes
+    $("body").on("click","#backBtn",function(){
+        window.close();
+    })
+    $("body").on("click","#trashBtn",function(){
+        $("#paymentForm input").each(function(index,input){
+            if($(input).attr("type") == "checkbox"){
+                $(input)[0].checked = false
+            }else{
+                $(input).val('');
+            }
+        })
+    })
     $.getJSON( "/data/json/canada_taxes.json", function(data) {
 
     })

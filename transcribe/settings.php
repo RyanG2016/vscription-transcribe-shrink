@@ -153,7 +153,7 @@ if ($roleIsSet && $hasOwnOrg && ($_SESSION["accID"] == $_SESSION["userData"]["ac
                                                 data-parsley-error-message="<?php echo CUSTOM_FIELD_ERRORS::NAME ?>"
                                                 value="<?php echo $_SESSION['userData']['last_name'] ?>" required>
                                         </div>
-                                        <div class="input-group">
+                                     <!--    <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text w-auto">Card Number</span>
                                             </div>
@@ -186,7 +186,7 @@ if ($roleIsSet && $hasOwnOrg && ($_SESSION["accID"] == $_SESSION["userData"]["ac
                                                 data-parsley-error-message="<?php echo CUSTOM_FIELD_ERRORS::LOG_RETENTION_TIME ?>"
                                                 min="1" name="security_code" aria-describedby="inputGroupPrepend"
                                                 value="<?php echo $_SESSION['userData']['security_code'] ?>" required>
-                                        </div>
+                                        </div> -->
                                         <div class="input-group">
                                             <div class="row w-100 no-gutters">
                                                 <div class="col-auto">
