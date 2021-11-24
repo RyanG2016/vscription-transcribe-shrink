@@ -89,27 +89,27 @@ function documentReady() {
     });
 
     nextBtn.on("click", function () {
-    	console.log(comp_mins);
+    	// console.log(comp_mins);
         if(lifetime_minutes ==0 && promo ==1){
-            $("#total_mins_charge").text((calculateTotalSRminutes()-10-comp_mins));
-            $("#total_charge").text(((calculateTotalSRminutes()-10-comp_mins)*bill_rate1+(calculateTotalSRminutes()-10-comp_mins)*bill_rate1*0.05).toFixed(2));
-        	if((calculateTotalSRminutes()-10-comp_mins) <0){
+            $("#total_mins_charge").text((calculateTotalMinutes()-10-comp_mins));
+            $("#total_charge").text(((calculateTotalMinutes()-10-comp_mins)*bill_rate1+(calculateTotalMinutes()-10-comp_mins)*bill_rate1*0.05).toFixed(2));
+        	if((calculateTotalMinutes()-10-comp_mins) <0){
         		$("#total_mins_charge").text(0);
         		$("#total_charge").text(0);
     			$("#mdc-button__label").text("Upload File(s)");
 
         	}
         }else{
-            $("#total_mins_charge").text((calculateTotalSRminutes()-comp_mins));
-            $("#total_charge").text(((calculateTotalSRminutes()-comp_mins)*bill_rate1+(calculateTotalSRminutes()-comp_mins)*bill_rate1*0.05).toFixed(2));
-        	if((calculateTotalSRminutes()-comp_mins) <0){
+            $("#total_mins_charge").text((calculateTotalMinutes()-comp_mins));
+            $("#total_charge").text(((calculateTotalMinutes()-comp_mins)*bill_rate1+(calculateTotalMinutes()-comp_mins)*bill_rate1*0.05).toFixed(2));
+        	if((calculateTotalMinutes()-comp_mins) <0){
         		$("#total_mins_charge").text(0);
         		$("#total_charge").text(0);
 				$("#mdc-button__label").text("Upload File(s)");
 
         	}
         }
-        console.log(calculateTotalSRminutes())
+        console.log(calculateTotalMinutes())
         uploadCarousel.carousel(2);
     });
     prevBtn.on("click", function () {
@@ -223,7 +223,7 @@ function documentReady() {
 
 
     uploadCarousel.on('slide.bs.carousel', function (e) {
-        console.log(e.to + 1)
+        // console.log(e.to + 1)
         /*  
             e.direction     // The direction in which the carousel is sliding (either "left" or "right").
             e.relatedTarget // The DOM element that is being slid into place as the active item.
@@ -310,8 +310,8 @@ function documentReady() {
         event.preventDefault();
 	if(prepayStatus == 1){ 
 	  if(lifetime_minutes ==0 && promo ==1){
-	  	if(eval(calculateTotalSRminutes()-10-comp_mins) > 0){	
-			$("#total_mins").val(calculateTotalSRminutes()-10-comp_mins);
+	  	if(eval(calculateTotalMinutes()-10-comp_mins) > 0){	
+			$("#total_mins").val(calculateTotalMinutes()-10-comp_mins);
 			$("#prepayForm").submit();
 			var prepayInterval = setInterval(()=>{
 			  if(localStorage.getItem("prepay_upload") =="true"){
@@ -323,8 +323,8 @@ function documentReady() {
 	  		prepayUpload();
 	  	}
 	  }else{
-	  	if(eval(calculateTotalSRminutes()-comp_mins) > 0){	  		
-		  	$("#total_mins").val(calculateTotalSRminutes()-comp_mins);
+	  	if(eval(calculateTotalMinutes()-comp_mins) > 0){	  		
+		  	$("#total_mins").val(calculateTotalMinutes()-comp_mins);
 			$("#prepayForm").submit();
 			if(localStorage.getItem("prepay_upload") =="true"){
 				localStorage.removeItem("prepay_upload");
@@ -562,6 +562,16 @@ function documentReady() {
         }
     }
 
+    function roundUpToNext(number) {
+        let roundTo = 1;
+        // return (Math.round(number)%roundTo === 0) ? Math.round(number) : Math.round((number+roundTo/2)/roundTo)*roundTo;
+        if (number % roundTo === 0) {
+            return Math.round(number);
+        } else {
+            return (Math.round((number + roundTo / 2) / roundTo) * roundTo);
+        }
+    }
+
     function calculateTotalSRminutes() {
         let totalSRseconds = 0.0;
 
@@ -573,13 +583,25 @@ function documentReady() {
         return secsToMin(totalSRseconds);
     }
 
+    function calculateTotalMinutes() {
+        let totalseconds = 0.0;
+
+        for (let i = 0; i < filesDur.length; i++) {
+            var sec = roundUpToNext(filesDur[i]);
+            totalseconds += sec;
+        }
+
+        return secsToMin(totalseconds);
+    }
+
     function unlockUploadUI(unlock) {
         if (unlock) {
             if (filesArr.length > 0) {
+                //We are using this elsewhere so need to calculate even if no SR
+                var totalMinutes = calculateTotalMinutes();
                 // check for SR
                 if (srEnabled) {
                     // check for total minutes length and sufficient balance
-                    var totalMinutes = calculateTotalSRminutes();
                     // totalMinutes = 60;
                     let balanceAfterUpload = srMinutesRemaining - totalMinutes;
                     if (balanceAfterUpload < 0) {
@@ -614,7 +636,15 @@ function documentReady() {
                         submitUploadBtn.removeAttribute("disabled");
                     });
                 }
-
+                if (prepayStatus == 1) {
+                    // $("#totals").html(
+                    //     `Total amount to be charged: ${totalMinutes} mins - $${comp_mins} X $${bill_rate1} = $${((totalMinutes-comp_mins)*bill_rate1).toFixed(2)} (Plus applicable taxes)`)
+                    $("#sum_sub").html(`${(totalMinutes).toFixed(2)}`);
+                    $("#sum_comp").html(`-${comp_mins}`);
+                    $("#sum_br").html(`$${bill_rate1}`);
+                    var displayTotalMins = ((totalMinutes-comp_mins)*bill_rate1) >0 ? ((totalMinutes-comp_mins)*bill_rate1).toFixed(2) : "0.00";
+                    $("#sum_gt").html(`$${displayTotalMins}`);
+                }
                 submitUploadBtn.removeAttribute("disabled");
             }
         } else {

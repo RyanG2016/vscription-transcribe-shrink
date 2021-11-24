@@ -795,11 +795,26 @@ class FileGateway implements GatewayInterface
                                 $statement->execute();
                                 $this->logger->insertAuditLogEntry($this->API_NAME, "File ". $orig_filename ." uploaded with status code: " . $file_status);
 //                                return $statement->rowCount();
-                                return true;
+                                // return true;
                             } catch (PDOException $e) {
 //                                die($e->getMessage());
                                 return false;
                             }
+          
+ 
+                //Update lifetime_minutes for account
+                $statement2 = "UPDATE accounts SET lifetime_minutes=lifetime_minutes+" . number_format(($file_duration/60),2) . " where acc_id = ".$acc_id;
+
+                            try {
+                                $statement2 = $this->db->prepare($statement2);
+                                $statement2->execute();
+                                $this->logger->insertAuditLogEntry($this->API_NAME, "Added " . number_format(($file_duration/60),2) . " lifetime minutes to account " . $acc_id);
+//                                return $statement->rowCount();
+                                return true;
+                            } catch (PDOException $e) {
+//                                die($e->getMessage());
+                                return false;
+                            }                           
             }else{
                 return false;
             }

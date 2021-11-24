@@ -2,7 +2,7 @@
 date_default_timezone_set('America/Winnipeg');
 define('DB_SERVER','localhost');
 define('DB_USER','root');
-define('DB_PASS' ,'root');
+define('DB_PASS' ,'');
 define('DB_NAME', 'vtexvsi_transcribe');
 
 $con = mysqli_connect(DB_SERVER,DB_USER,DB_PASS,DB_NAME);

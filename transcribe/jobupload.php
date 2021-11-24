@@ -294,7 +294,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 
                                         <div class="input-group col mb-3">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text" for="demo_comments">ComAdments</span>
+                                                <span class="input-group-text" for="demo_comments">Comments</span>
                                             </div>
                                             <textarea name="demo_comments" class="form-control" id="demo_comments" rows="4"
                                                       placeholder="(optional)"></textarea>
@@ -372,9 +372,58 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                         <div id="srBar"></div>
 
                                     </div>
+                                    <div class="preview-totals">
+                                        <table class="que-files">
+                                            <thead>
+                                                <tr>
+                                                    <th colspan="2" class="preview-header-label">Totals</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="queFilesTotals">
+                                            <tr>
+                                                <td style="text-align: right" class="totals-col col-label">
+                                                Total Minutes:
+                                                </td>
+                                                <td id="sum_sub">
+                                                    $0.00
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align: right" class="totals-col col-label">
+                                                Comp Minutes:
+                                                </td>
+                                                <td id="sum_comp" class="comp-mins">
+                                                    -$0.00
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align: right" class="totals-col col-label">
+                                                Bill Rate:
+                                                </td>
+                                                <td id="sum_br" >
+                                                    $0.00
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align: right" class="totals-col grand-total-label">
+                                                Total To Bill:
+                                                </td>
+                                                <td id="sum_gt" class="grand-total">
+                                                    $0.00
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2" class="totals-col plus-tax-label">
+                                                (Plus applicable taxes)
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
                                     <?php if($_SESSION["userData"]["pre_pay"] ==1):?>
-                                    <p style="font-size: 12px;font-style: italic;font-weight: 900;">
-                                      Total to be charged: Total minutes to be changed(<span id="total_mins_charge"></span>mins) X billrate_1(<span><?php echo $_SESSION["userData"]["bill_rate1"]?></span>) = Total Amount to be billed(<span id="total_charge"></span>) (Plus applicable taxes)
+                                    <p id="totals" style="font-size: 14px;font-weight: 600;text-align: center">
+                                    <!-- Upload Totals will go here-->
                                     </p>
                                     <?php endif;?>
                                     <div class="carousel-nav">
