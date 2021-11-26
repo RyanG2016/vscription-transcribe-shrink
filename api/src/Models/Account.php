@@ -865,7 +865,7 @@ class Account extends BaseModel implements BaseModelInterface
     }
 
     public function getPaymentId(): ?string
-    {
+    {   
         return $this->payment_id;
     }
 

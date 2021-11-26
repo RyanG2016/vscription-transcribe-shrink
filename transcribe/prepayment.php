@@ -373,14 +373,6 @@ if(isset($_SESSION["userData"]["profile_id"]) && isset($_SESSION["userData"]["pa
                                                 <div class="col-md-4">
                                                     <label for="zip">Zip/Postal Code</label>
                                                     <br>
-                                                    <!-- <input id="cardnumber" name="card_number" type="text" pattern="[0-9]*"
-                                                        inputmode="numeric"
-                                                        value="<?php echo $_SESSION["userData"]["card_number"];?>" autofocus>
-                                                    <svg id="ccicon" class="ccicon" width="750" height="471"
-                                                        viewBox="0 0 750 471" version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                                        xmlns:xlink="http://www.w3.org/1999/xlink">
-
-                                                    </svg> -->
                                                       <input id="zip" name="zipcode" type="text" class="" placeholder="<Zip/Postal Code>" value="<?php echo isset($_SESSION['userData']['zipcode']) && !empty($_SESSION['userData']['zipcode'])?$_SESSION['userData']['zipcode']:'';?>" />
                                                 </div>
                                             </div>

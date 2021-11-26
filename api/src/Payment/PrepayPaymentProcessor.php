@@ -450,21 +450,21 @@ class PrepayPaymentProcessor
                     if($response->getPaymentProfile()->getSubscriptionIds() != null)
                     {
 
-                        echo "List of subscriptions:";
+                        // echo "List of subscriptions:";
                         foreach($response->getPaymentProfile()->getSubscriptionIds() as $subscriptionid)
-                            echo $subscriptionid . "\n";
+                            // echo $subscriptionid . "\n";
                     }
                 }
             }
             else
             {
-                echo "GetCustomerPaymentProfile ERROR :  Invalid response\n";
+                // echo "GetCustomerPaymentProfile ERROR :  Invalid response\n";
                 $errorMessages = $response->getMessages()->getMessage();
-                echo "Response : " . $errorMessages[0]->getCode() . "  " .$errorMessages[0]->getText() . "\n";
+                // echo "Response : " . $errorMessages[0]->getCode() . "  " .$errorMessages[0]->getText() . "\n";
             }
         }
         else{
-            echo "NULL Response Error";
+            // echo "NULL Response Error";
         }
         return $response;
     }
