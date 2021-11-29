@@ -11,15 +11,18 @@ data/parts/error_log
 /uploads
 main_scratch.php
 test*
-transcribe/workingTemp/
+transcribe/workingTemp/*
 transcribe/sr/*
 *.pem
+!cacert.pem
 /deletedUploads/*
 /api/phinx/phinx.php
 gaTrackingCode.php
+mail_init.php
+mail_init.php_gmail
 
 /api/.env
-/uploads/
+/uploads/*
 /convert.log
 /api/src/Controller/conversionCron.php
 /logs/*

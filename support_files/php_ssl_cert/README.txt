@@ -1,0 +1,2 @@
+**Last Update 07NOV2021 - RG
+You need the cacerts.pem file in the apache/bin folder for PHP SSL. It is referenced in the php.ini. Since it is the same cert as the curl cert, you could probably use the same for both but I am incliding it here for now.
