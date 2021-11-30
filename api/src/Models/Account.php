@@ -50,7 +50,7 @@ class Account extends BaseModel implements BaseModelInterface
         private ?int $bill_rate5_tat = 0,
         private ?string $bill_rate5_desc = '',
         private ?float $bill_rate5_min_pay = 0,
-        private ?int $lifetime_minutes = 0,
+        private ?float $lifetime_minutes = 0,
         private ?string $work_types = '',
         private int $next_job_tally = 0,
         private int $act_log_retention_time = 180,
@@ -729,7 +729,7 @@ class Account extends BaseModel implements BaseModelInterface
     /**
      * @return int|null
      */
-    public function getLifetimeMinutes(): ?int
+    public function getLifetimeMinutes(): ?float
     {
         return $this->lifetime_minutes;
     }
@@ -737,7 +737,7 @@ class Account extends BaseModel implements BaseModelInterface
     /**
      * @param int|null $lifetime_minutes
      */
-    public function setLifetimeMinutes(?int $lifetime_minutes): void
+    public function setLifetimeMinutes(?float $lifetime_minutes): void
     {
         $this->lifetime_minutes = $lifetime_minutes;
     }
