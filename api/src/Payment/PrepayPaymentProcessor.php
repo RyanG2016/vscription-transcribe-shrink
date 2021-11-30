@@ -450,9 +450,10 @@ class PrepayPaymentProcessor
                     if($response->getPaymentProfile()->getSubscriptionIds() != null)
                     {
 
-                        // echo "List of subscriptions:";
-                        foreach($response->getPaymentProfile()->getSubscriptionIds() as $subscriptionid)
-                            // echo $subscriptionid . "\n";
+                            echo "List of subscriptions:";
+                        foreach($response->getPaymentProfile()->getSubscriptionIds() as $subscriptionid) {
+                            echo $subscriptionid . "\n";
+                        }
                     }
                 }
             }
