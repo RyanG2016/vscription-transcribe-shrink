@@ -17,6 +17,14 @@ function documentReady() {
     const backend_url = 'data/parts/backend_request.php';
     const api_insert_url = 'api/v1/files/';
  
+    //RG 30NOV2021
+    //Need to make sure there is no localStorage item called prepay_upload set to true or the files will upload
+    //whether payment done or not.
+    //I don't think this is a good implementation as a user could simply set the localStorage prepay_upload=true and bypass payment
+
+    if(localStorage.getItem("prepay_upload") =="true"){
+        localStorage.removeItem("prepay_upload");
+    }
 
     // 23-Feb-2020 12:35:40 AM
 
@@ -327,10 +335,12 @@ function documentReady() {
 	  	if(eval(calculateTotalMinutes()-comp_mins) > 0){	  		
 		  	$("#total_mins").val(calculateTotalMinutes().toFixed(2)-comp_mins);
 			$("#prepayForm").submit();
-			if(localStorage.getItem("prepay_upload") =="true"){
-				localStorage.removeItem("prepay_upload");
-			 prepayUpload();
-			}
+			var prepayInterval = setInterval(()=>{
+                if(localStorage.getItem("prepay_upload") =="true"){
+                    localStorage.removeItem("prepay_upload");
+                   prepayUpload();
+                }
+              },3000)
 	  	}else{
 	  		prepayUpload();
 	  	}
