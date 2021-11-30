@@ -113,7 +113,19 @@ use Src\Payment\PrepayPaymentProcessor;
                     $sr->addToMinutesRemaining($pkg->getSrpMins());
                     $sr->save();
                     $currentAccount = \Src\Models\Account::withID($accID, $dbConnection);
-                    $currentAccount->setCompMins(0);
+                    error_log("Current Lifetime Minutes is: " .$currentAccount->getLifetimeMinutes(),0);
+                    error_log("Comp mins for job is: " .$currentAccount->getCompMins(),0);
+                    error_log("Total mins for this transaction is: " .$_POST["total_mins"]);
+                    if ($currentAccount->getLifetimeMinutes() == 0) {
+                        $currentAccount->setCompMins(0);
+                    } else {
+                        if (($currentAccount->getCompMins()-$_POST["total_mins"]) < 0) {
+                            $currentAccount->setCompMins(0);  
+                        } else {
+                            $currentAccount->setCompMins($currentAccount->getCompMins()-$_POST["total_mins"]);
+                        }
+                    }
+
                     if(isset($_POST["credit_card_status"])){
                         $response = $processor->createCustomerProfile($_SESSION["userData"]["email"]);
                         $currentAccount->setProfileId($response->getCustomerProfileId());

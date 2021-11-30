@@ -91,13 +91,14 @@ function documentReady() {
     nextBtn.on("click", function () {
     	// console.log(comp_mins);
         if(lifetime_minutes ==0 && promo ==1){
-            $("#total_mins_charge").text((calculateTotalMinutes()-10-comp_mins));
-            $("#total_charge").text(((calculateTotalMinutes()-10-comp_mins)*bill_rate1+(calculateTotalMinutes()-10-comp_mins)*bill_rate1*0.05).toFixed(2));
-        	if((calculateTotalMinutes()-10-comp_mins) <0){
+            $("#total_mins_charge").text((calculateTotalMinutes()-comp_mins));
+            $("#total_charge").text(((calculateTotalMinutes()-comp_mins)*bill_rate1+(calculateTotalMinutes()-comp_mins)*bill_rate1*0.05).toFixed(2));
+        	if((calculateTotalMinutes()-comp_mins) <0){
         		$("#total_mins_charge").text(0);
         		$("#total_charge").text(0);
     			$("#mdc-button__label").text("Upload File(s)");
-
+                //The only thing different in the scenario here is the comp_mins will go to 0 after first upload regardless
+                // of whether they use them all or not.
         	}
         }else{
             $("#total_mins_charge").text((calculateTotalMinutes()-comp_mins));
@@ -109,7 +110,7 @@ function documentReady() {
 
         	}
         }
-        console.log(calculateTotalMinutes())
+        console.log(calculateTotalMinutes().toFixed(2));
         uploadCarousel.carousel(2);
     });
     prevBtn.on("click", function () {
@@ -310,8 +311,8 @@ function documentReady() {
         event.preventDefault();
 	if(prepayStatus == 1){ 
 	  if(lifetime_minutes ==0 && promo ==1){
-	  	if(eval(calculateTotalMinutes()-10-comp_mins) > 0){	
-			$("#total_mins").val(calculateTotalMinutes()-10-comp_mins);
+	  	if(eval(calculateTotalMinutes()-comp_mins) > 0){	
+			$("#total_mins").val(calculateTotalMinutes().toFixed(2)-comp_mins);
 			$("#prepayForm").submit();
 			var prepayInterval = setInterval(()=>{
 			  if(localStorage.getItem("prepay_upload") =="true"){
@@ -324,7 +325,7 @@ function documentReady() {
 	  	}
 	  }else{
 	  	if(eval(calculateTotalMinutes()-comp_mins) > 0){	  		
-		  	$("#total_mins").val(calculateTotalMinutes()-comp_mins);
+		  	$("#total_mins").val(calculateTotalMinutes().toFixed(2)-comp_mins);
 			$("#prepayForm").submit();
 			if(localStorage.getItem("prepay_upload") =="true"){
 				localStorage.removeItem("prepay_upload");
