@@ -28,9 +28,9 @@ class User extends BaseModel implements BaseModelInterface
 
                                 public ?string $state = null,
                                 public string $address = '',
-                                public ?string $card_number = null,
-                                public ?string $expiration_date =null,
-                                public ?string $security_code = null,
+                                // public ?string $card_number = null,
+                                // public ?string $expiration_date =null,
+                                // public ?string $security_code = null,
 
                                 public int $email_notification = 1,
                                 public int $newsletter = 0,
@@ -403,9 +403,9 @@ class User extends BaseModel implements BaseModelInterface
             $this->email_notification = $row['email_notification'];
 //            $this->enabled = $row['enabled'];
             $this->account = $row['account'];
-            $this->card_number = $row['card_number'];
-            $this->expiration_date = $row['expiration_date'];
-            $this->security_code = $row['security_code'];
+            // $this->card_number = $row['card_number'];
+            // $this->expiration_date = $row['expiration_date'];
+            // $this->security_code = $row['security_code'];
 //            $this->tutorials = $row['tutorials'];
         }
     }

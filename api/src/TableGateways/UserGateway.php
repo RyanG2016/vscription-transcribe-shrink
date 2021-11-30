@@ -262,9 +262,6 @@ class UserGateway implements GatewayInterface
                     users.email_notification,
                     users.account,
                     users.enabled,
-                    users.card_number,
-                    users.security_code,
-                    users.expiration_date,
                     users.def_access_id
                    
                                       
@@ -605,9 +602,6 @@ class UserGateway implements GatewayInterface
                     users.email_notification,
                     users.account,
                     users.enabled,
-                    users.card_number,
-                    users.expiration_date,
-                    users.security_code,
                     users.typist                                      
             FROM
                 users
@@ -1271,10 +1265,7 @@ class UserGateway implements GatewayInterface
                 account = :account,
                 typist = :typist,
                 newsletter = :newsletter,
-                address = :address,
-                card_number = :card_number,
-                security_code = :security_code,
-                expiration_date = :expiration_date
+                address = :address
             WHERE
             id = :id;
         ";
@@ -1296,11 +1287,7 @@ class UserGateway implements GatewayInterface
                 'typist' => $model ->getTypist()  ,
                 'email_notification' => $model ->getEmailNotification()  ,
                 'newsletter' => $model ->getNewsletter() ,
-                'address' => $model ->getAddress(),
-                // 'card_number' => $model->getCardNumber(),
-                // 'security_code' => $model->getSecurityCode(),
-                // 'expiration_date' => $model->getExpirationDate(),
-
+                'address' => $model ->getAddress()
             ));
             // setting session variables
             $_SESSION['userData']['address'] = $model->getAddress();
@@ -1311,9 +1298,6 @@ class UserGateway implements GatewayInterface
             $_SESSION['userData']['newsletter'] = $model->getNewsletter();
             $_SESSION['userData']['email_notification'] = $model->getEmailNotification();
             $_SESSION['userData']['account'] = $model->getAccount();
-            // $_SESSION['userData']['card_number'] = $model->getCardNumber();
-            // $_SESSION['userData']['security_code'] = $model->getSecurityCode();
-            // $_SESSION['userData']['expiration_date'] = $model->getExpirationDate();
 
 
             $_SESSION['userData']['first_name'] = $model->getFirstName();
@@ -1368,11 +1352,7 @@ class UserGateway implements GatewayInterface
                 account,
                 typist,
                 state,
-                address,
-                card_number,
-                security_code,
-                expiration_date
-                                      
+                address                                     
             FROM
                 users
             WHERE
