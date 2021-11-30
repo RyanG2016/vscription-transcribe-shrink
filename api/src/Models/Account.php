@@ -224,6 +224,7 @@ class Account extends BaseModel implements BaseModelInterface
             $this->bill_rate5_tat = $row['bill_rate5_tat'];
             $this->bill_rate5_desc = $row['bill_rate5_desc'];
             $this->bill_rate5_min_pay = $row['bill_rate5_min_pay'];
+            $this->comp_mins = $row['comp_mins'];
             $this->lifetime_minutes = $row['lifetime_minutes'];
             $this->work_types = $row['work_types'];
             $this->next_job_tally = $row['next_job_tally'];
