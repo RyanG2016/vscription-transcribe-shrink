@@ -40,10 +40,12 @@ if(isset($_SESSION["userData"]["profile_id"]) && isset($_SESSION["userData"]["pa
         $dbConnection
     );
 
-    $getPaymentDetails = $processor->getCustomerPaymentProfile($_SESSION["userData"]["profile_id"],$_SESSION["userData"]["payment_id"]);
-    $_SESSION["userData"]["zipcode"] = $getPaymentDetails->getPaymentProfile()->getbillTo()->getzip();
-    $_SESSION["userData"]["card_number"] = $getPaymentDetails->getPaymentProfile()->getPayment()->getCreditCard()->getCardNumber();
-    $_SESSION["userData"]["expiration_date"] = $getPaymentDetails->getPaymentProfile()->getPayment()->getCreditCard()->getExpirationDate();
+    if (!empty($_SESSION["userData"]["profile_id"])) {
+        $getPaymentDetails = $processor->getCustomerPaymentProfile($_SESSION["userData"]["profile_id"],$_SESSION["userData"]["payment_id"]);
+        $_SESSION["userData"]["zipcode"] = $getPaymentDetails->getPaymentProfile()->getbillTo()->getzip();
+        $_SESSION["userData"]["card_number"] = $getPaymentDetails->getPaymentProfile()->getPayment()->getCreditCard()->getCardNumber();
+        $_SESSION["userData"]["expiration_date"] = $getPaymentDetails->getPaymentProfile()->getPayment()->getCreditCard()->getExpirationDate();
+    }
 }
 ?>
 
@@ -167,6 +169,12 @@ if(isset($_SESSION["userData"]["profile_id"]) && isset($_SESSION["userData"]["pa
                         </div>
                     </div>
                     <hr>
+                    <div class="alert alert-danger" role="alert" display="none">
+                    There was an error processing your transaction. No charges were applied to your card. Please check your information and try again.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>    
+                    </div>
                     <form id="paymentForm" method="post" action="processing_tsprepay.php" enctype="multipart/form-data"
                         novalidate>
                         <input type="hidden" name="package" value="<?php echo $pkg->getSrpId()?>" />
@@ -485,7 +493,7 @@ if(isset($_SESSION["userData"]["profile_id"]) && isset($_SESSION["userData"]["pa
                                 <div class="checkbox justify-content-center m-t-10" >
                                     <div class="form-inline justify-content-center">
                                         <label>
-                                            <input type="checkbox" name="credit_card_status" value="11" class="w-auto" id="credit_card_status" />
+                                            <input type="checkbox" name="credit_card_status" class="w-auto" id="credit_card_status" />
                                             <small class="text-sm-right font-italic fs-17">Save credit card for future transactions <span></span></small>
                                         </label>
 
