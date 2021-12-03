@@ -50,14 +50,15 @@ $(document).ready(function () {
     $("body").on("click","#backBtn",function(){
         window.close();
     })
-    $("body").on("click","#trashBtn",function(){
-        $("#paymentForm input").each(function(index,input){
-            if($(input).attr("type") == "checkbox"){
-                $(input)[0].checked = false
-            }else{
-                $(input).val('');
-            }
-        })
+    $("#trashBtn").on("click",function(){
+        // $("#paymentForm input").each(function(index,input){
+        //     if($(input).attr("type") == "checkbox"){
+        //         $(input)[0].checked = false
+        //     }else{
+        //         $(input).val('');
+        //     }
+        // })
+        alert(`Delete saved credit card details?`);
     })
     $.getJSON( "/data/json/canada_taxes.json", function(data) {
 
@@ -475,25 +476,47 @@ $(document).ready(function () {
 
     function validatePaymentFields()
     {
-        console.log(expCheck,nameCheck,cvvCheck,cardCheck)
-        // console.log(expCheck + "\n" + nameCheck + "\n" +cvvCheck + "\n" +cardCheck);
-        if(expCheck && nameCheck && cvvCheck && cardCheck && $("#accept_term")[0].checked &&
-            $(".vtex-err-border").length === 0
-            )
-        {
-            // enable
-            // if(country.val().toLowerCase().trim() === "canada")
-            // {
-            //     let wait = calculateTaxes();
-            // }
-            payBtn.removeAttr("disabled");
-            return true;
-        }
-        else{
-            // disable
-            payBtn.attr("disabled", "disabled");
-            return false;
-        }
+        if (document.getElementById("prepay-form") == null) {
+                console.log(expCheck,nameCheck,cvvCheck,cardCheck)
+                // console.log(expCheck + "\n" + nameCheck + "\n" +cvvCheck + "\n" +cardCheck);
+                if(expCheck && nameCheck && cvvCheck && cardCheck && $("#accept_term")[0].checked &&
+                    $(".vtex-err-border").length === 0
+                    )
+                {
+                    // enable
+                    // if(country.val().toLowerCase().trim() === "canada")
+                    // {
+                    //     let wait = calculateTaxes();
+                    // }
+                    payBtn.removeAttr("disabled");
+                    return true;
+                }
+                else{
+                    // disable
+                    payBtn.attr("disabled", "disabled");
+                    return false;
+                }
+            } else {
+                    console.log(cvvCheck)
+                    // console.log(expCheck + "\n" + nameCheck + "\n" +cvvCheck + "\n" +cardCheck);
+                    if(cvvCheck && $("#accept_term")[0].checked &&
+                        $(".vtex-err-border").length === 0
+                        )
+                    {
+                        // enable
+                        // if(country.val().toLowerCase().trim() === "canada")
+                        // {
+                        //     let wait = calculateTaxes();
+                        // }
+                        payBtn.removeAttr("disabled");
+                        return true;
+                    }
+                    else{
+                        // disable
+                        payBtn.attr("disabled", "disabled");
+                        return false;
+                    }
+            }
     }
 
 
@@ -559,6 +582,8 @@ $(document).ready(function () {
     let cctype = null;
 
 //Mask the Credit Card Number Input
+// If no saved payment profile:
+if (document.getElementById("non-prepay-form") != null) {
     var cardnumber_mask = new IMask(cardnumber, {
         mask: [
             // {
@@ -648,6 +673,80 @@ $(document).ready(function () {
         }
     });
 
+    
+//pop in the appropriate card icon when detected
+cardnumber_mask.on("accept", function () {
+    // console.log(cardnumber_mask.masked.currentMask.cardtype);
+    switch (cardnumber_mask.masked.currentMask.cardtype) {
+        case 'american express':
+            ccicon.innerHTML = amex;
+            ccsingle.innerHTML = amex_single;
+            swapColor('green');
+            break;
+        case 'visa':
+            ccicon.innerHTML = visa;
+            ccsingle.innerHTML = visa_single;
+            swapColor('lime');
+            break;
+        case 'diners':
+            ccicon.innerHTML = diners;
+            ccsingle.innerHTML = diners_single;
+            swapColor('orange');
+            break;
+        case 'discover':
+            ccicon.innerHTML = discover;
+            ccsingle.innerHTML = discover_single;
+            swapColor('purple');
+            break;
+        case ('jcb' || 'jcb15'):
+            ccicon.innerHTML = jcb;
+            ccsingle.innerHTML = jcb_single;
+            swapColor('red');
+            break;
+        case 'maestro':
+            ccicon.innerHTML = maestro;
+            ccsingle.innerHTML = maestro_single;
+            swapColor('yellow');
+            break;
+        case 'mastercard':
+            ccicon.innerHTML = mastercard;
+            ccsingle.innerHTML = mastercard_single;
+            swapColor('lightblue');
+
+            break;
+        case 'unionpay':
+            ccicon.innerHTML = unionpay;
+            ccsingle.innerHTML = unionpay_single;
+            swapColor('cyan');
+            break;
+        default:
+            ccicon.innerHTML = '';
+            ccsingle.innerHTML = '';
+            swapColor('grey');
+            break;
+    }
+});
+
+
+expirationdate_mask.on('accept', function () {
+
+    if (expirationdate_mask.value.length == 0) {
+        document.getElementById('svgexpire').innerHTML = '01/23';
+    } else {
+        document.getElementById('svgexpire').innerHTML = expirationdate_mask.value;
+    }
+
+    if(expirationdate_mask.value.length == 5)
+    {
+        expCheck = true;
+    }else{
+        expCheck = false;
+    }
+    validatePaymentFields();
+});
+
+}
+
 //Mask the security code
     var securitycode_mask = new IMask(securitycode, {
         mask: '0000',
@@ -688,58 +787,6 @@ $(document).ready(function () {
     };
 
 
-//pop in the appropriate card icon when detected
-    cardnumber_mask.on("accept", function () {
-        // console.log(cardnumber_mask.masked.currentMask.cardtype);
-        switch (cardnumber_mask.masked.currentMask.cardtype) {
-            case 'american express':
-                ccicon.innerHTML = amex;
-                ccsingle.innerHTML = amex_single;
-                swapColor('green');
-                break;
-            case 'visa':
-                ccicon.innerHTML = visa;
-                ccsingle.innerHTML = visa_single;
-                swapColor('lime');
-                break;
-            case 'diners':
-                ccicon.innerHTML = diners;
-                ccsingle.innerHTML = diners_single;
-                swapColor('orange');
-                break;
-            case 'discover':
-                ccicon.innerHTML = discover;
-                ccsingle.innerHTML = discover_single;
-                swapColor('purple');
-                break;
-            case ('jcb' || 'jcb15'):
-                ccicon.innerHTML = jcb;
-                ccsingle.innerHTML = jcb_single;
-                swapColor('red');
-                break;
-            case 'maestro':
-                ccicon.innerHTML = maestro;
-                ccsingle.innerHTML = maestro_single;
-                swapColor('yellow');
-                break;
-            case 'mastercard':
-                ccicon.innerHTML = mastercard;
-                ccsingle.innerHTML = mastercard_single;
-                swapColor('lightblue');
-
-                break;
-            case 'unionpay':
-                ccicon.innerHTML = unionpay;
-                ccsingle.innerHTML = unionpay_single;
-                swapColor('cyan');
-                break;
-            default:
-                ccicon.innerHTML = '';
-                ccsingle.innerHTML = '';
-                swapColor('grey');
-                break;
-        }
-    });
 
 
 
@@ -762,7 +809,7 @@ $(document).ready(function () {
         randomCard();
     });*/
 
-
+if (document.getElementById("non-prepay-form") != null) {
 // CREDIT CARD IMAGE JS
     document.querySelector('.preload').classList.remove('preload');
     document.querySelector('.creditcard').addEventListener('click', function () {
@@ -824,6 +871,24 @@ $(document).ready(function () {
         }
         validatePaymentFields();
     });
+
+    securitycode_mask.on('accept', function () {
+        if (securitycode_mask.value.length == 0) {
+            document.getElementById('svgsecurity').innerHTML = '985';
+        } else {
+            document.getElementById('svgsecurity').innerHTML = securitycode_mask.value;
+        }
+
+        cvvCheck = securitycode_mask.value.length >= 3;
+        validatePaymentFields();
+    });
+} else {
+    
+    securitycode_mask.on('accept', function () {
+        cvvCheck = securitycode_mask.value.length >= 3;
+        validatePaymentFields();
+    });
+}
     function maskCardNumber(number)
     {
         // console.log(number);
@@ -844,58 +909,41 @@ $(document).ready(function () {
         return mask + unmasked;
     }
 
-    expirationdate_mask.on('accept', function () {
-
-        if (expirationdate_mask.value.length == 0) {
-            document.getElementById('svgexpire').innerHTML = '01/23';
-        } else {
-            document.getElementById('svgexpire').innerHTML = expirationdate_mask.value;
-        }
-
-        if(expirationdate_mask.value.length == 5)
-        {
-            expCheck = true;
-        }else{
-            expCheck = false;
-        }
-        validatePaymentFields();
-    });
-
-
-    securitycode_mask.on('accept', function () {
-        if (securitycode_mask.value.length == 0) {
-            document.getElementById('svgsecurity').innerHTML = '985';
-        } else {
-            document.getElementById('svgsecurity').innerHTML = securitycode_mask.value;
-        }
-
-        cvvCheck = securitycode_mask.value.length >= 3;
-        validatePaymentFields();
-    });
 
 //On Focus Events
-    name.addEventListener('focus', function () {
-        document.querySelector('.creditcard').classList.remove('flipped');
-    });
+// No saved payment profile:
+if (document.getElementById("non-prepay-form") != null) {
+        name.addEventListener('focus', function () {
+            document.querySelector('.creditcard').classList.remove('flipped');
+        });
 
-    cardnumber.addEventListener('focus', function () {
-        document.querySelector('.creditcard').classList.remove('flipped');
-    });
+        cardnumber.addEventListener('focus', function () {
+            document.querySelector('.creditcard').classList.remove('flipped');
+        });
 
-    expirationdate.addEventListener('focus', function () {
-        document.querySelector('.creditcard').classList.remove('flipped');
-    });
+        expirationdate.addEventListener('focus', function () {
+            document.querySelector('.creditcard').classList.remove('flipped');
+        });
 
-    securitycode.addEventListener('focus', function () {
-        document.querySelector('.creditcard').classList.add('flipped');
-    });
-    $("#accept_term").change(()=>{
-        validatePaymentFields();
-    })
-    cardnumber_mask._listeners.accept[0]()
-    expirationdate_mask._listeners.accept[0]();
-    securitycode_mask._listeners.accept[0]();
-    if($("#accept_term")[0].checked && securitycode_mask.masked.isComplete && cardnumber_mask.masked.isComplete && securitycode_mask.masked.isComplete){
-        payBtn.removeAttr("disabled");
+        securitycode.addEventListener('focus', function () {
+            document.querySelector('.creditcard').classList.add('flipped');
+        });
+        $("#accept_term").change(()=>{
+            validatePaymentFields();
+        })
+        cardnumber_mask._listeners.accept[0]()
+        expirationdate_mask._listeners.accept[0]();
+        securitycode_mask._listeners.accept[0]();
+        if($("#accept_term")[0].checked && securitycode_mask.masked.isComplete && cardnumber_mask.masked.isComplete && securitycode_mask.masked.isComplete){
+            payBtn.removeAttr("disabled");
+        }
+} else {
+        $("#accept_term").change(()=>{
+            validatePaymentFields();
+        })
+        securitycode_mask._listeners.accept[0]();
+        if($("#accept_term")[0].checked && securitycode_mask.masked.isComplete){
+            payBtn.removeAttr("disabled");
+        } 
     }
 });

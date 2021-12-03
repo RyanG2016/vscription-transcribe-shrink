@@ -33,21 +33,14 @@ class PrepayPaymentProcessor
     public function __construct(
         private $fname,
         private $lname,
-        // private $address,
-        // private $city,
-        // private $state,
-        // private $country,
         private $zip,
-
         private $nameOnCard,
         private $cardNumber,
         private $cardCvv,
         private $cardExpiryMMSlYY,
         private $amount,
-
         private Package $package,
         private $selfAccount,
-
         private $db
     )
     {
@@ -77,24 +70,14 @@ class PrepayPaymentProcessor
     {
         $user = User::withID($_SESSION["uid"], $this->db);
         $this->userModel = $user;
-        // $user->setAddress($this->address);
-//        $user->setFirstName($this->fname);
-//        $user->setLastName($this->lname);
-        // $user->setAddress($this->address);
-        // $user->setCity($this->city);
-        // $user->setState($this->state);
         $user->setZipcode($this->zip);
-        // $user->setCountry($this->country);
-        // $user->setCardNumber($this->cardNumber);
-        // $user->setExpirationDate($this->cardExpiryMMSlYY);
-
         $user->save();
-
-
     }
 
+    // Charge a manually entered credit card
     public function chargeCreditCardNow():bool
     {
+        error_log("We are charging a manually entered card",0);
         $this->calculateTotalPrice();
 
         /* Create a merchantAuthenticationType object with authentication details
@@ -105,7 +88,7 @@ class PrepayPaymentProcessor
         $merchantAuthentication->setName(getenv('AUTHNET_API_LOGIN_ID'));
         $merchantAuthentication->setTransactionKey(getenv('AUTHNET_TRANS_KEY'));
 
-        // Set the transaction's refId
+        // Set the transaction's reference Id
         $refId = $this->internalRefID;
 
         // Create the payment data for a credit card
@@ -125,35 +108,7 @@ class PrepayPaymentProcessor
 
         // Set the customer's Bill To address
         $customerAddress = new AnetAPI\CustomerAddressType();
-        // $customerAddress->setFirstName($this->fname);
-        // $customerAddress->setLastName($this->lname);
-//        $customerAddress->setCompany("Souveniropolis");
-        // $customerAddress->setAddress($this->address);
-        // $customerAddress->setCity($this->city);
-        // $customerAddress->setState($this->state);
         $customerAddress->setZip($this->zip);
-        // $customerAddress->setCountry($this->country);
-
-        // Set the customer's identifying information
-//    $customerData = new AnetAPI\CustomerDataType();
-//    $customerData->setType("individual");
-//    $customerData->setId("99999456654");
-//    $customerData->setEmail("EllenJohnson@example.com");
-
-        // Add values for transaction settings
-//    $duplicateWindowSetting = new AnetAPI\SettingType();
-//    $duplicateWindowSetting->setSettingName("duplicateWindow");
-//    $duplicateWindowSetting->setSettingValue("60");
-
-        // Add some merchant defined fields. These fields won't be stored with the transaction,
-        // but will be echoed back in the response.
-//    $merchantDefinedField1 = new AnetAPI\UserFieldType();
-//    $merchantDefinedField1->setName("customerLoyaltyNum");
-//    $merchantDefinedField1->setValue("1128836273");
-
-//    $merchantDefinedField2 = new AnetAPI\UserFieldType();
-//    $merchantDefinedField2->setName("favoriteColor");
-//    $merchantDefinedField2->setValue("blue");
 
         // Create a TransactionRequestType object and add the previous objects to it
         $transactionRequestType = new AnetAPI\TransactionRequestType();
@@ -163,10 +118,6 @@ class PrepayPaymentProcessor
         $transactionRequestType->setOrder($order);
         $transactionRequestType->setPayment($paymentOne);
         $transactionRequestType->setBillTo($customerAddress);
-//    $transactionRequestType->setCustomer($customerData);
-//    $transactionRequestType->addToTransactionSettings($duplicateWindowSetting);
-//    $transactionRequestType->addToUserFields($merchantDefinedField1);
-//    $transactionRequestType->addToUserFields($merchantDefinedField2);
 
         // Assemble the complete transaction request
         $request = new AnetAPI\CreateTransactionRequest();
@@ -178,46 +129,34 @@ class PrepayPaymentProcessor
         $controller = new AnetController\CreateTransactionController($request);
         $response = $controller->executeWithApiResponse(ANetEnvironment::SANDBOX);
 
-
         if ($response != null) {
             // Check to see if the API request was successfully received and acted upon
             if ($response->getMessages()->getResultCode() == "Ok") {
                 // Since the API request was successful, look for a transaction response
                 // and parse it to display the results of authorizing the card
                 $tresponse = $response->getTransactionResponse();
-
                 if ($tresponse != null && $tresponse->getMessages() != null) {
-//                    echo " Successfully created transaction with Transaction ID: " . $tresponse->getTransId() . "\n";
-//                    echo " Transaction Response Code: " . $tresponse->getResponseCode() . "\n";
-//                    echo " Message Code: " . $tresponse->getMessages()[0]->getCode() . "\n";
-//                    echo " Auth Code: " . $tresponse->getAuthCode() . "\n";
-//                    echo " Description: " . $tresponse->getMessages()[0]->getDescription() . "\n";
-
+                    // Transaction Successful
                     $processResponseResult = $this->processResponse($tresponse->getMessages()[0]->getDescription(),
                         false,
                         $tresponse->getTransId()
                     );
-
                 } else {
-//                    echo "Transaction Failed \n";
+                    // Transaction failed
                     if ($tresponse->getErrors() != null) {
 //                        echo " Error Code  : " . $tresponse->getErrors()[0]->getErrorCode() . "\n";
 //                        echo " Error Message : " . $tresponse->getErrors()[0]->getErrorText() . "\n";
-
                         $processResponseResult = $this->processResponse(
                             $tresponse->getErrors()[0]->getErrorCode()  . ": " .
                             $tresponse->getErrors()[0]->getErrorText()
                             , true);
-
                     }
                     $processResponseResult = $this->processResponse(
                         "Unknown error occurred", true);
                 }
-                // Or, print errors if the API request wasn't successful
             } else {
-//                echo "Transaction Failed \n";
+                // Transaction failed due to API error
                 $tresponse = $response->getTransactionResponse();
-
                 if ($tresponse != null && $tresponse->getErrors() != null) {
 //                    echo " Error Code  : " . $tresponse->getErrors()[0]->getErrorCode() . "\n";
 //                    echo " Error Message : " . $tresponse->getErrors()[0]->getErrorText() . "\n";
@@ -225,7 +164,6 @@ class PrepayPaymentProcessor
                         $tresponse->getErrors()[0]->getErrorCode() . ": " .
                         $tresponse->getErrors()[0]->getErrorText()
                         , true);
-
                 } else {
 //                    echo " Error Code  : " . $response->getMessages()->getMessage()[0]->getCode() . "\n";
 //                    echo " Error Message : " . $response->getMessages()->getMessage()[0]->getText() . "\n";
@@ -236,20 +174,102 @@ class PrepayPaymentProcessor
                 }
             }
         } else {
-//            echo "No response returned \n";
+//          No response from the API Call
             $processResponseResult = $this->processResponse("Server failed to respond", true);
         }
-
         return $processResponseResult;
     }
 
+    // Charge the client's saved credit card 
+    public function chargeSavedCreditCardNow():bool
+    {
+        error_log("We are charging a saved profile",0);
+        $this->calculateTotalPrice();
+
+        // Common setup for API credentials
+        $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
+        $merchantAuthentication->setName(getenv('AUTHNET_API_LOGIN_ID'));
+        $merchantAuthentication->setTransactionKey(getenv('AUTHNET_TRANS_KEY'));
+
+        // Set the transaction's reference Id
+        $refId = $this->internalRefID;
+
+        // Create the profile data for the customer profile from the existing data
+        $profileToCharge = new AnetAPI\CustomerProfilePaymentType();
+        $profileToCharge->setCustomerProfileId($_SESSION["userData"]["profile_id"]);
+        $paymentProfile = new AnetAPI\PaymentProfileType();
+        $paymentProfile->setPaymentProfileId($_SESSION["userData"]["payment_id"]);
+        $paymentProfile->setCardCode($this->cardCvv);
+        // $profileToCharge->setPaymentProfile($this->totalPrice);
+        $profileToCharge->setPaymentProfile($paymentProfile);
+
+        // Create order information
+        $order = new AnetAPI\OrderType();
+        $order->setInvoiceNumber($refId);
+        $order->setDescription($this->package->getSrpName() . " SR Package");
+
+        // Create a TransactionRequestType object and add the previous objects to it
+        $transactionRequestType = new AnetAPI\TransactionRequestType();
+        $transactionRequestType->setTransactionType("authCaptureTransaction");
+        $transactionRequestType->setAmount($this->totalPrice);
+        $transactionRequestType->setCurrencyCode("CAD");
+            $transactionRequestType->setProfile($profileToCharge);
+
+        // Assemble the complete transaction request
+        $request = new AnetAPI\CreateTransactionRequest();
+        $request->setMerchantAuthentication($merchantAuthentication);
+        $request->setRefId($refId);
+        $request->setTransactionRequest($transactionRequestType);
+
+        $controller = new AnetController\CreateTransactionController($request);
+        $response = $controller->executeWithApiResponse(ANetEnvironment::SANDBOX);
+
+        if ($response != null) {
+            if ($response->getMessages()->getResultCode() == "Ok") {
+                $tresponse = $response->getTransactionResponse();
+
+                if ($tresponse != null && $tresponse->getMessages() != null) {
+
+                    $processResponseResult = $this->processProfilePaymentResponse($tresponse->getMessages()[0]->getDescription(),
+                        false,
+                        $tresponse->getTransId()
+                    );
+                } else {
+                    if ($tresponse->getErrors() != null) {
+                        $processResponseResult = $this->processProfilePaymentResponse(
+                            $tresponse->getErrors()[0]->getErrorCode()  . ": " .
+                            $tresponse->getErrors()[0]->getErrorText()
+                            , true);
+                    }
+                    $processResponseResult = $this->processProfilePaymentResponse(
+                        "Unknown error occurred", true);
+                }
+            } else {
+                $tresponse = $response->getTransactionResponse();
+
+                if ($tresponse != null && $tresponse->getErrors() != null) {
+                    $processResponseResult = $this->processProfilePaymentResponse(
+                        $tresponse->getErrors()[0]->getErrorCode() . ": " .
+                        $tresponse->getErrors()[0]->getErrorText()
+                        , true);
+                } else {
+                    $processResponseResult = $this->processProfilePaymentResponse(
+                        $response->getMessages()->getMessage()[0]->getCode() . ": " .
+                        $response->getMessages()->getMessage()[0]->getText()
+                        , true);
+                }
+            }
+        } else {
+            $processResponseResult = $this->processResponse("Server failed to respond", true);
+        }
+        return $processResponseResult;
+    }
     function processResponse(
         string $msg,
         bool $error = false,
         string $transID = null
     ):bool
     {
-
         $json = json_encode(array(
             "trans_id" => $transID,
             "ref_id" => $this->internalRefID,
@@ -283,13 +303,51 @@ class PrepayPaymentProcessor
         if (!$error) {
             $this->mailer->sendEmail(18, $this->userModel->getEmail(), "", $pid);
         }
+        return $error;
+    }
+    function processProfilePaymentResponse(
+        string $msg,
+        bool $error = false,
+        string $transID = null
+    ):bool
+    {
+        $json = json_encode(array(
+            "trans_id" => $transID,
+            "ref_id" => $this->internalRefID,
+            "taxes" => $this->taxesArr,
+            "error" => $error,
+            "email" => $this->userModel->getEmail(),
+            "total_price" => $this->totalPrice,
+            "pkg_name" => $this->package->getSrpName(),
+            "pkg_price" => $this->package->getSrpPrice(),
+            "pkg_minutes" => $this->package->getSrpMinutes(),
+            "acc_name" => $this->selfAccount?$_SESSION["userData"]["admin_acc_name"]:$_SESSION["acc_name"],
+            "acc_id" => $this->selfAccount?$_SESSION["userData"]["account"]:$_SESSION["accID"],
+            "msg" => $msg
+        ));
+
+        $payment = new Payment(
+            0,
+            $_SESSION["uid"],
+            $this->totalPrice,
+            $this->internalRefID,
+            $transID,
+            $json,
+            $this->package->getSrpId(),
+            $error?PAYMENT_STATUS::FAILED:PAYMENT_STATUS::PAID,
+            $this->db
+        );
+        $pid = $payment->save();
+
+        if (!$error) {
+            $this->mailer->sendEmail(18, $this->userModel->getEmail(), "", $pid);
+        }
 
         return $error;
     }
 
     function ccMasking($number, $maskingCharacter = 'X') {
         return str_repeat($maskingCharacter, strlen($number) - 4) . substr($number, -4);
-//        return substr($number, 0, 4) . str_repeat($maskingCharacter, strlen($number) - 8) . substr($number, -4);
     }
 
     function calculateTotalPrice()
@@ -299,29 +357,20 @@ class PrepayPaymentProcessor
         {
             $contents = file_get_contents(__DIR__."/../../../transcribe/data/json/canada_taxes.json");
             $json = json_decode($contents, true);
-
             $totalTaxePercentage = 0;
-
             foreach ($json as $caStateEntry) {
                 if(strtolower($caStateEntry["code"]) === strtolower(substr($this->zip, 0,1)))
                 {
                     $stateTaxProfile = $caStateEntry;
-
                     foreach ($stateTaxProfile["taxes"] as $tax) {
-//                        if($tax["code"] !== "PST")
-//                        {
                             $totalTaxePercentage += $tax["tax"];
                             array_push($this->taxesArr, $tax);
-//                        }
                     }
                     $this->totalPrice = ($this->amount * $totalTaxePercentage) + $this->amount;
-
                     break;
                 }
             }
-
         }
-
         return $this->totalPrice;
     }
     public function createCustomerProfile($email)
@@ -331,6 +380,7 @@ class PrepayPaymentProcessor
         $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
         $merchantAuthentication->setName(getenv('AUTHNET_API_LOGIN_ID'));
         $merchantAuthentication->setTransactionKey(getenv('AUTHNET_TRANS_KEY'));        
+        
         // Set the transaction's refId
         $refId = $this->internalRefID;
 
@@ -351,6 +401,7 @@ class PrepayPaymentProcessor
         $paymentCreditCard->setCreditCard($creditCard);
 
         // Create the Bill To info for new payment type
+        // We currently aren't collecting this information at point of payment
         $billTo = new AnetAPI\CustomerAddressType();
         // $billTo->setFirstName("Ellen");
         // $billTo->setLastName("Johnson");
@@ -390,12 +441,11 @@ class PrepayPaymentProcessor
 
         // Create a new CustomerProfileType and add the payment profile object
         $customerProfile = new AnetAPI\CustomerProfileType();
-        $customerProfile->setDescription("Customer 2 Test PHP");
+        $customerProfile->setDescription("Default");
         $customerProfile->setMerchantCustomerId("M_" . time());
         $customerProfile->setEmail($email);
         $customerProfile->setpaymentProfiles($paymentProfiles);
         $customerProfile->setShipToList($shippingProfiles);
-
 
         // Assemble the complete transaction request
         $request = new AnetAPI\CreateCustomerProfileRequest();
@@ -418,7 +468,8 @@ class PrepayPaymentProcessor
         }
         return $response;
     }
-    public function getCustomerPaymentProfile($customerProfileId="1929905607",$customerPaymentProfileId= "1842074814")
+    // public function getCustomerPaymentProfile($customerProfileId="1929905607",$customerPaymentProfileId= "1842074814")
+    public function getCustomerPaymentProfile($customerProfileId,$customerPaymentProfileId)
     {
         /* Create a merchantAuthenticationType object with authentication details
            retrieved from the constants file */
@@ -447,21 +498,15 @@ class PrepayPaymentProcessor
 
                 if($response->getPaymentProfile()->getSubscriptionIds() != null) 
                 {
-                    if($response->getPaymentProfile()->getSubscriptionIds() != null)
-                    {
-
-                            echo "List of subscriptions:";
+                        echo "List of subscriptions:";
                         foreach($response->getPaymentProfile()->getSubscriptionIds() as $subscriptionid) {
-                            echo $subscriptionid . "\n";
-                        }
-                    }
+                            error_log("Subscription ID: " . $subscriptionid . "\n",0);
+                           }
                 }
             }
             else
             {
-                // echo "GetCustomerPaymentProfile ERROR :  Invalid response\n";
                 $errorMessages = $response->getMessages()->getMessage();
-                // echo "Response : " . $errorMessages[0]->getCode() . "  " .$errorMessages[0]->getText() . "\n";
             }
         }
         else{

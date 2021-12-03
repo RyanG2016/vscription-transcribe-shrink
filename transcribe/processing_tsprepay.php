@@ -1,29 +1,18 @@
 <?php
-
-//include('../data/parts/head.php');
-
-
-
 require __DIR__.'/../api/bootstrap.php';
-
 use Src\Enums\INTERNAL_PAGES;
-
 $vtex_page = INTERNAL_PAGES::PROCESSING;
 
 include('data/parts/head.php');
-
 
 use Src\Models\Package;
 use Src\Models\SR;
 use Src\Models\Account;
 use Src\Payment\PrepayPaymentProcessor;
-// User Setting
-
-
-
 
 ?>
 
+<!-- TO DO: Remove SR references in the page as that isn't used here -->
 <html lang="en">
 
 <head>
@@ -68,21 +57,30 @@ use Src\Payment\PrepayPaymentProcessor;
         <small class="text-muted">
 
             <?php
-//                ob_end_flush();
-//                echo "hello world2";
-//                ob_implicit_flush(true);
-//                ob_start();
-//                echo "Processing.. ";
-//                ob_flush();
-//                flush();
 
             // Get package data
             $pkg = Package::withID($_POST["package"], $dbConnection);
             $pkg->setSrpPrice(floatval(round(round(floatval($_SESSION["userData"]["bill_rate1"])*floatval($_POST["total_mins"]),2),2)));
             $pkg->setSrpName("prepay");
             $pkg->setSrpMinutes($_POST["total_mins"]);
-            // Process
-            $processor = new PrepayPaymentProcessor(
+            // We have different data depending on whether client using saved card or not
+            if (isset($_SESSION["userData"]["profile_id"])) {
+                $processor = new PrepayPaymentProcessor(
+                    "", "",
+                    "",
+                    "",
+                    "",
+                    $_POST['cvv'],
+                    "",
+                    $pkg->getSrpPrice(),
+                    $pkg,
+                    isset($_POST["self"]),
+                    $dbConnection
+                );
+                $processor->saveUserAddress();
+                $error = $processor->chargeSavedCreditCardNow();
+            } else {
+                $processor = new PrepayPaymentProcessor(
                     $_SESSION['fname'], $_SESSION['lname'],
                     $_POST['zipcode'],
                     $_POST['name_on_card'],
@@ -93,15 +91,14 @@ use Src\Payment\PrepayPaymentProcessor;
                     $pkg,
                     isset($_POST["self"]),
                     $dbConnection
-            );
-            
-            $processor->saveUserAddress();
-            $error = $processor->chargeCreditCardNow();
-                if(!$error)
+                );
+                $processor->saveUserAddress();
+                $error = $processor->chargeCreditCardNow();
+        }
+            // $processor->saveCCPostalCode();
+            if(!$error)
                 {
                     echo 'Payment Success! <i class="far fa-laugh-beam"></i> redirecting..';
-
-                    // add minutes to user account
 
                     // check if minutes for self account
                     $accID = $_SESSION["accID"];
@@ -125,7 +122,7 @@ use Src\Payment\PrepayPaymentProcessor;
                             $currentAccount->setCompMins($currentAccount->getCompMins()-$_POST["total_mins"]);
                         }
                     }
-
+                    // Save credit card details to Authorize.net and save the profile and payment ID
                     if(isset($_POST["credit_card_status"])){
                         $response = $processor->createCustomerProfile($_SESSION["userData"]["email"]);
                         $currentAccount->setProfileId($response->getCustomerProfileId());
@@ -139,9 +136,18 @@ use Src\Payment\PrepayPaymentProcessor;
                     echo "<script>window.close();</script>";
                     // header("Location: main.php");
                 }else{
+                    echo "<script>console.log(`An error occurred processing transaction`)</script>";
                     echo 'Payment Failed! <i class="far fa-frown"></i> redirecting..';
+                    if(isset($_REQUEST["destination"])){
+                        header("Location: {$_REQUEST["destination"]}");
+                    }else if(isset($_SERVER["HTTP_REFERER"])){
+                        header("Location: {$_SERVER["HTTP_REFERER"]}");
+                    }else{
+                         /* some fallback, maybe redirect to index.php */
+                    }
+                    // sleep(3);
+                    // echo "<script>window.close();</script>";
                 }
-
             ?>
         </small>
     </div>

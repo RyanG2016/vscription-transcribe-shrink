@@ -12,20 +12,12 @@ header("Cache-Control: no-cache, must-revalidate"); //HTTP 1.1
 header("Pragma: no-cache"); //HTTP 1.0
 //header("Expires: Sat, 26 Jul 1993 05:00:00 GMT"); // Date in the past
 header("Expires: 0"); // Now
-// if(!isset($_POST) || !isset($_POST["package"]))
-// {
-//     ob_start();
-//     header('location:packages.php');
-//     ob_end_flush();
-//     die();
-// }
 use Src\Payment\PrepayPaymentProcessor;
 use Src\Models\Package;
-//use Src\TableGateways\PackageGateway;
-
-//$pkgGateway = new PackageGateway($dbConnection);
 $pkg = Package::withID($_POST["package"], $dbConnection);
+
 // User Setting
+// If the customer has a saved payment profile ID, created PrepayPaymentProcessor with needed data
 if(isset($_SESSION["userData"]["profile_id"]) && isset($_SESSION["userData"]["payment_id"])){
     $processor = new PrepayPaymentProcessor(
         $_SESSION['fname'], $_SESSION['lname'],
@@ -45,6 +37,7 @@ if(isset($_SESSION["userData"]["profile_id"]) && isset($_SESSION["userData"]["pa
         $_SESSION["userData"]["zipcode"] = $getPaymentDetails->getPaymentProfile()->getbillTo()->getzip();
         $_SESSION["userData"]["card_number"] = $getPaymentDetails->getPaymentProfile()->getPayment()->getCreditCard()->getCardNumber();
         $_SESSION["userData"]["expiration_date"] = $getPaymentDetails->getPaymentProfile()->getPayment()->getCreditCard()->getExpirationDate();
+        $_SESSION["userData"]["card_type"] = $getPaymentDetails->getPaymentProfile()->getPayment()->getCreditCard()->getCardType();
     }
 }
 ?>
@@ -52,7 +45,7 @@ if(isset($_SESSION["userData"]["profile_id"]) && isset($_SESSION["userData"]["pa
 <html lang="en">
 
 <head>
-    <title>vScription Checkout</title>
+    <title>vScription Transcribe Checkout</title>
     <link rel="shortcut icon" type="image/png" href="data/images/favicon.png" />
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="data/libs/node_modules/material-components-web/dist/material-components-web.css" rel="stylesheet">
@@ -138,10 +131,7 @@ if(isset($_SESSION["userData"]["profile_id"]) && isset($_SESSION["userData"]["pa
                     <div class="col">
                         <!--                    <a class="logbar" href="index.php"><i class="fas fa-arrow-left"></i> Go back </a>-->
                     </div>
-
-
                 </div>
-
                 <div class="row vspt-title-row no-gutters">
                     <div class="col align-items-end d-flex">
                         <legend class="page-title mt-auto">
@@ -152,29 +142,24 @@ if(isset($_SESSION["userData"]["profile_id"]) && isset($_SESSION["userData"]["pa
                         <img src="data/images/Logo_vScription_Transcribe.png" width="300px" />
                     </div>
                 </div>
-
                 <div class="vtex-card contents">
-
-
                     <!--        CONTENTS GOES HERE        -->
-
-                    <!--                <span class="payment-title">Details for your order</span>-->
                     <div class="row">
                         <div class="col-md-4">
                             <h3>Order Details</h3>
                         </div>
                         <div class="col-md-8 d-flex justify-content-end">
                             <button class="btn btn-primary" id="backBtn">Back</button>
-                            <button class="btn btn-success" id="trashBtn">Trash</button>
+                            <!-- <button class="btn btn-success" id="trashBtn">Trash</button> -->
                         </div>
                     </div>
                     <hr>
-                    <div class="alert alert-danger" role="alert" display="none">
-                    There was an error processing your transaction. No charges were applied to your card. Please check your information and try again.
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>    
-                    </div>
+                    <!-- <div class="alert alert-danger" role="alert" display="none">
+                        There was an error processing your transaction. No charges were applied to your card. Please check your information and try again.
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>    
+                    </div> -->
                     <form id="paymentForm" method="post" action="processing_tsprepay.php" enctype="multipart/form-data"
                         novalidate>
                         <input type="hidden" name="package" value="<?php echo $pkg->getSrpId()?>" />
@@ -183,13 +168,8 @@ if(isset($_SESSION["userData"]["profile_id"]) && isset($_SESSION["userData"]["pa
                         echo '<input type="number" name="self" value="1" hidden>';
                     } ?>
                         <div class="row">
-
                             <div class="col-lg-9 col-md-8 col-sm-8 border-right">
-                             <!--    <h5>Payment Details</h5>
-                                <hr>
-                                <div class="row no-gutters m-b-7"><b>Billing Address</b> &ensp; <small
-                                        class="mt-auto vtex-help-icon" id="edit">Save</small></div>
-                                <?php
+ <!--                   <?php
                             echo '<div class="row no-gutters">
                                     <input id="fname" name="fname" type="text" class="col-auto vtex-editable-input typeahead" placeholder="<first name>" value="'.$_SESSION["fname"] ."\" />&nbsp;
                                     
@@ -219,10 +199,43 @@ if(isset($_SESSION["userData"]["profile_id"]) && isset($_SESSION["userData"]["pa
                                    
                                 </div>';
                             ?>
- -->
-                                <hr>
-                                <div class="row no-gutters m-b-7"><b>Payment Details</b></div>
-                                <div class="row no-gutters">
+                            <hr>
+-->
+                            <div class="row no-gutters m-b-7"><b><?php if (!empty($_SESSION["userData"]["profile_id"])) {
+                                    echo '<span>Saved Payment Details<p class="manage_cards_link" style="font-weight:100;font-size: 10px;">manage saved cards</p></span>';
+                                }else{
+                                    echo 'Payment Details';
+                                }
+                                ?>
+                                    </b></div>
+                                <?php
+                                if (!empty($_SESSION["userData"]["profile_id"])) { 
+                               echo '<div id="prepay-form" class="d-flex flex-row align-self-center align-content-center">
+                                        <div class="rounded border d-flex w-100">
+                                            <div class="d-flex flex-grow-1 w-90">
+                                                <div class="pl-2 mt-3">
+                                                    <p><i class="fa fa-cc-visa text-primary pr-2"></i>'?><?php echo $_SESSION['userData']['card_type']?><?php echo '</p>
+                                                </div>
+                                                <div class="ml-auto align-self-center pr-2">XXXXXXXX'?><?php echo $_SESSION['userData']['card_number']?><?php echo '</div>
+                                            </div>
+                                            <div class="rounded border d-flex w-10 ml-auto">
+                                            <input id="securitycode" name="cvv" type="text" placeholder="3 Digit CVV" pattern="[0-9]* class=""
+                                                inputmode="numeric"
+                                                value="'?><?php echo isset($_SESSION["userData"]["security_code"])?$_SESSION["userData"]["security_code"]:'';?><?php echo '"
+                                                autofocus>
+                                            </div>
+                                        </div>
+                                    </div>  
+                                <div class="row">                                              
+                                <div class="col-md-4" style="display: none">
+                                    <label for="zip">Zip/Postal Code</label>
+                                    <br>
+                                  <input id="zip" name="zipcode" type="text" class="" placeholder="<Zip/Postal Code>" value="'?><?php echo isset($_SESSION['userData']['zipcode']) && !empty($_SESSION['userData']['zipcode'])?$_SESSION['userData']['zipcode']:'';?><?php echo '" />
+                                </div>
+
+                                </div>';
+                                    } else {
+                                echo '<div id="non-prepay-form" class="row no-gutters">
 
                                     <div class="col pr-3 m-0 container preload">
                                         <div class="creditcard">
@@ -244,9 +257,11 @@ if(isset($_SESSION["userData"]["profile_id"]) && isset($_SESSION["userData"]["pa
                                                                 d="M750,431V193.2c-217.6-57.5-556.4-13.5-750,24.9V431c0,22.1,17.9,40,40,40h670C732.1,471,750,453.1,750,431z" />
                                                         </g>
                                                         <text transform="matrix(1 0 0 1 60.106 295.0121)" id="svgnumber"
-                                                            class="st2 st3 st4"><?php echo isset($_SESSION["userData"]["card_number"])?$_SESSION["userData"]["card_number"]:''?></text>
+                                                            class="st2 st3 st4">' ?> 
+                                                        <?php echo isset($_SESSION["userData"]["card_number"])?$_SESSION["userData"]["card_number"]:'' ?> 
+                                                        <?php echo '</text>
                                                         <text transform="matrix(1 0 0 1 54.1064 428.1723)" id="svgname"
-                                                            class="st2 st5 st6"><?php echo $_SESSION["fname"] . " " . $_SESSION["lname"]?></text>
+                                                            class="st2 st5 st6">'?><?php echo $_SESSION["fname"] . " " . $_SESSION["lname"] ?><?php echo '</text>
                                                         <text transform="matrix(1 0 0 1 54.1074 389.8793)"
                                                             class="st7 st5 st8">cardholder name</text>
                                                         <text transform="matrix(1 0 0 1 479.7754 388.8793)"
@@ -256,7 +271,7 @@ if(isset($_SESSION["userData"]["profile_id"]) && isset($_SESSION["userData"]["pa
                                                         <g>
                                                             <text transform="matrix(1 0 0 1 574.4219 433.8095)"
                                                                 id="svgexpire"
-                                                                class="st2 st5 st9"><?php echo isset($_SESSION["userData"]["expiration_date"])?$_SESSION["userData"]["expiration_date"]:''?></text>
+                                                                class="st2 st5 st9">'?><?php echo isset($_SESSION["userData"]["expiration_date"])?$_SESSION["userData"]["expiration_date"]:''?><?php echo '</text>
                                                             <text transform="matrix(1 0 0 1 479.3848 417.0097)"
                                                                 class="st2 st10 st11">VALID</text>
                                                             <text transform="matrix(1 0 0 1 479.3848 435.6762)"
@@ -336,7 +351,7 @@ if(isset($_SESSION["userData"]["profile_id"]) && isset($_SESSION["userData"]["pa
                                                         </g>
                                                         <text transform="matrix(1 0 0 1 621.999 227.2734)"
                                                             id="svgsecurity"
-                                                            class="st6 st7"><?php echo isset($_SESSION["userData"]["security_code"])?$_SESSION["userData"]["security_code"]:''?></text>
+                                                            class="st6 st7">'?><?php echo isset($_SESSION["userData"]["security_code"])?$_SESSION["userData"]["security_code"]:''?><?php echo '</text>
                                                         <g class="st8">
                                                             <text transform="matrix(1 0 0 1 518.083 280.0879)"
                                                                 class="st9 st6 st10">security code</text>
@@ -347,7 +362,7 @@ if(isset($_SESSION["userData"]["profile_id"]) && isset($_SESSION["userData"]["pa
                                                             height="13.5" />
                                                         <text transform="matrix(1 0 0 1 59.5073 228.6099)"
                                                             id="svgnameback"
-                                                            class="st12 st13"><?php echo $_SESSION["fname"] . " " . $_SESSION["lname"]?></text>
+                                                            class="st12 st13">'?><?php echo $_SESSION["fname"] . " " . $_SESSION["lname"]?><?php echo '</text>
                                                     </g>
                                                 </svg>
                                             </div>
@@ -359,7 +374,7 @@ if(isset($_SESSION["userData"]["profile_id"]) && isset($_SESSION["userData"]["pa
                                             <br>
                                             <input id="name" class="w-100" name="name_on_card" maxlength="20"
                                                 type="text"
-                                                value="<?php echo $_SESSION["fname"] . " " . $_SESSION["lname"] ?>"
+                                                value="'?><?php echo $_SESSION["fname"] . " " . $_SESSION["lname"] ?><?php echo '"
                                                 autofocus>
                                         </div>
 
@@ -368,9 +383,9 @@ if(isset($_SESSION["userData"]["profile_id"]) && isset($_SESSION["userData"]["pa
                                                 <div class="col-md-8">
                                                     <label for="cardnumber">Card Number</label>
                                                     <br>
-                                                    <input id="cardnumber" name="card_number" type="text" pattern="[0-9]*"
+                                                    <input id="cardnumber" name="card_number" type="text" pattern="[0-9xX]*"
                                                         inputmode="numeric"
-                                                        value="<?php echo isset($_SESSION["userData"]["card_number"])?$_SESSION["userData"]["card_number"]:'';?>" autofocus>
+                                                        value="'?><?php echo isset($_SESSION["userData"]["card_number"])?$_SESSION["userData"]["card_number"]:'';?><?php echo '" autofocus>
                                                     <svg id="ccicon" class="ccicon" width="750" height="471"
                                                         viewBox="0 0 750 471" version="1.1" xmlns="http://www.w3.org/2000/svg"
                                                         xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -381,7 +396,7 @@ if(isset($_SESSION["userData"]["profile_id"]) && isset($_SESSION["userData"]["pa
                                                 <div class="col-md-4">
                                                     <label for="zip">Zip/Postal Code</label>
                                                     <br>
-                                                      <input id="zip" name="zipcode" type="text" class="" placeholder="<Zip/Postal Code>" value="<?php echo isset($_SESSION['userData']['zipcode']) && !empty($_SESSION['userData']['zipcode'])?$_SESSION['userData']['zipcode']:'';?>" />
+                                                      <input id="zip" name="zipcode" type="text" class="" placeholder="<Zip/Postal Code>" value="'?><?php echo isset($_SESSION['userData']['zipcode']) && !empty($_SESSION['userData']['zipcode'])?$_SESSION['userData']['zipcode']:'';?><?php echo '" />
                                                 </div>
                                             </div>
                                         </div>
@@ -393,7 +408,7 @@ if(isset($_SESSION["userData"]["profile_id"]) && isset($_SESSION["userData"]["pa
                                                     <label for="expirationdate">Expiration (mm/yy)</label> <br>
                                                     <input id="expirationdate" name="expiry_date" type="text"
                                                         pattern="[0-9]*" inputmode="numeric"
-                                                        value="<?php echo isset($_SESSION["userData"]["expiration_date"])?$_SESSION["userData"]["expiration_date"]:'';?>"
+                                                        value="'?><?php echo isset($_SESSION["userData"]["expiration_date"])?$_SESSION["userData"]["expiration_date"]:'';?><?php echo '"
                                                         autofocus>
                                                 </div>
 
@@ -401,7 +416,7 @@ if(isset($_SESSION["userData"]["profile_id"]) && isset($_SESSION["userData"]["pa
                                                     <label for="securitycode">Security Code</label> <br>
                                                     <input id="securitycode" name="cvv" type="text" pattern="[0-9]*"
                                                         inputmode="numeric"
-                                                        value="<?php echo isset($_SESSION["userData"]["security_code"])?$_SESSION["userData"]["security_code"]:'';?>"
+                                                        value="'?><?php echo isset($_SESSION["userData"]["security_code"])?$_SESSION["userData"]["security_code"]:'';?><?php echo '"
                                                         autofocus>
                                                 </div>
                                             </div>
@@ -433,11 +448,12 @@ if(isset($_SESSION["userData"]["profile_id"]) && isset($_SESSION["userData"]["pa
                                         </div>
 
                                     </div>
-                                </div>
-
-                                <div class="row no-gutters m-t-10"><small><em class="text-muted">We will save your
+                                </div>';
+                                }
+                                ?>
+                                <!-- <div class="row no-gutters m-t-10" display="none"><small><em class="text-muted">We will save your
                                             billing info for the next time but not your credit card data.</em></small>
-                                </div>
+                                </div> -->
                             </div>
 
                             <div class="col-lg-3 col-md-4 col-sm-4 ">
@@ -506,17 +522,12 @@ if(isset($_SESSION["userData"]["profile_id"]) && isset($_SESSION["userData"]["pa
                             </div>
                         </div>
                     </form>
-
-
                 </div>
-
             </div>
         </div>
     </div>
 
 <input type="hidden" id="country_name" name="" value='<?php echo $_SESSION["userData"]["country"]?>'>
-
-
     <div class="overlay" id="overlay" style="display: none">
         <div class="loading-overlay-text" id="loadingText">Processing payment..</div>
         <div class="spinner">

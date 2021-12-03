@@ -42,7 +42,6 @@ function documentReady() {
         }
     })
 
-
     new mdc.ripple.MDCRipple(document.querySelector('.submit_btn'));
     new mdc.ripple.MDCRipple(document.querySelector('#cancelUpload'));
     new mdc.ripple.MDCRipple(document.querySelector('#confirmUpload'));
@@ -149,9 +148,7 @@ function documentReady() {
     });
 
     p3bBtn.on("click", function () {
-
         uploadCarousel.carousel(1);
-
     });	
 
     dropZone.on('drag dragstart dragend dragover dragenter dragleave drop', function (e) {
@@ -160,27 +157,20 @@ function documentReady() {
     })
         .on('dragover dragenter', function () {
             dropZone.addClass('is-dragover');
-            // console.log("entered");
         })
-        // .on('dragleave dragend drop', function() {
         .on('dragleave drop', function () {
             dropZone.removeClass('is-dragover');
-            // console.log("left");
         })
         .on('drop', function (e) {
-            // console.log("file dropped");
             curFiles = Array.from(e.originalEvent.dataTransfer.files);
             var filesToUpload = [];
 
             // check type
-            // let invalid = false;
             for (let i = 0; i < curFiles.length; i++) {
                 let fileExt = curFiles[i].name.split(".").pop().toLowerCase();
                 if (!validFileType(curFiles[i]) &&
                     !(curFiles[i].type === "" && (fileExt  === "ds2" || fileExt === "dss"))
                 ) {
-                    // invalid = true;
-                    // setDropText("Invalid file(s) type added", false);
                     uploadToastBody.html(`(${curFiles[i].name}) File type is not supported`);
                     uploadToast.toast('show');
                     continue;
@@ -197,37 +187,6 @@ function documentReady() {
             }
             curFiles = filesToUpload;
             if (curFiles.length > 0) addFilesToUpload();
-
-            /*if (curFiles.length + filesArr.length > 10) {
-                setDropText("Files exceeded maximum limit (10 files)", false, false);
-            } else {
-                // check type
-                // let invalid = false;
-                for (let i = 0; i < curFiles.length; i++) {
-                    let fileExt = curFiles[i].name.split(".").pop().toLowerCase();
-                    if (!validFileType(curFiles[i]) &&
-                        !(curFiles[i].type === "" && (fileExt  === "ds2" || fileExt === "dss"))
-                    ) {
-                        // invalid = true;
-                        // setDropText("Invalid file(s) type added", false);
-                        uploadToastBody.html(`(${curFiles[i].name}) File type is not supported`);
-                        uploadToast.toast('show');
-                        continue;
-                    }
-
-                    // prevent Dup
-                    let arrFilter = filesArr.filter(function (prevFiles) {
-                        return prevFiles.name.includes(curFiles[i].name);
-                    });
-
-                    if (arrFilter.length === 0) {
-                        filesToUpload.push(curFiles[i]);
-                    }
-                }
-                curFiles = filesToUpload;
-                if (curFiles.length > 0) addFilesToUpload();
-            }*/
-
         });
 
 
@@ -352,7 +311,6 @@ function documentReady() {
     });
     function prepayUpload(){
        uploadForm.addClass('was-validated');
-        // uploadForm.addClass('was-validated');
 
         // if (validateFields()) {
         if (uploadForm[0].checkValidity() === true) {
@@ -372,22 +330,18 @@ function documentReady() {
                 // console.log(files[i]);
             }
 
-
             formData.append("sr_enabled", srEnabled);
             formData.append("authorName", $("#demo_author").val());
             formData.append("jobType", $("#demo_job_type option:selected").html());
             formData.append("dictDate", $("#dictDatePicker").val());
-            // formData.append("dictDate", $('.demo_dictdate').val());
             formData.append("speakerType", $("#demo_speaker_type").val());
             if ($('#demo_comments').val() !== "") {
                 formData.append("comments", $('#demo_comments').val());
             }
 
-
             // CHECK UPLOADED FILES AND SAVE IT TO DB
             uploadAjax = $.ajax({
                 type: 'POST',
-                // url: backend_url,
                 url: api_insert_url,
                 data: formData,
                 processData: false,
@@ -395,10 +349,6 @@ function documentReady() {
                 success: function (response) {
                     stopProgressWatcher();
                     updateUI(100, false);
-
-                    // console.log(msg);
-                    // console.log('Upload call was successful');
-                    // console.log(`Full JSON object: ${JSON.stringify(msg)}`);
                     //Parse the HTML string(s) together so they can be inserted into the DOM html
                     resetAfterUpload();
                     var htmlEl = "";
@@ -411,7 +361,6 @@ function documentReady() {
                             htmlEl += "<li>File: " + response[i]["file_name"] + " - <span style='color:red;'>" + response[i]["status"] + "</span></li>"
                         }
                     }
-
                     const list = document.createElement('ol');
                     list.setAttribute("class", "uploadResultList");
                     previewModal.appendChild(list);
@@ -433,7 +382,6 @@ function documentReady() {
                     } else { // upload was cancelled by user - no error
                         progressTxt.text("Upload Cancelled.");
                     }
-
                 }
             });
 
@@ -441,7 +389,6 @@ function documentReady() {
             // console.log("enable watchdog1");
             enableProgressWatcher('job_upload');
             // console.log("enable watchdog2");
-
 
             //** Get next jobID & jobNumber **//
             // MOVE CODE HERE //
@@ -465,7 +412,6 @@ function documentReady() {
             }
         });
     }
-
 
     function enableProgressWatcher(progressSuffix) {
 
@@ -539,14 +485,6 @@ function documentReady() {
     }
 
     function generateLoadingSpinner() {
-
-        // Generate a loading spinner //
-        //<div class="spinner">
-        //  <div class="bounce1"></div>
-        //  <div class="bounce2"></div>
-        //  <div class="bounce3"></div>
-        //</div>
-
         const spinnerDiv = document.createElement("div");
         spinnerDiv.setAttribute("class", "spinner");
         const bounce1 = document.createElement("div");
@@ -563,6 +501,7 @@ function documentReady() {
         return spinnerDiv;
     }
 
+    // SR Rounding method
     function roundUpToAnyIncludeCurrent(number) {
         let roundTo = 15;
         // return (Math.round(number)%roundTo === 0) ? Math.round(number) : Math.round((number+roundTo/2)/roundTo)*roundTo;
@@ -573,6 +512,7 @@ function documentReady() {
         }
     }
 
+    // TS Rounding Method
     function roundUpToNext(number) {
         let roundTo = 1;
         // return (Math.round(number)%roundTo === 0) ? Math.round(number) : Math.round((number+roundTo/2)/roundTo)*roundTo;
@@ -611,42 +551,42 @@ function documentReady() {
                 //We are using this elsewhere so need to calculate even if no SR
                 var totalMinutes = calculateTotalMinutes();
                 // check for SR
-                if (srEnabled) {
-                    // check for total minutes length and sufficient balance
-                    // totalMinutes = 60;
-                    let balanceAfterUpload = srMinutesRemaining - totalMinutes;
-                    if (balanceAfterUpload < 0) {
-                        // show error msg
-                        submitUploadBtn.setAttribute("disabled", "true");
-                        let subPar = document.createElement('p');
-                        subPar.innerHTML = "INSUFFICIENT BALANCE | Total minutes for this upload: " + totalMinutes +
-                            " | SR Balance: " + srMinutesRemaining + "<br>"
-                            + "<br><span><i><u id='skipSR' style='color: #404040; cursor: pointer'>Click here to skip SR this time</u></i></span>";
+                // if (srEnabled) {
+                //     // check for total minutes length and sufficient balance
+                //     // totalMinutes = 60;
+                //     let balanceAfterUpload = srMinutesRemaining - totalMinutes;
+                //     if (balanceAfterUpload < 0) {
+                //         // show error msg
+                //         submitUploadBtn.setAttribute("disabled", "true");
+                //         let subPar = document.createElement('p');
+                //         subPar.innerHTML = "INSUFFICIENT BALANCE | Total minutes for this upload: " + totalMinutes +
+                //             " | SR Balance: " + srMinutesRemaining + "<br>"
+                //             + "<br><span><i><u id='skipSR' style='color: #404040; cursor: pointer'>Click here to skip SR this time</u></i></span>";
 
-                        subPar.setAttribute("style", "color: darkred");
-                        subPar.setAttribute("id", "subBar");
-                        srBar.html(subPar);
+                //         subPar.setAttribute("style", "color: darkred");
+                //         subPar.setAttribute("id", "subBar");
+                //         srBar.html(subPar);
 
-                        $("#skipSR").on("click", function () {
-                            srEnabled = false;
-                            $("#subBar")[0].innerHTML = "Speech recognition is off for this upload";
-                            submitUploadBtn.removeAttribute("disabled");
-                        });
-                        return;
-                    }
+                //         $("#skipSR").on("click", function () {
+                //             srEnabled = false;
+                //             $("#subBar")[0].innerHTML = "Speech recognition is off for this upload";
+                //             submitUploadBtn.removeAttribute("disabled");
+                //         });
+                //         return;
+                //     }
 
-                    let subPar = document.createElement('p');
-                    subPar.setAttribute("id", "subBar");
-                    subPar.innerHTML = "Total minutes for this upload: " + totalMinutes + " | SR Balance (Mins) after upload: " + balanceAfterUpload
-                        + "<br><span><i><u id='skipSR' style='color: #404040; cursor: pointer'>Click here to skip SR this time</u></i></span>";
-                    srBar.html(subPar);
+                //     let subPar = document.createElement('p');
+                //     subPar.setAttribute("id", "subBar");
+                //     subPar.innerHTML = "Total minutes for this upload: " + totalMinutes + " | SR Balance (Mins) after upload: " + balanceAfterUpload
+                //         + "<br><span><i><u id='skipSR' style='color: #404040; cursor: pointer'>Click here to skip SR this time</u></i></span>";
+                //     srBar.html(subPar);
 
-                    $("#skipSR").on("click", function () {
-                        srEnabled = false;
-                        $("#subBar")[0].innerHTML = "Speech recognition is off for this upload";
-                        submitUploadBtn.removeAttribute("disabled");
-                    });
-                }
+                //     $("#skipSR").on("click", function () {
+                //         srEnabled = false;
+                //         $("#subBar")[0].innerHTML = "Speech recognition is off for this upload";
+                //         submitUploadBtn.removeAttribute("disabled");
+                //     });
+                // }
                 if (prepayStatus == 1) {
                     // $("#totals").html(
                     //     `Total amount to be charged: ${totalMinutes} mins - $${comp_mins} X $${bill_rate1} = $${((totalMinutes-comp_mins)*bill_rate1).toFixed(2)} (Plus applicable taxes)`)
@@ -752,7 +692,6 @@ function documentReady() {
             // File count exceeds the limit of @MAX_FILES_COUNT
             return 3;
         }
-
     }
 
     function generateTblFileEntry(id, filename, size, status) {
@@ -916,18 +855,8 @@ function documentReady() {
         } else {
 
             filesCount = curFiles.length + filesArr.length;
-            // console.log(`adding ${curFiles.length} files to ${filesArr.length}`);
-            // let currentIteration = filesArr.length;
             let fileID = filesArr.length;
 
-            // let dropText = '';
-            // for (let i = 0; i < curFiles.length; i++) {
-            //     dropText += ((currentIteration + i + 1) + ". " + curFiles[i].name + " <br> ");
-            // }
-
-            // setDropText(dropText);
-
-            // let i = currentIteration;
             let i = 0;
 
             for (const file of curFiles) {
@@ -1137,92 +1066,6 @@ function documentReady() {
 
         setDropText("");
     }
-
-    //<editor-fold desc="todo > Tutorial TBC">
-    // Tutorial area
-
-    //initialize instance
-    /*var enjoyhint_instance
-        = new EnjoyHint({
-        onEnd:function(){
-            tutorialViewed();
-        },
-        onSkip:function(){
-            tutorialViewed();
-        }
-    });
-
-    var enjoyhint_script_steps = [
-        {
-            "next .mdc-button__ripple": "Click here to open a file dialog where you can choose your file(s) to upload"
-        },
-        {
-            "next .box.box7>h3": "Fill in the job details here"
-        },
-        {
-            "next .submit_btn":'Click here to upload the file(s)'
-        }
-        ,
-        {
-            "next .preview":'This will show you all of the file(s) you will be uploading'
-        }
-        ,
-        {
-            " .clear_btn":'Accidentally choose the wrong files? Click here to remove the file(s) from the upload list',
-            "showNext":false,
-            "skipButton":{text: "Finish"}
-        }
-        ,
-        /!**{
-            "click #help > a":"Click here to access the online help",
-            // shape:"circle",
-            "skipButton":{text: "Finish"}
-        } **!/
-    ];
-
-    //set script config
-    enjoyhint_instance.set(enjoyhint_script_steps);
-
-    // get page name
-    const currentPageName = location.pathname.split("/").slice(-1)[0].replace(".php","");
-    // parse user tutorials data to JSON
-    var tutorialsJson = JSON.parse(tutorials);
-    // check if tutorial for the current page isn't viewed before
-    if(tutorialsJson[currentPageName] == undefined || tutorialsJson[currentPageName] == 0){
-
-        //Prep page with sample data for tutorial
-        document.querySelector('.clear_btn').removeAttribute("disabled");
-        document.querySelector('.submit_btn').removeAttribute("disabled");
-
-        const tbl = document.createElement("table");
-        const header = document.createElement("tr");
-        const headerD1 = document.createElement("th"); // file number
-        const headerD2 = document.createElement("th"); // file name
-        const headerD3 = document.createElement("th"); // file size
-        const headerD4 = document.createElement("th"); // file duration
-        const headerD6 = document.createElement("th"); // status
-
-        headerD1.innerHTML = '#';
-        headerD2.innerHTML = 'File Name';
-        headerD3.innerHTML = 'Size';
-        headerD4.innerHTML = 'Duration';
-        headerD6.innerHTML = 'Status';
-        header.append(headerD1);
-        header.append(headerD2);
-        header.append(headerD3);
-        header.append(headerD4);
-        header.append(headerD6);
-
-        tbl.setAttribute("class", "que-files");
-        tbl.appendChild(header);
-        tbl.appendChild(generateTblFileEntry(0, "PSP0876.DS2", "1346", 0));
-        preview.appendChild(tbl);
-
-        //Start Tutorial
-        enjoyhint_instance.run();
-    }*/
-
-    //</editor-fold>
 
     function getSRenabled() {
         $.ajax({

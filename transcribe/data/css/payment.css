@@ -257,6 +257,12 @@ input {
     border: 1px solid #dcdcdc;
 }
 
+#securitycode {
+    margin: 0px;
+    padding: 5px;
+    text-align: center;
+    width: 100%
+}
 .ccicon {
     height: 38px;
     position: absolute;
@@ -535,3 +541,10 @@ input {
     -webkit-transform: rotateY(180deg);
     transform: rotateY(180deg);
 }
+
+.cc-trash {
+    margin-top: 3px;
+    padding-left: 13px;
+    cursor: pointer;
+}
+
