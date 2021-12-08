@@ -284,13 +284,14 @@ class Mailer
     
                         $emHTML = file_get_contents(__DIR__ . '/../../../mail/templates/prepay_ts_receipt.html');
                         $paymentJson = json_decode($payment->getPaymentJson(), true);
+
                         $replace_pairs = array(
                             '{{date}}'    => date("d-M-Y h:m:s a"),
                             '{{year}}'    => date("Y"),
                             '{{name}}'    => $user->getFirstName() . " " . $user->getLastName(),
                             '{{email}}'  => $user->getEmail(),
                             '{{address}}'=> $user->getAddress() . ", " . $user->getCountry(),
-                            '{{pkgname}}'  => $paymentJson["pkg_name"],
+                            '{{pkgname}}'  => "Transcription Services",
                             '{{pkgmin}}'   => $paymentJson["pkg_minutes"],
                             '{{subtotal}}'   => $this->formatPrice($paymentJson["pkg_price"] ),
                             '{{taxes}}'   => $this->generateTaxes($paymentJson["taxes"],$paymentJson["pkg_price"] ),
@@ -308,7 +309,7 @@ class Mailer
                         break;
 
                 default:
-                    $sbj = "vScription Transcribe Pro";
+                    $sbj = "vScription Transcribe";
                     break;
             }
 
