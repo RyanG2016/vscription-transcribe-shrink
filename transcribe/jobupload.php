@@ -255,7 +255,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                             </div>
 
                                             <select class="form-control" id="demo_speaker_type">
-                                                <option value="1">Single Speaker</option>
+                                                <option selected value="1">Single Speaker</option>
                                                 <option value="2">Multiple Speakers</option>
                                             </select>
                                         </div>
@@ -303,7 +303,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                     </div>
 
                                     <h6 class="text-muted">
-                                        <strong>Note:</strong> If uploading multiple files at once, all files will have the same demographics entered on the right.
+                                        <strong>Note:</strong> If uploading multiple files at once, all files will have the same demographics entered above.
                                     </h6>
                                 </div>
 
@@ -372,7 +372,8 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                         <div id="srBar"></div>
 
                                     </div>
-                                    <div class="preview-totals">
+                                    <?php if($_SESSION["userData"]["pre_pay"] ==1):?>                                   
+                                        <div class="preview-totals">
                                         <table class="que-files">
                                             <thead>
                                                 <tr>
@@ -419,12 +420,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                             </tr>
                                             </tbody>
                                         </table>
-
                                     </div>
-                                    <?php if($_SESSION["userData"]["pre_pay"] ==1):?>
-                                    <p id="totals" style="font-size: 14px;font-weight: 600;text-align: center">
-                                    <!-- Upload Totals will go here-->
-                                    </p>
                                     <?php endif;?>
                                     <div class="carousel-nav">
                                         <button class="btn btn-primary" id="p3Bbtn" type="button">
@@ -545,9 +541,9 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 <script src="data/scripts/job_upload.js?v=3"></script>
 <?php endif;?>
 <form action="prepayment.php" method="post" class="hidden" style="display:none" id="prepayForm" target="_blank">
-    <input type="text" name="package" id="package" value = "3">
-    <input type="text" name="prepay" id="prepay" value = "3">
-    <input type="text" name="total_mins" id="total_mins" value = "3">
-    <input type="text" name="comp_price" id="comp_price" value = "3">
-    <input type="text" name="total_price" id="total_price" value = "3">
+    <input type="text" name="total_files" id="total_files" value = "0">
+    <!-- <input type="text" name="prepay" id="prepay" value = "3"> -->
+    <input type="text" name="total_mins" id="total_mins" value = "0">
+    <!-- <input type="text" name="comp_price" id="comp_price" value = "3"> -->
+    <!-- <input type="text" name="total_price" id="total_price" value = "3"> -->
 </form>

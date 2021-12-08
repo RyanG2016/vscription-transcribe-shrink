@@ -31,14 +31,11 @@ if(isset($_SESSION["userData"]["profile_id"]) && isset($_SESSION["userData"]["pa
         '',
         $dbConnection
     );
-
-    if (!empty($_SESSION["userData"]["profile_id"])) {
-        $getPaymentDetails = $processor->getCustomerPaymentProfile($_SESSION["userData"]["profile_id"],$_SESSION["userData"]["payment_id"]);
-        $_SESSION["userData"]["zipcode"] = $getPaymentDetails->getPaymentProfile()->getbillTo()->getzip();
-        // $_SESSION["userData"]["card_number"] = $getPaymentDetails->getPaymentProfile()->getPayment()->getCreditCard()->getCardNumber();
-        // $_SESSION["userData"]["expiration_date"] = $getPaymentDetails->getPaymentProfile()->getPayment()->getCreditCard()->getExpirationDate();
-        // $_SESSION["userData"]["card_type"] = $getPaymentDetails->getPaymentProfile()->getPayment()->getCreditCard()->getCardType();
-    }
+    $getPaymentDetails = $processor->getCustomerPaymentProfile($_SESSION["userData"]["profile_id"],$_SESSION["userData"]["payment_id"]);
+    $_SESSION["userData"]["zipcode"] = $getPaymentDetails->getPaymentProfile()->getbillTo()->getzip();
+    $_SESSION["userData"]["card_number"] = $getPaymentDetails->getPaymentProfile()->getPayment()->getCreditCard()->getCardNumber();
+    // $_SESSION["userData"]["expiration_date"] = $getPaymentDetails->getPaymentProfile()->getPayment()->getCreditCard()->getExpirationDate();
+    $_SESSION["userData"]["card_type"] = $getPaymentDetails->getPaymentProfile()->getPayment()->getCreditCard()->getCardType();
 }
 ?>
 
@@ -100,10 +97,10 @@ if(isset($_SESSION["userData"]["profile_id"]) && isset($_SESSION["userData"]["pa
     <!--    <script src="data/thirdparty/enjoyhint/enjoyhint.min.js"></script>-->
     <script src="data/thirdparty/enjoyhint/enjoyhint.min.js"></script>
 
-    <?php $tuts=(isset($_SESSION['tutorials']))?$_SESSION['tutorials']:'{}'; ?>
+    <!-- <?php $tuts=(isset($_SESSION['tutorials']))?$_SESSION['tutorials']:'{}'; ?>
     <script type="text/javascript">
     var tutorials = '<?php echo $tuts;?>';
-    </script>
+    </script> -->
 
     <!--    <script src="https://unpkg.com/imask"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/imask/3.4.0/imask.min.js"></script>
@@ -463,8 +460,8 @@ if(isset($_SESSION["userData"]["profile_id"]) && isset($_SESSION["userData"]["pa
                             echo '
                                     <div class="row">
                                         <div class="col-auto">Total Files Uploaded</div>
-                                        <div class="col text-right"> ' . $_POST["prepay"] . '</div>
-                                    </div>
+                                        <div class="col text-right"> ' . $_POST["total_files"] . '</div>
+                                    </div>0
                                     <div class="row">
                                         <div class="col-auto">Total Billed Minutes</div>
                                         <div class="col text-right">' . $_POST["total_mins"] . '</div>

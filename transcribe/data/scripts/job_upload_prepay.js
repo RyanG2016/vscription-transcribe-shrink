@@ -85,8 +85,8 @@ function documentReady() {
     let mediaInfoOutput = null;
     const MAX_FILES_COUNT = 10;
 
-    var srEnabled = false;
-    getSRenabled();
+    // var srEnabled = false;
+    // getSRenabled();
     var srMinutesRemaining = 0;
     var srMinutes = $("#srMinutes");
 
@@ -114,10 +114,9 @@ function documentReady() {
         		$("#total_mins_charge").text(0);
         		$("#total_charge").text(0);
 				$("#mdc-button__label").text("Upload File(s)");
-
         	}
         }
-        console.log(calculateTotalMinutes().toFixed(2));
+        // console.log(calculateTotalMinutes().toFixed(2));
         uploadCarousel.carousel(2);
     });
     prevBtn.on("click", function () {
@@ -276,10 +275,12 @@ function documentReady() {
 
     uploadForm.on('submit', function (event) {
         event.preventDefault();
+    // Not sure why we have this. This form only gets loaded if prepay is true
 	if(prepayStatus == 1){ 
-	  if(lifetime_minutes ==0 && promo ==1){
+	//   if(lifetime_minutes ==0 && promo ==1){
 	  	if(eval(calculateTotalMinutes()-comp_mins) > 0){	
 			$("#total_mins").val(calculateTotalMinutes().toFixed(2)-comp_mins);
+            $("total_files").val(filesDur.length);
 			$("#prepayForm").submit();
 			var prepayInterval = setInterval(()=>{
 			  if(localStorage.getItem("prepay_upload") =="true"){
@@ -290,20 +291,20 @@ function documentReady() {
 	  	}else{
 	  		prepayUpload();
 	  	}
-	  }else{
-	  	if(eval(calculateTotalMinutes()-comp_mins) > 0){	  		
-		  	$("#total_mins").val(calculateTotalMinutes().toFixed(2)-comp_mins);
-			$("#prepayForm").submit();
-			var prepayInterval = setInterval(()=>{
-                if(localStorage.getItem("prepay_upload") =="true"){
-                    localStorage.removeItem("prepay_upload");
-                   prepayUpload();
-                }
-              },3000)
-	  	}else{
-	  		prepayUpload();
-	  	}
-	  }
+	//   }else{
+	//   	if(eval(calculateTotalMinutes()-comp_mins) > 0){	  		
+	// 	  	$("#total_mins").val(calculateTotalMinutes().toFixed(2)-comp_mins);
+	// 		$("#prepayForm").submit();
+	// 		var prepayInterval = setInterval(()=>{
+    //             if(localStorage.getItem("prepay_upload") =="true"){
+    //                 localStorage.removeItem("prepay_upload");
+    //                prepayUpload();
+    //             }
+    //           },3000)
+	//   	}else{
+	//   		prepayUpload();
+	//   	}
+	//   }
 	}else{
 	  prepayUpload();
 	}
@@ -330,7 +331,7 @@ function documentReady() {
                 // console.log(files[i]);
             }
 
-            formData.append("sr_enabled", srEnabled);
+            formData.append("sr_enabled", 0); //This is a required field
             formData.append("authorName", $("#demo_author").val());
             formData.append("jobType", $("#demo_job_type option:selected").html());
             formData.append("dictDate", $("#dictDatePicker").val());
@@ -523,16 +524,16 @@ function documentReady() {
         }
     }
 
-    function calculateTotalSRminutes() {
-        let totalSRseconds = 0.0;
+    // function calculateTotalSRminutes() {
+    //     let totalSRseconds = 0.0;
 
-        for (let i = 0; i < filesDur.length; i++) {
-            var sec = roundUpToAnyIncludeCurrent(filesDur[i]);
-            totalSRseconds += sec;
-        }
+    //     for (let i = 0; i < filesDur.length; i++) {
+    //         var sec = roundUpToAnyIncludeCurrent(filesDur[i]);
+    //         totalSRseconds += sec;
+    //     }
 
-        return secsToMin(totalSRseconds);
-    }
+    //     return secsToMin(totalSRseconds);
+    // }
 
     function calculateTotalMinutes() {
         let totalseconds = 0.0;
@@ -550,43 +551,6 @@ function documentReady() {
             if (filesArr.length > 0) {
                 //We are using this elsewhere so need to calculate even if no SR
                 var totalMinutes = calculateTotalMinutes();
-                // check for SR
-                // if (srEnabled) {
-                //     // check for total minutes length and sufficient balance
-                //     // totalMinutes = 60;
-                //     let balanceAfterUpload = srMinutesRemaining - totalMinutes;
-                //     if (balanceAfterUpload < 0) {
-                //         // show error msg
-                //         submitUploadBtn.setAttribute("disabled", "true");
-                //         let subPar = document.createElement('p');
-                //         subPar.innerHTML = "INSUFFICIENT BALANCE | Total minutes for this upload: " + totalMinutes +
-                //             " | SR Balance: " + srMinutesRemaining + "<br>"
-                //             + "<br><span><i><u id='skipSR' style='color: #404040; cursor: pointer'>Click here to skip SR this time</u></i></span>";
-
-                //         subPar.setAttribute("style", "color: darkred");
-                //         subPar.setAttribute("id", "subBar");
-                //         srBar.html(subPar);
-
-                //         $("#skipSR").on("click", function () {
-                //             srEnabled = false;
-                //             $("#subBar")[0].innerHTML = "Speech recognition is off for this upload";
-                //             submitUploadBtn.removeAttribute("disabled");
-                //         });
-                //         return;
-                //     }
-
-                //     let subPar = document.createElement('p');
-                //     subPar.setAttribute("id", "subBar");
-                //     subPar.innerHTML = "Total minutes for this upload: " + totalMinutes + " | SR Balance (Mins) after upload: " + balanceAfterUpload
-                //         + "<br><span><i><u id='skipSR' style='color: #404040; cursor: pointer'>Click here to skip SR this time</u></i></span>";
-                //     srBar.html(subPar);
-
-                //     $("#skipSR").on("click", function () {
-                //         srEnabled = false;
-                //         $("#subBar")[0].innerHTML = "Speech recognition is off for this upload";
-                //         submitUploadBtn.removeAttribute("disabled");
-                //     });
-                // }
                 if (prepayStatus == 1) {
                     // $("#totals").html(
                     //     `Total amount to be charged: ${totalMinutes} mins - $${comp_mins} X $${bill_rate1} = $${((totalMinutes-comp_mins)*bill_rate1).toFixed(2)} (Plus applicable taxes)`)
@@ -1059,40 +1023,40 @@ function documentReady() {
         $('.demo_author').val("");
         $("#demo_job_type option:selected").html();
         flatPickr.setDate(new Date());
-        $("#demo_speaker_type").val(0);
+        // $("#demo_speaker_type").val(0);
         $('#demo_comments').val("");
-        getSRMinutes();
+        // getSRMinutes();
         // mainUploadBtn.removeAttr("disabled");
 
         setDropText("");
     }
 
-    function getSRenabled() {
-        $.ajax({
-            url: "../api/v1/users/sr-enabled/",
-            method: "GET",
-            dataType: "text",
-            success: function (data) {
-                if (data == 1) {
-                    srEnabled = true;
-                    speakerTypeDiv.hide();
-                    dictDateLbl.html("File Date");
-                    getSRMinutes();
-                    addMinsBtn.attr("onclick", "window.open('/packages.php', '_blank')");
-                    addMinsBtn.html('<i class="fas fa-plus-circle" ></i> ADD MINS');
-                    $("#srBalance")[0].style.display = "block";
-                } else {
-                    srEnabled = false;
-                    speakerTypeDiv.show();
-                    dictDateLbl.html("Dictated Date");
-                    // change add mins button
-                    addMinsBtn.attr("onclick", "window.open('/settings.php#srSwitch', '_blank')");
-                    addMinsBtn.html('<i class="fal fa-toggle-on"></i> Enable');
-                    $("#srBalance")[0].style.display = "none";
-                }
-            }
-        });
-    }
+    // function getSRenabled() {
+    //     $.ajax({
+    //         url: "../api/v1/users/sr-enabled/",
+    //         method: "GET",
+    //         dataType: "text",
+    //         success: function (data) {
+    //             if (data == 1) {
+    //                 srEnabled = true;
+    //                 speakerTypeDiv.hide();
+    //                 dictDateLbl.html("File Date");
+    //                 getSRMinutes();
+    //                 addMinsBtn.attr("onclick", "window.open('/packages.php', '_blank')");
+    //                 addMinsBtn.html('<i class="fas fa-plus-circle" ></i> ADD MINS');
+    //                 $("#srBalance")[0].style.display = "block";
+    //             } else {
+    //                 srEnabled = false;
+    //                 speakerTypeDiv.show();
+    //                 dictDateLbl.html("Dictated Date");
+    //                 // change add mins button
+    //                 addMinsBtn.attr("onclick", "window.open('/settings.php#srSwitch', '_blank')");
+    //                 addMinsBtn.html('<i class="fal fa-toggle-on"></i> Enable');
+    //                 $("#srBalance")[0].style.display = "none";
+    //             }
+    //         }
+    //     });
+    // }
 
     function tutorialViewed() {
         resetFiles();

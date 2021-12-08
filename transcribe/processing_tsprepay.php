@@ -6,7 +6,7 @@ $vtex_page = INTERNAL_PAGES::PROCESSING;
 include('data/parts/head.php');
 
 // use Src\Models\Package;
-use Src\Models\SR;
+// use Src\Models\SR;
 use Src\Models\Account;
 use Src\Payment\PrepayPaymentProcessor;
 
