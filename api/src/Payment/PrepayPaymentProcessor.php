@@ -10,7 +10,7 @@ use net\authorize\api\constants\ANetEnvironment;
 use net\authorize\api\contract\v1 as AnetAPI;
 use net\authorize\api\controller as AnetController;
 use Src\Enums\PAYMENT_STATUS;
-use Src\Models\Package;
+// use Src\Models\Package;
 use Src\Models\User;
 use Src\System\Mailer;
 use Src\TableGateways\paymentGateway;
@@ -39,7 +39,8 @@ class PrepayPaymentProcessor
         private $cardCvv,
         private $cardExpiryMMSlYY,
         private $amount,
-        private Package $package,
+        private $totalMins,
+        // private Package $package,
         private $selfAccount,
         private $db
     )
@@ -104,7 +105,7 @@ class PrepayPaymentProcessor
         // Create order information
         $order = new AnetAPI\OrderType();
         $order->setInvoiceNumber($refId);
-        $order->setDescription($this->package->getSrpName() . " SR Package");
+        $order->setDescription(" Transcription Services");
 
         // Set the customer's Bill To address
         $customerAddress = new AnetAPI\CustomerAddressType();
@@ -206,7 +207,7 @@ class PrepayPaymentProcessor
         // Create order information
         $order = new AnetAPI\OrderType();
         $order->setInvoiceNumber($refId);
-        $order->setDescription($this->package->getSrpName() . " SR Package");
+        $order->setDescription("Transcription Services");
 
         // Create a TransactionRequestType object and add the previous objects to it
         $transactionRequestType = new AnetAPI\TransactionRequestType();
@@ -279,9 +280,12 @@ class PrepayPaymentProcessor
             "name" => $this->fname . " " . $this->lname,
             "email" => $this->userModel->getEmail(),
             "total_price" => $this->totalPrice,
-            "pkg_name" => $this->package->getSrpName(),
-            "pkg_price" => $this->package->getSrpPrice(),
-            "pkg_minutes" => $this->package->getSrpMinutes(),
+            // "pkg_name" => $this->package->getSrpName(),
+            // "pkg_price" => $this->package->getSrpPrice(),
+            // "pkg_minutes" => $this->package->getSrpMinutes(),
+            "pkg_name" => "Transcription Services",
+            "pkg_price" => $this->amount,
+            "pkg_minutes" => $this->totalMins,
             "acc_name" => $this->selfAccount?$_SESSION["userData"]["admin_acc_name"]:$_SESSION["acc_name"],
             "acc_id" => $this->selfAccount?$_SESSION["userData"]["account"]:$_SESSION["accID"],
             "msg" => $msg
@@ -294,7 +298,8 @@ class PrepayPaymentProcessor
             $this->internalRefID,
             $transID,
             $json,
-            $this->package->getSrpId(),
+            1,
+            // $this->package->getSrpId(),
             $error?PAYMENT_STATUS::FAILED:PAYMENT_STATUS::PAID,
             $this->db
         );
@@ -316,11 +321,15 @@ class PrepayPaymentProcessor
             "ref_id" => $this->internalRefID,
             "taxes" => $this->taxesArr,
             "error" => $error,
+            "card" => $this->cardNumber,
             "email" => $this->userModel->getEmail(),
             "total_price" => $this->totalPrice,
-            "pkg_name" => $this->package->getSrpName(),
-            "pkg_price" => $this->package->getSrpPrice(),
-            "pkg_minutes" => $this->package->getSrpMinutes(),
+            // "pkg_name" => $this->package->getSrpName(),
+            // "pkg_price" => $this->package->getSrpPrice(),
+            // "pkg_minutes" => $this->package->getSrpMinutes(),
+            "pkg_name" => "Transcription Services",
+            "pkg_price" => $this->amount,
+            "pkg_minutes" => $this->totalMins,
             "acc_name" => $this->selfAccount?$_SESSION["userData"]["admin_acc_name"]:$_SESSION["acc_name"],
             "acc_id" => $this->selfAccount?$_SESSION["userData"]["account"]:$_SESSION["accID"],
             "msg" => $msg
@@ -333,7 +342,8 @@ class PrepayPaymentProcessor
             $this->internalRefID,
             $transID,
             $json,
-            $this->package->getSrpId(),
+            1,
+            // $this->package->getSrpId(),
             $error?PAYMENT_STATUS::FAILED:PAYMENT_STATUS::PAID,
             $this->db
         );
@@ -355,8 +365,10 @@ class PrepayPaymentProcessor
         $this->totalPrice = $this->amount;
         if(isset($this->zip) && strlen($this->zip) !=0)
         {
+            // error_log("A Postal code has been found: ",0);
             $contents = file_get_contents(__DIR__."/../../../transcribe/data/json/canada_taxes.json");
             $json = json_decode($contents, true);
+            // error_log("The taxes json is: " . json_encode($json, JSON_PRETTY_PRINT),0);
             $totalTaxePercentage = 0;
             foreach ($json as $caStateEntry) {
                 if(strtolower($caStateEntry["code"]) === strtolower(substr($this->zip, 0,1)))
@@ -370,6 +382,8 @@ class PrepayPaymentProcessor
                     break;
                 }
             }
+        } else {
+            error_log("NO Postal code has been found: ",0);   
         }
         return $this->totalPrice;
     }

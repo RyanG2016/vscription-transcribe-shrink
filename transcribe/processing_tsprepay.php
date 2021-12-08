@@ -5,7 +5,7 @@ $vtex_page = INTERNAL_PAGES::PROCESSING;
 
 include('data/parts/head.php');
 
-use Src\Models\Package;
+// use Src\Models\Package;
 use Src\Models\SR;
 use Src\Models\Account;
 use Src\Payment\PrepayPaymentProcessor;
@@ -59,21 +59,21 @@ use Src\Payment\PrepayPaymentProcessor;
             <?php
 
             // Get package data
-            $pkg = Package::withID($_POST["package"], $dbConnection);
-            $pkg->setSrpPrice(floatval(round(round(floatval($_SESSION["userData"]["bill_rate1"])*floatval($_POST["total_mins"]),2),2)));
-            $pkg->setSrpName("prepay");
-            $pkg->setSrpMinutes($_POST["total_mins"]);
+            // $pkg = Package::withID($_POST["package"], $dbConnection);
+            // $pkg->setSrpPrice(floatval(round(round(floatval($_SESSION["userData"]["bill_rate1"])*floatval($_POST["total_mins"]),2),2)));
+            // $pkg->setSrpName("prepay");
+            // $pkg->setSrpMinutes($_POST["total_mins"]);
             // We have different data depending on whether client using saved card or not
-            if (isset($_SESSION["userData"]["profile_id"])) {
+            if (isset($_SESSION["userData"]["profile_id"]) && !empty($_SESSION["userData"]["profile_id"])) {
                 $processor = new PrepayPaymentProcessor(
                     "", "",
-                    "",
+                    $_SESSION["userData"]["zipcode"],
                     "",
                     "",
                     $_POST['cvv'],
                     "",
-                    $pkg->getSrpPrice(),
-                    $pkg,
+                    floatval(round(round(floatval($_SESSION["userData"]["bill_rate1"])*floatval($_POST["total_mins"]),2),2)),
+                    $_POST["total_mins"],
                     isset($_POST["self"]),
                     $dbConnection
                 );
@@ -87,8 +87,9 @@ use Src\Payment\PrepayPaymentProcessor;
                     $_POST['card_number'],
                     $_POST['cvv'],
                     $_POST['expiry_date'],
-                    $pkg->getSrpPrice(),
-                    $pkg,
+                    floatval(round(round(floatval($_SESSION["userData"]["bill_rate1"])*floatval($_POST["total_mins"]),2),2)),
+                    // $pkg,
+                    $_POST["total_mins"],
                     isset($_POST["self"]),
                     $dbConnection
                 );
@@ -106,9 +107,9 @@ use Src\Payment\PrepayPaymentProcessor;
                     {
                         $accID = $_SESSION["userData"]["account"];
                     }
-                    $sr = SR::withAccID($accID, $dbConnection);
-                    $sr->addToMinutesRemaining($pkg->getSrpMins());
-                    $sr->save();
+                    // $sr = SR::withAccID($accID, $dbConnection);
+                    // $sr->addToMinutesRemaining($pkg->getSrpMins());
+                    // $sr->save();
                     $currentAccount = \Src\Models\Account::withID($accID, $dbConnection);
                     error_log("Current Lifetime Minutes is: " .$currentAccount->getLifetimeMinutes(),0);
                     error_log("Comp mins for job is: " .$currentAccount->getCompMins(),0);
@@ -123,7 +124,7 @@ use Src\Payment\PrepayPaymentProcessor;
                         }
                     }
                     // Save credit card details to Authorize.net and save the profile and payment ID
-                    if(isset($_POST["credit_card_status"])){
+                    if((isset($_POST["credit_card_status"])) && (empty($_SESSION["userData"]["profile_id"])) && (empty($_SESSION["userData"]["payment_id"]))){
                         $response = $processor->createCustomerProfile($_SESSION["userData"]["email"]);
                         $currentAccount->setProfileId($response->getCustomerProfileId());
                         $currentAccount->setPaymentId($response->getCustomerPaymentProfileIdList()[0]);
@@ -131,7 +132,7 @@ use Src\Payment\PrepayPaymentProcessor;
                         $_SESSION["userData"]["payment_id"] = $response->getCustomerPaymentProfileIdList()[0];
                     }
                     $currentAccount->save();
-                    $_SESSION["userData"]["comp_mins"] = 0;
+                    $_SESSION["userData"]["comp_mins"] = 0.00;
                     echo "<script>localStorage.setItem('prepay_upload',true)</script>";
                     echo "<script>window.close();</script>";
                     // header("Location: main.php");
