@@ -2,6 +2,7 @@
 //include('../data/parts/head.php');
 
 require '../api/vendor/autoload.php';
+// require('../support_files/FirePHPCore/fb.php');
 use Src\Enums\INTERNAL_PAGES;
 
 $vtex_page = INTERNAL_PAGES::PAYMENT;
@@ -15,10 +16,15 @@ header("Expires: 0"); // Now
 use Src\Payment\PrepayPaymentProcessor;
 // use Src\Models\Package;
 // $pkg = Package::withID($_POST["package"], $dbConnection);
-
+// fb($_SESSION);
+// fb($_POST);
+// fb('Log message'  ,FirePHP::LOG);
+// fb('Info message' ,FirePHP::INFO);
+// fb('Warn message' ,FirePHP::WARN);
+// fb('Error message',FirePHP::ERROR);
 // User Setting
 // If the customer has a saved payment profile ID, created PrepayPaymentProcessor with needed data
-if(isset($_SESSION["userData"]["profile_id"]) && isset($_SESSION["userData"]["payment_id"])){
+if (isset($_SESSION["userData"]["profile_id"]) && !empty($_SESSION["userData"]["profile_id"])){
     $processor = new PrepayPaymentProcessor(
         $_SESSION['fname'], $_SESSION['lname'],
         '',
@@ -211,12 +217,14 @@ if(isset($_SESSION["userData"]["profile_id"]) && isset($_SESSION["userData"]["pa
                                         <div class="container mt-2">
                                                 <div class="d-flex">
                                                     <div class="pl-2 pr-5 mt-3">
-                                                        <p><i class="fa fa-cc-visa text-primary pr-2"></i>'?><?php echo $_SESSION['userData']['card_type']?><?php echo '</p>
+                                                        <p><i class="fa fa-cc-'?><?php 
+                                                        echo strtolower($_SESSION["userData"]["card_type"]);
+                                                        ?><?php echo ' text-primary pr-2"></i>'?><?php echo $_SESSION['userData']['card_type']?><?php echo '</p>
                                                     </div>
                                                     <div class="align-self-center pr-2">XXXXXXXX'?><?php echo $_SESSION['userData']['card_number']?><?php echo '
                                                     </div>
                                                     <div class="rounded border">
-                                                    <input id="securitycode" name="cvv" type="text" placeholder="3 Digit CVV" pattern="[0-9]*
+                                                    <input id="securitycode" class="securitycodePP" name="cvv" type="text" placeholder="3 Digit CVV" pattern="[0-9]*
                                                         inputmode="numeric"
                                                         value="'?><?php echo isset($_SESSION["userData"]["security_code"])?$_SESSION["userData"]["security_code"]:'';?><?php echo '"
                                                         autofocus>
@@ -225,9 +233,11 @@ if(isset($_SESSION["userData"]["profile_id"]) && isset($_SESSION["userData"]["pa
                                         </div>
                                     </div>                                          
                                     <div class="col-md-4" style="display: none">
-                                            <label for="zip">Zip/Postal Code</label>
+                                            <label for="zip">Billing Zip/Postal Code</label>
                                             <br>
-                                        <input id="zip" name="zipcode" type="text" class="" placeholder="<Zip/Postal Code>" value="'?><?php echo isset($_SESSION['userData']['zipcode']) && !empty($_SESSION['userData']['zipcode'])?$_SESSION['userData']['zipcode']:'';?><?php echo '" />
+                                        <input id="zip" name="zipcode" type="text" class="" placeholder="<Zip/Postal Code>" value="';
+                                        echo isset($_SESSION['userData']['zipcode']) && !empty($_SESSION['userData']['zipcode'])?$_SESSION['userData']['zipcode']:'';
+                                        echo '" />
                                     </div>';
                                     } else {
                                 echo '<div id="non-prepay-form" class="row no-gutters">
@@ -389,9 +399,9 @@ if(isset($_SESSION["userData"]["profile_id"]) && isset($_SESSION["userData"]["pa
                                                     
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <label for="zip">Zip/Postal Code</label>
+                                                    <label for="zip">Billing Zip/Postal Code</label>
                                                     <br>
-                                                      <input id="zip" name="zipcode" type="text" class="" placeholder="<Zip/Postal Code>" value="'?><?php echo isset($_SESSION['userData']['zipcode']) && !empty($_SESSION['userData']['zipcode'])?$_SESSION['userData']['zipcode']:'';?><?php echo '" />
+                                                      <input id="zip" name="zipcode" type="text" class="" placeholder="" value="'?><?php echo '" />
                                                 </div>
                                             </div>
                                         </div>
@@ -460,11 +470,11 @@ if(isset($_SESSION["userData"]["profile_id"]) && isset($_SESSION["userData"]["pa
                             echo '
                                     <div class="row">
                                         <div class="col-auto">Total Files Uploaded</div>
-                                        <div class="col text-right"> ' . $_POST["total_files"] . '</div>
-                                    </div>0
+                                        <div class="col text-right"> ' . $_POST["total_files"] . ' files</div>
+                                    </div>
                                     <div class="row">
                                         <div class="col-auto">Total Billed Minutes</div>
-                                        <div class="col text-right">' . $_POST["total_mins"] . '</div>
+                                        <div class="col text-right">' . $_POST["total_mins"] . '/mins</div>
                                     </div>
                                     <div class="row">
                                         <div class="col-auto">Price</div>
@@ -502,27 +512,17 @@ if(isset($_SESSION["userData"]["profile_id"]) && isset($_SESSION["userData"]["pa
                                     </div>
                                 </div>
                                 <?php
-                                if(isset($_SESSION["userData"]["profile_id"]) && isset($_SESSION["userData"]["payment_id"])){ 
-                                    echo '                                <div class="checkbox justify-content-center m-t-10" >
+                                if(!isset($_SESSION["userData"]["payment_id"]) || empty($_SESSION["userData"]["payment_id"]) || is_null($_SESSION["userData"]["payment_id"])){ 
+                                    echo '<div class="checkbox justify-content-center m-t-10" >
                                     <div class="form-inline justify-content-center">
                                         <label>
-                                            <input type="checkbox" name="credit_card_status" class="w-auto" id="credit_card_status" checked />
-                                            <small class="text-sm-right font-italic fs-17">Save credit card for future transactions <span></span></small>
-                                        </label>
-                                    </div>
-                                </div>';
-                                } else {
-                                    echo '
-                                <div class="checkbox justify-content-center m-t-10" >
-                                    <div class="form-inline justify-content-center">
-                                        <label>
-                                            <input type="checkbox" name="credit_card_status" class="w-auto" id="credit_card_status"  />
+                                            <input type="checkbox" name="credit_card_status" class="w-auto" id="credit_card_status" />
                                             <small class="text-sm-right font-italic fs-17">Save credit card for future transactions <span></span></small>
                                         </label>
                                     </div>
                                 </div>';
                                 }
-                                ?>
+                                ?> 
                                 <div class="form-row justify-content-center">
                                     <button type="submit" id="payBtn" class="btn btn-primary" disabled>Complete Payment
                                         and Upload</button>

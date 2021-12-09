@@ -257,7 +257,7 @@ input {
     border: 1px solid #dcdcdc;
 }
 
-#securitycode {
+.securitycodePP {
     margin: 0px;
     padding: 5px;
     text-align: center;
@@ -548,3 +548,6 @@ input {
     cursor: pointer;
 }
 
+#payBtn {
+    margin-top: 10px;
+}

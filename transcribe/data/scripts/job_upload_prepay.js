@@ -280,7 +280,7 @@ function documentReady() {
 	//   if(lifetime_minutes ==0 && promo ==1){
 	  	if(eval(calculateTotalMinutes()-comp_mins) > 0){	
 			$("#total_mins").val(calculateTotalMinutes().toFixed(2)-comp_mins);
-            $("total_files").val(filesDur.length);
+            $("#total_files").val(filesDur.length);
 			$("#prepayForm").submit();
 			var prepayInterval = setInterval(()=>{
 			  if(localStorage.getItem("prepay_upload") =="true"){
