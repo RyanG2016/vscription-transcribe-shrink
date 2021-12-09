@@ -59,7 +59,6 @@ function documentReady() {
     const uploadToast = $("#uploadToast");
     const uploadToastBody = uploadToast.find(".toast-body");
 
-
     // allowed files for upload queue variables
     var filesArr = [];
     var filesDur = [];
@@ -258,43 +257,12 @@ function documentReady() {
     // progress timer
     var timer;
     var uploadForm = $("#upload_form");
-    const prepayStatus = $("#prepay_status").val();
-    const lifetime_minutes = $("#lifetime_minutes").val();
-    const promo = $("#promo").val();
-    const comp_mins = $("#comp_mins").val()>=0?$("#comp_mins").val():0;
+
 
     uploadForm.on('submit', function (event) {
         event.preventDefault();
-	if(prepayStatus == 1){ 
-        if (!confirm("Are you sure to prepay now?")) {
-            return false;
-        }else{
-            submitUploadBtn.setAttribute("disabled",true);
-        }
-	  if(lifetime_minutes ==0 && promo ==1 && (calculateTotalSRminutes()-10-comp_mins)>0){
-	  	$("#total_mins").val(calculateTotalSRminutes()-10-comp_mins);
-		  $("#prepayForm").submit();
-		  var prepayInterval = setInterval(()=>{
-			  if(localStorage.getItem("prepay_upload") =="true"){
-			  	localStorage.removeItem("prepay_upload");
-				 prepayUpload();
-			  }
-		  },3000)
-	  }else{
-	  	$("#total_mins").val(calculateTotalSRminutes()-comp_mins);
-		  $("#prepayForm").submit();
-		  if(localStorage.getItem("prepay_upload") =="true"){
-			  	localStorage.removeItem("prepay_upload");
-				 prepayUpload();
-			  }
-	  }
-	}else{
-	  prepayUpload();
-	}
-     
-    });
-    function prepayUpload(){
-       uploadForm.addClass('was-validated');
+
+        uploadForm.addClass('was-validated');
         // uploadForm.addClass('was-validated');
 
         // if (validateFields()) {
@@ -392,7 +360,8 @@ function documentReady() {
             event.stopPropagation();
             // alert("Please fill in required fields");
         }
-    }
+    });
+
     function getSRMinutes() {
         $.ajax({
             url: "../api/v1/users/sr-mins/",
