@@ -293,6 +293,7 @@ class Mailer
                             '{{address}}'=> $user->getAddress() . ", " . $user->getCountry(),
                             '{{pkgname}}'  => "Transcription Services",
                             '{{pkgmin}}'   => $paymentJson["pkg_minutes"],
+                            '{{billrate}}' => $this->formatPrice($paymentJson["bill_rate"] ),
                             '{{subtotal}}'   => $this->formatPrice($paymentJson["pkg_price"] ),
                             '{{taxes}}'   => $this->generateTaxes($paymentJson["taxes"],$paymentJson["pkg_price"] ),
                             '{{totalprice}}'   => $this->formatPrice($paymentJson["total_price"]),
