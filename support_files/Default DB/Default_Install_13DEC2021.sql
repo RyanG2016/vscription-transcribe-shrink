@@ -680,9 +680,6 @@ CREATE TABLE IF NOT EXISTS `users` (
   `account` int(11) NOT NULL DEFAULT 0,
   `tutorials` text NOT NULL DEFAULT '{}',
   `auto_load_job` tinyint(1) DEFAULT 0,
-  `card_number` varchar(100) DEFAULT '',
-  `security_code` varchar(20) DEFAULT '',
-  `expiration_date` varchar(20) DEFAULT '',
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
   KEY `users_access_access_id_fk` (`def_access_id`),
@@ -692,8 +689,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table vtexvsi_transcribe.users: ~1 rows (approximately)
 DELETE FROM `users`;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `city`, `country`, `zipcode`, `state`, `address`, `registeration_date`, `last_ip_address`, `typist`, `account_status`, `last_login`, `trials`, `unlock_time`, `newsletter`, `def_access_id`, `shortcuts`, `dictionary`, `email_notification`, `enabled`, `account`, `tutorials`, `auto_load_job`, `card_number`, `security_code`, `expiration_date`) VALUES
-	(1, 'System', 'Admin', 'sysadmin@changeme.com', '$2y$10$KribpRe75ZNzT90Igpm4vesy.Q0fOJavgTLriHJEtxCRt15OLy5O6', NULL, NULL, NULL, NULL, '', '2021-11-29 17:10:42', NULL, 0, 1, '2021-12-14 12:47:38', 0, NULL, 0, NULL, '[]', '0', 1, 1, 0, '{}', 0, '', '', '');
+INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `city`, `country`, `zipcode`, `state`, `address`, `registeration_date`, `last_ip_address`, `typist`, `account_status`, `last_login`, `trials`, `unlock_time`, `newsletter`, `def_access_id`, `shortcuts`, `dictionary`, `email_notification`, `enabled`, `account`, `tutorials`, `auto_load_job`) VALUES
+	(1, 'System', 'Admin', 'sysadmin@changeme.com', '$2y$10$KribpRe75ZNzT90Igpm4vesy.Q0fOJavgTLriHJEtxCRt15OLy5O6', NULL, NULL, NULL, NULL, '', '2021-11-29 17:10:42', NULL, 0, 1, '2021-12-14 12:47:38', 0, NULL, 0, NULL, '[]', '0', 1, 1, 0, '{}', 0);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 -- Dumping structure for table vtexvsi_transcribe.zoho_bills
