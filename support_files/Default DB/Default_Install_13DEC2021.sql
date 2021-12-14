@@ -108,7 +108,7 @@ CREATE TABLE IF NOT EXISTS `accounts` (
 DELETE FROM `accounts`;
 /*!40000 ALTER TABLE `accounts` DISABLE KEYS */;
 INSERT INTO `accounts` (`acc_id`, `acc_retention_time`, `enabled`, `acc_name`, `billable`, `subscription_type`, `acc_creation_date`, `bill_rate1`, `bill_rate1_type`, `bill_rate1_TAT`, `bill_rate1_desc`, `bill_rate1_min_pay`, `bill_rate2`, `bill_rate2_type`, `bill_rate2_TAT`, `bill_rate2_desc`, `bill_rate2_min_pay`, `bill_rate3`, `bill_rate3_type`, `bill_rate3_TAT`, `bill_rate3_desc`, `bill_rate3_min_pay`, `bill_rate4`, `bill_rate4_type`, `bill_rate4_TAT`, `bill_rate4_desc`, `bill_rate4_min_pay`, `bill_rate5`, `bill_rate5_type`, `bill_rate5_TAT`, `bill_rate5_desc`, `bill_rate5_min_pay`, `pre_pay`, `promo`, `comp_mins`, `lifetime_minutes`, `profile_id`, `payment_id`, `work_types`, `next_job_tally`, `act_log_retention_time`, `job_prefix`, `sr_enabled`, `trial`, `suppress_header_print`, `auto_list_refresh`, `auto_list_refresh_interval`, `transcribe_remarks`) VALUES
-	(1, 180, 1, 'Default', 1, 1, '2021-11-29 17:12:27', 1.65, 1, 0, '', 0.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL, 'Letter,Memo,Correspondence,Other', 0, 180, '', 0, 0, 0, 1, 30, '');
+	(1, 180, 1, 'Default', 1, 1, '2021-12-14 10:08:57', 1.65, 1, 0, '', 0.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 10.00, 0.00, NULL, NULL, 'Letter,Memo,Correspondence,Other', 1, 180, '', 0, 0, 0, 1, 30, '');
 /*!40000 ALTER TABLE `accounts` ENABLE KEYS */;
 
 -- Dumping structure for table vtexvsi_transcribe.act_log
