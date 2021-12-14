@@ -38,8 +38,7 @@ class UserGateway implements GatewayInterface
                    users.id,
                     users.first_name,
                     users.last_name,
-                    users.email,
-                    
+                    users.email,                 
                     users.country,
                     users.city,
                     users.state,
@@ -1088,10 +1087,6 @@ class UserGateway implements GatewayInterface
         $user->setZipcode($_POST["zip"]);
         $user->setNewsletter($_POST["newsletter"]);
         $user->setEmailNotification($_POST["email_notification"]);
-
-        // $user->setCardNumber($_POST["card_number"]);
-        // $user->setExpirationDate($_POST["expiration_date"]);
-        // $user->setSecurityCode($_POST["security_code"]);
         
         if(isset($_POST["typist"]))
         {
