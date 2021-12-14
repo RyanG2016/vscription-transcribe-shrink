@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `access` (
   CONSTRAINT `access_users_id_fk` FOREIGN KEY (`uid`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table vtexvsi_transcribe.access: ~0 rows (approximately)
+-- Dumping data for table vtexvsi_transcribe.access: ~1 rows (approximately)
 DELETE FROM `access`;
 /*!40000 ALTER TABLE `access` DISABLE KEYS */;
 INSERT INTO `access` (`access_id`, `acc_id`, `uid`, `username`, `acc_role`, `created_at`) VALUES
@@ -104,11 +104,11 @@ CREATE TABLE IF NOT EXISTS `accounts` (
   CONSTRAINT `accounts_file_speaker_type_id_fk_5` FOREIGN KEY (`bill_rate5_type`) REFERENCES `file_speaker_type` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table vtexvsi_transcribe.accounts: ~0 rows (approximately)
+-- Dumping data for table vtexvsi_transcribe.accounts: ~1 rows (approximately)
 DELETE FROM `accounts`;
 /*!40000 ALTER TABLE `accounts` DISABLE KEYS */;
 INSERT INTO `accounts` (`acc_id`, `acc_retention_time`, `enabled`, `acc_name`, `billable`, `subscription_type`, `acc_creation_date`, `bill_rate1`, `bill_rate1_type`, `bill_rate1_TAT`, `bill_rate1_desc`, `bill_rate1_min_pay`, `bill_rate2`, `bill_rate2_type`, `bill_rate2_TAT`, `bill_rate2_desc`, `bill_rate2_min_pay`, `bill_rate3`, `bill_rate3_type`, `bill_rate3_TAT`, `bill_rate3_desc`, `bill_rate3_min_pay`, `bill_rate4`, `bill_rate4_type`, `bill_rate4_TAT`, `bill_rate4_desc`, `bill_rate4_min_pay`, `bill_rate5`, `bill_rate5_type`, `bill_rate5_TAT`, `bill_rate5_desc`, `bill_rate5_min_pay`, `pre_pay`, `promo`, `comp_mins`, `lifetime_minutes`, `profile_id`, `payment_id`, `work_types`, `next_job_tally`, `act_log_retention_time`, `job_prefix`, `sr_enabled`, `trial`, `suppress_header_print`, `auto_list_refresh`, `auto_list_refresh_interval`, `transcribe_remarks`) VALUES
-	(1, 180, 1, 'Default', 1, 1, '2021-12-14 10:08:57', 1.65, 1, 0, '', 0.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 10.00, 0.00, NULL, NULL, 'Letter,Memo,Correspondence,Other', 1, 180, '', 0, 0, 0, 1, 30, '');
+	(1, 180, 1, 'Default', 1, 1, '2021-12-14 12:49:56', 1.65, 1, 0, '', 0.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 10.00, 0.00, '', '', 'Letter,Memo,Correspondence,Other', 1, 180, 'DF-', 0, 0, 0, 1, 30, '');
 /*!40000 ALTER TABLE `accounts` ENABLE KEYS */;
 
 -- Dumping structure for table vtexvsi_transcribe.act_log
@@ -481,6 +481,8 @@ CREATE TABLE IF NOT EXISTS `sessions` (
 -- Dumping data for table vtexvsi_transcribe.sessions: ~0 rows (approximately)
 DELETE FROM `sessions`;
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
+INSERT INTO `sessions` (`id`, `uid`, `php_sess_id`, `src`, `revoked`, `revoke_date`, `login_time`, `expire_time`, `ip_address`) VALUES
+	(1, 1, 'd42c7ba062309588b440055c21a68879', 0, 0, NULL, '2021-12-14 12:47:38', '2021-12-15 12:47:38', '127.0.0.1');
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
 
 -- Dumping structure for table vtexvsi_transcribe.sessions_source_ref
@@ -687,11 +689,11 @@ CREATE TABLE IF NOT EXISTS `users` (
   CONSTRAINT `users_access_access_id_fk` FOREIGN KEY (`def_access_id`) REFERENCES `access` (`access_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table vtexvsi_transcribe.users: ~0 rows (approximately)
+-- Dumping data for table vtexvsi_transcribe.users: ~1 rows (approximately)
 DELETE FROM `users`;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `city`, `country`, `zipcode`, `state`, `address`, `registeration_date`, `last_ip_address`, `typist`, `account_status`, `last_login`, `trials`, `unlock_time`, `newsletter`, `def_access_id`, `shortcuts`, `dictionary`, `email_notification`, `enabled`, `account`, `tutorials`, `auto_load_job`, `card_number`, `security_code`, `expiration_date`) VALUES
-	(1, 'System', 'Admin', 'sysadmin@changeme.com', '$2y$10$KribpRe75ZNzT90Igpm4vesy.Q0fOJavgTLriHJEtxCRt15OLy5O6', NULL, NULL, NULL, NULL, '', '2021-11-29 17:10:42', NULL, 0, 1, '2021-11-29 17:16:21', 0, NULL, 0, NULL, '[]', '0', 1, 1, 0, '{}', 0, '', '', '');
+	(1, 'System', 'Admin', 'sysadmin@changeme.com', '$2y$10$KribpRe75ZNzT90Igpm4vesy.Q0fOJavgTLriHJEtxCRt15OLy5O6', NULL, NULL, NULL, NULL, '', '2021-11-29 17:10:42', NULL, 0, 1, '2021-12-14 12:47:38', 0, NULL, 0, NULL, '[]', '0', 1, 1, 0, '{}', 0, '', '', '');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 -- Dumping structure for table vtexvsi_transcribe.zoho_bills
