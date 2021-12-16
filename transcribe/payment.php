@@ -90,7 +90,7 @@ $pkg = Package::withID($_POST["package"], $dbConnection);
     <script src="data/scripts/parts/ping.min.js" type="text/javascript"></script>
 
     <link href="data/css/payment.css?v=2" rel="stylesheet">
-    <script src="data/scripts/payment.js?v=3" type="text/javascript"></script>
+    <script src="data/scripts/payment.min.js?v=4" type="text/javascript"></script>
 
 </head>
 

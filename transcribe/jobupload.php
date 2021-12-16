@@ -536,9 +536,9 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 
 </html>
 <?php if($_SESSION["userData"]["pre_pay"] == 1):?>
-<script src="data/scripts/job_upload_prepay.js?v=3"></script>
+<script src="data/scripts/job_upload_prepay.min.js?v=4"></script>
 <?php else:?>
-<script src="data/scripts/job_upload.js?v=3"></script>
+<script src="data/scripts/job_upload.min.js?v=4"></script>
 <?php endif;?>
 <form action="prepayment.php" method="post" class="hidden" style="display:none" id="prepayForm" target="_blank">
     <input type="text" name="total_files" id="total_files" value = "0">

@@ -615,7 +615,6 @@ function documentReady() {
     }
 
     function computeDuration(id, file, status, dssType = 0) {
-
         if (dssType === 1 || dssType === 2 || file.type == "audio/ds2") {
             get_dss_duration(file,id,status);
             return;

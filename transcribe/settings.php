@@ -85,7 +85,7 @@ if ($roleIsSet && $hasOwnOrg && ($_SESSION["accID"] == $_SESSION["userData"]["ac
     <script src="data/scripts/parts/ping.min.js" type="text/javascript"></script>
 
     <link href="data/css/settings.css?v=2" rel="stylesheet">
-    <script src="data/scripts/settings.js?v=5" type="text/javascript"></script>
+    <script src="data/scripts/settings.min.js?v=5" type="text/javascript"></script>
 
 </head>
 
