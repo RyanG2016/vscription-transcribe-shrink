@@ -164,17 +164,37 @@ $(document).ready(function () {
     let state = $("#state");
     let userForm = $("#userForm");
     let orgForm = $("#orgForm");
+    // let paymentForm = $("#paymentForm");
     let ownOrgForm = $("#ownOrgForm");
     let country = $("#country");
     let newsletter = $("#newsletter");
     let jobUpdates = $("#emailTranscript");
     let email = $("#email");
     let lastZipRequested = "";
+    // let card_number = $("#card_number")[0];
+    // let security_code = $("#security_code")[0];
+    // let expiration_date = $("#expiration_date")[0];
+
     let currentEmail = email.val();
     let jlSwitch = $("#jlSwitch");
     let orgJobListRefreshInterval = $("#orgJobListRefreshInterval");
     let jlOwnSwitch = $("#jlOwnSwitch");
     let ownOrgJobListRefreshInterval = $("#ownOrgJobListRefreshInterval");
+
+    // var securitycode_mask = new IMask(security_code, {
+    //     mask: '0000',
+    // });
+    // var expiration_date_mask = new IMask(expiration_date, {
+    //     mask: 'MM{/}YY',
+    //     groups: {
+    //         YY: new IMask.MaskedPattern.Group.Range([0, 99]),
+    //         MM: new IMask.MaskedPattern.Group.Range([1, 12]),
+    //     }
+    // });
+    // var card_number_mask = new IMask(card_number, {
+    //       mask: '0000 0000 0000 0000',
+    //         regex: '^4\\d{0,15}',
+    // });
 
     /*    userForm.parsley({
             /!*errorsWrapper: '<br><ul class="parsley-error-list"></ul>'*!/
@@ -223,8 +243,40 @@ $(document).ready(function () {
 
         return false; // Don't submit form
     });
+    // paymentForm.parsley().on('form:submit', function () {
 
+    //     var formData = new FormData(paymentForm[0]);
+    //     formData.append("newsletter", newsletter.hasClass("active") ? "1" : "0");
+    //     formData.append("email_notification", jobUpdates.hasClass("active") ? "1" : "0");
+
+    //     if(email.val() !== currentEmail)
+    //     {
+    //         // inform user of a possible logout
+    //         $.confirm({
+    //             title: 'Important!',
+    //             // theme: 'bootstrap',
+    //             type: 'orange',
+    //             columnClass: 'col-6',
+    //             content: 'By changing your email address you will be logged out until your account is verified by visiting the link mailed to you.',
+    //             buttons: {
+    //                 confirm: function () {
+    //                     // $.alert('Confirmed!');
+    //                     // proceed
+    //                     updateUserInfo(formData, true);
+    //                 },
+    //                 cancel: function () {
+    //                     return true;
+    //                 }
+    //             }
+    //         });
+    //     }else{
+    //         updateUserInfo(formData);
+    //     }
+
+    //     return false; // Don't submit form
+    // });
     function updateUserInfo(formData, reload = false){
+        console.log(formData)
         $.confirm({
             title: 'Updating User Info',
             theme: 'supervan',

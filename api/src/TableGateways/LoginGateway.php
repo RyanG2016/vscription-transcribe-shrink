@@ -25,8 +25,8 @@ class LoginGateway
 
         $statement = "
                 SELECT
-                users.id,first_name, last_name, email, password, address,city, state, account_status, last_login, trials, unlock_time,tutorials,
-                auto_load_job,newsletter, email_notification, a2.subscription_type,
+                users.id,first_name, last_name, email, password, address,city,state, account_status, last_login, trials, unlock_time,tutorials,
+                auto_load_job,newsletter, email_notification, a2.subscription_type,admin.pre_pay,admin.lifetime_minutes,admin.bill_rate1,admin.promo,admin.comp_mins,admin.profile_id,admin.payment_id,
                 a2.act_log_retention_time, a2.acc_retention_time, a2.auto_list_refresh_interval, admin.acc_retention_time as adminart, admin.act_log_retention_time as adminalrt,
                 admin.auto_list_refresh_interval AS adminalr, account, def_access_id, users.enabled, a.acc_role, a.acc_id, r.role_desc, a2.acc_name, country, zipcode, a2.sr_enabled as sr_enabled, a2.trial as trial,
                 IF(account != 0 , (select accounts.acc_name from accounts where accounts.acc_id = account), false) 
@@ -49,8 +49,9 @@ class LoginGateway
             {
                 $user = $result[0];
                 $verified = password_verify($pass, $user["password"]);
+                // $user['account_status'] = 1;
                 /** check password */
-
+                // var_dump($user);
                 /** Check account status **/
                 if ($user['enabled']) {
                     /** -> Account is Active **/
@@ -109,7 +110,7 @@ class LoginGateway
 
         } catch (\PDOException $e) {
             $this->insertAuditLogEntry(0, "Failed login - PDO | " . $e->getMessage());
-            return array("error" => true, "msg" => "We couldn't log you in please contact system admin");
+            return array("error" => true, "msg" => $e->getMessage());
 //            exit($e->getMessage());
         }
         return array("error" => true, "msg" => "Incorrect Password");
@@ -148,8 +149,14 @@ class LoginGateway
 
         // adding user data to php session
         unset($row["password"]);
+        
         $_SESSION["userData"] = $row;
-
+        // if(is_null($_SESSION["userData"]["pre_pay"]) || is_null($_SESSION["userData"]["bill_rate1"]) || is_null($_SESSION["userData"]["promo"]) || is_null($_SESSION["userData"]["lifetime_minutes"])){
+        //     $_SESSION["userData"]["pre_pay"] = floatval(1);
+        //     $_SESSION["userData"]["bill_rate1"] = floatval(1.65);
+        //     $_SESSION["userData"]["promo"] = floatval(1);
+        //     $_SESSION["userData"]["lifetime_minutes"] = floatval(0);
+        // }
         if ($row["def_access_id"] != null) {
             $_SESSION['accID'] = $row["acc_id"];
             $_SESSION['role'] = $row["acc_role"];
@@ -162,6 +169,11 @@ class LoginGateway
             $_SESSION["auto_list_refresh_interval"] = $row["auto_list_refresh_interval"];
             $_SESSION['role_desc'] = $row["role_desc"];
             $_SESSION['landed'] = true;
+            // $_SESSION['card_number'] = $row["card_number"];
+            // $_SESSION['expiration_date'] = $row["expiration_date"];
+            // $_SESSION['security_code'] = $row["security_code"];
+            // $_SESSION['security_code'] = $row["security_code"];
+
         }else{
             // choose the earliest & highest user role available
             $highestAccess = Access::getHighestAccessWithID($row["id"], $this->db);

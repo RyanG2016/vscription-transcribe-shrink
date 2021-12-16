@@ -10,4 +10,4 @@ $chtml = 'lang="en"';
 $version_control = "3";
 $fileNameSuffix = "-NEEDSREVIEW";
 $slashShortcut = "Expand Word";
-$cbaselink = "https://test.vscription.com"; //for password reset without ending slash
+$cbaselink = "https://localdev.vscription.com"; //for password reset without ending slash

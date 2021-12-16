@@ -86,6 +86,7 @@ class AccountGateway implements GatewayInterface
                 bill_rate5_tat,
                 bill_rate5_desc,
                 bill_rate5_min_pay,
+                comp_mins,
                 lifetime_minutes,
                 work_types,
                 next_job_tally,
@@ -160,6 +161,7 @@ class AccountGateway implements GatewayInterface
                 bill_rate5_tat,
                 bill_rate5_desc,
                 bill_rate5_min_pay,
+                comp_mins,
                 lifetime_minutes,
                 work_types,
                 next_job_tally,
@@ -398,7 +400,7 @@ class AccountGateway implements GatewayInterface
                 $srEnabled = 0;
                 break;
             case "2":
-                $br1 = 1.50;
+                $br1 = 1.65;
                 $br1Type = 0;
                 $br1TAT = 3;
                 $br1MinPay = 0;
@@ -828,9 +830,9 @@ class AccountGateway implements GatewayInterface
     {
         $statement = "
             INSERT INTO accounts 
-                (enabled, billable, acc_name, acc_retention_time, acc_creation_date, bill_rate1, bill_rate1_type, bill_rate1_tat, bill_rate1_desc, bill_rate1_min_pay, bill_rate2, bill_rate2_type, bill_rate2_tat, bill_rate2_desc, bill_rate2_min_pay, bill_rate3, bill_rate3_type, bill_rate3_tat, bill_rate3_desc, bill_rate3_min_pay, bill_rate4, bill_rate4_type, bill_rate4_tat, bill_rate4_desc, bill_rate4_min_pay, bill_rate5, bill_rate5_type, bill_rate5_tat, bill_rate5_desc, bill_rate5_min_pay, lifetime_minutes, work_types, next_job_tally, act_log_retention_time, job_prefix, sr_enabled, auto_list_refresh_interval, transcribe_remarks)
+                (enabled, billable, acc_name, acc_retention_time, acc_creation_date, bill_rate1, bill_rate1_type, bill_rate1_tat, bill_rate1_desc, bill_rate1_min_pay, bill_rate2, bill_rate2_type, bill_rate2_tat, bill_rate2_desc, bill_rate2_min_pay, bill_rate3, bill_rate3_type, bill_rate3_tat, bill_rate3_desc, bill_rate3_min_pay, bill_rate4, bill_rate4_type, bill_rate4_tat, bill_rate4_desc, bill_rate4_min_pay, bill_rate5, bill_rate5_type, bill_rate5_tat, bill_rate5_desc, bill_rate5_min_pay, lifetime_minutes, work_types, next_job_tally, act_log_retention_time, job_prefix, sr_enabled, auto_list_refresh_interval, transcribe_remarks, profile_id, payment_id)
             VALUES
-                (:enabled, :billable, :acc_name, :acc_retention_time, :acc_creation_date, :bill_rate1, :bill_rate1_type, :bill_rate1_tat, :bill_rate1_desc, :bill_rate1_min_pay, :bill_rate2, :bill_rate2_type, :bill_rate2_tat, :bill_rate2_desc, :bill_rate2_min_pay, :bill_rate3, :bill_rate3_type, :bill_rate3_tat, :bill_rate3_desc, :bill_rate3_min_pay, :bill_rate4, :bill_rate4_type, :bill_rate4_tat, :bill_rate4_desc, :bill_rate4_min_pay, :bill_rate5, :bill_rate5_type, :bill_rate5_tat, :bill_rate5_desc, :bill_rate5_min_pay, :lifetime_minutes, :work_types, :next_job_tally, :act_log_retention_time, :job_prefix, :sr_enabled, :auto_list_refresh_interval, :transcribe_remarks)
+                (:enabled, :billable, :acc_name, :acc_retention_time, :acc_creation_date, :bill_rate1, :bill_rate1_type, :bill_rate1_tat, :bill_rate1_desc, :bill_rate1_min_pay, :bill_rate2, :bill_rate2_type, :bill_rate2_tat, :bill_rate2_desc, :bill_rate2_min_pay, :bill_rate3, :bill_rate3_type, :bill_rate3_tat, :bill_rate3_desc, :bill_rate3_min_pay, :bill_rate4, :bill_rate4_type, :bill_rate4_tat, :bill_rate4_desc, :bill_rate4_min_pay, :bill_rate5, :bill_rate5_type, :bill_rate5_tat, :bill_rate5_desc, :bill_rate5_min_pay, :lifetime_minutes, :work_types, :next_job_tally, :act_log_retention_time, :job_prefix, :sr_enabled, :auto_list_refresh_interval, :transcribe_remarks, :profile_id, :payment_id)
         ;";
 
         try {
@@ -873,7 +875,9 @@ class AccountGateway implements GatewayInterface
                 'job_prefix' => $model->getJobPrefix(),
                 'sr_enabled' => $model->getSrEnabled(),
                 'transcribe_remarks' => $model->getTranscribeRemarks(),
-                'auto_list_refresh_interval' => $model->getAccJobRefreshInterval()
+                'auto_list_refresh_interval' => $model->getAccJobRefreshInterval(),
+                'payment_id'=>$model->getPaymentId(),
+                'profile_id'=>$model->getProfileId()
 
             ));
             if($statement->rowCount())
@@ -930,7 +934,10 @@ class AccountGateway implements GatewayInterface
                 sr_enabled = :sr_enabled,
                 trial = :trial,
                 auto_list_refresh_interval = :auto_list_refresh_interval,
-                transcribe_remarks = :transcribe_remarks
+                transcribe_remarks = :transcribe_remarks,
+                comp_mins =:comp_mins,
+                profile_id=:profile_id,
+                payment_id=:payment_id
             WHERE
                 acc_id = :acc_id;
         ";
@@ -977,7 +984,10 @@ class AccountGateway implements GatewayInterface
                 'sr_enabled' => $model->getSrEnabled(),
                 'trial' => $model->getTrialStatus(),
                 'auto_list_refresh_interval' => $model->getAccJobRefreshInterval(),
-                'transcribe_remarks' => $model->getTranscribeRemarks()
+                'transcribe_remarks' => $model->getTranscribeRemarks(),
+                'comp_mins' => $model->getCompMins(),
+                'payment_id'=>$model->getPaymentId(),
+                'profile_id'=>$model->getProfileId()
             ));
             return $statement->rowCount();
         } catch (\PDOException) {
@@ -1040,7 +1050,10 @@ class AccountGateway implements GatewayInterface
                    bill_rate5_tat,
                    bill_rate5_desc,
                    bill_rate5_min_pay,
+                   comp_mins,
                    lifetime_minutes,
+                   profile_id,
+                   payment_id,
                    work_types,
                    next_job_tally,
                    act_log_retention_time,
@@ -1157,6 +1170,62 @@ class AccountGateway implements GatewayInterface
             return $result;
         } catch (\PDOException) {
             return null;
+        }
+    }
+
+    public function postUpdateCompMinutes($id,$mins)
+    {
+        $statement = "
+            UPDATE 
+                accounts
+            SET
+                comp_mins =  :comp_mins          
+            WHERE acc_id = :acc_id
+;
+        ";
+
+        try {
+            $cmlm = $this->getCompMinutes();
+            $updatedCompMins = (($cmlm["comp_mins"] - $mins < 0 || $cmlm["lifetime_minutes"] == '0.00')?0:$cmlm["comp_mins"] - $mins);       
+            // error_log("Comp Mins from DB: " . $cmlm["comp_mins"],0);
+            // error_log("Passed Mins to deduct: " . $mins,0);
+            // error_log("Updated Comp Minutes to be passed to DB and Session: " . $updatedCompMins,0);
+            // error_log($cmlm["comp_mins"] - $mins);
+            // error_log((($cmlm["comp_mins"] - $mins < 0 || $cmlm["lifetime_minutes"] == '0.00')?0:$cmlm["comp_mins"] - $mins),0);
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array('comp_mins' => $updatedCompMins, 'acc_id' => $id));
+            if ($statement->rowCount() > 0) {
+                $_SESSION["userData"]["comp_mins"] = $updatedCompMins;
+                $this->logger->insertAuditLogEntry($this->API_NAME, "Comp Mins Updated");
+                return $this->oKResponse($id, "Comp Mins Updated");
+            } else {
+                return $this->errorOccurredResponse("Couldn't update account");
+            }
+        } catch (\PDOException $e) {
+            return false;
+//            exit($e->getMessage());
+        }
+    }
+
+    public function getCompMinutes()
+    {
+        $statement = "
+            SELECT 
+                lifetime_minutes,comp_mins
+            FROM
+                accounts
+            WHERE acc_id = ?          
+;
+        ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($_SESSION["accID"]));
+            $result = $statement->fetch(\PDO::FETCH_ASSOC);
+            return $result;
+        } catch (\PDOException $e) {
+            return false;
+//            exit($e->getMessage());
         }
     }
 }

@@ -22,19 +22,31 @@ final class UploadBillingMods extends AbstractMigration
         $accountTable = $this->table('accounts');
         if($accountTable->getColumn("pre_pay") == null)
         {
-            $accountTable->addColumn("pre_pay", 'integer', ['null'=>false, 'default'=>1, 'after'=>'bill_rate5_min_pay'])->update();
+            $accountTable->addColumn("pre_pay", 'boolean', ['null'=>false, 'limit'=>1, 'default'=>1, 'after'=>'bill_rate5_min_pay'])->update();
         }
         if($accountTable->getColumn("comp_mins") == null)
         {
-            $accountTable->addColumn("comp_mins", 'decimal', ['null'=>true, 'default'=>0, 'precision'=>'10','scale'=>'2','after'=>'pre_pay'])->update();
+            $accountTable->addColumn("comp_mins", 'float', ['null'=>true, 'default'=>10.00, 'precision'=>'10','scale'=>'2','after'=>'pre_pay'])->update();
         }
         if($accountTable->getColumn("promo") == null)
         {
-            $accountTable->addColumn("promo", 'boolean', ['null'=>true, 'default'=>10, 'after'=>'comp_mins'])->update();
+            $accountTable->addColumn("promo", 'boolean', ['null'=>true, 'limit'=> 1, 'default'=>1, 'after'=>'comp_mins'])->update();
         }
         if($accountTable->getColumn("bill_rate1") != null)
         {        
-            $accountTable->changeColumn('bill_rate1', 'decimal' , ['null'=>false, 'default'=>1.65, 'precision'=>'10','scale'=>'2'])->update();
+            $accountTable->changeColumn('bill_rate1', 'float' , ['null'=>false, 'default'=>1.65, 'precision'=>'10','scale'=>'2'])->update();
+        }
+        if($accountTable->getColumn("lifetime_minutes") != null)
+        {        
+            $accountTable->changeColumn('lifetime_minutes', 'float' , ['null'=>false, 'default'=>0.00, 'precision'=>'10','scale'=>'2'])->update();
+        }
+        if($accountTable->getColumn("profile_id") == null)
+        {        
+            $accountTable->addColumn('profile_id', 'string' , ['null'=>true, 'default'=>null, 'limit'=>'50', 'after'=>'lifetime_minutes'])->update();
+        }
+        if($accountTable->getColumn("payment_id") == null)
+        {        
+            $accountTable->addColumn('payment_id', 'string' , ['null'=>true, 'default'=>null, 'limit'=>'50', 'after'=>'profile_id'])->update();
         }
     }
 
@@ -44,19 +56,23 @@ final class UploadBillingMods extends AbstractMigration
         $accountTable = $this->table('accounts');
         if($accountTable->getColumn("pre_pay") != null)
         {
-            $accountTable->removeColumn("pre_pay", 'integer', ['null'=>false, 'default'=>1, 'after'=>'bill_rate5_min_pay'])->update();
+            $accountTable->removeColumn("pre_pay")->update();
         }
         if($accountTable->getColumn("comp_mins") != null)
         {
-            $accountTable->removeColumn("comp_mins", 'decimal', ['null'=>true, 'default'=>0, 'precision'=>'10','scale'=>'2','after'=>'pre_pay'])->update();
+            $accountTable->removeColumn("comp_mins")->update();
         }
         if($accountTable->getColumn("promo") != null)
         {
-            $accountTable->removeColumn("promo", 'boolean', ['null'=>true, 'default'=>0, 'after'=>'comp_mins'])->update();
+            $accountTable->removeColumn("promo")->update();
         }
-        if($accountTable->getColumn("bill_rate1") != null)
+        if($accountTable->getColumn("payment_id") != null)
         {
-            $accountTable->changeColumn('bill_rate1', 'decimal' , ['null'=>false, 'default'=>2, 'precision'=>'10','scale'=>'2'])->update();
+            $accountTable->removeColumn("payment_id")->update();
+        }
+        if($accountTable->getColumn("profile_id") != null)
+        {
+            $accountTable->removeColumn("profile_id")->update();
         }
     }
 }

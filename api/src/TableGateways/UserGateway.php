@@ -38,8 +38,7 @@ class UserGateway implements GatewayInterface
                    users.id,
                     users.first_name,
                     users.last_name,
-                    users.email,
-                    
+                    users.email,                 
                     users.country,
                     users.city,
                     users.state,
@@ -997,7 +996,7 @@ class UserGateway implements GatewayInterface
         ) {
             return $this->errorOccurredResponse("Invalid Input, required fields missing (VSPT-U400)");
         }
-
+        // var_dump($_POST);
         // validation
         foreach ($_POST as $keyPost => $valuePost) {
             switch ($keyPost)
@@ -1038,6 +1037,25 @@ class UserGateway implements GatewayInterface
                         return $this->errorOccurredResponse("Invalid Input (VSPT-U205)");
                     }
                     break;
+                // case 'card_number':
+                //         if(!preg_match("/[0-9]/i", $valuePost))
+                //         {
+                //             return $this->errorOccurredResponse("Invalid Input (VSPT-U206)");
+                //         }
+                //         break;
+
+                // case 'expiration_date':
+                //     if(!preg_match("/[0-9]/i", $valuePost))
+                //     {
+                //         return $this->errorOccurredResponse("Invalid Input (VSPT-U207)");
+                //     }
+                //     break;
+                // case 'security_code':
+                //     if(!preg_match("/[0-9]/i", $valuePost))
+                //     {
+                //         return $this->errorOccurredResponse("Invalid Input (VSPT-U208)");
+                //     }
+                //     break;
 
                 case 'newsletter':
                 case 'email_notification':
@@ -1057,6 +1075,8 @@ class UserGateway implements GatewayInterface
         // update DB //
 
         $user = User::withID($id, $this->db);
+        
+        
         $user->setFirstName($_POST["first_name"]);
         $user->setLastName($_POST["last_name"]);
         $user->setEmail($_POST["email"]);
@@ -1067,6 +1087,7 @@ class UserGateway implements GatewayInterface
         $user->setZipcode($_POST["zip"]);
         $user->setNewsletter($_POST["newsletter"]);
         $user->setEmailNotification($_POST["email_notification"]);
+        
         if(isset($_POST["typist"]))
         {
             $user->setTypist($_POST["typist"]);
@@ -1078,6 +1099,7 @@ class UserGateway implements GatewayInterface
         }
 
         $updated = $user->save();
+        // var_dump(11111,$updated);
 
         if ($updated) {
             $this->logger->insertAuditLogEntry($this->API_NAME, "Updated User from settings: " . $id);
@@ -1272,6 +1294,7 @@ class UserGateway implements GatewayInterface
             $_SESSION['userData']['email_notification'] = $model->getEmailNotification();
             $_SESSION['userData']['account'] = $model->getAccount();
 
+
             $_SESSION['userData']['first_name'] = $model->getFirstName();
             $_SESSION['fname'] = $model->getFirstName();
 
@@ -1324,8 +1347,7 @@ class UserGateway implements GatewayInterface
                 account,
                 typist,
                 state,
-                address
-                                      
+                address                                     
             FROM
                 users
             WHERE

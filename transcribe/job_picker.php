@@ -48,7 +48,7 @@
     <script type="text/javascript" src="data/tooltipster/js/tooltipster.bundle.min.js"></script>
 
     <!--  $this related  -->
-    <script src="data/scripts/job_picker.min.js?v=5" type="text/javascript"></script>
+    <script src="data/scripts/job_picker.min.js?v=6" type="text/javascript"></script>
     <link href='data/css/job_picker.css?v=2' type='text/css' rel='stylesheet' />
 </head>
 

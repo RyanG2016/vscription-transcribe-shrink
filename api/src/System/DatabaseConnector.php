@@ -23,9 +23,9 @@ class DatabaseConnector {
                 $pass
             );
 
-            $this->dbConnection->exec("set global time_zone = 'America/Winnipeg';
-                                        set @@global.time_zone = 'America/Winnipeg';
-                                        SET time_zone = 'America/Winnipeg';");
+            // $this->dbConnection->exec("set global time_zone = 'America/Winnipeg';
+            //                             set @@global.time_zone = 'America/Winnipeg';
+            //                             SET time_zone = 'America/Winnipeg';");
         } catch (PDOException $e) {
 //            exit($e->getMessage());
             exit("Failed to connect (VS4772");

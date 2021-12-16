@@ -1,0 +1,48 @@
+vScription Transcribe Setup for dev
+(Draft - May need some tweaking)
+Last update 13DEC2021 - RG
+
+Non-XAMPP install:
+Install apache 2.4 (apachelounge.com/download) to C:\apache24\
+Install php8 (Thread Safe) to c:\php8
+Install Maria DB (Default. Use x64 version)
+- NEED a self signed SSL certificate (if you use localdev.vscription.com as local server name you may be able to use included certs)
+- Copy the cacerts.pem and other curl-ca-bundle.crt to apache/bin folder.
+- Set DocumentRoot of apache24 to <repo-root>/transcribe
+
+XAMPP setup:
+- Use apache and PHP8
+- NEED a self signed SSL certificate
+- Copy the cacerts.pem and other curl-ca-bundle.crt to apache/bin folder.
+- Set DocumentRoot of apache24 to <repo-root>/transcribe
+
+1. Create folder under php folder called sessions
+2. Update php.ini with the copy in the support_files folder of repo. Update any folder references as needed (ie: logfiles, ext folders.)
+3. Update https-ssl.conf file with one from repo.
+4. Copy Update the api/.env.example file to api/.env and update the DB info as needed (I will provide the Authorize.net credentials once everything setup)
+5. Copy the transcribe/data/parts/constants-dev.php, config-dev.php to constants.php and config.php and update the files as needed for environment
+6. Copy the transcribe/data/scripts/parts/constants-dev.js to constants.js and update as needed
+7. Copy the api/config.json.example to api/config.json
+8. Import Default DB
+9. Import Cities data (sqldumps/vtexvsi_transcribe_cities.sql)
+10. Import the sqldumps/DefaultDB/timezone_mdb_126.sql 
+
+Start mysql
+Start apache
+
+Default login:
+sysadmin@changeme.com
+vScript2020
+
+Confirm you can login
+
+Troubleshooting Tips
+
+After login, just returns to login screen
+- Make sure you imported the timezone file
+
+Unable to load php_curl.dll error in php_error.log
+- Add PHP root folder to system path *ie: c:\php8. You will need to reboot as well
+
+Other CURL errors
+- Make sure to copy the curl-ca-bundle.crt to apache bin folder. Also, you should check the php.ini file and look for the openssl.cafile entry and this should point to this cert file as well.

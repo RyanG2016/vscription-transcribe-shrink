@@ -562,7 +562,7 @@ class UserController
             // user exist in db check if typist invites are allowed -> then go to (2)
             if($role == 3 && $user->getTypist() != 1)
             {
-                return generateApiHeaderResponse("User is not accepting typist invitations1 at the moment.", true);
+                return generateApiHeaderResponse("User is not accepting typist invitations at the moment.", true);
             }
         }else{
             // user doesn't exist in db
