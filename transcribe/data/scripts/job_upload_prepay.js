@@ -16,6 +16,7 @@ function documentReady() {
     const previewModal = document.querySelector('.previewModal');
     const backend_url = 'data/parts/backend_request.php';
     const api_insert_url = 'api/v1/files/';
+    const api_set_compmins_url = '../api/v1/accounts/update-comp-mins/';
  
     //RG 30NOV2021
     //Need to make sure there is no localStorage item called prepay_upload set to true or the files will upload
@@ -96,11 +97,14 @@ function documentReady() {
     });
 
     nextBtn.on("click", function () {
+        
+        let totalMinutesForCalc = calculateTotalMinutesForCalc();
+        let totalMinutesForDisplay = calculateTotalMinutes();
     	// console.log(comp_mins);
         if(lifetime_minutes ==0 && promo ==1){
-            $("#total_mins_charge").text((calculateTotalMinutes()-comp_mins));
-            $("#total_charge").text(((calculateTotalMinutes()-comp_mins)*bill_rate1+(calculateTotalMinutes()-comp_mins)*bill_rate1*0.05).toFixed(2));
-        	if((calculateTotalMinutes()-comp_mins) <0){
+            $("#total_mins_charge").text((totalMinutesForCalc-comp_mins));
+            $("#total_charge").text(((totalMinutesForCalc-comp_mins)*bill_rate1+(totalMinutesForCalc-comp_mins)*bill_rate1*0.05).toFixed(2));
+        	if((totalMinutesForCalc-comp_mins) <0){
         		$("#total_mins_charge").text(0);
         		$("#total_charge").text(0);
     			$("#mdc-button__label").text("Upload File(s)");
@@ -108,9 +112,9 @@ function documentReady() {
                 // of whether they use them all or not.
         	}
         }else{
-            $("#total_mins_charge").text((calculateTotalMinutes()-comp_mins));
-            $("#total_charge").text(((calculateTotalMinutes()-comp_mins)*bill_rate1+(calculateTotalMinutes()-comp_mins)*bill_rate1*0.05).toFixed(2));
-        	if((calculateTotalMinutes()-comp_mins) <0){
+            $("#total_mins_charge").text((totalMinutesForCalc-comp_mins));
+            $("#total_charge").text(((totalMinutesForCalc-comp_mins)*bill_rate1+(totalMinutesForCalc-comp_mins)*bill_rate1*0.05).toFixed(2));
+        	if((totalMinutesForCalc-comp_mins) <0){
         		$("#total_mins_charge").text(0);
         		$("#total_charge").text(0);
 				$("#mdc-button__label").text("Upload File(s)");
@@ -270,26 +274,39 @@ function documentReady() {
     const prepayStatus = $("#prepay_status").val();
     const lifetime_minutes = $("#lifetime_minutes").val();
     const promo = $("#promo").val();
-    const comp_mins = $("#comp_mins").val()>=0?$("#comp_mins").val():0;
+    const comp_mins = $("#comp_mins").val()>=0?$("#comp_mins").val():0.00;
     const bill_rate1 = $("#bill_rate1").val();
 
     uploadForm.on('submit', function (event) {
         event.preventDefault();
+        document.querySelector('.submit_btn').setAttribute("disabled", "true");
     // Not sure why we have this. This form only gets loaded if prepay is true
 	if(prepayStatus == 1){ 
 	//   if(lifetime_minutes ==0 && promo ==1){
-	  	if(eval(calculateTotalMinutes()-comp_mins) > 0){	
-			$("#total_mins").val(calculateTotalMinutes().toFixed(2)-comp_mins);
+        let totalCalcMins = calculateTotalMinutesForCalc();
+        totalDisplayMins = calculateTotalMinutes();
+	  	if(eval(totalCalcMins-comp_mins) > 0){
+			//$("#total_mins").val(calculateTotalMinutes().toFixed(2)-comp_mins);
+            $("#total_mins").val(roundSeconds(totalCalcMins-comp_mins));
+            $("#total_display_minutes").val(totalDisplayMins)
             $("#total_files").val(filesDur.length);
 			$("#prepayForm").submit();
 			var prepayInterval = setInterval(()=>{
 			  if(localStorage.getItem("prepay_upload") =="true"){
 			  	localStorage.removeItem("prepay_upload");
 				 prepayUpload();
-			  }
+			  } else if(localStorage.getItem("prepay_upload") =='0'){
+                //   console.log("We should be reenabling the button now");
+                  localStorage.setItem('prepay_upload',"false");
+                //document.querySelector('.submit_btn').setAttribute("disabled", "false");
+                submitUploadBtn.removeAttribute("disabled");
+                // clearInterval(prepayInterval);
+              }
 			},3000)
 	  	}else{
-	  		prepayUpload();
+            // We need to call the API endpoint when not accessing the prepayment.php page to update
+            // the comp_mins
+            setCompMins(calculateTotalMinutesForCalc(), prepayUpload);
 	  	}
 	//   }else{
 	//   	if(eval(calculateTotalMinutes()-comp_mins) > 0){	  		
@@ -398,21 +415,6 @@ function documentReady() {
             // alert("Please fill in required fields");
         }
     }
-    function getSRMinutes() {
-        $.ajax({
-            url: "../api/v1/users/sr-mins/",
-            method: "GET",
-            dataType: "text",
-            success: function (data) {
-                srMinutesRemaining = data;
-                srMinutes.html(data);
-                //$("#srBalance")[0].style.display = "block";
-            },
-            error: function (jqxhr) {
-                // $("#register_area").text(jqxhr.responseText); // @text = response error, it is will be errors: 324, 500, 404 or anythings else
-            }
-        });
-    }
 
     function enableProgressWatcher(progressSuffix) {
 
@@ -447,7 +449,6 @@ function documentReady() {
                             if (total_percent >= 100) {
 
                                 // console.log("Should stop the timer");
-                                clearInterval(timer)
                                 updateUI(100, false);
                             }
                         }
@@ -513,7 +514,7 @@ function documentReady() {
         }
     }
 
-    // TS Rounding Method
+    // Transcription Services Rounding Method. Rounds up to next second
     function roundUpToNext(number) {
         let roundTo = 1;
         // return (Math.round(number)%roundTo === 0) ? Math.round(number) : Math.round((number+roundTo/2)/roundTo)*roundTo;
@@ -524,37 +525,58 @@ function documentReady() {
         }
     }
 
-    // function calculateTotalSRminutes() {
-    //     let totalSRseconds = 0.0;
+    //This is used to round calculations that result in more than 2 decimals ie: adding minutes, subtracting
+    // We are expecting that the value passed here will be a min/1/100 sec value ie: 5.0166666
+    function roundSeconds(value) {
+        let mins = Math.trunc(value);
+        let secs = value % 1;
+        let roundedSecs = Math.round(secs * 100) /100;
+        let minsHundredsRounded = mins + roundedSecs;
 
-    //     for (let i = 0; i < filesDur.length; i++) {
-    //         var sec = roundUpToAnyIncludeCurrent(filesDur[i]);
-    //         totalSRseconds += sec;
-    //     }
-
-    //     return secsToMin(totalSRseconds);
-    // }
-
+        return minsHundredsRounded;
+    }
+    //The return of this is used for display values ie: 00:05:23
     function calculateTotalMinutes() {
         let totalseconds = 0.0;
 
         for (let i = 0; i < filesDur.length; i++) {
             var sec = roundUpToNext(filesDur[i]);
+            // var sec = filesDur[i];
             totalseconds += sec;
         }
-
         return secsToMin(totalseconds);
+    }
+
+    //The return of this is used for calculations and returns the seconds in hundredths of a second ie: 5.38
+    function calculateTotalMinutesForCalc() {
+        let totalseconds = 0.0;
+        for (let i = 0; i < filesDur.length; i++) {
+            console.log(`--AUDIO LENGTH DEBUG-- Adding minutes together. Before rounding ${filesDur[i]}`);
+            var sec = roundUpToNext(filesDur[i]);
+            console.log(`--AUDIO LENGTH DEBUG-- Adding minutes together. After rounding ${filesDur[i]}`);
+            // var sec = filesDur[i];
+            totalseconds += secsToHundMins(sec);
+        }
+        // return secsToHundMins(totalseconds);
+        return totalseconds;
     }
 
     function unlockUploadUI(unlock) {
         if (unlock) {
             if (filesArr.length > 0) {
                 //We are using this elsewhere so need to calculate even if no SR
-                var totalMinutes = calculateTotalMinutes();
+                var totalMinutes = calculateTotalMinutesForCalc();
+                var totalMinutesDisplay = calculateTotalMinutes();
+                var a = totalMinutesDisplay.split(':'); // split it at the colons
+
+                // minutes are worth 60 seconds. Hours are worth 60 minutes.
+                var minutes = ((+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2])*60); 
+
                 if (prepayStatus == 1) {
                     // $("#totals").html(
                     //     `Total amount to be charged: ${totalMinutes} mins - $${comp_mins} X $${bill_rate1} = $${((totalMinutes-comp_mins)*bill_rate1).toFixed(2)} (Plus applicable taxes)`)
-                    $("#sum_sub").html(`${(totalMinutes).toFixed(2)}`);
+                    // $("#sum_sub").html(`${(totalMinutes).toFixed(2)}`);
+                    $("#sum_sub").html(`${(totalMinutesDisplay)}`);
                     $("#sum_comp").html(`-${comp_mins}`);
                     $("#sum_br").html(`$${bill_rate1}`);
                     var displayTotalMins = ((totalMinutes-comp_mins)*bill_rate1) >0 ? ((totalMinutes-comp_mins)*bill_rate1).toFixed(2) : "0.00";
@@ -567,8 +589,30 @@ function documentReady() {
         }
     }
 
-    function secsToMin($seconds) {
-        return ($seconds / 60);
+    // function secsToMin($seconds) {
+    //     console.log(`--AUDIO LENGTH DEBUG-- Result of converting seconds to minutes is: ${$seconds / 60}`);
+    //     return ($seconds / 60);
+    // }
+
+    function secsToMin(seconds) {
+        let roundedSeconds = 0;
+        if (seconds % roundUpTo === 0) {
+            roundedSeconds = Math.round(seconds);
+        } else {
+            roundedSeconds = (Math.round((seconds + roundUpTo / 2) / roundUpTo) * roundUpTo);
+        }
+        let hhmmss = new Date(roundedSeconds * 1000).toISOString().substr(11, 8).toString();
+        minsPrettied = hhmmss.replace(/^0(?:0:0?)?/, '');
+
+        return minsPrettied;
+    }
+
+    function secsToHundMins(seconds) {
+        let mins = Math.trunc(seconds / 60);
+        let secs = seconds % 60;
+        let secsHundreds = secs / 60;
+        let minsHundreds = mins + secsHundreds;
+        return roundSeconds(minsHundreds);
     }
 
     function computeDuration(id, file, status, dssType = 0) {
@@ -598,7 +642,18 @@ function documentReady() {
             // parseInt(duration)
             // 12 seconds
             // Update table with the duration
-            let durationTxt = new Date(duration * 1000).toISOString().substr(11, 8).toString();
+            // We are rounding up to the nearest second
+            // let roundUpTo = 1;
+            // let roundedSeconds = 0;
+            // if (duration % roundUpTo === 0) {
+            //     roundedSeconds = Math.round(duration);
+            // } else {
+            //     roundedSeconds = (Math.round((duration + roundUpTo / 2) / roundUpTo) * roundUpTo);
+            // }
+            // let durationTxt = new Date(roundedSeconds * 1000).toISOString().substr(11, 8).toString();
+
+            let durationTxt = secsToMin(duration);
+
             $("#qfile" + id + " td:nth-child(4)").html(durationTxt);
             // $("#qfile"+id+" td:nth-child(5)").html(Math.round(duration));
 
@@ -1077,6 +1132,27 @@ function documentReady() {
     $('#filesInput').on('blur', function () {
         $(this).parent().removeClass('focus');
     });
+
+    function setCompMins(mins, callback) {
+        // console.log(mins);
+        var formData = new FormData();
+        formData.append('cm', mins);
+
+        $.ajax({
+            type: 'POST',
+            url: api_set_compmins_url,
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function () {
+                callback();
+            },
+            error: function (err) {
+                let error = JSON.stringify(err);
+                alert(`An error occurred updating comp_mins. Please try again. Error: ${error}`);
+            }
+        });
+    }
 }
 
 document.addEventListener("DOMContentLoaded", documentReady);

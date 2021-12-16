@@ -684,6 +684,7 @@ class FileGateway implements GatewayInterface
         $acc_id = $input[13];
         $org_ext = $input[14];
         $fileRoundedDuration = $input[15];
+        $file_duration_mins = $input[16];
         $uploadedBy = $_SESSION['uEmail'];
 
         $file_status = 0;
@@ -803,12 +804,12 @@ class FileGateway implements GatewayInterface
           
  
                 //Update lifetime_minutes for account
-                $statement2 = "UPDATE accounts SET lifetime_minutes=lifetime_minutes+" . number_format(($file_duration/60),2) . " where acc_id = ".$acc_id;
+                $statement2 = "UPDATE accounts SET lifetime_minutes=lifetime_minutes+" . $file_duration_mins . " where acc_id = ".$acc_id;
 
                             try {
                                 $statement2 = $this->db->prepare($statement2);
                                 $statement2->execute();
-                                $this->logger->insertAuditLogEntry($this->API_NAME, "Added " . number_format(($file_duration/60),2) . " lifetime minutes to account " . $acc_id);
+                                $this->logger->insertAuditLogEntry($this->API_NAME, "Added " . $file_duration_mins . " lifetime minutes to account " . $acc_id);
 //                                return $statement->rowCount();
                                 return true;
                             } catch (PDOException $e) {

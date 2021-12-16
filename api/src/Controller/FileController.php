@@ -323,6 +323,7 @@ class FileController
                 $fileInfo = $getID3->analyze($file_tmp, filesize($file_tmp), $orig_filename);
                 $org_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION)); // dss audio length check - working with DSS & DS2
                 $file_duration = (float)(@$fileInfo['playtime_seconds']);
+                $file_duration_mins = $this->convertFileDuration($file_duration);
                 $dur_received = isset($_POST["dur" . str_replace("file", "", $key)])?$_POST["dur" . str_replace("file", "", $key)]:0;
                 if($file_duration == 0 && $dur_received != null && $dur_received != 0)
                 {
@@ -375,7 +376,8 @@ class FileController
                     $uf3,
                     $acc_id,
                     $org_ext,
-                    $fileRoundedDuration
+                    $fileRoundedDuration,
+                    $file_duration_mins
                 );
 
                 $uplSuccess = move_uploaded_file($file_tmp, $file);
@@ -554,5 +556,18 @@ class FileController
         $response['status_code_header'] = 'HTTP/1.1 404 Not Found';
         $response['body'] = null;
         return $response;
+    }
+
+    private function convertFileDuration($duration)
+    {
+        error_log("Value passed to conversion function is " . $duration,0);
+        if ($duration-intval($duration > 0)){
+            $roundedSeconds = intval($duration)+1;
+        } else {
+            $roundedSeconds = $duration;
+        }
+        error_log("Calculated roundedSeconds is " . $roundedSeconds);
+        error_log("Minutes to return is " . round($roundedSeconds/60,2),0);
+        return round($roundedSeconds/60,2);
     }
 }

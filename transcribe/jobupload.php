@@ -394,7 +394,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                                 Comp Minutes:
                                                 </td>
                                                 <td id="sum_comp" class="comp-mins">
-                                                    -$0.00
+                                                    -0.00
                                                 </td>
                                             </tr>
                                             <tr>
@@ -542,7 +542,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 <?php endif;?>
 <form action="prepayment.php" method="post" class="hidden" style="display:none" id="prepayForm" target="_blank">
     <input type="text" name="total_files" id="total_files" value = "0">
-    <!-- <input type="text" name="prepay" id="prepay" value = "3"> -->
+    <input type="text" name="total_display_minutes" id="total_display_minutes" value = "0">
     <input type="text" name="total_mins" id="total_mins" value = "0">
     <!-- <input type="text" name="comp_price" id="comp_price" value = "3"> -->
     <!-- <input type="text" name="total_price" id="total_price" value = "3"> -->
