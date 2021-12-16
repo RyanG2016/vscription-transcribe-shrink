@@ -82,6 +82,7 @@ use Src\Payment\PrepayPaymentProcessor;
                     $_POST['cvv'],
                     "",
                     floatval(round(round(floatval($_SESSION["userData"]["bill_rate1"])*floatval($_POST["total_mins"]),2),2)),
+                    $_SESSION["userData"]["bill_rate1"],
                     $_POST["total_mins"],
                     isset($_POST["self"]),
                     $dbConnection
@@ -98,6 +99,7 @@ use Src\Payment\PrepayPaymentProcessor;
                     $_POST['expiry_date'],
                     floatval(round(round(floatval($_SESSION["userData"]["bill_rate1"])*floatval($_POST["total_mins"]),2),2)),
                     // $pkg,
+                    $_SESSION["userData"]["bill_rate1"],
                     $_POST["total_mins"],
                     isset($_POST["self"]),
                     $dbConnection
@@ -127,15 +129,21 @@ use Src\Payment\PrepayPaymentProcessor;
                     error_log("Current Lifetime Minutes is: " .$currentAccount->getLifetimeMinutes(),0);
                     error_log("Comp mins for job is: " .$currentAccount->getCompMins(),0);
                     error_log("Total mins for this transaction is: " .$_POST["total_mins"]);
+
+                    // I think we need to move this to the job_upload_prepay.js
                     if ($currentAccount->getLifetimeMinutes() == 0) {
                         $currentAccount->setCompMins(0);
+                        $updatedCompMins = 0;
                     } else {
-                        if (($currentAccount->getCompMins()-$_POST["total_mins"]) < 0) {
-                            $currentAccount->setCompMins(0);  
+                        if ($currentAccount->getCompMins()-$_POST["total_mins"] < 0) {
+                            $currentAccount->setCompMins(0); 
+                            $updatedCompMins = 0; 
                         } else {
                             $currentAccount->setCompMins($currentAccount->getCompMins()-$_POST["total_mins"]);
+                            $updatedCompMins = $currentAccount->getCompMins()-$_POST["total_mins"];
                         }
                     }
+                    $_SESSION["userData"]["comp_mins"] = $updatedCompMins;
                     // Save credit card details to Authorize.net and save the profile and payment ID
                     if(isset($_POST["credit_card_status"]) && 
                         ( empty($_SESSION["userData"]["profile_id"]) || is_null($_SESSION["userData"]["profile_id"]) ) &&
@@ -145,10 +153,10 @@ use Src\Payment\PrepayPaymentProcessor;
                         $currentAccount->setPaymentId($response->getCustomerPaymentProfileIdList()[0]);
                         $_SESSION["userData"]["profile_id"] = $response->getCustomerProfileId();
                         $_SESSION["userData"]["payment_id"] = $response->getCustomerPaymentProfileIdList()[0];
-                        $currentAccount->save();
                     }
-
-                    $_SESSION["userData"]["comp_mins"] = 0.00;
+                    // This will update the Comp Mins and the saved pament details if applicable
+                    $currentAccount->save();
+                    // $_SESSION["userData"]["comp_mins"] = 0.00;
                     echo "<script>localStorage.setItem('prepay_upload',true)</script>";
                     echo "<script>window.close();</script>";
                 }else{
@@ -156,6 +164,7 @@ use Src\Payment\PrepayPaymentProcessor;
                     // echo 'Payment Failed! <i class="far fa-frown"></i> redirecting..';
                     echo "<script>const loadText = document.querySelector('.text-muted');</script>";
                     echo "<script>loadText.style.display = 'none';</script>";
+                    echo "<script>localStorage.setItem('prepay_upload',0)</script>";
                     echo '<div class="alert alert-danger" role="alert">
                     There was an issue processing your payment, <a href="#" onclick="function cw(){window.close();};cw()">Please click here to retry...</a>
                   </div>';

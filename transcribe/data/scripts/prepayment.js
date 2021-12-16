@@ -28,6 +28,12 @@ $(document).ready(function () {
     var lastZipRequested = "";
     var pkgPrice = parseFloat($("#pkgPrice").text());
 
+    $("#bill_tip").popover({
+        // html: true,
+        content: "This the billable minutes with seconds shown in tenth of a second for easier calculation",
+        trigger: "click"
+
+    });
     //  validation //
     // > billing addres
     // var fnameCheck = false;

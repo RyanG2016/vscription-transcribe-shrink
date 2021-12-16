@@ -24,6 +24,7 @@ use Src\Payment\PrepayPaymentProcessor;
 // fb('Error message',FirePHP::ERROR);
 // User Setting
 // If the customer has a saved payment profile ID, created PrepayPaymentProcessor with needed data
+// I think we may be able to create this object with no data for this call but we'll just leave it for now
 if (isset($_SESSION["userData"]["profile_id"]) && !empty($_SESSION["userData"]["profile_id"])){
     $processor = new PrepayPaymentProcessor(
         $_SESSION['fname'], $_SESSION['lname'],
@@ -33,6 +34,7 @@ if (isset($_SESSION["userData"]["profile_id"]) && !empty($_SESSION["userData"]["
         '',
         '',
         '',
+        $_SESSION["userData"]["bill_rate1"],
         $_POST["total_mins"],
         '',
         $dbConnection
@@ -211,20 +213,24 @@ if (isset($_SESSION["userData"]["profile_id"]) && !empty($_SESSION["userData"]["
                                 }
                                 ?>
                                     </b></div>
+                                <!-- Load the Save Card Details HTML -->
                                 <?php
                                 if (!empty($_SESSION["userData"]["profile_id"])) { 
-                               echo '<div id="prepay-form" class="align-self-center align-content-center justify-content-between">
-                                        <div class="container mt-2">
-                                                <div class="d-flex">
-                                                    <div class="pl-2 pr-5 mt-3">
+                               echo '<div id="prepay-form" class="align-content-center">
+                                        <div class="container-fluid mt-2">
+                                                <div class="row">
+                                                    <div class="col-1 mt-3">
+                                                        <input class="form-check-input" type="radio" checked>
+                                                    </div>
+                                                    <div class="col-1 pl-2 mt-3">
                                                         <p><i class="fa fa-cc-'?><?php 
                                                         echo strtolower($_SESSION["userData"]["card_type"]);
-                                                        ?><?php echo ' text-primary pr-2"></i>'?><?php echo $_SESSION['userData']['card_type']?><?php echo '</p>
+                                                        ?><?php echo ' text-primary pr-2"></i>'?><?php echo strtoupper($_SESSION['userData']['card_type'])?><?php echo '</p>
                                                     </div>
-                                                    <div class="align-self-center pr-2">XXXXXXXX'?><?php echo $_SESSION['userData']['card_number']?><?php echo '
+                                                    <div class="col-3 align-self-center pr-2">XXXXXXXX'?><?php echo $_SESSION['userData']['card_number']?><?php echo '
                                                     </div>
-                                                    <div class="rounded border">
-                                                    <input id="securitycode" class="securitycodePP" name="cvv" type="text" placeholder="3 Digit CVV" pattern="[0-9]*
+                                                    <div class="col-2">
+                                                    <input id="securitycode" class="securitycodePP mt-2" name="cvv" type="text" placeholder="3 Digit CVV" pattern="[0-9]*
                                                         inputmode="numeric"
                                                         value="'?><?php echo isset($_SESSION["userData"]["security_code"])?$_SESSION["userData"]["security_code"]:'';?><?php echo '"
                                                         autofocus>
@@ -240,6 +246,7 @@ if (isset($_SESSION["userData"]["profile_id"]) && !empty($_SESSION["userData"]["
                                         echo '" />
                                     </div>';
                                     } else {
+                                        // Load the manual card entry page details
                                 echo '<div id="non-prepay-form" class="row no-gutters">
 
                                     <div class="col pr-3 m-0 container preload">
@@ -473,8 +480,8 @@ if (isset($_SESSION["userData"]["profile_id"]) && !empty($_SESSION["userData"]["
                                         <div class="col text-right"> ' . $_POST["total_files"] . ' files</div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-auto">Total Billed Minutes</div>
-                                        <div class="col text-right">' . $_POST["total_mins"] . '/mins</div>
+                                        <div class="col-auto">Total Billed Minutes <span><i id="bill_tip" class="fas fa-question-circle"></i></span></div>
+                                        <div class="col text-right">' . $_POST["total_mins"] . ' /mins</div>
                                     </div>
                                     <div class="row">
                                         <div class="col-auto">Price</div>

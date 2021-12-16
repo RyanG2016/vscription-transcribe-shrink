@@ -60,7 +60,27 @@ class AccountController
                         }
                     }
 
+                }else if(isset($this->uri[0]) && $this->uri[0] == "update-comp-mins")
+                {
+
+                    if(isset($this->uri[1])  && $this->uri[1] == "self")
+                    {
+                        // update owned organization account
+                        $result = $this->accountGateway->postUpdateCompMinutes($_SESSION["acciD"],$_POST["cm"]);
                 }else{
+                        // update current logged into account data
+                        if (isset($_SESSION["role"]) && ($_SESSION["role"] == 1 OR $_SESSION["role"] == 2)) {
+                            $result = $this->accountGateway->postUpdateCompMinutes($_SESSION["acciD"],$_POST["cm"]);
+                        }else{
+                            $response['status_code_header'] = 'HTTP/1.1 200 OK';
+                            $response['body'] = json_encode([
+                                'error' => true,
+                                'msg' => "You don't have permission to update this organization"
+                            ]);
+                        }
+                    }
+
+                } else {
                     $response = $this->createAccountFromRequest();
                 }
                 break;
@@ -120,7 +140,28 @@ class AccountController
                             ]);
                         }
                     }
-                }else {
+                }else if(isset($this->uri[0]) && $this->uri[0] == "update-comp-mins")
+                {
+
+                    if(isset($this->uri[1])  && $this->uri[1] == "self")
+                    {
+                        // update owned organization account
+                        $response = $this->accountGateway->postUpdateCompMinutes($_SESSION["accID"],$_POST["cm"]);
+                    }else{
+                        // update current logged into account data
+                        if (isset($_SESSION["role"]) && ($_SESSION["role"] == 1 OR $_SESSION["role"] == 2)) {
+                            $response = $this->accountGateway->postUpdateCompMinutes($_SESSION["accID"], $_POST["cm"]);
+                            
+                        }else{
+                            $response['status_code_header'] = 'HTTP/1.1 200 OK';
+                            $response['body'] = json_encode([
+                                'error' => true,
+                                'msg' => "You don't have permission to update this organization"
+                            ]);
+                        }
+                    }
+
+                } else {
                     $response = $this->createClientAccount();
                 }
                 break;
@@ -174,7 +215,7 @@ class AccountController
         {
             return $this->errorOccurredResponse("You already have a client account.");
         }
-        return $this->accountGateway->createNewClientAdminAccount($accName);
+        return $this->accountGateway->createNewClientAdminAccount($accName, 1);
     }
 
     private function updateAccountFromRequest($accID)
