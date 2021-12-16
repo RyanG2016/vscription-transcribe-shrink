@@ -79,7 +79,7 @@ class PrepayPaymentProcessor
     // Charge a manually entered credit card
     public function chargeCreditCardNow():bool
     {
-        error_log("We are charging a manually entered card",0);
+        // error_log("We are charging a manually entered card",0);
         $this->calculateTotalPrice();
 
         /* Create a merchantAuthenticationType object with authentication details
@@ -185,7 +185,7 @@ class PrepayPaymentProcessor
     // Charge the client's saved credit card 
     public function chargeSavedCreditCardNow():bool
     {
-        error_log("We are charging a saved profile",0);
+        // error_log("We are charging a saved profile",0);
         $this->calculateTotalPrice();
 
         // Common setup for API credentials
@@ -386,7 +386,7 @@ class PrepayPaymentProcessor
                 }
             }
         } else {
-            error_log("NO Postal code has been found: ",0);   
+            // error_log("No Postal code has been found: ",0);   
         }
         return $this->totalPrice;
     }

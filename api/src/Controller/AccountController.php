@@ -126,7 +126,7 @@ class AccountController
                     if(isset($this->uri[1]) && $this->uri[1] == "self")
                     {
                         // update owned organization account
-                        error_log($_SESSION["userData"]["account"]);
+                        // error_log($_SESSION["userData"]["account"]);
                         $response = $this->accountGateway->postUpdateAccount($_SESSION["userData"]["account"], true);
                     }else{
                         // update current logged into account data

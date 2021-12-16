@@ -560,14 +560,11 @@ class FileController
 
     private function convertFileDuration($duration)
     {
-        error_log("Value passed to conversion function is " . $duration,0);
         if ($duration-intval($duration > 0)){
             $roundedSeconds = intval($duration)+1;
         } else {
             $roundedSeconds = $duration;
         }
-        error_log("Calculated roundedSeconds is " . $roundedSeconds);
-        error_log("Minutes to return is " . round($roundedSeconds/60,2),0);
         return round($roundedSeconds/60,2);
     }
 }

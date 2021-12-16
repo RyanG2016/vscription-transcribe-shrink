@@ -126,9 +126,9 @@ use Src\Payment\PrepayPaymentProcessor;
                     // $sr->addToMinutesRemaining($pkg->getSrpMins());
                     // $sr->save();
                     $currentAccount = \Src\Models\Account::withID($accID, $dbConnection);
-                    error_log("Current Lifetime Minutes is: " .$currentAccount->getLifetimeMinutes(),0);
-                    error_log("Comp mins for job is: " .$currentAccount->getCompMins(),0);
-                    error_log("Total mins for this transaction is: " .$_POST["total_mins"]);
+                    // error_log("Current Lifetime Minutes is: " .$currentAccount->getLifetimeMinutes(),0);
+                    // error_log("Comp mins for job is: " .$currentAccount->getCompMins(),0);
+                    // error_log("Total mins for this transaction is: " .$_POST["total_mins"]);
 
                     // I think we need to move this to the job_upload_prepay.js
                     if ($currentAccount->getLifetimeMinutes() == 0) {

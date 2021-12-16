@@ -1187,11 +1187,11 @@ class AccountGateway implements GatewayInterface
         try {
             $cmlm = $this->getCompMinutes();
             $updatedCompMins = (($cmlm["comp_mins"] - $mins < 0 || $cmlm["lifetime_minutes"] == '0.00')?0:$cmlm["comp_mins"] - $mins);       
-            error_log("Comp Mins from DB: " . $cmlm["comp_mins"],0);
-            error_log("Passed Mins to deduct: " . $mins,0);
-            error_log("Updated Comp Minutes to be passed to DB and Session: " . $updatedCompMins,0);
-            error_log($cmlm["comp_mins"] - $mins);
-            error_log((($cmlm["comp_mins"] - $mins < 0 || $cmlm["lifetime_minutes"] == '0.00')?0:$cmlm["comp_mins"] - $mins),0);
+            // error_log("Comp Mins from DB: " . $cmlm["comp_mins"],0);
+            // error_log("Passed Mins to deduct: " . $mins,0);
+            // error_log("Updated Comp Minutes to be passed to DB and Session: " . $updatedCompMins,0);
+            // error_log($cmlm["comp_mins"] - $mins);
+            // error_log((($cmlm["comp_mins"] - $mins < 0 || $cmlm["lifetime_minutes"] == '0.00')?0:$cmlm["comp_mins"] - $mins),0);
             $statement = $this->db->prepare($statement);
             $statement->execute(array('comp_mins' => $updatedCompMins, 'acc_id' => $id));
             if ($statement->rowCount() > 0) {

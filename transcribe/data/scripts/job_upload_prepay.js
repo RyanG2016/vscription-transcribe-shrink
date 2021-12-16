@@ -551,9 +551,7 @@ function documentReady() {
     function calculateTotalMinutesForCalc() {
         let totalseconds = 0.0;
         for (let i = 0; i < filesDur.length; i++) {
-            console.log(`--AUDIO LENGTH DEBUG-- Adding minutes together. Before rounding ${filesDur[i]}`);
             var sec = roundUpToNext(filesDur[i]);
-            console.log(`--AUDIO LENGTH DEBUG-- Adding minutes together. After rounding ${filesDur[i]}`);
             // var sec = filesDur[i];
             totalseconds += secsToHundMins(sec);
         }
@@ -595,6 +593,7 @@ function documentReady() {
     // }
 
     function secsToMin(seconds) {
+        let roundUpTo = 1;
         let roundedSeconds = 0;
         if (seconds % roundUpTo === 0) {
             roundedSeconds = Math.round(seconds);
