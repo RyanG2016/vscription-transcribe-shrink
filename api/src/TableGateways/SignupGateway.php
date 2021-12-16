@@ -188,7 +188,7 @@ class SignupGateway
                         $this->tokenGateway->expireToken($tokenData["id"]);
 
                         return generateApiHeaderResponse("Signup Successful."
-                            ."<br>We have sent an email to ".$email.",<br>please click the link provided to verify your email address.".
+                            ."<br>We have sent an email to ".$email.",<br>please click the link provided to verify your email address or copy the verification code and paste into the next page.".
                               " <br><br>Invitation for ". Account::withID($accID, $this->db)->getAccName() ." accepted.",
                             false,
                             array("id"=>$lastInsertedUID));
