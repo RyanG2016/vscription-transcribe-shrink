@@ -113,13 +113,13 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
         <?php include_once "data/parts/nav.php"?>
         <div class="vspt-page-container">
 
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col">
                     <a class="logbar" href="main.php"><i class="fas fa-arrow-left"></i> Go back to job list</a>
                 </div>
-            </div>
+            </div> -->
 
-            <div class="row vspt-title-row no-gutters">
+            <!-- <div class="row vspt-title-row no-gutters">
                 <div class="col align-items-end d-flex">
                     <legend class="page-title mt-auto">
                         <i class="material-icons mdc-button__icon" aria-hidden="true">cloud_upload</i>
@@ -129,9 +129,12 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                 <div class="col-auto">
                     <img src="data/images/Logo_vScription_Transcribe.png" width="300px"/>
                 </div>
-            </div>
+            </div> -->
 
             <div class="vtex-card contents">
+                <!-- <div class="row">
+                    <h3 class="users-tbl-title">Upload Jobs</h3>
+                </div> -->
                 <div class="vspt-step-progress-container mr-auto ml-auto">
                     <ul class="vspt-step-progressbar" id="vsptProgressList">
                         <li class="active">Add Files</li>
