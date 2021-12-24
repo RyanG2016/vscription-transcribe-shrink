@@ -168,16 +168,16 @@ table, th, td {
     color:red;
 }
 .grand-total {
-    font-weight: 800;
+    font-weight: 500;
     color: green;
 }
 
 .grand-total-label {
-    font-weight: 800;
+    font-weight: 500;
 }
 
 .col-label {
-    font-weight: 800;
+    font-weight: 400;
 }
 /* -----------------*/
 /* --BUTTON STYLING --*/
