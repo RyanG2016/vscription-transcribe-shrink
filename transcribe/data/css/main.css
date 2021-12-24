@@ -616,12 +616,12 @@ select, .dt-search {
 .jlre {
     margin-left: auto;
     font-size: .6em;
-    color: limegreen;
+    color: var(--vspt-sr-balance);
 }
 .jlrd {
     margin-left: auto;
     font-size: .6em;
-    color: gray;
+    color: var(--vspt-dark);
 }
 
 .tooltip-inner{

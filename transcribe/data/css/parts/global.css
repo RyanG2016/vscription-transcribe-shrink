@@ -368,9 +368,9 @@ a:visited {
 }
 
 
-.vspt-table > thead > tr > th {
-    /* font-family: main-b, sans-serif; */
-}
+/* .vspt-table > thead > tr > th {
+    font-family: main-b, sans-serif;
+} */
 
 .vspt-table tbody tr.even:hover, .vspt-table tbody tr.even td.highlighted {
     background-color: var(--vspt-table-hover);;
@@ -702,4 +702,8 @@ a:visited {
     /*top: 50%;*/
     /*left: 50%;*/
     /*transform: translate(-50%, -50%);*/
+}
+
+.users-tbl-title {
+    font-weight: 400;
 }

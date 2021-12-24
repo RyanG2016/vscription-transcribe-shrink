@@ -141,7 +141,7 @@ else {
 <!---->
 <!--            </div>-->
 
-            <div class="row vspt-title-row no-gutters">
+            <!-- <div class="row vspt-title-row no-gutters">
                 <div class="col align-items-end d-flex">
                     <legend class="page-title mt-auto">
                         <span class="fas fa-list-alt fa-fw mr-3"></span>
@@ -151,7 +151,7 @@ else {
                 <div class="col-auto">
                     <img src="data/images/Logo_vScription_Transcribe.png" width="300px"/>
                 </div>
-            </div>
+            </div> -->
 
             <div class="vtex-card contents">
 
