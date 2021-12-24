@@ -99,7 +99,7 @@ if ($roleIsSet && $hasOwnOrg && ($_SESSION["accID"] == $_SESSION["userData"]["ac
 
             <div class="vspt-page-container">
                 <!--        <div class="vspt-page-container col">-->
-
+<!-- 
                 <div class="row vspt-title-row no-gutters">
                     <div class="col align-items-end d-flex">
                         <legend class="page-title mt-auto">
@@ -109,7 +109,7 @@ if ($roleIsSet && $hasOwnOrg && ($_SESSION["accID"] == $_SESSION["userData"]["ac
                     <div class="col-auto">
                         <img src="data/images/Logo_vScription_Transcribe.png" width="300px" />
                     </div>
-                </div>
+                </div> -->
 
                 <div class="vtex-card contents">
 
@@ -356,8 +356,8 @@ if ($roleIsSet && $_SESSION["role"] != 3 && $_SESSION["role"] != 5)
                                                 <div class="col" style="align-self: center">
                                                     <div class="form-row">
                                                         <div class="col">
-                                                            <em class="bs-text">Auto Refresh Job List <span
-                                                                    class="vtex-jr-help-icon">(?)</span></em>
+                                                            <p class="bs-text">Auto Refresh Job List <span
+                                                                    class="vtex-jr-help-icon">(?)</span></p>
                                                         </div>
                                                         <div class="col text-right">
                                                             <div class="mdc-switch mdc-switch--disabled ml-auto mt-auto mb-auto"
@@ -397,8 +397,8 @@ if ($roleIsSet && $_SESSION["role"] != 3 && $_SESSION["role"] != 5)
                                                 <div class="col" style="align-self: center">
                                                     <div class="form-row">
                                                         <div class="col">
-                                                            <em class="bs-text">Enable Speech To Text <span
-                                                                    class="vtex-help-icon">(?)</span></em>
+                                                            <p class="bs-text">Enable Speech To Text <span
+                                                                    class="vtex-help-icon">(?)</span></p>
                                                         </div>
                                                         <div class="col text-right">
                                                             <div class="mdc-switch mdc-switch--disabled ml-auto mt-auto mb-auto"
@@ -415,7 +415,7 @@ if ($roleIsSet && $_SESSION["role"] != 3 && $_SESSION["role"] != 5)
                                                     </div>
                                                 </div>
 
-                                                <div class="col font-italic sr-balance-div"><span
+                                                <div class="col sr-balance-div"><span
                                                         class="bs-text">Speech-to-text minutes:</span> <span
                                                         class="col bs-text p-0 text-left"><span id="srMinutes">
                                                             <span class="spinner">
@@ -464,8 +464,8 @@ if (isset($_SESSION["role"]) && $_SESSION["role"] != 5)
                             <h5 class="mb-3"><i class="fas fa-laptop-house"></i> My Organization</h5>
 
                             <div class="alert alert-info" role="alert">
-                                <em>You didn't create an organization profile, <u class="vtex-cursor-pointer"
-                                        data-toggle="modal" data-target="#createAccModal">create one?</u></em>
+                                <p>You didn't create an organization profile, <u class="vtex-cursor-pointer"
+                                        data-toggle="modal" data-target="#createAccModal">create one?</u></p>
                             </div>
 
                             <hr>
@@ -538,8 +538,8 @@ if (isset($_SESSION["role"]) && $_SESSION["role"] != 5)
                                                 <div class="col" style="align-self: center">
                                                     <div class="form-row">
                                                         <div class="col">
-                                                            <em class="bs-text">Auto Refresh Job List <span
-                                                                    class="vtex-jr-help-icon">(?)</span></em>
+                                                            <p class="bs-text">Auto Refresh Job List <span
+                                                                    class="vtex-jr-help-icon">(?)</span></p>
                                                         </div>
                                                         <div class="col text-right">
                                                             <div class="mdc-switch mdc-switch--disabled ml-auto mt-auto mb-auto"
@@ -580,8 +580,8 @@ if (isset($_SESSION["role"]) && $_SESSION["role"] != 5)
                                                 <div class="col" style="align-self: center">
                                                     <div class="form-row">
                                                         <div class="col">
-                                                            <em class="bs-text">Enable Speech To Text <span
-                                                                    class="vtex-help-icon">(?)</span></em>
+                                                            <p class="bs-text">Enable Speech To Text <span
+                                                                    class="vtex-help-icon">(?)</span></p>
                                                         </div>
                                                         <div class="col text-right">
                                                             <div class="mdc-switch mdc-switch--disabled ml-auto mt-auto mb-auto"
@@ -598,7 +598,7 @@ if (isset($_SESSION["role"]) && $_SESSION["role"] != 5)
                                                     </div>
                                                 </div>
 
-                                                <div class="col font-italic sr-balance-div"><span
+                                                <div class="col sr-balance-div"><span
                                                         class="bs-text">Speech-to-text minutes:</span> <span
                                                         class="col bs-text p-0 text-left"><span id="srOwnMinutes">
                                                             <span class="spinner">
@@ -651,8 +651,8 @@ if (isset($_SESSION["role"]) && $_SESSION["role"] != 5)
 -->
                         <div class="alert alert-light" role="alert" id="alertT2">
                             <div class="form-row">
-                                <em>Open for work invitations <span id="typistWorkHelp"
-                                        class="vtex-help-icon">(?)</span></em>
+                                <p>Open for work invitations <span id="typistWorkHelp"
+                                        class="vtex-help-icon">(?)</span></p>
 
                                 <div class="mdc-switch mdc-switch--disabled ml-auto mt-auto mb-auto"
                                     id="typist_av_switch">
