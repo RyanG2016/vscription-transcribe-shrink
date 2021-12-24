@@ -707,3 +707,16 @@ a:visited {
 .users-tbl-title {
     font-weight: 400;
 }
+
+/* This seems to be coming from the MDC SASS file */
+.mdc-button {
+    /* font-family: 'Helvetica'!IMPORTANT; */
+    font-family: var(--bs-font-sans-serif);
+    letter-spacing: .2px;
+    font-weight: 400;
+}
+
+.mdc_button__label {
+    letter-spacing: .2px;
+    font-weight: 400;
+}

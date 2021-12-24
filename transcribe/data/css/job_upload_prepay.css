@@ -198,6 +198,7 @@ div form .upload_btn_lbl {
 div form .submit_btn {
     --mdc-theme-primary: var(--vspt-btn-green);
     height: 38px;
+    text-transform: capitalize;
 }
 
 div form .upload_btn_lbl {
