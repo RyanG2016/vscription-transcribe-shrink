@@ -137,7 +137,7 @@ if (isset($_SESSION["userData"]["profile_id"]) && !empty($_SESSION["userData"]["
                         <!--                    <a class="logbar" href="index.php"><i class="fas fa-arrow-left"></i> Go back </a>-->
                     </div>
                 </div>
-                <div class="row vspt-title-row no-gutters">
+                <!-- <div class="row vspt-title-row no-gutters">
                     <div class="col align-items-end d-flex">
                         <legend class="page-title mt-auto">
                             <i class="fas fa-dollar-sign"></i> Checkout
@@ -146,8 +146,8 @@ if (isset($_SESSION["userData"]["profile_id"]) && !empty($_SESSION["userData"]["
                     <div class="col-auto">
                         <img src="data/images/Logo_vScription_Transcribe.png" width="300px" />
                     </div>
-                </div>
-                <div class="vtex-card contents">
+                </div> -->
+                <div class="vtex-card contents w-50 pb-0">
                     <!--        CONTENTS GOES HERE        -->
                     <div class="row">
                         <div class="col-md-4">
@@ -158,7 +158,7 @@ if (isset($_SESSION["userData"]["profile_id"]) && !empty($_SESSION["userData"]["
                             <!-- <button class="btn btn-success" id="trashBtn">Trash</button> -->
                         </div>
                     </div>
-                    <hr>
+                    <hr class="mb-0">
                     <!-- <div class="alert alert-danger" role="alert" display="none">
                         There was an error processing your transaction. No charges were applied to your card. Please check your information and try again.
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -173,7 +173,7 @@ if (isset($_SESSION["userData"]["profile_id"]) && !empty($_SESSION["userData"]["
                         echo '<input type="number" name="self" value="1" hidden>';
                     } ?>
                         <div class="row">
-                            <div class="col-lg-9 col-md-8 col-sm-8 border-right">
+                            <div class="col-lg-8 col-md-8 col-sm-8 border-right">
  <!--                   <?php
                             echo '<div class="row no-gutters">
                                     <input id="fname" name="fname" type="text" class="col-auto vtex-editable-input typeahead" placeholder="<first name>" value="'.$_SESSION["fname"] ."\" />&nbsp;
@@ -222,15 +222,15 @@ if (isset($_SESSION["userData"]["profile_id"]) && !empty($_SESSION["userData"]["
                                                     <div class="col-1 mt-3">
                                                         <input class="form-check-input" type="radio" checked>
                                                     </div>
-                                                    <div class="col-1 pl-2 mt-3">
+                                                    <div class="col-2 pl-2 mt-3">
                                                         <p><i class="fa fa-cc-'?><?php 
                                                         echo strtolower($_SESSION["userData"]["card_type"]);
                                                         ?><?php echo ' text-primary pr-2"></i>'?><?php echo strtoupper($_SESSION['userData']['card_type'])?><?php echo '</p>
                                                     </div>
-                                                    <div class="col-3 align-self-center pr-2">XXXXXXXX'?><?php echo $_SESSION['userData']['card_number']?><?php echo '
+                                                    <div class="col-4 align-self-center pr-2">XXXXXXXX'?><?php echo $_SESSION['userData']['card_number']?><?php echo '
                                                     </div>
-                                                    <div class="col-2">
-                                                    <input id="securitycode" class="securitycodePP mt-2" name="cvv" type="text" placeholder="3 Digit CVV" pattern="[0-9]*
+                                                    <div class="col-3">
+                                                    <input id="securitycode" class="securitycodePP mt-2" name="cvv" type="text" placeholder="CVV" pattern="[0-9]*
                                                         inputmode="numeric"
                                                         value="'?><?php echo isset($_SESSION["userData"]["security_code"])?$_SESSION["userData"]["security_code"]:'';?><?php echo '"
                                                         autofocus>
@@ -247,144 +247,146 @@ if (isset($_SESSION["userData"]["profile_id"]) && !empty($_SESSION["userData"]["
                                     </div>';
                                     } else {
                                         // Load the manual card entry page details
-                                echo '<div id="non-prepay-form" class="row no-gutters">
-
-                                    <div class="col pr-3 m-0 container preload">
-                                        <div class="creditcard">
-                                            <div class="front">
-                                                <div id="ccsingle"></div>
-                                                <svg version="1.1" id="cardfront" xmlns="http://www.w3.org/2000/svg"
-                                                    xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                                    viewBox="0 0 750 471" style="enable-background:new 0 0 750 471;"
-                                                    xml:space="preserve">
-                                                    <g id="Front">
-                                                        <g id="CardBackground">
-                                                            <g id="Page-1_1_">
-                                                                <g id="amex_1_">
-                                                                    <path id="Rectangle-1_1_" class="lightcolor grey" d="M40,0h670c22.1,0,40,17.9,40,40v391c0,22.1-17.9,40-40,40H40c-22.1,0-40-17.9-40-40V40
-                                C0,17.9,17.9,0,40,0z" />
+                                echo '<div id="non-prepay-form">
+                                        <div class="row no-gutters justify-content-end">
+                                            <div class="col-4 m-1 container preload">
+                                                <div class="creditcard">
+                                                    <div class="front">
+                                                        <div id="ccsingle"></div>
+                                                        <svg version="1.1" id="cardfront" xmlns="http://www.w3.org/2000/svg"
+                                                            xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                                            viewBox="0 0 750 471" style="enable-background:new 0 0 750 471;"
+                                                            xml:space="preserve">
+                                                            <g id="Front">
+                                                                <g id="CardBackground">
+                                                                    <g id="Page-1_1_">
+                                                                        <g id="amex_1_">
+                                                                            <path id="Rectangle-1_1_" class="lightcolor grey" d="M40,0h670c22.1,0,40,17.9,40,40v391c0,22.1-17.9,40-40,40H40c-22.1,0-40-17.9-40-40V40
+                                        C0,17.9,17.9,0,40,0z" />
+                                                                        </g>
+                                                                    </g>
+                                                                    <path class="darkcolor greydark"
+                                                                        d="M750,431V193.2c-217.6-57.5-556.4-13.5-750,24.9V431c0,22.1,17.9,40,40,40h670C732.1,471,750,453.1,750,431z" />
                                                                 </g>
-                                                            </g>
-                                                            <path class="darkcolor greydark"
-                                                                d="M750,431V193.2c-217.6-57.5-556.4-13.5-750,24.9V431c0,22.1,17.9,40,40,40h670C732.1,471,750,453.1,750,431z" />
-                                                        </g>
-                                                        <text transform="matrix(1 0 0 1 60.106 295.0121)" id="svgnumber"
-                                                            class="st2 st3 st4">' ?> 
-                                                        <?php echo isset($_SESSION["userData"]["card_number"])?$_SESSION["userData"]["card_number"]:'' ?> 
-                                                        <?php echo '</text>
-                                                        <text transform="matrix(1 0 0 1 54.1064 428.1723)" id="svgname"
-                                                            class="st2 st5 st6">'?><?php echo $_SESSION["fname"] . " " . $_SESSION["lname"] ?><?php echo '</text>
-                                                        <text transform="matrix(1 0 0 1 54.1074 389.8793)"
-                                                            class="st7 st5 st8">cardholder name</text>
-                                                        <text transform="matrix(1 0 0 1 479.7754 388.8793)"
-                                                            class="st7 st5 st8">expiration</text>
-                                                        <text transform="matrix(1 0 0 1 65.1054 241.5)"
-                                                            class="st7 st5 st8">card number</text>
-                                                        <g>
-                                                            <text transform="matrix(1 0 0 1 574.4219 433.8095)"
-                                                                id="svgexpire"
-                                                                class="st2 st5 st9">'?><?php echo isset($_SESSION["userData"]["expiration_date"])?$_SESSION["userData"]["expiration_date"]:''?><?php echo '</text>
-                                                            <text transform="matrix(1 0 0 1 479.3848 417.0097)"
-                                                                class="st2 st10 st11">VALID</text>
-                                                            <text transform="matrix(1 0 0 1 479.3848 435.6762)"
-                                                                class="st2 st10 st11">THRU</text>
-                                                            <polygon class="st2"
-                                                                points="554.5,421 540.4,414.2 540.4,427.9 		" />
-                                                        </g>
-                                                        <g id="cchip">
-                                                            <g>
-                                                                <path class="st2" d="M168.1,143.6H82.9c-10.2,0-18.5-8.3-18.5-18.5V74.9c0-10.2,8.3-18.5,18.5-18.5h85.3
-                            c10.2,0,18.5,8.3,18.5,18.5v50.2C186.6,135.3,178.3,143.6,168.1,143.6z" />
-                                                            </g>
-                                                            <g>
+                                                                <text transform="matrix(1 0 0 1 60.106 295.0121)" id="svgnumber"
+                                                                    class="st2 st3 st4">' ?> 
+                                                                <?php echo isset($_SESSION["userData"]["card_number"])?$_SESSION["userData"]["card_number"]:'' ?> 
+                                                                <?php echo '</text>
+                                                                <text transform="matrix(1 0 0 1 54.1064 428.1723)" id="svgname"
+                                                                    class="st2 st5 st6">'?><?php echo $_SESSION["fname"] . " " . $_SESSION["lname"] ?><?php echo '</text>
+                                                                <text transform="matrix(1 0 0 1 54.1074 389.8793)"
+                                                                    class="st7 st5 st8">cardholder name</text>
+                                                                <text transform="matrix(1 0 0 1 479.7754 388.8793)"
+                                                                    class="st7 st5 st8">expiration</text>
+                                                                <text transform="matrix(1 0 0 1 65.1054 241.5)"
+                                                                    class="st7 st5 st8">card number</text>
                                                                 <g>
-                                                                    <rect x="82" y="70" class="st12" width="1.5"
-                                                                        height="60" />
+                                                                    <text transform="matrix(1 0 0 1 574.4219 433.8095)"
+                                                                        id="svgexpire"
+                                                                        class="st2 st5 st9">'?><?php echo isset($_SESSION["userData"]["expiration_date"])?$_SESSION["userData"]["expiration_date"]:''?><?php echo '</text>
+                                                                    <text transform="matrix(1 0 0 1 479.3848 417.0097)"
+                                                                        class="st2 st10 st11">VALID</text>
+                                                                    <text transform="matrix(1 0 0 1 479.3848 435.6762)"
+                                                                        class="st2 st10 st11">THRU</text>
+                                                                    <polygon class="st2"
+                                                                        points="554.5,421 540.4,414.2 540.4,427.9 		" />
                                                                 </g>
-                                                                <g>
-                                                                    <rect x="167.4" y="70" class="st12" width="1.5"
-                                                                        height="60" />
-                                                                </g>
-                                                                <g>
-                                                                    <path class="st12" d="M125.5,130.8c-10.2,0-18.5-8.3-18.5-18.5c0-4.6,1.7-8.9,4.7-12.3c-3-3.4-4.7-7.7-4.7-12.3
-                                c0-10.2,8.3-18.5,18.5-18.5s18.5,8.3,18.5,18.5c0,4.6-1.7,8.9-4.7,12.3c3,3.4,4.7,7.7,4.7,12.3
-                                C143.9,122.5,135.7,130.8,125.5,130.8z M125.5,70.8c-9.3,0-16.9,7.6-16.9,16.9c0,4.4,1.7,8.6,4.8,11.8l0.5,0.5l-0.5,0.5
-                                c-3.1,3.2-4.8,7.4-4.8,11.8c0,9.3,7.6,16.9,16.9,16.9s16.9-7.6,16.9-16.9c0-4.4-1.7-8.6-4.8-11.8l-0.5-0.5l0.5-0.5
-                                c3.1-3.2,4.8-7.4,4.8-11.8C142.4,78.4,134.8,70.8,125.5,70.8z" />
-                                                                </g>
+                                                                <g id="cchip">
                                                                     <g>
-                                                                    <rect x="82.8" y="82.1" class="st12" width="25.8"
-                                                                        height="1.5" />
-                                                                </g>
-                                                                <g>
-                                                                    <rect x="82.8" y="117.9" class="st12" width="26.1"
-                                                                        height="1.5" />
-                                                                </g>
-                                                                <g>
-                                                                    <rect x="142.4" y="82.1" class="st12" width="25.8"
-                                                                        height="1.5" />
-                                                                </g>
-                                                                <g>
-                                                                    <rect x="142" y="117.9" class="st12" width="26.2"
-                                                                        height="1.5" />
+                                                                        <path class="st2" d="M168.1,143.6H82.9c-10.2,0-18.5-8.3-18.5-18.5V74.9c0-10.2,8.3-18.5,18.5-18.5h85.3
+                                    c10.2,0,18.5,8.3,18.5,18.5v50.2C186.6,135.3,178.3,143.6,168.1,143.6z" />
+                                                                    </g>
+                                                                    <g>
+                                                                        <g>
+                                                                            <rect x="82" y="70" class="st12" width="1.5"
+                                                                                height="60" />
+                                                                        </g>
+                                                                        <g>
+                                                                            <rect x="167.4" y="70" class="st12" width="1.5"
+                                                                                height="60" />
+                                                                        </g>
+                                                                        <g>
+                                                                            <path class="st12" d="M125.5,130.8c-10.2,0-18.5-8.3-18.5-18.5c0-4.6,1.7-8.9,4.7-12.3c-3-3.4-4.7-7.7-4.7-12.3
+                                        c0-10.2,8.3-18.5,18.5-18.5s18.5,8.3,18.5,18.5c0,4.6-1.7,8.9-4.7,12.3c3,3.4,4.7,7.7,4.7,12.3
+                                        C143.9,122.5,135.7,130.8,125.5,130.8z M125.5,70.8c-9.3,0-16.9,7.6-16.9,16.9c0,4.4,1.7,8.6,4.8,11.8l0.5,0.5l-0.5,0.5
+                                        c-3.1,3.2-4.8,7.4-4.8,11.8c0,9.3,7.6,16.9,16.9,16.9s16.9-7.6,16.9-16.9c0-4.4-1.7-8.6-4.8-11.8l-0.5-0.5l0.5-0.5
+                                        c3.1-3.2,4.8-7.4,4.8-11.8C142.4,78.4,134.8,70.8,125.5,70.8z" />
+                                                                        </g>
+                                                                            <g>
+                                                                            <rect x="82.8" y="82.1" class="st12" width="25.8"
+                                                                                height="1.5" />
+                                                                        </g>
+                                                                        <g>
+                                                                            <rect x="82.8" y="117.9" class="st12" width="26.1"
+                                                                                height="1.5" />
+                                                                        </g>
+                                                                        <g>
+                                                                            <rect x="142.4" y="82.1" class="st12" width="25.8"
+                                                                                height="1.5" />
+                                                                        </g>
+                                                                        <g>
+                                                                            <rect x="142" y="117.9" class="st12" width="26.2"
+                                                                                height="1.5" />
+                                                                        </g>
+                                                                    </g>
                                                                 </g>
                                                             </g>
-                                                        </g>
-                                                    </g>
-                                                    <g id="Back">
-                                                    </g>
-                                                </svg>
-                                            </div>
-                                            <div class="back">
-                                                <svg version="1.1" id="cardback" xmlns="http://www.w3.org/2000/svg"
-                                                    xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                                    viewBox="0 0 750 471" style="enable-background:new 0 0 750 471;"
-                                                    xml:space="preserve">
-                                                    <g id="Front">
-                                                        <line class="st0" x1="35.3" y1="10.4" x2="36.7" y2="11" />
-                                                    </g>
-                                                    <g id="Back">
-                                                        <g id="Page-1_2_">
-                                                            <g id="amex_2_">
-                                                                <path id="Rectangle-1_2_" class="darkcolor greydark" d="M40,0h670c22.1,0,40,17.9,40,40v391c0,22.1-17.9,40-40,40H40c-22.1,0-40-17.9-40-40V40
-                            C0,17.9,17.9,0,40,0z" />
+                                                            <g id="Back">
                                                             </g>
-                                                        </g>
-                                                        <rect y="61.6" class="st2" width="750" height="78" />
-                                                        <g>
-                                                            <path class="st3" d="M701.1,249.1H48.9c-3.3,0-6-2.7-6-6v-52.5c0-3.3,2.7-6,6-6h652.1c3.3,0,6,2.7,6,6v52.5
-                        C707.1,246.4,704.4,249.1,701.1,249.1z" />
-                                                            <rect x="42.9" y="198.6" class="st4" width="664.1"
-                                                                height="10.5" />
-                                                            <rect x="42.9" y="224.5" class="st4" width="664.1"
-                                                                height="10.5" />
-                                                            <path class="st5"
-                                                                d="M701.1,184.6H618h-8h-10v64.5h10h8h83.1c3.3,0,6-2.7,6-6v-52.5C707.1,187.3,704.4,184.6,701.1,184.6z" />
-                                                        </g>
-                                                        <text transform="matrix(1 0 0 1 621.999 227.2734)"
-                                                            id="svgsecurity"
-                                                            class="st6 st7">'?><?php echo isset($_SESSION["userData"]["security_code"])?$_SESSION["userData"]["security_code"]:''?><?php echo '</text>
-                                                        <g class="st8">
-                                                            <text transform="matrix(1 0 0 1 518.083 280.0879)"
-                                                                class="st9 st6 st10">security code</text>
-                                                        </g>
-                                                        <rect x="58.1" y="378.6" class="st11" width="375.5"
-                                                            height="13.5" />
-                                                        <rect x="58.1" y="405.6" class="st11" width="421.7"
-                                                            height="13.5" />
-                                                        <text transform="matrix(1 0 0 1 59.5073 228.6099)"
-                                                            id="svgnameback"
-                                                            class="st12 st13">'?><?php echo $_SESSION["fname"] . " " . $_SESSION["lname"]?><?php echo '</text>
-                                                    </g>
-                                                </svg>
+                                                        </svg>
+                                                    </div>
+                                                    <div class="back">
+                                                        <svg version="1.1" id="cardback" xmlns="http://www.w3.org/2000/svg"
+                                                            xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                                            viewBox="0 0 750 471" style="enable-background:new 0 0 750 471;"
+                                                            xml:space="preserve">
+                                                            <g id="Front">
+                                                                <line class="st0" x1="35.3" y1="10.4" x2="36.7" y2="11" />
+                                                            </g>
+                                                            <g id="Back">
+                                                                <g id="Page-1_2_">
+                                                                    <g id="amex_2_">
+                                                                        <path id="Rectangle-1_2_" class="darkcolor greydark" d="M40,0h670c22.1,0,40,17.9,40,40v391c0,22.1-17.9,40-40,40H40c-22.1,0-40-17.9-40-40V40
+                                    C0,17.9,17.9,0,40,0z" />
+                                                                    </g>
+                                                                </g>
+                                                                <rect y="61.6" class="st2" width="750" height="78" />
+                                                                <g>
+                                                                    <path class="st3" d="M701.1,249.1H48.9c-3.3,0-6-2.7-6-6v-52.5c0-3.3,2.7-6,6-6h652.1c3.3,0,6,2.7,6,6v52.5
+                                C707.1,246.4,704.4,249.1,701.1,249.1z" />
+                                                                    <rect x="42.9" y="198.6" class="st4" width="664.1"
+                                                                        height="10.5" />
+                                                                    <rect x="42.9" y="224.5" class="st4" width="664.1"
+                                                                        height="10.5" />
+                                                                    <path class="st5"
+                                                                        d="M701.1,184.6H618h-8h-10v64.5h10h8h83.1c3.3,0,6-2.7,6-6v-52.5C707.1,187.3,704.4,184.6,701.1,184.6z" />
+                                                                </g>
+                                                                <text transform="matrix(1 0 0 1 621.999 227.2734)"
+                                                                    id="svgsecurity"
+                                                                    class="st6 st7">'?><?php echo isset($_SESSION["userData"]["security_code"])?$_SESSION["userData"]["security_code"]:''?><?php echo '</text>
+                                                                <g class="st8">
+                                                                    <text transform="matrix(1 0 0 1 518.083 280.0879)"
+                                                                        class="st9 st6 st10">security code</text>
+                                                                </g>
+                                                                <rect x="58.1" y="378.6" class="st11" width="375.5"
+                                                                    height="13.5" />
+                                                                <rect x="58.1" y="405.6" class="st11" width="421.7"
+                                                                    height="13.5" />
+                                                                <text transform="matrix(1 0 0 1 59.5073 228.6099)"
+                                                                    id="svgnameback"
+                                                                    class="st12 st13">'?><?php echo $_SESSION["fname"] . " " . $_SESSION["lname"]?><?php echo '</text>
+                                                            </g>
+                                                        </svg>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
                                     </div>
+                                    <div class="row no-gutters">
                                     <div class="col pl-3 pr-3 pb-0 border-left form-container">
                                         <div class="field-container first">
-                                            <label for="name">Name on card</label>
+                                            <label for="name" class="form-label">Name on card</label>
                                             <br>
-                                            <input id="name" class="w-100" name="name_on_card" maxlength="20"
+                                            <input id="name" class="form-control w-100" name="name_on_card" maxlength="20"
                                                 type="text"
                                                 value="'?><?php echo $_SESSION["fname"] . " " . $_SESSION["lname"] ?><?php echo '"
                                                 autofocus>
@@ -393,9 +395,9 @@ if (isset($_SESSION["userData"]["profile_id"]) && !empty($_SESSION["userData"]["
                                         <div class="field-container">
                                             <div class="row">
                                                 <div class="col-md-8">
-                                                    <label for="cardnumber">Card Number</label>
+                                                    <label for="cardnumber" class="form-label">Card Number</label>
                                                     <br>
-                                                    <input id="cardnumber" name="card_number" type="text" pattern="[0-9xX]*"
+                                                    <input id="cardnumber" class="form-control" name="card_number" type="text" pattern="[0-9xX]*"
                                                         inputmode="numeric"
                                                         value="'?><?php echo isset($_SESSION["userData"]["card_number"])?$_SESSION["userData"]["card_number"]:'';?><?php echo '" autofocus>
                                                     <svg id="ccicon" class="ccicon" width="750" height="471"
@@ -406,9 +408,9 @@ if (isset($_SESSION["userData"]["profile_id"]) && !empty($_SESSION["userData"]["
                                                     
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <label for="zip">Billing Zip/Postal Code</label>
+                                                    <label for="zip" class="form-label">Billing Zip/Postal Code</label>
                                                     <br>
-                                                      <input id="zip" name="zipcode" type="text" class="" placeholder="" value="'?><?php echo '" />
+                                                      <input id="zip" name="zipcode" type="text" class="form-control" placeholder="" value="'?><?php echo '" />
                                                 </div>
                                             </div>
                                         </div>
@@ -417,16 +419,16 @@ if (isset($_SESSION["userData"]["profile_id"]) && !empty($_SESSION["userData"]["
 
                                             <div class="row">
                                                 <div class="col">
-                                                    <label for="expirationdate">Expiration (mm/yy)</label> <br>
-                                                    <input id="expirationdate" name="expiry_date" type="text"
+                                                    <label for="expirationdate" class="form-label">Expiration (mm/yy)</label> <br>
+                                                    <input id="expirationdate" class="form-control" name="expiry_date" type="text"
                                                         pattern="[0-9]*" inputmode="numeric"
                                                         value="'?><?php echo isset($_SESSION["userData"]["expiration_date"])?$_SESSION["userData"]["expiration_date"]:'';?><?php echo '"
                                                         autofocus>
                                                 </div>
 
                                                 <div class="col">
-                                                    <label for="securitycode">Security Code</label> <br>
-                                                    <input id="securitycode" name="cvv" type="text" pattern="[0-9]*"
+                                                    <label for="securitycode" class="form-label">Security Code</label> <br>
+                                                    <input id="securitycode" class="form-control" name="cvv" type="text" pattern="[0-9]*"
                                                         inputmode="numeric"
                                                         value="'?><?php echo isset($_SESSION["userData"]["security_code"])?$_SESSION["userData"]["security_code"]:'';?><?php echo '"
                                                         autofocus>
@@ -448,9 +450,9 @@ if (isset($_SESSION["userData"]["profile_id"]) && !empty($_SESSION["userData"]["
                                                     </div>
                                                 </div>
                                                 <div class="col">
-                                                    <small class="w-100"><em>We currently accept Visa and MasterCard
+                                                    <small class="w-100">We accept Visa and MasterCard
                                                             &ensp; <img src="data/images/visa_master.png"
-                                                                alt="visa-master-card"></em></small>
+                                                                alt="visa-master-card"></small>
                                                 </div>
                                             </div>
 
@@ -460,6 +462,7 @@ if (isset($_SESSION["userData"]["profile_id"]) && !empty($_SESSION["userData"]["
                                         </div>
 
                                     </div>
+                                    </div>
                                 </div>';
                                 }
                                 ?>
@@ -468,8 +471,8 @@ if (isset($_SESSION["userData"]["profile_id"]) && !empty($_SESSION["userData"]["
                                 </div> -->
                             </div>
 
-                            <div class="col-lg-3 col-md-4 col-sm-4 ">
-                                <h5>Order Summary</h5>
+                            <div class="col-lg-4 col-md-4 col-sm-4 bg-light">
+                                <h5 class="pt-2">Order Summary</h5>
                                 <hr>
 
                                 <?php
@@ -509,11 +512,11 @@ if (isset($_SESSION["userData"]["profile_id"]) && !empty($_SESSION["userData"]["
                                     </div>';
                             ?>
                                 <div class="checkbox justify-content-center m-t-10" >
-                                    <div class="form-inline justify-content-center">
+                                    <div class="form-inline justify-content-left">
                                         <label>
                                             <input type="checkbox" class="w-auto" id="accept_term" />
-                                            <small class="text-sm-right font-italic fs-17"> &nbsp; I accept the <span><a
-                                                        class="fs-17" id="termsLink" href="./terms.php"
+                                            <small class="text-sm-right fs-14"> &nbsp; I accept the <span><a
+                                                        class="fs-14" id="termsLink" href="./terms.php"
                                                         target="_blank">Terms and Conditions</a> </span></small>
                                         </label>
                                     </div>
@@ -521,16 +524,16 @@ if (isset($_SESSION["userData"]["profile_id"]) && !empty($_SESSION["userData"]["
                                 <?php
                                 if(!isset($_SESSION["userData"]["payment_id"]) || empty($_SESSION["userData"]["payment_id"]) || is_null($_SESSION["userData"]["payment_id"])){ 
                                     echo '<div class="checkbox justify-content-center m-t-10" >
-                                    <div class="form-inline justify-content-center">
+                                    <div class="form-inline justify-content-left">
                                         <label>
-                                            <input type="checkbox" name="credit_card_status" class="w-auto" id="credit_card_status" />
-                                            <small class="text-sm-right font-italic fs-17">Save credit card for future transactions <span></span></small>
+                                            <input type="checkbox" name="credit_card_status" class="w-auto mr-2" id="credit_card_status" />
+                                            <small class="text-sm-right fs-14">Save credit card for future transactions <span></span></small>
                                         </label>
                                     </div>
                                 </div>';
                                 }
                                 ?> 
-                                <div class="form-row justify-content-center">
+                                <div class="form-row justify-content-center pb-3">
                                     <button type="submit" id="payBtn" class="btn btn-primary" disabled>Complete Payment
                                         and Upload</button>
                                 </div>

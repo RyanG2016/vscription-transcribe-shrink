@@ -284,7 +284,7 @@ input {
     width: 100%;
     max-width: 400px;
     max-height: 251px;
-    height: 54vw;
+    /* height: 54vw; */
     padding: 20px;
 }
 
@@ -519,6 +519,7 @@ input {
     -webkit-transition: -webkit-transform 0.6s;
     transition: transform 0.6s, -webkit-transform 0.6s;
     cursor: pointer;
+    margin-top: -90px!IMPORTANT;
 }
 
 .creditcard .front,
@@ -550,4 +551,9 @@ input {
 
 #payBtn {
     margin-top: 10px;
+}
+
+.vtex-card {
+    margin-left: auto;
+    margin-right: auto;
 }
