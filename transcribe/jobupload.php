@@ -99,12 +99,11 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
     <?php else:?>
     <link rel="stylesheet" href="data/css/job_upload.css">
     <?php endif;?>
-    <?php echo $_SESSION['userData']['pre_pay'];?>
+    <!-- <?php echo $_SESSION['userData']['pre_pay'];?> -->
 
 </head>
 
 <body>
-
 
 <div class="container-fluid h-100 vspt-container-fluid">
         <!--        <div class="w-100 h-100 d-flex flex-nowrap vspt-container-fluid-row">-->
