@@ -626,7 +626,7 @@ label.vspt-drop-upload,
 }
 
 .carousel-nav{
-    text-align-last: justify;
+    text-align-last: center;
     margin-top: 30px;
 }
 
@@ -688,9 +688,9 @@ label.vspt-drop-upload.focus {
     margin: 20px auto 10px auto;
     /*height: 500px;*/
 }
-.upload-carousel .carousel-nav.one{
+/* .upload-carousel .carousel-nav.one{
     text-align-last: end !important;
-}
+} */
 
 .vtex-card.contents{
     min-height: 600px;
