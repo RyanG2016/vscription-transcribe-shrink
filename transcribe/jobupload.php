@@ -257,7 +257,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 
 
 
-                                    <div class="form-row mb-3" id="speakerTypeDiv">
+                                    <div class="form-row mb-3 d-none" id="speakerTypeDiv">
 
                                         <div class="input-group col">
                                             <div class="input-group-prepend">
@@ -290,7 +290,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                                    name="user_field_2" placeholder="(optional)">
                                         </div>
 
-                                        <div class="input-group col">
+                                        <div class="input-group col d-none">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" for="user_field_3">User Field 3</span>
                                             </div>
@@ -522,7 +522,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
         <div class="modal-buttons">
             <button class="mdc-button mdc-button--unelevated foo-button cancel_upload" id="confirmUpload">
                 <div class="mdc-button__ripple"></div>
-                <i class="material-icons mdc-button__icon" aria-hidden="true">done_all</i>
+                <i class="material-icons mdc-button__icon" aria-hidden="true">done</i>
                 <span class="mdc-button__label">OK</span>
             </button>
 
