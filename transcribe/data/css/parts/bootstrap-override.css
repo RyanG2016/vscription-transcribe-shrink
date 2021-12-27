@@ -86,8 +86,10 @@ svg {
 .list-group-item.active {
     z-index: 2;
     color: #fff;
-    background-color: var(--vspt-blue-dark);
-    border-color: var(--vspt-blue-dark);
+    /* background-color: var(--vspt-blue-dark); */
+    background-color: var(--vspt-sidebar-title-bg)!IMPORTANT;
+    /* border-color: var(--vspt-blue-dark); */
+    border-color: var(--vspt-sidebar-title-bg);
 }
 
 .ui-accordion {

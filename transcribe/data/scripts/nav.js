@@ -38,6 +38,11 @@ $(document).ready(function(){
         changeRoleModal.modal();
     });
 
+    // Set Active Menu Item //
+    setActiveMenuItem();
+
+    console.log(`We are loading the navbar`);
+
     updateRoleModalBtn.on("click", function (e) {
 
         updateRoleModalBtn.attr("disabled", "disabled");
@@ -405,6 +410,77 @@ $(document).ready(function(){
             }
         }
         return false;
+    }
+
+    function setActiveMenuItem() {
+        let path = window.location.pathname;
+        let page = path.split("/").pop();
+        let el = '';
+        let adminMenuEl = '';
+        console.log( `Current page is ${page}` );
+        switch (page) {
+            case "main.php":
+                el = document.getElementById('main-nav');
+                el.classList.add("active");
+                break;
+            case "jobupload.php":
+                el = document.getElementById('upload-nav');
+                el.classList.add("active");
+                break;
+            case "transcribe.php":
+                el = document.getElementById('transcribe-nav');
+                el.classList.add("active");
+                break;
+            case "manage_users.php":
+                el = document.getElementById('manage-users-nav');
+                el.classList.add("active");
+                break;
+            case "accounts.php":
+                el = document.getElementById('accounts-nav');
+                el.classList.add("active");
+                adminMenuEl = document.getElementById('adminmenu');
+                adminMenuEl.classList.add("show");
+                break;
+            case "users.php":
+                el = document.getElementById('users-nav');
+                el.classList.add("active");
+                adminMenuEl = document.getElementById('adminmenu');
+                adminMenuEl.classList.add("show");
+                break;
+            case "admin_tools.php":
+                el = document.getElementById('admin-tools-nav');
+                el.classList.add("active");
+                adminMenuEl = document.getElementById('adminmenu');
+                adminMenuEl.classList.add("show");
+                break;
+            case "billing_report.php":
+                el = document.getElementById('billing-report-nav');
+                el.classList.add("active");
+                adminMenuEl = document.getElementById('adminmenu');
+                adminMenuEl.classList.add("show");
+                break;
+            case "typist_report.php":
+                el = document.getElementById('typist-report-nav');
+                el.classList.add("active");
+                adminMenuEl = document.getElementById('adminmenu');
+                adminMenuEl.classList.add("show");
+                break;
+            case "downloads.php":
+                el = document.getElementById('downloads-nav');
+                el.classList.add("active");
+                break;
+            case "settings.php":
+                el = document.getElementById('settings-nav');
+                el.classList.add("active");
+                break;   
+            case "panel.php":
+                el = document.getElementById('settings-nav');
+                el.classList.add("active");
+                break;                                    
+         default:
+                el = document.getElementById('home-nav');
+                el.classList.add("active");
+        }
     }
 /*
     function checkCookie() {

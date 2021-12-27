@@ -115,7 +115,7 @@
 body {
     /*background-color: var(--vspt-website-bg-color);*/
     /*background-color: red;*/
-    background-color: var(--vspt-page-bg);
+    /* background-color: var(--vspt-page-bg); */
     overflow: auto;
     /* Allows scroll bar */
     height: unset !important;
@@ -163,7 +163,7 @@ a:visited {
     /*flex-grow: unset;*/
 
     /* todo revert if needed */
-    /*background-color: var(--vspt-dark);*/
+    background-color: var(--vspt-dark);
     flex-grow: 0;
     flex-shrink: 0;
     flex-basis: auto;
@@ -244,6 +244,12 @@ a:visited {
     color: var(--vspt-sidebar-title-color);
 }
 
+/* Menu item*/
+/* #sidebar-container > ul > a.bg-dark.list-group-item.list-group-item-action.active {
+    color: var(--vspt-sidebar-title-color);
+    background-color: var(--vspt-sidebar-toggle-btn-active);
+} */
+
 /* Submenu item*/
 #sidebar-container .list-group .sidebar-submenu a {
     height: 45px;
@@ -264,7 +270,8 @@ a:visited {
 }
 
 .sidebar-separator-title {
-    background-color: var(--vspt-sidebar-title-bg);
+    /* background-color: var(--vspt-sidebar-title-bg); */
+    background-color: var(--vspt-blue-dark-hover);
     height: 35px;
 }
 

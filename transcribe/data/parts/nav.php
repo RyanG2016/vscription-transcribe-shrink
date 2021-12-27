@@ -16,7 +16,7 @@
 
 <!-- Sidebar -->
 <div id="sidebar-container" class="sidebar-collapsed vspt-sidebar-container">
-    <!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
+    <!-- d-* hides the Sidebar in smaller devices. Its items can be kept on the Navbar 'Menu' -->
 
     <div class="branding ml-auto mr-auto">
         <a class="navbar-brand  w-100 m-0 text-center" href="/">
@@ -40,9 +40,9 @@
         </a>
 
         <!-- Separator with title -->
-        <li class="list-group-item sidebar-separator-title text-muted align-items-center menu-collapsed d-none">
+        <!-- <li class="list-group-item sidebar-separator-title text-muted align-items-center menu-collapsed d-none">
             <small>MAIN</small>
-        </li>
+        </li> -->
         <!-- /END Separator -->
         <!-- Menu with submenu -->
 
@@ -66,7 +66,7 @@
         }
         ?>
 
-        <a href="/<?php echo $homePage ?>" class="bg-dark list-group-item list-group-item-action">
+        <a href="/<?php echo $homePage ?>" id="home-nav" class="bg-dark list-group-item list-group-item-action">
             <div class="d-flex w-100 justify-content-start align-items-center">
                 <span class="fas fa-home fa-fw mr-3"></span>
                 <span class="menu-collapsed d-none">Home</span>
@@ -94,31 +94,31 @@
                             <a href="/panel/" class="list-group-item list-group-item-action bg-dark text-white">
                                 <span class="fas fa-user-shield fa-fw mr-3"></span>
                                 <span class="menu-collapsed d-none">Panel</span>
-                            </a><a href="/panel/users.php" class="list-group-item list-group-item-action bg-dark text-white">
+                            </a><a href="/panel/users.php" id="users-nav" class="list-group-item list-group-item-action bg-dark text-white">
                                 <span class="fas fa-users fa-fw mr-3"></span>
                                 <span class="menu-collapsed d-none">Users</span>
                             </a>
-                            <a href="/panel/accounts.php" class="list-group-item list-group-item-action bg-dark text-white">
+                            <a href="/panel/accounts.php" id="accounts-nav" class="list-group-item list-group-item-action bg-dark text-white">
                                 <span class="fas fa-id-card fa-fw mr-3"></span>
                                 <span class="menu-collapsed d-none">Organizations</span>
                             </a>
                 
-                            <a href="/panel/admin_tools.php" class="list-group-item list-group-item-action bg-dark text-white">
+                            <a href="/panel/admin_tools.php" id="admin-tools-nav" class="list-group-item list-group-item-action bg-dark text-white">
                                 <span class="fas fa-toolbox fa-fw mr-3"></span>
                                 <span class="menu-collapsed d-none">Admin Tools</span>
                             </a>
-                            <a href="/panel/billing_report.php" class="list-group-item list-group-item-action bg-dark text-white">
+                            <a href="/panel/billing_report.php" id="billing-report-nav" class="list-group-item list-group-item-action bg-dark text-white">
                                 <span class="fas fa-dollar-sign fa-fw mr-3"></span>
                                 <span class="menu-collapsed d-none">Billing Reports</span>
                             </a>
                 
-                            <a href="/panel/typist_report.php" class="list-group-item list-group-item-action bg-dark text-white">
+                            <a href="/panel/typist_report.php" id="typist-report-nav" class="list-group-item list-group-item-action bg-dark text-white">
                                 <span class="fas fa-keyboard fa-fw mr-3"></span>
                                 <span class="menu-collapsed d-none">Typist Reports</span>
                             </a>
                         </div>
                         
-                        <a href="/main.php" class="bg-dark list-group-item list-group-item-action">
+                        <a href="/main.php" id="main-nav" class="bg-dark list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-start align-items-center">
                                 <span class="fas fa-list-alt fa-fw mr-3"></span>
                                 <span class="menu-collapsed d-none">Job Lister</span>
@@ -127,21 +127,21 @@
                         
                         
                         
-                        <a href="/jobupload.php" class="bg-dark list-group-item list-group-item-action">
+                        <a href="/jobupload.php" id="upload-nav" class="bg-dark list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-start align-items-center">
                                 <span class="fas fa-cloud-upload-alt fa-fw mr-3"></span>
                                 <span class="menu-collapsed d-none">Upload Jobs</span>
                             </div>
                         </a>
                         
-                        <a href="/transcribe.php" class="bg-dark list-group-item list-group-item-action">
+                        <a href="/transcribe.php" id="transcribe-nav" class="bg-dark list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-start align-items-center">
                                 <span class="fas fa-keyboard fa-fw mr-3"></span>
                                 <span class="menu-collapsed d-none">Transcribe</span>
                             </div>
                         </a>
                         
-                          <a href="/manage_users.php" class="bg-dark list-group-item list-group-item-action">
+                          <a href="/manage_users.php" id="manage-users-nav" class="bg-dark list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-start align-items-center">
                                 <span class="fad fa-users fa-fw mr-3"></span>
                                 <span class="menu-collapsed d-none">Manage Users</span>
@@ -151,28 +151,28 @@
                break;
            case 2:
                echo '
-                        <a href="/main.php" class="bg-dark list-group-item list-group-item-action">
+                        <a href="/main.php" id="main-nav" class="bg-dark list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-start align-items-center">
                                 <span class="fas fa-list-alt fa-fw mr-3"></span>
                                 <span class="menu-collapsed d-none">Job Lister</span>
                             </div>
                         </a>
                         
-                        <a href="/jobupload.php" class="bg-dark list-group-item list-group-item-action">
+                        <a href="/jobupload.php" id="upload-nav" class="bg-dark list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-start align-items-center">
                                 <span class="fas fa-cloud-upload-alt fa-fw mr-3"></span>
                                 <span class="menu-collapsed d-none">Upload Jobs</span>
                             </div>
                         </a>
                         
-                          <a href="/transcribe.php" class="bg-dark list-group-item list-group-item-action">
+                          <a href="/transcribe.php" id="transcribe-nav" class="bg-dark list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-start align-items-center">
                                 <span class="fas fa-keyboard fa-fw mr-3"></span>
                                 <span class="menu-collapsed d-none">Transcribe</span>
                             </div>
                         </a>
                         
-                          <a href="/manage_users.php" class="bg-dark list-group-item list-group-item-action">
+                          <a href="/manage_users.php" id="manage-users-nav" class="bg-dark list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-start align-items-center">
                                 <span class="fad fa-users fa-fw mr-3"></span>
                                 <span class="menu-collapsed d-none">Manage Users</span>
@@ -182,13 +182,13 @@
 
            case 3:
                echo '
-					   <a href="/jobupload.php" class="bg-dark list-group-item list-group-item-action">
+					   <a href="/jobupload.php" id="upload-nav" class="bg-dark list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-start align-items-center">
                                 <span class="fas fa-cloud-upload-alt fa-fw mr-3"></span>
                                 <span class="menu-collapsed d-none">Upload Jobs</span>
                             </div>
                         </a>
-						<a href="/transcribe.php" class="bg-dark list-group-item list-group-item-action">
+						<a href="/transcribe.php" id="transcribe-nav" class="bg-dark list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-start align-items-center">
                                 <span class="fas fa-keyboard fa-fw mr-3"></span>
                                 <span class="menu-collapsed d-none">Transcribe</span>
@@ -200,14 +200,14 @@
 
            case \Src\Enums\ROLES::AUTHOR:
                echo '
-                        <a href="/main.php" class="bg-dark list-group-item list-group-item-action">
+                        <a href="/main.php" id="main-nav" class="bg-dark list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-start align-items-center">
                                 <span class="fas fa-list-alt fa-fw mr-3"></span>
                                 <span class="menu-collapsed d-none">Job Lister</span>
                             </div>
                         </a>
                         
-                        <a href="/jobupload.php" class="bg-dark list-group-item list-group-item-action">
+                        <a href="/jobupload.php" id="upload-nav" class="bg-dark list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-start align-items-center">
                                 <span class="fas fa-cloud-upload-alt fa-fw mr-3"></span>
                                 <span class="menu-collapsed d-none">Upload Jobs</span>
@@ -284,9 +284,9 @@
 
        }
 
-       echo ' <li class="list-group-item sidebar-separator-title text-muted align-items-center menu-collapsed d-none">
+       echo ' <!-- <li class="list-group-item sidebar-separator-title text-muted align-items-center menu-collapsed d-none">
                             <small>Manage Role</small>
-                    </li>
+                    </li> -->
                     <!-- /END Separator -->
                     
                        <a href="#" id="changeRoleBtn" class="bg-dark list-group-item list-group-item-action">
@@ -305,14 +305,14 @@
        ?>
 
 
-        <a href="/settings.php" class="bg-dark list-group-item list-group-item-action">
+        <a href="/settings.php" id="settings-nav" class="bg-dark list-group-item list-group-item-action">
             <div class="d-flex w-100 justify-content-start align-items-center">
                 <span class="fad fa-cogs fa-fw mr-3"></span>
                 <span class="menu-collapsed d-none">Settings</span>
             </div>
         </a>
 
-        <a href="/downloads.php" class="bg-dark list-group-item list-group-item-action">
+        <a href="/downloads.php" id="downloads-nav" class="bg-dark list-group-item list-group-item-action">
             <div class="d-flex w-100 justify-content-start align-items-center">
                 <span class="fad fa-download fa-fw mr-3"></span>
                 <span class="menu-collapsed d-none">Downloads</span>
