@@ -115,7 +115,7 @@ if ($roleIsSet && $hasOwnOrg && ($_SESSION["accID"] == $_SESSION["userData"]["ac
 
                     <!--        CONTENTS GOES HERE        -->
 
-                    <div class="row settings-content">
+                    <div class="row settings-content ml-auto mr-auto">
                         <div id="userCard" class="col users-card">
                             <h5 class="mb-3"><i class="fas fa-user"></i> Basic</h5>
 
