@@ -15,7 +15,7 @@
 </script>
 
 <!-- Sidebar -->
-<div id="sidebar-container" class="sidebar-collapsed vspt-sidebar-container">
+<div id="sidebar-container" class="sidebar-expanded vspt-sidebar-container d-flex-inline">
     <!-- d-* hides the Sidebar in smaller devices. Its items can be kept on the Navbar 'Menu' -->
 
     <div class="branding ml-auto mr-auto">
@@ -25,19 +25,6 @@
         </a></div>
     <!-- Bootstrap List Group -->
     <ul class="list-group">
-
-        <a href="#top" data-toggle="sidebar-collapse-toggle"
-           class="bg-dark list-group-item list-group-item-action d-flex align-items-center pin-collapse-div">
-            <div class="d-flex w-100 justify-content-start align-items-center">
-                <span id="collapse-icon" class="fa fa-fw mr-3"></span>
-                <span id="collapse-text" class="menu-collapsed d-none">Expand</span>
-                <span class="menu-collapsed d-none ml-auto">
-                    <button id="pinBtn" type="button" class="btn btn-primary pin-button" data-toggle="button" aria-pressed="false">
-                        <i id="pinIcon" class="fas fa-thumbtack fa-rotate-315 pin-icon"></i>
-                    </button>
-                </span>
-            </div>
-        </a>
 
         <!-- Separator with title -->
         <!-- <li class="list-group-item sidebar-separator-title text-muted align-items-center menu-collapsed d-none">
@@ -69,7 +56,7 @@
         <a href="/<?php echo $homePage ?>" id="home-nav" class="bg-dark list-group-item list-group-item-action">
             <div class="d-flex w-100 justify-content-start align-items-center">
                 <span class="fas fa-home fa-fw mr-3"></span>
-                <span class="menu-collapsed d-none">Home</span>
+                <span class="menu-expanded">Home</span>
             </div>
         </a>
 
@@ -85,43 +72,43 @@
                            class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
                             <div class="d-flex w-100 justify-content-start align-items-center">
                                 <i class="fas fa-user-tie fa-fw mr-3"></i>
-                                <span class="menu-collapsed d-none">Admin Panel</span>
-                                <span class="submenu-icon d-none ml-auto"></span>
+                                <span class="menu-collapsed">Admin Panel</span>
+                                <span class="submenu-icon ml-auto"></span>
                             </div>
                         </a>
                         <!-- Submenu content -->
-                        <div id="adminmenu" class="collapse sidebar-submenu d-none">
+                        <div id="adminmenu" class="collapse sidebar-submenu">
                             <a href="/panel/" class="list-group-item list-group-item-action bg-dark text-white">
                                 <span class="fas fa-user-shield fa-fw mr-3"></span>
-                                <span class="menu-collapsed d-none">Panel</span>
+                                <span class="menu-collapsed">Panel</span>
                             </a><a href="/panel/users.php" id="users-nav" class="list-group-item list-group-item-action bg-dark text-white">
                                 <span class="fas fa-users fa-fw mr-3"></span>
-                                <span class="menu-collapsed d-none">Users</span>
+                                <span class="menu-collapsed">Users</span>
                             </a>
                             <a href="/panel/accounts.php" id="accounts-nav" class="list-group-item list-group-item-action bg-dark text-white">
                                 <span class="fas fa-id-card fa-fw mr-3"></span>
-                                <span class="menu-collapsed d-none">Organizations</span>
+                                <span class="menu-collapsed">Organizations</span>
                             </a>
                 
                             <a href="/panel/admin_tools.php" id="admin-tools-nav" class="list-group-item list-group-item-action bg-dark text-white">
                                 <span class="fas fa-toolbox fa-fw mr-3"></span>
-                                <span class="menu-collapsed d-none">Admin Tools</span>
+                                <span class="menu-collapsed">Admin Tools</span>
                             </a>
                             <a href="/panel/billing_report.php" id="billing-report-nav" class="list-group-item list-group-item-action bg-dark text-white">
                                 <span class="fas fa-dollar-sign fa-fw mr-3"></span>
-                                <span class="menu-collapsed d-none">Billing Reports</span>
+                                <span class="menu-collapsed">Billing Reports</span>
                             </a>
                 
                             <a href="/panel/typist_report.php" id="typist-report-nav" class="list-group-item list-group-item-action bg-dark text-white">
                                 <span class="fas fa-keyboard fa-fw mr-3"></span>
-                                <span class="menu-collapsed d-none">Typist Reports</span>
+                                <span class="menu-collapsed">Typist Reports</span>
                             </a>
                         </div>
                         
                         <a href="/main.php" id="main-nav" class="bg-dark list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-start align-items-center">
                                 <span class="fas fa-list-alt fa-fw mr-3"></span>
-                                <span class="menu-collapsed d-none">Job Lister</span>
+                                <span class="menu-expanded">Job Lister</span>
                             </div>
                         </a>
                         
@@ -130,21 +117,21 @@
                         <a href="/jobupload.php" id="upload-nav" class="bg-dark list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-start align-items-center">
                                 <span class="fas fa-cloud-upload-alt fa-fw mr-3"></span>
-                                <span class="menu-collapsed d-none">Upload Jobs</span>
+                                <span class="menu-expanded">Upload Jobs</span>
                             </div>
                         </a>
                         
                         <a href="/transcribe.php" id="transcribe-nav" class="bg-dark list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-start align-items-center">
                                 <span class="fas fa-keyboard fa-fw mr-3"></span>
-                                <span class="menu-collapsed d-none">Transcribe</span>
+                                <span class="menu-expanded">Transcribe</span>
                             </div>
                         </a>
                         
                           <a href="/manage_users.php" id="manage-users-nav" class="bg-dark list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-start align-items-center">
                                 <span class="fad fa-users fa-fw mr-3"></span>
-                                <span class="menu-collapsed d-none">Manage Users</span>
+                                <span class="menu-expanded">Manage Users</span>
                             </div>
                         </a>
 ';
@@ -154,28 +141,28 @@
                         <a href="/main.php" id="main-nav" class="bg-dark list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-start align-items-center">
                                 <span class="fas fa-list-alt fa-fw mr-3"></span>
-                                <span class="menu-collapsed d-none">Job Lister</span>
+                                <span class="menu-expanded d-none">Job Lister</span>
                             </div>
                         </a>
                         
                         <a href="/jobupload.php" id="upload-nav" class="bg-dark list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-start align-items-center">
                                 <span class="fas fa-cloud-upload-alt fa-fw mr-3"></span>
-                                <span class="menu-collapsed d-none">Upload Jobs</span>
+                                <span class="menu-expanded">Upload Jobs</span>
                             </div>
                         </a>
                         
                           <a href="/transcribe.php" id="transcribe-nav" class="bg-dark list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-start align-items-center">
                                 <span class="fas fa-keyboard fa-fw mr-3"></span>
-                                <span class="menu-collapsed d-none">Transcribe</span>
+                                <span class="menu-expanded">Transcribe</span>
                             </div>
                         </a>
                         
                           <a href="/manage_users.php" id="manage-users-nav" class="bg-dark list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-start align-items-center">
                                 <span class="fad fa-users fa-fw mr-3"></span>
-                                <span class="menu-collapsed d-none">Manage Users</span>
+                                <span class="menu-expanded">Manage Users</span>
                             </div>
                         </a>';
                break;
@@ -185,13 +172,13 @@
 					   <a href="/jobupload.php" id="upload-nav" class="bg-dark list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-start align-items-center">
                                 <span class="fas fa-cloud-upload-alt fa-fw mr-3"></span>
-                                <span class="menu-collapsed d-none">Upload Jobs</span>
+                                <span class="menu-expanded">Upload Jobs</span>
                             </div>
                         </a>
 						<a href="/transcribe.php" id="transcribe-nav" class="bg-dark list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-start align-items-center">
                                 <span class="fas fa-keyboard fa-fw mr-3"></span>
-                                <span class="menu-collapsed d-none">Transcribe</span>
+                                <span class="menu-expanded">Transcribe</span>
                             </div>
                         </a>
                        ';
@@ -203,14 +190,14 @@
                         <a href="/main.php" id="main-nav" class="bg-dark list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-start align-items-center">
                                 <span class="fas fa-list-alt fa-fw mr-3"></span>
-                                <span class="menu-collapsed d-none">Job Lister</span>
+                                <span class="menu-expanded">Job Lister</span>
                             </div>
                         </a>
                         
                         <a href="/jobupload.php" id="upload-nav" class="bg-dark list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-start align-items-center">
                                 <span class="fas fa-cloud-upload-alt fa-fw mr-3"></span>
-                                <span class="menu-collapsed d-none">Upload Jobs</span>
+                                <span class="menu-expanded">Upload Jobs</span>
                             </div>
                         </a>';
                break;
@@ -219,7 +206,7 @@
        switch($vtex_page)
        {
            case INTERNAL_PAGES::USERS:
-               echo ' <li class="list-group-item sidebar-separator-title text-muted align-items-center menu-collapsed d-none">
+               echo ' <li class="list-group-item sidebar-separator-title text-muted align-items-center menu-expanded">
                             <small>Actions</small>
                         </li>
                         <!-- /END Separator -->
@@ -227,13 +214,13 @@
                            <a href="#" id="createAcc" class="bg-dark list-group-item list-group-item-action vspt-actions">
                             <div class="d-flex w-100 justify-content-start align-items-center">
                                 <span class="fas fa-user-plus fa-fw mr-3"></span>
-                                <span class="menu-collapsed d-none">Add User</span>
+                                <span class="menu-expanded">Add User</span>
                             </div>
                         </a>';
                break;
 
            case INTERNAL_PAGES::ACCOUNTS:
-               echo ' <li class="list-group-item sidebar-separator-title text-muted align-items-center menu-collapsed d-none">
+               echo ' <li class="list-group-item sidebar-separator-title text-muted align-items-center menu-expanded">
                             <small>Actions</small>
                     </li>
                     <!-- /END Separator -->
@@ -241,13 +228,13 @@
                        <a href="#" id="createAcc" class="bg-dark list-group-item list-group-item-action vspt-actions">
                         <div class="d-flex w-100 justify-content-start align-items-center">
                             <span class="fas fa-user-plus fa-fw mr-3"></span>
-                            <span class="menu-collapsed d-none">Create Organization</span>
+                            <span class="menu-expanded">Create Organization</span>
                         </div>
                     </a>';
                break;
 
            case INTERNAL_PAGES::MANAGE_USER_ACCESS:
-               echo ' <li class="list-group-item sidebar-separator-title text-muted align-items-center menu-collapsed d-none">
+               echo ' <li class="list-group-item sidebar-separator-title text-muted align-items-center menu-expanded">
                             <small>Actions</small>
                     </li>
                     <!-- /END Separator -->
@@ -255,7 +242,7 @@
                        <a href="#" id="createAcc" class="bg-dark list-group-item list-group-item-action vspt-actions">
                         <div class="d-flex w-100 justify-content-start align-items-center">
                             <span class="fas fa-plus-circle fa-fw mr-3"></span>
-                            <span class="menu-collapsed d-none">Add Permission</span>
+                            <span class="menu-expanded">Add Permission</span>
                         </div>
                     </a>';
 
@@ -263,7 +250,7 @@
 
 
            case INTERNAL_PAGES::MANAGE_USERS:
-               echo ' <li class="list-group-item sidebar-separator-title text-muted align-items-center menu-collapsed d-none">
+               echo ' <li class="list-group-item sidebar-separator-title text-muted align-items-center menu-expanded">
                             <small>Actions</small>
                     </li>
                     <!-- /END Separator -->
@@ -271,7 +258,7 @@
                        <a href="#" id="createAcc" class="bg-dark list-group-item list-group-item-action vspt-actions">
                         <div class="d-flex w-100 justify-content-start align-items-center">
                             <span class="fas fa-envelope fa-fw mr-3"></span>
-                            <span class="menu-collapsed d-none">Invite User</span>
+                            <span class="menu-expanded">Invite User</span>
                         </div>
                     </a>';
 
@@ -292,13 +279,13 @@
                        <a href="#" id="changeRoleBtn" class="bg-dark list-group-item list-group-item-action">
                         <div class="d-flex w-100 justify-content-start align-items-center">
                             <span class="fas fa-exchange-alt fa-fw mr-3"></span>
-                            <span class="menu-collapsed d-none">Switch Org/Role</span>
+                            <span class="menu-expanded">Switch Org/Role</span>
                         </div>
                     </a>
                        <a href="#" id="setDefaultRoleBtn" class="bg-dark list-group-item list-group-item-action">
                         <div class="d-flex w-100 justify-content-start align-items-center">
                             <span class="fas fa-key fa-fw mr-3"></span>
-                            <span class="menu-collapsed d-none">Set Default</span>
+                            <span class="menu-expanded">Set Default</span>
                         </div>
                     </a>
                     ';
@@ -308,14 +295,14 @@
         <a href="/settings.php" id="settings-nav" class="bg-dark list-group-item list-group-item-action">
             <div class="d-flex w-100 justify-content-start align-items-center">
                 <span class="fad fa-cogs fa-fw mr-3"></span>
-                <span class="menu-collapsed d-none">Settings</span>
+                <span class="menu-expanded">Settings</span>
             </div>
         </a>
 
         <a href="/downloads.php" id="downloads-nav" class="bg-dark list-group-item list-group-item-action">
             <div class="d-flex w-100 justify-content-start align-items-center">
                 <span class="fad fa-download fa-fw mr-3"></span>
-                <span class="menu-collapsed d-none">Downloads</span>
+                <span class="menu-expanded">Downloads</span>
             </div>
         </a>
 
@@ -325,12 +312,25 @@
         <a href="/logout.php" class="bg-dark list-group-item list-group-item-action">
             <div class="d-flex w-100 justify-content-start align-items-center">
                 <span class="fa fa-sign-out fa-fw mr-3"></span>
-                <span class="menu-collapsed d-none">Logout</span>
+                <span class="menu-expanded">Logout</span>
             </div>
         </a>
-
-
+        <a href="#top" data-toggle="sidebar-collapse-toggle" id="collapse-nav"
+           class="bg-dark list-group-item list-group-item-action d-flex align-items-center pin-expand-div justify-content-end">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+                <span id="collapse-icon" class="fa fa-fw mr-3"></span>
+                <span id="collapse-text" class="menu-expanded">Collapse</span>
+                <!-- <span class="menu-collapsed ml-auto">
+                    <button id="pinBtn" type="button" class="btn btn-primary pin-button" data-toggle="button" aria-pressed="false">
+                        <i id="pinIcon" class="fas fa-thumbtack fa-rotate-315 pin-icon"></i>
+                    </button>
+                </span> -->
+            </div>
+            </a>
+        </div>
     </ul><!-- List Group END-->
+
+    <div>
 </div><!-- sidebar-container END -->
 
 <div class="modal" tabindex="-1" id="changeRole">
@@ -383,4 +383,4 @@
     </div>
 </div>
 
-<script type="text/javascript" src="/data/scripts/nav.min.js"></script>
+<script type="text/javascript" src="/data/scripts/nav.js"></script>

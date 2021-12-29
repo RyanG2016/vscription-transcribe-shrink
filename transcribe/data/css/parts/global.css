@@ -237,6 +237,10 @@ a:visited {
     background-color: var(--vspt-dark);
 }
 
+#collapse-nav {
+    background: rgb(52, 58, 64)!IMPORTANT;
+}
+
 
 /* Menu item*/
 #sidebar-container .list-group a {
@@ -245,10 +249,10 @@ a:visited {
 }
 
 /* Menu item*/
-/* #sidebar-container > ul > a.bg-dark.list-group-item.list-group-item-action.active {
+ #sidebar-container > ul > a.bg-dark.list-group-item.list-group-item-action.active {
     color: var(--vspt-sidebar-title-color);
     background-color: var(--vspt-sidebar-toggle-btn-active);
-} */
+} 
 
 /* Submenu item*/
 #sidebar-container .list-group .sidebar-submenu a {
@@ -662,7 +666,8 @@ a:visited {
 }
 
 #sidebar-container > ul > a:last-child{
-    margin-bottom: 100px;
+    /* margin-bottom: 100px; */
+    margin-top: 75px;
 }
 .vspt-sidebar-container small,
 .menu-collapsed{
