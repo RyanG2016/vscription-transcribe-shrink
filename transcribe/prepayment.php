@@ -147,7 +147,7 @@ if (isset($_SESSION["userData"]["profile_id"]) && !empty($_SESSION["userData"]["
                         <img src="data/images/Logo_vScription_Transcribe.png" width="300px" />
                     </div>
                 </div> -->
-                <div class="vtex-card contents w-50 pb-0">
+                <div class="vtex-card contents w-75 pb-0">
                     <!--        CONTENTS GOES HERE        -->
                     <div class="row">
                         <div class="col-md-4">

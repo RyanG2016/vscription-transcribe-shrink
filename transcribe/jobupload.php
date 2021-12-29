@@ -112,7 +112,8 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
         <?php include_once "data/parts/nav.php"?>
         <div class="vspt-page-container">
             <div class="row">
-                <div class="col-md-6 offset-3">
+                <div class="col
+                ">
 
             <!-- <div class="row">
                 <div class="col">
