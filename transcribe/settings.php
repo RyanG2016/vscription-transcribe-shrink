@@ -161,7 +161,7 @@ if ($roleIsSet && $hasOwnOrg && ($_SESSION["accID"] == $_SESSION["userData"]["ac
                                                 data-parsley-pattern="/[0-9]/i"
                                                 data-parsley-error-message="<?php echo CUSTOM_FIELD_ERRORS::ORG ?>"
                                                 placeholder="" aria-describedby="inputGroupPrepend"
-                                                value="<?php echo $_SESSION['userData']['card_number'] ?>" required>
+                                                value="" required>
                                         </div>
 
                                         <div class="input-group">
@@ -171,7 +171,7 @@ if ($roleIsSet && $hasOwnOrg && ($_SESSION["accID"] == $_SESSION["userData"]["ac
                                             <input type="text" class="form-control" id="expiration_date" placeholder=""
                                                 format inputmode="numeric" name="expiration_date"
                                                 aria-describedby="inputGroupPrepend"
-                                                value="<?php echo $_SESSION['userData']['expiration_date'] ?>"
+                                                value=""
                                                 data-parsley-pattern="/[0-9]/i"
                                                 data-parsley-error-message="<?php echo CUSTOM_FIELD_ERRORS::RETENTION_TIME ?>"
                                                 required>
@@ -185,7 +185,7 @@ if ($roleIsSet && $hasOwnOrg && ($_SESSION["accID"] == $_SESSION["userData"]["ac
                                                 max="9999"
                                                 data-parsley-error-message="<?php echo CUSTOM_FIELD_ERRORS::LOG_RETENTION_TIME ?>"
                                                 min="1" name="security_code" aria-describedby="inputGroupPrepend"
-                                                value="<?php echo $_SESSION['userData']['security_code'] ?>" required>
+                                                value= required>
                                         </div> -->
                                         <div class="input-group">
                                             <div class="row w-100 no-gutters">
@@ -460,7 +460,7 @@ if (isset($_SESSION["role"]) && $_SESSION["role"] != 5)
 
 ?>
 
-                        <div id="ownOrgCard" class="border-left col">
+                        <div id="ownOrgCard" class="col">
                             <h5 class="mb-3"><i class="fas fa-laptop-house"></i> My Organization</h5>
 
                             <div class="alert alert-info" role="alert">
@@ -633,8 +633,7 @@ if (isset($_SESSION["role"]) && $_SESSION["role"] != 5)
                         </form>
 
                         <hr>
-                    </div>
-                    <div class="w-100"></div>
+                        <div class="w-100"></div>
 
                     <div id="typistCard" class="col">
                         <h5><i class="fad fa-typewriter"></i> Typist</h5>
@@ -648,7 +647,7 @@ if (isset($_SESSION["role"]) && $_SESSION["role"] != 5)
                                 <br>
                             </em>
                         </div>
--->
+                    -->
                         <div class="alert alert-light" role="alert" id="alertT2">
                             <div class="form-row">
                                 <p>Open for work invitations <span id="typistWorkHelp"
@@ -665,6 +664,8 @@ if (isset($_SESSION["role"]) && $_SESSION["role"] != 5)
                                 </div>
                             </div>
                         </div>
+                    </div>
+
                         <!--
                         <div id="typist1" class="text-muted text-justify">Switch your current role to typist from the side menu to start working.</div>
                         <div id="typist0" class="text-muted">Please wait for a job invitation from an admin.</div>-->
