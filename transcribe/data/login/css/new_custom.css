@@ -64,12 +64,12 @@ body {
 .colmd6R::before {
     content: ".";
     position: absolute;
-    left: -111px;
+    left: -156px;
     background: #FFF;
-    height: 120vh;
+    height: 130vh;
     width: 490px;
     border-radius: 100%;
-    top: -62px;
+    top: -131px;
     z-index: -1;
 }
 
@@ -94,6 +94,7 @@ body {
 
 .dropdown.bootstrap-select.show-tick.country-box .btn.dropdown-toggle.btn-light {
 	border-bottom: 1px solid #616a71 !important;
+    font-size: 1rem!important;
     color: #000 !important;
     display: block;
     border-top: none;
@@ -220,7 +221,7 @@ body {
     margin-left: auto;
     margin-right: auto;
     width: 500px;
-    background: #35465c;
+    background: #1c79bd;
 }
 
 .bs-container.dropdown.bootstrap-select.show-tick.country-box.show {
@@ -239,7 +240,7 @@ body {
 .verifaction_carousel_item_areasection {
     width: 100%;
     display: block;
-    background: #FFF;
+    background: #1c79bd;
     padding: 100px;
     height: 100vh;
 }
@@ -247,7 +248,7 @@ body {
 .verifaction_carousel_item_areasection .form-row {
     width: 500px;
     margin: 0 auto;
-    background: #2c3e50;
+    background: #1c79bd;
     padding: 50px 40px;
     border-radius: 25px;
 }
@@ -287,12 +288,12 @@ body {
     position: relative;
 }
 
-.colmd6R_email_viewbox_erter {
+.signup_field_icons {
     width: 20px;
     right: 5px;
     position: absolute;
     top: 10px;
-    opacity: 0.5;
+    opacity: 0.6;
 }
 
 #remember {
@@ -338,10 +339,10 @@ body > div.limiter > div > div.colmd6L.d-none.d-md-block > span > img {
     position: absolute;
     left: -111px;
     background: #FFF;
-    height: 130vh;
+    height: 120vh;
     width: 490px;
     border-radius: 100%;
-    top: -62px;
+    top: -98px;
     z-index: -1;
 }
 
@@ -409,5 +410,12 @@ body > div.limiter > div > div.colmd6L.d-none.d-md-block > span > img {
 
     #hasaccount > div {
         text-align: center!IMPORTANT;
+    }
+    .jconfirm .jconfirm-box .jconfirm-buttons button.btn-green {
+        background-color: #2ecc71!important;
+    }
+    
+    #verifyBtn {
+        background-color: #2ecc71!important;
     }
     }

@@ -13,6 +13,7 @@ $(document).ready(function () {
     // var stateRequest;
     // var stateGroup;
     var signupBtn;
+    var verifyBtn;
     var saveSTBtn;
     var signedUp = false;
     var pwd;
@@ -71,6 +72,7 @@ $(document).ready(function () {
     var haveAccDiv = $("#haveAccDiv");
     saveSTBtn = $("#saveSTBtn");
     signupBtn = $("#signupBtn");
+    verifyBtn = $("#verifyBtn");
     email = $("#inputEmail");
     fName = $("#inputfName");
     accName = $("#inputAccName");
@@ -126,7 +128,8 @@ $(document).ready(function () {
             theme: 'tooltipster-borderless',
             delay: 500,
             trigger: 'hover',
-            side: 'top'
+            side: 'top',
+            zIndex: 9999999
         }
     );
 
@@ -136,7 +139,8 @@ $(document).ready(function () {
             theme: 'tooltipster-borderless',
             delay: 500,
             trigger: 'hover',
-            side: 'top'
+            side: 'top',
+            zIndex: 9999999
         }
     );
 
@@ -146,10 +150,14 @@ $(document).ready(function () {
             theme: 'tooltipster-borderless',
             delay: 500,
             trigger: 'hover',
-            side: 'top'
+            side: 'top',
+            zIndex: 9999999
         }
     );
 
+    tos.click(function(){
+        changeProgress("ts", tos.val());
+    });
     // carousel settings
     // stop autoplay
     // carousel.
@@ -174,7 +182,7 @@ $(document).ready(function () {
             }
             progressBar.width(correctCount * valuePerProgress);
 
-            if(correctCount == maxCount && currentPage == 0 && !signedUp)
+            if(correctCount == maxCount && tos.prop('checked') == true && !signedUp)
             {
                 // allow signup
                 signupBtn.removeAttr('disabled');
@@ -189,7 +197,6 @@ $(document).ready(function () {
                 signupBtn.attr('disabled','disabled');
             }
         }
-
         return result;
     }
 
@@ -227,7 +234,9 @@ $(document).ready(function () {
         var res2 = regexCheck(pwd, regex);
         changeProgress(pw, res2);
         pw = res2;
+        if (confirmPwd.val() != '') {
         checkConfirmPassword();
+        }
         return res2;
     }
 
@@ -294,7 +303,9 @@ $(document).ready(function () {
         });
 
     email.keyup(function() {
+        if (email.val() != '') {
         checkEmail();
+        }
     });
 
 
@@ -303,22 +314,31 @@ $(document).ready(function () {
     });
 
     pwd.keyup(function(){
+        if (pwd.val() != '') {
         checkPassword();
+        }
     });
 
     confirmPwd.keyup(function(){
+        if (confirmPwd.val() != '') {
         checkConfirmPassword();
+        }
     });
 
     fName.keyup(function(){
+        if (fName.val() != '') {
         checkName(1);
+        }
     });
 
     lName.keyup(function(){
+        if (lName.val() != '') {
         checkName(2);
+        }
     });
 
     carousel.on('slide.bs.carousel', function(e){
+        console.log(`Carousel is moving`);
         /*e.direction     // The direction in which the carousel is sliding (either "left" or "right").
         e.relatedTarget // The DOM element that is being slid into place as the active item.
         e.from          // The index of the current item.
@@ -352,6 +372,7 @@ $(document).ready(function () {
     });
 
     carousel.on('slid.bs.carousel', function(e){
+        console.log(`Carousel Slid....`);
         //focus set
         switch (e.to) {
             case 0:
@@ -424,7 +445,7 @@ $(document).ready(function () {
     }
 
     signupBtn.on("click", function() {
-
+        console.log(`Calling the click button on the signupBtn from Signup Page`);
         if(!checkAll())
         {
             // console.log("max " + maxCount + "<br> correct " + correctCount );
@@ -585,6 +606,7 @@ $(document).ready(function () {
     // setUIforVerification();
 
     function loginUser(){
+        console.log(`We're in the loginUser function`);
         carousel.carousel(2);
         signupBtn.hide();
         // prevDiv.hide();
@@ -650,6 +672,7 @@ $(document).ready(function () {
 
     function setUIforVerification()
     {
+        console.log(`In the setUIforVerificaion function. I think somehow something in here is triggering hte carousel slide`);
         $("#loginHyperLink").hide();
         carousel.carousel(1);
         $("#title").html("Verify Your Account");
@@ -657,15 +680,14 @@ $(document).ready(function () {
         signupBtn.html("Verify");
         // prevDiv.hide();
         // nextDiv.hide();
-        signupBtn.removeAttr('disabled');
+        // signupBtn.removeAttr('disabled');
         progressDiv.hide();
         tosDiv.hide();
 
 
-        signupBtn.click(function(){
-            /*alert(
-                "trying to verify account with code: " + code.val() + " for account email: " + email.val()
-            );*/
+        verifyBtn.on("click", function(){
+                console.log(`trying to verify account with code: ${code.val()} for account email: ${email.val()}`);
+                console.log(`Now I can't tell what this button is doing.....`);
 
             // verifying account
             $.confirm({

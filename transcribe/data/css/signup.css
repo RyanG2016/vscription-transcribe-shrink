@@ -14,7 +14,7 @@
 
 body, html {
     height: 100%;
-    font-family: main, sans-serif;
+    /* font-family: main, sans-serif; */
 }
 
 .login100-form-btn {
@@ -58,6 +58,9 @@ label {
     margin-top: 20px;
 }
 
+#modal {
+    z-index: 99999!important;
+}
 #platformServices > button {
     height: 45px;
     width: 375px;
@@ -96,7 +99,7 @@ label {
 
 /*---------------------------------------------*/
 a {
-    font-family: main, sans-serif;
+    /* font-family: main, sans-serif; */
     font-size: 14px;
     line-height: 1.7;
     /*color: #666666;*/
@@ -124,7 +127,7 @@ a:hover {
 /*---------------------------------------------*/
 
 p {
-    font-family: main, sans-serif;
+    /* font-family: main, sans-serif; */
     font-size: 14px;
     line-height: 1.7;
     color: #666666;
@@ -213,7 +216,7 @@ body{
     color: white;
     line-height: 1.2;
     text-align: center;
-    font-family: main-l, sans-serif;
+    /* font-family: main-l, sans-serif; */
 }
 
 .login100-form-title i {
@@ -278,7 +281,7 @@ input:-webkit-autofill:active {
 }*/
 
 .login100-form-btn {
-    font-family: main, sans-serif;
+    /* font-family: main, sans-serif; */
     font-size: 15px;
     color: #fff;
     line-height: 1.2;
@@ -302,7 +305,7 @@ input:-webkit-autofill:active {
 
 /* custom bootstrap override */
 .invalid-feedback {
-    color: #ffde75;
+    color: red;
 }
 
 .valid-feedback {
@@ -358,7 +361,7 @@ input:-webkit-autofill:active {
 
 #signupBtn {
     width: 100%;
-    font-family: 'main-l', sans-serif;
+    /* font-family: 'main-l', sans-serif; */
 }
 
 .progress-bar {
@@ -395,13 +398,14 @@ input:-webkit-autofill:active {
     box-shadow: none;
 }
 
-h5 {
+/* h5 {
     font-family: main-l, sans-serif;
-}
+} */
 
 #code::placeholder,
 #code {
     text-align: center;
+    color:#333;
 }
 
 #code:focus {
@@ -415,4 +419,45 @@ hr {
 
 a.terms {
     font-size: 15px !important;
+}
+
+::-webkit-input-placeholder {
+    color: blue!important;
+}
+
+.signup-form {
+    position: absolute;
+    top: 50%;
+    transform: translatey(-50%);
+}
+
+body > div.jconfirm.jconfirm-supervan.jconfirm-open, 
+body > div.jconfirm.jconfirm-supervan.jconfirm-open > div.jconfirm-scrollpane > div > div > div > div > div > div > div > div.jconfirm-title-c > span.jconfirm-title,
+body > div.jconfirm.jconfirm-supervan.jconfirm-open > div.jconfirm-scrollpane > div > div > div > div > div > div > div > div.jconfirm-buttons {
+    font-family: 
+    system-ui,
+    /* // Safari for macOS and iOS (San Francisco) */
+    -apple-system,
+    /* // Windows */
+    "Segoe UI",
+    /* // Android */
+    Roboto,
+    /* // Basic web fallback */
+    "Helvetica Neue", Arial,
+    /* // Linux */
+    "Noto Sans",
+    "Liberation Sans",
+    /* // Sans serif fallback */
+    sans-serif;
+}
+
+body > div.jconfirm.jconfirm-supervan.jconfirm-open > div.jconfirm-scrollpane > div > div {
+    /* background-color: rgb(53, 70, 92); */
+    background-color: #1c79bd;
+}
+
+#signupCarousel > div > div.carousel-item.active > div > div {
+    position: relative;
+    top: 50%;
+    transform: translatey(-50%);
 }
