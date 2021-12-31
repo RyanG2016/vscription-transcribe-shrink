@@ -1,0 +1,413 @@
+body {
+    font-family: 
+    system-ui,
+    /* // Safari for macOS and iOS (San Francisco) */
+    -apple-system,
+    /* // Windows */
+    "Segoe UI",
+    /* // Android */
+    Roboto,
+    /* // Basic web fallback */
+    "Helvetica Neue", Arial,
+    /* // Linux */
+    "Noto Sans",
+    "Liberation Sans",
+    /* // Sans serif fallback */
+    sans-serif;
+  }
+
+.container_new_login14 {
+    width: 100%;
+    display: block;
+}
+
+.sign-up-custom_corlor {
+    padding: 0px !important;
+}
+
+.row_row {
+    width: 100%;
+    display: flex;
+    background: #1c79bd;
+    justify-content: space-between;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.colmd6L {
+    width: 60%;
+    align-items: center;
+    display: flex;
+    text-align: center;
+}
+
+
+.colmd6L .login100-form-title {
+    display: block;
+    /* font-family: opensans-l, sans-serif; */
+    font-size: 30px;
+    color: white;
+    line-height: 1.2;
+    text-align: center;
+    /* font-family: main-l, sans-serif; */
+    margin: 0 auto !important;
+}
+
+.colmd6R {
+    width: 40%;
+    background: #FFF;
+    position: relative;
+    padding: 20px 90px 0 20px;
+    z-index: 9999;
+}
+
+.colmd6R::before {
+    content: ".";
+    position: absolute;
+    left: -111px;
+    background: #FFF;
+    height: 120vh;
+    width: 490px;
+    border-radius: 100%;
+    top: -62px;
+    z-index: -1;
+}
+
+.input_form_control3, .input_form_control3:focus, .input_form_control3:active, .input_form_control3:hover, .input_form_control3::placeholder {
+    border-bottom: 1px solid #616a71 !important;
+    color: #000 !important;
+    display: block;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    outline: none;
+    border-radius: 0px;
+    margin: 0 0 10px 0;
+    background: no-repeat;
+    width: 100%;
+    height: 40px;
+}
+
+.dropdown.bootstrap-select.show-tick.country-box {
+    width: 100% !important;
+}
+
+.dropdown.bootstrap-select.show-tick.country-box .btn.dropdown-toggle.btn-light {
+	border-bottom: 1px solid #616a71 !important;
+    color: #000 !important;
+    display: block;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    outline: none;
+    border-radius: 0px;
+    margin: 0 0 10px 0;
+    background: no-repeat;
+    width: 100%;
+    height: 40px;
+    padding: 10px 0 0 0;
+}
+
+.filter-option-inner-inner {
+    font-size: 16px !important;
+    font-size: 1.1rem !important;
+}
+
+.signup_heaing_new_design9879 {
+    font-weight: bold;
+    display: block;
+    margin: 0 0 20px 0;
+}
+
+#loginHyperLink {
+    font-size: 16px;
+    color: #f17f57;
+}
+
+#signupBtn {
+    width: 100%;
+    /* font-family: 'main-l', sans-serif; */
+    border-radius: 75px !important;
+    background: #1c79bd !important;
+    color: #FFF;
+}
+
+#formProgressDiv {
+    width: 80%;
+    margin: 0 auto;
+    display: none;
+}
+
+#tosDiv {
+    margin: 10px 0 20px 0px;
+}
+
+#modal {
+    z-index: 99999999999;
+    background: #04040442;
+}
+
+#loginBtn_login41, #loginBtn_login41:focus {
+    font-family: 
+    system-ui,
+    /* // Safari for macOS and iOS (San Francisco) */
+    -apple-system,
+    /* // Windows */
+    "Segoe UI",
+    /* // Android */
+    Roboto,
+    /* // Basic web fallback */
+    "Helvetica Neue", Arial,
+    /* // Linux */
+    "Noto Sans",
+    "Liberation Sans",
+    /* // Sans serif fallback */
+    sans-serif;
+    padding: .7rem 4rem !important;
+    border-radius: 75px;
+    background: #1c79bd !important;
+    border: none;
+    font-size: 18px;
+    outline: none;
+    box-shadow: none;
+}
+
+.email_viewbox_erter {
+    width: 20px;
+    right: 5px;
+    position: absolute;
+    top: 20px;
+    opacity: 0.5;
+}
+
+.email_viewbox_erter path {
+    stroke: #555555;
+}
+
+.input100 {
+    border-bottom: 1px solid #616a71 !important;
+    color: #000 !important;
+    display: block !important;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    outline: none !important;
+    border-radius: 0px !important;
+    margin: 0 0 15px 0 !important;
+    background: no-repeat !important;
+    width: 100% !important;
+    height: 50px !important;
+}
+
+.wrap-input100 {
+    width: 100%;
+    position: relative;
+    border-bottom: none !important;
+    margin-bottom: unset !important;
+}
+
+.jconfirm .jconfirm-row {
+    display: table-row;
+    width: 100%;
+    background: #FFF;
+}
+
+.jconfirm .jconfirm-holder {
+    max-height: 100%;
+    padding: 50px 0;
+    /* width: fit-content; */
+    /* max-width: 500px; */
+    margin-left: auto;
+    margin-right: auto;
+    width: 500px;
+    background: #35465c;
+}
+
+.bs-container.dropdown.bootstrap-select.show-tick.country-box.show {
+    width: 430px !important;
+    /* right: 100px !important; */
+    z-index: 99999;
+    position: absolute;
+    /* left: unset; */
+}
+
+.form-control:not(#code), .filter-option-inner-inner {
+    font-size: 1rem !important;
+    font-size: 16px !important;
+}
+
+.verifaction_carousel_item_areasection {
+    width: 100%;
+    display: block;
+    background: #FFF;
+    padding: 100px;
+    height: 100vh;
+}
+
+.verifaction_carousel_item_areasection .form-row {
+    width: 500px;
+    margin: 0 auto;
+    background: #2c3e50;
+    padding: 50px 40px;
+    border-radius: 25px;
+}
+
+.verify_your_acoount_set45 {
+    display: block;
+    color: #FFF;
+    margin: 20px 0;
+    font-weight: bold;
+    font-size: 22px;
+}
+
+#code {
+    width: 200px;
+    display: block;
+    margin: 10px auto 30px;
+}
+
+.button_submit_class_45464, .button_submit_class_45464:focus, .button_submit_class_45464:active {
+    background: #1c79bd;
+    display: block;
+    margin: 0 auto;
+    padding: 10px 120px;
+    border-radius: 5px;
+    color: #FFF;
+    font-size: 20px;
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+
+.carousel-item {
+    padding: 0 !important;
+}
+
+.colmd6R .form-row {
+    position: relative;
+}
+
+.colmd6R_email_viewbox_erter {
+    width: 20px;
+    right: 5px;
+    position: absolute;
+    top: 10px;
+    opacity: 0.5;
+}
+
+#remember {
+    margin: -10px 0 0 0;
+    line-height: 0px;
+}
+
+#forgotpwd {
+    line-height: 0;
+    margin: -10px 0 0 0;
+}
+
+body > div.limiter > div > div.colmd6R.settings_col_md_5 > form {
+    position:absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 80%!IMPORTANT
+}
+
+.login-resp-logo {
+    height: 114px;
+}
+
+body > div.limiter > div > div.colmd6L.d-none.d-md-block > span > img {
+    position: absolute;
+    /* left: 50%; */
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#copyright {
+    color: #fff;
+    font-weight: 400;
+    top: 90%;
+    transform: translatex(-50%);
+    position: absolute;
+}
+
+@media screen and (max-width: 1350px) and (min-width: 800px) {
+
+.colmd6R::before {
+    content: ".";
+    position: absolute;
+    left: -111px;
+    background: #FFF;
+    height: 130vh;
+    width: 490px;
+    border-radius: 100%;
+    top: -62px;
+    z-index: -1;
+}
+
+.colmd6R {
+    width: 40%;
+    background: #FFF;
+    position: relative;
+    padding: 20px 60px 0 0px;
+    z-index: 9999;
+}
+
+
+}
+
+@media screen and (max-width: 767px) {
+
+    .colmd6R::before {
+    display: none;  
+    }
+    
+    .colmd6R {
+        width: 100%;
+        background: #FFF;
+        position: relative;
+        padding: 20px 20px 0 0px;
+        z-index: 9999;
+    }
+
+    .colmd6l {
+        display:none;
+    }
+    
+    body > div.limiter > div > div.colmd6R.settings_col_md_5 > form {
+        position:absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 10px;
+    }
+
+    #login-resp-logo {
+        width: 75vw;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .row_row {
+        background: #fff;
+    }
+
+    #forgotpwd {
+        text-align: center;
+    }
+
+    body > div.limiter > div > div.colmd6R.settings_col_md_5 > form > h3 {
+        text-align: center!IMPORTANT;
+    }
+
+    #loginBtn_login41 {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #hasaccount > div {
+        text-align: center!IMPORTANT;
+    }
+    }
