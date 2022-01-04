@@ -20,7 +20,7 @@
 #tip {
     font-size: 0.9em;
 
-    font-family: main, sans-serif !important;
+    /* font-family: main, sans-serif !important; */
     display: inline;
     /*white-space: nowrap;*/
 }
@@ -72,7 +72,7 @@
 
 #help {
     color: #2dace1;
-    font-family: main-l, sans-serif;
+    /* font-family: main-l, sans-serif; */
 }
 
 .top-links a:link {
@@ -82,7 +82,7 @@
 /* visited link */
 .top-links a:visited {
     color: #2dace1;
-    font-family: main-l, sans-serif;
+    /* font-family: main-l, sans-serif; */
 }
 
 /* mouse over link */
@@ -118,7 +118,7 @@ table, th, td {
 
 #logbar {
     color: whitesmoke;
-    font-family: main, sans-serif !important;
+    /* font-family: main, sans-serif !important; */
     font-size: 12px;
 }
 
@@ -168,16 +168,16 @@ table, th, td {
     color:red;
 }
 .grand-total {
-    font-weight: 800;
+    font-weight: 500;
     color: green;
 }
 
 .grand-total-label {
-    font-weight: 800;
+    font-weight: 500;
 }
 
 .col-label {
-    font-weight: 800;
+    font-weight: 400;
 }
 /* -----------------*/
 /* --BUTTON STYLING --*/
@@ -197,6 +197,8 @@ div form .upload_btn_lbl {
 
 div form .submit_btn {
     --mdc-theme-primary: var(--vspt-btn-green);
+    height: 38px;
+    text-transform: capitalize;
 }
 
 div form .upload_btn_lbl {
@@ -221,7 +223,7 @@ div form .clear_btn {
 {
     font-size: 12px;
     width: 100%;
-    font-style: italic;
+    /* font-style: italic; */
     align-self: center;
     text-align: center;
 }
@@ -271,7 +273,7 @@ input[type=date] {
     /*border: 1px solid #ccc;*/
     /*border-radius: 4px;*/
     font-size: 1rem;
-    font-family: main, sans-serif !important;
+    /* font-family: main, sans-serif !important; */
 
     height: 56px;
     width: 94%;
@@ -320,7 +322,7 @@ select {
     border-radius: 4px;
     font-size: 1rem;
     color: #202020;
-    font-family: main, sans-serif !important;
+    /* font-family: main, sans-serif !important; */
 
 
     /*font-family: Lato;*/
@@ -354,7 +356,7 @@ input[type=text],
     /*border: 1px solid #97999a;*/
     border-radius: 4px;
     color: #202020;
-    font-family: main, sans-serif !important;
+    /* font-family: main, sans-serif !important; */
 }
 
 #demo_comments {
@@ -365,7 +367,7 @@ input[type=text],
     /*border: 1px solid #97999a;*/
     /*border-radius: 4px;*/
     color: #202020;
-    font-family: main, sans-serif !important;
+    /* font-family: main, sans-serif !important; */
 }
 
 input[type=date]:focus,
@@ -473,7 +475,7 @@ table {
     /*color: white;*/
     font-size: 12.8px;
     font-weight: 400;
-    font-family: main, sans-serif;
+    /* font-family: main, sans-serif; */
 }
 
 
@@ -526,7 +528,7 @@ table {
     position: relative;
     text-align: center;
     text-transform: uppercase;
-    font-family: main-b, sans-serif;
+    /* font-family: main-b, sans-serif; */
     color: #7d7d7d;
 
 }
@@ -624,7 +626,7 @@ label.vspt-drop-upload,
 }
 
 .carousel-nav{
-    text-align-last: justify;
+    text-align-last: center;
     margin-top: 30px;
 }
 
@@ -686,9 +688,9 @@ label.vspt-drop-upload.focus {
     margin: 20px auto 10px auto;
     /*height: 500px;*/
 }
-.upload-carousel .carousel-nav.one{
+/* .upload-carousel .carousel-nav.one{
     text-align-last: end !important;
-}
+} */
 
 .vtex-card.contents{
     min-height: 600px;

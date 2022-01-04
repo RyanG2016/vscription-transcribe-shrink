@@ -99,7 +99,7 @@ if ($roleIsSet && $hasOwnOrg && ($_SESSION["accID"] == $_SESSION["userData"]["ac
 
             <div class="vspt-page-container">
                 <!--        <div class="vspt-page-container col">-->
-
+<!-- 
                 <div class="row vspt-title-row no-gutters">
                     <div class="col align-items-end d-flex">
                         <legend class="page-title mt-auto">
@@ -109,13 +109,13 @@ if ($roleIsSet && $hasOwnOrg && ($_SESSION["accID"] == $_SESSION["userData"]["ac
                     <div class="col-auto">
                         <img src="data/images/Logo_vScription_Transcribe.png" width="300px" />
                     </div>
-                </div>
+                </div> -->
 
                 <div class="vtex-card contents">
 
                     <!--        CONTENTS GOES HERE        -->
 
-                    <div class="row settings-content">
+                    <div class="row settings-content ml-auto mr-auto">
                         <div id="userCard" class="col users-card">
                             <h5 class="mb-3"><i class="fas fa-user"></i> Basic</h5>
 
@@ -161,7 +161,7 @@ if ($roleIsSet && $hasOwnOrg && ($_SESSION["accID"] == $_SESSION["userData"]["ac
                                                 data-parsley-pattern="/[0-9]/i"
                                                 data-parsley-error-message="<?php echo CUSTOM_FIELD_ERRORS::ORG ?>"
                                                 placeholder="" aria-describedby="inputGroupPrepend"
-                                                value="<?php echo $_SESSION['userData']['card_number'] ?>" required>
+                                                value="" required>
                                         </div>
 
                                         <div class="input-group">
@@ -171,7 +171,7 @@ if ($roleIsSet && $hasOwnOrg && ($_SESSION["accID"] == $_SESSION["userData"]["ac
                                             <input type="text" class="form-control" id="expiration_date" placeholder=""
                                                 format inputmode="numeric" name="expiration_date"
                                                 aria-describedby="inputGroupPrepend"
-                                                value="<?php echo $_SESSION['userData']['expiration_date'] ?>"
+                                                value=""
                                                 data-parsley-pattern="/[0-9]/i"
                                                 data-parsley-error-message="<?php echo CUSTOM_FIELD_ERRORS::RETENTION_TIME ?>"
                                                 required>
@@ -185,7 +185,7 @@ if ($roleIsSet && $hasOwnOrg && ($_SESSION["accID"] == $_SESSION["userData"]["ac
                                                 max="9999"
                                                 data-parsley-error-message="<?php echo CUSTOM_FIELD_ERRORS::LOG_RETENTION_TIME ?>"
                                                 min="1" name="security_code" aria-describedby="inputGroupPrepend"
-                                                value="<?php echo $_SESSION['userData']['security_code'] ?>" required>
+                                                value= required>
                                         </div> -->
                                         <div class="input-group">
                                             <div class="row w-100 no-gutters">
@@ -356,8 +356,8 @@ if ($roleIsSet && $_SESSION["role"] != 3 && $_SESSION["role"] != 5)
                                                 <div class="col" style="align-self: center">
                                                     <div class="form-row">
                                                         <div class="col">
-                                                            <em class="bs-text">Auto Refresh Job List <span
-                                                                    class="vtex-jr-help-icon">(?)</span></em>
+                                                            <p class="bs-text">Auto Refresh Job List <span
+                                                                    class="vtex-jr-help-icon">(?)</span></p>
                                                         </div>
                                                         <div class="col text-right">
                                                             <div class="mdc-switch mdc-switch--disabled ml-auto mt-auto mb-auto"
@@ -397,8 +397,8 @@ if ($roleIsSet && $_SESSION["role"] != 3 && $_SESSION["role"] != 5)
                                                 <div class="col" style="align-self: center">
                                                     <div class="form-row">
                                                         <div class="col">
-                                                            <em class="bs-text">Enable Speech To Text <span
-                                                                    class="vtex-help-icon">(?)</span></em>
+                                                            <p class="bs-text">Enable Speech To Text <span
+                                                                    class="vtex-help-icon">(?)</span></p>
                                                         </div>
                                                         <div class="col text-right">
                                                             <div class="mdc-switch mdc-switch--disabled ml-auto mt-auto mb-auto"
@@ -415,7 +415,7 @@ if ($roleIsSet && $_SESSION["role"] != 3 && $_SESSION["role"] != 5)
                                                     </div>
                                                 </div>
 
-                                                <div class="col font-italic sr-balance-div"><span
+                                                <div class="col sr-balance-div"><span
                                                         class="bs-text">Speech-to-text minutes:</span> <span
                                                         class="col bs-text p-0 text-left"><span id="srMinutes">
                                                             <span class="spinner">
@@ -460,12 +460,12 @@ if (isset($_SESSION["role"]) && $_SESSION["role"] != 5)
 
 ?>
 
-                        <div id="ownOrgCard" class="border-left col">
+                        <div id="ownOrgCard" class="col">
                             <h5 class="mb-3"><i class="fas fa-laptop-house"></i> My Organization</h5>
 
                             <div class="alert alert-info" role="alert">
-                                <em>You didn't create an organization profile, <u class="vtex-cursor-pointer"
-                                        data-toggle="modal" data-target="#createAccModal">create one?</u></em>
+                                <p>You didn't create an organization profile, <u class="vtex-cursor-pointer"
+                                        data-toggle="modal" data-target="#createAccModal">create one?</u></p>
                             </div>
 
                             <hr>
@@ -538,8 +538,8 @@ if (isset($_SESSION["role"]) && $_SESSION["role"] != 5)
                                                 <div class="col" style="align-self: center">
                                                     <div class="form-row">
                                                         <div class="col">
-                                                            <em class="bs-text">Auto Refresh Job List <span
-                                                                    class="vtex-jr-help-icon">(?)</span></em>
+                                                            <p class="bs-text">Auto Refresh Job List <span
+                                                                    class="vtex-jr-help-icon">(?)</span></p>
                                                         </div>
                                                         <div class="col text-right">
                                                             <div class="mdc-switch mdc-switch--disabled ml-auto mt-auto mb-auto"
@@ -580,8 +580,8 @@ if (isset($_SESSION["role"]) && $_SESSION["role"] != 5)
                                                 <div class="col" style="align-self: center">
                                                     <div class="form-row">
                                                         <div class="col">
-                                                            <em class="bs-text">Enable Speech To Text <span
-                                                                    class="vtex-help-icon">(?)</span></em>
+                                                            <p class="bs-text">Enable Speech To Text <span
+                                                                    class="vtex-help-icon">(?)</span></p>
                                                         </div>
                                                         <div class="col text-right">
                                                             <div class="mdc-switch mdc-switch--disabled ml-auto mt-auto mb-auto"
@@ -598,7 +598,7 @@ if (isset($_SESSION["role"]) && $_SESSION["role"] != 5)
                                                     </div>
                                                 </div>
 
-                                                <div class="col font-italic sr-balance-div"><span
+                                                <div class="col sr-balance-div"><span
                                                         class="bs-text">Speech-to-text minutes:</span> <span
                                                         class="col bs-text p-0 text-left"><span id="srOwnMinutes">
                                                             <span class="spinner">
@@ -633,8 +633,7 @@ if (isset($_SESSION["role"]) && $_SESSION["role"] != 5)
                         </form>
 
                         <hr>
-                    </div>
-                    <div class="w-100"></div>
+                        <div class="w-100"></div>
 
                     <div id="typistCard" class="col">
                         <h5><i class="fad fa-typewriter"></i> Typist</h5>
@@ -648,11 +647,11 @@ if (isset($_SESSION["role"]) && $_SESSION["role"] != 5)
                                 <br>
                             </em>
                         </div>
--->
+                    -->
                         <div class="alert alert-light" role="alert" id="alertT2">
                             <div class="form-row">
-                                <em>Open for work invitations <span id="typistWorkHelp"
-                                        class="vtex-help-icon">(?)</span></em>
+                                <p>Open for work invitations <span id="typistWorkHelp"
+                                        class="vtex-help-icon">(?)</span></p>
 
                                 <div class="mdc-switch mdc-switch--disabled ml-auto mt-auto mb-auto"
                                     id="typist_av_switch">
@@ -665,6 +664,8 @@ if (isset($_SESSION["role"]) && $_SESSION["role"] != 5)
                                 </div>
                             </div>
                         </div>
+                    </div>
+
                         <!--
                         <div id="typist1" class="text-muted text-justify">Switch your current role to typist from the side menu to start working.</div>
                         <div id="typist0" class="text-muted">Please wait for a job invitation from an admin.</div>-->

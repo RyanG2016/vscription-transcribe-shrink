@@ -99,12 +99,11 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
     <?php else:?>
     <link rel="stylesheet" href="data/css/job_upload.css">
     <?php endif;?>
-    <?php echo $_SESSION['userData']['pre_pay'];?>
+    <!-- <?php echo $_SESSION['userData']['pre_pay'];?> -->
 
 </head>
 
 <body>
-
 
 <div class="container-fluid h-100 vspt-container-fluid">
         <!--        <div class="w-100 h-100 d-flex flex-nowrap vspt-container-fluid-row">-->
@@ -112,14 +111,17 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 
         <?php include_once "data/parts/nav.php"?>
         <div class="vspt-page-container">
-
             <div class="row">
+                <div class="col
+                ">
+
+            <!-- <div class="row">
                 <div class="col">
                     <a class="logbar" href="main.php"><i class="fas fa-arrow-left"></i> Go back to job list</a>
                 </div>
-            </div>
+            </div> -->
 
-            <div class="row vspt-title-row no-gutters">
+            <!-- <div class="row vspt-title-row no-gutters">
                 <div class="col align-items-end d-flex">
                     <legend class="page-title mt-auto">
                         <i class="material-icons mdc-button__icon" aria-hidden="true">cloud_upload</i>
@@ -129,9 +131,12 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                 <div class="col-auto">
                     <img src="data/images/Logo_vScription_Transcribe.png" width="300px"/>
                 </div>
-            </div>
+            </div> -->
 
             <div class="vtex-card contents">
+                <!-- <div class="row">
+                    <h3 class="users-tbl-title">Upload Jobs</h3>
+                </div> -->
                 <div class="vspt-step-progress-container mr-auto ml-auto">
                     <ul class="vspt-step-progressbar" id="vsptProgressList">
                         <li class="active">Add Files</li>
@@ -185,9 +190,14 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                 <input type="hidden" name="<?php echo ini_get("session.upload_progress.name"); ?>" value="job_upload" />
 
                                 <div class="carousel-nav one">
-                                    <button class="btn btn-primary p1n-button" id="p1nBtn" type="button">
-                                        Next
-                                    </button>
+                                    <div class="row">
+                                        <div class="col-md-6 offset-6">
+                                                <button class="btn btn-primary p1n-button w-100" id="p1nBtn" type="button">
+                                                Next
+                                                <i class="fas fa-arrow-right pl-1"></i>
+                                                </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="carousel-item">
@@ -247,7 +257,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 
 
 
-                                    <div class="form-row mb-3" id="speakerTypeDiv">
+                                    <div class="form-row mb-3 d-none" id="speakerTypeDiv">
 
                                         <div class="input-group col">
                                             <div class="input-group-prepend">
@@ -280,7 +290,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                                    name="user_field_2" placeholder="(optional)">
                                         </div>
 
-                                        <div class="input-group col">
+                                        <div class="input-group col d-none">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" for="user_field_3">User Field 3</span>
                                             </div>
@@ -308,13 +318,19 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                 </div>
 
                                 <div class="carousel-nav">
-                                    <button class="btn btn-primary" id="demoBackBtn" type="button">
-                                        Back
-                                    </button>
-
-                                    <button class="btn btn-primary" id="demoNextBtn" type="button">
-                                        Next
-                                    </button>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <button class="btn btn-primary w-100" id="demoBackBtn" type="button">
+                                            <i class="fas fa-arrow-left pr-1"></i>Back
+                                            </button>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button class="btn btn-primary w-100" id="demoNextBtn" type="button">
+                                                Next
+                                                <i class="fas fa-arrow-right pl-1"></i>
+                                            </button>
+                                         </div>
+                                    </div>
                                 </div>
                             </div>
                             <?php if($_SESSION["userData"]["pre_pay"] ==1):?>
@@ -423,18 +439,24 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                     </div>
                                     <?php endif;?>
                                     <div class="carousel-nav">
-                                        <button class="btn btn-primary" id="p3Bbtn" type="button">
-                                            Back
-                                        </button>
-
-                                        <button class="mdc-button mdc-button--unelevated foo-button submit_btn" type="submit"
-                                                value="Upload File(s)" disabled>
-                                            <div class="mdc-button__ripple"></div>
-                                            <i class="material-icons mdc-button__icon" aria-hidden="true"
-                                            >cloud_upload</i
-                                            >
-                                            <span class="mdc-button__label" id="mdc-button__label"><?php echo $_SESSION["userData"]["pre_pay"] == 1 ? "Pay and Upload":"Upload File(s)";?></span>
-                                        </button>
+                                        <div class="row">
+                                            <div class="col md-6">
+                                                <button class="btn btn-primary w-100" id="p3Bbtn" type="button">
+                                                <i class="fas fa-arrow-left pr-1"></i>    
+                                                Back
+                                                </button>
+                                            </div>
+                                            <div class="col-md-6 w-100">
+                                                <button class="mdc-button mdc-button--unelevated foo-button submit_btn w-100" type="submit"
+                                                        value="Upload File(s)" disabled>
+                                                    <div class="mdc-button__ripple"></div>
+                                                    <i class="material-icons mdc-button__icon" aria-hidden="true"
+                                                    >cloud_upload</i
+                                                    >
+                                                    <span class="mdc-button__label" id="mdc-button__label"><?php echo $_SESSION["userData"]["pre_pay"] == 1 ? "Pay and Upload":"Upload File(s)";?></span>
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
 
                                 </div>
@@ -462,6 +484,8 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                     </div>
                 </div>
 
+            </div>
+            </div>
             </div>
 
         </div>
@@ -498,7 +522,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
         <div class="modal-buttons">
             <button class="mdc-button mdc-button--unelevated foo-button cancel_upload" id="confirmUpload">
                 <div class="mdc-button__ripple"></div>
-                <i class="material-icons mdc-button__icon" aria-hidden="true">done_all</i>
+                <i class="material-icons mdc-button__icon" aria-hidden="true">done</i>
                 <span class="mdc-button__label">OK</span>
             </button>
 

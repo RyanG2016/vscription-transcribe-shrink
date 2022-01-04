@@ -11,24 +11,25 @@
  ===============================
  */
 
-@font-face {
+/* @font-face {
     font-family: main;
-    src: url("../../Fonts/OpenSans-Regular.ttf");
+    src: url("../../Fonts/Roboto-Regular.ttf");
 }
 
 @font-face {
     font-family: main-b;
-    src: url("../../Fonts/OpenSans-Bold.ttf");
+    src: url("../../Fonts/Roboto-Bold.ttf");
 }
 
 @font-face {
     font-family: main-l;
-    src: url("../../Fonts/OpenSans-Light.ttf");
-}
+    src: url("../../Fonts/Roboto-Light.ttf");
+} */
 
+/* 
 *, body {
     font-family: main, sans-serif;
-}
+} */
 
 /*
  ===============================
@@ -37,6 +38,11 @@
  */
 
 :root {
+
+    /* Fonts */
+
+    --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     --vspt-red: #D32F2F;
     --vspt-green: #53a13d;
     --vspt-blue: #1e79be;
@@ -109,7 +115,7 @@
 body {
     /*background-color: var(--vspt-website-bg-color);*/
     /*background-color: red;*/
-    background-color: var(--vspt-page-bg);
+    /* background-color: var(--vspt-page-bg); */
     overflow: auto;
     /* Allows scroll bar */
     height: unset !important;
@@ -157,7 +163,7 @@ a:visited {
     /*flex-grow: unset;*/
 
     /* todo revert if needed */
-    /*background-color: var(--vspt-dark);*/
+    background-color: var(--vspt-dark);
     flex-grow: 0;
     flex-shrink: 0;
     flex-basis: auto;
@@ -231,12 +237,22 @@ a:visited {
     background-color: var(--vspt-dark);
 }
 
+#collapse-nav {
+    background: rgb(52, 58, 64)!IMPORTANT;
+}
+
 
 /* Menu item*/
 #sidebar-container .list-group a {
     height: 45px;
     color: var(--vspt-sidebar-title-color);
 }
+
+/* Menu item*/
+ #sidebar-container > ul > a.bg-dark.list-group-item.list-group-item-action.active {
+    color: var(--vspt-sidebar-title-color);
+    background-color: var(--vspt-sidebar-toggle-btn-active);
+} 
 
 /* Submenu item*/
 #sidebar-container .list-group .sidebar-submenu a {
@@ -258,7 +274,8 @@ a:visited {
 }
 
 .sidebar-separator-title {
-    background-color: var(--vspt-sidebar-title-bg);
+    /* background-color: var(--vspt-sidebar-title-bg); */
+    background-color: var(--vspt-blue-dark-hover);
     height: 35px;
 }
 
@@ -362,9 +379,9 @@ a:visited {
 }
 
 
-.vspt-table > thead > tr > th {
+/* .vspt-table > thead > tr > th {
     font-family: main-b, sans-serif;
-}
+} */
 
 .vspt-table tbody tr.even:hover, .vspt-table tbody tr.even td.highlighted {
     background-color: var(--vspt-table-hover);;
@@ -490,7 +507,8 @@ a:visited {
     box-shadow: 0 0 5px #262626;
     background: white;
     padding: 7px 0;
-    border-radius: 7px;
+    /* border-radius: 7px; */
+    border-radius: 15px;
 }
 
 .vtex-card.contents{
@@ -624,7 +642,7 @@ a:visited {
 .vspt-small-btn{
     font-size: small;
     padding: 3px 8px;
-    border-radius: 6px;
+    border-radius: 3px;
 }
 
 .sr-balance-div > span{
@@ -648,7 +666,8 @@ a:visited {
 }
 
 #sidebar-container > ul > a:last-child{
-    margin-bottom: 100px;
+    /* margin-bottom: 100px; */
+    margin-top: 75px;
 }
 .vspt-sidebar-container small,
 .menu-collapsed{
@@ -696,4 +715,21 @@ a:visited {
     /*top: 50%;*/
     /*left: 50%;*/
     /*transform: translate(-50%, -50%);*/
+}
+
+.users-tbl-title {
+    font-weight: 400;
+}
+
+/* This seems to be coming from the MDC SASS file */
+.mdc-button {
+    /* font-family: 'Helvetica'!IMPORTANT; */
+    font-family: var(--bs-font-sans-serif);
+    letter-spacing: .2px;
+    font-weight: 400;
+}
+
+.mdc_button__label {
+    letter-spacing: .2px;
+    font-weight: 400;
 }

@@ -73,7 +73,7 @@ div.able-now-playing > changed background color
   top: 0;
 }
 .able-player {
-	font-family: opensans-l,Georgia, "Times New Roman", Times, serif;
+	/* font-family: opensans-l,Georgia, "Times New Roman", Times, serif; */
 	background-color: #fff; /* background color of player (appears on top & bottom) */
 /*	background-color: #262626;  background color of player (appears on top & bottom) */
 }
@@ -513,7 +513,7 @@ div.able-modal-dialog {
 	background-color: #FAFAFA;
 	box-sizing: content-box !important;
 	z-index: 10000;
-	font-family: opensans-l;
+	/* font-family: opensans-l; */
 	text-align: justify;
 	border-radius: 10px;
 }

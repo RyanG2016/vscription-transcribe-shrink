@@ -38,6 +38,12 @@ $(document).ready(function(){
         changeRoleModal.modal();
     });
 
+
+    // Set Active Menu Item //
+    setActiveMenuItem();
+
+    // console.log(`We are loading the navbar`);
+
     updateRoleModalBtn.on("click", function (e) {
 
         updateRoleModalBtn.attr("disabled", "disabled");
@@ -307,19 +313,26 @@ $(document).ready(function(){
     }
     $("#sidebar-container > ul > a").each(
         function (){
-            $(this).popover({
-                content: $(this).find("div > span.menu-collapsed").html(),
-                trigger: 'hover'
-            });
+            tContent = $(this).find("div > span.menu-expanded").html();
+            if (tContent != undefined) {
+                $(this).popover({
+                    content: tContent,
+                    trigger: 'hover'
+                });
+            }
         }
     );
 
+
     $("#adminmenu > a").each(
         function (){
-            $(this).popover({
-                content: $(this).find("span.menu-collapsed").html(),
-                trigger: 'hover'
-            });
+            tContent = $(this).find("span.menu-collapsed").html();
+            if (tContent != undefined) {
+                $(this).popover({
+                    content: tContent,
+                    trigger: 'hover'
+                });
+            }
         }
     );
 
@@ -328,12 +341,12 @@ $(document).ready(function(){
     $('#body-row .collapse').collapse('hide');
 
 // Collapse/Expand icon
-    navCollapseIcon.addClass('fa-chevron-double-right');
+    navCollapseIcon.addClass('fa-chevron-double-left');
 
 
     function SidebarCollapse (silent = false) {
 
-        $('.menu-collapsed').toggleClass('d-none');
+        $('.menu-expanded').toggleClass('d-none');
         $('.sidebar-submenu').toggleClass('d-none');
         $('.submenu-icon').toggleClass('d-none');
         // $('#sidebar-container').toggleClass('sidebar-expanded sidebar-collapsed col-2 col');
@@ -372,11 +385,13 @@ $(document).ready(function(){
     // console.log("sidebar pinned: " + sidebarPinned);
     // Collapse click
     $('[data-toggle=sidebar-collapse-toggle]').click(function() {
+        setCookie("sidebar_collapsed", navCollapseText.html() === "Expand"?"false":"true", 365);
         if(pinBtnPressed) pinBtnPressed=false;
         else SidebarCollapse();
     });
 
     pinBtn.on('click', function(e){
+        console.log(`We are registering the pinned button click`);
         pinBtnPressed = true; // to prevent collapse from being pressed
         pinIcon.toggleClass("fa-rotate-315 active");
 
@@ -405,6 +420,81 @@ $(document).ready(function(){
             }
         }
         return false;
+    }
+
+    function setActiveMenuItem() {
+        console.log(`Sidebar cookie value: ${getCookie("sidebar_collapsed")}`);
+        if (getCookie("sidebar_collapsed") == "true") {
+            SidebarCollapse();
+        }
+        let path = window.location.pathname;
+        let page = path.split("/").pop();
+        let el = '';
+        let adminMenuEl = '';
+        // console.log( `Current page is ${page}` );
+        switch (page) {
+            case "main.php":
+                el = document.getElementById('main-nav');
+                el.classList.add("active");
+                break;
+            case "jobupload.php":
+                el = document.getElementById('upload-nav');
+                el.classList.add("active");
+                break;
+            case "transcribe.php":
+                el = document.getElementById('transcribe-nav');
+                el.classList.add("active");
+                break;
+            case "manage_users.php":
+                el = document.getElementById('manage-users-nav');
+                el.classList.add("active");
+                break;
+            case "accounts.php":
+                el = document.getElementById('accounts-nav');
+                el.classList.add("active");
+                adminMenuEl = document.getElementById('adminmenu');
+                adminMenuEl.classList.add("show");
+                break;
+            case "users.php":
+                el = document.getElementById('users-nav');
+                el.classList.add("active");
+                adminMenuEl = document.getElementById('adminmenu');
+                adminMenuEl.classList.add("show");
+                break;
+            case "admin_tools.php":
+                el = document.getElementById('admin-tools-nav');
+                el.classList.add("active");
+                adminMenuEl = document.getElementById('adminmenu');
+                adminMenuEl.classList.add("show");
+                break;
+            case "billing_report.php":
+                el = document.getElementById('billing-report-nav');
+                el.classList.add("active");
+                adminMenuEl = document.getElementById('adminmenu');
+                adminMenuEl.classList.add("show");
+                break;
+            case "typist_report.php":
+                el = document.getElementById('typist-report-nav');
+                el.classList.add("active");
+                adminMenuEl = document.getElementById('adminmenu');
+                adminMenuEl.classList.add("show");
+                break;
+            case "downloads.php":
+                el = document.getElementById('downloads-nav');
+                el.classList.add("active");
+                break;
+            case "settings.php":
+                el = document.getElementById('settings-nav');
+                el.classList.add("active");
+                break;   
+            case "panel.php":
+                el = document.getElementById('settings-nav');
+                el.classList.add("active");
+                break;                                    
+         default:
+                el = document.getElementById('home-nav');
+                el.classList.add("active");
+        }
     }
 /*
     function checkCookie() {

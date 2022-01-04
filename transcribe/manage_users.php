@@ -103,15 +103,15 @@ if (!isset($_SESSION['role']) || ($_SESSION['role'] != "2") && ($_SESSION['role'
 
         <div class="vspt-page-container">
 
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col">
                     <a class="logbar" href="main.php"><i class="fas fa-arrow-left"></i> Go back to Job Lister</a>
                 </div>
 
 
-            </div>
+            </div> -->
 
-            <div class="row vspt-title-row no-gutters">
+            <!-- <div class="row vspt-title-row no-gutters">
                 <div class="col align-items-end d-flex">
                     <legend class="page-title mt-auto">
                         <i class="fad fa-users"></i>
@@ -121,7 +121,7 @@ if (!isset($_SESSION['role']) || ($_SESSION['role'] != "2") && ($_SESSION['role'
                 <div class="col-auto">
                     <img src="data/images/Logo_vScription_Transcribe.png" width="300px"/>
                 </div>
-            </div>
+            </div> -->
 
             <div class="vtex-card contents">
 
