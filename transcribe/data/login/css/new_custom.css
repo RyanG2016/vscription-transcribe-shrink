@@ -168,7 +168,7 @@ body {
     border-radius: 75px;
     background: #1c79bd !important;
     border: none;
-    font-size: 18px;
+    /* font-size: 18px; */
     outline: none;
     box-shadow: none;
 }
@@ -235,7 +235,7 @@ body {
 
 .form-control:not(#code), .filter-option-inner-inner {
     font-size: 1rem !important;
-    font-size: 16px !important;
+    /* font-size: 16px !important; */
 }
 
 .verifaction_carousel_item_areasection {
@@ -323,6 +323,14 @@ body > div.limiter > div > div.colmd6L.d-none.d-md-block > span > img {
     /* left: 50%; */
     top: 50%;
     transform: translate(-50%, -50%);
+}
+
+/* Logo Image for Signup Page */
+
+#left_logo {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%,-50%);
 }
 
 #copyright {

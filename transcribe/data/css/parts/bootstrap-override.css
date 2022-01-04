@@ -101,9 +101,9 @@ svg {
 }
 
 .form-control:not(#code),
-.filter-option-inner-inner{
-    /* font-size: .8rem !IMPORTANT; */
-    font-size: 1rem!IMPORTANT;
+.filter-option-inner-inner {
+    font-size: .8rem !IMPORTANT;
+    /* font-size: 1rem!IMPORTANT; */
 }
 
 .form-control:focus {

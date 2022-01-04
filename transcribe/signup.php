@@ -109,7 +109,7 @@ $hasRef = isset($_GET['ref']) && !empty($_GET['ref']);
 
     <script src="https://kit.fontawesome.com/12f6b99df9.js" crossorigin="anonymous"></script>
 
-    <script src="data/scripts/signup.js"></script>
+    <script src="data/scripts/signup.min.js"></script>
 
 </head>
 
@@ -209,7 +209,7 @@ $hasRef = isset($_GET['ref']) && !empty($_GET['ref']);
                 <div class="colmd6L d-none d-md-block">
                     
                     <span class="login100-form-title p-b-20">
-                        <img src="data/images/Logo_vScription_Transcribe_Stacked.png" style="height: 110px"
+                        <img src="data/images/Logo_vScription_Transcribe_Stacked.png" style="height: 110px" id="left_logo"
                              alt="vScription"/>
                     </span>
                     <span id="copyright">
