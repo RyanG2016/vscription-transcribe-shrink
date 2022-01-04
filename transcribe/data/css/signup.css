@@ -461,3 +461,13 @@ body > div.jconfirm.jconfirm-supervan.jconfirm-open > div.jconfirm-scrollpane > 
     top: 50%;
     transform: translatey(-50%);
 }
+
+#copyright {
+    /* Different page structure */
+    left: 50%;
+}
+
+:required  {  
+    content:"*";
+    color:red;
+   }

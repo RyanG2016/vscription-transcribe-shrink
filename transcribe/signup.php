@@ -206,12 +206,15 @@ $hasRef = isset($_GET['ref']) && !empty($_GET['ref']);
                     <!----------------------Row 1----------------->
             <div class="row_row">
 
-                <div class="colmd6L">
+                <div class="colmd6L d-none d-md-block">
                     
                     <span class="login100-form-title p-b-20">
                         <img src="data/images/Logo_vScription_Transcribe_Stacked.png" style="height: 110px"
                              alt="vScription"/>
                     </span>
+                    <span id="copyright">
+						Copyright @2021
+					</span>
                     <!-- <span id="title" class="login100-form-title p-b-26">
                         Signup
                     </span> -->
@@ -223,6 +226,7 @@ $hasRef = isset($_GET['ref']) && !empty($_GET['ref']);
 
                      <div class="form-row">
                         <div class="col-12">
+                        <img src="data/images/Logo_vScription_Transcribe_Stacked.png" alt="" id="login-resp-logo" class="d-md-none">
                             <h3 class="signup_heaing_new_design9879"> Sign Up </h3>
                         </div>
                     </div>
@@ -247,7 +251,7 @@ $hasRef = isset($_GET['ref']) && !empty($_GET['ref']);
                             else{
                                 ?>
 
-                                <input type="email" class="input_form_control3" id="inputEmail" placeholder="Email" name="email"
+                                <input type="email" class="input_form_control3" id="inputEmail" placeholder="Email*" name="email"
                                        value="<?php echo isset($_GET['email'])?$_GET['email']:'' ?>"
                                        required autofocus>
 
@@ -255,7 +259,7 @@ $hasRef = isset($_GET['ref']) && !empty($_GET['ref']);
                             }
                             ?>
 
-                            <i class="far fa-envelope fa-lg signup_field_icons"></i>
+                            <!-- <i class="far fa-envelope fa-lg signup_field_icons"></i> -->
                             
 
 
@@ -275,12 +279,12 @@ $hasRef = isset($_GET['ref']) && !empty($_GET['ref']);
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                             <!----------------------PASSWORD-------------->
                             <!-- <label for="inputPassword"><i class="fas fa-key"></i> Password</label> -->
-                            <input type="password" class="input_form_control3" id="inputPassword" placeholder="Password"
+                            <input type="password" class="input_form_control3" id="inputPassword" placeholder="Password*"
                                    name="password"
                                    title="Password Requirements"
                                    data-trigger="click"
                                    required>
-                            <i class="far fa-lock fa-lg signup_field_icons"></i>
+                            <!-- <i class="far fa-lock fa-lg signup_field_icons"></i> -->
                             <div class="invalid-feedback">
                                 Please enter a valid password
                             </div>
@@ -295,12 +299,12 @@ $hasRef = isset($_GET['ref']) && !empty($_GET['ref']);
                             <!----------------------Confirm Password-------------->
                             <!-- <label for="inputConfirmPassword"><i class="fas fa-key"></i> Confirm </label> -->
                             <input type="password" class="input_form_control3" id="inputConfirmPassword"
-                                   placeholder="Confirm Password"
+                                   placeholder="Confirm Password*"
                                    title="Confirm Password"
                                    data-trigger="focus"
                                    required>
                                    
-                            <i class="far fa-lock fa-lg signup_field_icons"></i>
+                            <!-- <i class="far fa-lock fa-lg signup_field_icons"></i> -->
                             <div class="invalid-feedback">
                                 Passwords don't match.
                             </div>
@@ -319,7 +323,7 @@ $hasRef = isset($_GET['ref']) && !empty($_GET['ref']);
                             if($hasRef)
                             {
                                 ?>
-                                <input type="text" class="input_form_control3" id="inputAccName" placeholder="Organization Name" value="<?php echo isset($_GET['org'])?$_GET['org']:'invitation' ?>"
+                                <input type="text" class="input_form_control3" id="inputAccName" placeholder="Organization Name*" value="<?php echo isset($_GET['org'])?$_GET['org']:'invitation' ?>"
                                        disabled>
                                 <?php
                             }
@@ -327,13 +331,13 @@ $hasRef = isset($_GET['ref']) && !empty($_GET['ref']);
                             else{
                             ?>
 
-                                <input type="text" class="input_form_control3" id="inputAccName" placeholder="Organization Name" name="accname"
+                                <input type="text" class="input_form_control3" id="inputAccName" placeholder="Organization Name*" name="accname"
                                        required>
 
                            <?php
                            }
                             ?>
-                        <i class="far fa-sitemap fa-lg signup_field_icons"></i>
+                        <!-- <i class="far fa-sitemap fa-lg signup_field_icons"></i> -->
                         </div>
 
                         <!----------------------Line Break----------------->
@@ -346,7 +350,7 @@ $hasRef = isset($_GET['ref']) && !empty($_GET['ref']);
 
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                             <!-- <label for="inputfName"><i class="fas fa-font"></i> First Name</label> -->
-                            <input type="text" class="input_form_control3" id="inputfName" placeholder="First Name" name="fname"
+                            <input type="text" class="input_form_control3" id="inputfName" placeholder="First Name*" name="fname"
                                    required autofocus>
                             <!--<div class="valid-feedback">
                                 Looks good!
@@ -354,7 +358,7 @@ $hasRef = isset($_GET['ref']) && !empty($_GET['ref']);
                             <div class="invalid-feedback">
                                 Please enter your name.
                             </div>
-                        <i class="far fa-user fa-lg signup_field_icons"></i>
+                        <!-- <i class="far fa-user fa-lg signup_field_icons"></i> -->
                         </div>
                         
                     </div>
@@ -362,9 +366,9 @@ $hasRef = isset($_GET['ref']) && !empty($_GET['ref']);
                     <div class="form-row">
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                             <!-- <label for="inputlName"><i class="fas fa-bold"></i> Last Name</label> -->
-                            <input type="text" class="input_form_control3" id="inputlName" placeholder="Last Name" name="lname"
+                            <input type="text" class="input_form_control3" id="inputlName" placeholder="Last Name*" name="lname"
                                    required>
-                        <i class="far fa-user fa-lg signup_field_icons"></i>
+                        <!-- <i class="far fa-user fa-lg signup_field_icons"></i> -->
                         </div>
                     </div>
 
@@ -381,7 +385,7 @@ $hasRef = isset($_GET['ref']) && !empty($_GET['ref']);
                                     data-dropup-auto="false" name="country">
                                 <option selected>Country...</option>
                             </select>
-                        <i class="fal fa-globe-americas fa-lg signup_field_icons"></i>
+                        <!-- <i class="fal fa-globe-americas fa-lg signup_field_icons"></i> -->
                         </div>
 
                     </div>
@@ -446,7 +450,7 @@ $hasRef = isset($_GET['ref']) && !empty($_GET['ref']);
 
 
                     <div class="row p-t-10 m-0 " style="width: 100%">
-                        <div class="col">
+                        <div class="col has_account">
                             <div class="text-left" style="font-weight: 500">
                                 Already have an account? <a class="txt2" href="./index.php" id="loginHyperLink" style="font-weight: bold; text-decoration: none;">
                                     Log in

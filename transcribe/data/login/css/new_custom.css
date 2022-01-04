@@ -210,7 +210,8 @@ body {
 .jconfirm .jconfirm-row {
     display: table-row;
     width: 100%;
-    background: #FFF;
+    /* background: #FFF; */
+    background: var(--vspt-blue);
 }
 
 .jconfirm .jconfirm-holder {
@@ -388,6 +389,7 @@ body > div.limiter > div > div.colmd6L.d-none.d-md-block > span > img {
         display: block;
         margin-left: auto;
         margin-right: auto;
+        padding-bottom: 10px;
     }
     
     .row_row {
@@ -418,4 +420,41 @@ body > div.limiter > div > div.colmd6L.d-none.d-md-block > span > img {
     #verifyBtn {
         background-color: #2ecc71!important;
     }
+
+    /* Signup Page Responsive Styling */
+
+    .signup_heaing_new_design9879 {
+        text-align: center;
     }
+
+    .col.has_account > .text-left {
+        text-align: center;
+    }
+
+    .form-inline45884554 {
+        text-align: center;
+    }
+
+    .form-row {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .verifaction_carousel_item_areasection {
+        /* width: 140%; */
+        padding: 0px;
+    }
+
+    .verifaction_carousel_item_areasection .form-row {
+        width: 350px;
+
+    }
+
+    .container-login100-form-btn.pt-0 {
+        padding: 0 20px 0 20px;
+    }
+
+    .jconfirm-holder {
+        width: 90%;
+    }
+}
