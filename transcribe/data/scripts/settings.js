@@ -600,9 +600,9 @@ $(document).ready(function () {
         }
     });
 
-    if (roleIsset && (redirectID == 1 || redirectID == 2)) {
+    if (roleIsset && ((redirectID == 1 || redirectID == 2)) && subscription_type == 3) {
         srSwitchMDC = new mdc.switchControl.MDCSwitch(document.querySelector('#srSwitch'));
-        jlSwitchMDC = new mdc.switchControl.MDCSwitch(document.querySelector('#jlSwitch'));
+
 
         srSwitch.on('change', function (e) {
             srSwitchMDC.disabled = true;
@@ -613,6 +613,22 @@ $(document).ready(function () {
             }
         });
 
+        getSRenabled();
+
+        // get remaining minutes balance
+        getSRMinutes();
+
+
+    } else {
+        // Disable spinner and button
+        $('#srMinutes').html('');
+        $('#srOwnMinutes').html('');
+        $('.add-mins-btn').attr('disabled', true);
+    }
+
+    if (roleIsset && (redirectID == 1 || redirectID == 2)) {
+        jlSwitchMDC = new mdc.switchControl.MDCSwitch(document.querySelector('#jlSwitch'));
+
         jlSwitch.on('change', function (e) {
             jlSwitchMDC.disabled = true;
             if (jlSwitchMDC.checked) {
@@ -622,16 +638,13 @@ $(document).ready(function () {
             }
         });
 
-        getSRenabled();
-
-        // get remaining minutes balance
-        getSRMinutes();
-
         // get Job List Refresh Details
         getAutoListRefreshEnabled();
+
     }
 
-    if(hasOwnOrg && !ownMatchesCurrent)
+
+    if((hasOwnOrg && !ownMatchesCurrent) && subscription_type ==3)
     {
         srOwnSwitchMDC = new mdc.switchControl.MDCSwitch(document.querySelector('#srOwnSwitch'));
         jlOwnSwitchMDC = new mdc.switchControl.MDCSwitch(document.querySelector('#jlOwnSwitch'));
@@ -654,6 +667,17 @@ $(document).ready(function () {
         });
         getOwnSRenabled();
         getOwnSRMinutes();
+        getOwnAutoListRefreshEnabled();
+    } else if ((hasOwnOrg && !ownMatchesCurrent)) {
+        jlOwnSwitchMDC = new mdc.switchControl.MDCSwitch(document.querySelector('#jlOwnSwitch'));
+        jlOwnSwitch.on('change', function (e) {
+            jlOwnSwitchMDC.disabled = true;
+            if (jlOwnSwitchMDC.checked) {
+                setJLOwnEnabled(1);
+            } else {
+                setJLOwnEnabled(0);
+            }
+        });
         getOwnAutoListRefreshEnabled();
     }
 

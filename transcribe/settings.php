@@ -57,6 +57,7 @@ include ('data/parts/head.php');
 $roleIsSet = (!isset($_SESSION['role']) && !isset($_SESSION['accID'])) ? 0 : true;
 $hasOwnOrg = (isset($_SESSION["userData"]["account"]) && $_SESSION["userData"]["account"] != 0);
 $ownMatchesCurrent = false;
+$sub_type = (isset($_SESSION["subscription_type"]) && (!EMPTY($_SESSION["subscription_type"]))) ? $_SESSION["subscription_type"] : 0;
 if ($roleIsSet && $hasOwnOrg && ($_SESSION["accID"] == $_SESSION["userData"]["account"]))
 {
     $ownMatchesCurrent = true;
@@ -66,6 +67,7 @@ if ($roleIsSet && $hasOwnOrg && ($_SESSION["accID"] == $_SESSION["userData"]["ac
     var redirectID = <?php echo $roleIsSet ? $_SESSION['role'] : "0" ?>;
     var hasOwnOrg = <?php echo $hasOwnOrg ? "1" : "0" ?>;
     var ownMatchesCurrent = <?php echo $ownMatchesCurrent ? "1" : "0" ?>;
+    var subscription_type = <?php echo $sub_type ?>;
     </script>
 
     <!-- Enjoyhint library -->
@@ -85,7 +87,7 @@ if ($roleIsSet && $hasOwnOrg && ($_SESSION["accID"] == $_SESSION["userData"]["ac
     <script src="data/scripts/parts/ping.min.js" type="text/javascript"></script>
 
     <link href="data/css/settings.css?v=2" rel="stylesheet">
-    <script src="data/scripts/settings.min.js?v=5" type="text/javascript"></script>
+    <script src="data/scripts/settings.min.js?v=6" type="text/javascript"></script>
 
 </head>
 
