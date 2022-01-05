@@ -50,6 +50,7 @@ function documentReady() {
     const progressList = $("#vsptProgressList");
     const nextBtn = $("#demoNextBtn");
     const prevBtn = $("#demoBackBtn");
+    const finalStepText = $('#finalStepIconTxt');
     const dropZone = $("#vsptDropZone");
     const speakerTypeDiv = $("#speakerTypeDiv");
     const dictDateLbl = $("#dictDateLbl");
@@ -78,6 +79,8 @@ function documentReady() {
     getSRenabled();
     var srMinutesRemaining = 0;
     var srMinutes = $("#srMinutes");
+
+    finalStepText.html('Upload');
 
     $("#chooseFile").on("click", function () {
         softClearQueuedFiles();

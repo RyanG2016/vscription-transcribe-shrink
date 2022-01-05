@@ -141,7 +141,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                     <ul class="vspt-step-progressbar" id="vsptProgressList">
                         <li class="active">Add Files</li>
                         <li>Add info</li>
-                        <li>Pay/Upload</li>
+                        <li id="finalStepIconTxt">Pay/Upload</li>
                     </ul>
                 </div>
                 <form class="upload needs-validation" id="upload_form" method="post" enctype="multipart/form-data" novalidate>
@@ -562,7 +562,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
 <?php if($_SESSION["userData"]["pre_pay"] == 1):?>
 <script src="data/scripts/job_upload_prepay.min.js?v=4"></script>
 <?php else:?>
-<script src="data/scripts/job_upload.min.js?v=4"></script>
+<script src="data/scripts/job_upload.min.js?v=5"></script>
 <?php endif;?>
 <form action="prepayment.php" method="post" class="hidden" style="display:none" id="prepayForm" target="_blank">
     <input type="text" name="total_files" id="total_files" value = "0">
