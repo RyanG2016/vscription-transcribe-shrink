@@ -339,7 +339,7 @@ if (isset($_REQUEST["reqcode"])) {
             $ip = getIP2();
 
             $a = array(
-                'email' => $_SESSION['uEmail'],
+                'email' => $email,
                 'activity' => 'Password reset requested',
                 'actPage' => 'index.php',
                 //'actPage' => header('Location: '.$_SERVER['REQUEST_URI']),   //This isn't working. For now am going to hardcode the page into the function call
