@@ -103,15 +103,15 @@ svg {
     font-size: .9rem !IMPORTANT;
 }
 
-.input-group-text {
+.input-group-text, .form-control {
     font-size: .8rem !IMPORTANT;
 }
 
-.form-control:not(#code),
+/* .form-control:not(#code),
 .filter-option-inner-inner {
     font-size: .8rem !IMPORTANT;
-    /* font-size: 1rem!IMPORTANT; */
-}
+    font-size: 1rem!IMPORTANT;
+} */
 
 .form-control:focus {
     color: #495057;
@@ -121,10 +121,9 @@ svg {
     box-shadow: 0 0 0 0.2rem var(--vspt-blue-30);
 }
 
-
 /* Toast Edits */
 .toast-header{
-    background-color: var(--vspt-dark);
+    background-color: var(--vspt-blue);
     color: white;
     font-weight: 300;
 }
