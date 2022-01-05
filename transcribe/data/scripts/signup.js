@@ -303,7 +303,6 @@ $(document).ready(function () {
             "    <li>at least 1 number.</li>\n" +
             "    <li>at least 1 special character.</li>\n" +
             "</ul>"
-
         });
 
     email.keyup(function() {

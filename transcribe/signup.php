@@ -109,7 +109,7 @@ $hasRef = isset($_GET['ref']) && !empty($_GET['ref']);
 
     <script src="https://kit.fontawesome.com/12f6b99df9.js" crossorigin="anonymous"></script>
 
-    <script src="data/scripts/signup.min.js"></script>
+    <script src="data/scripts/signup.min.js?v=6"></script>
 
 </head>
 

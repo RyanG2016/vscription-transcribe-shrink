@@ -47,9 +47,16 @@
  ===============================
  */
 
+ /* This z-index hack needed to be added because of the way the signup page was
+ re-structured */
 .popover-header {
     background-color: var(--vspt-popup-header);
     color: white;
+    z-index: 9999999;
+}
+
+.popover {
+    z-index: 9999999;
 }
 
 
