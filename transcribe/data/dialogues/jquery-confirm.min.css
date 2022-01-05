@@ -36,8 +36,24 @@ body[class*=jconfirm-no-scroll-] {
 	right: 0;
 	bottom: 0;
 	z-index: 99999999;
-	font-family: main;
-/*	font-family: inherit;*/
+	/* font-family: main; */
+	/* font-family: inherit; */
+	/* font-family: var(--bs-body-font-family); */
+	font-family: 
+    system-ui,
+    /* // Safari for macOS and iOS (San Francisco) */
+    -apple-system,
+    /* // Windows */
+    "Segoe UI",
+    /* // Android */
+    Roboto,
+    /* // Basic web fallback */
+    "Helvetica Neue", Arial,
+    /* // Linux */
+    "Noto Sans",
+    "Liberation Sans",
+    /* // Sans serif fallback */
+    sans-serif;
 	overflow: hidden
 }
 .jconfirm .jconfirm-bg {
@@ -320,8 +336,24 @@ body[class*=jconfirm-no-scroll-] {
 	-ms-user-select: none;
 	user-select: none;
 	font-size: inherit;
-	font-family: main;
-/*	font-family: inherit;*/
+	/* font-family: main; */
+	/* font-family: inherit; */
+	/* font-family: var(--bs-body-font-family); */
+	font-family: 
+    system-ui,
+    /* // Safari for macOS and iOS (San Francisco) */
+    -apple-system,
+    /* // Windows */
+    "Segoe UI",
+    /* // Android */
+    Roboto,
+    /* // Basic web fallback */
+    "Helvetica Neue", Arial,
+    /* // Linux */
+    "Noto Sans",
+    "Liberation Sans",
+    /* // Sans serif fallback */
+    sans-serif;
 	display: inline-block;
 	vertical-align: middle
 }

@@ -180,7 +180,6 @@ else{ //token isn't set
 
 	<noscript><meta http-equiv="refresh" content="0;url=noscript.php"></noscript> 
 
-	<link rel="stylesheet" type="text/css" href="data/login/vendor/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="data/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="data/login/fonts/iconic/css/material-design-iconic-font.min.css">
 	<link rel="stylesheet" type="text/css" href="data/login/vendor/animate/animate.css">
@@ -189,8 +188,8 @@ else{ //token isn't set
 	<link rel="stylesheet" type="text/css" href="data/login/vendor/select2/select2.min.css">
 	
 	<link rel="stylesheet" type="text/css" href="data/login/vendor/daterangepicker/daterangepicker.css">
-	<link rel="stylesheet" type="text/css" href="data/login/css/util.css">
-	<link rel="stylesheet" type="text/css" href="data/login/css/main.css">
+
+	<link rel="stylesheet" type="text/css" href="data/login/vendor/bootstrap/css/bootstrap.min.css">
 	
 	<script src="data/login/vendor/jquery/jquery-3.2.1.min.js"></script>
 	<!--	Scroll bar  	-->
@@ -200,6 +199,10 @@ else{ //token isn't set
 <!--<link rel="stylesheet" href="data/dialogues/jquery-confirm.min.css">-->
 <link rel="stylesheet" href="data/dialogues/jquery-confirm.min2.css">
 <script src="data/dialogues/jquery-confirm.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="data/login/css/util.css">
+<link rel="stylesheet" type="text/css" href="data/login/css/main.css">
+<link rel="stylesheet" type="text/css" href="data/css/signup.css">
 
 <!--	show dialog   -->
 <script type="text/javascript">
@@ -262,8 +265,6 @@ else{ //token isn't set
     }
 			
 	});
-	
-		
 });
 	
 	<?php }?>
