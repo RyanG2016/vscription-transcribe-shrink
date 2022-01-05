@@ -389,7 +389,7 @@ if (isset($_SESSION["userData"]["profile_id"]) && !empty($_SESSION["userData"]["
                                             <input id="name" class="form-control w-100" name="name_on_card" maxlength="20"
                                                 type="text"
                                                 value="'?><?php echo $_SESSION["fname"] . " " . $_SESSION["lname"] ?><?php echo '"
-                                                autofocus>
+                                                >
                                         </div>
 
                                         <div class="field-container">
