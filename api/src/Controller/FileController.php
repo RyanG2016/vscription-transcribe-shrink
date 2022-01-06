@@ -408,6 +408,9 @@ class FileController
 //            header('Content-Type: application/json');
 //            echo json_encode(array_values($uploadMsg), JSON_FORCE_OBJECT | JSON_PRETTY_PRINT);
             if($newFilesAvailable){
+                if ($_SESSION['userData']['pre_pay'] == 1 && ($_SESSION['userData']['lifetime_minutes'] == 0 || empty($_SESSION['userData']['lifetime_minutes']))) {
+                    $this->mailer->sendEmail(19,$_SESSION['uEmail'], $accName);  
+                }
                 $this->mailer->sendEmail(15,false, $accName);
             }
 
