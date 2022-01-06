@@ -145,8 +145,8 @@ $hasRef = isset($_GET['ref']) && !empty($_GET['ref']);
                         </button>
                 </div>
 
-                <div class="serviceChoiceBtn" id="NSTTServices" title="Choose this to use our speech to text engine to convert your meetings to text within minutes.">
-                        <button class="mdc-button mdc-button--raised mdc-button--leading">
+                <div class="serviceChoiceBtn disabled d-none" id="NSTTServices" title="Choose this to use our speech to text engine to convert your meetings to text within minutes.">
+                        <button class="mdc-button mdc-button--raised mdc-button--leading" disabled>
                             <span class="mdc-button__ripple"></span>
                             <i class="fas fa-comment-alt-lines"></i>
                             <span class="mdc-button__label">NARRATIVE SPEECH TO TEXT SERVICES</span>
