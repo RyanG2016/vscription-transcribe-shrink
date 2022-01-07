@@ -44,8 +44,8 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
 
     <script src="../data/scripts/parts/ping.min.js" type="text/javascript"></script>
     <link href="../data/css/admin_panel.css" rel="stylesheet">
-    <script src="../data/scripts/admin_panel.min.js" type="text/javascript"></script>
-<!--    <script src="../data/scripts/admin_panel.js" type="text/javascript"></script>-->
+    <!-- <script src="../data/scripts/admin_panel.min.js" type="text/javascript"></script> -->
+    <script src="../data/scripts/admin_panel.js" type="text/javascript"></script>
 <!--    <script src="../data/scripts/admin_panel.min.js" type="text/javascript"></script>-->
 
 </head>
@@ -121,19 +121,19 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != "1") {
                                 <img src="../data/images/revai64.png" width="44"/>
                             </th>
                             <th colspan="2" style="vertical-align: middle">
-                                <b> <?php echo $revaiData["email"] ?> </b>
+                                <b> <?php echo !isset($revaiData["email"])??$revaiData["email"] ?> </b>
                             </th>
                         </tr>
 
                         <tr class="vtex-revai-rem">
                             <td></td>
-                            <td><?php echo number_format($revaiData["balance_seconds"]/60); ?></td>
+                            <td><?php echo !isset($revaiData["balance_seconds"])?? number_format($revaiData["balance_seconds"]/60); ?></td>
                             <td><b> mins</b></td>
                         </tr>
                         <tr class="vtex-revai-rem">
                             <td></td>
 
-                            <td><?php echo $revaiData["balance_seconds"] ?></td>
+                            <td><?php echo !isset($revaiData["balance_seconds"])?? $revaiData["balance_seconds"] ?></td>
                             <td><b>secs</b></td>
                         </tr>
 

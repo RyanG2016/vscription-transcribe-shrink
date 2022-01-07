@@ -42,6 +42,7 @@
 body, html {
 	height: 100%;
 	/*font-family: opensans, sans-serif;*/
+  font-family: var(--bs-font-sans-serif);
 }
 
 /*---------------------------------------------*/

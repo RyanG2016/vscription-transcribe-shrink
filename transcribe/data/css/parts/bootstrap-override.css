@@ -47,9 +47,16 @@
  ===============================
  */
 
+ /* This z-index hack needed to be added because of the way the signup page was
+ re-structured */
 .popover-header {
     background-color: var(--vspt-popup-header);
     color: white;
+    z-index: 9999999;
+}
+
+.popover {
+    z-index: 9999999;
 }
 
 
@@ -86,22 +93,25 @@ svg {
 .list-group-item.active {
     z-index: 2;
     color: #fff;
-    background-color: var(--vspt-blue-dark);
-    border-color: var(--vspt-blue-dark);
+    /* background-color: var(--vspt-blue-dark); */
+    background-color: var(--vspt-sidebar-title-bg)!IMPORTANT;
+    /* border-color: var(--vspt-blue-dark); */
+    border-color: var(--vspt-sidebar-title-bg);
 }
 
 .ui-accordion {
     font-size: .9rem !IMPORTANT;
 }
 
-.input-group-text {
+.input-group-text, .form-control {
     font-size: .8rem !IMPORTANT;
 }
 
-.form-control:not(#code),
-.filter-option-inner-inner{
+/* .form-control:not(#code),
+.filter-option-inner-inner {
     font-size: .8rem !IMPORTANT;
-}
+    font-size: 1rem!IMPORTANT;
+} */
 
 .form-control:focus {
     color: #495057;
@@ -111,10 +121,9 @@ svg {
     box-shadow: 0 0 0 0.2rem var(--vspt-blue-30);
 }
 
-
 /* Toast Edits */
 .toast-header{
-    background-color: var(--vspt-dark);
+    background-color: var(--vspt-blue);
     color: white;
     font-weight: 300;
 }

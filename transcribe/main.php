@@ -118,8 +118,8 @@ else {
 
 
     <link rel="stylesheet" href="data/css/main.css?v=2">
-<!--	<script src="data/scripts/main.js?v=10"></script>-->
-	<script src="data/scripts/main.min.js?v=16"></script>
+	<script src="data/scripts/main.min.js?v=11"></script>
+	<!-- <script src="data/scripts/main.min.js?v=16"></script> -->
 
 </head>
 
@@ -141,7 +141,7 @@ else {
 <!---->
 <!--            </div>-->
 
-            <div class="row vspt-title-row no-gutters">
+            <!-- <div class="row vspt-title-row no-gutters">
                 <div class="col align-items-end d-flex">
                     <legend class="page-title mt-auto">
                         <span class="fas fa-list-alt fa-fw mr-3"></span>
@@ -151,7 +151,7 @@ else {
                 <div class="col-auto">
                     <img src="data/images/Logo_vScription_Transcribe.png" width="300px"/>
                 </div>
-            </div>
+            </div> -->
 
             <div class="vtex-card contents">
 

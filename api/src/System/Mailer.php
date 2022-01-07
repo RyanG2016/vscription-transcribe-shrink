@@ -271,15 +271,72 @@ class Mailer
                     $mail->addBCC("sales@vtexvsi.com");
                     break;
 
+                case 18:
+                        /** $extra1 : payment ID */
+    
+                        $mailingListSize = 1;
+    //                    global $pass;
+    //                    $pass = $extra1;
+    
+                        // get models
+                        $payment = Payment::withID($extra1, $this->db);
+                        $user = User::withID($payment->getUserId(), $this->db);
+    
+                        $emHTML = file_get_contents(__DIR__ . '/../../../mail/templates/prepay_ts_receipt.html');
+                        $paymentJson = json_decode($payment->getPaymentJson(), true);
+
+                        $replace_pairs = array(
+                            '{{date}}'    => date("d-M-Y h:m:s a"),
+                            '{{year}}'    => date("Y"),
+                            '{{name}}'    => $user->getFirstName() . " " . $user->getLastName(),
+                            '{{email}}'  => $user->getEmail(),
+                            '{{address}}'=> $user->getAddress() . ", " . $user->getCountry(),
+                            '{{pkgname}}'  => "Transcription Services",
+                            '{{pkgmin}}'   => $paymentJson["pkg_minutes"],
+                            '{{billrate}}' => $this->formatPrice($paymentJson["bill_rate"] ),
+                            '{{subtotal}}'   => $this->formatPrice($paymentJson["pkg_price"] ),
+                            '{{taxes}}'   => $this->generateTaxes($paymentJson["taxes"],$paymentJson["pkg_price"] ),
+                            '{{totalprice}}'   => $this->formatPrice($paymentJson["total_price"]),
+                            '{{ref}}'   => $payment->getRefId(),
+                            '{{card}}'   => $paymentJson["card"],
+                        );
+    
+    
+                        $emHTML = strtr($emHTML, $replace_pairs);
+                        $emPlain = $emHTML;
+    
+                        $sbj = "vScription Transcription Services Purchase Receipt";
+                        $mail->addBCC("sales@vtexvsi.com");
+                        break;
+
+                case 19:
+
+                    $mailingListSize = 1;
+                    $emHTML = file_get_contents(__DIR__ . '/../../../mail/templates/first_job_uploaded.html');
+
+                    $replace_pairs = array(
+                        '{{year}}'    => date("Y"),
+                        '{{organization}}'=> $account_name
+                    );
+
+                    $emHTML = strtr($emHTML, $replace_pairs);
+                    $emPlain = $emHTML;
+
+                    // $email = $user_email;
+
+                    $sbj = "Congratulations on uploading your first audio file!!";
+
+                    $mail->addBCC("sales@vtexvsi.com"); // duplicate do not uncomment
+                    break;
+
                 default:
-                    $sbj = "vScription Transcribe Pro";
+                    $sbj = "vScription Transcribe";
                     break;
             }
 
             if($mailingListSize > 0)
             {
                 if($email) $mail->addAddress($email); //recipient
-//                if($email) $mail->addAddress($email); //recipient
                 $mail->Subject = $sbj;
                 $mail->Body = $emHTML;
                 $mail->AltBody = $emPlain;

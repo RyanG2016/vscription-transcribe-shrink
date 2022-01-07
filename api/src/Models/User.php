@@ -34,7 +34,6 @@ class User extends BaseModel implements BaseModelInterface
                                 public int $account_status = 5,
                                 public int $account = 0,
                                 public int $typist = 0,
-
                                 private $db = null
     )
     {
@@ -179,7 +178,32 @@ class User extends BaseModel implements BaseModelInterface
     {
         $this->first_name = $first_name;
     }
+    public function setCardNumber(string $card_number): void
+    {
+        $this->card_number = $card_number;
+    }
+    public function getCardNumber(): ?string
+    {
+        return $this->card_number;
+    }
 
+    public function setExpirationDate(string $expiration_date): void
+    {
+        $this->expiration_date = $expiration_date;
+    }
+    public function getExpirationDate(): ?string
+    {
+        return $this->expiration_date;
+    }
+
+    public function setSecurityCode(string $security_code): void
+    {
+        $this->security_code = $security_code;
+    }
+     public function getSecurityCode(): ?string
+    {
+        return $this->security_code;
+    }
     /**
      * @return string
      */
@@ -362,21 +386,11 @@ class User extends BaseModel implements BaseModelInterface
 
             $this->state = $row['state'];
             $this->address = $row['address'];
-//            $this->registeration_date = $row['registeration_date'];
-//            $this->last_ip_address = $row['last_ip_address'];
             $this->typist = $row['typist'];
             $this->account_status = $row['account_status'];
-//            $this->last_login = $row['last_login'];
-//            $this->trials = $row['trials'];
-//            $this->unlock_time = $row['unlock_time'];
             $this->newsletter = $row['newsletter'];
-//            $this->def_access_id = $row['def_access_id'];
-//            $this->shortcuts = $row['shortcuts'];
-//            $this->dictionary = $row['dictionary'];
             $this->email_notification = $row['email_notification'];
-//            $this->enabled = $row['enabled'];
             $this->account = $row['account'];
-//            $this->tutorials = $row['tutorials'];
         }
     }
 

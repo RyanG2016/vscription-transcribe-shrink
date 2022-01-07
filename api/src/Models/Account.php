@@ -50,7 +50,7 @@ class Account extends BaseModel implements BaseModelInterface
         private ?int $bill_rate5_tat = 0,
         private ?string $bill_rate5_desc = '',
         private ?float $bill_rate5_min_pay = 0,
-        private ?int $lifetime_minutes = 0,
+        private ?float $lifetime_minutes = 0,
         private ?string $work_types = '',
         private int $next_job_tally = 0,
         private int $act_log_retention_time = 180,
@@ -59,6 +59,10 @@ class Account extends BaseModel implements BaseModelInterface
         private int $trial = 0,
         private int $auto_list_refresh_interval = 0,
         private string $transcribe_remarks = '',
+        private float $comp_mins = 0,
+        private ?string $profile_id = '',
+        private ?string $payment_id = '',
+
 
         private $db = null
     )
@@ -220,7 +224,10 @@ class Account extends BaseModel implements BaseModelInterface
             $this->bill_rate5_tat = $row['bill_rate5_tat'];
             $this->bill_rate5_desc = $row['bill_rate5_desc'];
             $this->bill_rate5_min_pay = $row['bill_rate5_min_pay'];
+            $this->comp_mins = $row['comp_mins'];
             $this->lifetime_minutes = $row['lifetime_minutes'];
+            $this->profile_id = $row['profile_id'];
+            $this->payment_id = $row['payment_id'];
             $this->work_types = $row['work_types'];
             $this->next_job_tally = $row['next_job_tally'];
             $this->act_log_retention_time = $row['act_log_retention_time'];
@@ -725,7 +732,7 @@ class Account extends BaseModel implements BaseModelInterface
     /**
      * @return int|null
      */
-    public function getLifetimeMinutes(): ?int
+    public function getLifetimeMinutes(): ?float
     {
         return $this->lifetime_minutes;
     }
@@ -733,7 +740,7 @@ class Account extends BaseModel implements BaseModelInterface
     /**
      * @param int|null $lifetime_minutes
      */
-    public function setLifetimeMinutes(?int $lifetime_minutes): void
+    public function setLifetimeMinutes(?float $lifetime_minutes): void
     {
         $this->lifetime_minutes = $lifetime_minutes;
     }
@@ -835,5 +842,38 @@ class Account extends BaseModel implements BaseModelInterface
     {
         $this->sr_enabled = $sr_enabled;
     }
+    /**
+     * @return float
+     */
+    public function getCompMins(): float
+    {
+        return $this->comp_mins;
+    }
 
+    /**
+     * @param int $comp_mins
+     */
+    public function setCompMins(float $comp_mins): void
+    {
+        $this->comp_mins = $comp_mins;
+    }
+    public function getProfileId(): ?string
+    {
+        return $this->profile_id;
+    }
+
+    public function setProfileId(string $profile_id): void
+    {
+        $this->profile_id = $profile_id;
+    }
+
+    public function getPaymentId(): ?string
+    {   
+        return $this->payment_id;
+    }
+
+    public function setPaymentId(string $payment_id): void
+    {
+        $this->payment_id = $payment_id;
+    }
 }

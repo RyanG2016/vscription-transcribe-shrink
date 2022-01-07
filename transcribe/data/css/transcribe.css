@@ -7,6 +7,23 @@
 @import "parts/vtex-custom-styles.css";
 @import "parts/global.css";
 
+body {
+    font-family: 
+    system-ui,
+    /* // Safari for macOS and iOS (San Francisco) */
+    -apple-system,
+    /* // Windows */
+    "Segoe UI",
+    /* // Android */
+    Roboto,
+    /* // Basic web fallback */
+    "Helvetica Neue", Arial,
+    /* // Linux */
+    "Noto Sans",
+    "Liberation Sans",
+    /* // Sans serif fallback */
+    sans-serif;
+}
 /* Modal loading edits */
 #modalLoading .modal-content h2 {
     text-align: center;
@@ -84,7 +101,7 @@
 #tip {
     font-size: 0.9em;
 
-    font-family: main, sans-serif !important;
+    /* font-family: main, sans-serif !important; */
     display: inline;
     /*white-space: nowrap;*/
 }
@@ -134,12 +151,12 @@
     width: 150px !important;
     padding: 6px !important;
     font-size: 15px !important;
-    font-family: main, sans-serif !important;
+    /* font-family: main, sans-serif !important; */
 }
 
-legend, h3, button {
+/* legend, h3, button {
     font-family: main, sans-serif !important;
-}
+} */
 
 .noHover {
     pointer-events: none;
@@ -151,7 +168,7 @@ legend, h3, button {
 
 #help {
     color: #2dace1;
-    font-family: main-l, sans-serif;
+    /* font-family: main-l, sans-serif; */
 }
 
 .top-links a:link {
@@ -161,7 +178,7 @@ legend, h3, button {
 /* visited link */
 .top-links a:visited {
     color: #2dace1;
-    font-family: main-l, sans-serif;
+    /* font-family: main-l, sans-serif; */
 }
 
 /* mouse over link */
@@ -185,7 +202,7 @@ table, th, td {
     background: #f5862c;
     text-align: center;
     vertical-align: center;
-    font-family: main, sans-serif;
+    /* font-family: main, sans-serif; */
     color: white;
 }
 
@@ -314,7 +331,7 @@ table, th, td {
     outline: none;
     resize: none;
     border-color: Transparent !important;
-    font-family: main, sans-serif !important;
+    /* font-family: main, sans-serif !important; */
     font-size: 0.875rem;
     vertical-align: center;
 }
@@ -328,7 +345,7 @@ table, th, td {
 }
 
 .controller-status {
-    font-family: main, sans-serif;
+    /* font-family: main, sans-serif; */
     margin-right: 15px;
     vertical-align: bottom;
     color: #f78d2d;
@@ -370,7 +387,7 @@ select.form-control,
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
-    font-family: main, sans-serif;
+    /* font-family: main, sans-serif; */
 }
 /*
 
@@ -627,7 +644,7 @@ td > sup{
 
 .tooltipster-content {
     border-radius: 5px;
-	font-family: main, sans-serif;
+	/* font-family: main, sans-serif; */
 	font-size: 14px;
 	line-height: 16px;
 	padding: 8px 10px!IMPORTANT;

@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '8390ccc51bb1d1934f952b207548a186a281069c',
+    'reference' => 'df1f73dfca8602f8d85df4aca27a8ae7c04cf2b6',
     'name' => 'transcribe/src',
   ),
   'versions' => 
@@ -206,12 +206,12 @@ private static $installed = array (
     ),
     'robmorgan/phinx' => 
     array (
-      'pretty_version' => '0.12.8',
-      'version' => '0.12.8.0',
+      'pretty_version' => '0.12.9',
+      'version' => '0.12.9.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'd2ed1b452cc90f4cae4ea6b5976b94fb9e5ed2a2',
+      'reference' => '5a0146a74c1bc195d1f5da86afa3b68badf7d90e',
     ),
     'symfony/config' => 
     array (
@@ -310,7 +310,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '8390ccc51bb1d1934f952b207548a186a281069c',
+      'reference' => 'df1f73dfca8602f8d85df4aca27a8ae7c04cf2b6',
     ),
     'vlucas/phpdotenv' => 
     array (
