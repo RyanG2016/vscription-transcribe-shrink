@@ -110,7 +110,7 @@ isset($_SESSION['uEmail'])?$uEmail = $_SESSION['uEmail']:$uEmail = "";
 						<img src="data/images/Logo_vScription_Transcribe_Stacked.png" style="height: 110px" />
 					</span>
 					<span id="copyright">
-						Copyright @2021
+						Copyright @2022
 					</span>
 
 			 </div>

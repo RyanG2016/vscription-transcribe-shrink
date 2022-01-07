@@ -22,7 +22,7 @@ final class UploadBillingMods extends AbstractMigration
         $accountTable = $this->table('accounts');
         if($accountTable->getColumn("pre_pay") == null)
         {
-            $accountTable->addColumn("pre_pay", 'boolean', ['null'=>false, 'limit'=>1, 'default'=>0, 'after'=>'bill_rate5_min_pay'])->update();
+            $accountTable->addColumn("pre_pay", 'boolean', ['null'=>false, 'limit'=>0, 'default'=>1, 'after'=>'bill_rate5_min_pay'])->update();
         }
         if($accountTable->getColumn("comp_mins") == null)
         {
@@ -38,7 +38,8 @@ final class UploadBillingMods extends AbstractMigration
         }
         if($accountTable->getColumn("lifetime_minutes") != null)
         {        
-            $accountTable->changeColumn('lifetime_minutes', 'float' , ['null'=>true, 'default'=>0.00, 'precision'=>'10','scale'=>'2'])->update();
+            $accountTable->removeColumn('lifetime_minutes')->save();
+            $accountTable->addColumn('lifetime_minutes', 'float' , ['null'=>true, 'default'=>0.00, 'precision'=>'10','scale'=>'2','after'=>'promo'])->update();
         }
         if($accountTable->getColumn("profile_id") == null)
         {        

@@ -213,7 +213,7 @@ $hasRef = isset($_GET['ref']) && !empty($_GET['ref']);
                              alt="vScription"/>
                     </span>
                     <span id="copyright">
-						Copyright @2021
+						Copyright @2022
 					</span>
                     <!-- <span id="title" class="login100-form-title p-b-26">
                         Signup
