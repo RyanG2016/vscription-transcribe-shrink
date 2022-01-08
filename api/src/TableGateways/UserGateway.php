@@ -195,6 +195,49 @@ class UserGateway implements GatewayInterface
         }
     }
 
+        /**
+     * Retrieves a single typist email to be assigned to a new account
+     * Returns typist UID
+     * @return mixed
+     */
+    public function getRandomTypist()
+    {
+        $statement = "
+        SELECT id,email,first_name,last_name
+        FROM users
+        WHERE typist = 1 
+                AND enabled = 1 
+                AND account_status = 1
+                AND email_notification = 1
+                AND last_login >= DATE(NOW()) - INTERVAL 5 DAY
+                ORDER BY RAND()
+                LIMIT 1;
+        ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute();
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            if (isset($_GET['dt'])) {
+                $json_data = array(
+                    "count"    => $statement->rowCount(),
+                    "data" => $result
+                );
+                //        $response['body'] = json_encode($result);
+                $result = $json_data;
+            }
+            // The code below works but it is easier to randomize the query results and return one record;
+            // if ($result['count'] > 1) {
+            //     $winner = $result['data'][mt_rand(0, count($result['data'])-1)]['email'];
+            // }
+            return $result[0]['id'];
+        } catch (\PDOException $e) {
+//            exit($e->getMessage());
+            return false;
+        }
+    }
+
+
     /**
      * [Mail] [Mailing List] Retrieves current logged in Client Account's typists emails for mailing list for job updates
      * @return mixed
