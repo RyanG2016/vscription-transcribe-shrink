@@ -423,7 +423,7 @@ $(document).ready(function(){
     }
 
     function setActiveMenuItem() {
-        console.log(`Sidebar cookie value: ${getCookie("sidebar_collapsed")}`);
+        // console.log(`Sidebar cookie value: ${getCookie("sidebar_collapsed")}`);
         if (getCookie("sidebar_collapsed") == "true") {
             SidebarCollapse();
         }
