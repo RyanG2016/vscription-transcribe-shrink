@@ -52,6 +52,7 @@ $(document).ready(function () {
 			});
 
 			$('.view-icon').click(function() {
+				console.log(`We received a click event for the view icon`);
 				let file_id = $(this).parent().parent().attr('id');
 				view(file_id);
 			});
@@ -71,21 +72,12 @@ $(document).ready(function () {
 			});
 		}
 	} );
+
 	$.fn.dataTable.ext.errMode = 'none';
 	jobsDTRef = jobsDT.DataTable( {
 		rowId: 'file_id',
 		"ajax": 'api/v1/files?dt',
 		"processing": true,
-		// dom: 'Bfrtip',
-		// buttons: [
-		// 	{
-		// 		text: 'My button',
-		// 		action: function ( e, dt, node, config ) {
-		// 			alert( 'Button activated' );
-		// 		}
-		// 	}
-		// ],
-
 		responsive: true,
 		lengthChange: false,
 		pageLength: maximum_rows_per_page_jobs_list,
@@ -305,10 +297,9 @@ $(document).ready(function () {
 	} );
 
 	refreshJobList.addEventListener('click', e => {
-		// totalDur = 0;
 		jobsDTRef.ajax.reload(dtTableReloadCallback);
-		$("#tjd").html("Total Jobs Length: " + new Date(totalDur * 1000).toISOString().substr(11, 8));
-		$("#cbm").html("Current Backlog Minutes: " + new Date(totalTrDur * 1000).toISOString().substr(11, 8));
+		// $("#tjd").html("Total Jobs Length: " + new Date(totalDur * 1000).toISOString().substr(11, 8));
+		// $("#cbm").html("Current Backlog Minutes: " + new Date(totalTrDur * 1000).toISOString().substr(11, 8));
 	});
 
 	$("#showCompBtn").on('click', function() {
@@ -329,7 +320,6 @@ $(document).ready(function () {
 	} )
 
 	jobsDT.on( 'draw.dt search.dt', function () {
-
 		$('.download-icon').click(function () {
 			let file_id = $(this).parent().parent().attr('id');
 			download(file_id);
@@ -358,8 +348,8 @@ $(document).ready(function () {
 			});
 		}	// calculate total jobs duration
 		if (tutorialStarted = false) {
-			$("#tjd").html("Total Jobs Length: " + new Date(totalDur * 1000).toISOString().substr(11, 8));
-			$("#cbm").html("Current Backlog Minutes: " + new Date(totalTrDur * 1000).toISOString().substr(11, 8));
+			// $("#tjd").html("Total Jobs Length: " + new Date(totalDur * 1000).toISOString().substr(11, 8));
+			// $("#cbm").html("Current Backlog Minutes: " + new Date(totalTrDur * 1000).toISOString().substr(11, 8));
 		}
 		}
 		);
@@ -510,8 +500,8 @@ $(document).ready(function () {
 				data: convertToSearchParam(formData)
 			});
 			jobsDTRef.ajax.reload(dtTableReloadCallback);
-			$("#tjd").html("Total Jobs Length: " + new Date(totalDur * 1000).toISOString().substr(11, 8));
-			$("#cbm").html("Current Backlog Minutes: " + new Date(totalTrDur * 1000).toISOString().substr(11, 8));			
+			// $("#tjd").html("Total Jobs Length: " + new Date(totalDur * 1000).toISOString().substr(11, 8));
+			// $("#cbm").html("Current Backlog Minutes: " + new Date(totalTrDur * 1000).toISOString().substr(11, 8));			
 		}
 });
 
@@ -550,7 +540,7 @@ function view(fileID){
 		reqcode: 17,
 		args: JSON.stringify(a1)
 	}).done(function (data) {
-
+		console.log(`We have returned from the backend_request call. We will open the view window and call the view.php`);
 		// redirect to download with the generated hash
 		var win = window.open('./view.php?down='+data.toString(), 'popUpWindow',
 			'height=800,width=750,left=100,top=100,resizable=yes,' +
@@ -622,7 +612,7 @@ function getAutoListRefreshInterval(handleData) {
 }
 
 function startRefreshTimer() {
-	console.log("starting timer");
+	// console.log("starting timer");
 	var ping = setInterval(function () {
 
 		$.get( "/api/v1/session-info", function() {
@@ -633,8 +623,8 @@ function startRefreshTimer() {
 				if(response.logged_in)
 				{
 					jobsDTRef.ajax.reload(dtTableReloadCallback);
-					$("#tjd").html("Total Jobs Length: " + new Date(totalDur * 1000).toISOString().substr(11, 8));
-					$("#cbm").html("Current Backlog Minutes: " + new Date(totalTrDur * 1000).toISOString().substr(11, 8));
+					// $("#tjd").html("Total Jobs Length: " + new Date(totalDur * 1000).toISOString().substr(11, 8));
+					// $("#cbm").html("Current Backlog Minutes: " + new Date(totalTrDur * 1000).toISOString().substr(11, 8));
 				}else{
 					clearInterval(ping);
 					$.confirm({
@@ -663,6 +653,8 @@ function startRefreshTimer() {
 }
 
 function dtTableReloadCallback() {
+	var totalMinutes = 0;
+	var totalBacklog = 0;
 	// reload custom filters
 	jobsDTRef.columns([1, 2, 6]).every(
 		function () {
@@ -682,6 +674,19 @@ function dtTableReloadCallback() {
 			column.data().unique().sort().each(function (d, j) {
 				select.append('<option value="' + d + '">' + d + '</option>')
 			});
+		}
+	);
+
+	// Refresh Backlog and Total Minutes Totals
+	jobsDTRef.rows().every(
+		function (data, type, row) {
+			var row = this.data();
+			totalMinutes += parseInt(row["audio_length"]);
+			if (row["file_status"] == 1 || row["file_status"] == 2 || row["file_status"] == 0) {
+				totalBacklog += parseInt(row["audio_length"]);
+			}
+			$("#tjd").html("Total Jobs Length: " + new Date(parseInt(totalMinutes) * 1000).toISOString().substr(11, 8));
+			$("#cbm").html("Current Backlog Minutes: " + new Date(totalBacklog * 1000).toISOString().substr(11, 8));
 		}
 	);
 
