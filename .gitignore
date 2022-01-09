@@ -14,15 +14,15 @@ transcribe/workingTemp/*
 transcribe/sr/*
 *.pem
 /deletedUploads/*
-/api/phinx/phinx.php
+api/phinx/phinx.php
 gaTrackingCode.php
-mail_init.php
-mail_init.php_gmail
 
-/api/.env
+
+api/.env
+api/config.json
 /uploads/
 /convert.log
-/api/src/Controller/conversionCron.php
+api/src/Controller/conversionCron.php
 /logs/*
 revai-receive.log
 revai.log
@@ -34,6 +34,7 @@ revai.log
 /uploads.LARGEDATA/*
 /sql_maintanence/*
 mail/mail_init.php
+mail/mail_init.php_gmail
 
 # transcribe
 transcribe/.vs/*
@@ -50,6 +51,4 @@ transcribe/data/libs/closure-compiler-v20200614.jar
 
 /transcribe/data/parts/error_log
 /transcribe/main_scratch.php
-
-
 
