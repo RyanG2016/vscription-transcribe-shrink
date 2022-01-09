@@ -1,3 +1,4 @@
+.gitignore
 .gradle
 #.htaccess
 /local.properties
@@ -12,6 +13,7 @@ main_scratch.php
 test*
 transcribe/workingTemp/*
 transcribe/sr/*
+transcribe/data/scripts/*.js
 *.pem
 /deletedUploads/*
 api/phinx/phinx.php
