@@ -26,6 +26,7 @@ if ($stmt3 = mysqli_prepare($con, $sql3)) {
     if (mysqli_stmt_execute($stmt3)) {
         $result = mysqli_stmt_get_result($stmt3);
         // Check number of rows in the result set
+        error_log("When querying the downloads hash table, we found " . mysqli_num_rows($result) . " rows");
         if (mysqli_num_rows($result) == 1) {
             /** PERMISSION OK HASH OK - NOT EXPIRED */
 
@@ -33,13 +34,15 @@ if ($stmt3 = mysqli_prepare($con, $sql3)) {
             $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
             $file_id = $row['file_id'];
             $acc_id = $row['acc_id'];
-
+            error_log("We have checked the downloads table for a matching entry using " . $file_id . " and " . $acc_id);
             /** check if the current user acc_id match */
             if ($acc_id == $_SESSION['accID']) {
+                error_log("We have a match so we are updating the download date");
 //                /** Update download/view statistics */
                 updateInitDownloadDate($con, $file_id, $acc_id);
 
                 /** set download link as expired */
+                error_log("We have a match so we are expiring the download link");
                 expireDownloadLink($con, $file_id, $acc_id);
 
                 /** get file data to prepare for download */
@@ -47,12 +50,14 @@ if ($stmt3 = mysqli_prepare($con, $sql3)) {
 
             } else {
                 /** PERMISSION DENIED ACCOUNT ID DOESN'T MATCH */
+                error_log("This accessdenied was triggered by acc_id not matching session acc_id " . $acc_id . " SESS: " . $_SESSION['acc_id'], 0);
                 header("Location: accessdenied.php");
             }
 
 
         } else {
             /** PERMISSION DENIED ACCOUNT ID DOESN'T MATCH */
+            error_log("This accessdenied was triggered by either the hash is no good or the download expired " . $acc_id . " SESS: " . $_SESSION['acc_id'], 0);
             header("Location: accessdenied.php");
             return false;
 
@@ -209,12 +214,6 @@ function viewFile($con, $fileID, $accID)
 //                    $filename = $row['job_id'];
 
                     echo generateHTMLReport($row["job_document_html"], $row);
-
-//                    header('Content-Disposition: attachment; filename="' . $filename . '.rtf"');
-//                    header('Content-Type: text/plain'); # Don't use application/force-download - it's not a real MIME type, and the Content-Disposition header is sufficient
-//                    header('Content-Length: ' . strlen($rtf));
-//                    header('Connection: close');
-//                    echo $rtf;
                 }
             }
         } else {
@@ -225,43 +224,6 @@ function viewFile($con, $fileID, $accID)
     }
 }
 
-//
-///**
-// * Converts HTML to RTF
-// * @param $report string html report text
-// * @return string RTF data
-// */
-//function convertHTMLToRTF($report)
-//{
-//
-////    $report = generateHTMLReport($html, $row);
-////    file_put_contents($tmpHtmlFile , html_entity_decode($html, ENT_QUOTES));
-////    $tmpHtmlFile = "test/" . $row["job_id"] . ".html";
-//    $outputDir = realpath(__DIR__."/convertTmp/");
-//    // Convert HTML to RTF
-//    $converter = new Converter("soffice", $outputDir);
-//    // $converter->setLogger(new Logger());
-//    // Describe parameters for converter
-//
-//    $parameters = (new LowrapperParameters())
-//        ->setInputData(html_entity_decode($report, ENT_QUOTES))
-////        ->setOutputFile(realpath(__DIR__."/test/".'outputResultMan.docx'))
-////        ->setOutputFile( $outputDir."\\output.docx" )
-//        ->setOutputFormat(Format::TEXT_RTF);
-//
-//
-//    // Run converter
-//    try {
-//        $result = $converter->convert($parameters);
-//    } catch (\Mnvx\Lowrapper\LowrapperException $e) {
-////        echo $e;
-//        $result = "Error occurred while generating file, please try again or contact system admin.";
-//    }
-//
-////    $htmlToRtfConverter = new HtmlToRtf\HtmlToRtf($report);
-////    return trim($htmlToRtfConverter->getRTF());
-//    return $result;
-//}
 
 /**
  * Generates RTF text from HTML
