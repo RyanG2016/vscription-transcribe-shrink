@@ -42,7 +42,7 @@ transcribe/.idea/*
 
 transcribe/data/parts/config.php
 transcribe/data/parts/constants.php
-transcribe/data/script/parts/constants.js
+transcribe/data/scripts/parts/constants.js
 transcribe/data/libs/node_modules/uglify-js/
 transcribe/data/libs/node_modules/.bin/
 transcribe/data/libs/node_modules/commander/
