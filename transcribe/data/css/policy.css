@@ -12,13 +12,13 @@
 
 body, html {
     height: 100%;
-    font-family: main, sans-serif;
+    font-family:var(--bs-font-sans-serif );
 }
 
 /*---------------------------------------------*/
 a {
-    font-family: main, sans-serif;
-    font-size: 14px;
+    font-family: var(--bs-font-sans-serif);
+    font-size: 1rem!important;
     line-height: 1.7;
     color: #ec922f;
     /*	color: #666666;*/
@@ -42,27 +42,31 @@ a:hover {
 h1, h2, h3, h4, h5, h6 {
     margin: 0px;
     margin-top: 26px !IMPORTANT;
-    margin-bottom: 11px !IMPORTANT;
-    line-height: 1.4rem;
+    margin-bottom: 10px !IMPORTANT;
+    line-height: 1.2rem;
 }
 
 .h1, h1 {
-    font-size: 1.7rem;
+    font-size: 1.5rem!important;
 
 }
 .h2, h2 {
-    font-size: 1.2rem;
+    font-size: 1.3rem!important;
+}
+
+.h3, h3 {
+    font-size: 1.1rem!important;
 }
 p {
-    font-family: main, opensans;
-    font-size: 14px;
+    font-family: var(--bs-font-sans-serif);
+    font-size: 1rem!important;
     line-height: 1.7;
     /*	color: #666666;*/
     margin: 0;
 }
 
 .li, li {
-    font-size: 14px !IMPORTANT;
+    font-size: 1rem !IMPORTANT;
 }
 
 
@@ -125,7 +129,7 @@ p {
 
 .login100-form-title {
     display: block;
-    font-family: main-l, sans-serif;
+    font-family: var(--bs-font-sans-serif);
     font-size: 30px;
     color: #545454;
     line-height: 1.2;

@@ -537,6 +537,17 @@ class AccountGateway implements GatewayInterface
                         // give system admin access
                         (new Access(acc_id: $accountID, uid: ENV::ADMIN_UID, username: User::withID(ENV::ADMIN_UID, $this->db)->getEmail(), acc_role: 1, db: $this->db))->save();
 
+                        // If this is a transcription services account, Find a typist for the account
+                        if ($account->getSubscriptionType() == 2) {
+                            $typistToAssign = $this->userGateway->getRandomTypist();
+                            error_log("Typist found is " . $typistToAssign);
+                            if (!empty($typistToAssign)) {
+                                (new Access(acc_id: $accountID, uid: $typistToAssign, username: User::withID($typistToAssign, $this->db)->getEmail(), acc_role: 3, db: $this->db))->save();
+                            } else {
+                                error_log("No typist found to assign");
+                            }
+                        }
+ 
                         return $this->oKResponse($accountID, "Account Created");
                     }
                 }

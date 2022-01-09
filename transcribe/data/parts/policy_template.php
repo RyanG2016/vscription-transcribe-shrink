@@ -1,11 +1,11 @@
 <!--<!doctype html>-->
 <!--<h1>Privacy Policy</h1>-->
 
-<p class="text-left">Last updated: January 12, 2021</p>
+<p class="text-left">Last updated: January 7, 2022</p>
 <br/>
-<p class="text-center">This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You.</p>
+<p class="text-left">This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You.</p>
 
-<p class="text-center">We use Your Personal data to provide and improve the Service. By using the Service, You agree to the collection and use of information in accordance with this Privacy Policy.</p>
+<p class="text-left">We use Your Personal data to provide and improve the Service. By using the Service, You agree to the collection and use of information in accordance with this Privacy Policy.</p>
 <br/>
 <h1 class="text-center">Interpretation and Definitions</h1>
 <br/>
@@ -24,7 +24,7 @@
 	</li>
 	<li><strong>Affiliate</strong> means an entity that controls, is controlled by or is under common control with a party, where "control" means ownership of 50% or more of the shares, equity interest or other securities entitled to vote for election of directors or other managing authority.</li>
 	<li><strong>Account</strong> means a unique account created for You to access our Service or parts of our Service.</li>
-	<li><strong>Website</strong> refers to vScription Transcribe Pro, accessible from <a href="https://www.vscription.com">https://www.vscription.com</a> </li>
+	<li><strong>Website</strong> refers to vScription Transcribe Pro, accessible from <a href="https://pro.vscription.com">https://pro.vscription.com</a> </li>
 	<li><strong>Service</strong> refers to the Website.</li>
 	<li><strong>Country</strong> refers to: Manitoba, Canada</li>
 	<li>
@@ -117,7 +117,7 @@
 
 <br/>
 <h2>Retention of Your Personal Data</h2>
-<p>The Company will retain Your Personal Data only for as long as is necessary for the purposes set out in this Privacy Policy. We will retain and use Your Personal Data to the extent necessary to comply with our legal obligations (for example, if we are required to retain your data to comply with applicable laws), resolve disputes, and enforce our legal agreements and policies. Audio and Transcribed data are retained for the amount of time specified by the client. Default retention time is 30 days from the date of the first download or a transcribed file. Audit logs are retained for a period of 180 days unless requested otherwise by the client.</p>
+<p>The Company will retain Your Personal Data only for as long as is necessary for the purposes set out in this Privacy Policy. We will retain and use Your Personal Data to the extent necessary to comply with our legal obligations (for example, if we are required to retain your data to comply with applicable laws), resolve disputes, and enforce our legal agreements and policies. Audio and Transcribed data are retained for the amount of time specified by the client. Default retention time is 14 days from the date of the first download or a transcribed file. Audit logs are retained for a period of 180 days unless requested otherwise by the client.</p>
 <p>The Company will also retain Usage Data for internal analysis purposes. Usage Data is generally retained for a shorter period of time, except when this data is used to strengthen the security or to improve the functionality of Our Service, or We are legally obligated to retain this data for longer time periods.</p>
 
 <br/>
@@ -199,5 +199,5 @@
 <br/>
 <p>If you have any questions about this Privacy Policy, You can contact us:</p>
 <ul>
-        <li>By email: privacy@vtexvsi.com</li>
+        <li>By email: privacy(at)vtexvsi.com</li>
         </ul>

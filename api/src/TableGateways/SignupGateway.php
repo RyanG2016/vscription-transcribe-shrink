@@ -189,6 +189,7 @@ class SignupGateway
 
                         return generateApiHeaderResponse("Signup Successful."
                             ."<br>We have sent an email to ".$email.",<br>please click the link provided to verify your email address or copy the verification code and paste into the next page.".
+                            "<br>If you don't receive the email, make sure to check your spam or junk folder. " .
                               " <br><br>Invitation for ". Account::withID($accID, $this->db)->getAccName() ." accepted.",
                             false,
                             array("id"=>$lastInsertedUID));
@@ -196,13 +197,15 @@ class SignupGateway
                         // token not found or expired
                         return generateApiHeaderResponse("<br>Signup Successful."
                         ."<br>We have sent an email to ".$email.",<br>please click the link provided to verify your email address.".
+                        "<br>If you don't receive the email, make sure to check your spam or junk folder. " .
                         "<br><br>couldn't accept invitation (Invalid or Expired token)",
                             false,
                             array("id"=>$lastInsertedUID));
                     }
                 }
                 return generateApiHeaderResponse("Signup Successful."
-                    ."<br>We have sent an email to ".$email.",<br>please click the link provided to verify your email address.",
+                    ."<br>We have sent an email to ".$email.",<br>please click the link provided to verify your email address." .
+                    "<br>If you don't receive the email, make sure to check your spam or junk folder. ",
                     false,
                     array("id"=>$lastInsertedUID));
             }else{

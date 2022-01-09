@@ -34,7 +34,7 @@
 					</span>
 					<span id="title" class="denied100-form-title p-b-26">
 						<h1>ACCESS DENIED</h1>
-						<p>You don't have access to that page. Contact your system administrator.</p>
+						<p>You don't have access to that page or an error occurred. Please try again and if the issue continues, contact your system administrator or support.</p>
 					</span>
 				<div class="text-right p-t-10" id="back">
 					<a class="txt3" href="index.php" id="btmtxt2" target="_blank">

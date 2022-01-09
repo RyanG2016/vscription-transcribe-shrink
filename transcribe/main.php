@@ -118,7 +118,7 @@ else {
 
 
     <link rel="stylesheet" href="data/css/main.css?v=2">
-	<script src="data/scripts/main.min.js?v=11"></script>
+	<script src="data/scripts/main.js?v=12"></script>
 	<!-- <script src="data/scripts/main.min.js?v=16"></script> -->
 
 </head>

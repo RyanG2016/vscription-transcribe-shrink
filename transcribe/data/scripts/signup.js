@@ -754,10 +754,13 @@ $(document).ready(function () {
             chooseSignUpModal.modal('hide');
         });
     NSTTServices.on("click", function (e) {
-        $('.signup_heaing_new_design9879').text("Narrative Speech To Text Services Signup");
-            termsLink.attr('href', "/terms.php");
-            signupType = 3;
-            chooseSignUpModal.modal('hide');
+        if ($(this).hasClass('disabled')) {
+            return false;
+        }
+            $('.signup_heaing_new_design9879').text("Narrative Speech To Text Services Signup");
+                termsLink.attr('href', "/terms.php");
+                signupType = 3;
+                chooseSignUpModal.modal('hide');
         });
 
 

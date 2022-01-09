@@ -169,7 +169,7 @@ class Mailer
                     $emHTML = strtr($emHTML, $replace_pairs);
                     $emPlain = $emHTML;
 
-                    $sbj = "New Document(s) Ready for Download";
+                    $sbj = "New Transcribed Report(s) Ready for Download";
                     $mail->addBCC("sales@vtexvsi.com"); // duplicate do not uncomment
                     $emailsArray = $this->mailingGateway->getClientAccAdminsEmailForJobUpdates();
                     $mailingListSize = sizeof($emailsArray);
