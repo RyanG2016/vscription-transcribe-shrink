@@ -42,6 +42,8 @@ class SessionInfoController {
                 "role" => $_SESSION["role"],
                 "account_id" => isset($_SESSION["accID"])?$_SESSION["accID"]:0,
                 "sr_enabled" => isset($_SESSION["sr_enabled"])?$_SESSION["sr_enabled"]:0,
+                "pre_pay" => $_SESSION["userData"]["pre_pay"],
+                "bill_rate1" => $_SESSION["userData"]["bill_rate1"],
                 "logged_in" => true
 
             )
