@@ -47,7 +47,7 @@ $(document).ready(function () {
 
     // > payment
     var expCheck = false;
-    var nameCheck = true;
+    var nameCheck = false;
     var cvvCheck = false;
     var zipCheck = false;
     var cardCheck = false;
