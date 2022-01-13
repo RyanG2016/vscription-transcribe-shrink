@@ -117,8 +117,8 @@ if (isset($_SESSION["userData"]["profile_id"]) && !empty($_SESSION["userData"]["
 
     <script src="data/scripts/parts/ping.min.js" type="text/javascript"></script>
 
-    <link href="data/css/payment.css?v=2" rel="stylesheet">
-    <script src="data/scripts/prepayment.min.js?v=4" type="text/javascript"></script>
+    <link href="data/css/payment.css?v=3" rel="stylesheet">
+    <script src="data/scripts/prepayment.min.js?v=5" type="text/javascript"></script>
 
 </head>
 
@@ -207,9 +207,9 @@ if (isset($_SESSION["userData"]["profile_id"]) && !empty($_SESSION["userData"]["
                             <hr>
 -->
                             <div class="row no-gutters m-b-7"><b><?php if (!empty($_SESSION["userData"]["profile_id"])) {
-                                    echo '<span>Saved Payment Details<p class="manage_cards_link" style="font-weight:100;font-size: 10px;">manage saved cards</p></span>';
+                                    echo '<span><h5 class="pt-2">Saved Payment Details</h4><p class="manage_cards_link" style="font-weight:100;font-size: 10px;">manage saved cards</p></span>';
                                 }else{
-                                    echo 'Payment Details';
+                                    echo '<h5 class="pt-2">Payment Details</h5>';
                                 }
                                 ?>
                                     </b></div>
@@ -384,7 +384,7 @@ if (isset($_SESSION["userData"]["profile_id"]) && !empty($_SESSION["userData"]["
                                     <div class="row no-gutters">
                                     <div class="col pl-3 pr-3 pb-0 border-left form-container">
                                         <div class="field-container first">
-                                            <label for="name" class="form-label">Name on card</label>
+                                            <label for="name" class="form-label required">Name on card</label>
                                             <br>
                                             <input id="name" class="form-control w-100" name="name_on_card" maxlength="20"
                                                 type="text"
@@ -395,7 +395,7 @@ if (isset($_SESSION["userData"]["profile_id"]) && !empty($_SESSION["userData"]["
                                         <div class="field-container">
                                             <div class="row">
                                                 <div class="col-md-8">
-                                                    <label for="cardnumber" class="form-label">Card Number</label>
+                                                    <label for="cardnumber" class="form-label required">Card Number</label>
                                                     <br>
                                                     <input id="cardnumber" class="form-control" name="card_number" type="text" pattern="[0-9xX]*"
                                                         inputmode="numeric"
@@ -408,7 +408,7 @@ if (isset($_SESSION["userData"]["profile_id"]) && !empty($_SESSION["userData"]["
                                                     
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <label for="zip" class="form-label">Billing Zip/Postal Code</label>
+                                                    <label for="zip" class="form-label required">Billing Zip/Postal Code</label>
                                                     <br>
                                                       <input id="zip" name="zipcode" type="text" class="form-control" placeholder="" value="'?><?php echo '" />
                                                 </div>
@@ -419,7 +419,7 @@ if (isset($_SESSION["userData"]["profile_id"]) && !empty($_SESSION["userData"]["
 
                                             <div class="row">
                                                 <div class="col">
-                                                    <label for="expirationdate" class="form-label">Expiration (mm/yy)</label> <br>
+                                                    <label for="expirationdate" class="form-label required">Expiration (mm/yy)</label> <br>
                                                     <input id="expirationdate" class="form-control" name="expiry_date" type="text"
                                                         pattern="[0-9]*" inputmode="numeric"
                                                         value="'?><?php echo isset($_SESSION["userData"]["expiration_date"])?$_SESSION["userData"]["expiration_date"]:'';?><?php echo '"
@@ -427,7 +427,7 @@ if (isset($_SESSION["userData"]["profile_id"]) && !empty($_SESSION["userData"]["
                                                 </div>
 
                                                 <div class="col">
-                                                    <label for="securitycode" class="form-label">Security Code</label> <br>
+                                                    <label for="securitycode" class="form-label required">Security Code</label> <br>
                                                     <input id="securitycode" class="form-control" name="cvv" type="text" pattern="[0-9]*"
                                                         inputmode="numeric"
                                                         value="'?><?php echo isset($_SESSION["userData"]["security_code"])?$_SESSION["userData"]["security_code"]:'';?><?php echo '"
@@ -450,8 +450,7 @@ if (isset($_SESSION["userData"]["profile_id"]) && !empty($_SESSION["userData"]["
                                                     </div>
                                                 </div>
                                                 <div class="col">
-                                                    <small class="w-100">We accept Visa and MasterCard
-                                                            &ensp; <img src="data/images/visa_master.png"
+                                                                <img src="data/images/visa_master.png"
                                                                 alt="visa-master-card"></small>
                                                 </div>
                                             </div>
@@ -517,7 +516,7 @@ if (isset($_SESSION["userData"]["profile_id"]) && !empty($_SESSION["userData"]["
                                             <input type="checkbox" class="w-auto" id="accept_term" />
                                             <small class="text-sm-right fs-14"> &nbsp; I accept the <span><a
                                                         class="fs-14" id="termsLink" href="./terms.php"
-                                                        target="_blank">Terms and Conditions</a> </span></small>
+                                                        target="_blank">Terms and Conditions</a></span><span style="color:red;">*</span></small>
                                         </label>
                                     </div>
                                 </div>
@@ -534,8 +533,7 @@ if (isset($_SESSION["userData"]["profile_id"]) && !empty($_SESSION["userData"]["
                                 }
                                 ?> 
                                 <div class="form-row justify-content-center pb-3">
-                                    <button type="submit" id="payBtn" class="btn btn-primary" disabled>Complete Payment
-                                        and Upload</button>
+                                    <button type="submit" id="payBtn" class="btn btn-primary" disabled>Pay and Upload</button>
                                 </div>
                             </div>
                         </div>
