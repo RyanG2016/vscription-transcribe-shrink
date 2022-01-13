@@ -14,6 +14,7 @@ $(document).ready(function () {
     var editing = true;
     var fname = $("#fname");
     var lname = $("#lname");
+    var fullName = $('#name');
     var city = $("#city");
     var state = $("#state");
     var address = $("#address");
@@ -48,6 +49,7 @@ $(document).ready(function () {
     var expCheck = false;
     var nameCheck = true;
     var cvvCheck = false;
+    var zipCheck = false;
     var cardCheck = false;
     var caTaxes = null;
     var totalTaxesPercent = 0;
@@ -88,6 +90,10 @@ $(document).ready(function () {
         regexCheck($(this), NAME_REGEX);
     });
 
+    fullName.keyup(function() {
+        validatePaymentFields();
+    })
+
     city.keyup(function () {
         regexCheck($(this), CITY_REGEX);
     });
@@ -95,9 +101,10 @@ $(document).ready(function () {
     address.keyup(function () {
         regexCheck($(this), ADDRESS_REGEX);
     });
-    zip.keyup(function(){
-        calculateTaxes();
-    })
+    // zip.keyup(function(){
+    //     calculateTaxes();
+    //     validatePaymentFields();
+    // })
     function regexCheck(item, regx){
         if(regx.test(item.val()))
         {
@@ -142,7 +149,7 @@ $(document).ready(function () {
                         $("#countryBox").selectpicker('val', 203);
                     }*/
 
-                    lookupZip(zipValue.slice(0,3), "ca");
+                    lookupZip(zipValue.slice(0,3), "CA");
                 }
                 break;
 
@@ -154,10 +161,12 @@ $(document).ready(function () {
                     /*if (currentCountry != 204) {
                         $("#countryBox").selectpicker('val', 204);
                     }*/
-                    lookupZip(zipValue, "us");
+                    // lookupZip(zipValue, "us");
                 }
                 break;
         }
+        calculateTaxes();
+        validatePaymentFields();
 
     });
 
@@ -483,9 +492,11 @@ $(document).ready(function () {
     function validatePaymentFields()
     {
         if (document.getElementById("prepay-form") == null) {
-                console.log(expCheck,nameCheck,cvvCheck,cardCheck)
+                nameCheck = fullName.val() != '';
+                zipCheck = zip.val() != '';
+                console.log(expCheck,nameCheck,cvvCheck,cardCheck, zipCheck)
                 // console.log(expCheck + "\n" + nameCheck + "\n" +cvvCheck + "\n" +cardCheck);
-                if(expCheck && nameCheck && cvvCheck && cardCheck && $("#accept_term")[0].checked &&
+                if(expCheck && nameCheck && cvvCheck && cardCheck && zipCheck && $("#accept_term")[0].checked &&
                     $(".vtex-err-border").length === 0
                     )
                 {
