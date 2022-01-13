@@ -557,3 +557,8 @@ input {
     margin-left: auto;
     margin-right: auto;
 }
+
+.required:after {
+    content:" *"!important;
+    color: red!important;
+  }
