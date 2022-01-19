@@ -742,13 +742,13 @@ $(document).ready(function () {
 
     }
     platformServices.on("click", function (e) {
-        $('.signup_heaing_new_design9879').text("Platform Services Signup");
+        $('#signup_title').text("Platform Services Signup");
             termsLink.attr('href', "/terms.php");
             signupType = 1;
             chooseSignUpModal.modal('hide');
         });
     transcriptionServices.on("click", function (e) {
-        $('.signup_heaing_new_design9879').text("Transcription Services Signup");
+        $('#signup_title').text("Transcription Services Signup");
             termsLink.attr('href', "/ts_terms.php");
             signupType = 2;
             chooseSignUpModal.modal('hide');
@@ -757,7 +757,7 @@ $(document).ready(function () {
         if ($(this).hasClass('disabled')) {
             return false;
         }
-            $('.signup_heaing_new_design9879').text("Narrative Speech To Text Services Signup");
+            $('#signup_title').text("Narrative Speech To Text Services Signup");
                 termsLink.attr('href', "/terms.php");
                 signupType = 3;
                 chooseSignUpModal.modal('hide');
