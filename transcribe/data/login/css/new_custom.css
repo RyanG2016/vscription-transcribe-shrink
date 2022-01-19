@@ -73,7 +73,7 @@ body {
     z-index: -1;
 }
 
-.input_form_control3, .input_form_control3:focus, .input_form_control3:active, .input_form_control3:hover, .input_form_control3::placeholder {
+.input_form_control3, .input_form_control3:focus, .input_form_control3:active, .input_form_control3:hover {
     border-bottom: 1px solid #616a71 !important;
     color: #000 !important;
     display: block;
