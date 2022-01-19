@@ -102,19 +102,19 @@ $(document).ready(function () {
           switch (parseInt(signupType)) {
             // Platform Service
             case 1:
-                $('.signup_heaing_new_design9879').text("Platform Services Signup");
+                $('#signup_title').text("Platform Services Signup");
                 // title.text("Platform Services Signup");
                 termsLink.attr('href', "/terms.php");
                 break;
             //Transcription Services
             case 2:
-                $('.signup_heaing_new_design9879').text("Transcription Services Signup");
+                $('#signup_title').text("Transcription Services Signup");
                 // title.text("Transcription Services Signup")
                 termsLink.attr('href', "/ts_terms.php");
                 break;
             //Meeting (Speech To Text) Services
             case 3:
-                $('.signup_heaing_new_design9879').text("Narrative Speech To Text Services Signup");
+                $('#signup_title').text("Narrative Speech To Text Services Signup");
                 // title.text("Narrative Speech To Text Services Signup");
                 termsLink.attr('href', "/terms.php");
                 break;

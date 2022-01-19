@@ -227,7 +227,7 @@ $hasRef = isset($_GET['ref']) && !empty($_GET['ref']);
                      <div class="form-row">
                         <div class="col-12">
                         <img src="data/images/Logo_vScription_Transcribe_Stacked.png" alt="" id="login-resp-logo" class="d-md-none">
-                            <h3 class="signup_heaing_new_design9879"> Sign Up </h3>
+                            <h3 class="mb-3" id="signup_title"> Sign Up </h3>
                         </div>
                     </div>
 
