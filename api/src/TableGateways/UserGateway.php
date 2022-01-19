@@ -1162,6 +1162,47 @@ class UserGateway implements GatewayInterface
         }
     }
 
+    public function updateCurrentUserZipCode()
+    {
+        $id = $_SESSION["uid"];
+
+        // Only required field is Zipcode
+        // This is to update the zipcode field to use for tax calculation on iOS app
+        if (
+            !isset($_POST["zip"])
+        ) {
+            return $this->errorOccurredResponse("Invalid Input, required fields missing (VSPT-U400)");
+        }
+
+        // validation
+        //We are validating on iOS prior to sending so this should always pass validation
+        foreach ($_POST as $keyPost => $valuePost) {
+            switch ($keyPost)
+            {
+                case 'zip':
+                    if(!preg_match("/^[a-z0-9 ]{0,20}$/i", $valuePost))
+                    {
+                        return $this->errorOccurredResponse("Invalid Input (VSPT-U204)");
+                    }
+                    break;
+            }
+        }
+
+        // update DB //
+        $user = User::withID($id, $this->db);
+        $user->setZipcode($_POST["zip"]);
+        $updated = $user->save();
+        // var_dump(11111,$updated);
+
+        if ($updated) {
+            $this->logger->insertAuditLogEntry($this->API_NAME, "Updated User Zipcode from API: " . $id);
+
+           return $this->oKResponse($id, "User Updated");
+        } else {
+            return $this->errorOccurredResponse("Couldn't update user or no changes were found to update");
+        }
+    }
+
     public function oKResponse($id, $msg2 = "")
     {
 

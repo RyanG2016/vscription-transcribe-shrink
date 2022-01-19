@@ -146,6 +146,12 @@ class LoginGateway
         $_SESSION['fname'] = $row['first_name'];
         $_SESSION['lname'] = $row['last_name'];
         $_SESSION['uEmail'] = $row["email"];
+        // You can't believe how hard it is to check for NULL in Swift....I'm just going to send an empty string if NULL
+        if (!is_null($row["zipcode"])) {
+            $_SESSION['zipcode'] = $row["zipcode"];
+        } else {
+            $_SESSION['zipcode'] = "";
+        }
 
         // adding user data to php session
         unset($row["password"]);

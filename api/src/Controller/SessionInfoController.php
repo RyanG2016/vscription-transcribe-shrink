@@ -36,9 +36,11 @@ class SessionInfoController {
         $response['body'] =
         json_encode(
             array(
+                "uid" => $_SESSION["uid"],
                 "first_name" => $_SESSION["fname"],
                 "last_name" => $_SESSION["lname"],
                 "email" => $_SESSION["uEmail"],
+                "zipcode" => $_SESSION["zipcode"],
                 "role" => $_SESSION["role"],
                 "account_id" => isset($_SESSION["accID"])?$_SESSION["accID"]:0,
                 "sr_enabled" => isset($_SESSION["sr_enabled"])?$_SESSION["sr_enabled"]:0,

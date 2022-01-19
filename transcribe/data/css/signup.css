@@ -421,10 +421,6 @@ a.terms {
     font-size: 15px !important;
 }
 
-::-webkit-input-placeholder {
-    color: blue!important;
-}
-
 .signup-form {
     position: absolute;
     top: 50%;
@@ -467,7 +463,8 @@ body > div.jconfirm.jconfirm-supervan.jconfirm-open > div.jconfirm-scrollpane > 
     left: 50%;
 }
 
-:required  {  
-    content:"*";
-    color:red;
+/*:required  {  
+    content:"*"!important;
+    color:red!important;
    }
+*/
