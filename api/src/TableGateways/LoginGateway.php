@@ -146,6 +146,7 @@ class LoginGateway
         $_SESSION['fname'] = $row['first_name'];
         $_SESSION['lname'] = $row['last_name'];
         $_SESSION['uEmail'] = $row["email"];
+        $_SESSION['zipcode'] = $row["zipcode"];
 
         // adding user data to php session
         unset($row["password"]);

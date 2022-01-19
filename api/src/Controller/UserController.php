@@ -92,6 +92,9 @@ class UserController
                 else if ($this->userId == "update"){
                     $response = $this->userGateway->updateCurrentUser();
                 }
+                else if ($this->userId == "updatezc"){
+                    $response = $this->userGateway->updateCurrentUserZipCode();
+                }
                 else if($this->userId == "shortcuts")
                 {
                     $response = $this->addUserShortcut();
@@ -188,6 +191,9 @@ class UserController
                 }
                 else if ($this->userId == "update"){
                     $response = $this->userGateway->updateCurrentUser();
+                }
+                else if ($this->userId == "updatezc"){
+                    $response = $this->userGateway->updateCurrentUserZipCode();
                 }
                 else{
                     $response = $this->notFoundResponse();
