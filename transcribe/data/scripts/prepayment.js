@@ -31,7 +31,7 @@ $(document).ready(function () {
 
     $("#bill_tip").popover({
         // html: true,
-        content: "This the billable minutes with seconds shown in tenth of a second for easier calculation",
+        content: "This the billable minutes displayed in HH:MM:SS",
         trigger: "click"
 
     });
@@ -129,17 +129,48 @@ $(document).ready(function () {
         validatePaymentFields();
     }
 
-    zip.keyup(function () {
-        // check for matching regex
-        var CA_REGEX = /^[a-zA-Z0-9]{3}$|^[a-zA-Z0-9]{6}$|^[a-zA-Z0-9]{3} [a-zA-Z0-9]{3}$/;
+    zip.focusout(function() {
+        var CA_REGEX = /^[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][ -]?\d[ABCEGHJ-NPRSTV-Z]\d$/;
         var US_REGEX = /^[0-9]{5}$/;
-        zipValue = zip.val();
+        zipEntry = zip.val();
+        if (CA_REGEX.test(zipEntry)) {
+            zip.removeClass("is-invalid");
+        } else if (US_REGEX.test(zipEntry)) {
+            zip.removeClass("is-invalid");
+        } else if (zipEntry == "") {
+            zip.removeClass("is-invalid");
+        } else {
+            zip.addClass("is-invalid")
+        }
+    })
+    zip.keyup(function () {
+        console.log(`Key pressed in zip field. Zip field is currently ${zip.val()}`);
+        // check for matching regex
+        //var CA_REGEX = /^[a-zA-Z0-9]{3}$|^[a-zA-Z0-9]{6}$|^[a-zA-Z0-9]{3} [a-zA-Z0-9]{3}$/;
+        var CAPART_REGEX = /^[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][ -]?$/;
+        var CA_REGEX = /^[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][ -]?\d[ABCEGHJ-NPRSTV-Z]\d$/;
+        var US_REGEX = /^[0-9]{5}$/;
+        var USPART_REGEX = /^[0-9]{3}$/;
+        zipValue = zip.val().toUpperCase();
 
         switch (zipValue.length) {
 
             // CA
             case 3:
-            case 6:
+                if(CAPART_REGEX.test(zipValue))
+                {
+                    console.log(`A Valid Postal Code format was entered`);
+                    zip.removeClass('is-invalid');
+                } else if (USPART_REGEX.test(zipValue)) {
+                    console.log(`A valid US Zipcode looks to be entered`);
+                    zip.removeClass('is-invalid');
+                } else {
+                    console.log(`No match on 3 check;`)
+                    zip.addClass('is-invalid');
+                }
+                break;
+
+            case 6,7:
                 if(CA_REGEX.test(zipValue))
                 {
                     // lookup CA address
@@ -148,8 +179,10 @@ $(document).ready(function () {
 
                         $("#countryBox").selectpicker('val', 203);
                     }*/
-
-                    lookupZip(zipValue.slice(0,3), "CA");
+                    zip.removeClass('is-invalid');
+                    //lookupZip(zipValue.slice(0,3), "CA");
+                } else {
+                    zip.addClass('is-invalid');
                 }
                 break;
 
@@ -161,7 +194,8 @@ $(document).ready(function () {
                     /*if (currentCountry != 204) {
                         $("#countryBox").selectpicker('val', 204);
                     }*/
-                    // lookupZip(zipValue, "us");
+                    // lookupZip(zipValue, "us");                  
+                    zip.removeClass('is-invalid');
                 }
                 break;
         }
@@ -409,12 +443,12 @@ $(document).ready(function () {
     function calculateTaxes()
     {
         taxesListDom.empty();
-        if(country.typeahead('val') === "Canada" || country.typeahead('val') === "Canada")
-        {
+        // if(country.typeahead('val') === "Canada" || country.typeahead('val') === "Canada")
+        // {
             totalTaxesPercent = 0;
             let match = false;
             let taxID = false;
-            var firstLetter = zip.val().substr(0,1);
+            var firstLetter = zip.val().substr(0,1).toUpperCase();
             for (const key in caTaxes) {
                 if((caTaxes[key]["code"]).toUpperCase() === firstLetter.trim()) {
                     // console.log("Match found for: " + caTaxes[key].name + " | indx: " + key);
@@ -439,7 +473,7 @@ $(document).ready(function () {
 
                 return true;
             }
-        }
+        // }
         // show that couldn't calculate taxes and exact charged price may change due to taxes
         // addTaxEntry()
         // tax.html("0.00");
@@ -497,7 +531,7 @@ $(document).ready(function () {
                 console.log(expCheck,nameCheck,cvvCheck,cardCheck, zipCheck)
                 // console.log(expCheck + "\n" + nameCheck + "\n" +cvvCheck + "\n" +cardCheck);
                 if(expCheck && nameCheck && cvvCheck && cardCheck && zipCheck && $("#accept_term")[0].checked &&
-                    $(".vtex-err-border").length === 0
+                    $(".vtex-err-border").length === 0 && !zip.hasClass("is-invalid")
                     )
                 {
                     // enable

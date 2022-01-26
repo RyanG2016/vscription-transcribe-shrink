@@ -562,3 +562,7 @@ input {
     content:" *"!important;
     color: red!important;
   }
+
+  #zip {
+      text-transform: uppercase;
+  }
