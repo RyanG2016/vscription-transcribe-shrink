@@ -45,6 +45,8 @@ class SessionInfoController {
                 "account_id" => isset($_SESSION["accID"])?$_SESSION["accID"]:0,
                 "sr_enabled" => isset($_SESSION["sr_enabled"])?$_SESSION["sr_enabled"]:0,
                 "pre_pay" => $_SESSION["userData"]["pre_pay"],
+                "comp_mins" => $_SESSION["userData"]["comp_mins"],
+                "lifetime_minutes" => $_SESSION["userData"]["lifetime_minutes"],
                 "bill_rate1" => $_SESSION["userData"]["bill_rate1"],
                 "logged_in" => true
 
