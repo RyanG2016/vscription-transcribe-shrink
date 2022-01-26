@@ -242,7 +242,7 @@ if (isset($_SESSION["userData"]["profile_id"]) && !empty($_SESSION["userData"]["
                                             <label for="zip">Billing Zip/Postal Code</label>
                                             <br>
                                         <input id="zip" name="zipcode" type="text" class="" placeholder="<Zip/Postal Code>" value="';
-                                        echo isset($_SESSION['userData']['zipcode']) && !empty($_SESSION['userData']['zipcode'])?$_SESSION['userData']['zipcode']:'';
+                                        echo isset($_SESSION["userData"]["zipcode"]) && !empty($_SESSION["userData"]["zipcode"])?$_SESSION["userData"]["zipcode"]:'';
                                         echo '" />
                                     </div>';
                                     } else {
@@ -410,7 +410,7 @@ if (isset($_SESSION["userData"]["profile_id"]) && !empty($_SESSION["userData"]["
                                                 <div class="col-md-4">
                                                     <label for="zip" class="form-label required">Billing Zip/Postal Code</label>
                                                     <br>
-                                                      <input id="zip" name="zipcode" type="text" class="form-control" placeholder="" value="'?><?php echo '" />
+                                                      <input id="zip" name="zipcode" type="text" class="form-control" placeholder="" value="'?><?php echo isset($_SESSION["zipcode"]) && !empty($_SESSION["zipcode"])?$_SESSION["zipcode"]:'';?><?php echo '" />
                                                 </div>
                                             </div>
                                         </div>
