@@ -18,7 +18,8 @@ var srcIsLogin = true;
 
 $(document).ready(function () {
 
-    loginBtn = $("#loginBtn");
+    // loginBtn = $("#loginBtn");
+    loginBtn = $("#loginBtn_login41")
     email = $('input[name="email"]');
     pwdInput = $('input[name="password"]');
     pwdDiv = $('#passwordDiv');

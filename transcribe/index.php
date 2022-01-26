@@ -137,12 +137,12 @@ isset($_SESSION['uEmail'])?$uEmail = $_SESSION['uEmail']:$uEmail = "";
 
 
 					<div class="text-right" id="remember" style="margin-bottom: 0px;">
-						<span class="txt1">
+					<input type="checkbox" id="rememberchk" name="remember" <?php echo isset($_SESSION['remember']) ? "checked" : ""?>>
+						<!--		checkbox-->
+						<span class="txt1" id="rememberemailtxt">
 							Remember Email
 						</span>
 
-						<input type="checkbox" name="remember" <?php echo isset($_SESSION['remember']) ? "checked" : ""?>>
-						<!--		checkbox-->
 					</div>
 
 					<!----------------------PASSWORD----------------->
@@ -161,7 +161,7 @@ isset($_SESSION['uEmail'])?$uEmail = $_SESSION['uEmail']:$uEmail = "";
 
 					</div>
 					<div class="text-right" id="forgotpwd">
-						<a class="txt2" href="#">
+						<a class="txt2" id="forgotpasswordtxt" href="#">
                             Forgot your password?
 						</a>
 					</div>
