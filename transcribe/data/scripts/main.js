@@ -79,6 +79,12 @@ $(document).ready(function () {
 		rowId: 'file_id',
 		"ajax": 'api/v1/files?dt',
 		"processing": true,
+		"language": {
+			"emptyTable": "There are currently no jobs to display",
+			"info":           "Showing _START_ to _END_ of _TOTAL_ jobs",
+			"infoEmpty":      "No jobs to display",
+			"infoFiltered":   "(filtered from _MAX_ total jobs)",
+		  },
 		responsive: true,
 		lengthChange: false,
 		pageLength: maximum_rows_per_page_jobs_list,
