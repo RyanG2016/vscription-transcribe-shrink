@@ -156,7 +156,7 @@ else {
             <div class="vtex-card contents">
 
                 <div class="vtex-top-bar form-row m-0">
-                    <h2 class="users-tbl-title col">Jobs List</h2>
+                    <h2 class="users-tbl-title col">Job List</h2>
 <!--                    <a href="https://vscriptionpro.helpdocsonline.com/" class="col-auto mt-auto mb-auto" target="_blank" title="">Need help <i class="far fa-question-circle"></i></a>-->
 
                     <button class="mdc-button mdc-button--unelevated mr-2 foo-button" id="newupload_btn">

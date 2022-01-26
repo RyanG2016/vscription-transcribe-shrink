@@ -18,7 +18,8 @@ $(document).ready(function () {
 	const maximum_rows_per_page_jobs_list = 15;
 	var calculatedIds = [];
 
-	getAutoListRefreshEnabled();
+	//Decided to remove this from the page
+	// getAutoListRefreshEnabled();
 	// $('.tooltip').tooltipster();
 
 	dataTbl = $('.jobs_tbl');
@@ -78,6 +79,12 @@ $(document).ready(function () {
 		rowId: 'file_id',
 		"ajax": 'api/v1/files?dt',
 		"processing": true,
+		"language": {
+			"emptyTable": "There are currently no jobs to display",
+			"info":           "Showing _START_ to _END_ of _TOTAL_ jobs",
+			"infoEmpty":      "No jobs to display",
+			"infoFiltered":   "(filtered from _MAX_ total jobs)",
+		  },
 		responsive: true,
 		lengthChange: false,
 		pageLength: maximum_rows_per_page_jobs_list,
@@ -403,18 +410,18 @@ $(document).ready(function () {
 				steps: [
 				{
 				title: 'Job Lister Page Tutorial',
-				intro: 'Please take a minute to go through this short tutorial to get familiar with the Job Lister page. This is where you will upload, download and view completed documents. You can skip the tutorial for now by pressing ESC on your keyboard or click Next to start'
+				intro: 'Please take a minute to go through this short tutorial to get familiar with the Job List page. This is where you will upload, download and view completed documents. You can skip the tutorial for now by pressing ESC on your keyboard or click Next to start'
 				},
 				{
 				title: 'Job List',
 				element: '#jobs-tbl > tbody > tr',
-				intro: 'Here is the job list. By default it loads all jobs but we\'ll show you how to filter them',
+				intro: 'Here is the job list. By default it loads all jobs but you can filter them',
 				position: 'top'
 				},
 				{
 				title: 'Additional Job Info',
 				element: 'td:nth-child(1)',
-				intro: 'Click the arrow button to open the job fold to see more job information'
+				intro: 'Click the arrow button to open the job fold to see additional job information'
 				},
 				{
 				title: 'Comment Indicator',
@@ -434,28 +441,28 @@ $(document).ready(function () {
 				{
 				title: 'Activity Indicator',
 				element: 'td:nth-child(9) > span',
-				intro: 'This shows you how many times a report has been viewed or downloaded. All activity is logged in the audit table.'
+				intro: 'This shows you how many times a report has been viewed or downloaded. '
 				},
 				{
 				title: 'Job Filters',
 				element: '#jobs-tbl > tfoot > tr',
-				intro: 'Using these filters, you can filter the list as you need. You can also search and we\'ll show you that too'
+				intro: 'Using these filters, you can filter the list as you need. '
 				},
 				{
 				title: 'Total Job Backlog',
 				element: '#cbm',
-				intro: 'This shows you how many of your jobs are awaiting typing'
+				intro: 'This shows you the number of minutes that are awaiting typing'
 				},
 				{
 				title: 'Total Active Jobs',
 				element: '#tjd',
 				intro: 'This tells you how many active jobs you have in the system. '
 				},
-				{
-				title: 'Job List Auto-Refresh',
-				element: '#jlr',
-				intro: 'This tells you whether your job list will auto refresh or not. This can be configured in the settings'
-				},
+				// {
+				// title: 'Job List Auto-Refresh',
+				// element: '#jlr',
+				// intro: 'This tells you whether your job list will auto refresh or not. This can be configured in the settings'
+				// },
 				{
 				title: 'Upload New Jobs',
 				element: '#newupload_btn > div',

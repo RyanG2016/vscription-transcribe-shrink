@@ -108,7 +108,7 @@
                         <a href="/main.php" id="main-nav" class="bg-dark list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-start align-items-center">
                                 <span class="fas fa-list-alt fa-fw mr-3"></span>
-                                <span class="menu-expanded">Job Lister</span>
+                                <span class="menu-expanded">Job List</span>
                             </div>
                         </a>
                         
@@ -141,7 +141,7 @@
                         <a href="/main.php" id="main-nav" class="bg-dark list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-start align-items-center">
                                 <span class="fas fa-list-alt fa-fw mr-3"></span>
-                                <span class="menu-expanded">Job Lister</span>
+                                <span class="menu-expanded">Job List</span>
                             </div>
                         </a>
                         
@@ -190,7 +190,7 @@
                         <a href="/main.php" id="main-nav" class="bg-dark list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-start align-items-center">
                                 <span class="fas fa-list-alt fa-fw mr-3"></span>
-                                <span class="menu-expanded">Job Lister</span>
+                                <span class="menu-expanded">Job List</span>
                             </div>
                         </a>
                         

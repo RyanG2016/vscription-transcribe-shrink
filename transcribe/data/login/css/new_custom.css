@@ -301,10 +301,22 @@ body {
     margin: -10px 0 0 0;
     line-height: 0px;
 }
+#rememberpasswordtxt {
+    color: #666666;
+}
+
+#rememberchk {
+    vertical-align: middle;
+}
 
 #forgotpwd {
+    color: #666666;
     line-height: 0;
     margin: -10px 0 0 0;
+}
+
+#forgotpasswordtxt {
+    color: #666666;
 }
 
 body > div.limiter > div > div.colmd6R.settings_col_md_5 > form {
@@ -406,6 +418,10 @@ body > div.limiter > div > div.colmd6L.d-none.d-md-block > span > img {
 
     #forgotpwd {
         text-align: center;
+    }
+
+    a.txt2 {
+        color: #666666!important;
     }
 
     body > div.limiter > div > div.colmd6R.settings_col_md_5 > form > h3 {

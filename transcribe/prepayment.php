@@ -242,7 +242,7 @@ if (isset($_SESSION["userData"]["profile_id"]) && !empty($_SESSION["userData"]["
                                             <label for="zip">Billing Zip/Postal Code</label>
                                             <br>
                                         <input id="zip" name="zipcode" type="text" class="" placeholder="<Zip/Postal Code>" value="';
-                                        echo isset($_SESSION['userData']['zipcode']) && !empty($_SESSION['userData']['zipcode'])?$_SESSION['userData']['zipcode']:'';
+                                        echo isset($_SESSION["userData"]["zipcode"]) && !empty($_SESSION["userData"]["zipcode"])?$_SESSION["userData"]["zipcode"]:'';
                                         echo '" />
                                     </div>';
                                     } else {
@@ -410,7 +410,7 @@ if (isset($_SESSION["userData"]["profile_id"]) && !empty($_SESSION["userData"]["
                                                 <div class="col-md-4">
                                                     <label for="zip" class="form-label required">Billing Zip/Postal Code</label>
                                                     <br>
-                                                      <input id="zip" name="zipcode" type="text" class="form-control" placeholder="" value="'?><?php echo '" />
+                                                      <input id="zip" name="zipcode" type="text" class="form-control" placeholder="" value="'?><?php echo isset($_SESSION["zipcode"]) && !empty($_SESSION["zipcode"])?$_SESSION["zipcode"]:'';?><?php echo '" />
                                                 </div>
                                             </div>
                                         </div>
@@ -483,10 +483,10 @@ if (isset($_SESSION["userData"]["profile_id"]) && !empty($_SESSION["userData"]["
                                     </div>
                                     <div class="row">
                                         <div class="col-auto">Total Billed Minutes <span><i id="bill_tip" class="fas fa-question-circle"></i></span></div>
-                                        <div class="col text-right">' . $_POST["total_mins"] . ' /mins</div>
+                                        <div class="col text-right">' . $_POST["total_display_minutes"] . '</div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-auto">Price</div>
+                                        <div class="col-auto">Total before tax</div>
                                         <div class="col text-right">$' . '<span id="pkgPrice">'.round(floatval($_SESSION["userData"]["bill_rate1"])*floatval($_POST["total_mins"]),2).'</span>' . ' CAD</div>
                                     </div>
                                     <hr>
@@ -498,7 +498,7 @@ if (isset($_SESSION["userData"]["profile_id"]) && !empty($_SESSION["userData"]["
                                         </div>
                                     </span>
                                     <div class="row mt-3">
-                                        <div class="col-auto">Total (incl tax.)</div>
+                                        <div class="col-auto">Total</div>
                                         <div class="col text-right" id="total">$' . round(round(floatval($_SESSION["userData"]["bill_rate1"])*floatval($_POST["total_mins"]),2)+round(floatval($_SESSION["userData"]["bill_rate1"])*floatval($_POST["total_mins"]),2)*(floatval(0.05)),2)  . ' CAD</div>
                                         <input type="hidden" name="total_mins" value="'.$_POST["total_mins"].'">
                                     </div>
