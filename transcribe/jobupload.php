@@ -407,7 +407,7 @@ $workTypes = $accountGateway->getWorkTypes($_SESSION["accID"]);
                                             </tr>
                                             <tr>
                                                 <td style="text-align: right" class="totals-col col-label">
-                                                Comp Minutes:
+                                                Free Minutes:
                                                 </td>
                                                 <td id="sum_comp" class="comp-mins">
                                                     -0.00
