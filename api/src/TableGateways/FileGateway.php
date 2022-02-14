@@ -926,7 +926,34 @@ class FileGateway implements GatewayInterface
         }
     }
 
+    /**
+     * Used in mobile app to fetch text details for a job
+     */
 
+        public function getText($id) {
+            $statement = "SELECT job_document_html
+            from files
+            WHERE file_id = ? AND acc_id = ?
+        ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($id,$_SESSION['accID']));
+            $result = $statement->fetch(PDO::FETCH_ASSOC);
+            if ($result == "") {
+                return "No text found or you don't have rights to access to the job";
+            } else {
+                return $result;
+            }
+        } catch (PDOException $e) {
+            if(isset($_GET['dt'])) {
+                return array("data" => "");
+            }
+            else{
+                return array();
+            }
+        }
+    }
 
     /**
      * used in transcribe increments download if file was opened by a non typist
