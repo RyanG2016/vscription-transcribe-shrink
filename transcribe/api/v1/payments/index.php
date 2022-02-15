@@ -1,10 +1,9 @@
 <?php
 
 /*
- * base url /users
+ * base url /payments
  * options:
- *      POST /users/invite          -> send invitation email to $POST[email]
- *      POST /users/set-default     -> sets default access ID for current user
+ *      POST /payments/create          -> create payment and send receipt email to $POST[email]
  * */
 
 require '../../../../api/bootstrap.php';
@@ -15,7 +14,7 @@ require('../../../data/parts/ping.php');
 require "../parts/checkAuth.php"; // <-- checking for basic auth before request & if the user is already logged in
 
 
-use Src\Controller\UserController;
+use Src\Controller\PaymentController;
 
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
@@ -27,22 +26,18 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $uri = explode('/', $uri);
 
-// all of our endpoints start with /api/v1/users
+error_log("The request URI is:" . parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH),0);
+
+// all of our endpoints start with /api/v1/payments
 // everything else results in a 404 Not Found
 if ($uri[3] !== 'payments') {
     header("HTTP/1.1 404 Not Found");
     exit();
-}
-
-// the user id is, of course, optional and must be a number:
-$userId = null;
-if (isset($uri[4])) {
-    $userId = $uri[4];
 }
 $uri = array_slice($uri, 4);
 
 $requestMethod = $_SERVER["REQUEST_METHOD"];
 
 // pass the request method and user ID to the PersonController and process the HTTP request:
-$controller = new PaymentController($dbConnection, $requestMethod, $userId, $uri);
+$controller = new PaymentController($dbConnection, $requestMethod, $uri);
 $controller->processRequest();

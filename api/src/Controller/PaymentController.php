@@ -2,9 +2,12 @@
 
 namespace Src\Controller;
 
+use Src\Enums\PAYMENT_STATUS;
 use Src\Helpers\common;
 use Src\Models\Account;
-use Src\TableGateways\PaymentGateway;
+use Src\Models\User;
+use Src\Models\Payment;
+use Src\TableGateways\paymentGateway;
 use Src\System\Mailer;
 use Src\TableGateways\accessGateway;
 
@@ -13,24 +16,23 @@ class PaymentController
 
     private $db;
     private $requestMethod;
-    private $fileId;
     private $rawURI;
     private $mailer;
     private $common;
+    private User $userModel;
 
     private $paymentGateway;
     private $accessGateway;
 
-    public function __construct($db, $requestMethod, $fileId, $rawURI)
+    public function __construct($db, $requestMethod, $rawURI)
     {
         $this->db = $db;
         $this->requestMethod = $requestMethod;
-        $this->fileId = $fileId;
         $this->rawURI = $rawURI;
         $this->mailer = new Mailer($db);
         $this->common = new common();
 
-        $this->paymentGateway = new PaymentGateway($db);
+        $this->paymentGateway = new paymentGateway($db);
         $this->accessGateway = new accessGateway($db);
     }
 
@@ -41,15 +43,16 @@ class PaymentController
                 if (isset($_GET["cancel"])) {
                     $response = $this->cancelUpload();
                 } else {
-                    error_log("We don't have a method setup to get payment info yet",0)
+                    error_log("We don't have a method setup to get payment info yet",0);
                 }
                 break;
             case 'POST':
                 if (isset($_POST["cancel"])) {
                     $response = $this->cancelUpload();
                 } else {
-                    if(isset($this->uri[0]) && $this->uri[0] == "create")
+                    if(isset($this->rawURI[0]) && $this->rawURI[0] == "create")
                     {
+                        error_log("We should next run the insertPurchase method",0);
                         $response = $this->insertPurchase();
                     }
                 }
@@ -81,79 +84,37 @@ class PaymentController
 
     private function insertPurchase() {
 
-        //
-        // $json = json_encode(array(
-        //     "trans_id" => $transID,
-        //     "ref_id" => $this->internalRefID,
-        //     "taxes" => $this->taxesArr,
-        //     "error" => $error,
-        //     "card" => $this->cardNumber,
-        //     "email" => $this->userModel->getEmail(),
-        //     "total_price" => $this->totalPrice,
-        //     // "pkg_name" => $this->package->getSrpName(),
-        //     // "pkg_price" => $this->package->getSrpPrice(),
-        //     // "pkg_minutes" => $this->package->getSrpMinutes(),
-        //     "pkg_name" => "Transcription Services",
-        //     "pkg_price" => $this->amount,
-        //     "bill_rate" => $this->bill_rate,
-        //     "pkg_minutes" => $this->totalMins,
-        //     "acc_name" => $this->selfAccount?$_SESSION["userData"]["admin_acc_name"]:$_SESSION["acc_name"],
-        //     "acc_id" => $this->selfAccount?$_SESSION["userData"]["account"]:$_SESSION["accID"],
-        //     "msg" => $msg
-        // ));
-        //
-        if isset($_POST["transID"])
-        && isset($_POST["ref_id"])
-        && isset($_POST["taxes"])
-        && isset($_POST["card"])
-        && isset($_POST["email"])
-        && isset($_POST["total_price"])
-        && isset($_POST["pkg_name"])
-        && isset($_POST["pkg_price"])
-        && isset($_POST["bill_rate"])
-        && isset($_POST["pkg_minutes"])
-        && isset($_POST["acc_id"])
-        && isset($_POST["msg"])
-    ) {
-        // Payment Status Enums
-        // CONST RECORDED = 0;
-        // CONST PAID = 1;
-        // CONST REFUNDED = 2;
-        // CONST FAILED = 3;
+        if (isset($_POST["responsejson"])
+        && isset($_POST["requestjson"])
+        ) {
+        $responseJSON = json_decode($_POST["responsejson"], true);
+        $requestJSON = json_decode($_POST["requestjson"], true);
 
-        // Payment MOdel Model
-        // (public ?int $payment_id = 0,
-        //                         public int $user_id = 0,
-        //                         public float $amount = 0.00,
-        //                         public ?string $ref_id = null,
-        //                         public ?string $trans_id = null,
-        //                         public ?string $payment_json = null,
-        //                         public ?int $pkg_id = null,
-        //                         public int $status = PAYMENT_STATUS::RECORDED,
-        //                         private $db = null
+        error_log("Amount: " . $requestJSON['createTransactionRequest']['transactionRequest']['amount'],0);
+        error_log("refID: " . $responseJSON['transactionResponse']['networkTransId'],0);
+        error_log("TransID: " . $responseJSON['transactionResponse']['transId'],0);
+        error_log("This is what we should be writing to the Payment object: " . $_POST["requestjson"] . "|&sep|" . $_POST["responsejson"],0);
 
         $payment = new Payment(
             0,
             $_SESSION["uid"],
-            $this->totalPrice,
-            $this->internalRefID,
-            $transID,
-            $json,
+            $requestJSON['createTransactionRequest']['transactionRequest']['amount'],
+            $responseJSON['transactionResponse']['authCode'], //We should put the job number in here
+            strval($responseJSON['transactionResponse']['transId']),
+            $_POST["requestjson"] . "|&sep|" . $_POST["responsejson"],
             1,
-            // $this->package->getSrpId(),
-            $error?PAYMENT_STATUS::FAILED:PAYMENT_STATUS::PAID,
+            1, //Paid response
             $this->db
         );
         $pid = $payment->save();
-
-        if (!$error) {
-            $this->mailer->sendEmail(18, $this->userModel->getEmail(), "", $pid);
-        }
+        // We're only calling this methid on a successful transaction so no need to confirm
+        $this->mailer->sendEmail(20, $_SESSION["uEmail"], "", $pid);
 
         return $error;
-        }
+    }
     else
     {
+        error_log("We should be returning the Invalid Input response here",0);
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
         $response['body'] = json_encode([
             'error' => true,
@@ -161,7 +122,7 @@ class PaymentController
         ]);
         return $response;
     }
-    }
+}
 
     private function unprocessableEntityResponse()
     {
@@ -185,18 +146,9 @@ class PaymentController
 
     private function notFoundResponse()
     {
+        error_log("Are we even getting here",0);
         $response['status_code_header'] = 'HTTP/1.1 404 Not Found';
         $response['body'] = null;
         return $response;
-    }
-
-    private function convertFileDuration($duration)
-    {
-        if ($duration-intval($duration > 0)){
-            $roundedSeconds = intval($duration)+1;
-        } else {
-            $roundedSeconds = $duration;
-        }
-        return round($roundedSeconds/60,2);
     }
 }

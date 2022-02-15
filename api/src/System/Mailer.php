@@ -329,6 +329,44 @@ class Mailer
                     $mail->addBCC("sales@vtexvsi.com"); // duplicate do not uncomment
                     break;
 
+                case 20:
+                        /** $extra1 : payment ID */
+    
+                        $mailingListSize = 1;
+    
+                        // get models
+                        $payment = Payment::withID($extra1, $this->db);
+                        $user = User::withID($payment->getUserId(), $this->db);
+    
+                        $emHTML = file_get_contents(__DIR__ . '/../../../mail/templates/prepay_ts_receipt.html');
+                        $paymentAllJsonString = $payment->getPaymentJson();
+                        $paymentJSONAllArray = explode("|&sep|", $paymentAllJsonString);
+                        $requestJSON = json_decode($paymentJSONAllArray[0], true);
+                        $responseJSON = json_decode($paymentJSONAllArray[1], true);
+                        $replace_pairs = array(
+                            '{{date}}'    => date("d-M-Y h:m:s a"),
+                            '{{year}}'    => date("Y"),
+                            '{{name}}'    => $user->getFirstName() . " " . $user->getLastName(),
+                            '{{email}}'  => $user->getEmail(),
+                            '{{address}}'=> $user->getAddress() . ", " . $user->getCountry(),
+                            '{{pkgname}}'  => "Transcription Services",
+                            '{{pkgmin}}' => $requestJSON['createTransactionRequest']['transactionRequest']['lineItems']['lineItem']['quantity'],
+                            '{{billrate}}' => $this->formatPrice($requestJSON['createTransactionRequest']['transactionRequest']['lineItems']['lineItem']['unitPrice'] ),
+                            '{{subtotal}}'   => $this->formatPrice($requestJSON['createTransactionRequest']['transactionRequest']['amount'] - $requestJSON['createTransactionRequest']['transactionRequest']['tax']['amount']),
+                            '{{taxes}}'   => "<tr><td>Taxes (" . $requestJSON['createTransactionRequest']['transactionRequest']['tax']['description'] . ")</td><td style='text-align: right'>" . $this->formatPrice($requestJSON['createTransactionRequest']['transactionRequest']['tax']['amount'] . "</td></tr>" ),
+                            '{{totalprice}}'   => $this->formatPrice($requestJSON['createTransactionRequest']['transactionRequest']['amount'] ),
+                            '{{ref}}'   => $responseJSON['transactionResponse']['transId'],
+                            '{{card}}'   => $responseJSON['transactionResponse']["accountNumber"],
+                        );
+    
+    
+                        $emHTML = strtr($emHTML, $replace_pairs);
+                        $emPlain = $emHTML;
+    
+                        $sbj = "vScription Transcription Services Purchase Receipt";
+                        $mail->addBCC("sales@vtexvsi.com");
+                        break;
+
                 default:
                     $sbj = "vScription Transcribe";
                     break;
