@@ -123,7 +123,10 @@ $(document).ready(function () {
         } 
     // If this isn't an invitation, no service type set to prompt user    
     } else if (!urlParams.has('ref')) {
+        $('#modal').modal({backdrop:'static', keyboard:false});
         chooseSignUpModal.modal('show');
+       // now works as you would expect
+
     }
 
     platformServices.tooltipster(
@@ -341,7 +344,7 @@ $(document).ready(function () {
     });
 
     carousel.on('slide.bs.carousel', function(e){
-        console.log(`Carousel is moving`);
+        // console.log(`Carousel is moving`);
         /*e.direction     // The direction in which the carousel is sliding (either "left" or "right").
         e.relatedTarget // The DOM element that is being slid into place as the active item.
         e.from          // The index of the current item.
@@ -375,7 +378,7 @@ $(document).ready(function () {
     });
 
     carousel.on('slid.bs.carousel', function(e){
-        console.log(`Carousel Slid....`);
+        // console.log(`Carousel Slid....`);
         //focus set
         switch (e.to) {
             case 0:
@@ -448,7 +451,7 @@ $(document).ready(function () {
     }
 
     signupBtn.on("click", function() {
-        console.log(`Calling the click button on the signupBtn from Signup Page`);
+        // console.log(`Calling the click button on the signupBtn from Signup Page`);
         if(!checkAll())
         {
             // console.log("max " + maxCount + "<br> correct " + correctCount );
@@ -609,7 +612,7 @@ $(document).ready(function () {
     // setUIforVerification();
 
     function loginUser(){
-        console.log(`We're in the loginUser function`);
+        // console.log(`We're in the loginUser function`);
         carousel.carousel(2);
         signupBtn.hide();
         // prevDiv.hide();
@@ -675,7 +678,7 @@ $(document).ready(function () {
 
     function setUIforVerification()
     {
-        console.log(`In the setUIforVerificaion function. I think somehow something in here is triggering hte carousel slide`);
+        // console.log(`In the setUIforVerificaion function. I think somehow something in here is triggering the carousel slide`);
         $("#loginHyperLink").hide();
         carousel.carousel(1);
         $("#title").html("Verify Your Account");
@@ -689,8 +692,8 @@ $(document).ready(function () {
 
 
         verifyBtn.on("click", function(){
-                console.log(`trying to verify account with code: ${code.val()} for account email: ${email.val()}`);
-                console.log(`Now I can't tell what this button is doing.....`);
+                // console.log(`trying to verify account with code: ${code.val()} for account email: ${email.val()}`);
+                // console.log(`Now I can't tell what this button is doing.....`);
 
             // verifying account
             $.confirm({
