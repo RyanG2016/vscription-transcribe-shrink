@@ -811,6 +811,11 @@ class FileGateway implements GatewayInterface
                                 $statement2->execute();
                                 $this->logger->insertAuditLogEntry($this->API_NAME, "Added " . $file_duration_mins . " lifetime minutes to account " . $acc_id);
 //                                return $statement->rowCount();
+                                // If this is the first upload, we have to wait to update the session lifetime minutes or the first upload email won't 
+                                //get triggered
+                                if ($_SESSION['userData']['pre_pay'] != 1 && $_SESSION['userData']['lifetime_minutes'] != 0) {
+                                    $_SESSION["userData"]["lifetime_minutes"] = $_SESSION["userData"]["lifetime_minutes"] + $file_duration_mins;    
+                                }
                                 return true;
                             } catch (PDOException $e) {
 //                                die($e->getMessage());

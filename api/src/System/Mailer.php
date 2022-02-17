@@ -329,6 +329,46 @@ class Mailer
                     $mail->addBCC("sales@vtexvsi.com"); // duplicate do not uncomment
                     break;
 
+                case 20:
+                        /** $extra1 : payment ID */
+    
+                        $mailingListSize = 1;
+    
+                        // get models
+                        $payment = Payment::withID($extra1, $this->db);
+                        $user = User::withID($payment->getUserId(), $this->db);
+    
+                        $emHTML = file_get_contents(__DIR__ . '/../../../mail/templates/prepay_ts_receipt.html');
+                        $paymentAllJsonString = $payment->getPaymentJson();
+                        $paymentJSONAllArray = explode("|&sep|", $paymentAllJsonString);
+                        $requestJSON = json_decode($paymentJSONAllArray[0], true);
+                        $responseKeys = array("accountNumber","transId","authCode");
+                        $responseValues = $this->getResponseValues($paymentJSONAllArray[1], $responseKeys);
+                        $responseJSON = json_decode($paymentJSONAllArray[1], true);
+                        $replace_pairs = array(
+                            '{{date}}'    => date("d-M-Y h:m:s a"),
+                            '{{year}}'    => date("Y"),
+                            '{{name}}'    => $user->getFirstName() . " " . $user->getLastName(),
+                            '{{email}}'  => $user->getEmail(),
+                            '{{address}}'=> $user->getAddress() . ", " . $user->getCountry(),
+                            '{{pkgname}}'  => "Transcription Services",
+                            '{{pkgmin}}' => $requestJSON['createTransactionRequest']['transactionRequest']['lineItems']['lineItem']['quantity'],
+                            '{{billrate}}' => $this->formatPrice($requestJSON['createTransactionRequest']['transactionRequest']['lineItems']['lineItem']['unitPrice'] ),
+                            '{{subtotal}}'   => $this->formatPrice($requestJSON['createTransactionRequest']['transactionRequest']['amount'] - $requestJSON['createTransactionRequest']['transactionRequest']['tax']['amount']),
+                            '{{taxes}}'   => "<tr><td>Taxes (" . $requestJSON['createTransactionRequest']['transactionRequest']['tax']['description'] . ")</td><td style='text-align: right'>" . $this->formatPrice($requestJSON['createTransactionRequest']['transactionRequest']['tax']['amount'] . "</td></tr>" ),
+                            '{{totalprice}}'   => $this->formatPrice($requestJSON['createTransactionRequest']['transactionRequest']['amount'] ),
+                            '{{ref}}'   => $responseValues[1],
+                            '{{card}}'   => $responseValues[0],
+                        );
+    
+    
+                        $emHTML = strtr($emHTML, $replace_pairs);
+                        $emPlain = $emHTML;
+    
+                        $sbj = "vScription Transcription Services Purchase Receipt";
+                        $mail->addBCC("sales@vtexvsi.com");
+                        break;
+
                 default:
                     $sbj = "vScription Transcribe";
                     break;
@@ -363,6 +403,27 @@ class Mailer
             return false;
         }
     } // send Email end
+
+        // This function is used to extract the response data we need from the 
+    // invaliud JSON format provided from the mobile app form Authorize.net
+    // response
+    function getResponseValues($inString, $keys) {
+        $returnArray = [];
+        for ($i = 0; $i < count($keys); $i++) {
+            $keyStart = 0;
+            $valueStart = 0;
+            $valueLength = 0;
+            $keyStart = strpos($inString, $keys[$i]);
+            if ($keyStart > 0) {
+                $valueStart = $keyStart + (strlen($keys[$i]) + 3);
+                $valueLength = strpos(substr($inString,$valueStart,15), ';');
+                array_push($returnArray, substr($inString,$valueStart,$valueLength));
+            } else {
+                array_push($returnArray,"Key value not found");
+            }
+        }
+        return $returnArray;
+    }
 
     function generateTaxes($taxes, $pkgPrice)
     {
