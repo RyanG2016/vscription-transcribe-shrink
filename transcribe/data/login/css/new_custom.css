@@ -266,10 +266,12 @@ body {
     width: 200px;
     display: block;
     margin: 10px auto 30px;
+    font-size: 1.4REM!IMPORTANT;
 }
 
 .button_submit_class_45464, .button_submit_class_45464:focus, .button_submit_class_45464:active {
-    background: #1c79bd;
+    /* background: #1c79bd; */
+    background-color: #2ecc71!important;
     display: block;
     margin: 0 auto;
     padding: 10px 120px;

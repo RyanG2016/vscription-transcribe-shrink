@@ -368,6 +368,9 @@ $hasRef = isset($_GET['ref']) && !empty($_GET['ref']);
                             <!-- <label for="inputlName"><i class="fas fa-bold"></i> Last Name</label> -->
                             <input type="text" class="input_form_control3" id="inputlName" placeholder="Last Name*" name="lname"
                                    required>
+                                <div class="invalid-feedback">
+                                Please enter your name.
+                            </div>
                         <!-- <i class="far fa-user fa-lg signup_field_icons"></i> -->
                         </div>
                     </div>
