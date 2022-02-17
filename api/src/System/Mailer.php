@@ -342,6 +342,8 @@ class Mailer
                         $paymentAllJsonString = $payment->getPaymentJson();
                         $paymentJSONAllArray = explode("|&sep|", $paymentAllJsonString);
                         $requestJSON = json_decode($paymentJSONAllArray[0], true);
+                        $responseKeys = array("accountNumber","transId","authCode");
+                        $responseValues = $this->getResponseValues($paymentJSONAllArray[1], $responseKeys);
                         $responseJSON = json_decode($paymentJSONAllArray[1], true);
                         $replace_pairs = array(
                             '{{date}}'    => date("d-M-Y h:m:s a"),
@@ -355,8 +357,8 @@ class Mailer
                             '{{subtotal}}'   => $this->formatPrice($requestJSON['createTransactionRequest']['transactionRequest']['amount'] - $requestJSON['createTransactionRequest']['transactionRequest']['tax']['amount']),
                             '{{taxes}}'   => "<tr><td>Taxes (" . $requestJSON['createTransactionRequest']['transactionRequest']['tax']['description'] . ")</td><td style='text-align: right'>" . $this->formatPrice($requestJSON['createTransactionRequest']['transactionRequest']['tax']['amount'] . "</td></tr>" ),
                             '{{totalprice}}'   => $this->formatPrice($requestJSON['createTransactionRequest']['transactionRequest']['amount'] ),
-                            '{{ref}}'   => $responseJSON['transactionResponse']['transId'],
-                            '{{card}}'   => $responseJSON['transactionResponse']["accountNumber"],
+                            '{{ref}}'   => $responseValues[1],
+                            '{{card}}'   => $responseValues[0],
                         );
     
     
@@ -401,6 +403,27 @@ class Mailer
             return false;
         }
     } // send Email end
+
+        // This function is used to extract the response data we need from the 
+    // invaliud JSON format provided from the mobile app form Authorize.net
+    // response
+    function getResponseValues($inString, $keys) {
+        $returnArray = [];
+        for ($i = 0; $i < count($keys); $i++) {
+            $keyStart = 0;
+            $valueStart = 0;
+            $valueLength = 0;
+            $keyStart = strpos($inString, $keys[$i]);
+            if ($keyStart > 0) {
+                $valueStart = $keyStart + (strlen($keys[$i]) + 3);
+                $valueLength = strpos(substr($inString,$valueStart,15), ';');
+                array_push($returnArray, substr($inString,$valueStart,$valueLength));
+            } else {
+                array_push($returnArray,"Key value not found");
+            }
+        }
+        return $returnArray;
+    }
 
     function generateTaxes($taxes, $pkgPrice)
     {
