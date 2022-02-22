@@ -125,6 +125,14 @@ body {
     color: #f17f57;
 }
 
+#backToLoginHyperLink {
+    font-size: 16px;
+    color: #f17f57;
+}
+#backToLoginHyperLink.pointer {
+        cursor: pointer;
+}
+
 #signupBtn {
     width: 100%;
     /* font-family: 'main-l', sans-serif; */
@@ -423,7 +431,7 @@ body > div.limiter > div > div.colmd6L.d-none.d-md-block > span > img {
     }
 
     a.txt2 {
-        color: #666666!important;
+        color: #f17f57!important;
     }
 
     body > div.limiter > div > div.colmd6R.settings_col_md_5 > form > h3 {
@@ -437,6 +445,9 @@ body > div.limiter > div > div.colmd6L.d-none.d-md-block > span > img {
     }
 
     #hasaccount > div {
+        text-align: center!IMPORTANT;
+    }
+    #backToLogin > div > div {
         text-align: center!IMPORTANT;
     }
     .jconfirm .jconfirm-box .jconfirm-buttons button.btn-green {
