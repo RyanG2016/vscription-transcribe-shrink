@@ -125,6 +125,14 @@ body {
     color: #f17f57;
 }
 
+#backToLoginHyperLink {
+    font-size: 16px;
+    color: #f17f57;
+}
+#backToLoginHyperLink.pointer {
+        cursor: pointer;
+}
+
 #signupBtn {
     width: 100%;
     /* font-family: 'main-l', sans-serif; */

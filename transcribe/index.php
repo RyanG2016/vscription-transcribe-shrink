@@ -120,7 +120,7 @@ isset($_SESSION['uEmail'])?$uEmail = $_SESSION['uEmail']:$uEmail = "";
 				<form class="login100-form validate-form" method="post">
 					<!--				<div class="login100-form validate-form">-->
 					<img src="data/images/Logo_vScription_Transcribe_Stacked.png" alt="" id="login-resp-logo" class="d-md-none">
-                    <h3 class="mt-5 mb-5"> <b> Sign In </b> </h3>
+                    <h3 class="mt-5 mb-5" id="signinText"> <b> Sign In </b> </h3>
 
 					<!----------------------EMAIL----------------->
 					<div class="wrap-input100 validate-input" id="em" data-validate="Valid email is: a@b.c" style="margin-bottom: 2px">
@@ -188,6 +188,15 @@ isset($_SESSION['uEmail'])?$uEmail = $_SESSION['uEmail']:$uEmail = "";
                         </div>
                       
                     </div>
+					<div class="row p-t-10 m-0 " style="width: 100%" id="backToLogin" >
+                        <div class="col p-0">
+                            <div class="text-left" style="font-weight: 500">
+                                <a class="txt2 pointer" id="backToLoginHyperLink" style="font-weight: bold; text-decoration: none;">
+                                    Back To Log in
+                                </a>
+                            </div>
+                        </div>
+                    </div>
 				</form>
 
 				<!-- <div class="text-left p-t-10" id="policy">
@@ -208,7 +217,7 @@ isset($_SESSION['uEmail'])?$uEmail = $_SESSION['uEmail']:$uEmail = "";
 	<!-- <script src="data/login/vendor/bootstrap/js/bootstrap.bundle.js"></script> -->
 	<script src="data/login/vendor/bootstrap/js/bootstrap.min.js"></script>
 	<script src="data/login/vendor/select2/select2.min.js"></script>
-	<script src="data/scripts/login.min.js?v=2"></script>
+	<script src="data/scripts/login.js?v=2"></script>
 
 
 

@@ -26,16 +26,20 @@ $(document).ready(function () {
     forgotPwd = $('#forgotpwd');
     remember = $('#remember');
     formTitle = $('#title');
+    signinText = $('#signinText');
+    backToLogin = $('#backToLogin');
 
     email.blur();
     pwdInput.blur();
     pwdInput.attr('maxlength', 30);
 
-
+    backToLogin.hide();
     $("#forgotpwd a").click(function () {
         showResetPasswordForm();
     });
-
+    $("#backToLoginHyperLink").click(function () {
+        showLoginFields();
+    });
 
     $("body").niceScroll({
         hwacceleration: true,
@@ -45,8 +49,14 @@ $(document).ready(function () {
         scrollspeed: 10,
         mousescrollstep: 20,
         cursoropacitymax: 0.7
-    });
-
+    })
+    let urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('rp')) {
+        signupType = urlParams.get('rp'); 
+          if (parseInt(signupType) == 1) {
+                showResetPasswordForm();
+            } 
+    }
 });
 
 /*==================================================================
@@ -145,22 +155,26 @@ function hideValidate(input) {
 }
 
 function showResetPasswordForm() {
+    signinText.html('<b>Reset Password</b>');
     srcIsLogin = false;
     forgotPwd.slideUp();
     pwdDiv.slideUp();
     loginBtn.html("Send Reset Link");
     loginBtn.removeAttr("disabled");
     formTitle.html('Password Reset');
+    backToLogin.show();
     remember.slideUp();
 }
 
 function showLoginFields() {
+    signinText.html('<b>Sign In</b>');
     srcIsLogin = true;
     forgotPwd.slideDown(); // forgot your password ? reset
     remember.slideDown();
     pwdDiv.slideDown();
     loginBtn.html("Login");
     loginBtn.removeAttr("disabled");
+    backToLogin.hide();
     formTitle.html('Welcome');
 
     $("body").niceScroll({
