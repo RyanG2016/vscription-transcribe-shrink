@@ -422,7 +422,7 @@ class FileController
 //            echo json_encode(array_values($uploadMsg), JSON_FORCE_OBJECT | JSON_PRETTY_PRINT);
             if($newFilesAvailable){
                 // Send Congratulations email on first upload
-                error_log("Current lifetime minutes are: " . $_SESSION['userData']['lifetime_minutes'] == 0,0);
+                // error_log("Current lifetime minutes are: " . $_SESSION['userData']['lifetime_minutes'] == 0,0);
                 if ($_SESSION['userData']['pre_pay'] == 1 && ($_SESSION['userData']['lifetime_minutes'] == 0 || empty($_SESSION['userData']['lifetime_minutes']))) {
                     $_SESSION["userData"]["lifetime_minutes"] = $_SESSION["userData"]["lifetime_minutes"] + $file_duration_mins;    
                     $this->mailer->sendEmail(19,$_SESSION['uEmail'], $accName);  

@@ -93,12 +93,12 @@ class PaymentController
         $requestJSON = json_decode($_POST["requestjson"], true);
         $responseKeys = array("accountNumber","transId","authCode");
         $responseValues = $this->getResponseValues($_POST["responsejson"], $responseKeys);
-        error_log("Decoded request JSON is: " . $requestJSON);
+        // error_log("Decoded request JSON is: " . $requestJSON);
         // error_log("Decoded response JSON is: " . $responseJSON);
-        error_log("Amount: " . $requestJSON['createTransactionRequest']['transactionRequest']['amount'],0);
+        // error_log("Amount: " . $requestJSON['createTransactionRequest']['transactionRequest']['amount'],0);
         // error_log("refID: " . $responseJSON['transactionResponse']['networkTransId'],0);
         // error_log("TransID: " . $responseJSON['transactionResponse']['transId'],0);
-        error_log("This is what we should be writing to the Payment object: " . $_POST["requestjson"] . "|&sep|" . $_POST["responsejson"],0);
+        // error_log("This is what we should be writing to the Payment object: " . $_POST["requestjson"] . "|&sep|" . $_POST["responsejson"],0);
 
         $payment = new Payment(
             0,
@@ -156,7 +156,7 @@ class PaymentController
 
     private function notFoundResponse()
     {
-        error_log("Are we even getting here",0);
+        // error_log("Are we even getting here",0);
         $response['status_code_header'] = 'HTTP/1.1 404 Not Found';
         $response['body'] = null;
         return $response;
