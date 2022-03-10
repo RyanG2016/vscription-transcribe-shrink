@@ -43,6 +43,41 @@ tinymce.init({
                 tinymce.activeEditor.execCommand('mceInsertContent', false, "<span class=\'ima\' style=\'color:blue\'><-INAUDIBLE (" + curPos + ")-></span>\uFEFF");
                 return false;
             }
+            else if (e.keyCode === 116) { // F5
+
+                e.preventDefault();
+                e.stopPropagation();
+                tinymce.activeEditor.execCommand('mceInsertContent', false, "<span class=\'ima\'>>>Interviewer 1 - </span>\uFEFF");
+                return false;
+            }
+            else if (e.keyCode === 117) { // F6
+
+                e.preventDefault();
+                e.stopPropagation();
+                tinymce.activeEditor.execCommand('mceInsertContent', false, "<span class=\'ima\'>>>Participant 1 -  </span>\uFEFF");
+                return false;
+            }
+            else if (e.keyCode === 118) { // F7
+
+                e.preventDefault();
+                e.stopPropagation();
+                tinymce.activeEditor.execCommand('mceInsertContent', false, "<span class=\'ima\'>>>Participant 2 - </span>\uFEFF");
+                return false;
+            }
+            else if (e.keyCode === 119) { // F8
+
+                e.preventDefault();
+                e.stopPropagation();
+                tinymce.activeEditor.execCommand('mceInsertContent', false, "<span class=\'ima\' style=\'color:blue\'>XXMASKEDNAMEXX</span>\uFEFF");
+                return false;
+            }
+            else if (e.keyCode === 120) { // F9
+
+                e.preventDefault();
+                e.stopPropagation();
+                tinymce.activeEditor.execCommand('mceInsertContent', false, "<span class=\'ima\' style=\'color:blue\'>>>Speaker </span>\uFEFF");
+                return false;
+            }
 
         });
 
