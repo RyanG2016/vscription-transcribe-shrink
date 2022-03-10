@@ -185,6 +185,9 @@ function generateHTMLReport($html, $row, $suppress_print_header)
 
     $decodedHTML = html_entity_decode($html, ENT_QUOTES);
     $decodedHTML = str_replace("&lt;INAUDIBLE&gt;", "-INAUDIBLE-", $decodedHTML);
+    $decodedHTML = str_replace("&lt;&lt;Interviewer", "-Interviewer", $decodedHTML);
+    $decodedHTML = str_replace("&lt;&lt;Participant", "-Participant", $decodedHTML);
+    $decodedHTML = str_replace("&lt;&lt;Speaker", "-Speaker", $decodedHTML);
     $report .= $decodedHTML;
     $report .= "</body>";
 
