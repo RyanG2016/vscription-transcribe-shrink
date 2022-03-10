@@ -47,35 +47,34 @@ tinymce.init({
 
                 e.preventDefault();
                 e.stopPropagation();
-                var curPos = new Date(Math.floor(AblePlayerInstances[0].seekBar.position)*1000).toISOString().substr(11, 8);   
-                //Had to combine the following together as I couldn't get the span tag to close properly otherwise.
-                tinymce.activeEditor.execCommand('mceInsertContent', false, "<span class=\'ima\' style=\'color:blue\'>XXMASKEDNAMEXX</span>\uFEFF");
+                tinymce.activeEditor.execCommand('mceInsertContent', false, "<span class=\'ima\'>>>Interviewer 1 - </span>\uFEFF");
                 return false;
             }
             else if (e.keyCode === 117) { // F6
 
                 e.preventDefault();
                 e.stopPropagation();
-                var curPos = new Date(Math.floor(AblePlayerInstances[0].seekBar.position)*1000).toISOString().substr(11, 8);   
-                //Had to combine the following together as I couldn't get the span tag to close properly otherwise.
-                tinymce.activeEditor.execCommand('mceInsertContent', false, "<span class=\'ima\' style=\'color:blue\'>>>Interviewer </span>\uFEFF");
+                tinymce.activeEditor.execCommand('mceInsertContent', false, "<span class=\'ima\'>>>Participant 1 -  </span>\uFEFF");
                 return false;
             }
             else if (e.keyCode === 118) { // F7
 
                 e.preventDefault();
                 e.stopPropagation();
-                var curPos = new Date(Math.floor(AblePlayerInstances[0].seekBar.position)*1000).toISOString().substr(11, 8);   
-                //Had to combine the following together as I couldn't get the span tag to close properly otherwise.
-                tinymce.activeEditor.execCommand('mceInsertContent', false, "<span class=\'ima\' style=\'color:blue\'>>>Participant </span>\uFEFF");
+                tinymce.activeEditor.execCommand('mceInsertContent', false, "<span class=\'ima\'>>>Participant 2 - </span>\uFEFF");
                 return false;
             }
             else if (e.keyCode === 119) { // F8
 
                 e.preventDefault();
                 e.stopPropagation();
-                var curPos = new Date(Math.floor(AblePlayerInstances[0].seekBar.position)*1000).toISOString().substr(11, 8);   
-                //Had to combine the following together as I couldn't get the span tag to close properly otherwise.
+                tinymce.activeEditor.execCommand('mceInsertContent', false, "<span class=\'ima\' style=\'color:blue\'>XXMASKEDNAMEXX</span>\uFEFF");
+                return false;
+            }
+            else if (e.keyCode === 120) { // F9
+
+                e.preventDefault();
+                e.stopPropagation();
                 tinymce.activeEditor.execCommand('mceInsertContent', false, "<span class=\'ima\' style=\'color:blue\'>>>Speaker </span>\uFEFF");
                 return false;
             }
