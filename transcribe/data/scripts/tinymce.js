@@ -54,30 +54,31 @@ tinymce.init({
 
                 e.preventDefault();
                 e.stopPropagation();
-                tinymce.activeEditor.execCommand('mceInsertContent', false, "<span class=\'ima\'>>>Participant 1 -  </span>\uFEFF");
+                tinymce.activeEditor.execCommand('mceInsertContent', false, "<span class=\'ima\'>>>Interviewer 2 -  </span>\uFEFF");
                 return false;
             }
             else if (e.keyCode === 118) { // F7
 
                 e.preventDefault();
                 e.stopPropagation();
-                tinymce.activeEditor.execCommand('mceInsertContent', false, "<span class=\'ima\'>>>Participant 2 - </span>\uFEFF");
+                tinymce.activeEditor.execCommand('mceInsertContent', false, "<span class=\'ima\'>>>Participant 1 - </span>\uFEFF");
                 return false;
             }
             else if (e.keyCode === 119) { // F8
 
                 e.preventDefault();
                 e.stopPropagation();
-                tinymce.activeEditor.execCommand('mceInsertContent', false, "<span class=\'ima\' style=\'color:blue\'>XXMASKEDNAMEXX</span>\uFEFF");
+                tinymce.activeEditor.execCommand('mceInsertContent', false, "<span class=\'ima\'>>>Participant 2 - </span>\uFEFF");
                 return false;
             }
             else if (e.keyCode === 120) { // F9
 
                 e.preventDefault();
                 e.stopPropagation();
-                tinymce.activeEditor.execCommand('mceInsertContent', false, "<span class=\'ima\' style=\'color:blue\'>>>Speaker </span>\uFEFF");
+                tinymce.activeEditor.execCommand('mceInsertContent', false, "<span class=\'ima\' style=\'color:blue\'>XXMASKEDNAMEXX</span>\uFEFF");
                 return false;
             }
+
 
         });
 
