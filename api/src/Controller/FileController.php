@@ -57,6 +57,9 @@ class FileController
                     else if($this->rawURI[0] == "completed"){
                         $response = $this->getCompletedFiles();
                     }
+                    else if($this->rawURI[0] == "suspendedjobtotal"){
+                        $response = $this->getSuspendedJobsCount();
+                    }
                     else if(isset($this->rawURI[1])){
                         if($this->rawURI[1] == "gettext") {
                             $response = $this->getJobText($this->fileId);
@@ -130,6 +133,14 @@ class FileController
     private function getJobText($id)
     {
         $result = $this->fileGateway->getText($id);
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = json_encode($result);
+        return $response;
+    }
+
+    private function getSuspendedJobsCount()
+    {
+        $result = $this->fileGateway->findSuspended();
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
         $response['body'] = json_encode($result);
         return $response;

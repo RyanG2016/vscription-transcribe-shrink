@@ -1260,7 +1260,7 @@ $(document).ready(function () {
             } else {
                 $.confirm({
                     title: 'No Job',
-                    content: "NO more jobs waiting for typing for this account",
+                    content: "No more jobs waiting for typing for this account",
                     buttons: {confirm: {btnClass: 'btn-green', text: 'ok'}}
                 });
             }
@@ -1294,6 +1294,20 @@ $(document).ready(function () {
             }
         });
 
+    }
+
+    function checkSuspendedJobsCount() {
+        var result;
+        $.get(files_api + 'suspendedjobtotal').done(function (data) {
+            if (data) {
+                  result = data[0]["SUSPENDED_JOBS"];
+                if (result == 0) {
+                    $('#suspendBtn').removeAttr("disabled");
+                }
+            } else {
+                // console.log("Error getting suspended job total");               
+            }
+        });
     }
 
     function decodeHtml(html) {
@@ -1404,10 +1418,10 @@ $(document).ready(function () {
         // $loadBtn.find("i").hide();
 
         // enable save etc.. buttons
+        // Users can only have one job suspended at a time per account
         if(rl == 3 && jobDetails.file_status != 3)
         {
-            // $('#saveBtn').removeAttr("disabled");
-            $('#suspendBtn').removeAttr("disabled");
+            checkSuspendedJobsCount();
         }
         $('#discardBtn').removeAttr("disabled");
         tinyMCE.activeEditor.setMode("design");

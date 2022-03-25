@@ -272,6 +272,40 @@ class FileGateway implements GatewayInterface
         }
     } //
 
+        // One suspended job per account.
+        public function findSuspended()
+        {
+            if(!isset($_SESSION['accID']))
+            {return array("error"=> true, "msg" => "please set an account first");}
+
+            $statement = "SELECT COUNT(*) AS SUSPENDED_JOBS
+            FROM files 
+            WHERE
+            file_status = '2' AND job_transcribed_by = ? AND acc_id = ?";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($_SESSION["uEmail"],$_SESSION["accID"]));
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+            if(isset($_GET['dt'])){
+                $json_data = array(
+                    "data"            => $result
+                );
+                $result = $json_data;
+            }
+            return $result;
+        } catch (PDOException $e) {
+            if(isset($_GET['dt'])) {
+                return array("data" => "");
+            }
+            else{
+                return array();
+            }
+        //            exit($e->getMessage());
+        }
+
+        }
+
     /**
      * used in transcribe.js / job_picker.js
      * */
