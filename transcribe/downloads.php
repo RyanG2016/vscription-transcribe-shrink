@@ -203,7 +203,7 @@ include('data/parts/head.php');
                                 </td>
                                 <td style="text-align: center;">
                                     <a href="https://apps.apple.com/us/app/vscription-mobile/id1570912761">
-                                        <img src="https://test.vscription.com/data/images/vScription_Mobile.svg" style="width: 125px;" alt="app store download">
+                                        <img src="https://test.vscription.com/data/images/vrm_qrcode.png" style="width: 125px;" alt="app store download">
                                     </a>
                                 </td>
                             </tr>
