@@ -582,15 +582,27 @@ select.form-control,
 .typing_notes_alert{
     padding: 6px 10px;
 }
+
+body > div.container-fluid.h-100.vspt-container-fluid > div > div.vspt-page-container > div > div > div.col.report-col > div.row.no-gutters.mb-2.d-flex.flex-row-reverse > span.typing-notes-button.mr-auto > button {
+    font-size: 21px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+
 div > span.typing-notes-button > button {
     border: 0;
     background-color: white!IMPORTANT;
-    color: blue!IMPORTANT;
+    color: rgb(30,121,190);
     font-size: 14px;
 }
 
 div > .typing-notes-btn {
     background-color:#FCED9E!IMPORTANT
+}
+
+#typingNotesButton:focus{
+    outline: none;
 }
 
 div > #notes-container {

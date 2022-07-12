@@ -85,12 +85,20 @@ $(document).ready(function () {
 
     var searchEngine =   $("#searchEngine");
     var compactView =   $("#pop");
+    var orgTypingNotes = $("#typingNotesButton");
     var showCompBtn =   $("#showCompBtn");
     var showingCompleted = false;
 
     compactView.popover({
         // html: true,
         content: "Compact View",
+        trigger: "hover"
+
+    });
+
+    orgTypingNotes.popover({
+        // html: true,
+        content: "Click to view organization typing notes.\n Click again to collapse",
         trigger: "hover"
 
     });

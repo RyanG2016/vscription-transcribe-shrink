@@ -284,10 +284,10 @@ $transRemarks = $currentAccount->getTranscribeRemarks();
                             <?php
                             if ($transRemarks)
                             {
-                            echo "<span class='typing-notes-button mr-auto'>
-                                <button type='button' class='btn w-100 mb-1 collapsed' data-toggle='collapse' data-target='#typingNotes'>**Click To Show Organization Typing Notes</button>
-                            </span>";
-                            }
+                                echo "<span class='typing-notes-button mr-auto'>
+                                    <button type='button' id='typingNotesButton' data-toggle='collapse' data-target='#typingNotes'> <i class='fas fa-comment-alt-lines'></i></button>
+                                </span>";
+                                }
                             ?>
                         </div>
 
