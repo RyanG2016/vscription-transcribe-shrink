@@ -187,11 +187,9 @@ if (isset($_REQUEST["reqcode"])) {
 
         // Download file
         case 17:
-            error_log("We are in the backend_request case 17 statement");
             $a = json_decode($args, true);
             $file_id = $a['file_id'];
             $currentAccID = $_SESSION['accID'] ?? false; // to prevent downloading other files belonging to another account
-            error_log("If currentAccID is false, we are returning false " . $currentAccID);
             if(!$currentAccID) return false;
 
             $res = downloadJob($con, $file_id, $currentAccID); // true if permission granted and hash is generated (return is the hash val) - false if denied
@@ -670,7 +668,6 @@ function updateJobStatus($con, $fileID, $newStatus)
 function downloadJob($con, $fileID, $accID)
 {
     /*-----Get existing data for job --------*/
-    error_log("We're at the start of the downloadJob function");
     $sql3 = "SELECT times_text_downloaded_date, text_downloaded_date FROM files WHERE file_id = ?
     AND acc_id = ?";
     if ($stmt3 = mysqli_prepare($con, $sql3)) {
@@ -699,15 +696,12 @@ function downloadJob($con, $fileID, $accID)
     $sql = "INSERT INTO downloads(acc_id, hash, file_id) VALUES(?,?,?)";
     //echo $sql;
 
-    error_log("SQL we are trying to run is: " . $sql,0);
-    error_log("We have the Acc ID " . $accID . " , the downloadHash " . $downloadHash . " , and the file ID " . $fileID);
     if ($stmt = mysqli_prepare($con, $sql)) {
 
         $stmt->bind_param("isi", $accID, $downloadHash, $fileID);
 
         $a = mysqli_stmt_execute($stmt);
         if ($a) {
-            error_log("Insert was successful. We aere returning ot the view.php");
             return $downloadHash;
         } else {
             error_log("ERROR: Could not execute $sql. " . mysqli_error($con));

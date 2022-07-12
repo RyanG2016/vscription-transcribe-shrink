@@ -26,8 +26,6 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $uri = explode('/', $uri);
 
-error_log("The request URI is:" . parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH),0);
-
 // all of our endpoints start with /api/v1/payments
 // everything else results in a 404 Not Found
 if ($uri[3] !== 'payments') {

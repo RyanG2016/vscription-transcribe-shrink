@@ -26,7 +26,7 @@ if ($stmt3 = mysqli_prepare($con, $sql3)) {
     if (mysqli_stmt_execute($stmt3)) {
         $result = mysqli_stmt_get_result($stmt3);
         // Check number of rows in the result set
-        error_log("When querying the downloads hash table, we found " . mysqli_num_rows($result) . " rows");
+        // error_log("When querying the downloads hash table, we found " . mysqli_num_rows($result) . " rows");
         if (mysqli_num_rows($result) == 1) {
             /** PERMISSION OK HASH OK - NOT EXPIRED */
 
@@ -34,15 +34,15 @@ if ($stmt3 = mysqli_prepare($con, $sql3)) {
             $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
             $file_id = $row['file_id'];
             $acc_id = $row['acc_id'];
-            error_log("We have checked the downloads table for a matching entry using " . $file_id . " and " . $acc_id);
+            // error_log("We have checked the downloads table for a matching entry using " . $file_id . " and " . $acc_id);
             /** check if the current user acc_id match */
             if ($acc_id == $_SESSION['accID']) {
-                error_log("We have a match so we are updating the download date");
+                // error_log("We have a match so we are updating the download date");
 //                /** Update download/view statistics */
                 updateInitDownloadDate($con, $file_id, $acc_id);
 
                 /** set download link as expired */
-                error_log("We have a match so we are expiring the download link");
+                // error_log("We have a match so we are expiring the download link");
                 expireDownloadLink($con, $file_id, $acc_id);
 
                 /** get file data to prepare for download */
@@ -50,14 +50,14 @@ if ($stmt3 = mysqli_prepare($con, $sql3)) {
 
             } else {
                 /** PERMISSION DENIED ACCOUNT ID DOESN'T MATCH */
-                error_log("This accessdenied was triggered by acc_id not matching session acc_id " . $acc_id . " SESS: " . $_SESSION['acc_id'], 0);
+                // error_log("This accessdenied was triggered by acc_id not matching session acc_id " . $acc_id . " SESS: " . $_SESSION['acc_id'], 0);
                 header("Location: accessdenied.php");
             }
 
 
         } else {
             /** PERMISSION DENIED ACCOUNT ID DOESN'T MATCH */
-            error_log("This accessdenied was triggered by either the hash is no good or the download expired " . $acc_id . " SESS: " . $_SESSION['acc_id'], 0);
+            // error_log("This accessdenied was triggered by either the hash is no good or the download expired " . $acc_id . " SESS: " . $_SESSION['acc_id'], 0);
             header("Location: accessdenied.php");
             return false;
 
