@@ -578,10 +578,29 @@ select.form-control,
     font-size: 13px;
 }
 
+
 .typing_notes_alert{
     padding: 6px 10px;
 }
+div > span.typing-notes-button > button {
+    border: 0;
+    background-color: white!IMPORTANT;
+    color: blue!IMPORTANT;
+    font-size: 14px;
+}
 
+div > .typing-notes-btn {
+    background-color:#FCED9E!IMPORTANT
+}
+
+div > #notes-container {
+    background-color:#bfbfbf;
+    border-radius: 3px;
+    /* padding: 5px!important; */
+    margin-bottom: 4px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
 
 /* responsive override */
 

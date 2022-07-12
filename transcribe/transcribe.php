@@ -281,20 +281,40 @@ $transRemarks = $currentAccount->getTranscribeRemarks();
                                     <i class="fas fa-external-link-alt"></i>
                                 </button>
                             </span>
+                            <?php
+                            if ($transRemarks)
+                            {
+                            echo "<span class='typing-notes-button mr-auto'>
+                                <button type='button' class='btn w-100 mb-1 collapsed' data-toggle='collapse' data-target='#typingNotes'>**Click To Show Organization Typing Notes</button>
+                            </span>";
+                            }
+                            ?>
                         </div>
 
                         <?php
 
+                        // if($transRemarks)
+                        // {
+                        //     echo "<div id='typing_notes_body' class='alert alert-warning typing_notes_alert mr-2 mb-2' role='alert'>
+                        //     <b class='typing_notes_header' id='typingNotesHeader'>Organization Typing Notes:</b>
+                        //     <span id='typingNotesBody' class='typing_notes_body'>$transRemarks</span>
+                            
+                        //     <button type='button' class='close bs-exclude' data-dismiss='alert' aria-label='Close'>
+                        //         <span aria-hidden='true'>&times;</span>
+                        //     </button>
+
+                        //     </div>
+                        //     ";
+//                            <button type='button' class='btn w-100 mb-1 collapsed typing_notes_btn' data-toggle='collapse' data-target='#typingNotes'>Organization Notes - Click To View</button>
+
+                        // }
+                        
                         if($transRemarks)
                         {
-                            echo "<div id='typing_notes_body' class='alert alert-warning typing_notes_alert mr-2 mb-2' role='alert'>
-                            <b class='typing_notes_header' id='typingNotesHeader'>Organization Typing Notes:</b>
-                            <span id='typingNotesBody' class='typing_notes_body'>$transRemarks</span>
-                            
-                            <button type='button' class='close bs-exclude' data-dismiss='alert' aria-label='Close'>
-                                <span aria-hidden='true'>&times;</span>
-                            </button>
-
+                            echo "<div class='container p-0' id='notes-container'>
+                            <div id='typingNotes' class='collapse typing_notes_body mr-2 ml-2'>
+                            $transRemarks
+                            </div>
                             </div>
                             ";
 
