@@ -62,7 +62,7 @@ include ('data/parts/constants.php');
     <script src="data/scripts/parts/ping.min.js" type="text/javascript"></script>
 
     <link href='data/css/popup.css?v=1' type='text/css' rel='stylesheet' />
-    <script src="data/scripts/popup.min.js?v=4" type="text/javascript"></script>
+    <script src="data/scripts/popup.min.js?v=5" type="text/javascript"></script>
 
 
     <!--	Able Player dependencies   -->

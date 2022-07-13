@@ -87,7 +87,7 @@ if ($roleIsSet && $hasOwnOrg && ($_SESSION["accID"] == $_SESSION["userData"]["ac
     <script src="data/scripts/parts/ping.min.js" type="text/javascript"></script>
 
     <link href="data/css/settings.css?v=2" rel="stylesheet">
-    <script src="data/scripts/settings.min.js?v=6" type="text/javascript"></script>
+    <script src="data/scripts/settings.min.js?v=7" type="text/javascript"></script>
 
 </head>
 
@@ -657,6 +657,20 @@ if (isset($_SESSION["role"]) && $_SESSION["role"] != 5)
 
                                 <div class="mdc-switch mdc-switch--disabled ml-auto mt-auto mb-auto"
                                     id="typist_av_switch">
+                                    <div class="mdc-switch__track"></div>
+                                    <div class="mdc-switch__thumb-underlay">
+                                        <div class="mdc-switch__thumb"></div>
+                                        <input type="checkbox" id="basic-switch" class="mdc-switch__native-control"
+                                            role="switch" aria-checked="false" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <p>Open Player in Compact Mode <span id="compactViewHelp"
+                                        class="vtex-help-icon">(?)</span></p>
+
+                                <div class="mdc-switch mdc-switch--disabled ml-auto mt-auto mb-auto"
+                                    id="typist_cv_switch">
                                     <div class="mdc-switch__track"></div>
                                     <div class="mdc-switch__thumb-underlay">
                                         <div class="mdc-switch__thumb"></div>

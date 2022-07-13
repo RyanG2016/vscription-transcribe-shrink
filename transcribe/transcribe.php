@@ -132,6 +132,7 @@ $transRemarks = $currentAccount->getTranscribeRemarks();
 
     <script type="text/javascript">
         var rl = <?php echo $_SESSION["role"] ?>;
+        var cv = <?php echo $_SESSION["defaultCompactView"] ?>;
     </script>
 
     <!--    JQuery    -->
@@ -248,7 +249,7 @@ $transRemarks = $currentAccount->getTranscribeRemarks();
 <body>
 
 <script src="data/scripts/parts/constants.js" type="text/javascript"></script>
-<script src="data/scripts/transcribe.min.js?v=14"></script>
+<script src="data/scripts/transcribe.min.js?v=15"></script>
 <!-- <script src="data/scripts/transcribe.js"></script> -->
 
 <div id="updated_version_bar">There is a newer version (v<span></span>) of the vScription Transcribe Controller

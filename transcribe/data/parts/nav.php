@@ -48,7 +48,7 @@
                 break;
                 case 3:
                     $homePage = "transcribe.php";
-                    break;
+                break;
             }
         }
         ?>
@@ -168,20 +168,37 @@
                break;
 
            case 3:
-               echo '
-					   <a href="/jobupload.php" id="upload-nav" class="bg-dark list-group-item list-group-item-action">
-                            <div class="d-flex w-100 justify-content-start align-items-center">
-                                <span class="fas fa-cloud-upload-alt fa-fw mr-3"></span>
-                                <span class="menu-expanded">Upload Jobs</span>
-                            </div>
-                        </a>
-						<a href="/transcribe.php" id="transcribe-nav" class="bg-dark list-group-item list-group-item-action">
-                            <div class="d-flex w-100 justify-content-start align-items-center">
-                                <span class="fas fa-keyboard fa-fw mr-3"></span>
-                                <span class="menu-expanded">Transcribe</span>
-                            </div>
-                        </a>
-                       ';
+            if ($_SESSION['defaultCompactView'] == 1) {
+                echo '
+                        <a href="/jobupload.php" id="upload-nav" class="bg-dark list-group-item list-group-item-action">
+                             <div class="d-flex w-100 justify-content-start align-items-center">
+                                 <span class="fas fa-cloud-upload-alt fa-fw mr-3"></span>
+                                 <span class="menu-expanded">Upload Jobs</span>
+                             </div>
+                         </a>
+                         <a href="#" onClick="window.open(\'/popup.php\', \'modalPlayer\', \'toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=530,height=262\'); return false;" target="_blank" id="transcribe-nav" class="bg-dark list-group-item list-group-item-action">
+                             <div class="d-flex w-100 justify-content-start align-items-center">
+                                 <span class="fas fa-keyboard fa-fw mr-3"></span>
+                                 <span class="menu-expanded">Transcribe</span>
+                             </div>
+                         </a>
+                        ';
+            } else {
+                echo '
+                <a href="/jobupload.php" id="upload-nav" class="bg-dark list-group-item list-group-item-action">
+                     <div class="d-flex w-100 justify-content-start align-items-center">
+                         <span class="fas fa-cloud-upload-alt fa-fw mr-3"></span>
+                         <span class="menu-expanded">Upload Jobs</span>
+                     </div>
+                 </a>
+                 <a href="/transcribe.php" id="transcribe-nav" class="bg-dark list-group-item list-group-item-action">
+                     <div class="d-flex w-100 justify-content-start align-items-center">
+                         <span class="fas fa-keyboard fa-fw mr-3"></span>
+                         <span class="menu-expanded">Transcribe</span>
+                     </div>
+                 </a>
+                ';
+            }
                break;
 
 

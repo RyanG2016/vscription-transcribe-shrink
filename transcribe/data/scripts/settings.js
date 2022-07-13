@@ -14,6 +14,9 @@ const CREATE_ACC_URL = "../api/v1/accounts/?out";
 var typistAvSwitch;
 var typistAvSwitchMDC;
 
+var typistCvSwitch;
+var typistCvSwitchMDC;
+
 var srSwitchMDC;
 var srOwnSwitchMDC;
 
@@ -45,6 +48,16 @@ $(document).ready(function () {
             "</div>"
     });
 
+    $("#compactViewHelp").popover({
+        html: true,
+        trigger: 'hover',
+        content: "<div>" +
+            "<b>This sets the default player mode to compact view</b>" +
+            "<br><br>" +
+            "<p>You can switch back to full window mode from the compact view</p>" +
+            "</div>"
+    });
+
     $(".vtex-help-icon").each(function () {
         $(this).popover({
             html: true,
@@ -70,84 +83,7 @@ $(document).ready(function () {
                 "</div>"
         });
     });
-    //<editor-fold desc="Tutorial Snippet to copy">
-    /**
-     * Copy this fold to any JS file for any page and just edit the following
-     * 1. enjoyhint_script_steps -> steps of the tutorial text and screen items to be highlighted
-     * 2. tutorialViewed function -> ajax 'url' relative path MAY need to be edited
-     * finally copy over the following to the page PHP code before the initializing of the JS file
-     *
-     <?php $tuts=(isset($_SESSION['tutorials']))?$_SESSION['tutorials']:'{}'; ?>
-     <script type="text/javascript">
-     var tutorials='<?php echo $tuts;?>';
-     </script>
-     */
-    //initialize instance
-    /*    var enjoyhint_instance
-            = new EnjoyHint({
-            onEnd:function(){
-                tutorialViewed();
-            },
-            onSkip:function(){
-                tutorialViewed();
-            }
-        });
 
-        //simple config.
-        //Only one step - highlighting(with description) "New" button
-        //hide EnjoyHint after a click on the button.
-        var enjoyhint_script_steps = [
-            {
-                "next #adminCard": "Start here by setting up your account. This needs to done before you can upload jobs",
-                shape:"circle"
-            }
-            ,
-            {
-                "next .navbar-text": "Here you will find your login name, current account and role within that account"
-            }
-            ,
-            {
-                "next #typistCard>div":'Here you can find information about your current access permissions',
-                // shape:"circle",
-            }
-            ,
-            {
-                "click #alertT2":'Here you can set whether or not you\'re open for new work invites from other accounts.',
-                // shape:"circle",
-                "skipButton":{text: "Finish"}
-            }
-        ];
-
-        //set script config
-        enjoyhint_instance.set(enjoyhint_script_steps);
-
-        // get page name
-        const currentPageName = location.pathname.split("/").slice(-1)[0].replace(".php","");
-        // parse user tutorials data to JSON
-        var tutorialsJson = JSON.parse(tutorials);
-        // check if tutorial for the current page isn't viewed before
-        if(tutorialsJson[currentPageName] == undefined || tutorialsJson[currentPageName] == 0){
-            // show tutorial
-            enjoyhint_instance.run();
-        }
-
-        function tutorialViewed() {
-            var formData = new FormData();
-            formData.append("page", currentPageName);
-            $.ajax({
-                type: 'POST',
-                url: "../api/v1/users/tutorial-viewed/",
-                processData: false,
-                data: convertToSearchParam(formData)
-            });
-        }*/
-    //</editor-fold>
-
-
-    // console.log("tutorials variable: " + tutorials);
-    // console.log(JSON.parse(tutorials));
-    //run Enjoyhint script
-    //     enjoyhint_instance.run();
 
     let loadingText = $("#loadingText");
     let typistAvSwitch = $("#typist_av_switch");
@@ -164,52 +100,25 @@ $(document).ready(function () {
     let state = $("#state");
     let userForm = $("#userForm");
     let orgForm = $("#orgForm");
-    // let paymentForm = $("#paymentForm");
     let ownOrgForm = $("#ownOrgForm");
     let country = $("#country");
     let newsletter = $("#newsletter");
     let jobUpdates = $("#emailTranscript");
     let email = $("#email");
     let lastZipRequested = "";
-    // let card_number = $("#card_number")[0];
-    // let security_code = $("#security_code")[0];
-    // let expiration_date = $("#expiration_date")[0];
+
 
     let currentEmail = email.val();
     let jlSwitch = $("#jlSwitch");
     let orgJobListRefreshInterval = $("#orgJobListRefreshInterval");
     let jlOwnSwitch = $("#jlOwnSwitch");
     let ownOrgJobListRefreshInterval = $("#ownOrgJobListRefreshInterval");
+    let typistCvSwitch = $("#typist_cv_switch");
 
-    // var securitycode_mask = new IMask(security_code, {
-    //     mask: '0000',
-    // });
-    // var expiration_date_mask = new IMask(expiration_date, {
-    //     mask: 'MM{/}YY',
-    //     groups: {
-    //         YY: new IMask.MaskedPattern.Group.Range([0, 99]),
-    //         MM: new IMask.MaskedPattern.Group.Range([1, 12]),
-    //     }
-    // });
-    // var card_number_mask = new IMask(card_number, {
-    //       mask: '0000 0000 0000 0000',
-    //         regex: '^4\\d{0,15}',
-    // });
 
-    /*    userForm.parsley({
-            /!*errorsWrapper: '<br><ul class="parsley-error-list"></ul>'*!/
-            errorsContainer: function (field) {
-                return field.$element.closest('.block, .control')
-            }
-
-        }).on('field:validated', function() {
-            var ok = $('.parsley-error').length === 0;
-            $('.bs-callout-info').toggleClass('hidden', !ok);
-            $('.bs-callout-warning').toggleClass('hidden', ok);
-        })
-            .on('form:submit', function() {
-                return false; // Don't submit form
-            });*/
+    
+    getAvailabilityAsTypist();
+    getDefaultCompactView();
 
     userForm.parsley().on('form:submit', function () {
 
@@ -243,38 +152,7 @@ $(document).ready(function () {
 
         return false; // Don't submit form
     });
-    // paymentForm.parsley().on('form:submit', function () {
 
-    //     var formData = new FormData(paymentForm[0]);
-    //     formData.append("newsletter", newsletter.hasClass("active") ? "1" : "0");
-    //     formData.append("email_notification", jobUpdates.hasClass("active") ? "1" : "0");
-
-    //     if(email.val() !== currentEmail)
-    //     {
-    //         // inform user of a possible logout
-    //         $.confirm({
-    //             title: 'Important!',
-    //             // theme: 'bootstrap',
-    //             type: 'orange',
-    //             columnClass: 'col-6',
-    //             content: 'By changing your email address you will be logged out until your account is verified by visiting the link mailed to you.',
-    //             buttons: {
-    //                 confirm: function () {
-    //                     // $.alert('Confirmed!');
-    //                     // proceed
-    //                     updateUserInfo(formData, true);
-    //                 },
-    //                 cancel: function () {
-    //                     return true;
-    //                 }
-    //             }
-    //         });
-    //     }else{
-    //         updateUserInfo(formData);
-    //     }
-
-    //     return false; // Don't submit form
-    // });
     function updateUserInfo(formData, reload = false){
         console.log(formData)
         $.confirm({
@@ -600,6 +478,17 @@ $(document).ready(function () {
         }
     });
 
+    typistCvSwitchMDC = new mdc.switchControl.MDCSwitch(document.querySelector('#typist_cv_switch'));
+
+    typistCvSwitch.on('change', function (e) {
+        typistCvSwitchMDC.disabled = true;
+        if (typistCvSwitchMDC.checked) {
+            setDefaultCompactView(1);
+        } else {
+            setDefaultCompactView(0);
+        }
+    });
+
     if (roleIsset && ((redirectID == 1 || redirectID == 2)) && subscription_type == 3) {
         srSwitchMDC = new mdc.switchControl.MDCSwitch(document.querySelector('#srSwitch'));
 
@@ -736,7 +625,6 @@ $(document).ready(function () {
         }
     }
 
-    getAvailabilityAsTypist();
 
     function getAvailabilityAsTypist() {
         $.ajax({
@@ -749,7 +637,31 @@ $(document).ready(function () {
                     typistAvSwitchMDC.checked = false;
                 }
                 typistAvSwitchMDC.disabled = false;
-            }
+            },
+            error(err)
+            {
+                console.log(`The AV response is in error: ${err}`)
+            }        
+        });
+    }
+
+    function getDefaultCompactView() {
+        $.ajax({
+            url: "../api/v1/users/def-compact-view/",
+            method: "GET",
+            success: function (state) {
+                console.log(`We have a successful return from the compact view setting. We should enable the button after`);
+                if (state == 1) {
+                    typistCvSwitchMDC.checked = true;
+                } else {
+                    typistCvSwitchMDC.checked = false;
+                }
+                typistCvSwitchMDC.disabled = false;
+            },
+            error(err)
+            {
+                console.log(`The CV response is in error:`, err)
+            }     
         });
     }
 
@@ -833,6 +745,31 @@ $(document).ready(function () {
             },
             error: function (err) {
                 getAvailabilityAsTypist();
+            }
+        });
+    }
+
+    function setDefaultCompactView(state) {
+        typistCvSwitchMDC.disabled = true;
+        var formData = new FormData();
+        formData.append('cv', state);
+
+        $.ajax({
+            type: 'POST',
+            url: "../api/v1/users/set-cv/",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (success) {
+                if (success) {
+                    typistCvSwitchMDC.checked = state === 1;
+                    typistCvSwitchMDC.disabled = false;
+                } else {
+                    getDefaultCompactView();
+                }
+            },
+            error: function (err) {
+                getDefaultCompactView();
             }
         });
     }

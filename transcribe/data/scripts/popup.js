@@ -663,15 +663,16 @@ function switchUI(loaded)
 // switch back to transcribe full mode
 function postToParent()
 {
-    // disconnect();
     if(window.opener !== null)
     {
-        window.opener.switchBack();
+        var goParent = window.open(window.opener.location, 'modalPlayer');
+        goParent.focus();
+        // window.opener.switchBack();
     } else{
         // transcribe isn't open -> open it
         window.open("transcribe.php", "_blank");
-        close();
     }
+    close();
 }
 /*
 function disconnect() {

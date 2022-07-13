@@ -386,6 +386,35 @@ class UserGateway implements GatewayInterface
         }
     }
 
+        /**
+     * Retrieves user custom transcribe expandable shortcuts
+     * @return string|array json shortcuts
+     */
+    public function getUserDefaultCompactView()
+    {
+
+        $statement = "
+            SELECT 
+                   users.default_compact_view       
+            FROM
+                users
+            WHERE
+                users.id = ?";
+
+            try {
+                $statement = $this->db->prepare($statement);
+                $statement->execute(array($_SESSION["uid"]));
+                $result = $statement->fetch();
+                if($statement->rowCount() > 0)
+                {
+                    return $result["default_compact_view"]==0?5:$result["default_compact_view"]; //If we return a 0, the ajax treats the response as an error which is why we return 5
+                }
+                return false;
+            } catch (\PDOException) {
+                return false;
+            }
+    }
+
     /**
      * Retrieves if the current user -> account is sr enabled
      * @return int
@@ -547,6 +576,33 @@ class UserGateway implements GatewayInterface
         try {
             $statement = $this->db->prepare($statement);
             $statement->execute(array($availability, $_SESSION["uid"]));
+            return $statement->rowCount();
+        } catch (\PDOException $e) {
+            return false;
+//            exit($e->getMessage());
+        }
+    }
+
+        /**
+     * SETs default compact view mode for current logged in user
+     * @param $availability (0,1,2)
+     * @return boolean success
+     */
+    public function setDefaultCompactView($state)
+    {
+
+        $statement = "
+            UPDATE
+                users
+                   SET       
+                default_compact_view = ?
+            WHERE
+                users.id = ?";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($state, $_SESSION["uid"]));
+            $_SESSION["defaultCompactView"] = $state; //Update the session variable
             return $statement->rowCount();
         } catch (\PDOException $e) {
             return false;

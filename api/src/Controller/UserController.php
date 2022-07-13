@@ -61,6 +61,10 @@ class UserController
                 else if($this->userId == "shortcuts")
                 {
                     $response = $this->getUserShortcuts();
+                }                
+                else if($this->userId == "def-compact-view")
+                {
+                    $response = $this->getUserDefaultCompactView();
                 }
                 else if ($this->userId) {
                     $response = $this->getUser($this->userId);
@@ -76,6 +80,9 @@ class UserController
                     $response = $this->updateUserDefaultAccess();
                 }else if ($this->userId == "set-available") {
                     $response = $this->setAvailableForWork();
+                }
+                else if ($this->userId == "set-cv") {
+                $response = $this->setUserDefaultCompactView();
                 }
                 else if ($this->userId == "sr-enabled") {
                     $response = $this->setSRenabled();
@@ -155,6 +162,10 @@ class UserController
                 {
                     $response = $this->getUserShortcuts();
                 }
+                else if($this->userId == "def-compact-view")
+                {
+                    $response = $this->getUserDefaultCompactView();
+                }
                 else {
 //                    $response = $this->getAllUsers();
                     $response = $this->notFoundResponse();
@@ -169,6 +180,9 @@ class UserController
                 }
                 else if ($this->userId == "set-available") {
                     $response = $this->setAvailableForWork();
+                }
+                else if ($this->userId == "set-cv") {
+                    $response = $this->setUserDefaultCompactView();
                 }
                 else if ($this->userId == "sr-enabled") {
                     $response = $this->setSRenabled();
@@ -259,6 +273,23 @@ class UserController
             return  false;
         }
         $result = $this->userGateway->setAvailableForWorkAsTypist($_POST["av"]);
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = $result;
+        return $response;
+    }
+
+        /**
+     * SET default compact view for current logged in user
+     * @param int POST av: availability (0,1,2)
+     * @return array|bool success
+     */
+    private function setUserDefaultCompactView()
+    {
+        if(!isset($_POST["cv"]) || !is_numeric($_POST["cv"]))
+        {
+            return  false;
+        }
+        $result = $this->userGateway->setDefaultCompactView($_POST["cv"]);
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
         $response['body'] = $result;
         return $response;
@@ -371,6 +402,19 @@ class UserController
         $response['body'] = $result;
         return $response;
     }
+
+    /**
+     * Retrievesdefault compact view settings
+     * @return boolean response
+     */
+    private function getUserDefaultCompactView()
+    {
+        $result = $this->userGateway->getUserDefaultCompactView();
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = $result;
+        return $response;
+    }
+    
 
     /**
      * Add a new user custom transcribe expandable shortcut
