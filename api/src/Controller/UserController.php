@@ -62,7 +62,7 @@ class UserController
                 {
                     $response = $this->getUserShortcuts();
                 }                
-                else if($this->userId == "def-compact-view")
+                else if($this->userId == "get-def-cv")
                 {
                     $response = $this->getUserDefaultCompactView();
                 }
@@ -81,7 +81,7 @@ class UserController
                 }else if ($this->userId == "set-available") {
                     $response = $this->setAvailableForWork();
                 }
-                else if ($this->userId == "set-cv") {
+                else if ($this->userId == "set-def-cv") {
                 $response = $this->setUserDefaultCompactView();
                 }
                 else if ($this->userId == "sr-enabled") {
@@ -162,7 +162,7 @@ class UserController
                 {
                     $response = $this->getUserShortcuts();
                 }
-                else if($this->userId == "def-compact-view")
+                else if($this->userId == "get-def-cv")
                 {
                     $response = $this->getUserDefaultCompactView();
                 }
@@ -181,7 +181,7 @@ class UserController
                 else if ($this->userId == "set-available") {
                     $response = $this->setAvailableForWork();
                 }
-                else if ($this->userId == "set-cv") {
+                else if ($this->userId == "set-def-cv") {
                     $response = $this->setUserDefaultCompactView();
                 }
                 else if ($this->userId == "sr-enabled") {

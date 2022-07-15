@@ -647,7 +647,7 @@ $(document).ready(function () {
 
     function getDefaultCompactView() {
         $.ajax({
-            url: "../api/v1/users/def-compact-view/",
+            url: "../api/v1/users/get-def-cv/",
             method: "GET",
             success: function (state) {
                 console.log(`We have a successful return from the compact view setting. We should enable the button after`);
@@ -756,7 +756,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: 'POST',
-            url: "../api/v1/users/set-cv/",
+            url: "../api/v1/users/set-def-cv/",
             data: formData,
             processData: false,
             contentType: false,
