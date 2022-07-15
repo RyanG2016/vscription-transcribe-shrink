@@ -16,16 +16,20 @@ var loadingConfirmBtn;
 var loadingSub;
 var loadingTitle;
 var isConnected = false;
-var isConnecting = true;
+var isConnecting = false;
 var firstLaunch = true;
 let statusTxt;
 var getOldestJob;
 var loadJPJob;
 var loadingScreen;
-const not_connected = "<i><i class=\"fas fa-info-circle\"></i>Couldn't connect to vScription Controller <u id=\"reconnect\">reconnect?</u> <span class='download-controller' id=\"downloadController\">or download here</span></i>";
-const connecting = "<i>connecting to controller please wait...</i>";
-const connected = "<i>Connected to vScription Controller</i>";
-const not_running = "<i><i class=\"fas fa-info-circle\"></i>vScription Controller not running. <u id=\"reconnect\">reconnect?</u> <span class='download-controller' id=\"downloadController\">or download here</span></i>";
+// const not_connected = "<i><i class=\"fas fa-info-circle\"></i>Couldn't connect to vScription Controller <u id=\"reconnect\">reconnect?</u> <span class='download-controller' id=\"downloadController\">or download here</span></i>";
+// const connecting = "<i>connecting to controller please wait...</i>";
+// const connected = "<i>Connected to vScription Controller</i>";
+// const not_running = "<i><i class=\"fas fa-info-circle\"></i>vScription Controller not running. <u id=\"reconnect\">reconnect?</u> <span class='download-controller' id=\"downloadController\">or download here</span></i>";
+const not_connected = "<i><i class=\"fas fa-info-circle\"></i>Couldn't connect to USB Foot Control <u id=\"reconnect\">reconnect?</u></i>";
+const connecting = "<i>connecting to USB foot controller please wait...</i>";
+const connected = "<i>Connected to USB Foot Control</i>";
+const not_running = "<i><i class=\"fas fa-info-circle\"></i>vScription Controller not running. We should never see this <u id=\"reconnect\">reconnect?</u></i>";
 const greenColor = "#3e943c";
 const orangeColor = "#d34038";
 const versionCheck = "vCheck-"; // DONOT MODIFY
@@ -45,6 +49,16 @@ var refreshShortcuts = true;
 
 var lastShortcutValue = "";
 var jpTutorialRunOnce = false;
+
+//For webHID Connection
+var lastSelectedFootControl = "VEC USB Footpedal";
+var deviceID;
+const filters = [
+    {
+      vendorId: 0x05f3, //VEC
+      productId: 0x00ff //IN-USB
+    }
+];
 
 $(document).ready(function () {
     var loadingText = $("#loadingText");
@@ -215,17 +229,25 @@ $(document).ready(function () {
 
 
     //***************** Websocket Connect on page load *****************//
-    window.addEventListener("load", connect, false);
+    // window.addEventListener("load", connect, false);
+    window.addEventListener("load", deviceCheck, false);
     //***************** Websocket Data *****************//
-
 
     var wsocket;
 
     statusTxt = $("#statusTxt");
     // demoFields = $("#demoItems");
 
+ 
     function connect() {
 
+        if ("hid" in navigator) {
+            console.log(`**HID Testing** | Browser supports webHID. Connecting directlyr`)
+                   deviceCheck();
+                   return;
+        } else {
+            console.log(`**HID Testing** | Browser doesn't sypport webHID. Falling back to using the Controller`)
+        }
         if (!isConnected || isConnecting) {
             isConnecting = true;
             setControllerStatus(connecting);
@@ -297,6 +319,7 @@ $(document).ready(function () {
 
         }
     }
+  
 
     function playAblePlayer(play) {
         if (isAblePlayerMediaSet()) {
@@ -330,8 +353,9 @@ $(document).ready(function () {
     window.addEventListener("unload", logData, false);
 
     function logData() {
-        wsocket.send("transcribe client disconnecting..");
+        // wsocket.send("transcribe client disconnecting..");
     }
+
 
 
     // WEB SOCKET FUNCTIONS //
@@ -1908,4 +1932,166 @@ function gotoInaudiblePosition(e) {
     AblePlayerInstances[0].seekTo(e);
     AblePlayerInstances[0].seekBar.setPosition(e);
     AblePlayerInstances[0].media.pause();
+}
+
+
+    // webHID Code
+    //This is where we will do all of our heavy lifting for the webHID integration
+    const deviceCheck = async() => {
+        console.log(`**HID TESTING** | Last selected foot control is: ${lastSelectedFootControl}`);
+        let selectedFootControl;
+        if (lastSelectedFootControl.includes("VEC")) {
+            selectedFootControl = "VEC"
+        } else if (lastSelectedFootControl.includes("PowerMicII-NS")) {
+            selectedFootControl = "PowerMicII-NS"
+        } else {
+            selectedFootControl = ""
+        }
+        if (selectedFootControl === "VEC" || selectedFootControl === "Philips" ){
+            //We need to close if we are leaving the tab or window and open if getting focus
+            if (!document.hidden) {  
+                device = "";
+                device = await navigator.hid.getDevices();
+                 console.log(`HID Device table:`);
+                    device.forEach(device => {
+                    console.table(device);
+                    });
+                if (device.length == 0) {  // User disconnected the foot control some point before returing to the page/tab
+                    console.log(`**HID Testing** | No devices connected`);
+                    isConnected = false;
+                        setWebHIDStatus(not_connected, false);
+                    return;
+                } 
+                else 
+                {
+                    // We are using includes here as different OSes display the device name differently.
+                    const deviceStillConnected = device.some(obj => obj.productName.includes(selectedFootControl));
+                    if (!deviceStillConnected) {  //This will fire if there happens to be more than one supported HID device connected at once
+                        alert("Your selected foot control is no longer available, Please select your foot control again");
+                        isConnected = false;
+                        console.log(`**HID Testing** | No devices connected`);
+                        setWebHIDStatus(not_connected, false);
+                        return;
+                    }
+                    // This section was added for SpeechMike support since it contains 2-4 HID and may not be needed for foot control
+                    // devices instead of the one so we need to pick the right one or
+                    // we can't see the events we need.
+                    device.forEach((element, index) => {
+                        if (element.productName.includes(selectedFootControl)) {
+                            // if (element.collections.length > 0) {
+                            //     console.log(`Found a collection in the device`)
+                            //     // This NEEDS to look for outputReports and not inputReports as SpeechMikes have 2 HIDs that have inputReports and only one for outputReports and that's the one we want.
+                            //     if (element.collections[0].outputReports.length > 0) {
+                            //         deviceID = element;
+                            //     }
+                            // }
+                            deviceID = element;
+                        }
+                    });
+                }
+                if (!deviceID.opened) {
+                    await deviceID.open();
+                    isConnected = true;
+                    setWebHIDStatus(connected, true)
+                }
+                listenForEvents();
+            } 
+            else 
+            {  //Window is hidden, we need to close the device so we can open elsewhere
+                console.log(`**HID DEBUGGING** | Closing the device`);
+                deviceID.close();
+                //Add user notiication code
+            }
+        } else {
+            console.log(`**HID Testing** | No device connected`);
+            isConnected = false;
+            isConnecting = false;
+            setWebHIDStatus(not_connected, false);
+            return;
+        }
+    }  
+
+    const HIDBrowserConnect = async() => {
+        if (!isConnected || isConnecting) {
+            console.log("**HID TESTING** | No HID connected, request access");
+            setWebHIDStatus(connecting);
+            try {
+                [device] = await navigator.hid.requestDevice({ filters }); // If the previously selected device was disconnected
+                if (!device) {
+                    setWebHIDStatus(not_connected,false);
+                    return;
+                } else {
+                    lastSelectedFootControl = device.productName;
+                    console.log(`Selected foot control is ${lastSelectedFootControl}`);
+                }
+            } finally {
+    
+            }
+            deviceCheck();
+        } else {
+            deviceCheck();
+        }
+    }
+
+  function setWebHIDStatus(status, connected = false) {
+        // text
+        statusTxt.html(status);
+
+                // text color
+   switch (connected) {
+       case true:
+           statusTxt.css("color", greenColor);
+           break;
+
+       case false:
+           statusTxt.css("color", orangeColor);
+
+           $("#reconnect").on("click", function (e) {
+               HIDBrowserConnect();
+           });            
+           break;
+   }
+}
+
+function listenForEvents() {
+    deviceID.addEventListener("inputreport", event => {
+      const { data, device, reportId } = event;
+      event.preventDefault();
+      const value = data.getUint8(0);
+      let buffArray = new Uint8Array(data.buffer);
+      console.log(`Buffer array`, buffArray);
+      let deviceName = deviceID.productName;
+    //   console.log(deviceName);
+      let keyPress = "";
+      keyPress = buffArray[0].toString() + buffArray[1].toString();
+      console.log(`Received keyPress: ${keyPress}`);
+      switch (keyPress) {
+        case "00":
+            console.log(`Foot control pedal released`);
+            playAblePlayer(false);
+            break;
+        case "10":
+            console.log(`Foot control pedal rewind pressed`);
+            AblePlayerInstances[0].handleRewind();
+            break;
+        case "20":
+            console.log(`Foot control pedal play pressed`);
+            playAblePlayer(true);
+            break;
+        case "40":
+            console.log(`Foot control pedal forward pressed`);
+            AblePlayerInstances[0].handleFastForward();
+            break;
+        default:
+            console.log(`keyPress received is ${keyPress} and is of type ${typeof keyPress}`);
+      }
+    //   switch (deviceName) {
+    //     case SPEECHMIKE:
+    //       // console.log(`SpeechMike III Selected`);
+    //       deviceInUse = SPEECHMIKE;
+    //       keyPress = buffArray[0].toString() + buffArray[7].toString() + buffArray[8].toString();
+    //       // console.log(`Received keyPress: ${keyPress}`);
+    //       break;
+    //   }
+    })
 }
